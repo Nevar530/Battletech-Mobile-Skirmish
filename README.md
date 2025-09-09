@@ -81,8 +81,6 @@ Everything runs client-side, which means:
 
 ---
 
----
-
 ## 🤝 Contributing
 
 Have an idea? Found a bug?  
@@ -90,10 +88,14 @@ Open an issue or fork this repo and submit a pull request. Suggestions are welco
 
 ---
 
-## 📜 License
+## 📜 License & IP Notice
 
 This tool is released under the MIT License.  
-BattleTech is a trademark of Catalyst Game Labs. This project is a **fan-made utility** and not affiliated with Catalyst.
+
+BattleTech and all related marks, logos, and characters are trademarks of Catalyst Game Labs.  
+This project is a **fan-made, non-commercial utility** and is not affiliated with, endorsed by, or sponsored by Catalyst.  
+
+All rights to the BattleTech universe remain with their respective owners. This project exists to support the tabletop community.
 
 ---
 
@@ -101,10 +103,17 @@ BattleTech is a trademark of Catalyst Game Labs. This project is a **fan-made ut
 
 - **Created by:** [nevar530](https://github.com/nevar530)  
 - Special thanks to **Flechs Sheets** for integration support.  
-- Inspired by decades of BattleTech tabletop battles and the need for a **portable skirmish solution**.
+- Inspired by decades of BattleTech tabletop battles and the need for a **portable skirmish solution**.  
 
 ---
 
-
 ## 📦 File Structure
 
+*(Optional section to add later — outline repo files if you want new contributors to know where `index.html`, `style.css`, and `script.js` live.)*
+
+---
+
+## 🤖 Note on Code Assistance
+
+Portions of the JavaScript, HTML, and CSS were written with the assistance of **ChatGPT (OpenAI)** under the direct design and direction of the project creator.  
+The vision, structure, and final decisions were human-directed. AI assistance served only as a coding tool.
