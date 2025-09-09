@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>B^TTLETECH | MOBILE SKIRMISH</title>
+  <link rel="preconnect" href="https://sheets.flechs.net" />
+</head>
+<body>
+  <div id="wrap" class="wrap">
+
+    <!-- ===== BattleTech Boot Overlay (UNCHANGED IDS) ===== -->
+    <div id="btBoot">
+      <div class="bt-vignette"></div>
+      <div class="bt-scanlines"></div>
+      <div class="bt-content">
+        <h1 class="bt-title">B^TTLETECH | MOBILE SKIRMISH</h1>
+        <div class="bt-sub">MECH POWER-UP SEQUENCE • INNER SPHERE COMSAT UPLINK</div>
+        <pre id="btLog" class="bt-log" aria-live="polite"></pre>
+        <div class="bt-progress"><div class="bt-bar" id="btBar"></div></div>
+        <div class="bt-hint" id="btHint">PRESS ENTER TO DEPLOY • AUTO WHEN READY</div>
+      </div>
+    </div>
+
+    <!-- ===== Top bar ===== -->
+    <header class="ui-topbar" role="banner">
+      <div class="brand"><span class="bt">B^TTLETECH</span><span class="sep">//</span>MOBILE SKIRMISH</div>
+      <div class="spacer"></div>
+
+      <!-- Undo / Redo -->
+      <button id="btnUndo" class="icon-btn" title="Undo (Ctrl+Z)" aria-label="Undo">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M7 7V3L1 9l6 6v-4h6a5 5 0 110 10h-2v-2h2a3 3 0 100-6H7z" fill="currentColor"/>
+        </svg>
+      </button>
+      <button id="btnRedo" class="icon-btn" title="Redo (Ctrl+Y)" aria-label="Redo">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M17 7V3l6 6-6 6v-4h-6a5 5 0 100 10h2v-2h-2a3 3 0 110-6h6z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Zoom Out / Zoom In -->
+      <button id="btnZoomOut" class="icon-btn" title="Zoom Out (Wheel/−)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 1015.5 14l4.5 4.5-1.5 1.5L14 15.5zm-5 0A4.5 4.5 0 1115 9.5 4.5 4.5 0 0110.5 14z" fill="currentColor"/>
+          <rect x="8" y="9.25" width="5" height="1.5" rx=".75" fill="currentColor"/>
+        </svg>
+      </button>
+      <button id="btnZoomIn" class="icon-btn" title="Zoom In (Wheel/+)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 1015.5 14l4.5 4.5-1.5 1.5L14 15.5zm-5 0A4.5 4.5 0 1115 9.5 4.5 4.5 0 0110.5 14z" fill="currentColor"/>
+          <path d="M11.25 8v1.25H10v1.5h1.25V12h1.5v-1.25H14v-1.5h-1.25V8z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Recenter -->
+      <button id="btnRecenter" class="icon-btn" title="Recenter (0)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M11 2v2.1A8 8 0 004.1 11H2v2h2.1A8 8 0 0011 19.9V22h2v-2.1A8 8 0 0019.9 13H22v-2h-2.1A8 8 0 0013 4.1V2h-2zm1 5a5 5 0 110 10 5 5 0 010-10z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Fullscreen (top bar button) -->
+      <button id="fsBtn" class="icon-btn" title="Fullscreen (F)">⛶</button>
+
+      <!-- Save / Load -->
+      <button id="exportJson" class="icon-btn" title="Save JSON (Export)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M5 20h14v-2H5v2zm7-18l5 5h-3v6h-4V7H7l5-5z" fill="currentColor"/>
+        </svg>
+      </button>
+      <button id="importJsonBtn" class="icon-btn" title="Load JSON (Import)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M19 13v6H5v-6H3v8h18v-8h-2zM11 3v8H8l4 4 4-4h-3V3h-2z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Help -->
+      <button id="btnHelp" class="icon-btn" title="Controls Help">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 17h-2v-2h2v2zm2.1-7.3l-.9.8c-.7.6-1.2 1.1-1.2 2.5h-2v-.5c0-1 .5-1.9 1.2-2.5l1.2-1c.4-.3.6-.7.6-1.2 0-1-.8-1.8-1.9-1.8-1 0-1.8.6-2 1.6l-2-.4c.3-1.9 2-3.2 4-3.2 2.2 0 3.9 1.5 3.9 3.5 0 1.1-.5 2-1.1 2.7z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- LOS / Measure (IDs aligned with JS: btnToggle*) -->
+      <button id="btnToggleMeasure" class="icon-btn" title="Measure (Manual Range Mode)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M3 16l5 5 13-13-5-5L3 16zm3.5.5l8.5-8.5 1 1-8.5 8.5-1-1zm3-3l6-6 1 1-6 6-1-1zm3-3l3-3 1 1-3 3-1-1z" fill="currentColor"/>
+        </svg>
+      </button>
+      <button id="btnToggleLOS" class="icon-btn" title="Line of Sight (L)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M11 2v3a7 7 0 016 6h3v2h-3a7 7 0 01-6 6v3h-2v-3a7 7 0 01-6-6H2v-2h3a7 7 0 016-6V2h2zm1 5a5 5 0 100 10 5 5 0 000-10z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Segmented: Terrain / Mechs -->
+      <div class="seg-group">
+        <div class="seg-item">
+          <span class="seg-label">Terrain</span>
+          <button id="toggleLeft" class="icon-btn seg-btn" title="Terrain Tools" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+              <path d="M3 19h18l-6-9-3 4-2-3-7 8zM15 5l3 4 3-4" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+        <div class="seg-item">
+          <span class="seg-label">Mechs</span>
+          <button id="toggleRight" class="icon-btn seg-btn" title="Mechs & Utilities" aria-pressed="false">
+            <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+              <path d="M7 20h10v-2c0-2.8-2.2-5-5-5H8l1.2-2.4C9.7 9.8 11 9 12.4 9H14L12 6 9 7 7 4 5 5l2 4-3 5v6z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Flechs Sheets dock toggles -->
+      <div class="flechs-top row gap" style="align-items:center;">
+        <img src="https://sheets.flechs.net/img/favicon-32x32.png" alt="Flechs" class="flechs-ico" width="18" height="18" />
+        <span class="small muted">Flechs Sheets</span>
+        <button id="btnDockL" class="icon-btn" title="Toggle Flechs Dock (P1)">P1</button>
+        <button id="btnDockR" class="icon-btn" title="Toggle Flechs Dock (P2)">P2</button>
+      </div>
+    </header>
+
+    <!-- ===== LEFT DRAWER ===== -->
+    <aside id="leftPanel" class="panel left collapsed" aria-label="Terrain / Grid / Tools">
+      <div class="panel-head">
+        <h2>Terrain Tools</h2>
+        <button id="closeLeft" class="icon-btn" title="Hide">
+          <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M19 6L6 19M6 6l13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="panel-body">
+
+        <!-- Quick Tools -->
+        <section class="group">
+          <h3>Quick Tools</h3>
+          <div class="row gap">
+            <button id="btnSelect" class="btn" aria-pressed="true">Select/Move</button>
+            <button id="btnHeight" class="btn">Height</button>
+            <button id="btnTerrain" class="btn">Terrain</button>
+            <button id="btnCover" class="btn">Cover</button>
+            <button id="btnClearTile" class="btn">Clear</button>
+          </div>
+          <div class="small muted">Hotkeys: Left-click (Height), Right-click (Terrain), Ctrl+Left (Cover), Ctrl+Right (Clear)</div>
+        </section>
+
+        <!-- Quick Paint (Fixed) -->
+        <section class="group" id="fixedPaintGroup">
+          <h3>Quick Paint</h3>
+          <div class="row gap">
+            <label class="stack" style="min-width:140px;">
+              <span>Terrain</span>
+              <select id="selPaintTerrain"></select>
+            </label>
+            <label class="stack" style="min-width:120px;">
+              <span>Height</span>
+              <select id="selPaintHeight"></select>
+            </label>
+            <label class="stack" style="min-width:120px;">
+              <span>Cover</span>
+              <select id="selPaintCover"></select>
+            </label>
+          </div>
+          <div class="row gap">
+            <button id="btnPaintFixed" class="btn" aria-pressed="false">Paint</button>
+            <button id="btnClearFixed" class="btn">Clear</button>
+          </div>
+          <div class="small muted">
+            Pick values, then click/drag on the map. Alt+Click eyedrops current hex.
+          </div>
+        </section>
+
+        <section class="group">
+          <h3>Fill Terrain</h3>
+          <div class="row">
+            <label class="stack" style="min-width:220px;">
+              <span>Fill map with</span>
+              <select id="fillTerrain">
+                <option value="">— Select terrain —</option>
+              </select>
+            </label>
+          </div>
+          <div class="small muted">Only changes terrain; keeps height & cover. Undo with Ctrl+Z.</div>
+        </section>
+
+        <!-- Presets -->
+        <section class="group">
+          <h3>Preset maps</h3>
+          <label class="stack">
+            <span class="muted">Choose</span>
+            <select id="presets">
+              <option value="">— Choose… —</option>
+              <option value="neoprene_31x17">Neoprene (31×17)</option>
+              <option value="paper_15x17">Paper (15×17)</option>
+              <option value="double_neoprene_62x17">Double Neoprene (62×17)</option>
+              <option value="four_paper_30x34">Four Paper (30×34)</option>
+
+              <option value="neoprene_31x17_grasslands">Neoprene: Grasslands (31×17)</option>
+              <option value="neoprene_31x17_river_valley">Neoprene: River Valley (31×17)</option>
+              <option value="neoprene_31x17_crater_field">Neoprene: Crater Field (31×17)</option>
+              <option value="neoprene_31x17_ridge_and_stream">Neoprene: Ridge + Stream (31×17)</option>
+              <option value="neoprene_31x17_city_block">Neoprene: City Block (31×17)</option>
+              <option value="paper_15x17_island_lake">Paper: Island Lake (15×17)</option>
+              <option value="paper_15x17_quarry">Paper: Quarry (15×17)</option>
+            </select>
+          </label>
+        </section>
+
+        <!-- Grid settings -->
+        <section class="group">
+          <h3>Grid Settings</h3>
+          <div class="row">
+            <label class="stack"><span>Columns</span><input id="cols" type="number" min="1" max="80" value="18" /></label>
+            <label class="stack"><span>Rows</span><input id="rows" type="number" min="1" max="80" value="14" /></label>
+          </div>
+          <label class="stack">
+            <span>Hex size (px) <span class="small">1.25&quot; ≈ 120 px @ 96 DPI</span></span>
+            <input id="hexSize" type="number" min="20" max="240" value="120" />
+          </label>
+          <div class="row">
+            <button id="regen" class="btn">Regenerate Grid</button>
+            <button id="clear" class="btn">Clear Map</button>
+          </div>
+        </section>
+
+        <!-- Legend (hidden but kept for engine compatibility) -->
+        <section class="group" style="display:none">
+          <h3 style="display:none">Legend</h3>
+          <div class="legend legend-radio" id="legendRadio"></div>
+        </section>
+
+      </div>
+    </aside>
+
+    <!-- ===== RIGHT DRAWER: Mechs / Utilities ===== -->
+    <aside id="rightPanel" class="panel right collapsed" aria-label="Mechs & Utilities">
+      <div class="panel-head">
+        <h2>Mechs & Utilities</h2>
+        <button id="closeRight" class="icon-btn" title="Hide">
+          <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M19 6L6 19M6 6l13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="panel-body">
+
+        <!-- Add Mech -->
+        <section class="group">
+          <h3>Add Mech</h3>
+          <div class="mp-row">
+            <label class="stack">
+              <span>Mech</span>
+              <input id="mechName" type="text" placeholder="e.g., Shadow Hawk SHD-2H" />
+            </label>
+            <label class="stack">
+              <span>Pilot</span>
+              <input id="pilotName" type="text" placeholder="Pilot (optional)" />
+            </label>
+          </div>
+          <div class="mp-actions">
+            <label class="stack">
+              <span>Team</span>
+              <select id="teamSelect">
+                <option value="Alpha">Alpha</option>
+                <option value="Bravo">Bravo</option>
+                <option value="Clan">Clan</option>
+                <option value="Merc">Merc</option>
+              </select>
+            </label>
+            <button id="btnAddMech" class="btn">Add Mech</button>
+          </div>
+        </section>
+
+        <!-- Initiative + Dice side-by-side -->
+        <div class="group-grid-2">
+          <section class="group">
+            <div class="row between">
+              <h3>Initiative</h3>
+              <div class="mini-actions">
+                <button class="btn sm" id="btnRollInitAll">Roll All</button>
+                <button class="btn sm" id="btnClearInit">Clear</button>
+                <button class="btn sm" id="btnNextTurn">Next ▶</button>
+              </div>
+            </div>
+            <ul id="initList" class="list init-list" aria-live="polite"></ul>
+          </section>
+
+          <section class="group">
+            <h3>Dice Roller</h3>
+            <div class="row gap"><button class="btn" data-dice="2d6">2d6</button></div>
+            <output id="diceOut" class="dice-out">—</output>
+          </section>
+        </div>
+
+        <!-- Flechs Sheets helper -->
+        <section class="group">
+          <div class="row between">
+            <h3 class="row" style="gap:8px; align-items:center;">
+              <img src="https://sheets.flechs.net/img/favicon-32x32.png" alt="" class="flechs-ico" width="16" height="16" />
+              <span>Flechs Sheets</span>
+            </h3>
+            <div class="row gap">
+              <button id="btnFlechsP1" class="btn sm" title="Open Flechs Sheets (P1)">P1</button>
+              <button id="btnFlechsP2" class="btn sm" title="Open Flechs Sheets (P2)">P2</button>
+            </div>
+          </div>
+          <div class="small muted">Opens the docks for live mech stats & damage tracking.</div>
+        </section>
+
+        <!-- Mech Roster -->
+        <section class="group">
+          <div class="row between">
+            <h3>Mech Roster</h3>
+            <div class="mini-actions">
+              <button class="btn sm" id="btnExportMechs">Export</button>
+              <button class="btn sm" id="btnImportMechs">Import</button>
+              <input id="importFile" type="file" accept="application/json" hidden />
+            </div>
+          </div>
+          <ul id="mechList" class="list mech-list" aria-live="polite"></ul>
+        </section>
+
+      </div>
+    </aside>
+
+    <!-- ===== HELP POPUP ===== -->
+    <div id="helpPopup" class="panel right collapsed" style="right:auto; left:50%; transform:translateX(-50%); width:420px; top:60px; z-index:40;" aria-label="Controls Help" hidden>
+      <div class="panel-head">
+        <h2>Controls Help</h2>
+        <button id="closeHelp" class="icon-btn" title="Hide">
+          <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M19 6L6 19M6 6l13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="panel-body">
+        <div class="small">
+          <strong>Map & Camera</strong><br />
+          • Mouse wheel / Pinch: Zoom • Two-finger drag: Pan • Recenter button or <strong>0</strong>: Fit map<br />
+          • Arrow keys: Pan view • <strong>F</strong>: Fullscreen • <strong>S/D</strong>: Toggle Flechs docks<br />
+          <br /><strong>Terrain Tools</strong><br />
+          • Use toolbar buttons to switch modes: Select, Height, Terrain, Cover, Clear<br />
+          • Paint with left-click / touch • Undo / Redo buttons or <strong>Ctrl+Z / Ctrl+Y</strong><br />
+          • Alt+Click: Eyedropper sample<br />
+          <br /><strong>Tokens & Mechs</strong><br />
+          • Add via right drawer form or press <strong>N</strong><br />
+          • Select/move by clicking or dragging<br />
+          • <strong>[ / ]</strong>: Change team • <strong>Q / E</strong>: Rotate • <strong>+ / −</strong>: Resize<br />
+          • <strong>Enter</strong>: Rename • <strong>Delete</strong>: Remove<br />
+          • Initiative tracker and dice roller in the right drawer<br />
+          <br /><strong>LOS & Measurement</strong><br />
+          • Toggle buttons in top bar activate Line-of-Sight or Range mode<br />
+          • LOS: click a source hex → visible hexes + rays show<br />
+          • Measure: click start hex → click target hex for distance<br />
+          • Or select a token and right-click another token/hex to measure<br />
+          <br /><strong>Other</strong><br />
+          • Save/Load JSON via top bar buttons (opens modal)<br />
+          • Export current view as PNG<br />
+          • All toggled tools glow amber when active<br />
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Stage (engine mounts here) ===== -->
+    <main class="stage">
+      <!-- Left dock -->
+      <div id="dockA" class="dock dock-left" aria-label="Flechs Sheets (P1)">
+        <header>
+          <strong>P1</strong><span class="spacer"></span>
+          <button id="homeA">Home</button>
+          <button id="openA">Open</button>
+          <button id="closeA">✕</button>
+        </header>
+        <div class="hint">If this stays blank, your browser blocked embedding. Click “Open”.</div>
+        <iframe id="frameA" title="Flechs Sheets (P1)"></iframe>
+      </div>
+
+      <!-- Right dock -->
+      <div id="dockB" class="dock dock-right" aria-label="Flechs Sheets (P2)">
+        <header>
+          <strong>P2</strong><span class="spacer"></span>
+          <button id="homeB">Home</button>
+          <button id="openB">Open</button>
+          <button id="closeB">✕</button>
+        </header>
+        <div class="hint">If this stays blank, your browser blocked embedding. Click “Open”.</div>
+        <iframe id="frameB" title="Flechs Sheets (P2)"></iframe>
+      </div>
+
+      <!-- SVG world (ALL ORIGINAL IDS) -->
+      <svg id="svg" tabindex="0" xmlns="http://www.w3.org/2000/svg" aria-label="Hex map">
+        <defs id="tex-defs"></defs>
+        <rect id="frameBorder" class="gridBorder"></rect>
+        <g id="world-polys"></g>
+        <g id="world-textures"></g>
+        <g id="world-shadows"></g>
+        <g id="world-overlays"></g>
+        <g id="world-labels"></g>
+        <g id="world-tokens"></g>
+        <g id="measure-group"></g>
+        <g id="los-rays"></g>
+        <g id="los-group"></g>
+      </svg>
+
+      <!-- Floating token controls -->
+      <div id="tokenControls" style="display:none; position:absolute; z-index:50; pointer-events:none;">
+        <button id="btnTurnLeft"  style="pointer-events:auto; margin-right:4px;">⟲</button>
+        <button id="btnTurnRight" style="pointer-events:auto;">⟳</button>
+      </div>
+    </main>
+
+    <!-- Hidden IO textarea kept for import/export compatibility -->
+    <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
