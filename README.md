@@ -30,7 +30,7 @@ This is a browser-based **hex map skirmish tool** designed for quick games on ta
   - Export current view as PNG image.
 
 - 📊 **Flechs Sheets Integration**
-  - Open Flechs Sheets directly in side docks (P1/P2).
+  - Open [Flechs Sheets](https://sheets.flechs.net) directly in side docks (P1/P2).
   - Track mech sheets, armor, and heat without leaving the app.
 
 - 🎛 **UI & Accessibility**
@@ -60,7 +60,7 @@ This is a browser-based **hex map skirmish tool** designed for quick games on ta
 5. Play your skirmish with all the tools built in:
    - Move, rotate, and resize mechs.
    - Roll initiative and dice.
-   - Track Flechs Sheets in the side docks.
+   - Track [Flechs Sheets](https://sheets.flechs.net) in the side docks.
 
 ---
 
@@ -102,7 +102,7 @@ All rights to the BattleTech universe remain with their respective owners. This 
 ## 💬 Credits
 
 - **Created by:** [nevar530](https://github.com/nevar530)  
-- Special thanks to **Flechs Sheets** for integration support.  
+- Special thanks to [Flechs Sheets](https://sheets.flechs.net) for integration support.  
 - Inspired by decades of BattleTech tabletop battles and the need for a **portable skirmish solution**.  
 
 ---
