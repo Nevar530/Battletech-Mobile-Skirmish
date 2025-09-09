@@ -22,7 +22,11 @@ html,body{overflow:hidden;}
 [hidden]{ display:none !important; }
 
 /* ---------- Layout ---------- */
-.wrap{position:relative;min-height:100vh;}
+.wrap {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 40px;   /* or margin-top: 12px; */
+}
 
 /* ---------- Top bar ---------- */
 .ui-topbar{
@@ -397,3 +401,4 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
 #helpPopup {
   top: calc(60px + var(--app-top-offset)) !important;
 }
+
