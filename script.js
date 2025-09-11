@@ -2172,73 +2172,68 @@ async function applyPresetFromUrl(url) {
 function applyPreset(preset) {
   if (!preset || typeof preset !== 'object') return;
 
-  // 1) Normalize grid/meta into the state shape your importer expects
-  const g = preset.grid || preset.meta || {};
-  const grid = {
+  // 1) Normalize META → {meta:{cols,rows,hexSize}}
+  const g = preset.meta || preset.grid || {};
+  const meta = {
     cols: Number(g.cols || document.getElementById('cols')?.value || 0),
     rows: Number(g.rows || document.getElementById('rows')?.value || 0),
-    hexSize: Number(g.hexSize || document.getElementById('hexSize')?.value || 0)
+    hexSize: Number(g.hexSize || document.getElementById('hexSize')?.value || 0),
   };
 
-  // 2) Choose source tiles array: preset.tiles (long keys) OR preset.data (short keys)
-  const raw = (Array.isArray(preset.tiles) && preset.tiles.length)
-    ? preset.tiles
-    : (Array.isArray(preset.data) ? preset.data : []);
+  // 2) Normalize DATA → short keys [{q,r,h,ter,cov}]
+  //    Accept either preset.data (short) OR preset.tiles (long)
+  let raw = [];
+  if (Array.isArray(preset.data)) raw = preset.data;
+  else if (Array.isArray(preset.tiles)) raw = preset.tiles;
 
-  // 3) Normalize tiles to the exact fields your exporter uses
-  const tiles = raw.map(t => ({
+  const data = raw.map(t => ({
     q: Number(t.q ?? t.c ?? t.col ?? t.x),
     r: Number(t.r ?? t.row ?? t.y),
-    terrain: Number(t.terrain ?? t.ter ?? t.type ?? 0),
-    height: Number(t.height ?? t.h ?? t.elevation ?? 0),
-    cover: Number(t.cover ?? t.cov ?? 0)
+    h: Number(t.h ?? t.height ?? t.elevation ?? 0),
+    ter: Number(t.ter ?? t.terrain ?? t.type ?? 0),
+    cov: Number(t.cov ?? t.cover ?? 0),
   })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
 
-  // 4) Tokens passthrough
+  // 3) Tokens + mechMeta passthrough (match your export shape)
   const tokens = Array.isArray(preset.tokens) ? preset.tokens : [];
+  const mechMeta = typeof preset.mechMeta === 'object' && preset.mechMeta !== null ? preset.mechMeta : {};
 
-  // 5) Build a full "state" object and import it through the same path as manual Import
-  const state = { grid, tiles, tokens, overrides: preset.overrides || {} };
+  // 4) Build the EXACT state shape your importer understands
+  const state = { meta, data, tokens, mechMeta };
 
-  // Apply like the import button does; this ensures textures/height logic matches
+  // 5) Apply through the same path as the Import button
   if (typeof applyState === 'function') {
     applyState(state);
   } else {
-    // Fallback to old behavior if applyState isn't available
-    // (Resize UI, regen, then paint + redraw)
+    // Fallback: resize UI + regen, then paint & redraw (shouldn't be needed)
     const elCols = document.getElementById('cols');
     const elRows = document.getElementById('rows');
     const elHex  = document.getElementById('hexSize');
-    if (elCols) elCols.value = grid.cols;
-    if (elRows) elRows.value = grid.rows;
-    if (elHex)  elHex.value  = grid.hexSize;
+    if (elCols) elCols.value = meta.cols;
+    if (elRows) elRows.value = meta.rows;
+    if (elHex)  elHex.value  = meta.hexSize;
     if (typeof regenerateGrid === 'function') regenerateGrid();
     else if (typeof window.regen === 'function') window.regen();
-
-    for (const t of tiles) {
-      if (typeof setHexProps === 'function') setHexProps(t.q, t.r, { terrain: t.terrain, height: t.height, cover: t.cover });
-      else if (typeof paintHex === 'function') paintHex(t.q, t.r, t.terrain, t.height, t.cover);
-    }
-    if (typeof importTokens === 'function') importTokens(tokens);
     if (typeof redrawWorld === 'function') redrawWorld();
   }
 
-  // 6) Optional overrides (same as before)
-  const o = preset.overrides || {};
-  if (typeof setShowCoords === 'function' && 'showCoords' in o) setShowCoords(!!o.showCoords);
-  if (typeof setTexturesEnabled === 'function' && 'textures' in o) setTexturesEnabled(o.textures !== 'off');
-  if (typeof setLabelsEnabled === 'function' && 'labels' in o) setLabelsEnabled(o.labels !== 'off');
+  // 6) Optional overrides (keep using your existing flags)
+  if (preset.overrides && typeof preset.overrides === 'object') {
+    const o = preset.overrides;
+    if (typeof setShowCoords === 'function' && 'showCoords' in o) setShowCoords(!!o.showCoords);
+    if (typeof setTexturesEnabled === 'function' && 'textures' in o) setTexturesEnabled(o.textures !== 'off');
+    if (typeof setLabelsEnabled === 'function' && 'labels' in o) setLabelsEnabled(o.labels !== 'off');
+  }
 
-  // 7) Legacy serialized blob support — only if it's actually a string
+  // 7) Legacy blob support ONLY if data is a string
   if (typeof preset.data === 'string' && typeof loadSerializedMap === 'function') {
-    try { loadSerializedMap(preset.data); } catch (e) { console.warn('Failed to load preset.data blob', e); }
+    try { loadSerializedMap(preset.data); } catch (e) { console.warn('Legacy blob failed', e); }
   }
 }
 
-
-
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
