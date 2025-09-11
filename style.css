@@ -385,11 +385,64 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
   top: calc(60px + var(--app-top-offset)) !important;
 }
 
-/* --- Export popup respects lip --- */
-#exportPopup {
-  top: calc(60px + var(--app-top-offset)) !important;
+/* ===== JSON Export Modal (overlay) ===== */
+.json-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  /* Center horizontally, sit near the top like Help */
+  place-items: start center;
+  padding-top: calc(60px + var(--app-top-offset));
+  background: rgba(5, 8, 12, 0.55);           /* soft dim */
+  backdrop-filter: saturate(120%) blur(2px);  /* subtle glass */
 }
-#exportText {
-  background:#0c1220; color:var(--ink); border:1px solid var(--border);
+
+.json-modal__panel {
+  width: min(820px, 92vw);
+  background: #0f141b;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.02);
+  overflow: hidden;
+  animation: jm-pop .16s ease-out;
+}
+@keyframes jm-pop { from { transform: translateY(-6px); opacity: 0 } to { transform: none; opacity: 1 } }
+
+.json-modal__head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; padding: 10px 12px;
+  background: #0f1722; border-bottom: 1px solid var(--border);
+}
+.json-modal__body {
+  padding: 12px;
+  max-height: min(54vh, 560px);
+  overflow: auto;
+}
+.json-modal__ta {
+  width: 100%;
+  height: min(48vh, 520px);
+  resize: none;
+  background: #0b0f14;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.json-modal__foot {
+  display: flex; justify-content: flex-end; gap: 8px;
+  padding: 10px 12px;
+  background: #101623; border-top: 1px solid var(--border);
+}
+.json-modal__close { cursor: pointer; }
+
+@media (max-width: 600px) {
+  .json-modal__panel { width: 94vw; }
+  .json-modal__ta { height: 44vh; }
+}
+
   border-radius:10px; padding:8px; line-height:1.4;
 }
+
