@@ -334,29 +334,70 @@
       </div>
       <div class="panel-body">
         <div class="small">
-          <strong>Map & Camera</strong><br />
-          • Mouse wheel / Pinch: Zoom • Two-finger drag: Pan • Recenter button or <strong>0</strong>: Fit map<br />
-          • Arrow keys: Pan view • <strong>F</strong>: Fullscreen • <strong>S/D</strong>: Toggle Flechs docks<br />
-          <br /><strong>Terrain Tools</strong><br />
-          • Use toolbar buttons to switch modes: Select, Height, Terrain, Cover, Clear<br />
-          • Paint with left-click / touch • Undo / Redo buttons or <strong>Ctrl+Z / Ctrl+Y</strong><br />
-          • Alt+Click: Eyedropper sample<br />
-          <br /><strong>Tokens & Mechs</strong><br />
-          • Add via right drawer form or press <strong>N</strong><br />
-          • Select/move by clicking or dragging<br />
-          • <strong>[ / ]</strong>: Change team • <strong>Q / E</strong>: Rotate • <strong>+ / −</strong>: Resize<br />
-          • <strong>Enter</strong>: Rename • <strong>Delete</strong>: Remove<br />
-          • Initiative tracker and dice roller in the right drawer<br />
-          <br /><strong>LOS & Measurement</strong><br />
-          • Toggle buttons in top bar activate Line-of-Sight or Range mode<br />
-          • LOS: click a source hex → visible hexes + rays show<br />
-          • Measure: click start hex → click target hex for distance<br />
-          • Or select a token and right-click another token/hex to measure<br />
-          <br /><strong>Other</strong><br />
-          • Save/Load JSON via top bar buttons (opens modal)<br />
-          • Export current view as PNG<br />
-          • All toggled tools glow amber when active<br />
-        </div>
+  <strong>Map & Camera</strong><br />
+  • Mouse: Wheel = Zoom · Left-drag (Space held) = Pan · Middle-drag = Pan<br />
+  • Keyboard: Arrow keys = Pan · <strong>0</strong> = Recenter/Fit · <strong>F</strong> = Fullscreen<br />
+  • Touch: Pinch = Zoom · Two-finger drag = Pan · Tap UI buttons to toggle tools<br />
+  <br />
+
+  <strong>Terrain Tools</strong><br />
+  • Modes (Left Drawer): <em>Select/Move</em>, <em>Height</em>, <em>Terrain</em>, <em>Cover</em>, <em>Clear</em><br />
+  • Paint: Click/drag on hexes (right-click is unused for paint).<br />
+  • Quick Eyedropper: <strong>Alt+Click</strong> a hex to sample its height/terrain/cover.<br />
+  • Fixed Paint: Pick values for Terrain/Height/Cover, click <em>Paint</em>, then paint; Alt+Click sets Fixed Paint from a hex.<br />
+  • Undo / Redo: Toolbar buttons or <strong>Ctrl+Z</strong> / <strong>Ctrl+Y</strong> (Ctrl+Shift+Z).<br />
+  <br />
+
+  <strong>Presets & Grid</strong><br />
+  • Presets: Left drawer → <em>Preset maps</em>. Loads official-style layouts from the COMSTAR index.<br />
+  • Grid: Set <em>Columns</em>, <em>Rows</em>, and <em>Hex size</em> then <em>Regenerate Grid</em> to rebuild.<br />
+  • Clear Map: Resets all hexes to default (Grass, height 0, no cover).<br />
+  <br />
+
+  <strong>Line of Sight (LOS)</strong><br />
+  • Toggle via top-bar button or <strong>L</strong> key. Click a source hex to visualize visible hexes and LOS rays.<br />
+  • LOS considers elevation (including negative ground) and cover level on intervening hexes.<br />
+  • Press <strong>Esc</strong> to clear LOS.<br />
+  <br />
+
+  <strong>Measurement / Range</strong><br />
+  • Toggle Measure from the top bar. Click start hex → click target hex to see distance in hexes.<br />
+  • While a token is selected: <strong>Right-click</strong> another token/hex for quick range.<br />
+  • Press <strong>Esc</strong> to clear measurement.<br />
+  <br />
+
+  <strong>Tokens & Mechs</strong><br />
+  • Add Mech: Right drawer form (name/pilot/team) or press <strong>N</strong> to drop at view center.<br />
+  • Select/Move: Click token; drag to move between hexes.<br />
+  • Hotkeys (while selected): <strong>Q / E</strong> = Rotate 60° · <strong>+</strong>/<strong>−</strong> = Resize · <strong>[</strong>/<strong>]</strong> = Cycle team color<br />
+  • Rename: <strong>Enter</strong> · Delete: <strong>Backspace</strong>/<strong>Delete</strong>.<br />
+  • Mech Roster: Manage from the right drawer (quick select, center, rotate, size, delete).<br />
+  <br />
+
+  <strong>Initiative & Dice</strong><br />
+  • Initiative: Right drawer → Roll All (2d6 per token), Next turn, Clear list.<br />
+  • Dice Roller: One-tap 2d6 with results shown inline.<br />
+  <br />
+
+  <strong>Flechs Sheets Docks</strong><br />
+  • Open side docks from top bar (P1/P2) or right drawer (buttons).<br />
+  • Hotkeys: <strong>S</strong> = Toggle left dock (P1) · <strong>D</strong> = Toggle right dock (P2).<br />
+  <br />
+
+  <strong>Saving & Loading Maps (COMSTAR UPLINK)</strong><br />
+  • <em>Export</em> (top bar): Opens modal — <em>Copy</em> JSON or <em>Download</em> a <code>.json</code> file.<br />
+  • <em>Import</em> (top bar): Paste JSON, choose a <code>.json</code> file, or drag-drop into the modal; then <em>Load</em>.<br />
+  • Mech Roster export/import remains file-based in the right drawer.<br />
+  <br />
+
+  <strong>PNG Export</strong><br />
+  • Export current view as PNG (if the PNG action is present in your build/menu).<br />
+  <br />
+
+  <strong>General</strong><br />
+  • Active tools glow amber. <strong>Esc</strong> closes overlays (help/LOS/measure/docks/fullscreen, in that order).<br />
+</div>
+
       </div>
     </div>
 
@@ -416,6 +457,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
