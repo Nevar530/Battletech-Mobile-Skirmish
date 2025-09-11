@@ -2189,22 +2189,48 @@ function applyPreset(preset) {
     window.regen();
   }
 
-  // 2) Paint tiles if provided: [{ q, r, terrain, height, cover }]
-  if (Array.isArray(preset.tiles) && preset.tiles.length) {
-    if (typeof setHexProps === 'function') {
-      for (const t of preset.tiles) {
-        setHexProps(Number(t.q), Number(t.r), {
-          terrain: t.terrain,
-          height: (t.height ?? t.elevation ?? 0),
-          cover: t.cover
-        });
-      }
-    } else if (typeof paintHex === 'function') {
-      for (const t of preset.tiles) {
-        paintHex(Number(t.q), Number(t.r), t.terrain, (t.height ?? 0), t.cover);
+    // 2) Paint tiles if provided: supports:
+  //    A) preset.tiles: [{ q, r, terrain, height, cover }]
+  //    B) preset.data : [{ q, r, h, ter, cov }] (short keys) or long keys
+  {
+    const cols = Number((g && g.cols) || document.getElementById('cols')?.value || 0);
+    const rows = Number((g && g.rows) || document.getElementById('rows')?.value || 0);
+
+    // choose source array
+    const raw = Array.isArray(preset.tiles) && preset.tiles.length
+      ? preset.tiles
+      : (Array.isArray(preset.data) ? preset.data : []);
+
+    if (raw.length) {
+      // normalize into {q,r,terrain,height,cover}
+      const norm = raw.map(t => ({
+        q: Number(t.q ?? t.c ?? t.col ?? t.x),
+        r: Number(t.r ?? t.row ?? t.y),
+        terrain: Number(t.terrain ?? t.ter ?? 0),
+        height: Number(t.height ?? t.h ?? t.elevation ?? 0),
+        cover: Number(t.cover ?? t.cov ?? 0)
+      })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
+
+      // optional bounds guard (won’t crash if q/r outside grid)
+      const inBounds = t => (
+        (cols ? t.q >= 0 && t.q < cols : true) &&
+        (rows ? t.r >= 0 && t.r < rows : true)
+      );
+
+      if (typeof setHexProps === 'function') {
+        for (const t of norm) {
+          if (!inBounds(t)) continue;
+          setHexProps(t.q, t.r, { terrain: t.terrain, height: t.height, cover: t.cover });
+        }
+      } else if (typeof paintHex === 'function') {
+        for (const t of norm) {
+          if (!inBounds(t)) continue;
+          paintHex(t.q, t.r, t.terrain, t.height, t.cover);
+        }
       }
     }
   }
+
 
   // 3) Load tokens if provided
   // expected: tokens: [{ name, team, q, r, facing, size, pilot }]
@@ -2227,6 +2253,11 @@ function applyPreset(preset) {
     }
   }
 
+ // 5) Legacy serialized map blob support
+  if (preset.data && typeof loadSerializedMap === 'function') {
+    try { loadSerializedMap(preset.data); } catch (e) { console.warn('Failed to load preset.data', e); }
+  }
+  
   // 4) Optional overrides (flags your engine recognizes)
   if (preset.overrides && typeof preset.overrides === 'object') {
     const o = preset.overrides;
@@ -2241,15 +2272,11 @@ function applyPreset(preset) {
     }
   }
 
-  // 5) Legacy serialized map blob support
-  if (preset.data && typeof loadSerializedMap === 'function') {
-    try { loadSerializedMap(preset.data); } catch (e) { console.warn('Failed to load preset.data', e); }
-  }
-
   // 6) Final redraw after batch ops
   if (typeof redrawWorld === 'function') redrawWorld();
 }
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
