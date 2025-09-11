@@ -442,5 +442,12 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
   .json-modal__panel{ width: 96vw; }
 }
 
+html, body, #wrap { height:100%; background:#0b0f14; }
+#wrap { position:relative; }
+#btBoot { background:#0b0f14; } /* boot overlay fallback */
+* { -webkit-tap-highlight-color: transparent; } /* avoid iOS highlight tints */
+
+
+
 
 
