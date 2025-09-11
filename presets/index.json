@@ -1,0 +1,13 @@
+[
+  {
+    "id": "neoprene_31x17",
+    "name": "Neoprene (31×17)",
+    "file": "neoprene_31x17.json",
+    "thumb": "thumbs/neoprene_31x17.png"
+  },
+  {
+    "id": "paper_15x17",
+    "name": "Paper (15×17)",
+    "file": "paper_15x17.json"
+  }
+]
