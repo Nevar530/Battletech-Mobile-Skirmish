@@ -2189,20 +2189,18 @@ function applyPreset(preset) {
     window.regen();
   }
 
-    // 2) Paint tiles if provided: supports:
+  // 2) Paint tiles if provided: supports:
   //    A) preset.tiles: [{ q, r, terrain, height, cover }]
   //    B) preset.data : [{ q, r, h, ter, cov }] (short keys) or long keys
   {
     const cols = Number((g && g.cols) || document.getElementById('cols')?.value || 0);
     const rows = Number((g && g.rows) || document.getElementById('rows')?.value || 0);
 
-    // choose source array
-    const raw = Array.isArray(preset.tiles) && preset.tiles.length
+    const raw = (Array.isArray(preset.tiles) && preset.tiles.length)
       ? preset.tiles
       : (Array.isArray(preset.data) ? preset.data : []);
 
     if (raw.length) {
-      // normalize into {q,r,terrain,height,cover}
       const norm = raw.map(t => ({
         q: Number(t.q ?? t.c ?? t.col ?? t.x),
         r: Number(t.r ?? t.row ?? t.y),
@@ -2211,7 +2209,6 @@ function applyPreset(preset) {
         cover: Number(t.cover ?? t.cov ?? 0)
       })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
 
-      // optional bounds guard (won’t crash if q/r outside grid)
       const inBounds = t => (
         (cols ? t.q >= 0 && t.q < cols : true) &&
         (rows ? t.r >= 0 && t.r < rows : true)
@@ -2228,12 +2225,12 @@ function applyPreset(preset) {
           paintHex(t.q, t.r, t.terrain, t.height, t.cover);
         }
       }
+
+      console.log('[Preset] Painted tiles:', norm.length);
     }
   }
 
-
   // 3) Load tokens if provided
-  // expected: tokens: [{ name, team, q, r, facing, size, pilot }]
   if (Array.isArray(preset.tokens) && preset.tokens.length) {
     if (typeof clearTokens === 'function') clearTokens();
     if (typeof addToken === 'function') {
@@ -2253,30 +2250,26 @@ function applyPreset(preset) {
     }
   }
 
- // 5) Legacy serialized map blob support
-  if (preset.data && typeof loadSerializedMap === 'function') {
-    try { loadSerializedMap(preset.data); } catch (e) { console.warn('Failed to load preset.data', e); }
-  }
-  
-  // 4) Optional overrides (flags your engine recognizes)
+  // 4) Optional overrides
   if (preset.overrides && typeof preset.overrides === 'object') {
     const o = preset.overrides;
-    if (typeof setShowCoords === 'function' && 'showCoords' in o) {
-      setShowCoords(!!o.showCoords);
-    }
-    if (typeof setTexturesEnabled === 'function' && 'textures' in o) {
-      setTexturesEnabled(o.textures !== 'off');
-    }
-    if (typeof setLabelsEnabled === 'function' && 'labels' in o) {
-      setLabelsEnabled(o.labels !== 'off');
-    }
+    if (typeof setShowCoords === 'function' && 'showCoords' in o) setShowCoords(!!o.showCoords);
+    if (typeof setTexturesEnabled === 'function' && 'textures' in o) setTexturesEnabled(o.textures !== 'off');
+    if (typeof setLabelsEnabled === 'function' && 'labels' in o) setLabelsEnabled(o.labels !== 'off');
+  }
+
+  // 5) Legacy serialized map blob support (only if string/blob-like)
+  if (typeof preset.data === 'string' && typeof loadSerializedMap === 'function') {
+    try { loadSerializedMap(preset.data); } catch (e) { console.warn('Failed to load preset.data blob', e); }
   }
 
   // 6) Final redraw after batch ops
   if (typeof redrawWorld === 'function') redrawWorld();
 }
 
+
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
