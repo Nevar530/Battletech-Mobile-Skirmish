@@ -1519,7 +1519,7 @@ function showImportModal() {
 
       <div class="json-modal__body">
         <div class="small muted" style="margin-bottom:8px;">
-          <strong>COMSTAR UPLINK:</strong> Paste a transmission below, or choose a <code>.json</code> file.
+          <strong>COMSTAR UPLINK:</strong> Paste a transmission below</code> file.
         </div>
         <textarea class="json-modal__ta" id="importTa" placeholder="{ ... }"></textarea>
 
@@ -2380,6 +2380,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
