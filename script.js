@@ -2172,52 +2172,108 @@ async function applyPresetFromUrl(url) {
 function applyPreset(preset) {
   if (!preset || typeof preset !== 'object') return;
 
-  // 1) Normalize META → {meta:{cols,rows,hexSize}}
-  const g = preset.meta || preset.grid || {};
-  const meta = {
-    cols: Number(g.cols || document.getElementById('cols')?.value || 0),
-    rows: Number(g.rows || document.getElementById('rows')?.value || 0),
-    hexSize: Number(g.hexSize || document.getElementById('hexSize')?.value || 0),
-  };
+  try {
+    // 1) Normalize META exactly like export/import
+    const g = preset.meta || preset.grid || {};
+    const meta = {
+      cols: Number.isFinite(+g.cols) ? +g.cols : +document.getElementById('cols')?.value || 0,
+      rows: Number.isFinite(+g.rows) ? +g.rows : +document.getElementById('rows')?.value || 0,
+      hexSize: Number.isFinite(+g.hexSize) ? +g.hexSize : +document.getElementById('hexSize')?.value || 0,
+    };
 
-  // 2) Normalize DATA → short keys [{q,r,h,ter,cov}]
-  //    Accept either preset.data (short) OR preset.tiles (long)
-  let raw = [];
-  if (Array.isArray(preset.data)) raw = preset.data;
-  else if (Array.isArray(preset.tiles)) raw = preset.tiles;
+    // 2) Normalize DATA to short keys [{q,r,h,ter,cov}]
+    const raw = Array.isArray(preset.data)
+      ? preset.data
+      : (Array.isArray(preset.tiles) ? preset.tiles : []);
 
-  const data = raw.map(t => ({
-    q: Number(t.q ?? t.c ?? t.col ?? t.x),
-    r: Number(t.r ?? t.row ?? t.y),
-    h: Number(t.h ?? t.height ?? t.elevation ?? 0),
-    ter: Number(t.ter ?? t.terrain ?? t.type ?? 0),
-    cov: Number(t.cov ?? t.cover ?? 0),
-  })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
+    const data = raw.map(t => ({
+      q: +(t.q ?? t.c ?? t.col ?? t.x),
+      r: +(t.r ?? t.row ?? t.y),
+      h: +(t.h ?? t.height ?? t.elevation ?? 0),
+      ter: +(t.ter ?? t.terrain ?? t.type ?? 0),
+      cov: +(t.cov ?? t.cover ?? 0),
+    })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
 
-  // 3) Tokens + mechMeta passthrough (match your export shape)
-  const tokens = Array.isArray(preset.tokens) ? preset.tokens : [];
-  const mechMeta = typeof preset.mechMeta === 'object' && preset.mechMeta !== null ? preset.mechMeta : {};
+    // 3) Tokens / mechMeta pass-through
+    const tokens = Array.isArray(preset.tokens) ? preset.tokens : [];
+    const mechMeta = (preset.mechMeta && typeof preset.mechMeta === 'object') ? preset.mechMeta : {};
 
-  // 4) Build the EXACT state shape your importer understands
-  const state = { meta, data, tokens, mechMeta };
+    // 4) Build state and try the same path as Import
+    const state = { meta, data, tokens, mechMeta };
 
-  // 5) Apply through the same path as the Import button
-  if (typeof applyState === 'function') {
-    applyState(state);
-  } else {
-    // Fallback: resize UI + regen, then paint & redraw (shouldn't be needed)
+    // Debug preview (shows in DevTools if you need it)
+    console.log('[Preset] normalized →', { meta, samples: data.slice(0, 3), tokens: tokens.length });
+
+    if (typeof applyState === 'function') {
+      applyState(state); // primary path (should match Import behavior exactly)
+    } else {
+      throw new Error('applyState not found');
+    }
+
+  } catch (errPrimary) {
+    console.warn('[Preset] applyState failed, falling back to manual paint:', errPrimary);
+
+    // ------ Fallback path: resize UI, regen, paint, redraw ------
+    const g = preset.meta || preset.grid || {};
     const elCols = document.getElementById('cols');
     const elRows = document.getElementById('rows');
     const elHex  = document.getElementById('hexSize');
-    if (elCols) elCols.value = meta.cols;
-    if (elRows) elRows.value = meta.rows;
-    if (elHex)  elHex.value  = meta.hexSize;
+
+    if (g.cols && elCols) elCols.value = Number(g.cols);
+    if (g.rows && elRows) elRows.value = Number(g.rows);
+    if (g.hexSize && elHex) elHex.value = Number(g.hexSize);
+
     if (typeof regenerateGrid === 'function') regenerateGrid();
     else if (typeof window.regen === 'function') window.regen();
+
+    const raw = Array.isArray(preset.data)
+      ? preset.data
+      : (Array.isArray(preset.tiles) ? preset.tiles : []);
+
+    // Normalize to long keys for painter
+    const tiles = raw.map(t => ({
+      q: +(t.q ?? t.c ?? t.col ?? t.x),
+      r: +(t.r ?? t.row ?? t.y),
+      terrain: +(t.terrain ?? t.ter ?? t.type ?? 0),
+      height: +(t.height ?? t.h ?? t.elevation ?? 0),
+      cover: +(t.cover ?? t.cov ?? 0),
+    })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
+
+    // Write via engine API if available, and also patch backing store aliases
+    for (const t of tiles) {
+      if (typeof setHexProps === 'function') {
+        setHexProps(t.q, t.r, { terrain: t.terrain, height: t.height, cover: t.cover });
+      } else if (typeof paintHex === 'function') {
+        paintHex(t.q, t.r, t.terrain, t.height, t.cover);
+      }
+
+      const k = (typeof key === 'function') ? key(t.q, t.r) : `${t.q},${t.r}`;
+      const tile = (window.tiles?.get?.(k)) || window.grid?.[t.r]?.[t.q] || window.board?.at?.(t.r)?.[t.q];
+      if (tile) {
+        tile.terrain = tile.type = tile.ter = t.terrain;
+        tile.height = tile.elevation = tile.h = tile.z = t.height;
+        tile.cover = tile.cov = t.cover;
+      }
+
+      if (typeof updateHexVisual === 'function') updateHexVisual(t.q, t.r);
+      if (typeof styleHex === 'function') styleHex(t.q, t.r);
+    }
+
+    // Tokens on fallback
+    if (Array.isArray(preset.tokens) && preset.tokens.length) {
+      if (typeof clearTokens === 'function') clearTokens();
+      if (typeof importTokens === 'function') importTokens(preset.tokens);
+    }
+
+    // Visual toggles & redraw
+    if (typeof setTexturesEnabled === 'function') setTexturesEnabled(true);
+    if (typeof recalcShading === 'function') recalcShading();
+    if (typeof recomputeLOS === 'function') recomputeLOS();
     if (typeof redrawWorld === 'function') redrawWorld();
+    if (typeof redraw === 'function') redraw();
   }
 
-  // 6) Optional overrides (keep using your existing flags)
+  // 5) Optional overrides (keep as-is)
   if (preset.overrides && typeof preset.overrides === 'object') {
     const o = preset.overrides;
     if (typeof setShowCoords === 'function' && 'showCoords' in o) setShowCoords(!!o.showCoords);
@@ -2225,14 +2281,16 @@ function applyPreset(preset) {
     if (typeof setLabelsEnabled === 'function' && 'labels' in o) setLabelsEnabled(o.labels !== 'off');
   }
 
-  // 7) Legacy blob support ONLY if data is a string
+  // 6) Legacy blob ONLY if data is a string
   if (typeof preset.data === 'string' && typeof loadSerializedMap === 'function') {
-    try { loadSerializedMap(preset.data); } catch (e) { console.warn('Legacy blob failed', e); }
+    try { loadSerializedMap(preset.data); } catch (e) { console.warn('[Preset] Legacy blob failed', e); }
   }
 }
 
+
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
