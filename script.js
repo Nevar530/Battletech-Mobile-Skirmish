@@ -14,8 +14,8 @@ const COVER_BLOCK_HEIGHT = [0, 0.4, 0.9, 1.4]; // None, Light, Med, Heavy -> ext
 const LOS_EPS = 1e-4;
 
 function getHexHeight(q, r) {
-  const t = tiles.get(key(q, r));
-  const h = t?.height;
+const t = tiles.get(key(q, r));
+const h = (t && Number.isFinite(t.height)) ? t.height : 0;
   return Number.isFinite(h) ? h : 0; // preserves negatives
 }
 
@@ -741,8 +741,8 @@ function render() {
   // Tokens
   const fontTok = Math.max(7, hexSize * 0.22);
   tokens.forEach(tok => {
-    const center = geom.get(key(tok.q, tok.r));
-    if (!center) return;
+const center = geom.get(key(tok.q, tok.r));
+if (!center || center.x === undefined) return;
     const cx = center.x, cy = center.y;
     const rTok = Math.max(6, hexSize * TOKEN_BASE_SCALE * (tok.scale || 1));
 
@@ -2400,6 +2400,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
