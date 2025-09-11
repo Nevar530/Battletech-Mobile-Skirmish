@@ -2172,104 +2172,74 @@ async function applyPresetFromUrl(url) {
 function applyPreset(preset) {
   if (!preset || typeof preset !== 'object') return;
 
-  // 1) Resize grid (supports {grid:{...}} or {meta:{...}})
+  // 1) Normalize grid/meta into the state shape your importer expects
   const g = preset.grid || preset.meta || {};
-  const elCols = document.getElementById('cols');
-  const elRows = document.getElementById('rows');
-  const elHex  = document.getElementById('hexSize');
+  const grid = {
+    cols: Number(g.cols || document.getElementById('cols')?.value || 0),
+    rows: Number(g.rows || document.getElementById('rows')?.value || 0),
+    hexSize: Number(g.hexSize || document.getElementById('hexSize')?.value || 0)
+  };
 
-  if (g.cols && elCols) elCols.value = Number(g.cols);
-  if (g.rows && elRows) elRows.value = Number(g.rows);
-  if (g.hexSize && elHex) elHex.value = Number(g.hexSize);
+  // 2) Choose source tiles array: preset.tiles (long keys) OR preset.data (short keys)
+  const raw = (Array.isArray(preset.tiles) && preset.tiles.length)
+    ? preset.tiles
+    : (Array.isArray(preset.data) ? preset.data : []);
 
-  // Rebuild the grid
-  if (typeof regenerateGrid === 'function') {
-    regenerateGrid();
-  } else if (typeof window.regen === 'function') {
-    window.regen();
-  }
+  // 3) Normalize tiles to the exact fields your exporter uses
+  const tiles = raw.map(t => ({
+    q: Number(t.q ?? t.c ?? t.col ?? t.x),
+    r: Number(t.r ?? t.row ?? t.y),
+    terrain: Number(t.terrain ?? t.ter ?? t.type ?? 0),
+    height: Number(t.height ?? t.h ?? t.elevation ?? 0),
+    cover: Number(t.cover ?? t.cov ?? 0)
+  })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
 
-  // 2) Paint tiles if provided: supports:
-  //    A) preset.tiles: [{ q, r, terrain, height, cover }]
-  //    B) preset.data : [{ q, r, h, ter, cov }] (short keys) or long keys
-  {
-    const cols = Number((g && g.cols) || document.getElementById('cols')?.value || 0);
-    const rows = Number((g && g.rows) || document.getElementById('rows')?.value || 0);
+  // 4) Tokens passthrough
+  const tokens = Array.isArray(preset.tokens) ? preset.tokens : [];
 
-    const raw = (Array.isArray(preset.tiles) && preset.tiles.length)
-      ? preset.tiles
-      : (Array.isArray(preset.data) ? preset.data : []);
+  // 5) Build a full "state" object and import it through the same path as manual Import
+  const state = { grid, tiles, tokens, overrides: preset.overrides || {} };
 
-    if (raw.length) {
-      const norm = raw.map(t => ({
-        q: Number(t.q ?? t.c ?? t.col ?? t.x),
-        r: Number(t.r ?? t.row ?? t.y),
-        terrain: Number(t.terrain ?? t.ter ?? 0),
-        height: Number(t.height ?? t.h ?? t.elevation ?? 0),
-        cover: Number(t.cover ?? t.cov ?? 0)
-      })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
+  // Apply like the import button does; this ensures textures/height logic matches
+  if (typeof applyState === 'function') {
+    applyState(state);
+  } else {
+    // Fallback to old behavior if applyState isn't available
+    // (Resize UI, regen, then paint + redraw)
+    const elCols = document.getElementById('cols');
+    const elRows = document.getElementById('rows');
+    const elHex  = document.getElementById('hexSize');
+    if (elCols) elCols.value = grid.cols;
+    if (elRows) elRows.value = grid.rows;
+    if (elHex)  elHex.value  = grid.hexSize;
+    if (typeof regenerateGrid === 'function') regenerateGrid();
+    else if (typeof window.regen === 'function') window.regen();
 
-      const inBounds = t => (
-        (cols ? t.q >= 0 && t.q < cols : true) &&
-        (rows ? t.r >= 0 && t.r < rows : true)
-      );
-
-      if (typeof setHexProps === 'function') {
-        for (const t of norm) {
-          if (!inBounds(t)) continue;
-          setHexProps(t.q, t.r, { terrain: t.terrain, height: t.height, cover: t.cover });
-        }
-      } else if (typeof paintHex === 'function') {
-        for (const t of norm) {
-          if (!inBounds(t)) continue;
-          paintHex(t.q, t.r, t.terrain, t.height, t.cover);
-        }
-      }
-
-      console.log('[Preset] Painted tiles:', norm.length);
+    for (const t of tiles) {
+      if (typeof setHexProps === 'function') setHexProps(t.q, t.r, { terrain: t.terrain, height: t.height, cover: t.cover });
+      else if (typeof paintHex === 'function') paintHex(t.q, t.r, t.terrain, t.height, t.cover);
     }
+    if (typeof importTokens === 'function') importTokens(tokens);
+    if (typeof redrawWorld === 'function') redrawWorld();
   }
 
-  // 3) Load tokens if provided
-  if (Array.isArray(preset.tokens) && preset.tokens.length) {
-    if (typeof clearTokens === 'function') clearTokens();
-    if (typeof addToken === 'function') {
-      for (const tk of preset.tokens) {
-        addToken({
-          name: tk.name || 'Unit',
-          team: tk.team || 'Alpha',
-          q: Number(tk.q),
-          r: Number(tk.r),
-          facing: Number(tk.facing || 0),
-          size: Number(tk.size || 1),
-          pilot: tk.pilot || ''
-        });
-      }
-    } else if (typeof importTokens === 'function') {
-      importTokens(preset.tokens);
-    }
-  }
+  // 6) Optional overrides (same as before)
+  const o = preset.overrides || {};
+  if (typeof setShowCoords === 'function' && 'showCoords' in o) setShowCoords(!!o.showCoords);
+  if (typeof setTexturesEnabled === 'function' && 'textures' in o) setTexturesEnabled(o.textures !== 'off');
+  if (typeof setLabelsEnabled === 'function' && 'labels' in o) setLabelsEnabled(o.labels !== 'off');
 
-  // 4) Optional overrides
-  if (preset.overrides && typeof preset.overrides === 'object') {
-    const o = preset.overrides;
-    if (typeof setShowCoords === 'function' && 'showCoords' in o) setShowCoords(!!o.showCoords);
-    if (typeof setTexturesEnabled === 'function' && 'textures' in o) setTexturesEnabled(o.textures !== 'off');
-    if (typeof setLabelsEnabled === 'function' && 'labels' in o) setLabelsEnabled(o.labels !== 'off');
-  }
-
-  // 5) Legacy serialized map blob support (only if string/blob-like)
+  // 7) Legacy serialized blob support — only if it's actually a string
   if (typeof preset.data === 'string' && typeof loadSerializedMap === 'function') {
     try { loadSerializedMap(preset.data); } catch (e) { console.warn('Failed to load preset.data blob', e); }
   }
-
-  // 6) Final redraw after batch ops
-  if (typeof redrawWorld === 'function') redrawWorld();
 }
+
 
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
