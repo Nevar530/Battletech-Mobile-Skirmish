@@ -3,5 +3,5 @@
   { "id": "paper_15x17", "name": "Paper (15×17)", "file": "paper_15x17.json" },
   { "id": "double_neoprene_62x17", "name": "Double Neoprene (62×17)", "file": "double_neoprene_62x17.json" },
   { "id": "four_paper_30x34", "name": "Four Paper (30×34)", "file": "four_paper_30x34.json" },
-  { "id": "Terrain Example", "name": "Terrain Example", "file": "Terrain Example.json" }
+  { "id": "terrain_example", "name": "Terrain Example", "file": "terrain_example.json" }
 ]
