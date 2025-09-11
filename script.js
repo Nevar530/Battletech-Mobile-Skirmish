@@ -2108,7 +2108,9 @@ requestRender();
 renderMechList();
 svg && svg.focus();
 
-const APP_SCOPE = '/Battletech-Mobile-Skirmish/'; // gh-pages project scope
+/* ---------- Preset JSON (GH Pages) ---------- */
+
+const APP_SCOPE = '/Battletech-Mobile-Skirmish/';            // repo path on github pages
 const PRESET_BASE = `${APP_SCOPE}presets/`;
 const PRESET_INDEX_URL = `${PRESET_BASE}index.json`;
 
@@ -2119,24 +2121,37 @@ async function loadPresetList() {
     const list = await res.json();
 
     const sel = document.getElementById('presets');
-    // clear existing (keep the placeholder option if you want)
+    if (!sel) return;
+
+    // reset with placeholder
     sel.innerHTML = '<option value="">— Choose… —</option>';
 
+    // add options from index.json
     for (const p of list) {
       const opt = document.createElement('option');
-      opt.value = p.file;             // store file name
-      opt.textContent = p.name || p.id;
+      opt.value = p.file;                  // filename (e.g., neoprene_31x17.json)
+      opt.textContent = p.name || p.id;    // display label
       sel.appendChild(opt);
     }
 
-    // wire change → fetch & apply
+    // change → fetch & apply
     sel.addEventListener('change', async (e) => {
       const file = e.target.value;
       if (!file) return;
       await applyPresetFromUrl(`${PRESET_BASE}${file}`);
+      // return focus to stage for immediate input
+      const svg = document.getElementById('svg');
+      if (svg && typeof svg.focus === 'function') svg.focus();
     });
+
+    // optional: auto-load via ?preset=id
+    const qid = new URLSearchParams(location.search).get('preset');
+    if (qid) {
+      const hit = list.find(p => p.id === qid);
+      if (hit) await applyPresetFromUrl(`${PRESET_BASE}${hit.file}`);
+    }
   } catch (err) {
-    console.error(err);
+    console.error('[Presets] ', err);
   }
 }
 
@@ -2147,52 +2162,92 @@ async function applyPresetFromUrl(url) {
     const preset = await res.json();
     applyPreset(preset);
   } catch (err) {
-    console.error(err);
+    console.error('[Preset load] ', err);
     alert('Could not load preset.');
   }
 }
 
-/* Glue into your existing engine */
+/* ---------- Glue into your existing engine ---------- */
 function applyPreset(preset) {
-  // 1) Resize grid
-  const g = preset.grid || {};
-  if (g.cols && g.rows) {
-    document.getElementById('cols').value = g.cols;
-    document.getElementById('rows').value = g.rows;
-  }
-  if (g.hexSize) {
-    document.getElementById('hexSize').value = g.hexSize;
-  }
+  if (!preset || typeof preset !== 'object') return;
 
-  // 2) Regenerate grid using your existing function
+  // 1) Resize grid (supports {grid:{...}} or {meta:{...}})
+  const g = preset.grid || preset.meta || {};
+  const elCols = document.getElementById('cols');
+  const elRows = document.getElementById('rows');
+  const elHex  = document.getElementById('hexSize');
+
+  if (g.cols && elCols) elCols.value = Number(g.cols);
+  if (g.rows && elRows) elRows.value = Number(g.rows);
+  if (g.hexSize && elHex) elHex.value = Number(g.hexSize);
+
+  // Rebuild the grid
   if (typeof regenerateGrid === 'function') {
     regenerateGrid();
+  } else if (typeof window.regen === 'function') {
+    window.regen();
   }
 
-  // 3) Paint tiles if provided
-  if (Array.isArray(preset.tiles) && preset.tiles.length && typeof setHexProps === 'function') {
-    // You likely already have utilities; adjust names to your engine APIs
-    for (const t of preset.tiles) {
-      // setHexProps(q, r, { terrain, height, cover })
-      setHexProps(t.q, t.r, {
-        terrain: t.terrain,
-        height: t.height,
-        cover: t.cover
-      });
+  // 2) Paint tiles if provided: [{ q, r, terrain, height, cover }]
+  if (Array.isArray(preset.tiles) && preset.tiles.length) {
+    if (typeof setHexProps === 'function') {
+      for (const t of preset.tiles) {
+        setHexProps(Number(t.q), Number(t.r), {
+          terrain: t.terrain,
+          height: (t.height ?? t.elevation ?? 0),
+          cover: t.cover
+        });
+      }
+    } else if (typeof paintHex === 'function') {
+      for (const t of preset.tiles) {
+        paintHex(Number(t.q), Number(t.r), t.terrain, (t.height ?? 0), t.cover);
+      }
     }
-    // redraw after bulk operation if needed
-    if (typeof redrawWorld === 'function') redrawWorld();
+  }
+
+  // 3) Load tokens if provided
+  // expected: tokens: [{ name, team, q, r, facing, size, pilot }]
+  if (Array.isArray(preset.tokens) && preset.tokens.length) {
+    if (typeof clearTokens === 'function') clearTokens();
+    if (typeof addToken === 'function') {
+      for (const tk of preset.tokens) {
+        addToken({
+          name: tk.name || 'Unit',
+          team: tk.team || 'Alpha',
+          q: Number(tk.q),
+          r: Number(tk.r),
+          facing: Number(tk.facing || 0),
+          size: Number(tk.size || 1),
+          pilot: tk.pilot || ''
+        });
+      }
+    } else if (typeof importTokens === 'function') {
+      importTokens(preset.tokens);
+    }
   }
 
   // 4) Optional overrides (flags your engine recognizes)
-  if (preset.overrides) {
-    // e.g., toggle coords
-    if (typeof setShowCoords === 'function' && 'showCoords' in preset.overrides) {
-      setShowCoords(!!preset.overrides.showCoords);
+  if (preset.overrides && typeof preset.overrides === 'object') {
+    const o = preset.overrides;
+    if (typeof setShowCoords === 'function' && 'showCoords' in o) {
+      setShowCoords(!!o.showCoords);
+    }
+    if (typeof setTexturesEnabled === 'function' && 'textures' in o) {
+      setTexturesEnabled(o.textures !== 'off');
+    }
+    if (typeof setLabelsEnabled === 'function' && 'labels' in o) {
+      setLabelsEnabled(o.labels !== 'off');
     }
   }
+
+  // 5) Legacy serialized map blob support
+  if (preset.data && typeof loadSerializedMap === 'function') {
+    try { loadSerializedMap(preset.data); } catch (e) { console.warn('Failed to load preset.data', e); }
+  }
+
+  // 6) Final redraw after batch ops
+  if (typeof redrawWorld === 'function') redrawWorld();
 }
 
-// Kick it off after DOM ready/boot
+// Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
-
