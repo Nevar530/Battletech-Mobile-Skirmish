@@ -1476,10 +1476,14 @@ function showJsonModal(text){
         <button class="icon-btn json-modal__close" title="Close" aria-label="Close">✕</button>
       </header>
       <div class="json-modal__body">
-        <textarea class="json-modal__ta" readonly></textarea>
-      </div>
+  <div class="small muted" style="margin-bottom:8px;">
+    <strong>COMSTAR UPLINK:</strong> Transmission file generated copy code or download file.
+  </div>
+  <textarea class="json-modal__ta" readonly></textarea>
+</div>
       <footer class="json-modal__foot">
         <button class="btn sm" id="jsonCopyBtn">Copy</button>
+        <button class="btn sm" id="jsonDownloadBtn">Download</button>
         <button class="btn sm" id="jsonCloseBtn">Close</button>
       </footer>
     </div>
@@ -1499,12 +1503,28 @@ function showJsonModal(text){
     if (ev.key === 'Escape') { ev.preventDefault(); close(); document.removeEventListener('keydown', esc); }
   });
 
+  // Copy
   wrap.querySelector('#jsonCopyBtn').addEventListener('click', async () => {
     try { await navigator.clipboard.writeText(ta.value); }
     catch { /* if clipboard is blocked, text is selected for manual copy */ }
   });
+
+  // Download
+  wrap.querySelector('#jsonDownloadBtn').addEventListener('click', () => {
+    const stamp = new Date().toISOString().replace(/[:T]/g,'-').slice(0,19); // YYYY-MM-DD-HH-MM-SS
+    const filename = `Battletech-Map-${stamp}.json`;
+    const blob = new Blob([ta.value], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 0);
+  });
 }
 on('exportJson','click', () => { showJsonModal(serializeState()); });
+
 
 /* ===== Import JSON Modal (BattleTech-flavored) ===== */
 function showImportModal() {
@@ -1519,7 +1539,7 @@ function showImportModal() {
 
       <div class="json-modal__body">
         <div class="small muted" style="margin-bottom:8px;">
-          <strong>COMSTAR UPLINK:</strong> Paste a transmission below</code> file.
+          <strong>COMSTAR UPLINK:</strong> Paste a transmission code here or import file.</code>
         </div>
         <textarea class="json-modal__ta" id="importTa" placeholder="{ ... }"></textarea>
 
@@ -2380,6 +2400,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
