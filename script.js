@@ -1580,7 +1580,7 @@ function cycleTeam(dir){ const t = getSelected(); if (!t) return; const len = TE
 function renameToken(){ const t = getSelected(); if (!t) return; const name = prompt('Token label:', t.label || ''); if (name !== null) { t.label = name.trim().slice(0,24) || 'MECH'; requestRender(); saveLocal(); } }
 function deleteToken(){ const t = getSelected(); if (!t) return; tokens = tokens.filter(x => x.id !== t.id); mechMeta.delete(t.id); selectedTokenId = null; renderMechList(); renderInit(); requestRender(); saveLocal(); }
 
-/* ---------- Presets ---------- */
+/* ---------- Presets ----------
 const TER = { GRASS:0, ROCK:1, WATER:2, SAND:3, ASPHALT:4, URBAN:5 };
 const COV = { NONE:0, LIGHT:1, MED:2, HEAVY:3 };
 
@@ -1792,7 +1792,7 @@ const PRESETS = {
     tokens:[]
   }
 };
-
+*/
 /* ---------- Unified state applier (presets/import/local) ---------- */
 function applyState(obj){
   try{
@@ -1851,7 +1851,7 @@ function applyState(obj){
   }
 }
 
-// Hook the select to apply presets
+/* Hook the select to apply presets
 if (elPresets) elPresets.addEventListener('change', (e)=>{
   const id = e.target.value;
   if (!id) return;
@@ -1860,6 +1860,7 @@ if (elPresets) elPresets.addEventListener('change', (e)=>{
   const obj = p.data ? p : { meta: p.meta, data: buildFlatData(p.meta.cols, p.meta.rows), tokens: [] };
   applyState(obj);
 });
+*/
 
 /* ---------- Dice (2d6) ---------- */
 document.querySelectorAll('[data-dice="2d6"]').forEach(btn=>{
@@ -2251,3 +2252,4 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
