@@ -2108,3 +2108,91 @@ requestRender();
 renderMechList();
 svg && svg.focus();
 
+const APP_SCOPE = '/Battletech-Mobile-Skirmish/'; // gh-pages project scope
+const PRESET_BASE = `${APP_SCOPE}presets/`;
+const PRESET_INDEX_URL = `${PRESET_BASE}index.json`;
+
+async function loadPresetList() {
+  try {
+    const res = await fetch(PRESET_INDEX_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to load presets index');
+    const list = await res.json();
+
+    const sel = document.getElementById('presets');
+    // clear existing (keep the placeholder option if you want)
+    sel.innerHTML = '<option value="">— Choose… —</option>';
+
+    for (const p of list) {
+      const opt = document.createElement('option');
+      opt.value = p.file;             // store file name
+      opt.textContent = p.name || p.id;
+      sel.appendChild(opt);
+    }
+
+    // wire change → fetch & apply
+    sel.addEventListener('change', async (e) => {
+      const file = e.target.value;
+      if (!file) return;
+      await applyPresetFromUrl(`${PRESET_BASE}${file}`);
+    });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function applyPresetFromUrl(url) {
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to load preset ${url}`);
+    const preset = await res.json();
+    applyPreset(preset);
+  } catch (err) {
+    console.error(err);
+    alert('Could not load preset.');
+  }
+}
+
+/* Glue into your existing engine */
+function applyPreset(preset) {
+  // 1) Resize grid
+  const g = preset.grid || {};
+  if (g.cols && g.rows) {
+    document.getElementById('cols').value = g.cols;
+    document.getElementById('rows').value = g.rows;
+  }
+  if (g.hexSize) {
+    document.getElementById('hexSize').value = g.hexSize;
+  }
+
+  // 2) Regenerate grid using your existing function
+  if (typeof regenerateGrid === 'function') {
+    regenerateGrid();
+  }
+
+  // 3) Paint tiles if provided
+  if (Array.isArray(preset.tiles) && preset.tiles.length && typeof setHexProps === 'function') {
+    // You likely already have utilities; adjust names to your engine APIs
+    for (const t of preset.tiles) {
+      // setHexProps(q, r, { terrain, height, cover })
+      setHexProps(t.q, t.r, {
+        terrain: t.terrain,
+        height: t.height,
+        cover: t.cover
+      });
+    }
+    // redraw after bulk operation if needed
+    if (typeof redrawWorld === 'function') redrawWorld();
+  }
+
+  // 4) Optional overrides (flags your engine recognizes)
+  if (preset.overrides) {
+    // e.g., toggle coords
+    if (typeof setShowCoords === 'function' && 'showCoords' in preset.overrides) {
+      setShowCoords(!!preset.overrides.showCoords);
+    }
+  }
+}
+
+// Kick it off after DOM ready/boot
+window.addEventListener('load', loadPresetList);
+
