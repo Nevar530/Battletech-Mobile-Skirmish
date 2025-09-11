@@ -360,6 +360,30 @@
       </div>
     </div>
 
+<!-- ===== EXPORT POPUP ===== -->
+<div id="exportPopup" class="panel right collapsed"
+     style="right:auto; left:50%; transform:translateX(-50%); width:420px; top:60px; z-index:40;"
+     aria-label="Export JSON" hidden>
+  <div class="panel-head">
+    <h2>Export JSON</h2>
+    <button id="closeExport" class="icon-btn" title="Hide">
+      <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+        <path d="M19 6L6 19M6 6l13 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+  <div class="panel-body">
+    <textarea id="exportText" rows="10"
+              style="width:100%; font-family:monospace; resize:none;"></textarea>
+    <div class="row gap" style="margin-top:10px;">
+      <button id="btnCopyExport" class="btn">Copy</button>
+      <button id="btnDownloadExport" class="btn">Download</button>
+    </div>
+    <div class="small muted">Close with ESC, ✕, or backdrop click.</div>
+  </div>
+</div>
+
+    
     <!-- ===== Stage (engine mounts here) ===== -->
     <main class="stage">
       <!-- Left dock -->
@@ -415,5 +439,6 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
