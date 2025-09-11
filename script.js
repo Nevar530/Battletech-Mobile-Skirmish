@@ -1506,15 +1506,105 @@ function showJsonModal(text){
 }
 on('exportJson','click', () => { showJsonModal(serializeState()); });
 
-on('importJsonBtn','click', () => {
-  if (mapLocked) { alert('Map is locked. Unlock to import.'); return; }
-  try {
-    const raw = prompt('Paste JSON to load:');
-    if (!raw) return;
-    const obj = JSON.parse(raw);
-    applyState(obj);
-  } catch (err) { alert('Import failed: ' + err.message); }
-});
+/* ===== Import JSON Modal (BattleTech-flavored) ===== */
+function showImportModal() {
+  const wrap = document.createElement('div');
+  wrap.className = 'json-modal';
+  wrap.innerHTML = `
+    <div class="json-modal__panel" role="dialog" aria-modal="true" aria-label="Import Map JSON">
+      <header class="json-modal__head">
+        <strong>Import Map JSON</strong>
+        <button class="icon-btn json-modal__close" title="Close" aria-label="Close">✕</button>
+      </header>
+
+      <div class="json-modal__body">
+        <div class="small muted" style="margin-bottom:8px;">
+          <strong>COMSTAR UPLINK:</strong> Paste a transmission below, or choose a <code>.json</code> file.
+        </div>
+        <textarea class="json-modal__ta" id="importTa" placeholder="{ ... }"></textarea>
+
+        <div class="row gap" style="align-items:center; margin-top:10px;">
+          <input type="file" id="importFileTemp" accept="application/json" hidden />
+          <button class="btn sm" id="importChooseBtn">Choose File…</button>
+          <span class="small muted" id="importFileName">No file selected</span>
+        </div>
+      </div>
+
+      <footer class="json-modal__foot">
+        <button class="btn sm" id="importLoadBtn">Load</button>
+        <button class="btn sm" id="importCloseBtn">Close</button>
+      </footer>
+    </div>
+  `;
+  document.body.appendChild(wrap);
+
+  // modal elements
+  const ta         = wrap.querySelector('#importTa');
+  const fileInput  = wrap.querySelector('#importFileTemp');
+  const chooseBtn  = wrap.querySelector('#importChooseBtn');
+  const fileLabel  = wrap.querySelector('#importFileName');
+  const loadBtn    = wrap.querySelector('#importLoadBtn');
+
+  // UX niceties
+  ta.focus();
+  document.documentElement.style.overflow = 'hidden';
+  const close = () => { wrap.remove(); document.documentElement.style.overflow = ''; };
+
+  wrap.querySelector('.json-modal__close').addEventListener('click', close);
+  wrap.querySelector('#importCloseBtn').addEventListener('click', close);
+  wrap.addEventListener('click', (e) => { if (e.target === wrap) close(); });
+  document.addEventListener('keydown', function esc(ev){
+    if (ev.key === 'Escape') { ev.preventDefault(); close(); document.removeEventListener('keydown', esc); }
+  });
+
+  // trigger native picker
+  chooseBtn.addEventListener('click', () => fileInput.click());
+
+  // when file chosen, read it and populate textarea (so user can glance/edit)
+  fileInput.addEventListener('change', () => {
+    const f = fileInput.files?.[0];
+    if (!f) { fileLabel.textContent = 'No file selected'; return; }
+    fileLabel.textContent = f.name;
+    const r = new FileReader();
+    r.onload = () => { ta.value = String(r.result || ''); };
+    r.onerror = () => { alert('Failed to read file.'); };
+    r.readAsText(f);
+  });
+
+  // allow drag & drop onto the textarea
+  ta.addEventListener('dragover', (e) => { e.preventDefault(); });
+  ta.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const f = e.dataTransfer?.files?.[0];
+    if (!f) return;
+    if (!/\.json$/i.test(f.name)) { alert('Drop a .json file.'); return; }
+    fileLabel.textContent = f.name;
+    const r = new FileReader();
+    r.onload = () => { ta.value = String(r.result || ''); };
+    r.readAsText(f);
+  });
+
+  // apply imported JSON when clicking Load
+  loadBtn.addEventListener('click', () => {
+    if (window.mapLocked) { alert('Map is locked. Unlock to import.'); return; }
+    const raw = ta.value.trim();
+    if (!raw) { alert('Paste JSON or choose a file.'); return; }
+    try {
+      const obj = JSON.parse(raw);
+      applyState(obj);                // your existing unified importer
+      // return focus to stage for immediate input
+      const svg = document.getElementById('svg');
+      if (svg && typeof svg.focus === 'function') svg.focus();
+      close();
+    } catch (err) {
+      alert('Import failed: ' + (err?.message || err));
+    }
+  });
+}
+
+// Wire to top-bar Import button
+on('importJsonBtn','click', () => { showImportModal(); });
+
 
 /* ---------- Quick legend builder (kept for patterns) ---------- */
 function renderLegendRadios(){
@@ -2290,6 +2380,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
