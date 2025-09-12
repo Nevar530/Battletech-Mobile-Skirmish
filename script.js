@@ -661,9 +661,10 @@ function render() {
   let brightnessOffset = -t.height * STEP;                // <-- flipped
   brightnessOffset = Math.max(-30, Math.min(30, brightnessOffset)); // <-- clamp
     
-    const fillColor = adjustLightness(terrain.fill, brightnessOffset);
+    const fillColor = adjustLightness(terrain.fill, -t.height * 8);
     const strokeW = Math.max(1, size * 0.03);
-
+// stash painted color for labels
+t._fillColor = fillColor;
     poly.setAttribute('points', geom.get(key(t.q,t.r)).ptsStr);
     poly.setAttribute('class','hex');
     poly.setAttribute('fill', fillColor);
@@ -724,20 +725,12 @@ tiles.forEach(t => {
 
   const terrain = TERRAINS[t.terrainIndex];
 
-  // --- use the SAME flipped shading as the hex fill (higher = darker)
-  const STEP = 8; // keep in sync with your hex fill STEP
-  let delta  = -t.height * STEP;
-  // optional: clamp so luminance doesn't go extreme
-  delta = Math.max(-30, Math.min(30, delta));
+  // use the same color the hex polygon got painted with
+  const painted = t._fillColor || adjustLightness(terrain.fill, -t.height * 8);
 
-  const baseFill = adjustLightness(terrain.fill, delta);
-
-  // luminance-driven ink choice
-  const isDark = relLum(baseFill) < 0.42; // 0.35–0.45 is a good band; tune to taste
+  // pick ink color based on luminance
+  const isDark = relLum(painted) < 0.38;       // lower cutoff = more black text
   const ink    = isDark ? '#f8f8f8' : '#0b0f14';
-
-  // optional: thin outline helps on busy textures
-  const stroke = isDark ? '#00000055' : '#ffffff66';
 
   const label = document.createElementNS(svgNS,'text');
   label.setAttribute('x', x);
@@ -746,10 +739,7 @@ tiles.forEach(t => {
   label.setAttribute('font-size', fontMain);
   label.setAttribute('text-anchor', 'middle');
   label.setAttribute('dominant-baseline', 'middle');
-  label.setAttribute('fill', ink);               // <-- use fill, not style.color
-  label.setAttribute('stroke', stroke);          // optional halo
-  label.setAttribute('stroke-width', Math.max(0.6, size * 0.02));
-  label.setAttribute('paint-order', 'stroke');   // draw stroke under fill
+  label.setAttribute('fill', ink); // <-- use fill instead of style.color
   label.textContent = `${t.height}${cov==='None' ? '' : ' ' + COVER_ABBR[cov]}`;
   gLabels.appendChild(label);
 
@@ -761,9 +751,6 @@ tiles.forEach(t => {
   terrainText.setAttribute('text-anchor', 'middle');
   terrainText.setAttribute('dominant-baseline', 'middle');
   terrainText.setAttribute('fill', ink);
-  terrainText.setAttribute('stroke', stroke);
-  terrainText.setAttribute('stroke-width', Math.max(0.5, size * 0.016));
-  terrainText.setAttribute('paint-order', 'stroke');
   terrainText.textContent = terrain.name;
   gLabels.appendChild(terrainText);
 
@@ -776,13 +763,11 @@ tiles.forEach(t => {
   coord.setAttribute('font-size', fontCoord);
   coord.setAttribute('text-anchor','start');
   coord.setAttribute('dominant-baseline','hanging');
-  coord.setAttribute('fill', ink);               // <-- use fill
-  coord.setAttribute('stroke', stroke);          // optional halo
-  coord.setAttribute('stroke-width', Math.max(0.4, size * 0.014));
-  coord.setAttribute('paint-order', 'stroke');
+  coord.setAttribute('fill', ink);
   coord.textContent = cc + rr;
   gLabels.appendChild(coord);
 });
+
 
   // Tokens
   const fontTok = Math.max(7, hexSize * 0.22);
@@ -2446,6 +2431,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
