@@ -39,8 +39,9 @@ const TERRAINS = [
   { name: 'Snow',    fill: '#e6edf5', pat: 'pat-snow',    opacity: 0.22 },
   { name: 'Ice',     fill: '#b7e1f2', pat: 'pat-ice',     opacity: 0.22 },
   { name: 'Lava',    fill: '#a83232', pat: 'pat-lava',    opacity: 0.35 },
-  { name: 'Volcanic',fill: '#1e1e1e', pat: 'pat-volcanic',opacity: 0.25 },
-  { name: 'Moon',    fill: '#c5c5c5', pat: 'pat-moon',    opacity: 0.20 }
+  { name: 'Volcanic', fill: '#1e1e1e', pat: 'pat-volcanic', opacity: 0.25 },
+  { name: 'Moon',    fill: '#c5c5c5', pat: 'pat-moon',    opacity: 0.20 },
+  { name: 'paper', fill: '#f2eee3', pat: 'pat-paper', opacity: 1.0 }
 ];
 
 // ===== Fill Terrain dropdown =====
@@ -493,6 +494,20 @@ function ensurePatterns() {
       fleck(u*0.7, u*0.4, sw*0.4, '#777', 0.5),
       fleck(u*0.4, u*0.7, sw*0.6, '#333', 0.7),
       fleck(u*0.8, u*0.2, sw*0.5, '#c33', 0.7)
+    );
+  });
+
+    pat('pat-moon', u, u, (p) => {
+    function crater(cx, cy, r, op) {
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
+      c.setAttribute('fill', '#888'); c.setAttribute('opacity', op);
+      return c;
+    }
+    p.append(
+      crater(u*0.25, u*0.25, sw*0.6, 0.6),
+      crater(u*0.7,  u*0.35, sw*0.8, 0.5),
+      crater(u*0.5,  u*0.75, sw*0.7, 0.4)
     );
   });
 }
@@ -2400,6 +2415,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
