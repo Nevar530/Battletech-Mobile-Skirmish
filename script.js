@@ -652,12 +652,20 @@ function render() {
   });
 
   // Base hexes + textures (+ cover ring)
-  tiles.forEach(t => {
-    const poly = document.createElementNS(svgNS,'polygon');
-    const terrain = TERRAINS[t.terrainIndex];
-    const brightnessOffset = t.height >= 0 ? -t.height * 5 : Math.abs(t.height) * 5;
-    const fillColor = adjustLightness(terrain.fill, brightnessOffset);
-    const strokeW = Math.max(1, size * 0.03);
+tiles.forEach(t => {
+  const poly = document.createElementNS(svgNS,'polygon');
+  const terrain = TERRAINS[t.terrainIndex];
+
+  // how strong each step darkens
+  const SCALE = 8;  
+  // optional max cap so it doesn't go pitch black
+  const MAX_OFFSET = 50;
+
+  // always darken by distance from 0
+  let brightnessOffset = -Math.min(MAX_OFFSET, Math.abs(t.height) * SCALE);
+
+  const fillColor = adjustLightness(terrain.fill, brightnessOffset);
+  const strokeW = Math.max(1, size * 0.03);
 
     poly.setAttribute('points', geom.get(key(t.q,t.r)).ptsStr);
     poly.setAttribute('class','hex');
@@ -2415,6 +2423,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
