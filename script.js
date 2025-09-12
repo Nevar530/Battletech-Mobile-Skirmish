@@ -655,7 +655,7 @@ function render() {
   tiles.forEach(t => {
     const poly = document.createElementNS(svgNS,'polygon');
     const terrain = TERRAINS[t.terrainIndex];
-    const brightnessOffset = t.height * 10;
+    const brightnessOffset = -t.height * 5;
     const fillColor = adjustLightness(terrain.fill, brightnessOffset);
     const strokeW = Math.max(1, size * 0.03);
 
@@ -718,7 +718,7 @@ function render() {
     const fontCoord = Math.max(6, size * 0.16);
 
     const terrain   = TERRAINS[t.terrainIndex];
-    const baseFill  = adjustLightness(terrain.fill, t.height * 10);
+    const baseFill  = adjustLightness(terrain.fill, -t.height * 5);
     const isDark = relLum(baseFill) < 0.42;
     const ink    = isDark ? '#f8f8f8' : '#0b0f14';
 
@@ -2415,6 +2415,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
