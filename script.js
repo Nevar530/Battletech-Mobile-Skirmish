@@ -667,7 +667,7 @@ function render() {
     poly.dataset.q = t.q; poly.dataset.r = t.r;
 
     if (t.height > 0) {
-      const bucket = Math.min(5, Math.max(1, t.height));
+      const bucket = Math.min(5, Math.max(1, -t.height));
       poly.setAttribute('filter', `url(#hexDropH${bucket})`);
     } else {
       poly.removeAttribute('filter');
@@ -2415,6 +2415,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
