@@ -655,7 +655,12 @@ function render() {
   tiles.forEach(t => {
     const poly = document.createElementNS(svgNS,'polygon');
     const terrain = TERRAINS[t.terrainIndex];
-    const brightnessOffset = t.height * 10;
+    
+      // --- HEIGHT SHADING: higher = darker (official), with clamp
+  const STEP = 8; // % per level (6–8 feels good)
+  let brightnessOffset = -t.height * STEP;                // <-- flipped
+  brightnessOffset = Math.max(-30, Math.min(30, brightnessOffset)); // <-- clamp
+    
     const fillColor = adjustLightness(terrain.fill, brightnessOffset);
     const strokeW = Math.max(1, size * 0.03);
 
@@ -2415,6 +2420,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
