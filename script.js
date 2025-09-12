@@ -292,6 +292,15 @@ function hexToHsl(hex) { hex = hex.replace('#',''); const n = parseInt(hex, 16);
 function hslToHex(h,s,l) { h/=360; s/=100; l/=100; function f(n){ const k = (n + h*12) % 12; const a = s * Math.min(l,1-l); const c = l - a * Math.max(-1, Math.min(k-3, Math.min(9-k,1))); return Math.round(255*c); } return "#" + [f(0),f(8),f(4)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 function adjustLightness(hex, deltaPct) { let {h,s,l} = hexToHsl(hex); l = Math.max(0, Math.min(100, l + deltaPct)); return hslToHex(h,s,l); }
 
+// higher = darker (official look) + clamped so it never hits pure black/white
+const STEP = 8;   // % lightness change per level (6–8 is a nice range)
+const MIN  = -30; // don't go darker than -30%
+const MAX  =  30; // don't go lighter than +30%
+
+let delta = -height * STEP;                  // <-- flip (minus sign)
+delta = Math.max(MIN, Math.min(MAX, delta)); // <-- clamp
+const col = adjustLightness(baseHex, delta);
+
 /* ---------- Autosave ---------- */
 function serializeState(){
   const meta = { cols, rows, hexSize };
@@ -2415,6 +2424,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
