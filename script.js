@@ -34,12 +34,12 @@ const TERRAINS = [
   { name: 'Rock',    fill: '#a3aab5', pat: 'pat-rock',    opacity: 0.25 },
   { name: 'Water',   fill: '#4c84d6', pat: 'pat-water',   opacity: 0.25 },
   { name: 'Sand',    fill: '#d7b37d', pat: 'pat-sand',    opacity: 0.22 },
-  { name: 'Asphalt', fill: '#2f3844', pat: 'pat-asphalt', opacity: 0.22 },
+  { name: 'Asphalt',  fill: '#3c4653', pat: 'pat-asphalt',  opacity: 0.22 },
   { name: 'Urban',   fill: '#b7bcc6', pat: 'pat-urban',   opacity: 0.22 },
   { name: 'Snow',    fill: '#e6edf5', pat: 'pat-snow',    opacity: 0.22 },
   { name: 'Ice',     fill: '#b7e1f2', pat: 'pat-ice',     opacity: 0.22 },
   { name: 'Lava',    fill: '#a83232', pat: 'pat-lava',    opacity: 0.35 },
-  { name: 'Volcanic', fill: '#1e1e1e', pat: 'pat-volcanic', opacity: 0.25 },
+  { name: 'Volcanic', fill: '#2a2a2a', pat: 'pat-volcanic', opacity: 0.22 },
   { name: 'Moon',    fill: '#c5c5c5', pat: 'pat-moon',    opacity: 0.20 },
   { name: 'paper', fill: '#f2eee3', pat: 'pat-paper', opacity: 1.0 }
 ];
@@ -714,49 +714,75 @@ function render() {
   }
 
   // Labels
-  tiles.forEach(t => {
-    const {x,y} = geom.get(key(t.q,t.r));
-    const cov = COVERS[t.coverIndex];
+tiles.forEach(t => {
+  const {x,y} = geom.get(key(t.q,t.r));
+  const cov = COVERS[t.coverIndex];
 
-    const fontMain  = Math.max(8, size * 0.25);
-    const fontSub   = Math.max(6, size * 0.18);
-    const fontCoord = Math.max(6, size * 0.16);
+  const fontMain  = Math.max(8, size * 0.25);
+  const fontSub   = Math.max(6, size * 0.18);
+  const fontCoord = Math.max(6, size * 0.16);
 
-    const terrain   = TERRAINS[t.terrainIndex];
-    const baseFill  = adjustLightness(terrain.fill, t.height * 10);
-    const isDark = relLum(baseFill) < 0.42;
-    const ink    = isDark ? '#f8f8f8' : '#0b0f14';
+  const terrain = TERRAINS[t.terrainIndex];
 
-    const label = document.createElementNS(svgNS,'text');
-    label.setAttribute('x', x); label.setAttribute('y', y);
-    label.setAttribute('class','lbl');
-    label.setAttribute('font-size', fontMain);
-    label.style.color = ink;
-    label.textContent = `${t.height}${cov==='None' ? '' : ' ' + COVER_ABBR[cov]}`;
-    gLabels.appendChild(label);
+  // --- use the SAME flipped shading as the hex fill (higher = darker)
+  const STEP = 8; // keep in sync with your hex fill STEP
+  let delta  = -t.height * STEP;
+  // optional: clamp so luminance doesn't go extreme
+  delta = Math.max(-30, Math.min(30, delta));
 
-    const terrainText = document.createElementNS(svgNS,'text');
-    terrainText.setAttribute('x', x);
-    terrainText.setAttribute('y', y + size*0.44);
-    terrainText.setAttribute('class','lbl');
-    terrainText.setAttribute('font-size', fontSub);
-    terrainText.style.color = ink;
-    terrainText.textContent = terrain.name;
-    gLabels.appendChild(terrainText);
+  const baseFill = adjustLightness(terrain.fill, delta);
 
-    const cc = String(t.q + 1).padStart(2,'0');
-    const rr = String(t.r + 1).padStart(2,'0');
-    const coord = document.createElementNS(svgNS,'text');
-    coord.setAttribute('x', (x - size*0.20).toFixed(2));
-    coord.setAttribute('y', (y - size*0.62).toFixed(2));
-    coord.setAttribute('class','coord');
-    coord.setAttribute('font-size', fontCoord);
-    coord.setAttribute('text-anchor','start');
-    coord.setAttribute('dominant-baseline','hanging');
-    coord.style.color = ink;
-    coord.textContent = cc + rr;
-    gLabels.appendChild(coord);
-  });
+  // luminance-driven ink choice
+  const isDark = relLum(baseFill) < 0.42; // 0.35–0.45 is a good band; tune to taste
+  const ink    = isDark ? '#f8f8f8' : '#0b0f14';
+
+  // optional: thin outline helps on busy textures
+  const stroke = isDark ? '#00000055' : '#ffffff66';
+
+  const label = document.createElementNS(svgNS,'text');
+  label.setAttribute('x', x);
+  label.setAttribute('y', y);
+  label.setAttribute('class','lbl');
+  label.setAttribute('font-size', fontMain);
+  label.setAttribute('text-anchor', 'middle');
+  label.setAttribute('dominant-baseline', 'middle');
+  label.setAttribute('fill', ink);               // <-- use fill, not style.color
+  label.setAttribute('stroke', stroke);          // optional halo
+  label.setAttribute('stroke-width', Math.max(0.6, size * 0.02));
+  label.setAttribute('paint-order', 'stroke');   // draw stroke under fill
+  label.textContent = `${t.height}${cov==='None' ? '' : ' ' + COVER_ABBR[cov]}`;
+  gLabels.appendChild(label);
+
+  const terrainText = document.createElementNS(svgNS,'text');
+  terrainText.setAttribute('x', x);
+  terrainText.setAttribute('y', y + size*0.44);
+  terrainText.setAttribute('class','lbl');
+  terrainText.setAttribute('font-size', fontSub);
+  terrainText.setAttribute('text-anchor', 'middle');
+  terrainText.setAttribute('dominant-baseline', 'middle');
+  terrainText.setAttribute('fill', ink);
+  terrainText.setAttribute('stroke', stroke);
+  terrainText.setAttribute('stroke-width', Math.max(0.5, size * 0.016));
+  terrainText.setAttribute('paint-order', 'stroke');
+  terrainText.textContent = terrain.name;
+  gLabels.appendChild(terrainText);
+
+  const cc = String(t.q + 1).padStart(2,'0');
+  const rr = String(t.r + 1).padStart(2,'0');
+  const coord = document.createElementNS(svgNS,'text');
+  coord.setAttribute('x', (x - size*0.20).toFixed(2));
+  coord.setAttribute('y', (y - size*0.62).toFixed(2));
+  coord.setAttribute('class','coord');
+  coord.setAttribute('font-size', fontCoord);
+  coord.setAttribute('text-anchor','start');
+  coord.setAttribute('dominant-baseline','hanging');
+  coord.setAttribute('fill', ink);               // <-- use fill
+  coord.setAttribute('stroke', stroke);          // optional halo
+  coord.setAttribute('stroke-width', Math.max(0.4, size * 0.014));
+  coord.setAttribute('paint-order', 'stroke');
+  coord.textContent = cc + rr;
+  gLabels.appendChild(coord);
+});
 
   // Tokens
   const fontTok = Math.max(7, hexSize * 0.22);
@@ -2420,6 +2446,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
