@@ -5,5 +5,6 @@
   { "id": "four_paper_30x34", "name": "Four Paper (30×34)", "file": "four_paper_30x34.json" },
   { "id": "terrain_example", "name": "Terrain Example", "file": "terrain_example.json" },
   { "id": "bm_grassland", "name": "BM Grassland", "file": "bm_grassland.json" },
-  { "id": "bm_grassland_b", "name": "BM Grassland b", "file": "bm_grassland_b.json" }
+  { "id": "bm_grassland_b", "name": "BM Grassland b", "file": "bm_grassland_b.json" },
+  { "id": "bm_grassland_c", "name": "BM Grassland c", "file": "bm_grassland_c.json" }
 ]
