@@ -34,12 +34,12 @@ const TERRAINS = [
   { name: 'Rock',    fill: '#a3aab5', pat: 'pat-rock',    opacity: 0.25 },
   { name: 'Water',   fill: '#4c84d6', pat: 'pat-water',   opacity: 0.25 },
   { name: 'Sand',    fill: '#d7b37d', pat: 'pat-sand',    opacity: 0.22 },
-  { name: 'Asphalt', fill: '#aba7a3', pat: 'pat-asphalt', opacity: 0.22 },
-  { name: 'Urban',   fill: '#b7bcc6', pat: 'pat-urban',   opacity: 0.22 },
-  { name: 'Snow',    fill: '#e6edf5', pat: 'pat-snow',    opacity: 0.22 },
+  { name: 'Asphalt', fill: '#5A5C5E', pat: 'pat-asphalt', opacity: 0.22 },
+  { name: 'Urban',   fill: '#5b687d', pat: 'pat-urban',   opacity: 0.22 },
+  { name: 'Snow',    fill: '#d8e6e5', pat: 'pat-snow',    opacity: 0.22 },
   { name: 'Ice',     fill: '#b7e1f2', pat: 'pat-ice',     opacity: 0.22 },
   { name: 'Lava',    fill: '#a83232', pat: 'pat-lava',    opacity: 0.35 },
-  { name: 'Volcanic', fill: '#ad9a93', pat: 'pat-volcanic', opacity: 0.25 },
+  { name: 'Volcanic', fill: '#4A2C2A', pat: 'pat-volcanic', opacity: 0.25 },
   { name: 'Moon',    fill: '#c5c5c5', pat: 'pat-moon',    opacity: 0.20 },
   { name: 'paper', fill: '#f2eee3', pat: 'pat-paper', opacity: 1.0 }
 ];
@@ -2415,6 +2415,7 @@ function applyPreset(preset) {
 
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
+
 
 
 
