@@ -33,17 +33,19 @@ html,body{overflow:hidden;}
 }
 
 /* ---------- Top bar ---------- */
-.ui-topbar {
-  display: flex;
-  flex-wrap: wrap;          /* allow buttons to wrap */
-  align-items: center;
-  gap: 12px;
-  padding: 6px 10px;
-  background: #121826;
-  border-bottom: 1px solid var(--border);
-  margin-top: 0 !important;
-  height: auto;             /* 🔥 let it grow if it wraps */
-  min-height: 48px;         /* keep your base size */
+/* replace your .ui-topbar block */
+.ui-topbar{
+  /* was height:48px; */
+  height:auto;              /* allow multiple rows */
+  min-height:48px;          /* keep at least one-row height */
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:6px 10px;
+  background:#121826;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;           /* already there, keep it */
+  margin-top:0 !important;
 }
 
 /* Toolbar buttons */
