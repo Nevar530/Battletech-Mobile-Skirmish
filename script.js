@@ -2425,7 +2425,17 @@ function applyPreset(preset) {
 window.addEventListener('load', loadPresetList);
 
 
+// Receive opponent moves
+Net.onDelta = (delta) => {
+  applyDelta(delta); // your existing deterministic updater
+};
 
+// Example: when you move a token locally
+function sendMoveToken(id, q, r){
+  const d = { type:'MOVE_TOKEN', id, q, r };
+  applyDelta(d);
+  Net.sendDelta(d);
+}
 
 
 
