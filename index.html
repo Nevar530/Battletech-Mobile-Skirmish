@@ -393,34 +393,59 @@
     <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
   </div>
 
+
+
 <!-- ==== Networking + Game ==== -->
-  <script type="module" src="network.js"></script>
-  <script src="script.js"></script>
+<!-- Networking module (must be a module) -->
+<script type="module" src="network.js"></script>
 
-  <!-- ==== Online button handler ==== -->
-  <script>
-    document.getElementById('btn-online')?.addEventListener('click', async () => {
+<!-- Your main game code (classic is fine) -->
+<script src="script.js"></script>
+
+<!-- Online button handler as a module so it runs after network.js -->
+<script type="module">
+  // Wait until Net is available (in case the module is still initializing)
+  function whenNetReady() {
+    return new Promise(resolve => {
+      if (window.Net && typeof Net.joinRoom === 'function') return resolve();
+      const t = setInterval(() => {
+        if (window.Net && typeof Net.joinRoom === 'function') {
+          clearInterval(t);
+          resolve();
+        }
+      }, 20);
+      setTimeout(() => { clearInterval(t); resolve(); }, 3000); // safety timeout
+    });
+  }
+
+  const btn = document.getElementById('btn-online');
+  if (btn) {
+    btn.addEventListener('click', async () => {
+      await whenNetReady();
+      if (!window.Net || typeof Net.joinRoom !== 'function') {
+        alert('Networking not ready. Reload and try again.');
+        return;
+      }
+
+      const code = prompt('Enter 3 words (e.g., "rat-man-dog")');
+      if (!code) return;
+
+      const name = prompt('Your name?') || 'Player';
+      try { await Net.identify({ name }); } catch {}
+
       try {
-        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
-        if (!code) return;
-
-        const name = prompt('Your name?') || 'Player';
-        if (Net.identify) Net.identify({ name }); // safe if available
-
         const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
-        // Ask host for full state immediately
-        if (Net.sendDelta) Net.sendDelta({ type: 'SNAPSHOT_REQUEST' });
-
-        alert('Joined: ' + roomId + '\nShare the same 3 words with your opponent.');
+        alert('Joined room: ' + roomId + '\nShare the same 3 words with your opponent.');
       } catch (e) {
-        alert(e?.message || 'Failed to join');
+        alert(e?.message || 'Failed to join room');
       }
     });
+  }
 
-    // Make sure the snapshot provider is registered once
-    if (window.Net && typeof serializeState === 'function') {
-      Net.registerSnapshotProvider(() => JSON.parse(serializeState()));
-    }
-  </script>
+  // Wire deltas to your game (Net.onDelta is read by the glue in script.js too; harmless if both set)
+  if (window.Net && typeof applyDelta === 'function') {
+    Net.onDelta = (delta) => applyDelta(delta);
+  }
+</script>
 </body>
 </html>
