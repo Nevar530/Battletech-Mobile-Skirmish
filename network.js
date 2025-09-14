@@ -156,3 +156,10 @@ function ensureAuth() {
     });
   });
 }
+
+// === put this at the very bottom of network.js ===
+(async () => {
+  try { await (typeof ensureAuth === "function" ? ensureAuth() : Promise.resolve()); } catch {}
+  // let the page know Net is ready
+  window.dispatchEvent(new Event("net-ready"));
+})();
