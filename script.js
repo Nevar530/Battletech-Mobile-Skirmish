@@ -295,29 +295,40 @@ function adjustLightness(hex, deltaPct) { let {h,s,l} = hexToHsl(hex); l = Math.
 /* ---------- Autosave and Send ---------- */
 function serializeState(){
   const meta = { cols, rows, hexSize };
-  const data = [...tiles.values()].map(t => ({
-    q:t.q, r:t.r, h:t.height,
-    ter:t.terrainIndex, cov:t.coverIndex
-  }));
-  const tok = tokens.map(t => ({
-    id:t.id, q:t.q, r:t.r,
-    scale:t.scale, angle:t.angle,
-    colorIndex:t.colorIndex, label:t.label
-  }));
-  const metaMap = {};
-  mechMeta.forEach((v,k)=>{ metaMap[k]=v; });
 
-  // 🔥 NEW: include initiative
+  const data = [...tiles.values()].map(t => ({
+    q: t.q, r: t.r,
+    h: t.height,
+    ter: t.terrainIndex,
+    cov: t.coverIndex
+  }));
+
+  const tok = tokens.map(t => ({
+    id: t.id, q: t.q, r: t.r,
+    scale: t.scale,
+    angle: t.angle,
+    colorIndex: t.colorIndex,
+    label: t.label
+  }));
+
+  const metaMap = {};
+  mechMeta.forEach((v, k) => { metaMap[k] = v; });
+
+  // include initiative (flat fields for compatibility)
+  const safeInitOrder = Array.isArray(initOrder)
+    ? initOrder.map(o => ({ id: o.id, roll: o.roll }))
+    : [];
+  const safeInitIndex = Number.isFinite(initIndex) ? initIndex : -1;
+
   return JSON.stringify({
     meta,
     data,
     tokens: tok,
     mechMeta: metaMap,
-    initOrder,
-    initIndex
+    initOrder: safeInitOrder,
+    initIndex: safeInitIndex
   });
 }
-
 function saveLocal(){
   try { localStorage.setItem('hexmap_autosave', serializeState()); } catch {}
 }
@@ -1959,10 +1970,13 @@ function applyState(obj){
     elRows.value = rows;
     elHex.value  = hexSize;
 
+    // rebuild tile grid
     tiles.clear();
-    for (let r=0; r<rows; r++) for (let q=0; q<cols; q++)
+    for (let r = 0; r < rows; r++) for (let q = 0; q < cols; q++){
       tiles.set(key(q,r), { q, r, height:0, terrainIndex:0, coverIndex:0 });
+    }
 
+    // paint incoming data onto grid
     if (Array.isArray(obj.data)) {
       obj.data.forEach(d => {
         const k = key(d.q, d.r);
@@ -1974,25 +1988,32 @@ function applyState(obj){
       });
     }
 
+    // tokens
     tokens = Array.isArray(obj.tokens) ? obj.tokens.map(t => ({
-      id: t.id || (String(Date.now())+Math.random().toString(16).slice(2,6)),
-      q: clamp(t.q||0,0,cols-1),
-      r: clamp(t.r||0,0,rows-1),
-      scale: clamp(t.scale||1,0.4,2),
-      angle: (t.angle||0)%360,
-      colorIndex: (t.colorIndex||0)%TEAMS.length,
-      label: (t.label || 'MECH').slice(0,24)
+      id: t.id || (String(Date.now()) + Math.random().toString(16).slice(2,6)),
+      q: clamp(t.q ?? 0, 0, cols-1),
+      r: clamp(t.r ?? 0, 0, rows-1),
+      scale: clamp(t.scale ?? 1, 0.4, 2),
+      angle: ((t.angle ?? 0) % 360 + 360) % 360,
+      colorIndex: ((t.colorIndex ?? 0) % TEAMS.length + TEAMS.length) % TEAMS.length,
+      label: (t.label || 'MECH').slice(0, 24)
     })) : [];
 
+    // mech meta
     mechMeta.clear();
     if (obj.mechMeta && typeof obj.mechMeta === 'object') {
-      for (const [id,m] of Object.entries(obj.mechMeta)) mechMeta.set(id, m);
+      for (const [id, m] of Object.entries(obj.mechMeta)) mechMeta.set(id, m);
     }
 
-    // 🔥 restore initiative if present
-    if (Array.isArray(obj.initOrder)) initOrder = obj.initOrder;
-    if (Number.isFinite(obj.initIndex)) initIndex = obj.initIndex;
+    // initiative (flat fields)
+    if (Array.isArray(obj.initOrder)) {
+      initOrder = obj.initOrder.map(o => ({ id: o.id, roll: o.roll }));
+    } else {
+      initOrder = [];
+    }
+    initIndex = Number.isFinite(obj.initIndex) ? obj.initIndex : -1;
 
+    // reset transient UI
     selectedTokenId = null;
     measurement = null;
     losSource = null;
