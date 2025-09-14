@@ -399,19 +399,20 @@
 
   <!-- Minimal join flow for the Online button -->
   <script>
-    document.getElementById('btn-online')?.addEventListener('click', async () => {
-      try {
-        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
-        if (!code) return;
-        const name = prompt('Your name?') || 'Player';
-        Net.identify({ name });
-        const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
-        alert('Joined room: ' + roomId + '\nShare the same 3 words with your opponent.');
-      } catch (e) {
-        alert(e?.message || 'Failed to join room');
-      }
-    });
-  </script>
+    <script>
+  document.getElementById('btn-online')?.addEventListener('click', async () => {
+    try {
+      const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+      if (!code) return;
+      const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
+      // ask the host for a fresh snapshot (network.js answers this)
+      Net.sendDelta({ type: 'SNAPSHOT_REQUEST' });
+      alert('Joined: ' + roomId + '\nShare the same 3 words with your opponent.');
+    } catch (e) {
+      alert(e.message || 'Failed to join');
+    }
+  });
+</script>
   <!-- ==== /wiring ==== -->
 </body>
 </html>
