@@ -1,231 +1,173 @@
-// network.js  — Firestore-based realtime transport for Battletech Mobile Skirmish
-// Requires Firebase App + Firestore already initialized in index.html.
-// index.html should load this file BEFORE script.js.
+// network.js  (type="module")
+// Minimal Firestore transport for two-player “local-feel” online play.
 
-// Import Firestore as an ES module (safe even if app is already initialized)
+import { getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
-  getFirestore, doc, collection, setDoc, getDoc, addDoc,
-  serverTimestamp, onSnapshot, query, orderBy, limit, updateDoc
+  getFirestore, doc, setDoc, getDoc, onSnapshot,
+  collection, addDoc, serverTimestamp, query, orderBy, limit
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {
+  getAuth, signInAnonymously, onAuthStateChanged, updateProfile
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-// Use existing app created in index.html, or initialize defensively if missing
-const app = getApps()[0] ?? initializeApp(window.FIREBASE_CONFIG);
+// ---- Firebase handles (re-uses the app you init in index.html) ----
+const app = getApp();
 const db  = getFirestore(app);
+const auth = getAuth(app);
 
-// ---------- Small helpers ----------
-const sleep = (ms)=>new Promise(r=>setTimeout(r,ms));
+// ---- local identity ----
+let me = { uid: null, name: "Player" };
+await ensureAuth();
 
-// Normalize a "3 words" code → a firestore-friendly id
-function codeToRoomId(code) {
-  return String(code || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')        // non-alnum → dash
-    .replace(/^-+|-+$/g, '')            // trim dashes
-    .slice(0, 64) || 'room';
-}
+// ---- room/session ----
+let roomId = null;
+let deltasUnsub = null;
+let stateUnsub  = null;
+let snapshotProvider = null;
 
-// Make a simple client id (no PII)
-function makeClientId() {
-  return 'c_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-}
-
-// ---------- Module state ----------
-const state = {
-  roomId: null,
-  clientId: makeClientId(),
-  profile: { name: `Player-${Math.floor(Math.random()*900+100)}` },
-  unsubEvents: null,
-  unsubRoom: null,
-  heartbeatTimer: null,
-  isHost: false,           // first writer of the room doc
-  snapshotProvider: null,  // () => object
-};
-
-// ---------- Public: identify ----------
-function identify(info = {}) {
-  if (info && info.name) {
-    state.profile.name = String(info.name).slice(0, 32);
-  }
-}
-
-// ---------- Heartbeat / presence ----------
-async function startHeartbeat() {
-  stopHeartbeat();
-  const pRef = doc(db, 'rooms', state.roomId, 'players', state.clientId);
-  // create/update player doc
-  await setDoc(pRef, {
-    name: state.profile.name,
-    lastSeen: serverTimestamp()
-  }, { merge: true });
-
-  state.heartbeatTimer = setInterval(async () => {
-    try {
-      await updateDoc(pRef, { lastSeen: serverTimestamp() });
-    } catch (_) {}
-  }, 15_000); // every 15s
-}
-function stopHeartbeat() {
-  if (state.heartbeatTimer) {
-    clearInterval(state.heartbeatTimer);
-    state.heartbeatTimer = null;
-  }
-}
-
-// ---------- Events stream ----------
-async function sendDelta(payload) {
-  if (!state.roomId) throw new Error('Not in a room');
-  // Ensure a minimal shape
-  const msg = {
-    kind: 'DELTA',
-    from: state.clientId,
-    name: state.profile.name,
-    ts: serverTimestamp(),
-    payload
-  };
-  await addDoc(collection(db, 'rooms', state.roomId, 'events'), msg);
-}
-
-// Host can push a full snapshot (first-sync for new joinees)
-async function sendSnapshot(obj) {
-  if (!state.roomId || !state.isHost) return;
-  const msg = {
-    kind: 'SNAPSHOT',
-    from: state.clientId,
-    name: state.profile.name,
-    ts: serverTimestamp(),
-    payload: { type:'SNAPSHOT', state: obj || {} }
-  };
-  await addDoc(collection(db, 'rooms', state.roomId, 'events'), msg);
-}
-
-// ---------- Join / leave ----------
-async function joinRoom(code, options = {}) {
-  const roomId = codeToRoomId(code);
-  state.roomId = roomId;
-
-  const roomRef = doc(db, 'rooms', roomId);
-  const snap = await getDoc(roomRef);
-
-  if (!snap.exists()) {
-    // Create the room (become host)
-    await setDoc(roomRef, {
-      createdAt: serverTimestamp(),
-      createdBy: state.clientId,
-      maxPlayers: options.maxPlayers ?? 2
-    });
-    state.isHost = true;
-  } else {
-    state.isHost = (snap.data()?.createdBy === state.clientId); // usually false
-  }
-
-  // (Re)start presence
-  await startHeartbeat();
-
-  // Start listening to events (newest last)
-  const evCol  = collection(db, 'rooms', roomId, 'events');
-  const evQ    = query(evCol, orderBy('ts', 'asc')); // stream all, ordered
-
-  // Clean prior listener if any
-  state.unsubEvents && state.unsubEvents();
-
-  // Keep a simple cursor so we don't replay twice on hot reloads
-  let firstBatch = true;
-  const seen = new Set();
-
-  state.unsubEvents = onSnapshot(evQ, (qs) => {
-    qs.docChanges().forEach(change => {
-      if (change.type !== 'added') return;
-      const id  = change.doc.id;
-      if (seen.has(id)) return;
-      seen.add(id);
-
-      const data = change.doc.data();
-      if (!data || !data.kind) return;
-
-      // Feed game
-      if (data.kind === 'SNAPSHOT') {
-        if (typeof window.Delta?.applyToGame === 'function') {
-          window.Delta.applyToGame(data.payload);
-        } else if (typeof window.applyDelta === 'function') {
-          // Your script.js can also accept SNAPSHOT via applyDelta
-          window.applyDelta(data.payload);
-        }
-      } else if (data.kind === 'DELTA') {
-        const payload = data.payload;
-        if (typeof window.Delta?.applyToGame === 'function') {
-          window.Delta.applyToGame(payload);
-        } else if (typeof window.applyDelta === 'function') {
-          window.applyDelta(payload);
-        } else if (typeof Net.onDelta === 'function') {
-          Net.onDelta(payload);
-        }
-      }
-    });
-
-    // After initial catch-up, if we're the host and we have a snapshot provider,
-    // push a snapshot once so a late joiner gets the current board.
-    if (firstBatch) {
-      firstBatch = false;
-      // slight delay so the joiner finishes wiring listeners
-      if (state.isHost && state.snapshotProvider) {
-        sleep(400).then(async () => {
-          try {
-            const snapObj = await state.snapshotProvider();
-            await sendSnapshot(snapObj);
-          } catch (_) {}
-        });
+// Public API container
+const Net = {
+  /** Optional: set display name; updates presence when in a room */
+  async identify({ name }) {
+    if (typeof name === "string" && name.trim()) {
+      me.name = name.trim().slice(0, 32);
+      try { await updateProfile(auth.currentUser, { displayName: me.name }); } catch {}
+      if (roomId) {
+        await setDoc(doc(db, "rooms", roomId, "players", me.uid), {
+          name: me.name, updatedAt: serverTimestamp()
+        }, { merge: true });
       }
     }
-  });
+  },
 
-  // Optional: also watch the room header for future host transfers, etc.
-  state.unsubRoom && state.unsubRoom();
-  state.unsubRoom = onSnapshot(roomRef, () => { /* reserved */ });
+  /** Provide a function that returns your full game state (plain object) */
+  registerSnapshotProvider(fn) { snapshotProvider = fn; },
 
-  return roomId;
-}
+  /** Create/join a room (3-word code like “rat-man-dog”) */
+  async joinRoom(code, { maxPlayers = 2 } = {}) {
+    if (!me.uid) await ensureAuth();
+    roomId = normalizeCode(code);
+    if (!roomId) throw new Error("Bad room code");
 
-function leaveRoom() {
-  try { state.unsubEvents && state.unsubEvents(); } catch {}
-  try { state.unsubRoom && state.unsubRoom(); } catch {}
-  stopHeartbeat();
-  state.unsubEvents = null;
-  state.unsubRoom   = null;
-  state.roomId      = null;
-  state.isHost      = false;
-}
+    // Create/merge room doc
+    const roomRef = doc(db, "rooms", roomId);
+    await setDoc(roomRef, {
+      createdAt: serverTimestamp(),
+      createdBy: me.uid,
+      maxPlayers
+    }, { merge: true });
 
-// ---------- Snapshot provider from the game ----------
-function registerSnapshotProvider(fn) {
-  state.snapshotProvider = (typeof fn === 'function') ? fn : null;
-}
+    // Presence
+    await setDoc(doc(db, "rooms", roomId, "players", me.uid), {
+      name: me.name,
+      joinedAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    }, { merge: true });
 
-// ---------- Fallback wiring for Delta.js (if you use it) ----------
-/*
-  If you’re using the earlier delta.js facade, you can connect it like this in script.js:
+    // 1) Load snapshot if present
+    const snapRef = doc(db, "rooms", roomId, "state", "snapshot");
+    const snapDoc = await getDoc(snapRef);
+    if (snapDoc.exists()) {
+      const data = snapDoc.data();
+      const state = data?.state;
+      if (state && window.Net?.onDelta) {
+        // Deliver as a SNAPSHOT message to game
+        try { Net.onDelta({ type: "SNAPSHOT", state }); } catch {}
+      }
+    } else {
+      // No snapshot yet → if we’re the first/host and we can export, publish one
+      if (snapshotProvider) {
+        try {
+          const state = snapshotProvider();
+          await setDoc(snapRef, { state, updatedAt: serverTimestamp() });
+          // also notify peer as a delta (harmless if they miss it; they read doc above)
+          await addDoc(collection(db, "rooms", roomId, "deltas"), {
+            type: "SNAPSHOT",
+            state,
+            uid: me.uid,
+            ts: serverTimestamp()
+          });
+        } catch (e) { console.warn("Snapshot publish failed:", e); }
+      }
+    }
 
-  Delta.setHooks({
-    apply: (d)=>applyDelta(d),               // your local reducer
-    exportState: ()=> JSON.parse(serializeState()),
-    importState: (obj)=> applyState(obj)
-  });
+    // 2) Live deltas listener (ignore our own)
+    const deltasRef = collection(db, "rooms", roomId, "deltas");
+    const q = query(deltasRef, orderBy("ts", "asc"), limit(200));
+    deltasUnsub?.(); // safety
+    deltasUnsub = onSnapshot(q, (qs) => {
+      qs.docChanges().forEach(change => {
+        if (change.type !== "added") return;
+        const d = change.doc.data();
+        if (!d || d.uid === me.uid) return;
+        // Deliver to game
+        try { Net.onDelta && Net.onDelta(stripFirestoreMeta(d)); } catch {}
+      });
+    });
 
-  Then call:
-    Net.registerSnapshotProvider(()=> Delta.exportGame());
-*/
-  
-// ---------- Public API ----------
-const Net = {
-  identify,                 // set player name
-  joinRoom,                 // join/create a room by 3-word code
-  leaveRoom,
-  sendDelta,                // send {type:...,...}
-  registerSnapshotProvider, // set () => object for host to send full state
-  onDelta: null             // optional callback if you prefer Net.onDelta = (d)=>...
+    // 3) Also watch snapshot doc so late joins get updates if host overwrites it
+    stateUnsub?.();
+    stateUnsub = onSnapshot(snapRef, (docSnap) => {
+      if (!docSnap.exists()) return;
+      const data = docSnap.data();
+      const state = data?.state;
+      if (state && Net.onDelta) {
+        try { Net.onDelta({ type: "SNAPSHOT", state }); } catch {}
+      }
+    });
+
+    return roomId;
+  },
+
+  /** Send a game delta (plain object). Will be seen by the other player. */
+  async sendDelta(delta) {
+    if (!roomId) throw new Error("Not in a room");
+    if (!delta || typeof delta !== "object") return;
+
+    // If someone explicitly sends a SNAPSHOT delta, persist it to the snapshot doc too
+    if (delta.type === "SNAPSHOT" && delta.state) {
+      await setDoc(doc(db, "rooms", roomId, "state", "snapshot"), {
+        state: delta.state, updatedAt: serverTimestamp()
+      }, { merge: true });
+    }
+
+    await addDoc(collection(db, "rooms", roomId, "deltas"), {
+      ...delta,
+      uid: me.uid,
+      ts: serverTimestamp()
+    });
+  },
+
+  /** Your game sets this: (delta) => void */
+  onDelta: null,
 };
 
-// Expose globally for your inline script
+// expose
 window.Net = Net;
 
-export default Net;
+/* ---------- helpers ---------- */
+function normalizeCode(code) {
+  return String(code || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 48);
+}
+function stripFirestoreMeta(d) {
+  const { ts, uid, ...rest } = d || {};
+  return rest;
+}
+async function ensureAuth() {
+  return new Promise((resolve) => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        me.uid = user.uid;
+        me.name = user.displayName || me.name;
+        resolve();
+      } else {
+        await signInAnonymously(auth);
+        // onAuthStateChanged will fire again and resolve
+      }
+    });
+  });
+}
