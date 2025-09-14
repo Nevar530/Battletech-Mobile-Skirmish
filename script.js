@@ -2620,7 +2620,7 @@ window.addEventListener('load', loadPresetList);
 })();
 
 
-
+Net.registerSnapshotProvider(() => JSON.parse(serializeState()));
 
 
 
