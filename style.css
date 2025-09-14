@@ -78,6 +78,13 @@ html,body{overflow:hidden;}
   display:inline-block; width:18px;height:18px;border-radius:4px; box-shadow:0 0 0 1px #0006;
 }
 
+.toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%; /* pushes this block to a new line */
+}
+
 /* ---------- Panels (drawers) ---------- */
 .panel{
   position:fixed;top:calc(48px + var(--app-top-offset));bottom:0;width:340px;background:var(--panel);
