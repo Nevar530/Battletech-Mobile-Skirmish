@@ -393,26 +393,34 @@
     <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
   </div>
 
-  <!-- ==== Load networking first, then your main game script ==== -->
+<!-- ==== Networking + Game ==== -->
   <script type="module" src="network.js"></script>
   <script src="script.js"></script>
 
-  <!-- Minimal join flow for the Online button -->
+  <!-- ==== Online button handler ==== -->
   <script>
-    <script>
-  document.getElementById('btn-online')?.addEventListener('click', async () => {
-    try {
-      const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
-      if (!code) return;
-      const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
-      // ask the host for a fresh snapshot (network.js answers this)
-      Net.sendDelta({ type: 'SNAPSHOT_REQUEST' });
-      alert('Joined: ' + roomId + '\nShare the same 3 words with your opponent.');
-    } catch (e) {
-      alert(e.message || 'Failed to join');
+    document.getElementById('btn-online')?.addEventListener('click', async () => {
+      try {
+        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+        if (!code) return;
+
+        const name = prompt('Your name?') || 'Player';
+        if (Net.identify) Net.identify({ name }); // safe if available
+
+        const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
+        // Ask host for full state immediately
+        if (Net.sendDelta) Net.sendDelta({ type: 'SNAPSHOT_REQUEST' });
+
+        alert('Joined: ' + roomId + '\nShare the same 3 words with your opponent.');
+      } catch (e) {
+        alert(e?.message || 'Failed to join');
+      }
+    });
+
+    // Make sure the snapshot provider is registered once
+    if (window.Net && typeof serializeState === 'function') {
+      Net.registerSnapshotProvider(() => JSON.parse(serializeState()));
     }
-  });
-</script>
-  <!-- ==== /wiring ==== -->
+  </script>
 </body>
 </html>
