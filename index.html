@@ -393,46 +393,50 @@
     <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
   </div>
 
-
-<!-- Firebase & game networking -->
+<!-- Firebase/Firestore networking (module) -->
 <script type="module" src="network.js"></script>
 
-<!-- Your main game code (also as a module so it runs after imports are resolved) -->
-<script type="module" src="script.js"></script>
+<!-- Your game code (classic script so globals are on window) -->
+<script src="script.js"></script>
 
+<!-- Online button + snapshot glue -->
 <script>
-  (function attachOnline(){
+  (function () {
     const btn = document.getElementById('btn-online');
     if (!btn) return;
 
-    function wire() {
-      btn.disabled = false;
-      btn.addEventListener('click', async () => {
-        try {
-          const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
-          if (!code) return;
-          const name = prompt('Your name?') || 'Player';
-          window.Net?.identify({ name });
-          const roomId = await window.Net.joinRoom(code, { maxPlayers: 2 });
-          alert('Joined room: ' + roomId + '\nShare the same 3 words with your opponent.');
-        } catch (e) {
-          alert(e?.message || 'Failed to join room');
+    btn.addEventListener('click', async () => {
+      try {
+        if (!window.Net || typeof window.Net.joinRoom !== 'function') {
+          alert('Still starting networking… try again in a moment.');
+          return;
         }
-      }, { once: true }); // avoid double-binding on hot reloads
-    }
+        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+        if (!code) return;
 
-    // If Net is already there, wire immediately; else wait for the ping
-    if (window.Net) {
-      wire();
-    } else {
-      btn.disabled = true;
-      window.addEventListener('net-ready', wire, { once: true });
-    }
+        const name = prompt('Your name?') || 'Player';
+        try { window.Net.identify({ name }); } catch {}
 
-    // Also register snapshot provider now that script.js is loaded
-    window.Net?.registerSnapshotProvider(() => {
-      try { return JSON.parse(serializeState()); } catch { return {}; }
+        const roomId = await window.Net.joinRoom(code, { maxPlayers: 2 });
+        alert('Joined room: ' + roomId + '\nShare the same 3 words with your opponent.');
+      } catch (e) {
+        alert(e?.message || 'Failed to join room');
+      }
     });
+
+    // Register snapshot provider once game globals exist
+    const tryRegisterSnapshot = () => {
+      if (window.Net && typeof serializeState === 'function') {
+        try {
+          window.Net.registerSnapshotProvider(() => {
+            try { return JSON.parse(serializeState()); } catch { return {}; }
+          });
+        } catch {}
+      }
+    };
+
+    tryRegisterSnapshot();
+    window.addEventListener('net-ready', tryRegisterSnapshot);
   })();
 </script>
 </body>
