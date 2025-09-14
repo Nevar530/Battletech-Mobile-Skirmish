@@ -292,15 +292,36 @@ function hexToHsl(hex) { hex = hex.replace('#',''); const n = parseInt(hex, 16);
 function hslToHex(h,s,l) { h/=360; s/=100; l/=100; function f(n){ const k = (n + h*12) % 12; const a = s * Math.min(l,1-l); const c = l - a * Math.max(-1, Math.min(k-3, Math.min(9-k,1))); return Math.round(255*c); } return "#" + [f(0),f(8),f(4)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 function adjustLightness(hex, deltaPct) { let {h,s,l} = hexToHsl(hex); l = Math.max(0, Math.min(100, l + deltaPct)); return hslToHex(h,s,l); }
 
-/* ---------- Autosave ---------- */
+/* ---------- Autosave and Send ---------- */
 function serializeState(){
   const meta = { cols, rows, hexSize };
-  const data = [...tiles.values()].map(t => ({ q:t.q, r:t.r, h:t.height, ter:t.terrainIndex, cov:t.coverIndex }));
-  const tok  = tokens.map(t => ({ id:t.id, q:t.q, r:t.r, scale:t.scale, angle:t.angle, colorIndex:t.colorIndex, label:t.label }));
-  const metaMap = {}; mechMeta.forEach((v,k)=>{ metaMap[k]=v; });
-  return JSON.stringify({ meta, data, tokens: tok, mechMeta: metaMap });
+  const data = [...tiles.values()].map(t => ({
+    q:t.q, r:t.r, h:t.height,
+    ter:t.terrainIndex, cov:t.coverIndex
+  }));
+  const tok = tokens.map(t => ({
+    id:t.id, q:t.q, r:t.r,
+    scale:t.scale, angle:t.angle,
+    colorIndex:t.colorIndex, label:t.label
+  }));
+  const metaMap = {};
+  mechMeta.forEach((v,k)=>{ metaMap[k]=v; });
+
+  // 🔥 NEW: include initiative
+  return JSON.stringify({
+    meta,
+    data,
+    tokens: tok,
+    mechMeta: metaMap,
+    initOrder,
+    initIndex
+  });
 }
-function saveLocal(){ try { localStorage.setItem('hexmap_autosave', serializeState()); } catch {} }
+
+function saveLocal(){
+  try { localStorage.setItem('hexmap_autosave', serializeState()); } catch {}
+}
+
 function loadLocal(){
   try {
     const raw = localStorage.getItem('hexmap_autosave');
@@ -1968,6 +1989,10 @@ function applyState(obj){
       for (const [id,m] of Object.entries(obj.mechMeta)) mechMeta.set(id, m);
     }
 
+    // 🔥 restore initiative if present
+    if (Array.isArray(obj.initOrder)) initOrder = obj.initOrder;
+    if (Number.isFinite(obj.initIndex)) initIndex = obj.initIndex;
+
     selectedTokenId = null;
     measurement = null;
     losSource = null;
@@ -1983,7 +2008,6 @@ function applyState(obj){
     alert('Failed to load state/preset.');
   }
 }
-
 /* Hook the select to apply presets
 if (elPresets) elPresets.addEventListener('change', (e)=>{
   const id = e.target.value;
