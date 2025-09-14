@@ -11,11 +11,27 @@
 
   <!-- ==== Firebase init (default app + Firestore, exposed globally) ==== -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+    import { initializeApp } from <!-- ==== Firebase Init ==== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDOh34aMfltGvEHzI-weStxmmh8amTSgZw",
+  // Copy this block exactly from Firebase Console
+  const firebaseConfig = {
+    apiKey: "AIzaSyDoh34aMfltGvEHz-weStxmmh8amTSgZw",
+    authDomain: "battletech-mobile-skirmish.firebaseapp.com",
+    projectId: "battletech-mobile-skirmish",
+    storageBucket: "battletech-mobile-skirmish.appspot.com",
+    messagingSenderId: "634008003123",
+    appId: "1:634008003123:web:bceb3b9392d15b1bb66fca",
+    measurementId: "G-M48HZ3ZEV9"
+  };
+
+  // Initialize Firebase so network.js can pick it up
+  const app = initializeApp(firebaseConfig);
+  window.db = getFirestore(app); // optional: expose db if you need it
+  window.FIREBASE_CONFIG = firebaseConfig; // let network.js reuse config
+</script>MfltGvEHzI-weStxmmh8amTSgZw",
       authDomain: "battletech-mobile-skirmish.firebaseapp.com",
       projectId: "battletech-mobile-skirmish",
       storageBucket: "battletech-mobile-skirmish.firebasestorage.app",
