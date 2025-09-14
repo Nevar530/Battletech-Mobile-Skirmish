@@ -1,33 +1,52 @@
-// network.js (type="module")
-// Minimal Firestore transport for two-player online play.
-
+// network.js  (type="module")
 import { getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getFirestore, doc, setDoc, getDoc, onSnapshot,
   collection, addDoc, serverTimestamp, query, orderBy, limit
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import {
-  getAuth, signInAnonymously, onAuthStateChanged, updateProfile
+  getAuth, signInAnonymously, updateProfile
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-/* Firebase handles (reuse app from index.html) */
+// Reuse the app you initialized in index.html
 const app  = getApp();
 const db   = getFirestore(app);
 const auth = getAuth(app);
 
-/* Local identity and room state */
+// Local identity
 let me = { uid: null, name: "Player" };
+
+// Attach immediately; if anonymous sign-in is disabled you’ll get a clear error
+async function ensureAuth() {
+  if (auth.currentUser) {
+    me.uid  = auth.currentUser.uid;
+    me.name = auth.currentUser.displayName || me.name;
+    return;
+  }
+  try {
+    const cred = await signInAnonymously(auth);
+    me.uid  = cred.user.uid;
+    me.name = cred.user.displayName || me.name;
+  } catch (e) {
+    if (e?.code === 'auth/operation-not-allowed') {
+      throw new Error('Anonymous sign-in is disabled in Firebase → Authentication → Sign-in method → Anonymous.');
+    }
+    throw new Error('Auth failed: ' + (e?.message || e));
+  }
+}
+
+// Room/session state
 let roomId = null;
 let deltasUnsub = null;
 let stateUnsub  = null;
 let snapshotProvider = null;
 
-/* Public API */
+// Public API
 const Net = {
   async identify({ name }) {
     if (typeof name === "string" && name.trim()) {
       me.name = name.trim().slice(0, 32);
-      try { if (auth.currentUser) await updateProfile(auth.currentUser, { displayName: me.name }); } catch {}
+      try { await updateProfile(auth.currentUser, { displayName: me.name }); } catch {}
       if (roomId) {
         await setDoc(doc(db, "rooms", roomId, "players", me.uid), {
           name: me.name, updatedAt: serverTimestamp()
@@ -39,7 +58,7 @@ const Net = {
   registerSnapshotProvider(fn) { snapshotProvider = fn; },
 
   async joinRoom(code, { maxPlayers = 2 } = {}) {
-    if (!me.uid) await ensureAuth();
+    await ensureAuth(); // <— if disabled, this throws and you’ll see an alert
     roomId = normalizeCode(code);
     if (!roomId) throw new Error("Bad room code");
 
@@ -58,46 +77,47 @@ const Net = {
       updatedAt: serverTimestamp()
     }, { merge: true });
 
-    // Load or publish snapshot
+    // Snapshot (host publishes if none)
     const snapRef = doc(db, "rooms", roomId, "state", "snapshot");
     const snapDoc = await getDoc(snapRef);
     if (snapDoc.exists()) {
       const state = snapDoc.data()?.state;
-      if (state && Net.onDelta) {
-        try { Net.onDelta({ type: "SNAPSHOT", state }); } catch {}
-      }
+      if (state && Net.onDelta) Net.onDelta({ type: "SNAPSHOT", state });
     } else if (snapshotProvider) {
-      try {
-        const state = snapshotProvider();
-        await setDoc(snapRef, { state, updatedAt: serverTimestamp() });
-        await addDoc(collection(db, "rooms", roomId, "deltas"), {
-          type: "SNAPSHOT", state, uid: me.uid, ts: serverTimestamp()
-        });
-      } catch (e) { console.warn("Snapshot publish failed:", e); }
+      const state = snapshotProvider();
+      await setDoc(snapRef, { state, updatedAt: serverTimestamp() });
+      await addDoc(collection(db, "rooms", roomId, "deltas"), {
+        type: "SNAPSHOT",
+        state,
+        uid: me.uid,
+        ts: serverTimestamp()
+      });
     }
 
-    // Listen for deltas (ignore our own)
-    const deltasRef = collection(db, "rooms", roomId, "deltas");
-    const q = query(deltasRef, orderBy("ts", "asc"), limit(200));
+    // Listen for incoming deltas (ignore my own)
     deltasUnsub?.();
-    deltasUnsub = onSnapshot(q, (qs) => {
+    const qD = query(collection(db, "rooms", roomId, "deltas"), orderBy("ts", "asc"), limit(200));
+    deltasUnsub = onSnapshot(qD, (qs) => {
       qs.docChanges().forEach(change => {
         if (change.type !== "added") return;
         const d = change.doc.data();
         if (!d || d.uid === me.uid) return;
-        try { Net.onDelta && Net.onDelta(stripFirestoreMeta(d)); } catch {}
+        try { Net.onDelta && Net.onDelta(stripMeta(d)); } catch {}
       });
     });
 
-    // Watch snapshot doc too
+    // Also watch snapshot doc (late updates)
     stateUnsub?.();
     stateUnsub = onSnapshot(snapRef, (docSnap) => {
-      if (!docSnap.exists()) return;
-      const state = docSnap.data()?.state;
+      const data = docSnap.data();
+      const state = data?.state;
       if (state && Net.onDelta) {
         try { Net.onDelta({ type: "SNAPSHOT", state }); } catch {}
       }
     });
+
+    // Quick toast so you know it worked
+    try { toast('Online: connected'); } catch { console.log('[Net] connected'); }
 
     return roomId;
   },
@@ -122,9 +142,10 @@ const Net = {
   onDelta: null
 };
 
+// Expose
 window.Net = Net;
 
-/* Helpers */
+/* ----- helpers ----- */
 function normalizeCode(code) {
   return String(code || "")
     .toLowerCase()
@@ -132,34 +153,19 @@ function normalizeCode(code) {
     .replace(/^-+|-+$/g, "")
     .slice(0, 48);
 }
-function stripFirestoreMeta(d) {
+function stripMeta(d) {
   const { ts, uid, ...rest } = d || {};
   return rest;
 }
-function ensureAuth() {
-  return new Promise((resolve) => {
-    if (auth.currentUser) {
-      me.uid = auth.currentUser.uid;
-      me.name = auth.currentUser.displayName || me.name;
-      resolve();
-      return;
-    }
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        me.uid = user.uid;
-        me.name = user.displayName || me.name;
-        resolve();
-      } else {
-        await signInAnonymously(auth);
-        // will resolve on next auth state change
-      }
-    });
+function toast(msg) {
+  // tiny inline toast (non-blocking)
+  const el = document.createElement('div');
+  el.textContent = msg;
+  Object.assign(el.style, {
+    position:'fixed', bottom:'12px', left:'12px', padding:'8px 10px',
+    background:'rgba(0,0,0,.75)', color:'#fff', borderRadius:'6px',
+    font:'14px/1.2 system-ui, sans-serif', zIndex:99999
   });
+  document.body.appendChild(el);
+  setTimeout(()=> el.remove(), 1400);
 }
-
-// === put this at the very bottom of network.js ===
-(async () => {
-  try { await (typeof ensureAuth === "function" ? ensureAuth() : Promise.resolve()); } catch {}
-  // let the page know Net is ready
-  window.dispatchEvent(new Event("net-ready"));
-})();
