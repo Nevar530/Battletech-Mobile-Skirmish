@@ -82,7 +82,6 @@ html,body{overflow:hidden;}
 
 .toolbar-row {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
   width: 100%; /* pushes this block to a new line */
 }
