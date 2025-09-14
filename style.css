@@ -33,20 +33,17 @@ html,body{overflow:hidden;}
 }
 
 /* ---------- Top bar ---------- */
-.ui-topbar{
-  height:48px;display:flex;align-items:center;gap:12px;padding:6px 10px;
-  background:#121826;border-bottom:1px solid var(--border);
-  flex-wrap:wrap; /* prevent overlap on narrow width */
-  margin-top: 0 !important;     /* ensure no extra lip on topbar */
-}
-.brand{display:flex;align-items:baseline;gap:8px;font-weight:600}
-.brand .bt{color:var(--bt-amber)}
-.brand .sep{opacity:.5}
-.spacer{flex:1}
-
-#btn-online, #btnSend {
-  flex-basis: 100%;   /* break to next row */
-  margin-top: 4px;
+.ui-topbar {
+  display: flex;
+  flex-wrap: wrap;          /* allow buttons to wrap */
+  align-items: center;
+  gap: 12px;
+  padding: 6px 10px;
+  background: #121826;
+  border-bottom: 1px solid var(--border);
+  margin-top: 0 !important;
+  height: auto;             /* 🔥 let it grow if it wraps */
+  min-height: 48px;         /* keep your base size */
 }
 
 /* Toolbar buttons */
