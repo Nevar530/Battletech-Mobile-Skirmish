@@ -400,33 +400,40 @@
 <!-- Your main game code (also as a module so it runs after imports are resolved) -->
 <script type="module" src="script.js"></script>
 
-<!-- Online button handler -->
-<script type="module">
-  const btn = document.getElementById('btn-online');
-  btn?.addEventListener('click', async () => {
-    if (!window.Net || typeof Net.joinRoom !== 'function') {
-      alert('Networking not ready. Reload and try again.');
-      return;
+<script>
+  (function attachOnline(){
+    const btn = document.getElementById('btn-online');
+    if (!btn) return;
+
+    function wire() {
+      btn.disabled = false;
+      btn.addEventListener('click', async () => {
+        try {
+          const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+          if (!code) return;
+          const name = prompt('Your name?') || 'Player';
+          window.Net?.identify({ name });
+          const roomId = await window.Net.joinRoom(code, { maxPlayers: 2 });
+          alert('Joined room: ' + roomId + '\nShare the same 3 words with your opponent.');
+        } catch (e) {
+          alert(e?.message || 'Failed to join room');
+        }
+      }, { once: true }); // avoid double-binding on hot reloads
     }
 
-    const code = prompt('Enter 3 words (e.g., "rat-man-dog")');
-    if (!code) return;
-
-    const name = prompt('Your name?') || 'Player';
-    try { await Net.identify({ name }); } catch {}
-
-    try {
-      const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
-      alert('Joined room: ' + roomId + '\nShare the same 3 words with your opponent.');
-    } catch (e) {
-      alert(e?.message || 'Failed to join room');
+    // If Net is already there, wire immediately; else wait for the ping
+    if (window.Net) {
+      wire();
+    } else {
+      btn.disabled = true;
+      window.addEventListener('net-ready', wire, { once: true });
     }
-  });
 
-  // Optional: wire deltas into your game loop
-  if (typeof applyDelta === 'function') {
-    Net.onDelta = (delta) => applyDelta(delta);
-  }
+    // Also register snapshot provider now that script.js is loaded
+    window.Net?.registerSnapshotProvider(() => {
+      try { return JSON.parse(serializeState()); } catch { return {}; }
+    });
+  })();
 </script>
 </body>
 </html>
