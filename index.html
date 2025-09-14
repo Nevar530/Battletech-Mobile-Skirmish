@@ -3,11 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>B^TTLETECH | MOBILE SKIRMISH</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://sheets.flechs.net" />
+
+  <!-- ==== ADDED: Firebase init (default app + Firestore) ==== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDOh34aMfltGvEHzI-weStxmmh8amTSgZw",
+      authDomain: "battletech-mobile-skirmish.firebaseapp.com",
+      projectId: "battletech-mobile-skirmish",
+      storageBucket: "battletech-mobile-skirmish.firebasestorage.app",
+      messagingSenderId: "630400031231",
+      appId: "1:630400031231:web:bceb3b9392d15b1b866fca",
+      measurementId: "G-M48HZ3ZEV9"
+    };
+
+    // Boot default app + db so modules can use it
+    const app = initializeApp(firebaseConfig);
+    const db  = getFirestore(app);
+    // optional exposure if ever needed elsewhere
+    window.FIREBASE_CONFIG = firebaseConfig;
+  </script>
+  <!-- ==== /ADDED ==== -->
 </head>
 <body>
   <div id="wrap" class="wrap">
@@ -85,7 +108,7 @@
         </svg>
       </button>
 
-      <!-- LOS / Measure (IDs aligned with JS: btnToggle*) -->
+      <!-- LOS / Measure -->
       <button id="btnToggleMeasure" class="icon-btn" title="Measure (Manual Range Mode)">
         <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
           <path d="M3 16l5 5 13-13-5-5L3 16zm3.5.5l8.5-8.5 1 1-8.5 8.5-1-1zm3-3l6-6 1 1-6 6-1-1zm3-3l3-3 1 1-3 3-1-1z" fill="currentColor"/>
@@ -124,6 +147,10 @@
         <button id="btnDockL" class="icon-btn" title="Toggle Flechs Dock (P1)">P1</button>
         <button id="btnDockR" class="icon-btn" title="Toggle Flechs Dock (P2)">P2</button>
       </div>
+
+      <!-- ==== ADDED: Online play button ==== -->
+      <button id="btn-online" class="icon-btn" title="Online play">Online</button>
+      <!-- ==== /ADDED ==== -->
     </header>
 
     <!-- ===== LEFT DRAWER ===== -->
@@ -395,7 +422,6 @@
       </div>
     </div>
 
-   
     <!-- ===== Stage (engine mounts here) ===== -->
     <main class="stage">
       <!-- Left dock -->
@@ -448,13 +474,30 @@
     <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
   </div>
 
+  <!-- ==== ADDED: Networking module then your main script (order matters) ==== -->
+  <script type="module" src="network.js"></script>
   <script src="script.js"></script>
+
+  <!-- Minimal join flow for the Online button -->
+  <script>
+    document.getElementById('btn-online')?.addEventListener('click', async () => {
+      try {
+        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+        if (!code) return;
+        const name = prompt('Your name?') || 'Player';
+        Net.identify({ name });
+        const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
+        alert('Joined room: ' + roomId + '\nShare the same 3 words with your opponent.');
+      } catch (e) {
+        alert(e.message || 'Failed to join room');
+      }
+    });
+
+    // If your script.js exposes applyDelta, wire remote moves automatically
+    if (window.Net && typeof applyDelta === 'function') {
+      Net.onDelta = (delta) => applyDelta(delta);
+    }
+  </script>
+  <!-- ==== /ADDED ==== -->
 </body>
 </html>
-
-
-
-
-
-
-
