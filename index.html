@@ -171,54 +171,33 @@
     <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
   </div>
 
-  <!-- Load order: network first, then your game -->
-  
-  <script src="script.js"></script>
+ <!-- Your game first (so it can boot even if networking is slow) -->
+<script src="script.js"></script>
+
+<!-- Networking next -->
 <script type="module" src="network.js"></script>
 
+<!-- Tiny join flow for the Online button -->
+<script>
+  (function () {
+    const btn = document.getElementById('btn-online');
+    if (!btn) return;
 
-  <!-- Minimal online glue -->
-  <script>
-    (function () {
-      const onlineBtn = document.getElementById('btn-online');
-      onlineBtn?.addEventListener('click', async () => {
-        try {
-          if (!window.Net || typeof Net.joinRoom !== 'function') {
-            alert('Networking not ready yet. Try again in a moment.');
-            return;
-          }
-          const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
-          if (!code) return;
-          const name = prompt('Your name?') || 'Player';
-          try { Net.identify?.({ name }); } catch {}
-          const room = await Net.joinRoom(code, { maxPlayers: 2 });
-          alert('Joined room: ' + room + '\nShare the same 3 words with your opponent.');
-        } catch (e) {
-          alert(e?.message || 'Failed to join room');
+    btn.addEventListener('click', async () => {
+      try {
+        if (!window.Net || typeof Net.joinRoom !== 'function') {
+          alert('Networking not ready yet. Try again in a moment.');
+          return;
         }
-      });
-
-      // Receive snapshots from peer (Send button model)
-      function attachReceiver() {
-        if (!window.Net) return;
-        Net.onSnapshot = (stateObj) => {
-          try { applyState(stateObj); requestRender?.(); } catch (e) { console.warn(e); }
-        };
+        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+        if (!code) return;
+        const room = await Net.joinRoom(code, { maxPlayers: 2 });
+        alert('Joined room: ' + room);
+      } catch (e) {
+        alert(e?.message || 'Failed to join room');
       }
-      window.addEventListener('net-ready', attachReceiver);
-      attachReceiver();
-
-      // Send current state on button press
-      const sendBtn = document.getElementById('btnSend');
-      sendBtn?.addEventListener('click', async () => {
-        try {
-          const obj = JSON.parse(serializeState()); // from your game
-          await Net.sendSnapshot(obj);
-        } catch (e) {
-          alert(e?.message || 'Send failed');
-        }
-      });
-    })();
-  </script>
+    });
+  })();
+</script>
 </body>
 </html>
