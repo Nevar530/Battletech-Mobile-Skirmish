@@ -1,152 +1,128 @@
-// ===== network.js (WebRTC via Firestore signaling; host-authoritative) =====
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+<!-- keep this as a separate file: network.js -->
+<script type="module">
 import {
-  getFirestore, doc, setDoc, getDoc, onSnapshot, updateDoc, deleteField
+  getApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {
+  getFirestore, doc, getDoc, setDoc, collection, addDoc,
+  serverTimestamp, onSnapshot, query, orderBy, limit
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-const firebaseConfig = window.FIREBASE_CONFIG; // from index.html boot script
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+/* ========= Helpers ========= */
+function normCode(code){
+  return code.trim().toLowerCase().replace(/[^a-z ]/g,' ').split(/\s+/).filter(Boolean).slice(0,3).join('-');
+}
+function randomId(){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
 
-const iceServers = [{ urls: ["stun:stun.l.google.com:19302"] }];
-
+/* ========= Net API scaffold ========= */
 const Net = {
-  onDelta: null,
-  _snapshotProvider: null,
-  _room: null,
-  _peer: null,
-  _role: "guest",
-  _name: "Player",
+  isConnected:false,
+  isHost:false,
+  roomId:null,
+  me:{ id: randomId(), name: 'Player' },
 
-  identify({ name }) { this._name = name || "Player"; },
+  onDelta: null,                // set by script.js (applyDelta)
+  onPeerJoin: null,             // optional
+  _snapshotProvider: null,      // set by script.js (exportFullState)
 
-  registerSnapshotProvider(fn) { this._snapshotProvider = fn; },
+  identify({name}){ this.me.name = (name||'Player').slice(0,32); },
 
-  get role(){ return this._role; },
+  registerSnapshotProvider(fn){ this._snapshotProvider = fn; },
 
-  async joinRoom(code3words, { maxPlayers = 2 } = {}) {
-    const code = code3words.trim().toLowerCase().replace(/\s+/g, "-");
-    const roomRef = doc(db, "webrtc_rooms", code);
+  async joinRoom(code, { maxPlayers=2 } = {}){
+    const app = getApp();
+    const db  = getFirestore(app);
 
+    const rid = normCode(code);
+    const roomRef = doc(db, 'rooms', rid);
     const roomSnap = await getDoc(roomRef);
-    const newRoom = !roomSnap.exists();
 
-    // Host if room doesn't exist
-    this._role = newRoom ? "host" : "guest";
-    window.IS_GUEST = (this._role !== "host");
-
-    const pc = new RTCPeerConnection({ iceServers });
-    this._peer = pc;
-    this._room = { id: code, ref: roomRef };
-
-    const dc = pc.createDataChannel("bt-delta", { ordered: true });
-    const state = { open:false };
-    let remoteSet = false;
-
-    // DataChannel plumbing
-    dc.onopen = () => { state.open = true; };
-    dc.onclose = () => { state.open = false; };
-    dc.onmessage = (e) => {
-      try {
-        const msg = JSON.parse(e.data);
-        if (!msg || typeof msg !== "object") return;
-
-        // Snapshot request/response
-        if (msg._kind === "SNAPSHOT_REQUEST" && this._role === "host" && this._snapshotProvider) {
-          const snap = this._snapshotProvider();
-          dc.send(JSON.stringify({ _kind:"SNAPSHOT", state: snap }));
-          return;
-        }
-        if (msg._kind === "SNAPSHOT" && this.onDelta) {
-          this.onDelta({ type:"SNAPSHOT", state: msg.state });
-          return;
-        }
-
-        // Regular delta
-        if (this.onDelta) this.onDelta(msg);
-      } catch {}
-    };
-
-    // ICE to Firestore
-    pc.onicecandidate = async (evt) => {
-      if (!evt.candidate) return;
-      await updateDoc(roomRef, {
-        [`ice_${this._role}_${Date.now()}`]: JSON.stringify(evt.candidate)
+    if (!roomSnap.exists()) {
+      // Create room — I’m host
+      await setDoc(roomRef, {
+        createdAt: serverTimestamp(),
+        hostId: Net.me.id,
+        maxPlayers,
+        code: rid
       }, { merge:true });
-    };
-
-    // Remote DC (if guest creates dc, host receives it here)
-    pc.ondatachannel = (evt) => {
-      const ch = evt.channel;
-      ch.onmessage = dc.onmessage;
-      ch.onopen    = dc.onopen;
-      ch.onclose   = dc.onclose;
-    };
-
-    if (this._role === "host") {
-      // Create or reset room doc
-      await setDoc(roomRef, { offer:null, answer:null }, { merge:true });
-
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
-      await updateDoc(roomRef, { offer: JSON.stringify(offer) });
-
-      // Watch for guest answer + ICE
-      onSnapshot(roomRef, async (snap) => {
-        const data = snap.data() || {};
-        if (!remoteSet && data.answer) {
-          await pc.setRemoteDescription(JSON.parse(data.answer));
-          remoteSet = true;
-        }
-        for (const [k,v] of Object.entries(data)) {
-          if (k.startsWith("ice_guest_") && v) {
-            try { await pc.addIceCandidate(JSON.parse(v)); }
-            catch {}
-            // clear consumed ICE
-            await updateDoc(roomRef, { [k]: deleteField() });
-          }
-        }
-      });
+      Net.isHost = true;
+      console.log('[Net] created room, host:', rid);
     } else {
-      // guest: read offer
-      if (!roomSnap.exists() || !roomSnap.data().offer) {
-        throw new Error("Host not ready — ask them to open the room first.");
-      }
-      await pc.setRemoteDescription(JSON.parse(roomSnap.data().offer));
-      const answer = await pc.createAnswer();
-      await pc.setLocalDescription(answer);
-      await updateDoc(roomRef, { answer: JSON.stringify(answer) });
-
-      // Watch host ICE
-      onSnapshot(roomRef, async (snap) => {
-        const data = snap.data() || {};
-        for (const [k,v] of Object.entries(data)) {
-          if (k.startsWith("ice_host_") && v) {
-            try { await pc.addIceCandidate(JSON.parse(v)); }
-            catch {}
-            await updateDoc(roomRef, { [k]: deleteField() });
-          }
-        }
-      });
-
-      // Ask for snapshot when DC opens
-      const tryAsk = () => { if (state.open) dc.send(JSON.stringify({ _kind:"SNAPSHOT_REQUEST" })); };
-      dc.onopen = () => { state.open = true; tryAsk(); };
-      // Also retry after 1s in case dc was replaced by ondatachannel path
-      setTimeout(tryAsk, 1000);
+      const data = roomSnap.data() || {};
+      Net.isHost = (data.hostId === Net.me.id); // usually false for joiners
+      console.log('[Net] joining existing room:', rid);
     }
 
-    // Public sender
-    this.broadcastDelta = (delta) => {
-      if (!state.open) return;
-      try { dc.send(JSON.stringify(delta)); } catch {}
-    };
+    Net.roomId = rid;
+    Net.isConnected = true;
 
-    return code; // room id
+    // Presence (lightweight)
+    await setDoc(doc(db, 'rooms', rid, 'presence', Net.me.id), {
+      id: Net.me.id,
+      name: Net.me.name,
+      joinedAt: serverTimestamp()
+    }, { merge:true });
+
+    // Stream events (ordered)
+    const evColl = collection(db, 'rooms', rid, 'events');
+    const qEv    = query(evColl, orderBy('ts', 'asc'), limit(500));
+    onSnapshot(qEv, (snap) => {
+      snap.docChanges().forEach(change => {
+        if (change.type !== 'added') return;
+        const evt = change.doc.data();
+        // Ignore my own writes
+        if (evt.senderId === Net.me.id) return;
+
+        if (evt.kind === 'delta') {
+          console.log('[Net<-] delta', evt.payload);
+          Net.onDelta && Net.onDelta(evt.payload);
+        } else if (evt.kind === 'snapshot') {
+          console.log('[Net<-] snapshot');
+          Net.onDelta && Net.onDelta({ type:'SNAPSHOT', state: evt.payload });
+        } else if (evt.kind === 'peer-join') {
+          console.log('[Net] peer joined:', evt.payload?.id);
+          Net.onPeerJoin && Net.onPeerJoin(evt.payload);
+          // If I'm host, push a snapshot to help the newcomer sync
+          if (Net.isHost && Net._snapshotProvider) {
+            const full = Net._snapshotProvider();
+            addDoc(evColl, {
+              kind:'snapshot',
+              senderId: Net.me.id,
+              ts: serverTimestamp(),
+              to: evt.payload?.id || null,  // not enforced, but logged
+              payload: full
+            });
+            console.log('[Net->] sent snapshot to newcomer');
+          }
+        }
+      });
+    });
+
+    // Emit a peer-join event so the host knows to send a snapshot
+    await addDoc(evColl, {
+      kind:'peer-join',
+      senderId: Net.me.id,
+      ts: serverTimestamp(),
+      payload: { id: Net.me.id, name: Net.me.name }
+    });
+
+    return rid;
   },
 
-  broadcastDelta(_d){ /* replaced at join */ }
+  async sendDelta(delta){
+    if (!this.isConnected || !this.roomId) return;
+    const db = getFirestore(getApp());
+    const evColl = collection(db, 'rooms', this.roomId, 'events');
+
+    console.log('[Net->] delta', delta);
+    await addDoc(evColl, {
+      kind:'delta',
+      senderId: Net.me.id,
+      ts: serverTimestamp(),
+      payload: delta
+    });
+  }
 };
 
 window.Net = Net;
-export default Net;
+</script>
