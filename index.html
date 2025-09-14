@@ -409,24 +409,55 @@
     <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
   </div>
 
-<!-- Networking then your game -->
-<script type="module" src="network.js"></script>
-<script type="module" src="script.js"></script>
-
-<!-- Add buttons somewhere in your toolbar -->
+<!-- in the top bar (you already have Online); add a Send button -->
 <button id="btn-online" class="icon-btn" title="Online">Online</button>
-<button id="btnSend"   class="icon-btn" title="Send">Send</button>
+<button id="btnSend"   class="icon-btn" title="Send state to peer">Send</button>
+
+<!-- load order at the end of <body> -->
+<script type="module" src="network.js"></script>
+<script src="script.js"></script>
 
 <script>
-  // Join room on click
-  document.getElementById('btn-online')?.addEventListener('click', async () => {
-    try {
-      const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
-      if (!code) return;
-      const rid = await Net.joinRoom(code);
-      alert('Joined room: ' + rid);
-    } catch (e) { alert(e?.message || 'Failed'); }
-  });
+  (function () {
+    // Join flow
+    const onlineBtn = document.getElementById('btn-online');
+    onlineBtn?.addEventListener('click', async () => {
+      try {
+        if (!window.Net || typeof Net.joinRoom !== 'function') {
+          alert('Networking not ready yet. Try again in a moment.');
+          return;
+        }
+        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+        if (!code) return;
+        const room = await Net.joinRoom(code);
+        alert('Joined room: ' + room + '\nShare the same 3 words with your opponent.');
+      } catch (e) {
+        alert(e?.message || 'Failed to join room');
+      }
+    });
+
+    // Receive snapshots from peer
+    function attachReceiver() {
+      if (!window.Net) return;
+      Net.onSnapshot = (stateObj) => {
+        try { applyState(stateObj); requestRender?.(); } catch (e) { console.warn(e); }
+      };
+    }
+    window.addEventListener('net-ready', attachReceiver);
+    attachReceiver();
+
+    // Send current state on button press
+    const sendBtn = document.getElementById('btnSend');
+    sendBtn?.addEventListener('click', async () => {
+      try {
+        const obj = JSON.parse(serializeState()); // from your game
+        await Net.sendSnapshot(obj);
+        // optional: alert('Sent.');
+      } catch (e) {
+        alert(e?.message || 'Send failed');
+      }
+    });
+  })();
 </script>
 
 </body>
