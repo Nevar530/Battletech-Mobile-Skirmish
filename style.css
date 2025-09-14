@@ -44,6 +44,11 @@ html,body{overflow:hidden;}
 .brand .sep{opacity:.5}
 .spacer{flex:1}
 
+#btn-online, #btnSend {
+  flex-basis: 100%;   /* break to next row */
+  margin-top: 4px;
+}
+
 /* Toolbar buttons */
 .icon-btn{
   width:36px;height:36px;border-radius:10px;background:#0f1722;border:1px solid var(--border);
