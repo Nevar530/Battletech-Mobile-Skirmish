@@ -2425,18 +2425,199 @@ function applyPreset(preset) {
 window.addEventListener('load', loadPresetList);
 
 
-// Receive opponent moves
-Net.onDelta = (delta) => {
-  applyDelta(delta); // your existing deterministic updater
-};
+/* ===== ONLINE GLUE (drop-in) ===== */
+/* Requires network.js loaded (window.Net with joinRoom/sendDelta/onDelta/registerSnapshotProvider) */
 
-// Example: when you move a token locally
-function sendMoveToken(id, q, r){
-  const d = { type:'MOVE_TOKEN', id, q, r };
-  applyDelta(d);
-  Net.sendDelta(d);
-}
+(function(){
+  const Net = (window.Net ||= { sendDelta:()=>{}, registerSnapshotProvider:()=>{}, onDelta:null });
 
+  // --- helpers
+  const send = (d) => { try { Net.sendDelta(d); } catch {} };
+  const tokById = (id) => tokens.find(t => t.id === id);
+
+  // 1) Snapshots: use your existing save/load
+  Net.registerSnapshotProvider(() => {
+    // serializeState() returns a JSON string; we want an object:
+    try { return JSON.parse(serializeState()); } catch { return {}; }
+  });
+
+  Net.onDelta = (msg) => {
+    if (!msg || !msg.type) return;
+
+    // Full state
+    if (msg.type === 'SNAPSHOT' && msg.state) {
+      applyState(msg.state);
+      return;
+    }
+
+    // --- Tile edits batch (terrain/height/cover) ---
+    if (msg.type === 'PAINT_BATCH' && Array.isArray(msg.edits)) {
+      // reuse your built-in batch applier
+      applyEdits(msg.edits, /*usePrev=*/false);
+      return;
+    }
+
+    // --- Tokens ---
+    if (msg.type === 'ADD_TOKEN' && msg.token) {
+      const t = msg.token;
+      if (!tokById(t.id)) tokens.push(t);
+      if (msg.meta) mechMeta.set(t.id, msg.meta);
+      renderMechList(); requestRender(); saveLocal();
+      return;
+    }
+    if (msg.type === 'REMOVE_TOKEN' && msg.id) {
+      tokens = tokens.filter(x => x.id !== msg.id);
+      mechMeta.delete(msg.id);
+      if (selectedTokenId === msg.id) selectedTokenId = null;
+      renderMechList(); requestRender(); saveLocal();
+      return;
+    }
+    if (msg.type === 'MOVE_TOKEN' && msg.id != null) {
+      const t = tokById(msg.id); if (!t) return;
+      if (Number.isFinite(msg.q)) t.q = clamp(msg.q, 0, cols-1);
+      if (Number.isFinite(msg.r)) t.r = clamp(msg.r, 0, rows-1);
+      requestRender(); saveLocal();
+      return;
+    }
+    if (msg.type === 'ROTATE_TOKEN' && msg.id) {
+      const t = tokById(msg.id); if (!t) return;
+      if (Number.isFinite(msg.angle)) {
+        t.angle = ((msg.angle % 360) + 360) % 360;
+        requestRender(); saveLocal();
+      }
+      return;
+    }
+    if (msg.type === 'RESIZE_TOKEN' && msg.id) {
+      const t = tokById(msg.id); if (!t) return;
+      if (Number.isFinite(msg.scale)) {
+        t.scale = clamp(msg.scale, 0.4, 2.0);
+        requestRender(); saveLocal();
+      }
+      return;
+    }
+    if (msg.type === 'TEAM_TOKEN' && msg.id) {
+      const t = tokById(msg.id); if (!t) return;
+      if (Number.isFinite(msg.colorIndex)) {
+        t.colorIndex = ((msg.colorIndex % TEAMS.length) + TEAMS.length) % TEAMS.length;
+        requestRender(); saveLocal();
+      }
+      return;
+    }
+    if (msg.type === 'RENAME_TOKEN' && msg.id) {
+      const t = tokById(msg.id); if (!t) return;
+      if (typeof msg.label === 'string') {
+        t.label = msg.label.slice(0,24) || 'MECH';
+        requestRender(); saveLocal();
+      }
+      return;
+    }
+
+    // --- Initiative ---
+    if (msg.type === 'INIT_SET' && Array.isArray(msg.order)) {
+      initOrder = msg.order; initIndex = Number.isFinite(msg.index) ? msg.index : (initOrder.length?0:-1);
+      renderInit();
+      return;
+    }
+    if (msg.type === 'INIT_INDEX' && Number.isFinite(msg.index)) {
+      initIndex = msg.index; renderInit(); return;
+    }
+    if (msg.type === 'INIT_CLEAR') {
+      initOrder = []; initIndex = -1; renderInit(); return;
+    }
+  };
+
+  /* ===== Emitters (tiny shims) =====
+     We minimally override two functions to broadcast:
+     - endStroke(): ship a compact PAINT_BATCH of {q,r,prev,next}
+     - addTokenAtViewCenter(): ship ADD_TOKEN with the created token
+     For move/rotate/etc we wrap existing functions to also ship deltas.
+  */
+
+  // --- 1) Broadcast terrain/height/cover batches after every stroke
+  const _endStroke = endStroke;
+  endStroke = function(){
+    // Capture the batch before original endStroke clears currentStroke
+    const batch = currentStroke && currentStroke.edits ? { edits: [...currentStroke.edits] } : null;
+    _endStroke.apply(this, arguments);
+    if (batch && batch.edits.length) {
+      send({ type:'PAINT_BATCH', edits: batch.edits });
+    }
+  };
+
+  // --- 2) Add token: broadcast the created token + meta
+  const _addTokenAtViewCenter = addTokenAtViewCenter;
+  addTokenAtViewCenter = function(label='MECH', colorIndex=0){
+    const id = _addTokenAtViewCenter(label, colorIndex);
+    const t = tokById(id);
+    const meta = mechMeta.get(id) || null;
+    if (t) send({ type:'ADD_TOKEN', token: { id:t.id, q:t.q, r:t.r, scale:t.scale, angle:t.angle, colorIndex:t.colorIndex, label:t.label }, meta });
+    return id;
+  };
+
+  // --- 3) Delete token
+  const _deleteToken = deleteToken;
+  deleteToken = function(){
+    const t = getSelected();
+    const id = t?.id;
+    _deleteToken.apply(this, arguments);
+    if (id) send({ type:'REMOVE_TOKEN', id });
+  };
+
+  // --- 4) Rotate
+  const _rotateToken = rotateToken;
+  rotateToken = function(delta){
+    const t = getSelected(); _rotateToken.apply(this, arguments);
+    if (t) send({ type:'ROTATE_TOKEN', id:t.id, angle: t.angle });
+  };
+
+  // --- 5) Resize
+  const _resizeToken = resizeToken;
+  resizeToken = function(f){
+    const t = getSelected(); _resizeToken.apply(this, arguments);
+    if (t) send({ type:'RESIZE_TOKEN', id:t.id, scale: t.scale });
+  };
+
+  // --- 6) Team/color
+  const _cycleTeam = cycleTeam;
+  cycleTeam = function(dir){
+    const t = getSelected(); _cycleTeam.apply(this, arguments);
+    if (t) send({ type:'TEAM_TOKEN', id:t.id, colorIndex: t.colorIndex });
+  };
+
+  // --- 7) Rename
+  const _renameToken = renameToken;
+  renameToken = function(){
+    const before = getSelected();
+    _renameToken.apply(this, arguments);
+    const t = getSelected() || before;
+    if (t) send({ type:'RENAME_TOKEN', id:t.id, label: t.label });
+  };
+
+  // --- 8) Move after drag: patch the tokenDrag branch in endPointer
+  const _endPointer = endPointer;
+  endPointer = function(e){
+    // We need to know which token just finished dragging
+    if (tokenDragId) {
+      const moved = tokById(tokenDragId);
+      _endPointer.apply(this, arguments);
+      if (moved) send({ type:'MOVE_TOKEN', id: moved.id, q: moved.q, r: moved.r });
+      return;
+    }
+    _endPointer.apply(this, arguments);
+  };
+
+  // --- 9) Initiative broadcasts via existing button clicks (read computed state)
+  btnRollInitAll?.addEventListener('click', () => {
+    setTimeout(()=> send({ type:'INIT_SET', order: initOrder, index: initIndex }), 0);
+  });
+  btnNextTurn?.addEventListener('click', () => {
+    setTimeout(()=> send({ type:'INIT_INDEX', index: initIndex }), 0);
+  });
+  btnClearInit?.addEventListener('click', () => {
+    setTimeout(()=> send({ type:'INIT_CLEAR' }), 0);
+  });
+
+})();
 
 
 
