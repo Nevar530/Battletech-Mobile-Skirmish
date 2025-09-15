@@ -525,21 +525,21 @@
       }
     });
 
-    // ===== Receive full-state snapshots =====
-    function attachReceiver() {
-      if (!window.Net) return;
-      Net.onSnapshot = (stateObj) => {
-        try {
-          // NEW: extract meta.sender if present
-          const sender = stateObj?.meta?.sender;
-          applyState(stateObj);
-          if (typeof requestRender === 'function') requestRender();
+ // Receive full-state snapshots (peer presses Send)
+function attachReceiver() {
+  if (!window.Net) return;
+  Net.onSnapshot = (stateObj) => {
+    try {
+      applyState(stateObj);
+      if (typeof requestRender === 'function') requestRender();
 
-          // mark as received (updates pill & name)
-          markReceived(sender || 'Peer');
-        } catch (e) { console.warn(e); }
-      };
-    }
+      // NEW: update the pill with who sent it
+      const sender = stateObj?.meta?.sender || 'Unknown';
+      markReceived(sender);
+
+    } catch (e) { console.warn(e); }
+  };
+}
     attachReceiver();
     window.addEventListener('net-ready', attachReceiver);
 
