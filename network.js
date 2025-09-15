@@ -2,8 +2,7 @@
 
 import { getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
-  getFirestore, doc, setDoc, getDoc, onSnapshot,
-  serverTimestamp
+  getFirestore, doc, setDoc, onSnapshot, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 import {
   getAuth, signInAnonymously, onAuthStateChanged
@@ -17,7 +16,9 @@ const auth = getAuth(app);
 // ---- identity ----
 let identity = {
   uid: null,
-  name: (typeof localStorage !== "undefined" && localStorage.getItem("playerLabel")) || "Player"
+  name:
+    (typeof localStorage !== "undefined" && localStorage.getItem("playerLabel")) ||
+    "Player"
 };
 
 let currentRoom = null;
@@ -70,27 +71,29 @@ const Net = {
 
     currentRoom = roomId;
 
-    // Start listening for full-state updates
+    // Listen for full-state updates (single doc)
     const snapRef = doc(db, "rooms", roomId, "state", "snapshot");
     unsubState?.();
     unsubState = onSnapshot(snapRef, (docSnap) => {
       const obj = docSnap.data()?.state;
-      if (obj && typeof Net.onSnapshot === "function") {
-        try { Net.onSnapshot(obj); } catch {}
-      }
+      if (!obj || typeof Net.onSnapshot !== "function") return;
+
+      // Ignore our own echo (saves extra work, not a behavior change)
+      if (obj?.meta?.senderUid && obj.meta.senderUid === identity.uid) return;
+
+      try { Net.onSnapshot(obj); } catch {}
     });
 
-    // Touch the doc so the collection exists
-    const cur = await getDoc(snapRef);
-    if (!cur.exists()) {
-      await setDoc(snapRef, { state: null, updatedAt: serverTimestamp() }, { merge: true });
-    }
+    // Create-if-missing WITHOUT a read (saves 1 read)
+    await setDoc(snapRef, { state: null, updatedAt: serverTimestamp() }, { merge: true });
 
     return roomId;
   },
 
-  // Send the whole game state (plain JSONable object)
-  async sendSnapshot(stateObj) {
+  // Send the whole game state (plain JSONable object) — debounced
+  // Backward compatible: callers can keep using sendSnapshot(stateObj)
+  _sendTimer: null,
+  async _write(stateObj) {
     if (!currentRoom) throw new Error("Join a room first");
 
     // Always attach sender metadata so the peer can display who transmitted.
@@ -110,6 +113,17 @@ const Net = {
       { state: payload, updatedAt: serverTimestamp() },
       { merge: true }
     );
+  },
+  sendSnapshot(stateObj, ms = 350) {
+    clearTimeout(Net._sendTimer);
+    Net._sendTimer = setTimeout(() => Net._write(stateObj), ms);
+  },
+
+  // Leave/cleanup (safe to call multiple times)
+  leave() {
+    unsubState?.();
+    unsubState = null;
+    currentRoom = null;
   },
 };
 
