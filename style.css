@@ -11,9 +11,10 @@
   --bt-amber-dim:#e0b45c;
   --bt-edge:#2a1e07;
 
-  /* Safe-area aware top lip (NEW) */
+  /* Safe-area + header height */
   --safe-top: env(safe-area-inset-top, 0px);
   --app-top-offset: max(20px, var(--safe-top));
+  --header-h: 48px; /* default; can be updated by JS if desired */
 }
 
 html,body{
@@ -28,7 +29,7 @@ html,body{overflow:hidden;}
 /* ---------- Layout ---------- */
 .wrap {
   position: relative;
-  min-height: 100dvh;           /* dvh = mobile-safe viewport */
+  min-height: 100dvh;                 /* dvh = mobile-safe viewport */
   padding-top: var(--app-top-offset); /* safe-area lip */
 }
 
@@ -94,9 +95,12 @@ html,body{overflow:hidden;}
 @media (max-width: 720px){
   .ui-topbar{ gap:8px; padding:6px 8px; }
 }
+
 /* ---------- Panels (drawers) ---------- */
 .panel{
-  position:fixed;top:calc(48px + var(--app-top-offset));bottom:0;width:340px;background:var(--panel);
+  position:fixed;
+  top:calc(var(--header-h) + var(--app-top-offset));
+  bottom:0;width:340px;background:var(--panel);
   border-top:1px solid var(--border);
   box-shadow:0 0 24px rgba(0,0,0,.35);
   display:flex;flex-direction:column;z-index:20;
@@ -171,7 +175,10 @@ html,body{overflow:hidden;}
 .btn-fill:active{transform:translateY(1px);}
 
 /* ---------- Stage + SVG ---------- */
-.stage{ position:relative;overflow:hidden;height:calc(100dvh - 48px - var(--app-top-offset)); }
+.stage{
+  position:relative;overflow:hidden;
+  height:calc(100dvh - var(--header-h) - var(--app-top-offset));
+}
 svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:default; touch-action:none;}
 .hex{cursor:pointer;}
 .hex:hover{filter:brightness(1.05);}
@@ -183,7 +190,7 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
 
 /* ---------- Docks ---------- */
 .dock{
-  position:absolute;top:calc(50px + var(--app-top-offset));bottom:10px;width:var(--dock-w);display:none;flex-direction:column;
+  position:absolute;top:calc(var(--header-h) + var(--app-top-offset) + 2px);bottom:10px;width:var(--dock-w);display:none;flex-direction:column;
   background:var(--panel);border:1px solid #2b3548;border-radius:12px;overflow:hidden;
   box-shadow:0 6px 20px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.02);z-index:25;
 }
@@ -275,13 +282,11 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
 }
 
 /* ---------- Toggle Visuals: Icon + Text ---------- */
-/* default (idle) */
 .icon-btn, .btn { color: var(--ink); }
 .icon-btn .ico path, .btn .ico path {
   fill: var(--muted);
   transition: fill 0.2s ease, color 0.2s ease, filter 0.2s ease;
 }
-/* toggled state (via .active or aria-pressed="true") */
 .icon-btn.active,
 .icon-btn[aria-pressed="true"],
 .btn.active,
@@ -304,18 +309,7 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
   .panel{width:86vw}
 }
 
-.seg-group {
-  display: flex;
-  align-items: center;
-  gap: 18px; /* space between Terrain / Mechs groups */
-}
-
-.seg-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
+.seg-item { display:flex; align-items:center; gap:6px; }
 .seg-label {
   font-size: 14px;
   letter-spacing: .04em;
@@ -339,29 +333,15 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
 
 /* Tablet widths: tighten spacing, shrink buttons slightly */
 @media (max-width: 1024px) {
-  .ui-topbar {
-    gap: 8px;
-    padding: 4px 6px;
-    height: auto; /* let rows wrap naturally */
-  }
-  .icon-btn {
-    width: 32px;
-    height: 32px;
-  }
-  .ico {
-    width: 16px;
-    height: 16px;
-  }
-  .brand {
-    font-size: 14px;
-  }
+  .ui-topbar { gap: 8px; padding: 4px 6px; }
+  .icon-btn { width: 32px; height: 32px; }
+  .ico { width: 16px; height: 16px; }
+  .brand { font-size: 14px; }
 }
 
 /* Narrower tablets / landscape phones */
 @media (max-width: 800px) {
-  .ui-topbar {
-    justify-content: space-between;
-  }
+  .ui-topbar { justify-content: space-between; }
   .brand {
     font-size: 13px;
     max-width: 40%;
@@ -369,33 +349,17 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .seg-group {
-    gap: 4px;
-  }
-  .seg-label {
-    font-size: 12px;
-  }
-  .icon-btn {
-    width: 30px;
-    height: 30px;
-  }
+  .seg-group { gap: 4px; }
+  .seg-label { font-size: 12px; }
+  .icon-btn { width: 30px; height: 30px; }
 }
 
 /* Very small screens (phones held sideways) */
 @media (max-width: 600px) {
-  .ui-topbar {
-    gap: 4px;
-    padding: 2px 4px;
-  }
+  .ui-topbar { gap: 4px; padding: 2px 4px; }
   .brand { display: none; } /* hide brand if space is too tight */
-  .icon-btn {
-    width: 28px;
-    height: 28px;
-  }
-  .ico {
-    width: 14px;
-    height: 14px;
-  }
+  .icon-btn { width: 28px; height: 28px; }
+  .ico { width: 14px; height: 14px; }
 }
 
 /* --- Help popup respects lip --- */
@@ -408,64 +372,39 @@ svg{width:100%;height:100%;display:block;background:#0f1722;outline:none;cursor:
   position: fixed; inset: 0; z-index: 1001;
   display: grid; place-items: center;
   background: rgba(0,0,0,.55);
-  padding: 16px;               /* keeps space on small screens */
+  padding: 16px;
 }
-
 .json-modal__panel{
   width: min(900px, 94vw);
-  max-height: calc(94dvh - var(--app-top-offset)); /* keep inside viewport */
+  max-height: calc(94dvh - var(--app-top-offset));
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0,0,0,.6);
-  display: flex;               /* let body/textarea flex */
-  flex-direction: column;
-  overflow: hidden;            /* header/footer stay fixed; body scrolls if needed */
+  display: flex; flex-direction: column;
+  overflow: hidden;
 }
-
 .json-modal__head{
   padding: 10px 12px;
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
 }
-
 .json-modal__body{
   padding: 8px 10px;
-  flex: 1 1 auto;              /* TAKE the vertical space */
-  overflow: auto;              /* scroll body if content exceeds max-height */
-  display: flex;               /* so textarea can flex fully */
+  flex: 1 1 auto; overflow: auto; display: flex;
 }
-
 .json-modal__ta{
-  flex: 1 1 auto;              /* fill the body */
-  width: 100%;
-  min-height: 220px;           /* sane floor on tiny screens */
-  border-radius: 10px;
-  background: #0b1019;
-  border: 1px solid var(--border);
-  color: var(--ink);
-  padding: 10px;
-  resize: vertical;            /* still allow manual grow if there’s room */
-  box-sizing: border-box;
+  flex: 1 1 auto; width: 100%; min-height: 220px;
+  border-radius: 10px; background: #0b1019; border: 1px solid var(--border);
+  color: var(--ink); padding: 10px; resize: vertical; box-sizing: border-box;
 }
-
 .json-modal__foot{
-  padding: 8px 10px;
-  border-top: 1px solid var(--border);
+  padding: 8px 10px; border-top: 1px solid var(--border);
   display: flex; gap: 8px; justify-content: flex-end;
 }
-
-/* small screens */
-@media (max-width: 600px){
-  .json-modal__panel{ width: 96vw; }
-}
+@media (max-width: 600px){ .json-modal__panel{ width: 96vw; } }
 
 html, body, #wrap { height:100%; background:#0b0f14; }
 #wrap { position:relative; }
 #btBoot { background:#0b0f14; } /* boot overlay fallback */
 * { -webkit-tap-highlight-color: transparent; } /* avoid iOS highlight tints */
-
-
-
-
-
