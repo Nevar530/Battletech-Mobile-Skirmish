@@ -94,7 +94,7 @@ html,body{
 .toolbar-row {
   display: inline-flex;       /* make sure it's flex */
   align-items: center;
-  gap: 10px;                  /* spacing between each child */
+  gap: 20px;                  /* spacing between each child */
 }
 
 /* Slightly tighter on narrow screens */
