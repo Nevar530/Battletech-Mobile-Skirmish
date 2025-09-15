@@ -2512,7 +2512,26 @@ window.addEventListener('load', loadPresetList);
 })();
 
 
+// Keep CSS --header-h synced to the real toolbar height (so drawers/stage align)
+(() => {
+  const root = document.documentElement;
+  const header = document.querySelector('.ui-topbar');
 
+  function syncHeaderH() {
+    if (!header) return;
+    const h = Math.ceil(header.getBoundingClientRect().height);
+    root.style.setProperty('--header-h', h + 'px');
+  }
+
+  // Update on load, resize, and whenever the header wraps/resizes
+  window.addEventListener('load', syncHeaderH);
+  window.addEventListener('resize', syncHeaderH);
+  if ('ResizeObserver' in window && header) {
+    new ResizeObserver(syncHeaderH).observe(header);
+  }
+
+  syncHeaderH();
+})();
 
 
 
