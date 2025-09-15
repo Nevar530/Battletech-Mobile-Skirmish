@@ -370,3 +370,18 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 #wrap { position:relative; }
 #btBoot { background:#0b0f14; }
 * { -webkit-tap-highlight-color: transparent; }
+
+.net-pill{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:4px 10px; border-radius:999px;
+  border:1px solid var(--border); background:rgba(255,255,255,0.04);
+  font-size:12px; color:var(--muted); line-height:1; user-select:none;
+}
+.net-pill .lamp{
+  width:10px; height:10px; border-radius:50%;
+  display:inline-block; background:#7b7b7b;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.35) inset;
+}
+.net-pill.is-online .lamp{ background:#3ddc84; }   /* green */
+.net-pill.is-offline .lamp{ background:#ff6b6b; }  /* red */
+.net-pill .txt{ white-space:nowrap; }
