@@ -14,9 +14,14 @@ const app  = getApp();
 const db   = getFirestore(app);
 const auth = getAuth(app);
 
-let me = { uid: null };
+// ---- identity ----
+let identity = {
+  uid: null,
+  name: (typeof localStorage !== "undefined" && localStorage.getItem("playerLabel")) || "Player"
+};
+
 let currentRoom = null;
-let unsubState = null;
+let unsubState  = null;
 
 // ---- auth (anonymous) ----
 async function ensureAuth() {
@@ -25,7 +30,7 @@ async function ensureAuth() {
     onAuthStateChanged(auth, async (user) => {
       if (resolved) return;
       if (user) {
-        me.uid = user.uid;
+        identity.uid = user.uid;
         resolved = true;
         resolve();
       } else {
@@ -47,6 +52,13 @@ async function ensureAuth() {
 const Net = {
   // Set by your game: function(stateObj) {}
   onSnapshot: null,
+
+  // Set/remember a display name for meta.sender
+  identify({ name } = {}) {
+    if (!name) return;
+    identity.name = String(name).slice(0, 48);
+    try { localStorage.setItem("playerLabel", identity.name); } catch {}
+  },
 
   // Join or create a room by a 3-word code
   async joinRoom(code) {
@@ -80,8 +92,24 @@ const Net = {
   // Send the whole game state (plain JSONable object)
   async sendSnapshot(stateObj) {
     if (!currentRoom) throw new Error("Join a room first");
+
+    // Always attach sender metadata so the peer can display who transmitted.
+    const payload = {
+      ...stateObj,
+      meta: {
+        ...(stateObj?.meta || {}),
+        sender: identity.name,
+        senderUid: identity.uid || null,
+        ts: Date.now()
+      }
+    };
+
     const snapRef = doc(db, "rooms", currentRoom, "state", "snapshot");
-    await setDoc(snapRef, { state: stateObj, updatedAt: serverTimestamp() }, { merge: true });
+    await setDoc(
+      snapRef,
+      { state: payload, updatedAt: serverTimestamp() },
+      { merge: true }
+    );
   },
 };
 
