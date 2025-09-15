@@ -79,7 +79,21 @@ The app uses free Firebase snapshots to sync the game state.
 
 ## 🖥 Screenshots
 
-*(Add some screenshots here of your app in action. A couple of PNGs or GIFs will make the README pop.)*
+### Fullscreen Map
+![Fullscreen Map](images/fullscreen.png)  
+*The main hex map in action with mechs and terrain height visible.*
+
+### Menus & Utilities
+![Menus](images/menus.png)  
+*Terrain: Paint, load presets, and play. Mechs: Name and Add Tokens, Initiative tracker, dice roller, and mech management panel.*
+
+### Terrain Tools
+![Terrain Tools](images/tools.png)  
+*Line of Sight, Fire Archs, Mech Controls, Measurement*
+
+### Flechs Sheets Integration
+![Flechs Sheets](images/flechsheet.png)  
+*Side-by-side dock with [Flechs Sheets](https://sheets.flechs.net) to track armor, heat, and criticals.*
 
 ---
 
