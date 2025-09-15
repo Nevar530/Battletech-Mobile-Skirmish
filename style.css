@@ -91,7 +91,11 @@ html,body{
 .flechs-ico{ width:18px; height:18px; border-radius:4px; box-shadow:0 0 0 1px #0006; }
 
 /* Force Online/Send to break to a new row when needed */
-.toolbar-row{ display:flex; gap:14px; width:100%; }
+.toolbar-row {
+  display: inline-flex;       /* make sure it's flex */
+  align-items: center;
+  gap: 10px;                  /* spacing between each child */
+}
 
 /* Slightly tighter on narrow screens */
 @media (max-width: 720px){
