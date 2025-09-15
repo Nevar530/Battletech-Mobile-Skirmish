@@ -33,29 +33,36 @@ html,body{overflow:hidden;}
 }
 
 /* ---------- Top bar ---------- */
-/* replace your .ui-topbar block */
 .ui-topbar{
-  /* was height:48px; */
-  height:auto;              /* allow multiple rows */
-  min-height:48px;          /* keep at least one-row height */
   display:flex;
+  flex-wrap:wrap;           /* allow multiple rows */
   align-items:center;
   gap:12px;
   padding:6px 10px;
   background:#121826;
   border-bottom:1px solid var(--border);
-  flex-wrap:wrap;           /* already there, keep it */
+  height:auto;              /* was fixed */
+  min-height:48px;
+  overflow:visible;
   margin-top:0 !important;
 }
 
+/* Brand and spacer */
+.brand{ display:flex; align-items:baseline; gap:8px; white-space:nowrap; }
+.spacer{ flex:1 1 auto; min-width:0; }
+
 /* Toolbar buttons */
 .icon-btn{
-  width:36px;height:36px;border-radius:10px;background:#0f1722;border:1px solid var(--border);
-  display:grid;place-items:center;cursor:pointer;color:var(--ink);
-  flex:0 0 auto;
+  flex:0 0 auto;            /* don't shrink/collapse */
+  width:36px; height:36px;
+  border-radius:10px;
+  background:#0f1722;
+  border:1px solid var(--border);
+  display:grid; place-items:center;
+  cursor:pointer; color:var(--ink);
 }
-.icon-btn:hover{filter:brightness(1.06)}
-.ico{width:18px;height:18px}
+.icon-btn:hover{ filter:brightness(1.06); }
+.ico{ width:18px; height:18px; }
 
 /* Segmented control (Terrain/Mechs) */
 .seg-group{
@@ -76,16 +83,17 @@ html,body{overflow:hidden;}
   display:flex; align-items:center; gap:6px; padding-left:8px;
   border-left:1px solid var(--border); flex:0 0 auto;
 }
-.flechs-ico{
-  display:inline-block; width:18px;height:18px;border-radius:4px; box-shadow:0 0 0 1px #0006;
+.flechs-ico{ width:18px; height:18px; border-radius:4px; box-shadow:0 0 0 1px #0006; }
+
+/* Force Online/Send to break to a new row when needed */
+.toolbar-row{
+  display:flex; gap:8px; width:100%;
 }
 
-.toolbar-row {
-  display: flex;
-  gap: 8px;
-  width: 100%; /* pushes this block to a new line */
+/* Slightly tighter on narrow screens */
+@media (max-width: 720px){
+  .ui-topbar{ gap:8px; padding:6px 8px; }
 }
-
 /* ---------- Panels (drawers) ---------- */
 .panel{
   position:fixed;top:calc(48px + var(--app-top-offset));bottom:0;width:340px;background:var(--panel);
