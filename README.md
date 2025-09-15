@@ -134,12 +134,6 @@ All rights to the BattleTech universe remain with their respective owners. This 
 
 ---
 
-## 📦 File Structure
-
-*(Optional section to add later — outline repo files if you want new contributors to know where `index.html`, `style.css`, and `script.js` live.)*
-
----
-
 ## 🤖 Note on Code Assistance
 
 Portions of the JavaScript, HTML, and CSS were written with the assistance of **ChatGPT (OpenAI)** under the direct design and direction of the project creator.  
