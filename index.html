@@ -147,10 +147,20 @@
         <button id="btnDockR" class="icon-btn" title="Toggle Flechs Dock (P2)">P2</button>
       </div>
 
-      <!-- Online -->
-<div class="toolbar-row">
+    <div class="toolbar-row" style="align-items:center; gap:8px;">
   <button id="btn-online" class="icon-btn" title="Online">Uplink</button>
   <button id="btnSend" class="icon-btn" title="Send state to peer">Transmit</button>
+
+  <!-- NEW: tiny status pill -->
+  <span id="net-pill" class="net-pill is-offline" title="Sync status">
+    <b class="lamp" aria-hidden="true"></b>
+    <span class="txt">
+      <span class="state">ONLINE</span>
+      [<span id="net-count">0</span>] :
+      <span id="net-ago">no tx</span> :
+      // <span id="net-user">P1</span>
+    </span>
+  </span>
 </div>
     </header>
 
@@ -443,58 +453,117 @@
   <script type="module" src="network.js"></script>
 
   <!-- Online + Send wiring (minimal) -->
-  <script>
-    (function () {
-      const onlineBtn = document.getElementById('btn-online');
-      const sendBtn = document.getElementById('btnSend');
+<script>
+  (function () {
+    const onlineBtn = document.getElementById('btn-online');
+    const sendBtn   = document.getElementById('btnSend');
 
-      onlineBtn?.addEventListener('click', async () => {
-        try {
-          if (!window.Net || typeof Net.joinRoom !== 'function') {
-            alert('Networking not ready yet. Try again in a moment.');
-            return;
-          }
-          const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
-          if (!code) return;
+    // ===== NEW: net status state/DOM =====
+    const NET_FRESH_MS = 30_000; // green if activity within last 30s
 
-          const name = prompt('Your name?') || 'Player';
-          try { Net.identify?.({ name }); } catch {}
+    const net = {
+      last: 0,                  // last send/receive timestamp (ms)
+      count: 0,                 // # of sends from this client
+      user: localStorage.getItem('playerLabel') || 'P1'
+    };
 
-          const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
-          alert('Joined room: ' + roomId);
-        } catch (e) {
-          alert(e?.message || 'Failed to join room');
+    const $pill  = document.getElementById('net-pill');
+    const $count = document.getElementById('net-count');
+    const $ago   = document.getElementById('net-ago');
+    const $user  = document.getElementById('net-user');
+
+    function timeAgo(ms){
+      if(!ms) return 'no tx';
+      const s = Math.floor((Date.now()-ms)/1000);
+      if (s < 5)  return 'just now';
+      if (s < 60) return `${s}s ago`;
+      const m = Math.floor(s/60); if (m < 60) return `${m}m ago`;
+      const h = Math.floor(m/60); return `${h}h ago`;
+    }
+    function refreshNetUI(){
+      const online = net.last && (Date.now() - net.last) < NET_FRESH_MS;
+      $pill.classList.toggle('is-online',  online);
+      $pill.classList.toggle('is-offline', !online);
+      $count.textContent = net.count;
+      $ago.textContent   = timeAgo(net.last);
+      $user.textContent  = net.user;
+    }
+    function markSent(){
+      net.last = Date.now();
+      net.count++;
+      refreshNetUI();
+    }
+    function markReceived(sender){
+      net.last = Date.now();
+      if (sender) net.user = sender;   // show who sent last
+      refreshNetUI();
+    }
+    setInterval(refreshNetUI, 2000);
+    refreshNetUI();
+
+    // ===== Online join =====
+    onlineBtn?.addEventListener('click', async () => {
+      try {
+        if (!window.Net || typeof Net.joinRoom !== 'function') {
+          alert('Networking not ready yet. Try again in a moment.');
+          return;
         }
-      });
+        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+        if (!code) return;
 
-      // Receive full-state snapshots (peer presses Send)
-      function attachReceiver() {
-        if (!window.Net) return;
-        Net.onSnapshot = (stateObj) => {
-          try {
-            applyState(stateObj);
-            if (typeof requestRender === 'function') requestRender();
-          } catch (e) { console.warn(e); }
-        };
+        const name = prompt('Your name?') || net.user || 'Player';
+        try { Net.identify?.({ name }); } catch {}
+        // remember locally
+        net.user = name;
+        localStorage.setItem('playerLabel', name);
+        refreshNetUI();
+
+        const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
+        alert('Joined room: ' + roomId);
+      } catch (e) {
+        alert(e?.message || 'Failed to join room');
       }
-      attachReceiver();
-      window.addEventListener('net-ready', attachReceiver);
+    });
 
-      // Send current state (you already have serializeState/applyState)
-      sendBtn?.addEventListener('click', async () => {
+    // ===== Receive full-state snapshots =====
+    function attachReceiver() {
+      if (!window.Net) return;
+      Net.onSnapshot = (stateObj) => {
         try {
-          if (!window.Net || typeof Net.sendSnapshot !== 'function') {
-            alert('Not online yet. Click Online and join a room first.');
-            return;
-          }
-          const obj = JSON.parse(serializeState());
-          await Net.sendSnapshot(obj);
-          // alert('Sent.');
-        } catch (e) {
-          alert(e?.message || 'Send failed');
+          // NEW: extract meta.sender if present
+          const sender = stateObj?.meta?.sender;
+          applyState(stateObj);
+          if (typeof requestRender === 'function') requestRender();
+
+          // mark as received (updates pill & name)
+          markReceived(sender || 'Peer');
+        } catch (e) { console.warn(e); }
+      };
+    }
+    attachReceiver();
+    window.addEventListener('net-ready', attachReceiver);
+
+    // ===== Send current state =====
+    sendBtn?.addEventListener('click', async () => {
+      try {
+        if (!window.Net || typeof Net.sendSnapshot !== 'function') {
+          alert('Not online yet. Click Online and join a room first.');
+          return;
         }
-      });
-    })();
-  </script>
+        const obj = JSON.parse(serializeState());
+
+        // NEW: add a tiny meta block so peer can show your name
+        obj.meta = { sender: net.user, ts: Date.now() };
+
+        await Net.sendSnapshot(obj);
+
+        // NEW: update status
+        markSent();
+      } catch (e) {
+        alert(e?.message || 'Send failed');
+      }
+    });
+  })();
+</script>
 </body>
 </html>
