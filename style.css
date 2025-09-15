@@ -389,3 +389,28 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 .net-pill.is-online .lamp{ background:#3ddc84; }   /* green */
 .net-pill.is-offline .lamp{ background:#ff6b6b; }  /* red */
 .net-pill .txt{ white-space:nowrap; }
+
+/* === Overrides for Uplink / Transmit buttons === */
+#btn-online,
+#btnSend{
+  width: auto;                 /* allow text to size naturally */
+  min-width: 84px;             /* good tap target on mobile */
+  height: 36px;                /* match header row height */
+  padding: 6px 12px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f1722;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  letter-spacing: .02em;
+}
+
+.toolbar-row{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;                   /* space between buttons and pill */
+}
+
+#btn-online{ margin-right: 4px; }  /* optional extra nudge */
