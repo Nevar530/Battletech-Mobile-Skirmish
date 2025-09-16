@@ -45,13 +45,13 @@ You can now play remotely with a friend — no accounts or installs needed.
 The app uses free Firebase snapshots to sync the game state.
 
 1. Both players open the [Live App](https://nevar530.github.io/Battletech-Mobile-Skirmish/).  
-2. **Host clicks “Online”** and enters any three words (e.g., `ember orbit fox`).  
-3. **Guest clicks “Online”** and types the exact same three words.  
+2. **Host clicks “Uplink”** and enters any three words (e.g., `ember orbit fox`).  
+3. **Guest clicks “Uplink”** and types the exact same three words.  
    - This links you into the same room.  
-4. Use the **Send** button to broadcast your map and moves.  
+4. Use the **Transmit** button to broadcast your map and moves.  
    - Each press syncs the full game state to your opponent.  
 5. Play as if you’re at the same table — map edits, mechs, and initiative all carry across.
-
+6. Recommend using Discord or another voice chat option during play.
 ---
 
 ## 🚀 How to Play
@@ -73,7 +73,7 @@ The app uses free Firebase snapshots to sync the game state.
 5. Play your skirmish with all the tools built in:
    - Move, rotate, and resize mechs.
    - Roll initiative and dice.
-   - Track [Flechs Sheets](https://sheets.flechs.net) in the side docks.
+   - Track [Flechs Sheets](https://sheets.flechs.net) in the side docks, or traditional pen and paper.
 
 ---
 
