@@ -41,6 +41,7 @@ const TERRAINS = [
   { name: 'Lava',    fill: '#a83232', pat: 'pat-lava',    opacity: 0.35 },
   { name: 'Volcanic', fill: '#4A2C2A', pat: 'pat-volcanic', opacity: 0.25 },
   { name: 'Moon',    fill: '#c5c5c5', pat: 'pat-moon',    opacity: 0.20 },
+{ name: 'Leaf',   fill: '#3fa34d', pat: 'pat-leaf',   opacity: 0.25 },
   { name: 'paper', fill: '#f2eee3', pat: 'pat-paper', opacity: 1.0 }
 ];
 
@@ -541,7 +542,21 @@ function ensurePatterns() {
       crater(u*0.7,  u*0.35, sw*0.8, 0.5),
       crater(u*0.5,  u*0.75, sw*0.7, 0.4)
     );
-  });
+  });
+
+// --- Leaf pattern (tighter tiling version) ---
+pat('pat-leaf', 40, 20, (p) => {
+  const path = document.createElementNS(svgNS, 'path');
+  path.setAttribute('d',
+    'M0 20a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 20H0z' +
+    'M32.66.75A20.02 20.02 0 0 1 8.14 25.26 20.02 20.02 0 0 1 32.66.76z' +
+    'M.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0z'
+  );
+  path.setAttribute('fill', ink);          // use your ink color
+  path.setAttribute('fill-opacity', 0.4);  // match original opacity
+  p.appendChild(path);
+});
+
 }
 
 /* ===== Drop-shadow filters per height (H1..H5) ===== */
