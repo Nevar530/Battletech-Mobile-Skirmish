@@ -30,18 +30,18 @@ const TEAMS = [
 ];
 
 const TERRAINS = [
-  { name: 'Grass',   fill: '#3fa34d', pat: 'pat-grass',   opacity: 0.25 },
-  { name: 'Rock',    fill: '#a3aab5', pat: 'pat-rock',    opacity: 0.25 },
-  { name: 'Water',   fill: '#4c84d6', pat: 'pat-water',   opacity: 0.25 },
-  { name: 'Sand',    fill: '#d7b37d', pat: 'pat-sand',    opacity: 0.22 },
-  { name: 'Asphalt', fill: '#5A5C5E', pat: 'pat-asphalt', opacity: 0.22 },
-  { name: 'Urban',   fill: '#5b687d', pat: 'pat-urban',   opacity: 0.22 },
-  { name: 'Snow',    fill: '#d8e6e5', pat: 'pat-snow',    opacity: 0.22 },
-  { name: 'Ice',     fill: '#b7e1f2', pat: 'pat-ice',     opacity: 0.22 },
-  { name: 'Lava',    fill: '#a83232', pat: 'pat-lava',    opacity: 0.35 },
+  { name: 'Grass',    fill: '#3fa34d', pat: 'pat-grass',    opacity: 0.25 },
+  { name: 'Rock',     fill: '#a3aab5', pat: 'pat-rock',     opacity: 0.25 },
+  { name: 'Water',    fill: '#4c84d6', pat: 'pat-water',    opacity: 0.25 },
+  { name: 'Sand',     fill: '#d7b37d', pat: 'pat-sand',     opacity: 0.22 },
+  { name: 'Asphalt',  fill: '#5A5C5E', pat: 'pat-asphalt',  opacity: 0.22 },
+  { name: 'Urban',    fill: '#5b687d', pat: 'pat-urban',    opacity: 0.22 },
+  { name: 'Snow',     fill: '#d8e6e5', pat: 'pat-snow',     opacity: 0.22 },
+  { name: 'Ice',      fill: '#b7e1f2', pat: 'pat-ice',      opacity: 0.22 },
+  { name: 'Lava',     fill: '#a83232', pat: 'pat-lava',     opacity: 0.35 },
   { name: 'Volcanic', fill: '#4A2C2A', pat: 'pat-volcanic', opacity: 0.25 },
-  { name: 'Moon',    fill: '#c5c5c5', pat: 'pat-moon',    opacity: 0.20 },
-  { name: 'paper', fill: '#f2eee3', pat: 'pat-paper', opacity: 1.0 }
+  { name: 'Moon',     fill: '#c5c5c5', pat: 'pat-moon',     opacity: 0.20 },
+  { name: 'Hologram', fill: '#00ff80', pat: 'pat-holo',     opacity: 0.35 }
 ];
 
 // ===== Fill Terrain dropdown =====
@@ -529,45 +529,24 @@ function ensurePatterns() {
     );
   });
 
-    pat('pat-moon', u, u, (p) => {
-    function crater(cx, cy, r, op) {
-      const c = document.createElementNS(svgNS,'circle');
-      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
-      c.setAttribute('fill', '#888'); c.setAttribute('opacity', op);
-      return c;
-    }
-    p.append(
-      crater(u*0.25, u*0.25, sw*0.6, 0.6),
-      crater(u*0.7,  u*0.35, sw*0.8, 0.5),
-      crater(u*0.5,  u*0.75, sw*0.7, 0.4)
-    );
-  });
+pat('pat-holo', u, u, (p) => {
+  // vertical scanline
+  const vline = document.createElementNS(svgNS, 'rect');
+  vline.setAttribute('x', 0);
+  vline.setAttribute('y', 0);
+  vline.setAttribute('width', u * 0.15);
+  vline.setAttribute('height', u);
+  vline.setAttribute('fill', '#00ff80');
+  vline.setAttribute('opacity', 0.15);
 
-// --- Leaf pattern (square u × u, two rows to fill the square) ---
-pat('pat-leaf', u, u, (p) => {
-  const g = document.createElementNS(svgNS, 'g');
-  // Build an 80×80 tile (two rows of the original 80×40), then scale to u×u
-  g.setAttribute('transform', `scale(${u / 80} ${u / 80})`);
+  // diagonal glow line
+  const diag = document.createElementNS(svgNS, 'path');
+  diag.setAttribute('d', `M0,${u} L${u},0`);
+  diag.setAttribute('stroke', '#00ff80');
+  diag.setAttribute('stroke-width', u * 0.05);
+  diag.setAttribute('opacity', 0.25);
 
-  const leafPathD =
-    'M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0z' +
-    'M65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76z' +
-    'M.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0z' +
-    'M1.94 40h2.53l4.26-4.24v-9.78A17.96 17.96 0 0 0 2 40zm5.38 0h9.8a17.98 17.98 0 0 0 6.67-16.42L7.4 40zm3.43-15.42v9.17l11.62-11.59c-3.97-.5-8.08.3-11.62 2.42zm32.86-.78A18 18 0 0 0 63.85 3.63L43.68 23.8zm7.2-19.17v9.15L62.43 2.22c-3.96-.5-8.05.3-11.57 2.4zm-3.49 2.72c-4.1 4.1-5.81 9.69-5.13 15.03l6.61-6.6V6.02c-.51.41-1 .85-1.48 1.33zM17.18 0H7.42L3.64 3.78A18 18 0 0 0 17.18 0zM2.08 0c-.01.8.04 1.58.14 2.37L4.59 0H2.07z';
-
-  function addRow(yOffset) {
-    const row = document.createElementNS(svgNS, 'g');
-    if (yOffset) row.setAttribute('transform', `translate(0 ${yOffset})`);
-    const path = document.createElementNS(svgNS, 'path');
-    path.setAttribute('d', leafPathD);
-    path.setAttribute('fill', ink);          // use your ink
-    row.appendChild(path);
-    g.appendChild(row);
-  }
-
-  addRow(0);    // top 40px
-  addRow(40);   // second row to fill 80px height
-  p.appendChild(g);
+  p.append(vline, diag);
 });
 
 }
@@ -2626,4 +2605,5 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
