@@ -414,3 +414,8 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 }
 
 #btn-online{ margin-right: 4px; }  /* optional extra nudge */
+
+/* Hologram terrain glow */
+.hex[terrain="Hologram"] {
+  filter: drop-shadow(0 0 4px #00ff80) drop-shadow(0 0 8px #00ff80);
+}
