@@ -41,7 +41,6 @@ const TERRAINS = [
   { name: 'Lava',    fill: '#a83232', pat: 'pat-lava',    opacity: 0.35 },
   { name: 'Volcanic', fill: '#4A2C2A', pat: 'pat-volcanic', opacity: 0.25 },
   { name: 'Moon',    fill: '#c5c5c5', pat: 'pat-moon',    opacity: 0.20 },
-{ name: 'Leaf',   fill: '#3fa34d', pat: 'pat-leaf',   opacity: 0.75 },
   { name: 'paper', fill: '#f2eee3', pat: 'pat-paper', opacity: 1.0 }
 ];
 
