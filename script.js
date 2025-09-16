@@ -2563,4 +2563,74 @@ window.addEventListener('load', loadPresetList);
 })();
 
 
+// --- Cover Patterns ---
+// Grass → Trees
+pat('cover-grass-L1', u, u, (p) => {
+  const tree = document.createElementNS(svgNS, 'circle');
+  tree.setAttribute('cx', u * 0.5);
+  tree.setAttribute('cy', u * 0.5);
+  tree.setAttribute('r', u * 0.25);
+  tree.setAttribute('fill', '#2f6627'); // dark green
+  p.append(tree);
+});
 
+pat('cover-grass-M2', u, u, (p) => {
+  const mkTree = (x, y, r) => {
+    const c = document.createElementNS(svgNS, 'circle');
+    c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', r);
+    c.setAttribute('fill', '#2f6627');
+    return c;
+  };
+  p.append(mkTree(u*0.3, u*0.4, u*0.2), mkTree(u*0.65, u*0.6, u*0.22));
+});
+
+pat('cover-grass-H3', u, u, (p) => {
+  const mkTree = (x, y, r) => {
+    const c = document.createElementNS(svgNS, 'circle');
+    c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', r);
+    c.setAttribute('fill', '#2f6627');
+    return c;
+  };
+  p.append(
+    mkTree(u*0.25, u*0.3, u*0.2),
+    mkTree(u*0.55, u*0.5, u*0.22),
+    mkTree(u*0.75, u*0.7, u*0.18)
+  );
+});
+
+// Rock → Boulders
+pat('cover-rock-L1', u, u, (p) => {
+  const rock = document.createElementNS(svgNS, 'rect');
+  rock.setAttribute('x', u*0.4);
+  rock.setAttribute('y', u*0.4);
+  rock.setAttribute('width', u*0.2);
+  rock.setAttribute('height', u*0.2);
+  rock.setAttribute('fill', '#555');
+  p.append(rock);
+});
+
+pat('cover-rock-M2', u, u, (p) => {
+  const mkRock = (x, y, s) => {
+    const r = document.createElementNS(svgNS, 'rect');
+    r.setAttribute('x', x); r.setAttribute('y', y);
+    r.setAttribute('width', s); r.setAttribute('height', s);
+    r.setAttribute('fill', '#555');
+    return r;
+  };
+  p.append(mkRock(u*0.3, u*0.3, u*0.2), mkRock(u*0.6, u*0.6, u*0.18));
+});
+
+pat('cover-rock-H3', u, u, (p) => {
+  const mkRock = (x, y, s) => {
+    const r = document.createElementNS(svgNS, 'rect');
+    r.setAttribute('x', x); r.setAttribute('y', y);
+    r.setAttribute('width', s); r.setAttribute('height', s);
+    r.setAttribute('fill', '#555');
+    return r;
+  };
+  p.append(
+    mkRock(u*0.25, u*0.25, u*0.18),
+    mkRock(u*0.55, u*0.55, u*0.2),
+    mkRock(u*0.7, u*0.4, u*0.15)
+  );
+});
