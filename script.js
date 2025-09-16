@@ -2086,19 +2086,26 @@ function teamNameToColorIndex(teamName){
 function shortLabel(name){ return (name||'MECH').slice(0, 18); }
 
 function addMechFromForm(){
-  const name = (mechName?.value || '').trim() || 'MECH';
+  const rawInput = (mechName?.value || '').trim();
+  const { tokenLabel, displayName } = resolveMech(rawInput);
+
   const pilot = (pilotName?.value || '').trim();
-  const team = (teamSelect?.value || 'Alpha');
+  const team  = (teamSelect?.value || 'Alpha');
   const colorIndex = teamNameToColorIndex(team);
 
-  const id = addTokenAtViewCenter(shortLabel(name), colorIndex);
-  mechMeta.set(id, { name, pilot, team });
+  const id = addTokenAtViewCenter(tokenLabel, colorIndex);   // token shows short code
+  mechMeta.set(id, { name: displayName, pilot, team });      // roster shows pretty name
+
   renderMechList();
   renderInit();
+  saveLocal();  // persist immediately
+
   if (mechName) mechName.value = '';
   if (pilotName) pilotName.value = '';
 }
 if (btnAddMech) btnAddMech.addEventListener('click', addMechFromForm);
+// allow Enter key in mechName field
+mechName?.addEventListener('keydown', e => { if (e.key === 'Enter') addMechFromForm(); });
 
 function renderMechList(){
   if (!mechList) return;
@@ -2157,6 +2164,65 @@ if (mechList) mechList.addEventListener('click', (e)=>{
       break;
   }
 });
+
+/* ---------- Mech index (id + name) for dropdown ---------- */
+let MECH_INDEX = [];                        // [{id:"GRF-1N", name:"Griffin 1N"}, ...]
+const mechById = new Map();                 // "GRF-1N" -> "Griffin 1N"
+const mechByName = new Map();               // "griffin 1n" -> "GRF-1N"
+
+async function loadMechIndex(){
+  try{
+    const res = await fetch('assets/mechs.json'); // adjust path
+    const data = await res.json();
+    MECH_INDEX = Array.isArray(data) ? data : (data.mechs || []);
+    mechById.clear(); mechByName.clear();
+
+    const dl = document.getElementById('mechListData');
+    if (dl) dl.replaceChildren();
+
+    MECH_INDEX.forEach(({id, name})=>{
+      if(!id || !name) return;
+      const up = id.toUpperCase();
+      mechById.set(up, name);
+      mechByName.set(name.toLowerCase(), up);
+      if (dl){
+        const opt = document.createElement('option');
+        opt.value = name;        // users see/select by "Griffin 1N"
+        opt.label = up;          // browser may show the code as a hint
+        dl.appendChild(opt);
+      }
+    });
+  }catch(err){
+    console.warn('mechs.json load failed', err);
+  }
+}
+loadMechIndex();
+
+/* ---------- Helpers: resolve typed input -> token label + display ---------- */
+function normalizeId(str){
+  // "grf1n" / "GRF 1N" -> "GRF-1N" (best-effort without being strict)
+  return (str||'')
+    .toUpperCase()
+    .replace(/\s+/g,'')
+    .replace(/^([A-Z]{2,4})(\d)/, '$1-$2');
+}
+
+function resolveMech(input){
+  const raw = (input||'').trim();
+  if (!raw) return { tokenLabel:'MECH', displayName:'MECH' };
+
+  const asId = normalizeId(raw);
+  if (mechById.has(asId))   return { tokenLabel: asId, displayName: mechById.get(asId) }; // ID known
+  if (mechByName.has(raw.toLowerCase())) {
+    const id = mechByName.get(raw.toLowerCase());
+    return { tokenLabel: id, displayName: raw }; // Name known
+  }
+
+  // Free text fallback
+  return { tokenLabel: shortLabel(raw.toUpperCase()), displayName: raw };
+}
+
+
 
 /* Initiative (2d6 simple) */
 function renderInit(){
@@ -2560,3 +2626,4 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
