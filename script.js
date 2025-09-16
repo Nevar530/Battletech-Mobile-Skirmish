@@ -30,18 +30,18 @@ const TEAMS = [
 ];
 
 const TERRAINS = [
-  { name: 'Grass',    fill: '#3fa34d',  pat: 'pat-grass',    opacity: 1 },
-  { name: 'Rock',     fill: '#a3aab5',  pat: 'pat-rock',     opacity: 1 },
-  { name: 'Water',    fill: '#4c84d6',  pat: 'pat-water',    opacity: 1 },
-  { name: 'Sand',     fill: '#d7b37d',  pat: 'pat-sand',     opacity: 1 },
-  { name: 'Asphalt',  fill: '#5A5C5E',  pat: 'pat-asphalt',  opacity: 1 },
-  { name: 'Urban',    fill: '#5b687d',  pat: 'pat-urban',    opacity: 1 },
-  { name: 'Snow',     fill: '#d8e6e5',  pat: 'pat-snow',     opacity: 1 },
-  { name: 'Ice',      fill: '#b7e1f2',  pat: 'pat-ice',      opacity: 1 },
-  { name: 'Lava',     fill: '#a83232',  pat: 'pat-lava',     opacity: 1 }, // stays a bit stronger
-  { name: 'Volcanic', fill: '#4A2C2A',  pat: 'pat-volcanic', opacity: 1 },
-  { name: 'Moon',     fill: '#c5c5c5',  pat: 'pat-moon',     opacity: 1 },
-  { name: 'Paper',    fill: '#f2eee3',  pat: 'pat-paper',     opacity: 1 }
+  { name: 'Grass',    fill: '#3fa34d',  pat: 'pat-grass' },
+  { name: 'Rock',     fill: '#a3aab5',  pat: 'pat-rock' },
+  { name: 'Water',    fill: '#4c84d6',  pat: 'pat-water' },
+  { name: 'Sand',     fill: '#d7b37d',  pat: 'pat-sand' },
+  { name: 'Asphalt',  fill: '#5A5C5E',  pat: 'pat-asphalt' },
+  { name: 'Urban',    fill: '#5b687d',  pat: 'pat-urban' },
+  { name: 'Snow',     fill: '#d8e6e5',  pat: 'pat-snow' },
+  { name: 'Ice',      fill: '#b7e1f2',  pat: 'pat-ice' },
+  { name: 'Lava',     fill: '#a83232',  pat: 'pat-lava' },
+  { name: 'Volcanic', fill: '#4A2C2A',  pat: 'pat-volcanic' },
+  { name: 'Moon',     fill: '#c5c5c5',  pat: 'pat-moon' },
+  { name: 'Paper',    fill: '#f2eee3',  pat: 'pat-paper' }
 ];
 
 // ===== Fill Terrain dropdown =====
@@ -2777,6 +2777,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
