@@ -903,7 +903,7 @@ function requestRender(){
 }
 
 function render() {
-  ensurePatterns();
+  ensurePatterns(hexSize);
 
   // clear layers
   gShadows.replaceChildren();
@@ -2777,6 +2777,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
