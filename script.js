@@ -755,7 +755,7 @@ tiles.forEach(t => {
       const ringDelta = COVER_DARKEN[covName] || 0;
       const ringColor = adjustLightness(fillColor, ringDelta);
       const lvl = t.coverIndex;
-      const ringW = Math.max(1.5, hexSize * (0.06 + 0.03 * lvl));
+      const ringW = Math.max(2.5, hexSize * (0.12 + 0.06 * lvl));
       const ring = document.createElementNS(svgNS,'polygon');
       ring.setAttribute('points', geom.get(key(t.q,t.r)).ptsStr);
       ring.setAttribute('fill', 'none');
