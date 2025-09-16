@@ -765,6 +765,7 @@ tiles.forEach(t => {
       ring.setAttribute('opacity', '0.95');
       ring.style.pointerEvents = 'none';
       gOver.appendChild(ring);
+      drawCoverIconsForHex(gOver, t.q, t.r, t.terrain, t.coverIndex, hexSize);
     }
   });
 
@@ -2563,74 +2564,72 @@ window.addEventListener('load', loadPresetList);
 })();
 
 
-// --- Cover Patterns ---
-// Grass → Trees
-pat('cover-grass-L1', u, u, (p) => {
-  const tree = document.createElementNS(svgNS, 'circle');
-  tree.setAttribute('cx', u * 0.5);
-  tree.setAttribute('cy', u * 0.5);
-  tree.setAttribute('r', u * 0.25);
-  tree.setAttribute('fill', '#2f6627'); // dark green
-  p.append(tree);
-});
+/* ===================== Cover Icons (Grass→trees, Rock→boulders) ===================== */
 
-pat('cover-grass-M2', u, u, (p) => {
-  const mkTree = (x, y, r) => {
-    const c = document.createElementNS(svgNS, 'circle');
-    c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', r);
-    c.setAttribute('fill', '#2f6627');
-    return c;
-  };
-  p.append(mkTree(u*0.3, u*0.4, u*0.2), mkTree(u*0.65, u*0.6, u*0.22));
-});
+function __stampTree(svgNS, cx, cy, size){
+  const g = document.createElementNS(svgNS, 'g');
+  const crown = document.createElementNS(svgNS, 'circle');
+  crown.setAttribute('cx', cx); crown.setAttribute('cy', cy);
+  crown.setAttribute('r', size); crown.setAttribute('fill', '#2e7d32');
+  crown.setAttribute('opacity', 0.9);
 
-pat('cover-grass-H3', u, u, (p) => {
-  const mkTree = (x, y, r) => {
-    const c = document.createElementNS(svgNS, 'circle');
-    c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', r);
-    c.setAttribute('fill', '#2f6627');
-    return c;
-  };
-  p.append(
-    mkTree(u*0.25, u*0.3, u*0.2),
-    mkTree(u*0.55, u*0.5, u*0.22),
-    mkTree(u*0.75, u*0.7, u*0.18)
-  );
-});
+  const trunk = document.createElementNS(svgNS, 'rect');
+  trunk.setAttribute('x', cx - size*0.18);
+  trunk.setAttribute('y', cy + size*0.55);
+  trunk.setAttribute('width', size*0.36);
+  trunk.setAttribute('height', size*0.75);
+  trunk.setAttribute('fill', '#4e342e');
 
-// Rock → Boulders
-pat('cover-rock-L1', u, u, (p) => {
-  const rock = document.createElementNS(svgNS, 'rect');
-  rock.setAttribute('x', u*0.4);
-  rock.setAttribute('y', u*0.4);
-  rock.setAttribute('width', u*0.2);
-  rock.setAttribute('height', u*0.2);
-  rock.setAttribute('fill', '#555');
-  p.append(rock);
-});
+  g.append(crown, trunk);
+  return g;
+}
 
-pat('cover-rock-M2', u, u, (p) => {
-  const mkRock = (x, y, s) => {
-    const r = document.createElementNS(svgNS, 'rect');
-    r.setAttribute('x', x); r.setAttribute('y', y);
-    r.setAttribute('width', s); r.setAttribute('height', s);
-    r.setAttribute('fill', '#555');
-    return r;
-  };
-  p.append(mkRock(u*0.3, u*0.3, u*0.2), mkRock(u*0.6, u*0.6, u*0.18));
-});
+function __stampRock(svgNS, cx, cy, size){
+  const g = document.createElementNS(svgNS, 'g');
+  const body = document.createElementNS(svgNS, 'ellipse');
+  body.setAttribute('cx', cx); body.setAttribute('cy', cy);
+  body.setAttribute('rx', size*1.2); body.setAttribute('ry', size*0.85);
+  body.setAttribute('fill', '#5b5b5b'); body.setAttribute('opacity', 0.9);
+  g.append(body);
+  return g;
+}
 
-pat('cover-rock-H3', u, u, (p) => {
-  const mkRock = (x, y, s) => {
-    const r = document.createElementNS(svgNS, 'rect');
-    r.setAttribute('x', x); r.setAttribute('y', y);
-    r.setAttribute('width', s); r.setAttribute('height', s);
-    r.setAttribute('fill', '#555');
-    return r;
-  };
-  p.append(
-    mkRock(u*0.25, u*0.25, u*0.18),
-    mkRock(u*0.55, u*0.55, u*0.2),
-    mkRock(u*0.7, u*0.4, u*0.15)
-  );
-});
+// tiny stable hash so icon offsets don't jump on redraws
+function __hexHash(q, r){
+  return ((q * 73856093) ^ (r * 19349663)) >>> 0;
+}
+
+/**
+ * Draw 1/2/3 cover icons inside the given hex group.
+ * Call this right after you append the cover ring.
+ * terrainName: 'Grass' or 'Rock'
+ * coverLevel:  1 (L1), 2 (M2), 3 (H3)
+ * u:           your hexSize unit
+ */
+function drawCoverIconsForHex(group, q, r, terrainName, coverLevel, u){
+  if (!coverLevel) return;
+
+  let makeStamp = null;
+  if (terrainName === 'Grass') makeStamp = __stampTree;
+  else if (terrainName === 'Rock') makeStamp = __stampRock;
+  else return; // only Grass/Rock for now
+
+  const count = coverLevel === 1 ? 1 : (coverLevel === 2 ? 2 : 3);
+  const size  = u * 0.16;
+  const cx = u * 0.5, cy = u * 0.5;
+
+  const h = __hexHash(q, r);
+  const offs = [
+    [ ((h>>1)&15) - 8,  ((h>>5)&15) - 8 ],
+    [ ((h>>9)&15) - 8,  ((h>>13)&15) - 8 ],
+    [ ((h>>17)&15) - 8, ((h>>21)&15) - 8 ],
+  ];
+
+  for (let i=0; i<count; i++){
+    const [ox, oy] = offs[i];
+    const px = cx + ox * 0.02 * u;
+    const py = cy + oy * 0.02 * u;
+    group.appendChild(makeStamp(svgNS, px, py, size * (1 - i*0.07)));
+  }
+}
+/* ==================================================================================== */
