@@ -30,18 +30,18 @@ const TEAMS = [
 ];
 
 const TERRAINS = [
-  { name: 'Grass',   fill: '#3fa34d', pat: 'pat-grass',   opacity: 0.25 },
-  { name: 'Rock',    fill: '#a3aab5', pat: 'pat-rock',    opacity: 0.25 },
-  { name: 'Water',   fill: '#4c84d6', pat: 'pat-water',   opacity: 0.25 },
-  { name: 'Sand',    fill: '#d7b37d', pat: 'pat-sand',    opacity: 0.22 },
-  { name: 'Asphalt', fill: '#5A5C5E', pat: 'pat-asphalt', opacity: 0.22 },
-  { name: 'Urban',   fill: '#5b687d', pat: 'pat-urban',   opacity: 0.22 },
-  { name: 'Snow',    fill: '#d8e6e5', pat: 'pat-snow',    opacity: 0.22 },
-  { name: 'Ice',     fill: '#b7e1f2', pat: 'pat-ice',     opacity: 0.22 },
-  { name: 'Lava',    fill: '#a83232', pat: 'pat-lava',    opacity: 0.35 },
-  { name: 'Volcanic', fill: '#4A2C2A', pat: 'pat-volcanic', opacity: 0.25 },
-  { name: 'Moon',    fill: '#c5c5c5', pat: 'pat-moon',    opacity: 0.20 },
-  { name: 'paper', fill: '#f2eee3', pat: 'pat-paper', opacity: 1.0 }
+  { name: 'Grass',    fill: '#3fa34d',  pat: 'pat-grass',    opacity: 0.28 },
+  { name: 'Rock',     fill: '#a3aab5',  pat: 'pat-rock',     opacity: 0.30 },
+  { name: 'Water',    fill: '#4c84d6',  pat: 'pat-water',    opacity: 0.32 },
+  { name: 'Sand',     fill: '#d7b37d',  pat: 'pat-sand',     opacity: 0.24 },
+  { name: 'Asphalt',  fill: '#5A5C5E',  pat: 'pat-asphalt',  opacity: 0.28 },
+  { name: 'Urban',    fill: '#5b687d',  pat: 'pat-urban',    opacity: 0.26 },
+  { name: 'Snow',     fill: '#d8e6e5',  pat: 'pat-snow',     opacity: 0.24 },
+  { name: 'Ice',      fill: '#b7e1f2',  pat: 'pat-ice',      opacity: 0.26 },
+  { name: 'Lava',     fill: '#a83232',  pat: 'pat-lava',     opacity: 0.35 }, // stays a bit stronger
+  { name: 'Volcanic', fill: '#4A2C2A',  pat: 'pat-volcanic', opacity: 0.28 },
+  { name: 'Moon',     fill: '#c5c5c5',  pat: 'pat-moon',     opacity: 0.24 },
+  { name: 'Paper',    fill: '#f2eee3',  pat: 'pat-paper',     opacity: 0.18 }
 ];
 
 // ===== Fill Terrain dropdown =====
@@ -344,232 +344,449 @@ function loadLocal(){
   } catch { return false; }
 }
 
-/* ---------- Patterns ---------- */
-function ensurePatterns() {
+// ===== PATTERNS (your upgraded versions), now as ensurePatterns(hexSize) =====
+function ensurePatterns(hexSize) {
+  // clear previous pattern group (keep other defs if any)
   let pats = document.getElementById('tex-pats');
   if (!pats) { pats = document.createElementNS(svgNS,'g'); pats.setAttribute('id','tex-pats'); defs.appendChild(pats); }
   pats.replaceChildren();
 
-  const u = Math.max(8, Math.round(hexSize * 0.4));
+  // scale-aware units
+  const u  = Math.max(8, Math.round(hexSize * 0.4));
   const sw = Math.max(0.8, hexSize * 0.05);
   const sw2 = Math.max(0.6, hexSize * 0.035);
+
+  const ink = '#00000033';
+  const inkBold = '#00000055';
+
+  // seeded RNG
+  function mulberry32(seed){
+    return function(){
+      seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+      let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function seeded(id){
+    let h=2166136261;
+    for (let i=0;i<id.length;i++){ h^=id.charCodeAt(i); h = Math.imul(h, 16777619); }
+    h ^= (u|0);
+    return mulberry32(h>>>0);
+  }
+
   function pat(id, w, h, builder){
+    // remove existing pattern with same id (hot-rebuild)
+    const old = defs.querySelector(`#${id}`);
+    if (old) old.remove();
     const p = document.createElementNS(svgNS, 'pattern');
     p.setAttribute('id', id);
     p.setAttribute('patternUnits', 'userSpaceOnUse');
     p.setAttribute('width', w);
     p.setAttribute('height', h);
-    builder(p);
-    pats.appendChild(p);
+    builder(p, seeded(id));
+    // patterns must live in <defs> (spec). Append to defs, and also keep a handle in group for debug/inspection.
+    defs.appendChild(p);
+    const ref = document.createElementNS(svgNS,'use');
+    ref.setAttributeNS('http://www.w3.org/1999/xlink', 'href', `#${id}`);
+    pats.appendChild(ref);
   }
-  const ink = '#00000033';
-  const inkBold = '#00000055';
 
-  pat('pat-grass', u, u, (p)=>{
-    const g1 = document.createElementNS(svgNS,'path');
-    g1.setAttribute('d', `M0 ${u*0.8} L ${u*0.8} 0`);
-    g1.setAttribute('stroke', ink); g1.setAttribute('stroke-width', sw2); g1.setAttribute('fill','none');
-    const g2 = document.createElementNS(svgNS,'path');
-    g2.setAttribute('d', `M${u*0.2} ${u} L ${u} ${u*0.2}`);
-    g2.setAttribute('stroke', ink); g2.setAttribute('stroke-width', sw2); g2.setAttribute('fill','none');
-    p.append(g1,g2);
+  // -------- GRASS --------
+  pat('pat-grass', u, u, (p, rng)=>{
+    const blades = Math.round(80 + (u * 0.35));
+    const offsets = [-u, 0, u];
+    for (let i=0; i<blades; i++){
+      const cx = (rng()*0.6 + rng()*0.4) * u;
+      const cy = (rng()*0.6 + rng()*0.4) * u;
+      const len = u * (0.10 + rng()*0.12);
+      const ang = (rng()*Math.PI/3) - (Math.PI/6);
+      const sway = (rng()*0.35 - 0.175) * len;
+      const x1 = cx - Math.cos(ang) * len * 0.5;
+      const y1 = cy - Math.sin(ang) * len * 0.5;
+      const xm = cx + (sway * 0.25);
+      const ym = cy;
+      const x2 = cx + Math.cos(ang) * len * 0.5;
+      const y2 = cy + Math.sin(ang) * len * 0.5;
+      const d = `M${x1.toFixed(2)} ${y1.toFixed(2)} L${xm.toFixed(2)} ${ym.toFixed(2)} L${x2.toFixed(2)} ${y2.toFixed(2)}`;
+      for (const dx of offsets){
+        for (const dy of offsets){
+          const path = document.createElementNS(svgNS,'path');
+          path.setAttribute('d', d);
+          path.setAttribute('fill','none');
+          path.setAttribute('stroke', rng()<0.25 ? inkBold : ink);
+          path.setAttribute('stroke-width', sw2);
+          path.setAttribute('stroke-linecap','round');
+          path.setAttribute('stroke-linejoin','round');
+          if (dx || dy) path.setAttribute('transform', `translate(${dx},${dy})`);
+          p.append(path);
+        }
+      }
+    }
+    const tufts = Math.round(blades * 0.06);
+    for (let i=0;i<tufts;i++){
+      const x = rng()*u, y=rng()*u, r=u*(0.05 + rng()*0.05);
+      const t = document.createElementNS(svgNS,'path');
+      const d = `M${(x-r).toFixed(2)} ${(y+r).toFixed(2)} L${(x+r).toFixed(2)} ${(y+r).toFixed(2)} L${x.toFixed(2)} ${(y-r*0.4).toFixed(2)} Z`;
+      t.setAttribute('d', d);
+      t.setAttribute('fill', 'none');
+      t.setAttribute('stroke', ink);
+      t.setAttribute('stroke-width', Math.max(1, sw2*0.8));
+      t.setAttribute('opacity', 0.5);
+      p.append(t);
+    }
   });
 
-  pat('pat-rock', u, u, (p)=>{
-    const a = document.createElementNS(svgNS,'path');
-    a.setAttribute('d', `M0 0 L ${u} ${u}`);
-    a.setAttribute('stroke', inkBold); a.setAttribute('stroke-width', sw); a.setAttribute('fill','none');
-    const b = document.createElementNS(svgNS,'path');
-    b.setAttribute('d', `M${u} 0 L 0 ${u}`);
-    b.setAttribute('stroke', ink); b.setAttribute('stroke-width', sw2); b.setAttribute('fill','none');
-    p.append(a,b);
+  // -------- ROCK --------
+  pat('pat-rock', u, u, (p, rng)=>{
+    const count = Math.round(6 + u * 0.2);
+    const MAX_JAG = 0.22;
+    const offsets = [-u, 0, u];
+    for (let i=0;i<count;i++){
+      const cx = rng()*u, cy = rng()*u;
+      const rBase = u*(0.06 + rng()*0.10);
+      const rx = rBase * (0.85 + rng()*0.4);
+      const ry = rBase * (0.85 + rng()*0.4);
+      const steps = 8 + Math.floor(rng()*5);
+      const pts = [];
+      for (let k=0;k<steps;k++){
+        const t = (k/steps)*Math.PI*2;
+        const jag = 1 + (rng()*2 - 1) * MAX_JAG;
+        pts.push([ cx + Math.cos(t)*rx*jag, cy + Math.sin(t)*ry*jag ]);
+      }
+      const d = 'M '+pts.map(([x,y])=>`${x.toFixed(2)} ${y.toFixed(2)}`).join(' L ')+' Z';
+      const shape = document.createElementNS(svgNS,'path');
+      shape.setAttribute('d', d);
+      shape.setAttribute('fill', ink);
+      shape.setAttribute('fill-opacity', 0.18);
+      shape.setAttribute('stroke', inkBold);
+      shape.setAttribute('stroke-width', Math.max(1, sw2));
+      shape.setAttribute('stroke-linejoin','round');
+      const rim = document.createElementNS(svgNS,'path');
+      rim.setAttribute('d', d);
+      rim.setAttribute('fill','none');
+      rim.setAttribute('stroke', ink);
+      rim.setAttribute('stroke-opacity', 0.35);
+      rim.setAttribute('stroke-width', Math.max(1, sw*0.6));
+      for (const dx of offsets){
+        for (const dy of offsets){
+          const s1 = shape.cloneNode(true);
+          const s2 = rim.cloneNode(true);
+          if (dx||dy){ s1.setAttribute('transform',`translate(${dx},${dy})`); s2.setAttribute('transform',`translate(${dx},${dy})`); }
+          p.append(s1, s2);
+        }
+      }
+    }
   });
 
-  pat('pat-water', u, u*0.6, (p)=>{
-    const y = (u*0.6)/2;
-    const path = document.createElementNS(svgNS,'path');
-    path.setAttribute('d', `M0 ${y} C ${u*0.25} ${y-0.35*u}, ${u*0.75} ${y+0.35*u}, ${u} ${y}`);
-    path.setAttribute('stroke', inkBold); path.setAttribute('stroke-width', sw2); path.setAttribute('fill','none');
-    p.append(path);
+  // -------- WATER --------
+  function sinePath({u, y0, A, periods, phase=0, samples=48}){
+    const totalSteps = Math.max(12, Math.floor(samples * periods));
+    let d = `M0 ${y0 + A * Math.sin(phase)}`;
+    for (let i=1;i<=totalSteps;i++){
+      const t = i/totalSteps;
+      const x = t*u;
+      const y = y0 + A * Math.sin((t*periods*Math.PI*2) + phase);
+      d += ` L${x.toFixed(2)} ${y.toFixed(2)}`;
+    }
+    return d;
+  }
+  pat('pat-water', u, u*0.6, (p, rng)=>{
+    const uh = u*0.6;
+    const LINES = 5 + Math.floor(rng()*3);
+    const base = Array.from({length: LINES}, ()=>rng()).sort((a,b)=>a-b);
+    for (let i=0;i<LINES;i++){
+      const y0 = (uh*(0.12 + base[i]*0.76));
+      const A  = u*(0.05 + rng()*0.10);
+      const periods = 1 + Math.floor(rng()*3);
+      const phase = rng()*Math.PI*2;
+      const samples = 44 + Math.floor(rng()*20);
+      const main = document.createElementNS(svgNS,'path');
+      main.setAttribute('d', sinePath({u, y0, A, periods, phase, samples}));
+      main.setAttribute('fill','none');
+      main.setAttribute('stroke', inkBold);
+      main.setAttribute('stroke-width', sw2);
+      main.setAttribute('stroke-linecap','round');
+      main.setAttribute('stroke-linejoin','round');
+      main.setAttribute('opacity','0.9');
+      p.append(main);
+      const crest = document.createElementNS(svgNS,'path');
+      crest.setAttribute('d', sinePath({u, y0: y0 - A*0.10, A: A*0.85, periods, phase: phase+0.2, samples}));
+      crest.setAttribute('fill','none');
+      crest.setAttribute('stroke', ink);
+      crest.setAttribute('stroke-width', Math.max(1, sw2*0.7));
+      crest.setAttribute('stroke-linecap','round');
+      crest.setAttribute('stroke-linejoin','round');
+      crest.setAttribute('opacity','0.55');
+      p.append(crest);
+    }
   });
 
-  pat('pat-sand', u, u, (p)=>{
-    const mk = (cx,cy,r,op) => {
+  // -------- SAND --------
+  pat('pat-sand', u, u, (p, rng)=>{
+    const dots = Math.round(10 + u*0.3);
+    for (let i=0;i<dots;i++){
       const c = document.createElementNS(svgNS,'circle');
-      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', Math.max(0.7, r));
-      c.setAttribute('fill', '#00000028'); c.setAttribute('opacity', op);
-      return c;
-    };
-    p.append(mk(u*0.2,u*0.3, sw2*0.45, 1),
-             mk(u*0.6,u*0.2, sw2*0.45, .9),
-             mk(u*0.8,u*0.7, sw2*0.5, .7),
-             mk(u*0.35,u*0.8, sw2*0.4, .8));
+      const x = rng()*u, y=rng()*u;
+      const r = Math.max(0.6, u*(0.012 + rng()*0.018));
+      c.setAttribute('cx', x.toFixed(2));
+      c.setAttribute('cy', y.toFixed(2));
+      c.setAttribute('r', r.toFixed(2));
+      c.setAttribute('fill', '#00000028');
+      c.setAttribute('opacity', (1 + rng()*1).toFixed(2));
+      p.append(c);
+    }
   });
 
-  pat('pat-asphalt', u, u, (p) => {
-    const mk = (cx,cy,op) => {
+  // -------- ASPHALT (tarmac) --------
+  pat('pat-asphalt', u, u, (p, rng) => {
+    const stones = Math.round(28 + u*0.6);
+    for (let i=0;i<stones;i++){
       const c = document.createElementNS(svgNS,'circle');
-      c.setAttribute('cx', cx);
-      c.setAttribute('cy', cy);
-      c.setAttribute('r', Math.max(0.5, u*0.05));
-      c.setAttribute('fill', '#00000033'); c.setAttribute('opacity', op);
-      return c;
-    };
-    p.append(
-      mk(u*0.25,u*0.30, .6),
-      mk(u*0.65,u*0.20, .5),
-      mk(u*0.75,u*0.70, .45),
-      mk(u*0.35,u*0.75, .55)
-    );
-    const dash = document.createElementNS(svgNS,'path');
-    dash.setAttribute('d', `M ${-u*0.1} ${u*1.1} L ${u*1.1} ${-u*0.1}`);
-    dash.setAttribute('stroke', '#ffd24a66');
-    dash.setAttribute('stroke-width', Math.max(1, u*0.06));
-    dash.setAttribute('stroke-dasharray', `${(u*0.25).toFixed(2)}, ${(u*0.18).toFixed(2)}`);
-    dash.setAttribute('fill','none');
-    p.append(dash);
+      c.setAttribute('cx', (rng()*u).toFixed(2));
+      c.setAttribute('cy', (rng()*u).toFixed(2));
+      const r = u*(0.012 + rng()*0.025);
+      c.setAttribute('r', r.toFixed(2));
+      const tone = rng();
+      const fill = tone < 0.25 ? '#00000040' : (tone < 0.75 ? '#0000002e' : '#00000022');
+      c.setAttribute('fill', fill);
+      c.setAttribute('opacity', (1 + rng()*1).toFixed(2));
+      p.append(c);
+    }
+    const streaks = 2 + Math.floor(rng()*2);
+    const angle = (rng()*Math.PI/10) - (Math.PI/20);
+    for (let i=0;i<streaks;i++){
+      const y = rng()*u;
+      const x0 = 0, x1 = u;
+      const y0 = y, y1 = y + Math.tan(angle)*u;
+      const s = document.createElementNS(svgNS,'path');
+      s.setAttribute('d', `M${x0.toFixed(2)} ${y0.toFixed(2)} L${x1.toFixed(2)} ${y1.toFixed(2)}`);
+      s.setAttribute('stroke', '#00000026');
+      s.setAttribute('stroke-width', Math.max(1, u*0.01));
+      s.setAttribute('opacity', 0.25);
+      s.setAttribute('fill','none');
+      p.append(s);
+    }
+    const cracks = 1 + Math.floor(rng()*2);
+    for (let i=0;i<cracks;i++){
+      const x = rng()*u, y = rng()*u;
+      const len = u*(0.25 + rng()*0.25);
+      const ang = rng()*Math.PI*2;
+      const x2 = x + Math.cos(ang)*len;
+      const y2 = y + Math.sin(ang)*len;
+      const c = document.createElementNS(svgNS,'path');
+      c.setAttribute('d', `M${x.toFixed(2)} ${y.toFixed(2)} L${x2.toFixed(2)} ${y2.toFixed(2)}`);
+      c.setAttribute('stroke', '#00000030');
+      c.setAttribute('stroke-width', Math.max(1, u*0.012));
+      c.setAttribute('opacity', 0.22);
+      c.setAttribute('fill','none');
+      p.append(c);
+    }
   });
 
-  pat('pat-urban', u, u, (p) => {
-    const g1 = document.createElementNS(svgNS,'path');
-    g1.setAttribute('d', `M 0 ${u*0.5} H ${u} M ${u*0.5} 0 V ${u}`);
-    g1.setAttribute('stroke', '#0000003a');
-    g1.setAttribute('stroke-width', Math.max(1, u*0.05));
-    g1.setAttribute('fill','none');
-
-    const g2 = document.createElementNS(svgNS,'path');
-    g2.setAttribute('d', `M 0 ${u*0.25} H ${u} M ${u*0.25} 0 V ${u}`);
-    g2.setAttribute('stroke', '#00000022');
-    g2.setAttribute('stroke-width', Math.max(1, u*0.035));
-    g2.setAttribute('fill','none');
-
-    p.append(g1, g2);
+  // -------- URBAN (buildings) --------
+  pat('pat-urban', u, u, (p, rng) => {
+    const grid = document.createElementNS(svgNS,'path');
+    grid.setAttribute('d', `M 0 ${u*0.5} H ${u} M ${u*0.5} 0 V ${u}`);
+    grid.setAttribute('stroke', '#00000012');
+    grid.setAttribute('stroke-width', Math.max(1, u*0.02));
+    grid.setAttribute('fill','none');
+    p.append(grid);
+    const count = 6 + Math.floor(rng()*5);
+    for (let i=0;i<count;i++){
+      const gx = u/8, gy = u/8;
+      const w = (2 + Math.floor(rng()*4)) * (gx*0.9);
+      const h = (2 + Math.floor(rng()*4)) * (gy*0.9);
+      let x = Math.floor(rng()*8) * gx + gx*0.05;
+      let y = Math.floor(rng()*8) * gy + gy*0.05;
+      x = Math.min(x, u - w - gx*0.05);
+      y = Math.min(y, u - h - gy*0.05);
+      const rect = document.createElementNS(svgNS,'rect');
+      rect.setAttribute('x', x.toFixed(2));
+      rect.setAttribute('y', y.toFixed(2));
+      rect.setAttribute('width', w.toFixed(2));
+      rect.setAttribute('height', h.toFixed(2));
+      rect.setAttribute('rx', Math.max(0, Math.min(w,h) * 0.06).toFixed(2));
+      rect.setAttribute('fill', '#0000001f');
+      rect.setAttribute('stroke', '#00000033');
+      rect.setAttribute('stroke-width', Math.max(1, u*0.02));
+      rect.setAttribute('opacity', 0.9);
+      p.append(rect);
+      if (rng() < 0.6){
+        const inset = Math.max(1, Math.min(w,h)*0.08);
+        const roof = document.createElementNS(svgNS,'rect');
+        roof.setAttribute('x', (x+inset).toFixed(2));
+        roof.setAttribute('y', (y+inset).toFixed(2));
+        roof.setAttribute('width', Math.max(0, w-2*inset).toFixed(2));
+        roof.setAttribute('height', Math.max(0, h-2*inset).toFixed(2));
+        roof.setAttribute('fill', 'none');
+        roof.setAttribute('stroke', '#00000024');
+        roof.setAttribute('stroke-width', Math.max(1, u*0.015));
+        p.append(roof);
+      }
+    }
   });
 
-  pat('pat-snow', u, u, (p) => {
+  // -------- SNOW --------
+  pat('pat-snow', u, u, (p, rng) => {
+    const streaks = 4 + Math.floor(rng()*3);
+    for (let i=0;i<streaks;i++){
+      const y = rng()*u;
+      const len = u*(0.4 + rng()*0.4);
+      const x0 = rng()*u, x1 = x0 + len;
+      const s = document.createElementNS(svgNS,'path');
+      s.setAttribute('d', `M${x0.toFixed(2)} ${y.toFixed(2)} L${x1.toFixed(2)} ${y.toFixed(2)}`);
+      s.setAttribute('stroke', '#d4dbe6');
+      s.setAttribute('stroke-width', Math.max(1, sw2*0.9));
+      s.setAttribute('opacity', 0.28 + rng()*0.2);
+      s.setAttribute('fill','none');
+      p.append(s);
+    }
     const a = document.createElementNS(svgNS,'path');
     a.setAttribute('d', `M0 ${u} L ${u} 0`);
     a.setAttribute('stroke', '#bfc9d6');
     a.setAttribute('stroke-width', sw2);
-    a.setAttribute('opacity', 0.4);
+    a.setAttribute('opacity', 0.35);
     a.setAttribute('fill','none');
-
     const b = document.createElementNS(svgNS,'path');
     b.setAttribute('d', `M0 0 L ${u} ${u}`);
     b.setAttribute('stroke', '#d4dbe6');
     b.setAttribute('stroke-width', sw2);
-    b.setAttribute('opacity', 0.3);
+    b.setAttribute('opacity', 0.28);
     b.setAttribute('fill','none');
-
     p.append(a,b);
   });
 
-  pat('pat-lava', u, u, (p) => {
-    const crack = document.createElementNS(svgNS,'path');
-    crack.setAttribute('d', `M0 ${u*0.6} Q ${u*0.3} ${u*0.3}, ${u*0.6} ${u*0.7} T ${u} ${u*0.4}`);
-    crack.setAttribute('stroke', '#ff4500');
-    crack.setAttribute('stroke-width', sw2*1.4);
-    crack.setAttribute('opacity', 0.9);
-    crack.setAttribute('fill','none');
-
+  // -------- LAVA --------
+  pat('pat-lava', u, u, (p, rng) => {
+    const main = document.createElementNS(svgNS,'path');
+    main.setAttribute('d', `M0 ${u*0.6} Q ${u*0.3} ${u*0.3}, ${u*0.6} ${u*0.7} T ${u} ${u*0.4}`);
+    main.setAttribute('stroke', '#ff4500');
+    main.setAttribute('stroke-width', sw2*1.4);
+    main.setAttribute('opacity', 0.9);
+    main.setAttribute('fill','none');
+    p.append(main);
+    const minorCount = 2 + Math.floor(rng()*3);
+    for (let i=0;i<minorCount;i++){
+      const y0 = u*(0.2 + rng()*0.6);
+      const y1 = y0 + u*(rng()*0.2 - 0.1);
+      const x0 = u*(rng()*0.3);
+      const x1 = u*(0.7 + rng()*0.3);
+      const crack = document.createElementNS(svgNS,'path');
+      crack.setAttribute('d', `M${x0.toFixed(2)} ${y0.toFixed(2)} Q ${((x0+x1)/2).toFixed(2)} ${((y0+y1)/2 + u*0.05).toFixed(2)}, ${x1.toFixed(2)} ${y1.toFixed(2)}`);
+      crack.setAttribute('stroke', '#ff6a00');
+      crack.setAttribute('stroke-width', Math.max(1, sw2*1.1));
+      crack.setAttribute('opacity', 0.75);
+      crack.setAttribute('fill','none');
+      p.append(crack);
+    }
     const glow = document.createElementNS(svgNS,'path');
     glow.setAttribute('d', `M0 ${u*0.8} Q ${u*0.4} ${u*0.5}, ${u*0.8} ${u*0.9}`);
     glow.setAttribute('stroke', '#ffd54a');
     glow.setAttribute('stroke-width', sw2);
-    glow.setAttribute('opacity', 0.7);
+    glow.setAttribute('opacity', 0.65);
     glow.setAttribute('fill','none');
-
-    p.append(crack, glow);
+    p.append(glow);
   });
 
-  pat('pat-moon', u, u, (p) => {
-    function crater(cx, cy, r, op) {
+  // -------- MOON --------
+  pat('pat-moon', u, u, (p, rng) => {
+    const n = 3 + Math.floor(rng()*3);
+    for (let i=0;i<n;i++){
+      const cx = rng()*u, cy = rng()*u;
+      const r = u*(0.10 + rng()*0.12);
       const c = document.createElementNS(svgNS,'circle');
-      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
-      c.setAttribute('fill', '#888'); c.setAttribute('opacity', op);
-      return c;
+      c.setAttribute('cx', cx.toFixed(2));
+      c.setAttribute('cy', cy.toFixed(2));
+      c.setAttribute('r', (r).toFixed(2));
+      c.setAttribute('fill', '#888');
+      c.setAttribute('opacity', (0.35 + rng()*0.25).toFixed(2));
+      p.append(c);
+      const rim = document.createElementNS(svgNS,'circle');
+      rim.setAttribute('cx', cx.toFixed(2));
+      rim.setAttribute('cy', cy.toFixed(2));
+      rim.setAttribute('r', (r*0.85).toFixed(2));
+      rim.setAttribute('fill','none');
+      rim.setAttribute('stroke', '#666');
+      rim.setAttribute('opacity','0.35');
+      rim.setAttribute('stroke-width', Math.max(1, sw2*0.9));
+      p.append(rim);
     }
-    p.append(
-      crater(u*0.25, u*0.25, sw*0.6, 0.6),
-      crater(u*0.7,  u*0.35, sw*0.8, 0.5),
-      crater(u*0.5,  u*0.75, sw*0.7, 0.4)
-    );
   });
 
-  pat('pat-ice', u, u, (p) => {
-    const crack1 = document.createElementNS(svgNS,'path');
-    crack1.setAttribute('d', `M0 ${u*0.3} L ${u} ${u*0.1}`);
-    crack1.setAttribute('stroke', '#7fcde8');
-    crack1.setAttribute('stroke-width', sw2);
-    crack1.setAttribute('opacity', 0.5);
-    crack1.setAttribute('fill','none');
-
-    const crack2 = document.createElementNS(svgNS,'path');
-    crack2.setAttribute('d', `M${u*0.2} ${u} L ${u*0.8} 0`);
-    crack2.setAttribute('stroke', '#a4dff2');
-    crack2.setAttribute('stroke-width', sw2*0.9);
-    crack2.setAttribute('opacity', 0.4);
-    crack2.setAttribute('fill','none');
-
-    p.append(crack1, crack2);
+  // -------- ICE --------
+  pat('pat-ice', u, u, (p, rng) => {
+    const cracks = 3 + Math.floor(rng()*3);
+    for (let i=0;i<cracks;i++){
+      const x0 = rng()*u, y0 = rng()*u;
+      const x1 = rng()*u, y1 = rng()*u;
+      const midx = (x0+x1)/2 + (rng()*0.2-0.1)*u;
+      const midy = (y0+y1)/2 + (rng()*0.2-0.1)*u;
+      const path = document.createElementNS(svgNS,'path');
+      path.setAttribute('d', `M${x0.toFixed(2)} ${y0.toFixed(2)} Q ${midx.toFixed(2)} ${midy.toFixed(2)}, ${x1.toFixed(2)} ${y1.toFixed(2)}`);
+      path.setAttribute('stroke', '#7fcde8');
+      path.setAttribute('stroke-width', sw2);
+      path.setAttribute('opacity', 0.55);
+      path.setAttribute('fill','none');
+      p.append(path);
+    }
+    const hair = 2 + Math.floor(rng()*2);
+    for (let i=0;i<hair;i++){
+      const x0 = rng()*u, y0 = rng()*u, x1 = rng()*u, y1 = rng()*u;
+      const h = document.createElementNS(svgNS,'path');
+      h.setAttribute('d', `M${x0.toFixed(2)} ${y0.toFixed(2)} L ${x1.toFixed(2)} ${y1.toFixed(2)}`);
+      h.setAttribute('stroke', '#a4dff2');
+      h.setAttribute('stroke-width', Math.max(1, sw2*0.8));
+      h.setAttribute('opacity', 0.4);
+      h.setAttribute('fill','none');
+      p.append(h);
+    }
   });
 
-  pat('pat-volcanic', u, u, (p) => {
-    function fleck(cx, cy, r, color, op) {
+  // -------- VOLCANIC --------
+  pat('pat-volcanic', u, u, (p, rng) => {
+    const dots = Math.round(8 + u*0.25);
+    for (let i=0;i<dots;i++){
       const c = document.createElementNS(svgNS,'circle');
-      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
-      c.setAttribute('fill', color); c.setAttribute('opacity', op);
-      return c;
+      c.setAttribute('cx', (rng()*u).toFixed(2));
+      c.setAttribute('cy', (rng()*u).toFixed(2));
+      const r = u*(0.018 + rng()*0.04);
+      c.setAttribute('r', r.toFixed(2));
+      const hue = rng();
+      const fill = hue<0.1 ? '#c33' : (hue<0.55 ? '#555' : '#333');
+      c.setAttribute('fill', fill);
+      c.setAttribute('opacity', (fill==='#c33' ? 0.7 : 0.6));
+      p.append(c);
     }
-    p.append(
-      fleck(u*0.2, u*0.3, sw*0.5, '#555', 0.6),
-      fleck(u*0.7, u*0.4, sw*0.4, '#777', 0.5),
-      fleck(u*0.4, u*0.7, sw*0.6, '#333', 0.7),
-      fleck(u*0.8, u*0.2, sw*0.5, '#c33', 0.7)
-    );
   });
 
-    pat('pat-moon', u, u, (p) => {
-    function crater(cx, cy, r, op) {
+  // -------- PAPER  --------
+  pat('pat-paper', u, u, (p, rng) => {
+    const dots = Math.round(10 + u*0.25);
+    for (let i=0;i<dots;i++){
       const c = document.createElementNS(svgNS,'circle');
-      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
-      c.setAttribute('fill', '#888'); c.setAttribute('opacity', op);
-      return c;
+      c.setAttribute('cx', (rng()*u).toFixed(2));
+      c.setAttribute('cy', (rng()*u).toFixed(2));
+      c.setAttribute('r', (u*(0.008 + rng()*0.012)).toFixed(2));
+      c.setAttribute('fill', '#00000012');
+      c.setAttribute('opacity', (0.35 + rng()*0.25).toFixed(2));
+      p.append(c);
     }
-    p.append(
-      crater(u*0.25, u*0.25, sw*0.6, 0.6),
-      crater(u*0.7,  u*0.35, sw*0.8, 0.5),
-      crater(u*0.5,  u*0.75, sw*0.7, 0.4)
-    );
-  });
-
-// --- Leaf pattern (square u × u, two rows to fill the square) ---
-pat('pat-leaf', u, u, (p) => {
-  const g = document.createElementNS(svgNS, 'g');
-  // Build an 80×80 tile (two rows of the original 80×40), then scale to u×u
-  g.setAttribute('transform', `scale(${u / 80} ${u / 80})`);
-
-  const leafPathD =
-    'M0 40a19.96 19.96 0 0 1 5.9-14.11 20.17 20.17 0 0 1 19.44-5.2A20 20 0 0 1 20.2 40H0z' +
-    'M65.32.75A20.02 20.02 0 0 1 40.8 25.26 20.02 20.02 0 0 1 65.32.76z' +
-    'M.07 0h20.1l-.08.07A20.02 20.02 0 0 1 .75 5.25 20.08 20.08 0 0 1 .07 0z' +
-    'M1.94 40h2.53l4.26-4.24v-9.78A17.96 17.96 0 0 0 2 40zm5.38 0h9.8a17.98 17.98 0 0 0 6.67-16.42L7.4 40zm3.43-15.42v9.17l11.62-11.59c-3.97-.5-8.08.3-11.62 2.42zm32.86-.78A18 18 0 0 0 63.85 3.63L43.68 23.8zm7.2-19.17v9.15L62.43 2.22c-3.96-.5-8.05.3-11.57 2.4zm-3.49 2.72c-4.1 4.1-5.81 9.69-5.13 15.03l6.61-6.6V6.02c-.51.41-1 .85-1.48 1.33zM17.18 0H7.42L3.64 3.78A18 18 0 0 0 17.18 0zM2.08 0c-.01.8.04 1.58.14 2.37L4.59 0H2.07z';
-
-  function addRow(yOffset) {
-    const row = document.createElementNS(svgNS, 'g');
-    if (yOffset) row.setAttribute('transform', `translate(0 ${yOffset})`);
-    const path = document.createElementNS(svgNS, 'path');
-    path.setAttribute('d', leafPathD);
-    path.setAttribute('fill', ink);          // use your ink
-    row.appendChild(path);
-    g.appendChild(row);
-  }
-
-  addRow(0);    // top 40px
-  addRow(40);   // second row to fill 80px height
-  p.appendChild(g);
-});
-
+    const fibers = 2 + Math.floor(rng()*2);
+    for (let i=0;i<fibers;i++){
+      const x0 = rng()*u, y0 = rng()*u;
+      const x1 = rng()*u, y1 = rng()*u;
+      const cx = (x0+x1)/2 + (rng()*0.25 - 0.125)*u;
+      const cy = (y0+y1)/2 + (rng()*0.25 - 0.125)*u;
+      const path = document.createElementNS(svgNS,'path');
+      path.setAttribute('d', `M${x0.toFixed(2)} ${y0.toFixed(2)} Q ${cx.toFixed(2)} ${cy.toFixed(2)}, ${x1.toFixed(2)} ${y1.toFixed(2)}`);
+      path.setAttribute('stroke', '#00000014');
+      path.setAttribute('stroke-width', Math.max(1, u*0.012));
+      path.setAttribute('fill','none');
+      path.setAttribute('opacity', 0.4);
+      p.append(path);
+    }
+  });
 }
 
 /* ===== Drop-shadow filters per height (H1..H5) ===== */
@@ -2560,4 +2777,5 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
