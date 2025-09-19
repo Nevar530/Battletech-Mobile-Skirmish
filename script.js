@@ -813,7 +813,9 @@ if (!center || center.x === undefined) return;
     if (tok.id === selectedTokenId) g.classList.add('selected');
     g.setAttribute('transform', `translate(${cx},${cy}) rotate(${tok.angle||0})`);
     g.dataset.id = tok.id;
-
+    
+    g.dataset.rtok = String(rTok);
+    
     const tokPts = ptsToString(hexPointsArray(0, 0, rTok));
 
     const base = document.createElementNS(svgNS,'polygon');
@@ -879,6 +881,11 @@ if (!center || center.x === undefined) return;
     label.textContent = tok.label || 'MECH';
     g.appendChild(label);
 
+    // NEW: render init badge using current roll (if present)
+    // We'll read the roll from a Map we maintain (initRolls)
+    const roll = (typeof getInitRollFor === 'function') ? getInitRollFor(tok.id) : undefined;
+    renderInitBadge(g, roll, rTok);
+    
     gTokens.appendChild(g);
   });
 
@@ -2207,7 +2214,15 @@ function resolveMech(input){
 function renderInit(){
   if (!initList) return;
   initList.replaceChildren();
-  if (!initOrder.length) return;
+  if (!initOrder.length){
+    // clear map and badges if no order
+    initRolls.clear();
+    refreshInitBadges();
+    return;
+  }
+
+  // rebuild the id -> roll map from initOrder
+  initRolls = new Map(initOrder.map(e => [e.id, e.roll]));
 
   initOrder.forEach((entry, idx) => {
     const tok = tokens.find(t => t.id === entry.id);
@@ -2218,22 +2233,93 @@ function renderInit(){
     li.innerHTML = `<strong>${meta.name || tok.label}</strong> — roll: <em>${entry.roll}</em>`;
     initList.appendChild(li);
   });
+
+  // repaint badges after updating the list
+  refreshInitBadges();
 }
+
 function roll2d6(){ return (Math.floor(Math.random()*6)+1) + (Math.floor(Math.random()*6)+1); }
 
 if (btnRollInitAll) btnRollInitAll.addEventListener('click', ()=>{
-  initOrder = tokens.map(t => ({ id: t.id, roll: roll2d6() })).sort((a,b)=> b.roll - a.roll);
+  initOrder = tokens
+    .map(t => ({ id: t.id, roll: roll2d6() }))
+    .sort((a,b)=> b.roll - a.roll);
   initIndex = initOrder.length ? 0 : -1;
-  renderInit();
+  renderInit(); // this rebuilds initRolls + badges
 });
+
 if (btnClearInit) btnClearInit.addEventListener('click', ()=>{
-  initOrder = []; initIndex = -1; renderInit();
+  initOrder = []; initIndex = -1;
+  renderInit(); // clears map + badges
 });
+
 if (btnNextTurn) btnNextTurn.addEventListener('click', ()=>{
   if (!initOrder.length) return;
   initIndex = (initIndex + 1) % initOrder.length;
-  renderInit();
+  renderInit(); // flips 'is-current' highlight
 });
+
+// --- Initiative badge renderer ---
+// parentG: token's <g> (origin at token center)
+// roll: number | null
+// r: token radius (px)
+function renderInitBadge(parentG, roll, r){
+  // remove old badge
+  const old = parentG.querySelector(':scope > g.init-badge');
+  if (old) old.remove();
+
+  if (roll == null || roll === '' || Number.isNaN(+roll)) return;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const badge = document.createElementNS(svgNS, 'g');
+  badge.setAttribute('class', 'init-badge');
+
+  // top-right of token
+  const bx =  r * 0.62;
+  const by = -r * 0.62;
+  const br = Math.max(10, r * 0.22);
+  badge.setAttribute('transform', `translate(${bx},${by})`);
+
+  const c = document.createElementNS(svgNS, 'circle');
+  c.setAttribute('r', br);
+
+  const t = document.createElementNS(svgNS, 'text');
+  t.setAttribute('text-anchor', 'middle');
+  t.setAttribute('dominant-baseline', 'central');
+  t.textContent = String(roll);
+
+  badge.appendChild(c);
+  badge.appendChild(t);
+  parentG.appendChild(badge);
+}
+
+// Holds the latest initiative roll per token id
+let initRolls = new Map(); // id -> number
+
+function getInitRollFor(id){
+  return initRolls.get(id);
+}
+
+// Repaint all badges to match initOrder/initIndex
+function refreshInitBadges(){
+  if (!gTokens) return;
+  const currentId = (initOrder && initOrder.length && initIndex >= 0) ? initOrder[initIndex].id : null;
+
+  gTokens.querySelectorAll('g.token').forEach(g => {
+    const id = g.dataset.id;
+    const rTok = Number(g.dataset.rtok) || 24;
+    const roll = initRolls.get(id);
+    renderInitBadge(g, roll, rTok);
+
+    // highlight the "current turn" token's badge
+    const badge = g.querySelector(':scope > g.init-badge');
+    if (badge){
+      if (id === currentId) badge.classList.add('is-current');
+      else badge.classList.remove('is-current');
+    }
+  });
+}
+
 
 /* Export/Import for mech roster only */
 if (btnExportMechs) btnExportMechs.addEventListener('click', ()=>{
@@ -2605,5 +2691,6 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
