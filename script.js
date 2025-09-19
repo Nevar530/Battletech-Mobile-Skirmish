@@ -916,7 +916,7 @@ if (!center || center.x === undefined) return;
     const txt = document.createElementNS(svgNS,'text');
     txt.setAttribute('x', mx); txt.setAttribute('y', my);
     txt.setAttribute('class','measure-label');
-    txt.setAttribute('font-size', Math.max(8, hexSize*0.22));
+    txt.setAttribute('font-size', Math.max(20, hexSize*0.3));
     const n = measurement.dist;
     txt.textContent = `${n} hex${n===1?'':'es'}`;
     gMeasure.appendChild(txt);
@@ -2272,13 +2272,12 @@ function renderInitBadge(parentG, roll){
   const badge = document.createElementNS(svgNS, 'g');
   badge.setAttribute('class', 'init-badge');
 
-  // place it top-right relative to token radius
+  // place it center-bottom relative to token radius
   const r = Number(parentG.dataset.rtok) || 24;
-  const offset = r * 0.72;
-  badge.setAttribute('transform', `translate(${offset},${-offset})`);
+  badge.setAttribute('transform', `translate(0,${r * 1.1})`);
 
   const c = document.createElementNS(svgNS, 'circle');
-  c.setAttribute('r', 12);  // base radius, CSS can scale
+  c.setAttribute('r', 12);   // base size (CSS can scale up)
   badge.appendChild(c);
 
   const t = document.createElementNS(svgNS, 'text');
@@ -2289,6 +2288,7 @@ function renderInitBadge(parentG, roll){
 
   parentG.appendChild(badge);
 }
+
 
 
 // Holds the latest initiative roll per token id
@@ -2689,6 +2689,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
