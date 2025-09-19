@@ -2263,35 +2263,33 @@ if (btnNextTurn) btnNextTurn.addEventListener('click', ()=>{
 // parentG: token's <g> (origin at token center)
 // roll: number | null
 // r: token radius (px)
-function renderInitBadge(parentG, roll, r){
-  // remove old badge
-  const old = parentG.querySelector(':scope > g.init-badge');
+function renderInitBadge(parentG, roll){
+  const old = parentG.querySelector('.init-badge');
   if (old) old.remove();
-
   if (roll == null || roll === '' || Number.isNaN(+roll)) return;
 
   const svgNS = 'http://www.w3.org/2000/svg';
   const badge = document.createElementNS(svgNS, 'g');
   badge.setAttribute('class', 'init-badge');
 
-  // top-right of token
-  const bx =  r * 0.62;
-  const by = -r * 0.62;
-  const br = Math.max(10, r * 0.22);
-  badge.setAttribute('transform', `translate(${bx},${by})`);
+  // place it top-right relative to token radius
+  const r = Number(parentG.dataset.rtok) || 24;
+  const offset = r * 0.72;
+  badge.setAttribute('transform', `translate(${offset},${-offset})`);
 
   const c = document.createElementNS(svgNS, 'circle');
-  c.setAttribute('r', br);
+  c.setAttribute('r', 12);  // base radius, CSS can scale
+  badge.appendChild(c);
 
   const t = document.createElementNS(svgNS, 'text');
   t.setAttribute('text-anchor', 'middle');
   t.setAttribute('dominant-baseline', 'central');
   t.textContent = String(roll);
-
-  badge.appendChild(c);
   badge.appendChild(t);
+
   parentG.appendChild(badge);
 }
+
 
 // Holds the latest initiative roll per token id
 let initRolls = new Map(); // id -> number
@@ -2691,6 +2689,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
