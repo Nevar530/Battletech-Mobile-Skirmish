@@ -419,3 +419,26 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 .hex[terrain="Hologram"] {
   filter: drop-shadow(0 0 4px #00ff80) drop-shadow(0 0 8px #00ff80);
 }
+
+/* Initiative badge visuals */
+.init-badge circle{
+  fill: var(--panel);
+  stroke: #fff;
+  stroke-width: 2px;
+  opacity: 0.95;
+}
+.init-badge text{
+  font-weight: 800;
+  font-size: 13px;
+  fill: #fff;
+  letter-spacing: 0.2px;
+  user-select: none;
+  pointer-events: none;
+}
+/* Optional: highlight the active unit this round */
+.init-badge.is-current circle{
+  stroke: var(--ink);
+  stroke-width: 3px;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.35));
+}
+
