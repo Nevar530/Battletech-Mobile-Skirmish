@@ -801,7 +801,7 @@ tiles.forEach(t => {
   });
 
   // Tokens
-  const fontTok = Math.max(7, hexSize * 0.22);
+  const fontTok = Math.max(12, hexSize * 0.3);
   tokens.forEach(tok => {
 const center = geom.get(key(tok.q, tok.r));
 if (!center || center.x === undefined) return;
@@ -2689,6 +2689,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
