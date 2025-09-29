@@ -7,6 +7,20 @@ This is a browser-based **hex map skirmish tool** designed for quick games on ta
 
 ---
 
+## 🔄 Cross-App Crossover  
+
+Mobile Skirmish now links directly with **[TRS:80 // Technical Readout System:80](https://nevar530.github.io/TRS80/)**.  
+
+- **Export from TRS:80 Lance Builder** → produces a `"Lance Name".json` file  
+- **Import into Mobile Skirmish** → instantly places those ’Mechs on the tactical map  
+- Pilot info, call signs, and skills carry over  
+- Team colors sync (Alpha, Bravo, Clan, Merc)  
+- **Round-trip:** export your Skirmish roster and re-import into TRS:80  
+
+👉 Together, the two tools form a complete digital pipeline: **Build your forces in TRS:80, then battle them in Mobile Skirmish.**  
+
+---
+
 ## ✨ Features
 
 - 🎲 **Hex Grid Engine**
@@ -39,6 +53,8 @@ This is a browser-based **hex map skirmish tool** designed for quick games on ta
   - Keyboard shortcuts for every major action.
   - Touch support for pinch-to-zoom and pan (tablet friendly).
 
+---
+
 ## 🌐 Online Play (Beta)
 
 You can now play remotely with a friend — no accounts or installs needed.  
@@ -50,8 +66,9 @@ The app uses free Firebase snapshots to sync the game state.
    - This links you into the same room.  
 4. Use the **Transmit** button to broadcast your map and moves.  
    - Each press syncs the full game state to your opponent.  
-5. Play as if you’re at the same table — map edits, mechs, and initiative all carry across.
-6. Recommend using Discord or another voice chat option during play.
+5. Play as if you’re at the same table — map edits, mechs, and initiative all carry across.  
+6. Recommend using Discord or another voice chat option during play.  
+
 ---
 
 ## 🚀 How to Play
@@ -89,7 +106,7 @@ The app uses free Firebase snapshots to sync the game state.
 
 ### Terrain Tools
 ![Terrain Tools](images/tools.png)  
-*Line of Sight, Fire Archs, Mech Controls, Measurement*
+*Line of Sight, Fire Arcs, Mech Controls, Measurement*
 
 ### Flechs Sheets Integration
 ![Flechs Sheets](images/flechsheet.png)  
@@ -137,4 +154,4 @@ All rights to the BattleTech universe remain with their respective owners. This 
 ## 🤖 Note on Code Assistance
 
 Portions of the JavaScript, HTML, and CSS were written with the assistance of **ChatGPT (OpenAI)** under the direct design and direction of the project creator.  
-The vision, structure, and final decisions were human-directed. AI assistance served only as a coding tool.
+The vision, structure, and final decisions were human-directed. AI assistance served only as a coding tool.  
