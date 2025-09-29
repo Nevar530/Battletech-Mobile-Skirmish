@@ -15,8 +15,6 @@ Mobile Skirmish now links directly with **[TRS:80 // Technical Readout System:80
 - **Import into Mobile Skirmish** → instantly places those ’Mechs on the tactical map  
 - Pilot info, call signs, and skills carry over  
 - Team colors sync (Alpha, Bravo, Clan, Merc)  
-- **Round-trip:** export your Skirmish roster and re-import into TRS:80  
-
 👉 Together, the two tools form a complete digital pipeline: **Build your forces in TRS:80, then battle them in Mobile Skirmish.**  
 
 ---
