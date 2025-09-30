@@ -472,3 +472,12 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   }
 }
 
+/* Mobile/touch only: kill every footer variant */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  footer,
+  .ui-footer,
+  .gtr-footer,
+  #footer {
+    display: none !important;
+  }
+}
