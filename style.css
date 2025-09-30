@@ -460,5 +460,15 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   dominant-baseline: central;
 }
 
+/* Default: footer visible */
+.gtr-footer {
+  display: block;
+}
 
+/* Hide on mobile screens (adjust max-width as needed) */
+@media (max-width: 768px) {
+  .gtr-footer {
+    display: none;
+  }
+}
 
