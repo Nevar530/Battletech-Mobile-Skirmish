@@ -2155,20 +2155,24 @@ if (mechList) mechList.addEventListener('click', (e)=>{
 });
 
 /* ---------- Mech index (manifest-driven: uses items[]) ---------- */
-// Maps used elsewhere
 let MANIFEST_INDEX = [];
-const mechByModel        = new Map();   // "ARC-2K" -> "Archer ARC-2K"
-const mechByName         = new Map();   // "archer arc-2k" -> "ARC-2K"
-const movementByModel    = new Map();   // "ARC-2K" -> {walk, jump}
-const manifestByModel    = new Map();   // "ARC-2K" -> full item
+const mechByModel     = new Map();   // "ARC-2K" -> "Archer ARC-2K"
+const mechByName      = new Map();   // "archer arc-2k" -> "ARC-2K"
+const movementByModel = new Map();   // "ARC-2K" -> {walk, jump}
+const manifestByModel = new Map();   // "ARC-2K" -> full item
+
+function resolvedAssetsUrl(file){
+  // If APP_SCOPE is defined (you have it later in this file), honor it; else use relative.
+  const base = (typeof APP_SCOPE === 'string' && APP_SCOPE) ? APP_SCOPE.replace(/\/?$/, '/') : '';
+  return base + 'assets/' + file;
+}
 
 async function loadMechIndex(){
   try{
-    const res = await fetch('assets/manifest.json', { cache: 'no-store' });
+    const res = await fetch(resolvedAssetsUrl('manifest.json'), { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const root = await res.json(); // { generated, count, items: [...] }
-    const list = Array.isArray(root) ? root
-               : (Array.isArray(root?.items) ? root.items : []);
-
+    const list = Array.isArray(root) ? root : (Array.isArray(root?.items) ? root.items : []);
     MANIFEST_INDEX = list;
 
     mechByModel.clear();
@@ -2194,18 +2198,20 @@ async function loadMechIndex(){
 
       if (dl){
         const opt = document.createElement('option');
-        opt.value = display;    // users type/select by pretty name
-        opt.label = model;      // browser may show model code as hint
+        opt.value = display;    // user sees "Archer ARC-2K"
+        opt.label = model;      // shows ARC-2K hint
         dl.appendChild(opt);
       }
     });
 
-    // Force a repaint so MV badges appear once data is ready
-    if (typeof refreshMovementBadges === 'function') refreshMovementBadges();
-    else if (typeof requestRender === 'function') requestRender();
+    // Dev aid: warn if nothing mapped
+    if (!movementByModel.size) console.warn('[manifest] loaded but movementByModel is empty');
+
+    // repaint now that MV exists
+    (typeof refreshMovementBadges === 'function') ? refreshMovementBadges() : requestRender?.();
 
   }catch(err){
-    console.warn('manifest load failed', err);
+    console.warn('[manifest] load failed', err);
   }
 }
 loadMechIndex();
@@ -2215,19 +2221,19 @@ function resolveMech(input){
   const raw = (input||'').trim();
   if (!raw) return { tokenLabel:'MECH', displayName:'MECH', model:null };
 
-  // If they typed an exact displayName from manifest
+  // exact displayName hit
   const byNameModel = mechByName.get(raw.toLowerCase());
   if (byNameModel) {
     return {
-      tokenLabel: byNameModel,                      // token shows model code
+      tokenLabel: byNameModel,
       displayName: mechByModel.get(byNameModel) || raw,
       model: byNameModel
     };
   }
 
-  // If they typed a model-like string, normalize & match
+  // model-ish: "ARC2K" -> "ARC-2K"
   const up = raw.toUpperCase().replace(/\s+/g,'');
-  const normalizedModel = up.replace(/^([A-Z]{2,5})-?(\d.*)$/, '$1-$2'); // "ARC2K" -> "ARC-2K"
+  const normalizedModel = up.replace(/^([A-Z]{2,5})-?(\d.*)$/, '$1-$2');
   if (mechByModel.has(normalizedModel)) {
     return {
       tokenLabel: normalizedModel,
@@ -2236,9 +2242,10 @@ function resolveMech(input){
     };
   }
 
-  // Fallback (free text)
+  // fallback
   return { tokenLabel: raw.slice(0,18).toUpperCase(), displayName: raw, model:null };
 }
+
 
 
 
@@ -2324,31 +2331,43 @@ function renderInitBadge(parentG, roll){
 
 // --- Movement lookup from manifest-driven meta ---
 function getMovementForToken(id){
-  const meta = mechMeta.get(id);
-  const model = meta?.model ? String(meta.model).toUpperCase() : null;
+  const meta = mechMeta.get(id) || {};
+  let model = meta?.model ? String(meta.model).toUpperCase() : '';
+
+  // try to infer from token label or pretty name
+  if (!model) {
+    const tok = tokens.find(t => t.id === id);
+    const labelGuess = tok?.label ? tok.label.toUpperCase().replace(/\s+/g,'').replace(/^([A-Z]{2,5})-?(\d.*)$/, '$1-$2') : '';
+    const nameGuess  = meta?.name ? mechByName.get(String(meta.name).toLowerCase()) : '';
+
+    model = (labelGuess && mechByModel.has(labelGuess)) ? labelGuess
+          : (nameGuess || '');
+
+    if (model) mechMeta.set(id, { ...meta, model }); // cache for next time
+  }
+
   if (!model) return null;
-  const mv = movementByModel?.get?.(model);
+  const mv = movementByModel.get(model);
   if (!mv) return null;
 
   const walk = Number(mv.walk) || 0;
   const jump = Number(mv.jump) || 0;
-  const run  = Math.ceil(walk * 1.5);   // BattleTech run = ceil(walk * 1.5)
+  const run  = Math.ceil(walk * 1.5);
   return { walk, run, jump };
 }
 
 // --- Movement badge (TOP) ---
 // parentG: token <g>, movement: {walk,run,jump}, rTok: token radius (px)
+// parentG: token <g>, movement: {walk,run,jump} | null, rTok: px
 function renderMoveBadge(parentG, movement, rTok){
   const old = parentG.querySelector('.move-badge');
   if (old) old.remove();
-  if (!movement) return;
 
   const svgNS = 'http://www.w3.org/2000/svg';
   const badge = document.createElementNS(svgNS, 'g');
   badge.setAttribute('class', 'move-badge');
 
   const r = Number(rTok) || Number(parentG.dataset.rtok) || 24;
-  // position TOP of token
   badge.setAttribute('transform', `translate(0,${-r * 1.1})`);
 
   const c = document.createElementNS(svgNS, 'circle');
@@ -2358,15 +2377,26 @@ function renderMoveBadge(parentG, movement, rTok){
   const t = document.createElementNS(svgNS, 'text');
   t.setAttribute('text-anchor', 'middle');
   t.setAttribute('dominant-baseline', 'central');
-  t.textContent = `${movement.walk}/${movement.run}/${movement.jump}`;
+
+  if (movement) {
+    t.textContent = `${movement.walk}/${movement.run}/${movement.jump}`;
+  } else {
+    // placeholder so you can see the badge while debugging
+    t.textContent = '—/—/—';
+    // dev hint (one line per token per render pass)
+    try {
+      const id = parentG.dataset.id;
+      const meta = mechMeta.get(id);
+      const model = meta?.model || '(none)';
+      if (!movementByModel?.size) console.warn('[MV] manifest not loaded yet');
+      else console.warn(`[MV] no data for model: ${model} (name: ${meta?.name || ''})`);
+    } catch {}
+  }
+
   badge.appendChild(t);
-
-  const title = document.createElementNS(svgNS, 'title');
-  title.textContent = `W/R/J: ${movement.walk} / ${movement.run} / ${movement.jump}`;
-  badge.appendChild(title);
-
   parentG.appendChild(badge);
 }
+
 
 /* ===== MOVEMENT FIX PACK: manifest loader + robust lookup ===== */
 (function(){
