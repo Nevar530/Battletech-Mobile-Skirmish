@@ -2404,13 +2404,18 @@ function refreshInitBadges(){
     const roll = initRolls.get(id);
     renderInitBadge(g, roll, rTok);
 
-    // highlight the "current turn" token's badge
-    const badge = g.querySelector(':scope > g.init-badge');
-    if (badge){
-      if (id === currentId) badge.classList.add('is-current');
-      else badge.classList.remove('is-current');
-    }
-  });
+// highlight the "current turn" token's badge
+const badge = g.querySelector(':scope > g.init-badge');
+if (badge) {
+  if (id === currentId) badge.classList.add('is-current');
+  else badge.classList.remove('is-current');
+}
+
+// preserve highlight through rotation / re-render
+if (id === currentId) g.classList.add('turn-active');
+else g.classList.remove('turn-active');
+}
+});
 }
 
 
@@ -2784,6 +2789,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
