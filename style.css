@@ -493,7 +493,7 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 }
 
 .move-badge > text {
-  font-size: 22px;
+  font-size: 14px;
   font-weight: 800;
   fill: #b8c4ff;
   letter-spacing: 0.5px;
