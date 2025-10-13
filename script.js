@@ -2076,17 +2076,18 @@ function shortLabel(name){ return (name||'MECH').slice(0, 18); }
 
 function addMechFromForm(){
   const rawInput = (mechName?.value || '').trim();
-  const { tokenLabel, displayName } = resolveMech(rawInput);
+  const { tokenLabel, displayName, model } = resolveMech(rawInput);
 
   const pilot = (pilotName?.value || '').trim();
   const team  = (teamSelect?.value || 'Alpha');
   const colorIndex = teamNameToColorIndex(team);
 
   const id = addTokenAtViewCenter(tokenLabel, colorIndex);   // token shows short code
-  mechMeta.set(id, { name: displayName, model, pilot, team });      // roster shows pretty name
+  mechMeta.set(id, { name: displayName, model, pilot, team });
 
   renderMechList();
   renderInit();
+  refreshMovementBadges?.();
   saveLocal();  // persist immediately
 
   if (mechName) mechName.value = '';
@@ -2376,7 +2377,7 @@ function renderMoveBadge(parentG, movement, rTok){
       const id = parentG.dataset.id;
       const meta = mechMeta.get(id);
       const model = meta?.model || '(none)';
-      if (!movementByModel?.size) console.warn('[MV] manifest not loaded yet');
+      if (!movementByModel?.size && window.DEBUG_MV) console.warn('[MV] manifest not loaded yet');
       else console.warn(`[MV] no data for model: ${model} (name: ${meta?.name || ''})`);
     } catch {}
   }
@@ -2384,114 +2385,6 @@ function renderMoveBadge(parentG, movement, rTok){
   badge.appendChild(t);
   parentG.appendChild(badge);
 }
-
-
-/* ===== MOVEMENT FIX PACK: manifest loader + robust lookup ===== */
-(function(){
-  // Ensure these maps exist (won't overwrite if you already created them)
-  window.mechByModel       = window.mechByModel       || new Map(); // "ARC-2K" -> "Archer ARC-2K"
-  window.mechByName        = window.mechByName        || new Map(); // "archer arc-2k" -> "ARC-2K"
-  window.movementByModel   = window.movementByModel   || new Map(); // "ARC-2K" -> {walk, jump}
-  window.manifestByModel   = window.manifestByModel   || new Map(); // "ARC-2K" -> full manifest row
-
-  // Load assets/manifest.json and populate maps
-  async function loadManifestIndex(){
-    if (window.__BT_MANIFEST_READY) return; // only once
-    try{
-      const res = await fetch('assets/manifest.json', { cache: 'no-store' });
-      const arr = await res.json();
-      const data = Array.isArray(arr) ? arr : (arr.mechs || []);
-
-      mechByModel.clear();
-      mechByName.clear();
-      movementByModel.clear();
-      manifestByModel.clear();
-
-      data.forEach(row => {
-        const model   = String(row?.model || '').toUpperCase().trim();
-        const display = String(row?.displayName || model || '').trim();
-        if (!model || !display) return;
-
-        mechByModel.set(model, display);
-        mechByName.set(display.toLowerCase(), model);
-        movementByModel.set(model, {
-          walk: Number(row?.movement?.walk) || 0,
-          jump: Number(row?.movement?.jump) || 0
-        });
-        manifestByModel.set(model, row);
-      });
-
-      window.__BT_MANIFEST_READY = true;
-
-      // repaint badges now that MV data exists
-      if (typeof refreshMovementBadges === 'function') {
-        refreshMovementBadges();
-      } else if (typeof requestRender === 'function') {
-        requestRender();
-      }
-    } catch (e) {
-      console.warn('[manifest] load failed', e);
-    }
-  }
-
-  // Kick off the load immediately
-  loadManifestIndex();
-
-  // Helper to normalize possible model-looking strings
-  function normalizeModelGuess(str){
-    const up = String(str||'').toUpperCase().replace(/\s+/g,'');
-    // accept "ARC2K" or "ARC-2K" -> "ARC-2K"
-    return up.replace(/^([A-Z]{2,5})-?(\d.*)$/, '$1-$2');
-  }
-
-  // Robust getMovementForToken: infers model if missing
-  window.getMovementForToken = function(id){
-    try{
-      // If the loader hasn't finished yet, we'll come back on repaint
-      const meta = mechMeta.get(id) || {};
-      let model = meta?.model ? String(meta.model).toUpperCase() : '';
-
-      // If model not saved in meta, try to infer:
-      if (!model) {
-        const tok = tokens.find(t => t.id === id);
-        const guessFromLabel = tok?.label ? normalizeModelGuess(tok.label) : '';
-        const guessFromName  = meta?.name ? mechByName.get(String(meta.name).toLowerCase()) : '';
-
-        model = (guessFromLabel && mechByModel.has(guessFromLabel)) ? guessFromLabel
-              : (guessFromName || '');
-
-        // If we found it, write back so future lookups are instant
-        if (model) mechMeta.set(id, { ...meta, model });
-      }
-
-      if (!model) return null;
-      const mv = movementByModel.get(model);
-      if (!mv) return null;
-
-      const walk = Number(mv.walk) || 0;
-      const jump = Number(mv.jump) || 0;
-      const run  = Math.ceil(walk * 1.5); // BT: Run = ceil(Walk * 1.5)
-
-      return { walk, run, jump };
-    } catch {
-      return null;
-    }
-  };
-
-  // If you don't already have this, provide a safe refresher
-  if (typeof refreshMovementBadges !== 'function') {
-    window.refreshMovementBadges = function(){
-      if (!gTokens) return;
-      gTokens.querySelectorAll('g.token').forEach(g => {
-        const id = g.dataset.id;
-        const rTok = Number(g.dataset.rtok) || 24;
-        const mv = window.getMovementForToken(id);
-        if (typeof renderMoveBadge === 'function') renderMoveBadge(g, mv, rTok);
-      });
-    };
-  }
-})();
-
 
 // Holds the latest initiative roll per token id
 let initRolls = new Map(); // id -> number
@@ -2891,6 +2784,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
