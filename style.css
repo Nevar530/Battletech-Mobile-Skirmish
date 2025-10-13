@@ -450,6 +450,45 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
 }
 
+/* ===== Movement & Initiative Badges ===== */
+
+/* shared base (both badges) */
+.init-badge > circle,
+.move-badge > circle {
+  fill: #111418;
+  opacity: 0.85;
+  stroke: #e8eef6;
+  stroke-width: 1;
+}
+
+.init-badge > text,
+.move-badge > text {
+  font-size: 10px;
+  font-weight: 700;
+  fill: #e8eef6;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* highlight the current-turn token’s initiative badge (keeps your old effect) */
+.init-badge.is-current > circle {
+  fill: #ffd93d;
+  stroke: #111418;
+}
+.init-badge.is-current > text {
+  fill: #111418;
+}
+
+/* optional subtle distinction between top (move) and bottom (init) */
+.move-badge > circle {
+  fill: #2c2f33;
+  opacity: 0.9;
+}
+.move-badge > text {
+  font-size: 9px;
+  fill: #b8c4ff;
+}
+
 .measure-label {
   font-weight: 700;
   fill: #fff;
