@@ -2350,111 +2350,39 @@ const MOVE_BADGE_STYLE = 'pill';
 
 // --- Movement badge (TOP) ---
 function renderMoveBadge(parentG, movement, rTok){
-  // clear any prior badge
   const old = parentG.querySelector('.move-badge');
   if (old) old.remove();
 
   const svgNS = 'http://www.w3.org/2000/svg';
   const r = Number(rTok) || Number(parentG.dataset.rtok) || 24;
 
-  // anchor badge *above* token center
   const badge = document.createElementNS(svgNS, 'g');
-  badge.setAttribute('class', `move-badge ${MOVE_BADGE_STYLE}`);
+  badge.setAttribute('class', 'move-badge pill');
   badge.setAttribute('transform', `translate(0,${-r * 1.12})`);
 
-  // If we have no movement yet, still show a visible pill so users know it's loading/unknown.
   const label = movement
     ? `${movement.walk}/${movement.run}/${movement.jump}`
     : '—/—/—';
 
-  // ===== OPTION A: PILL (rounded rectangle that auto-sizes to text)
-  if (MOVE_BADGE_STYLE === 'pill') {
-    // draw text first so we can measure it
-    const t = document.createElementNS(svgNS, 'text');
-    t.setAttribute('text-anchor','middle');
-    t.setAttribute('dominant-baseline','central');
-    // inline styles so external CSS can't accidentally shrink it
-    t.style.fontSize = '18px';
-    t.style.fontWeight = '800';
-    t.style.fill = '#b8c4ff';
-    t.style.pointerEvents = 'none';
-    t.style.userSelect = 'none';
-    t.textContent = label;
+  // Background rectangle (CSS controls its size)
+  const rect = document.createElementNS(svgNS, 'rect');
+  rect.setAttribute('class','mv-pill-bg');
+  rect.setAttribute('x', -40);  // anchor centered (width/height from CSS)
+  rect.setAttribute('y', -14);
+  rect.setAttribute('width', 80);
+  rect.setAttribute('height', 28);
+  rect.setAttribute('rx', 14);
+  rect.setAttribute('ry', 14);
+  badge.appendChild(rect);
 
-    badge.appendChild(t);
-    parentG.appendChild(badge); // must be in DOM for getBBox()
+  // Text (CSS controls font)
+  const t = document.createElementNS(svgNS,'text');
+  t.setAttribute('class','mv-pill-text');
+  t.setAttribute('text-anchor','middle');
+  t.setAttribute('dominant-baseline','central');
+  t.textContent = label;
+  badge.appendChild(t);
 
-    const bb = t.getBBox();
-    const padX = 10, padY = 6;
-    const rxry = (bb.height / 2 + padY);
-
-    const rect = document.createElementNS(svgNS, 'rect');
-    rect.setAttribute('x', (-bb.width/2 - padX).toFixed(2));
-    rect.setAttribute('y', (-bb.height/2 - padY).toFixed(2));
-    rect.setAttribute('width',  (bb.width  + padX*2).toFixed(2));
-    rect.setAttribute('height', (bb.height + padY*2).toFixed(2));
-    rect.setAttribute('rx', rxry.toFixed(2));
-    rect.setAttribute('ry', rxry.toFixed(2));
-    // inline styles for guaranteed look
-    rect.style.fill = '#2c2f33';
-    rect.style.opacity = '0.95';
-    rect.style.stroke = '#b8c4ff';
-    rect.style.strokeWidth = '2px';
-
-    badge.insertBefore(rect, t); // bg behind text
-    return;
-  }
-
-  // ===== OPTION B: TRIAD (three small circles: walk top, run left, jump right)
-  if (MOVE_BADGE_STYLE === 'triad') {
-    const tri = document.createElementNS(svgNS, 'g');
-    tri.setAttribute('class','triad');
-
-    const rr = Math.max(9, r * 0.22);  // dot radius
-    const dyTop  = -r * 1.1;
-    const dxSide = r * 0.55;
-    const dySide = dyTop + rr * 1.6;
-
-    function dot(x, y, val, cls){
-      const g = document.createElementNS(svgNS,'g');
-      g.setAttribute('transform', `translate(${x.toFixed(2)},${y.toFixed(2)})`);
-      g.setAttribute('class', `mv-dot ${cls}`);
-
-      const c = document.createElementNS(svgNS,'circle');
-      c.setAttribute('r', rr.toFixed(2));
-      c.style.fill = '#2c2f33';
-      c.style.opacity = '0.95';
-      c.style.stroke = '#b8c4ff';
-      c.style.strokeWidth = '2px';
-      g.appendChild(c);
-
-      const tx = document.createElementNS(svgNS,'text');
-      tx.setAttribute('text-anchor','middle');
-      tx.setAttribute('dominant-baseline','central');
-      tx.textContent = String(val);
-      tx.style.fontSize = '12px';
-      tx.style.fontWeight = '800';
-      tx.style.fill = '#e8eef6';
-      tx.style.pointerEvents = 'none';
-      g.appendChild(tx);
-
-      tri.appendChild(g);
-    }
-
-    const w = movement ? movement.walk : '—';
-    const ru = movement ? movement.run  : '—';
-    const j = movement ? movement.jump : '—';
-
-    dot(0,        dyTop,  w,  'walk'); // top
-    dot(-dxSide,  dySide, ru, 'run');  // left
-    dot(+dxSide,  dySide, j,  'jump'); // right
-
-    badge.appendChild(tri);
-    parentG.appendChild(badge);
-    return;
-  }
-
-  // default (shouldn't hit)
   parentG.appendChild(badge);
 }
 
@@ -2864,6 +2792,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
