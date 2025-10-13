@@ -90,11 +90,11 @@ html,body{
 }
 .flechs-ico{ width:18px; height:18px; border-radius:4px; box-shadow:0 0 0 1px #0006; }
 
-/* Online/Send row (single, de-duped) */
-.toolbar-row{
-  display: inline-flex;
+/* Force Online/Send to break to a new row when needed */
+.toolbar-row {
+  display: inline-flex;       /* make sure it's flex */
   align-items: center;
-  gap: 12px; /* space between buttons and pill */
+  gap: 20px;                  /* spacing between each child */
 }
 
 /* Slightly tighter on narrow screens */
@@ -230,11 +230,9 @@ svg{
 #measure-group{pointer-events:none;}
 .measure-line{stroke:#64ffd5;stroke-width:2.5;stroke-dasharray:6,6;opacity:.95;}
 .measure-dot{fill:#64ffd5;opacity:.95;}
-/* de-duped and made definitive */
 .measure-label{
-  fill:#fff; font-weight:700; text-anchor:middle; dominant-baseline:central;
-  paint-order:stroke fill; stroke:#000; stroke-width:5px;
-  font-size:60px;
+  fill:#0b0f14;font-weight:700;text-anchor:middle;dominant-baseline:middle;
+  paint-order:stroke fill;stroke:#000;stroke-width:2px;
 }
 
 /* ---------- Boot Overlay ---------- */
@@ -335,12 +333,48 @@ svg{
 /* --- Help popup respects lip --- */
 #helpPopup{ top: calc(60px + var(--app-top-offset)) !important; }
 
+/* ===== JSON Modal layout fix ===== */
+.json-modal{
+  position: fixed; inset: 0; z-index: 1001;
+  display: grid; place-items: center;
+  background: rgba(0,0,0,.55);
+  padding: 16px;
+}
+.json-modal__panel{
+  width: min(900px, 94vw);
+  max-height: calc(94dvh - var(--app-top-offset));
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.6);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.json-modal__head{
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.json-modal__body{
+  padding: 8px 10px;
+  flex: 1 1 auto; overflow: auto; display: flex;
+}
+.json-modal__ta{
+  flex: 1 1 auto; width: 100%; min-height: 220px;
+  border-radius: 10px; background: #0b1019; border: 1px solid var(--border);
+  color: var(--ink); padding: 10px; resize: vertical; box-sizing: border-box;
+}
+.json-modal__foot{
+  padding: 8px 10px; border-top: 1px solid var(--border);
+  display: flex; gap: 8px; justify-content: flex-end;
+}
+@media (max-width: 600px){ .json-modal__panel{ width: 96vw; } }
+
 html, body, #wrap { height:100%; background:#0b0f14; }
 #wrap { position:relative; }
 #btBoot { background:#0b0f14; }
 * { -webkit-tap-highlight-color: transparent; }
 
-/* Net status pill */
 .net-pill{
   display:inline-flex; align-items:center; gap:8px;
   padding:4px 10px; border-radius:999px;
@@ -356,7 +390,7 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 .net-pill.is-offline .lamp{ background:#ff6b6b; }  /* red */
 .net-pill .txt{ white-space:nowrap; }
 
-/* Uplink / Transmit buttons */
+/* === Overrides for Uplink / Transmit buttons === */
 #btn-online,
 #btnSend{
   width: auto;                 /* allow text to size naturally */
@@ -373,6 +407,14 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   letter-spacing: .02em;
 }
 
+.toolbar-row{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;                   /* space between buttons and pill */
+}
+
+#btn-online{ margin-right: 4px; }  /* optional extra nudge */
+
 /* Hologram terrain glow */
 .hex[terrain="Hologram"] {
   filter: drop-shadow(0 0 4px #00ff80) drop-shadow(0 0 8px #00ff80);
@@ -384,28 +426,43 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   transform-origin: 50% -80%;   /* X = 50% (center), Y = 100% (bottom) */
   transform: scale(4);
 }
+
 .init-badge circle {
   fill: var(--panel);
   stroke: #fff;
-  stroke-width: 3px;
+  stroke-width: 3px;       /* thicker border */
   opacity: 0.95;
 }
+
 .init-badge text {
   font-weight: 900;
-  font-size: 14px;
+  font-size: 14px;         /* bigger number */
   fill: #fff;
-  stroke: rgba(0,0,0,0.5);
+  stroke: rgba(0,0,0,0.5); /* dark outline for readability */
   stroke-width: 1.5px;
   user-select: none;
   pointer-events: none;
 }
+
 .init-badge.is-current circle {
   stroke: var(--ink);
   stroke-width: 4px;
   filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
 }
 
+.measure-label {
+  font-weight: 700;
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 5px;   /* black outline for readability */
+  font-size: 60px;     /* force larger size */
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
 /* Hide footer on mobile screens */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
-  footer { display: none !important; }
+  footer {
+    display: none !important;
+  }
 }
