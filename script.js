@@ -88,6 +88,60 @@ if (elFillTerrain) {
 const COVERS = ['None','Light','Medium','Heavy'];
 const COVER_ABBR = { None:'', Light:'| L1', Medium:'| M2', Heavy:'| H3' };
 
+const INDEX_BASE = 'assets/';   // adjust if needed
+
+async function fetchJson(url) {
+  const r = await fetch(url, { cache: 'no-store' });
+  if (!r.ok) throw new Error(url + ' ' + r.status);
+  return r.json();
+}
+
+/* Build a unified index from either manifest.json or mechs.json */
+async function loadUnifiedMechIndex() {
+  try {
+    // Prefer new manifest.json
+    const manifest = await fetchJson(`${INDEX_BASE}manifest.json`);
+    // Expect either array or {mechs:[...]}—normalize to array
+    const rows = Array.isArray(manifest) ? manifest : (manifest.mechs || manifest || []);
+    const out = [];
+
+    rows.forEach(m => {
+      // Required: model or id-like string; displayName as pretty label
+      const model = (m.model || '').toUpperCase();                      // e.g., "ARC-2K"
+      const display = m.displayName || [m.name, m.model].filter(Boolean).join(' ').trim();
+      if (!model || !display) return;
+      const walk = +(m.movement?.walk ?? 0);
+      const jump = +(m.movement?.jump ?? 0);
+      const run  = Math.ceil(walk * 1.5);                                // classic BT run MV
+      out.push({
+        id: model,                        // canonical key for selection ("ARC-2K")
+        name: display,                    // pretty label ("Archer ARC-2K")
+        mv: { walk, run, jump },          // for token badge
+        path: m.path || m.file || '',     // TRS:80 JSON relative path
+        meta: {
+          chassis: m.name || '',
+          mass: m.mass,
+          techBase: m.techBase,
+          era: m.era,
+          role: m.role,
+          source: m.source
+        }
+      });
+    });
+
+    return { kind: 'manifest', list: out };
+  } catch (e) {
+    // Fallback to legacy mechs.json (thin index only)
+    const legacy = await fetchJson(`${INDEX_BASE}mechs.json`);
+    const rows = Array.isArray(legacy) ? legacy : (legacy.mechs || []);
+    const out = rows
+      .filter(x => x.id && x.name)
+      .map(x => ({ id: x.id.toUpperCase(), name: x.name, mv: null, path: '', meta: {} }));
+    return { kind: 'legacy', list: out };
+  }
+}
+
+
 /* ---------- DOM ---------- */
 const svg = document.getElementById('svg');
 const defs = document.getElementById('tex-defs');
@@ -885,6 +939,7 @@ if (!center || center.x === undefined) return;
     // We'll read the roll from a Map we maintain (initRolls)
     const roll = (typeof getInitRollFor === 'function') ? getInitRollFor(tok.id) : undefined;
     renderInitBadge(g, roll, rTok);
+    renderMvBadge(g, meta?.mv || null, rTok);   // ★ add this line
     
     gTokens.appendChild(g);
   });
@@ -2073,7 +2128,7 @@ function shortLabel(name){ return (name||'MECH').slice(0, 18); }
 
 function addMechFromForm(){
   const rawInput = (mechName?.value || '').trim();
-  const { tokenLabel, displayName } = resolveMech(rawInput);
+  const { tokenLabel, displayName, mv, path } = resolveMech(rawInput); // ★
 
   const pilot = (pilotName?.value || '').trim();
   const team  = (teamSelect?.value || 'Alpha');
@@ -2081,6 +2136,8 @@ function addMechFromForm(){
 
   const id = addTokenAtViewCenter(tokenLabel, colorIndex);   // token shows short code
   mechMeta.set(id, { name: displayName, pilot, team });      // roster shows pretty name
+  mv: mv || null,           // ★ for token badge
+  dataPath: path || ''      // ★ for TRS:80 deep-link / fetch later
 
   renderMechList();
   renderInit();
@@ -2152,61 +2209,66 @@ if (mechList) mechList.addEventListener('click', (e)=>{
 });
 
 /* ---------- Mech index (id + name) for dropdown ---------- */
-let MECH_INDEX = [];                        // [{id:"GRF-1N", name:"Griffin 1N"}, ...]
-const mechById = new Map();                 // "GRF-1N" -> "Griffin 1N"
-const mechByName = new Map();               // "griffin 1n" -> "GRF-1N"
+let MECH_INDEX = [];               // [{id,name,mv?,path?,meta?}]
+const mechById = new Map();        // "ARC-2K" -> full row
+const mechByName = new Map();      // "archer arc-2k" -> "ARC-2K"
 
 async function loadMechIndex(){
   try{
-    const res = await fetch('assets/mechs.json'); // adjust path
-    const data = await res.json();
-    MECH_INDEX = Array.isArray(data) ? data : (data.mechs || []);
-    mechById.clear(); mechByName.clear();
+    const { kind, list } = await loadUnifiedMechIndex();
+    MECH_INDEX = list;
+
+    mechById.clear();
+    mechByName.clear();
 
     const dl = document.getElementById('mechListData');
     if (dl) dl.replaceChildren();
 
-    MECH_INDEX.forEach(({id, name})=>{
-      if(!id || !name) return;
-      const up = id.toUpperCase();
-      mechById.set(up, name);
-      mechByName.set(name.toLowerCase(), up);
+    list.forEach(row => {
+      const up = row.id.toUpperCase();
+      mechById.set(up, row);
+      mechByName.set(row.name.toLowerCase(), up);
       if (dl){
         const opt = document.createElement('option');
-        opt.value = name;        // users see/select by "Griffin 1N"
-        opt.label = up;          // browser may show the code as a hint
+        opt.value = row.name;   // user-friendly label
+        opt.label = up;         // code hint
         dl.appendChild(opt);
       }
     });
-  }catch(err){
-    console.warn('mechs.json load failed', err);
+
+    if (kind === 'legacy') console.warn('[Index] Using legacy mechs.json (no MV/path).');
+
+  } catch (err){
+    console.warn('Mech index load failed', err);
   }
 }
 loadMechIndex();
 
+
 /* ---------- Helpers: resolve typed input -> token label + display ---------- */
 function normalizeId(str){
-  // "grf1n" / "GRF 1N" -> "GRF-1N" (best-effort without being strict)
-  return (str||'')
-    .toUpperCase()
-    .replace(/\s+/g,'')
-    .replace(/^([A-Z]{2,4})(\d)/, '$1-$2');
+  return (str||'').toUpperCase().replace(/\s+/g,'').replace(/^([A-Z]{2,4})(\d)/, '$1-$2');
 }
 
 function resolveMech(input){
   const raw = (input||'').trim();
-  if (!raw) return { tokenLabel:'MECH', displayName:'MECH' };
+  if (!raw) return { tokenLabel:'MECH', displayName:'MECH', mv:null, path:'' };
 
   const asId = normalizeId(raw);
-  if (mechById.has(asId))   return { tokenLabel: asId, displayName: mechById.get(asId) }; // ID known
+  if (mechById.has(asId)) {
+    const row = mechById.get(asId);
+    return { tokenLabel: row.id, displayName: row.name, mv: row.mv || null, path: row.path || '' };
+  }
   if (mechByName.has(raw.toLowerCase())) {
-    const id = mechByName.get(raw.toLowerCase());
-    return { tokenLabel: id, displayName: raw }; // Name known
+    const id  = mechByName.get(raw.toLowerCase());
+    const row = mechById.get(id);
+    return { tokenLabel: row.id, displayName: row.name, mv: row.mv || null, path: row.path || '' };
   }
 
   // Free text fallback
-  return { tokenLabel: shortLabel(raw.toUpperCase()), displayName: raw };
+  return { tokenLabel: shortLabel(raw.toUpperCase()), displayName: raw, mv:null, path:'' };
 }
+
 
 
 
@@ -2289,6 +2351,49 @@ function renderInitBadge(parentG, roll){
   parentG.appendChild(badge);
 }
 
+function mvLabel(mv){
+  if (!mv) return null;
+  // manifest has walk & jump; derive run
+  const walk = +(mv.walk ?? 0);
+  const run = +(mv.run ?? Math.ceil(walk * 1.5));
+  const jump = +(mv.jump ?? 0);
+  return `${walk}/${run}/${jump}`;
+}
+
+function renderMvBadge(parentG, mv, rTok){
+  const old = parentG.querySelector('.mv-badge');
+  if (old) old.remove();
+  const label = mvLabel(mv);
+  if (!label) return;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const badge = document.createElementNS(svgNS, 'g');
+  badge.setAttribute('class', 'mv-badge');
+  const r = Number(parentG.dataset.rtok) || (rTok || 24);
+
+  // Place top-right-ish, just outside the token edge
+  badge.setAttribute('transform', `translate(${r * 0.95},${-r * 0.95})`);
+
+  const rect = document.createElementNS(svgNS, 'rect');
+  rect.setAttribute('x', -18);
+  rect.setAttribute('y', -10);
+  rect.setAttribute('rx', 4);
+  rect.setAttribute('ry', 4);
+  rect.setAttribute('width', 36);
+  rect.setAttribute('height', 20);
+  rect.setAttribute('class', 'mv-bg'); // style in CSS if you like
+  badge.appendChild(rect);
+
+  const t = document.createElementNS(svgNS, 'text');
+  t.setAttribute('text-anchor', 'middle');
+  t.setAttribute('dominant-baseline', 'central');
+  t.setAttribute('font-size', 10);
+  t.textContent = label; // "4/6/0"
+  badge.appendChild(t);
+
+  parentG.appendChild(badge);
+}
+
 
 
 // Holds the latest initiative roll per token id
@@ -2308,6 +2413,7 @@ function refreshInitBadges(){
     const rTok = Number(g.dataset.rtok) || 24;
     const roll = initRolls.get(id);
     renderInitBadge(g, roll, rTok);
+    renderMvBadge(g, meta?.mv || null, rTok);   // ★ add this line
 
     // highlight the "current turn" token's badge
     const badge = g.querySelector(':scope > g.init-badge');
@@ -2689,6 +2795,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
