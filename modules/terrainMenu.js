@@ -1,403 +1,385 @@
-/* ui.terrainMenu.js
-   Minimal module that owns:
-   - Left panel buttons (select/height/terrain/cover/clear)
-   - Fixed Paint selectors (terrain/height/cover + paint/clear)
-   - Fill Terrain dropdown + button
-   - Undo/Redo stacks for tile edits (height/terrain/cover)
-   - Tool mode state + paint helpers (cycle/apply/reset)
+// modules/terrainMenu.js
+// Custom element <terrain-menu>
+// Owns: Terrain/paint tools, Fixed Paint, Fill Terrain, Presets, Grid settings
+//
+// ==== Expected Core surface (final step when you replace script.js) ====
+// Core: {
+//   // state
+//   tiles: Map<key, {q,r,height,terrainIndex,coverIndex}>,
+//   TERRAINS: Array<{name, fill, pat, opacity}>,
+//   COVERS: string[],
+//   grid: { get():{cols,rows,hexSize}, set({cols,rows,hexSize}) },
+//   // editing
+//   beginStroke(), recordEdit(q,r, prev, next), endStroke(),
+//   requestRender(), saveLocal(),
+//   // tool modes
+//   setToolMode(mode:'select'|'height'|'terrain'|'cover'|'clear'|'paintFixed'),
+//   // bulk helpers (optional but used if present)
+//   fillMapWithTerrain?(terrainIndex:number): void,
+//   applyPresetFromUrl?(url:string): Promise<void>,
+//   // misc
+//   undo(), redo()
+// }
+//
+// If some methods don’t exist yet, the UI disables the relevant button(s) and logs a warning.
 
-   Integration:
-   1) Call TerrainMenu.mount(core) with:
-      {
-        tiles, key, TERRAINS, COVERS,
-        get mapLocked(){...}, requestRender(), saveLocal()
-      }
-
-   2) In your script.js pointer handlers, replace references:
-      - toolMode            -> TerrainMenu.getToolMode()
-      - setToolMode(x)      -> TerrainMenu.setToolMode(x)
-      - beginStroke()       -> TerrainMenu.beginStroke()
-      - recordEdit(q,r,p,n) -> TerrainMenu.recordEdit(q,r,p,n)
-      - endStroke()         -> TerrainMenu.endStroke()
-      - undo()/redo()       -> TerrainMenu.undo()/TerrainMenu.redo()
-      - paintHex(tile)      -> TerrainMenu.paintHex(tile)
-      - fixedPaint object   -> TerrainMenu.fixedPaint (read/write)
-
-   3) Keep your render() as-is. This module only mutates tiles and asks for repaint.
-*/
-(function (global) {
-  const svgNS = 'http://www.w3.org/2000/svg';
-
-  const TerrainMenu = {
-    // ---- wired in mount ----
-    core: null,
-
-    // ---- public state/API ----
-    fixedPaint: { terrainIndex: 0, height: 0, coverIndex: 0 },
-    getToolMode() { return toolMode; },
-    setToolMode, beginStroke, recordEdit, endStroke, undo, redo, paintHex,
-
-    // convenience for other code paths (e.g., a "Fill Map" button elsewhere)
-    fillMapWithTerrain,
-
-    // mount wires all left-panel controls (safe if some elements don’t exist)
-    mount(core) {
-      this.core = core;
-
-      // cache DOM
-      el.selPaintTerrain = document.getElementById('selPaintTerrain');
-      el.selPaintHeight  = document.getElementById('selPaintHeight');
-      el.selPaintCover   = document.getElementById('selPaintCover');
-      el.btnPaintFixed   = document.getElementById('btnPaintFixed');
-      el.btnClearFixed   = document.getElementById('btnClearFixed');
-
-      el.btnSelect = document.getElementById('btnSelect');
-      el.btnHeight = document.getElementById('btnHeight');
-      el.btnTerrain= document.getElementById('btnTerrain');
-      el.btnCover  = document.getElementById('btnCover');
-      el.btnClear  = document.getElementById('btnClearTile');
-
-      el.elFillTerrain  = document.getElementById('fillTerrain');
-      el.btnFillTerrain = document.getElementById('btnFillTerrain');
-
-      el.btnUndo = document.getElementById('btnUndo');
-      el.btnRedo = document.getElementById('btnRedo');
-
-      // init selectors & listeners
-      initFixedPaintSelectors();
-      wireSelectors();
-      wireToolButtons();
-      wireFillTerrain();
-      wireUndoRedo();
-
-      // default tool
-      setToolMode('select');
-    },
-  };
-
-  // ---------- private module state ----------
-  const el = {};
-  const UNDO_LIMIT = 50;
-  const undoStack = [];
-  const redoStack = [];
-
-  let toolMode = 'select';     // 'select' | 'height' | 'terrain' | 'cover' | 'clear' | 'paintFixed'
-  let brushMode = null;        // 'height' | 'terrain' | 'cover' | 'reset' | 'sample' | 'fixed'
-  let sample = null;
-  let paintedThisStroke = null;
-  let currentStroke = null;
-
-  // ---------- helpers ----------
-  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-  function on(elOrId, ev, fn) {
-    const node = typeof elOrId === 'string' ? document.getElementById(elOrId) : elOrId;
-    if (node) node.addEventListener(ev, fn);
-    return node;
-  }
-
-  // ---------- UI wiring ----------
-  function wireToolButtons() {
-    // tool buttons may be missing in some layouts—guard each
-    el.btnSelect && el.btnSelect.addEventListener('click', () => setToolMode('select'));
-    el.btnHeight && el.btnHeight.addEventListener('click', () => setToolMode('height'));
-    el.btnTerrain&& el.btnTerrain.addEventListener('click', () => setToolMode('terrain'));
-    el.btnCover  && el.btnCover.addEventListener('click',  () => setToolMode('cover'));
-    el.btnClear  && el.btnClear.addEventListener('click',  () => setToolMode('clear'));
-
-    el.btnPaintFixed && el.btnPaintFixed.addEventListener('click', () => {
-      setToolMode(toolMode === 'paintFixed' ? 'select' : 'paintFixed');
-    });
-
-    el.btnClearFixed && el.btnClearFixed.addEventListener('click', () => {
-      if (el.selPaintTerrain) el.selPaintTerrain.value = 0;
-      if (el.selPaintHeight)  el.selPaintHeight.value  = 0;
-      if (el.selPaintCover)   el.selPaintCover.value   = 0;
-      TerrainMenu.fixedPaint = { terrainIndex: 0, height: 0, coverIndex: 0 };
-      setToolMode('paintFixed');
-    });
-  }
-
-  function wireSelectors() {
-    el.selPaintTerrain?.addEventListener('change', () => {
-      TerrainMenu.fixedPaint.terrainIndex = +el.selPaintTerrain.value || 0;
-    });
-    el.selPaintHeight?.addEventListener('change', () => {
-      TerrainMenu.fixedPaint.height = +el.selPaintHeight.value || 0;
-    });
-    el.selPaintCover?.addEventListener('change', () => {
-      TerrainMenu.fixedPaint.coverIndex = +el.selPaintCover.value || 0;
-    });
-  }
-
-  function wireFillTerrain() {
-    const core = TerrainMenu.core;
-    // populate dropdown from core.TERRAINS if present
-    if (el.elFillTerrain && core && Array.isArray(core.TERRAINS)) {
-      el.elFillTerrain.replaceChildren();
-      core.TERRAINS.forEach((t, i) => {
-        const opt = document.createElement('option');
-        opt.value = String(i);
-        opt.textContent = t.name;
-        el.elFillTerrain.appendChild(opt);
-      });
+export function registerTerrainMenu(Core) {
+  class TerrainMenu extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
     }
-    el.btnFillTerrain && el.btnFillTerrain.addEventListener('click', () => {
-      const idx = +el.elFillTerrain.value;
-      if (!Number.isFinite(idx)) { el.elFillTerrain?.focus(); return; }
-      fillMapWithTerrain(idx);
-      el.elFillTerrain.value = '';
-    });
-    el.elFillTerrain && el.elFillTerrain.addEventListener('change', () => {
-      const idx = +el.elFillTerrain.value;
-      if (Number.isFinite(idx)) {
-        fillMapWithTerrain(idx);
-        el.elFillTerrain.value = '';
-      }
-    });
-  }
 
-  function wireUndoRedo() {
-    el.btnUndo && el.btnUndo.addEventListener('click', () => { undo(); });
-    el.btnRedo && el.btnRedo.addEventListener('click', () => { redo(); });
-  }
-
-  function initFixedPaintSelectors() {
-    const core = TerrainMenu.core;
-    // Terrain
-    if (el.selPaintTerrain && core && Array.isArray(core.TERRAINS)) {
-      el.selPaintTerrain.replaceChildren();
-      core.TERRAINS.forEach((t, i) => {
-        const opt = document.createElement('option');
-        opt.value = String(i);
-        opt.textContent = t.name;
-        el.selPaintTerrain.appendChild(opt);
-      });
-      el.selPaintTerrain.value = String(TerrainMenu.fixedPaint.terrainIndex);
-    }
-    // Cover
-    if (el.selPaintCover && core && Array.isArray(core.COVERS)) {
-      el.selPaintCover.replaceChildren();
-      core.COVERS.forEach((c, i) => {
-        const opt = document.createElement('option');
-        opt.value = String(i);
-        opt.textContent = c;
-        el.selPaintCover.appendChild(opt);
-      });
-      el.selPaintCover.value = String(TerrainMenu.fixedPaint.coverIndex);
-    }
-    // Height
-    if (el.selPaintHeight) {
-      el.selPaintHeight.replaceChildren();
-      for (let h = -3; h <= 5; h++) {
-        const opt = document.createElement('option');
-        opt.value = String(h);
-        opt.textContent = String(h);
-        el.selPaintHeight.appendChild(opt);
-      }
-      el.selPaintHeight.value = String(TerrainMenu.fixedPaint.height);
-    }
-  }
-
-  // ---------- Tool mode ----------
-  function setToolMode(mode) {
-    toolMode = mode;
-    // toggle button aria/active classes if they exist
-    const map = {
-      select: el.btnSelect,
-      height: el.btnHeight,
-      terrain: el.btnTerrain,
-      cover: el.btnCover,
-      clear: el.btnClear,
-    };
-    Object.entries(map).forEach(([k, btn]) => {
-      if (!btn) return;
-      const on = (k === mode);
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      btn.classList.toggle('active', on);
-    });
-    if (el.btnPaintFixed) {
-      const onFixed = (mode === 'paintFixed');
-      el.btnPaintFixed.setAttribute('aria-pressed', onFixed ? 'true' : 'false');
-      el.btnPaintFixed.classList.toggle('active', onFixed);
-    }
-    brushMode = null; sample = null; paintedThisStroke = null;
-  }
-
-  // ---------- Stroke / Undo ----------
-  function pushUndo(action) {
-    undoStack.push(action);
-    while (undoStack.length > UNDO_LIMIT) undoStack.shift();
-    redoStack.length = 0;
-  }
-  function beginStroke() {
-    currentStroke = { type: 'batch', edits: [] };
-  }
-  function recordEdit(q, r, prev, next) {
-    if (!currentStroke) beginStroke();
-    // skip no-ops
-    if (prev.h === next.h && prev.ter === next.ter && prev.cov === next.cov) return;
-    currentStroke.edits.push({ q, r, prev, next });
-  }
-  function endStroke() {
-    if (currentStroke && currentStroke.edits.length) pushUndo(currentStroke);
-    currentStroke = null;
-    TerrainMenu.core?.requestRender?.();
-    TerrainMenu.core?.saveLocal?.();
-  }
-  function applyEdits(edits, usePrev) {
-    const core = TerrainMenu.core;
-    if (!core) return;
-    for (const e of edits) {
-      const t = core.tiles.get(core.key(e.q, e.r));
-      if (!t) continue;
-      const src = usePrev ? e.prev : e.next;
-      t.height = src.h; t.terrainIndex = src.ter; t.coverIndex = src.cov;
-    }
-    core.requestRender?.();
-  }
-  function undo() {
-    const core = TerrainMenu.core;
-    if (!core || core.mapLocked) return;
-    const a = undoStack.pop(); if (!a) return;
-    if (a.type === 'batch') applyEdits([...a.edits].reverse(), true);
-    redoStack.push(a);
-    core.saveLocal?.();
-  }
-  function redo() {
-    const core = TerrainMenu.core;
-    if (!core || core.mapLocked) return;
-    const a = redoStack.pop(); if (!a) return;
-    if (a.type === 'batch') applyEdits(a.edits, false);
-    undoStack.push(a);
-    core.saveLocal?.();
-  }
-
-  // ---------- Tile mutators ----------
-  function cycleHeight(t) {
-    const prev = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    t.height = (t.height >= 5) ? -3 : t.height + 1;
-    const next = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    recordEdit(t.q, t.r, prev, next);
-  }
-  function cycleTerrain(t) {
-    const core = TerrainMenu.core;
-    const prev = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    const n = (core?.TERRAINS?.length || 1);
-    t.terrainIndex = (t.terrainIndex + 1) % n;
-    const next = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    recordEdit(t.q, t.r, prev, next);
-  }
-  function cycleCover(t) {
-    const core = TerrainMenu.core;
-    const prev = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    const n = (core?.COVERS?.length || 1);
-    t.coverIndex = (t.coverIndex + 1) % n;
-    const next = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    recordEdit(t.q, t.r, prev, next);
-  }
-  function resetTile(t) {
-    const prev = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    t.height = 0; t.terrainIndex = 0; t.coverIndex = 0;
-    const next = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    recordEdit(t.q, t.r, prev, next);
-  }
-  function applySampleTo(t, sam) {
-    const prev = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    t.height = sam.h; t.terrainIndex = sam.ter; t.coverIndex = sam.cov;
-    const next = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    recordEdit(t.q, t.r, prev, next);
-  }
-  function applyFixedToTile(t) {
-    const fp = TerrainMenu.fixedPaint;
-    const prev = { h: t.height, ter: t.terrainIndex, cov: t.coverIndex };
-    const next = { h: fp.height, ter: fp.terrainIndex, cov: fp.coverIndex };
-    if (prev.h === next.h && prev.ter === next.ter && prev.cov === next.cov) return;
-    t.height = next.h; t.terrainIndex = next.ter; t.coverIndex = next.cov;
-    recordEdit(t.q, t.r, prev, next);
-  }
-
-  // ---------- Paint entry point (used by your SVG pointer code) ----------
-  // Expects a tile object: {q,r,height,terrainIndex,coverIndex}
-  function paintHex(t) {
-    const core = TerrainMenu.core;
-    if (!core || !t) return;
-    const k = core.key(t.q, t.r);
-    if (paintedThisStroke && paintedThisStroke.has(k)) return;
-
-    switch (brushMode) {
-      case 'height':  cycleHeight(t); break;
-      case 'terrain': cycleTerrain(t); break;
-      case 'cover':   cycleCover(t); break;
-      case 'reset':   resetTile(t); break;
-      case 'sample':  if (sample) applySampleTo(t, sample); break;
-      case 'fixed':   applyFixedToTile(t); break;
-      default: return;
-    }
-    paintedThisStroke && paintedThisStroke.add(k);
-    core.requestRender?.();
-  }
-
-  // ---------- Public utility: fill map with a terrain index ----------
-  function fillMapWithTerrain(terrainIndex) {
-    const core = TerrainMenu.core;
-    if (!core) return;
-    if (core.mapLocked) { alert('Map is locked. Unlock to edit terrain.'); return; }
-    if (terrainIndex == null || Number.isNaN(+terrainIndex)) return;
-
-    beginStroke();
-    core.tiles.forEach(tile => {
-      const prev = { h: tile.height, ter: tile.terrainIndex, cov: tile.coverIndex };
-      tile.terrainIndex = +terrainIndex;
-      const next = { h: tile.height, ter: tile.terrainIndex, cov: tile.coverIndex };
-      recordEdit(tile.q, tile.r, prev, next);
-    });
-    endStroke();
-  }
-
-  // ---------- expose & attach ----------
-  // small helpers so your pointerdown handler can set brushMode/sample in one place
-  TerrainMenu._internal = {
-    setBrushFromTool({ altEyedropper = false, tileForSample = null }) {
-      // Called by your pointerdown when starting a paint stroke
-      if (altEyedropper) {
-        if (toolMode === 'paintFixed') {
-          // copy tile into fixedPaint if present
-          if (tileForSample) {
-            TerrainMenu.fixedPaint.height       = tileForSample.height;
-            TerrainMenu.fixedPaint.terrainIndex = tileForSample.terrainIndex;
-            TerrainMenu.fixedPaint.coverIndex   = tileForSample.coverIndex;
-            if (el.selPaintHeight)  el.selPaintHeight.value  = TerrainMenu.fixedPaint.height;
-            if (el.selPaintTerrain) el.selPaintTerrain.value = TerrainMenu.fixedPaint.terrainIndex;
-            if (el.selPaintCover)   el.selPaintCover.value   = TerrainMenu.fixedPaint.coverIndex;
-          }
-          brushMode = 'fixed';
-        } else {
-          sample = tileForSample
-            ? { h: tileForSample.height, ter: tileForSample.terrainIndex, cov: tileForSample.coverIndex }
-            : null;
-          brushMode = 'sample';
+    connectedCallback() {
+      const css = /*css*/`
+        :host{
+          position:fixed; left:0;
+          top:calc(var(--header-h,48px) + var(--app-top-offset, 0px));
+          bottom:0; width:340px; z-index:20;
+          transform:translateX(0);
         }
-      } else {
-        brushMode =
-          toolMode === 'height'     ? 'height'  :
-          toolMode === 'terrain'    ? 'terrain' :
-          toolMode === 'cover'      ? 'cover'   :
-          toolMode === 'clear'      ? 'reset'   :
-          toolMode === 'paintFixed' ? 'fixed'   : null;
-      }
-      return brushMode;
-    },
-    startPaintStroke() {
-      paintedThisStroke = new Set();
-      beginStroke();
-    },
-    endPaintStroke() {
-      brushMode = null; sample = null; paintedThisStroke = null;
-      endStroke();
+        .panel{
+          position:absolute; inset:0;
+          background:var(--panel,#121826);
+          border-top:1px solid var(--border,#1f2a3a);
+          box-shadow:0 0 24px rgba(0,0,0,.35);
+          display:flex; flex-direction:column;
+        }
+        header{
+          display:flex; align-items:center; justify-content:space-between;
+          padding:10px; border-bottom:1px solid var(--border,#1f2a3a);
+          background:#0f1722;
+        }
+        header h2{ margin:0; font-size:14px; letter-spacing:.06em }
+        .body{ padding:10px; overflow:auto; display:flex; flex-direction:column; gap:12px; }
+
+        .group{border:1px solid var(--border,#1f2a3a);border-radius:14px;padding:10px;background:#0f1522}
+        .group h3{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#93a4b8)}
+        .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+        .stack{display:flex;flex-direction:column;gap:4px;flex:1}
+        .stack input,.stack select,textarea{
+          background:#0c1220;border:1px solid var(--border,#1f2a3a);border-radius:10px;padding:8px;color:var(--ink,#e8eef6)
+        }
+        .btn{
+          background:#1a2333;border:1px solid var(--border,#1f2a3a);border-radius:10px;padding:8px 10px;cursor:pointer;
+          transition:filter .15s ease, transform .05s ease; color:var(--ink,#e8eef6);
+        }
+        .btn:hover{filter:brightness(1.06)} .btn:active{transform:translateY(1px)}
+        .sm{padding:5px 8px;border-radius:8px;font-size:12px}
+        .muted{color:var(--muted,#93a4b8);font-size:12px}
+        .gap{gap:10px}
+        .seg{display:flex;gap:8px;flex-wrap:wrap}
+        .seg .btn[aria-pressed="true"]{ color:var(--bt-amber,#ffd06e); }
+        .close{ background:#0f1722; border:1px solid var(--border,#1f2a3a); width:36px; height:36px; border-radius:10px; }
+      `;
+
+      const html = /*html*/`
+        <div class="panel" role="complementary" aria-label="Terrain / Grid / Tools">
+          <header>
+            <h2>Terrain Tools</h2>
+            <button class="close" id="btnHide" title="Hide">✕</button>
+          </header>
+          <div class="body">
+
+            <!-- Quick Tools -->
+            <section class="group">
+              <h3>Quick Tools</h3>
+              <div class="seg">
+                <button class="btn" id="toolSelect"  aria-pressed="true">Select/Move</button>
+                <button class="btn" id="toolHeight">Height</button>
+                <button class="btn" id="toolTerrain">Terrain</button>
+                <button class="btn" id="toolCover">Cover</button>
+                <button class="btn" id="toolClear">Clear</button>
+              </div>
+              <div class="muted">Hotkeys: Left=Height · Right=Terrain · Ctrl+Left=Cover · Ctrl+Right=Clear · Alt+Click eyedrops</div>
+            </section>
+
+            <!-- Fixed Paint -->
+            <section class="group">
+              <h3>Quick Paint</h3>
+              <div class="row gap">
+                <label class="stack"><span>Terrain</span><select id="selTerrain"></select></label>
+                <label class="stack"><span>Height</span><select id="selHeight"></select></label>
+                <label class="stack"><span>Cover</span><select id="selCover"></select></label>
+              </div>
+              <div class="row gap">
+                <button class="btn" id="btnPaintToggle" aria-pressed="false">Paint</button>
+                <button class="btn" id="btnFixedClear">Clear</button>
+              </div>
+              <div class="muted">Pick values, then click/drag on the map. Alt+Click eyedrops current hex.</div>
+            </section>
+
+            <!-- Fill Terrain -->
+            <section class="group">
+              <h3>Fill Terrain</h3>
+              <div class="row">
+                <label class="stack" style="min-width:220px;">
+                  <span>Fill map with</span>
+                  <select id="selFill"></select>
+                </label>
+                <button class="btn sm" id="btnFill">Apply</button>
+              </div>
+              <div class="muted">Only changes terrain; keeps height & cover. Undo with Ctrl+Z.</div>
+            </section>
+
+            <!-- Presets -->
+            <section class="group">
+              <h3>Preset maps</h3>
+              <label class="stack">
+                <span class="muted">Choose</span>
+                <select id="selPreset">
+                  <option value="">— Loading… —</option>
+                </select>
+              </label>
+            </section>
+
+            <!-- Grid settings -->
+            <section class="group">
+              <h3>Grid Settings</h3>
+              <div class="row">
+                <label class="stack"><span>Columns</span><input id="inCols" type="number" min="1" max="80" /></label>
+                <label class="stack"><span>Rows</  span><input id="inRows" type="number" min="1" max="80" /></label>
+              </div>
+              <label class="stack">
+                <span>Hex size (px) <span class="muted">1.25" ≈ 120 px @ 96 DPI</span></span>
+                <input id="inHex" type="number" min="20" max="240" />
+              </label>
+              <div class="row">
+                <button class="btn" id="btnRegen">Regenerate Grid</button>
+                <button class="btn" id="btnClearMap">Clear Map</button>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      `;
+
+      this.shadowRoot.innerHTML = `<style>${css}</style>${html}`;
+      this._wire(Core);
+      this._populate(Core);
+      this._loadPresets(Core);
     }
-  };
 
-  // publish
-  global.TerrainMenu = TerrainMenu;
+    _wire(Core){
+      const $ = (s)=>this.shadowRoot.querySelector(s);
 
-})(window);
+      // hide (for now just slide offscreen by toggling attribute)
+      $('#btnHide')?.addEventListener('click', ()=> this.style.transform = 'translateX(-100%)');
+
+      // tool mode buttons
+      const buttons = {
+        select:  $('#toolSelect'),
+        height:  $('#toolHeight'),
+        terrain: $('#toolTerrain'),
+        cover:   $('#toolCover'),
+        clear:   $('#toolClear'),
+      };
+      const setPressed = (which)=>{
+        Object.entries(buttons).forEach(([k,btn])=>{
+          if (!btn) return;
+          const on = (k===which);
+          btn.setAttribute('aria-pressed', on?'true':'false');
+        });
+      };
+      const call = (m)=> typeof Core?.setToolMode === 'function'
+        ? Core.setToolMode(m)
+        : console.warn('[TerrainMenu] Core.setToolMode missing');
+
+      buttons.select?.addEventListener('click', ()=>{ call('select');  setPressed('select'); });
+      buttons.height?.addEventListener('click', ()=>{ call('height');  setPressed('height'); });
+      buttons.terrain?.addEventListener('click',()=>{ call('terrain'); setPressed('terrain'); });
+      buttons.cover?.addEventListener('click',  ()=>{ call('cover');   setPressed('cover'); });
+      buttons.clear?.addEventListener('click',  ()=>{ call('clear');   setPressed('clear'); });
+
+      // Fixed paint toggle simply asks Core to enter paintFixed mode;
+      // engine already handles Alt+Click eyedrop + actual painting logic.
+      $('#btnPaintToggle')?.addEventListener('click', ()=>{
+        if (typeof Core?.setToolMode !== 'function') return;
+        const btn = $('#btnPaintToggle');
+        const on = btn.getAttribute('aria-pressed') !== 'true';
+        Core.setToolMode(on ? 'paintFixed' : 'select');
+        btn.setAttribute('aria-pressed', on?'true':'false');
+      });
+
+      // Fill terrain
+      $('#btnFill')?.addEventListener('click', ()=>{
+        const sel = $('#selFill');
+        const idx = +sel?.value;
+        if (Number.isNaN(idx)) return;
+        if (typeof Core?.fillMapWithTerrain === 'function') {
+          Core.fillMapWithTerrain(idx);
+        } else {
+          // fallback: manual batch if Core helper not provided
+          const tiles = Core?.tiles;
+          if (!tiles) return;
+          Core?.beginStroke?.();
+          tiles.forEach(t=>{
+            const prev = { h:t.height, ter:t.terrainIndex, cov:t.coverIndex };
+            t.terrainIndex = idx;
+            const next = { h:t.height, ter:t.terrainIndex, cov:t.coverIndex };
+            Core?.recordEdit?.(t.q, t.r, prev, next);
+          });
+          Core?.endStroke?.();
+          Core?.requestRender?.();
+        }
+      });
+
+      // Grid settings
+      $('#btnRegen')?.addEventListener('click', ()=>{
+        const cols = +$('#inCols').value || 10;
+        const rows = +$('#inRows').value || 10;
+        const hex  = +$('#inHex').value  || 120;
+        if ('grid' in Core) {
+          Core.grid = { cols, rows, hexSize: hex };
+        }
+        if (typeof window?.regen === 'function') {
+          // If your current engine still uses regen(), allow it
+          window.regen();
+        } else {
+          // Otherwise rely on Core.requestRender to rebuild on next pass
+          Core?.requestRender?.();
+        }
+      });
+
+      $('#btnClearMap')?.addEventListener('click', ()=>{
+        if (typeof window?.clear === 'function') {
+          // legacy button in engine that clears via current DOM
+          document.getElementById('clear')?.click();
+        } else {
+          // manual clear (fallback)
+          const tiles = Core?.tiles;
+          if (!tiles) return;
+          Core?.beginStroke?.();
+          tiles.forEach(t=>{
+            const prev = { h:t.height, ter:t.terrainIndex, cov:t.coverIndex };
+            t.height = 0; t.terrainIndex = 0; t.coverIndex = 0;
+            Core?.recordEdit?.(t.q, t.r, prev, { h:0, ter:0, cov:0 });
+          });
+          Core?.endStroke?.();
+          Core?.requestRender?.();
+        }
+      });
+
+      // Fixed paint selectors → engine already listens to internal selection
+      // but in this encapsulated version we mirror values via synthetic events:
+      const syncFixed = ()=>{
+        // Try to find engine-side setters if exposed later; for now we rely on
+        // setToolMode('paintFixed') and the engine’s on-hex paint using its own fixedPaint.
+        // If you expose Core.setFixedPaint({terrainIndex,height,coverIndex}) we’ll call it here.
+        if (typeof Core?.setFixedPaint === 'function') {
+          const t = +$('#selTerrain').value || 0;
+          const h = +$('#selHeight').value  || 0;
+          const c = +$('#selCover').value   || 0;
+          Core.setFixedPaint({ terrainIndex:t, height:h, coverIndex:c });
+        }
+      };
+      $('#selTerrain')?.addEventListener('change', syncFixed);
+      $('#selHeight') ?.addEventListener('change', syncFixed);
+      $('#selCover')  ?.addEventListener('change', syncFixed);
+
+      $('#btnFixedClear')?.addEventListener('click', ()=>{
+        $('#selTerrain').value = 0;
+        $('#selHeight').value  = 0;
+        $('#selCover').value   = 0;
+        if (typeof Core?.setFixedPaint === 'function') {
+          Core.setFixedPaint({ terrainIndex:0, height:0, coverIndex:0 });
+        }
+      });
+    }
+
+    _populate(Core){
+      const $ = (s)=>this.shadowRoot.querySelector(s);
+
+      // terrains for both Fill and Fixed Paint
+      const terrains = Core?.TERRAINS || [];
+      const fillSel = $('#selFill');   fillSel.replaceChildren();
+      const fpTer   = $('#selTerrain'); fpTer.replaceChildren();
+      terrains.forEach((t, i) => {
+        const a = document.createElement('option'); a.value = i; a.textContent = t.name; fillSel.appendChild(a);
+        const b = document.createElement('option'); b.value = i; b.textContent = t.name; fpTer.appendChild(b);
+      });
+
+      // heights -3..5
+      const fpH = $('#selHeight'); fpH.replaceChildren();
+      for (let h = -3; h <= 5; h++){
+        const opt = document.createElement('option');
+        opt.value = h; opt.textContent = String(h);
+        fpH.appendChild(opt);
+      }
+
+      // covers
+      const covers = Core?.COVERS || ['None','Light','Medium','Heavy'];
+      const fpC = $('#selCover'); fpC.replaceChildren();
+      covers.forEach((c,i)=>{
+        const opt = document.createElement('option');
+        opt.value = i; opt.textContent = c;
+        fpC.appendChild(opt);
+      });
+
+      // grid fields
+      const g = Core?.grid || { cols:18, rows:14, hexSize:120 };
+      $('#inCols').value = g.cols;
+      $('#inRows').value = g.rows;
+      $('#inHex').value  = g.hexSize;
+    }
+
+    async _loadPresets(Core){
+      const $ = (s)=>this.shadowRoot.querySelector(s);
+      const sel = $('#selPreset');
+      sel.innerHTML = `<option value="">— Choose… —</option>`;
+
+      // Use the same GitHub Pages base your engine uses
+      const APP_SCOPE = '/Battletech-Mobile-Skirmish/';
+      const PRESET_BASE  = `${APP_SCOPE}presets/`;
+      const PRESET_INDEX = `${PRESET_BASE}index.json`;
+
+      try{
+        const res = await fetch(PRESET_INDEX, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Index not found');
+        const list = await res.json();
+        list.forEach(p => {
+          const opt = document.createElement('option');
+          opt.value = PRESET_BASE + p.file;
+          opt.textContent = p.name || p.id || p.file;
+          sel.appendChild(opt);
+        });
+
+        sel.addEventListener('change', async (e)=>{
+          const url = e.target.value;
+          if (!url) return;
+          if (typeof Core?.applyPresetFromUrl === 'function') {
+            await Core.applyPresetFromUrl(url);
+          } else {
+            // local loader (fallback)
+            const r = await fetch(url, { cache:'no-store' });
+            const preset = await r.json();
+            if (typeof Core?.applyState === 'function') {
+              // normalize minimal: {meta,data,tokens,mechMeta}
+              const meta = preset.meta || preset.grid || {};
+              const raw  = Array.isArray(preset.data) ? preset.data : (preset.tiles || []);
+              const data = raw.map(t => ({
+                q:+(t.q ?? t.c ?? t.col ?? t.x),
+                r:+(t.r ?? t.row ?? t.y),
+                h:+(t.h ?? t.height ?? t.elevation ?? 0),
+                ter:+(t.ter ?? t.terrain ?? t.type ?? 0),
+                cov:+(t.cov ?? t.cover ?? 0)
+              })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
+              Core.applyState({
+                meta:{ cols:+meta.cols||18, rows:+meta.rows||14, hexSize:+meta.hexSize||120 },
+                data,
+                tokens: Array.isArray(preset.tokens) ? preset.tokens : [],
+                mechMeta: (preset.mechMeta && typeof preset.mechMeta==='object') ? preset.mechMeta : {}
+              });
+            }
+          }
+          Core?.requestRender?.();
+        });
+      }catch(err){
+        sel.innerHTML = `<option value="">(presets unavailable)</option>`;
+        console.warn('[TerrainMenu] Preset index error:', err?.message||err);
+      }
+    }
+  }
+
+  customElements.get('terrain-menu') || customElements.define('terrain-menu', TerrainMenu);
+}
