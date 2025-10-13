@@ -1,21 +1,21 @@
-/* ===== Hex Map Maker — Core (modules mounted: TerrainMenu, MechMenu) ===== */
+/* ===== Hex Map Maker – Script with LOS/Measure toggles + Select + PaintFixed ===== */
 
 /* ---------- Constants & Config ---------- */
 const COVER_DARKEN = { None: 0, Light: -5, Medium: -10, Heavy: -15 };
 const SHEETS_BASE = 'https://sheets.flechs.net/';
 const svgNS = 'http://www.w3.org/2000/svg';
 
-// Token size baseline
+// ~1" token on a 1.25" board hex → 1 / 1.25 = 0.8
 const TOKEN_BASE_SCALE = 0.80;
 
-// LOS physics
-const EYE_Z = 0.9;
-const COVER_BLOCK_HEIGHT = [0, 0.4, 0.9, 1.4];
+// ===== LOS physics (supports negative ground) =====
+const EYE_Z = 0.9;                 // eye height above ground (tile height units)
+const COVER_BLOCK_HEIGHT = [0, 0.4, 0.9, 1.4]; // None, Light, Med, Heavy -> extra blocking height
 const LOS_EPS = 1e-4;
 
 function getHexHeight(q, r) {
-  const t = tiles.get(key(q, r));
-  const h = (t && Number.isFinite(t.height)) ? t.height : 0;
+const t = tiles.get(key(q, r));
+const h = (t && Number.isFinite(t.height)) ? t.height : 0;
   return Number.isFinite(h) ? h : 0; // preserves negatives
 }
 
@@ -44,16 +44,55 @@ const TERRAINS = [
   { name: 'Hologram', fill: '#00ff80', pat: 'pat-holo',     opacity: 0.35 }
 ];
 
+// ===== Fill Terrain dropdown =====
+const elFillTerrain = document.getElementById('fillTerrain');
+if (elFillTerrain) {
+  TERRAINS.forEach((t, i) => {
+    const opt = document.createElement('option');
+    opt.value = String(i);
+    opt.textContent = t.name;
+    elFillTerrain.appendChild(opt);
+  });
+}
+function fillMapWithTerrain(terrainIndex) {
+  if (mapLocked) { alert('Map is locked. Unlock to edit terrain.'); return; }
+  if (terrainIndex == null || isNaN(terrainIndex)) return;
+  beginStroke();
+  tiles.forEach(tile => {
+    const prev = { h: tile.height, ter: tile.terrainIndex, cov: tile.coverIndex };
+    tile.terrainIndex = terrainIndex;
+    const next = { h: tile.height, ter: tile.terrainIndex, cov: tile.coverIndex };
+    recordEdit(tile.q, tile.r, prev, next);
+  });
+  endStroke();
+}
+const btnFillTerrain = document.getElementById('btnFillTerrain');
+if (btnFillTerrain) {
+  btnFillTerrain.addEventListener('click', () => {
+    const idx = +elFillTerrain.value;
+    if (isNaN(idx)) { elFillTerrain.focus(); return; }
+    fillMapWithTerrain(idx);
+    elFillTerrain.value = '';
+  });
+}
+if (elFillTerrain) {
+  elFillTerrain.addEventListener('change', () => {
+    const idx = +elFillTerrain.value;
+    if (!isNaN(idx)) {
+      fillMapWithTerrain(idx);
+      elFillTerrain.value = '';
+    }
+  });
+}
+
 const COVERS = ['None','Light','Medium','Heavy'];
 const COVER_ABBR = { None:'', Light:'| L1', Medium:'| M2', Heavy:'| H3' };
-
-// Where to load mech indices from
-const INDEX_BASE = 'assets/';
 
 /* ---------- DOM ---------- */
 const svg = document.getElementById('svg');
 const defs = document.getElementById('tex-defs');
 const frameBorder = document.getElementById('frameBorder');
+const gShadows = document.getElementById('world-shadows');
 const gPolys   = document.getElementById('world-polys');
 const gTex     = document.getElementById('world-textures');
 const gOver    = document.getElementById('world-overlays');
@@ -64,14 +103,14 @@ const gLosRays = document.getElementById('los-rays');
 const gLos     = document.getElementById('los-group');
 const io = document.getElementById('io');
 
-// Sidebar inputs
+/* Sidebar inputs */
 const elCols = document.getElementById('cols');
 const elRows = document.getElementById('rows');
 const elHex  = document.getElementById('hexSize');
 const elLegend = document.getElementById('legendRadio');
 const elPresets = document.getElementById('presets');
 
-// Drawers (kept, but menu internals moved to modules)
+/* Drawers */
 const leftPanel  = document.getElementById('leftPanel');
 const rightPanel = document.getElementById('rightPanel');
 const toggleLeft = document.getElementById('toggleLeft');
@@ -79,35 +118,103 @@ const toggleRight= document.getElementById('toggleRight');
 const closeLeft  = document.getElementById('closeLeft');
 const closeRight = document.getElementById('closeRight');
 
-// Top bar toggles + help
+/* Top bar toggles + help (support both legacy & new IDs) */
 const btnLOS = document.getElementById('btnLOS') || document.getElementById('btnToggleLOS');
 const btnMeasure = document.getElementById('btnMeasure') || document.getElementById('btnToggleMeasure');
 const btnHelp = document.getElementById('btnHelp');
 const helpPopup = document.getElementById('helpPopup');
+const closeHelp = document.getElementById('closeHelp');
 
-// Optional hamburger + dice
-const menuBtn   = document.getElementById('menuBtn');
-const menuPopup = document.getElementById('menuPopup');
-const diceOut = document.getElementById('diceOut');
+/* Left quick tools (mutually exclusive) */
+const btnSelect    = document.getElementById('btnSelect');
+const btnHeight    = document.getElementById('btnHeight');
+const btnTerrain   = document.getElementById('btnTerrain');
+const btnCover     = document.getElementById('btnCover');
+const btnClearTile = document.getElementById('btnClearTile');
 
-// Docks
+/* Fixed Paint tool UI */
+const selPaintTerrain = document.getElementById('selPaintTerrain');
+const selPaintHeight  = document.getElementById('selPaintHeight');
+const selPaintCover   = document.getElementById('selPaintCover');
+const btnPaintFixed   = document.getElementById('btnPaintFixed');
+const btnClearFixed   = document.getElementById('btnClearFixed');
+
+/* Docks */
 const dockA = document.getElementById('dockA');
 const dockB = document.getElementById('dockB');
 const frameA = document.getElementById('frameA');
 const frameB = document.getElementById('frameB');
+
+/* ===== Docks: wire up UI buttons + graceful fallback ===== */
 const btnDockL = document.getElementById('btnDockL');
 const btnDockR = document.getElementById('btnDockR');
-
 btnDockL && btnDockL.addEventListener('click', toggleDockA);
 btnDockR && btnDockR.addEventListener('click', toggleDockB);
 
-// Right-docked token controls (kept)
-const tokenControls = document.getElementById('tokenControls');
-const btnTurnLeft   = document.getElementById('btnTurnLeft');
-const btnTurnRight  = document.getElementById('btnTurnRight');
+// Header controls for left dock
+on('homeA', 'click', () => {
+  if (!dockA.classList.contains('show')) dockA.classList.add('show');
+  if (frameA && frameA.src !== SHEETS_BASE) frameA.src = SHEETS_BASE;
+  localStorage.setItem('hexmap_dockA_show', '1');
+});
+on('openA', 'click', () => window.open(SHEETS_BASE, '_blank', 'noopener,noreferrer'));
+on('closeA', 'click', () => {
+  dockA.classList.remove('show');
+  localStorage.setItem('hexmap_dockA_show', '0');
+});
 
-btnTurnLeft && btnTurnLeft.addEventListener('click', () => rotateToken(-60));
-btnTurnRight && btnTurnRight.addEventListener('click', () => rotateToken(+60));
+// Header controls for right dock
+on('homeB', 'click', () => {
+  if (!dockB.classList.contains('show')) dockB.classList.add('show');
+  if (frameB && frameB.src !== SHEETS_BASE) frameB.src = SHEETS_BASE;
+  localStorage.setItem('hexmap_dockB_show', '1');
+});
+on('openB', 'click', () => window.open(SHEETS_BASE, '_blank', 'noopener,noreferrer'));
+on('closeB', 'click', () => {
+  dockB.classList.remove('show');
+  localStorage.setItem('hexmap_dockB_show', '0');
+});
+
+// If a browser blocks embedding, the iframe will stay blank.
+function tryLoadSheetsOnce(frameEl){
+  if (!frameEl || frameEl.src) return; // only try once when src is empty
+  try { frameEl.src = SHEETS_BASE; } catch {}
+}
+
+// Make sure we actually attempt to load when docks get shown
+const _toggleDockA = toggleDockA;
+const _toggleDockB = toggleDockB;
+window.toggleDockA = function(){
+  _toggleDockA();
+  if (dockA.classList.contains('show')) tryLoadSheetsOnce(frameA);
+};
+window.toggleDockB = function(){
+  _toggleDockB();
+  if (dockB.classList.contains('show')) tryLoadSheetsOnce(frameB);
+};
+
+/* Optional hamburger */
+const menuBtn   = document.getElementById('menuBtn');
+const menuPopup = document.getElementById('menuPopup');
+
+/* Dice */
+const diceOut = document.getElementById('diceOut');
+
+/* Right drawer: Mech UI */
+const mechName   = document.getElementById('mechName');
+const pilotName  = document.getElementById('pilotName');
+const teamSelect = document.getElementById('teamSelect');
+const btnAddMech = document.getElementById('btnAddMech');
+const mechList   = document.getElementById('mechList');
+
+const initList   = document.getElementById('initList');
+const btnRollInitAll = document.getElementById('btnRollInitAll');
+const btnClearInit   = document.getElementById('btnClearInit');
+const btnNextTurn    = document.getElementById('btnNextTurn');
+
+const btnExportMechs = document.getElementById('btnExportMechs');
+const btnImportMechs = document.getElementById('btnImportMechs');
+const importFile     = document.getElementById('importFile');
 
 /* ---------- State ---------- */
 let cols = +elCols.value;
@@ -122,14 +229,30 @@ let selectedTokenId = null;
 let tokenDragId = null;
 
 /* Mech metadata (right panel) */
-const mechMeta = new Map(); // id -> {name, pilot, team, mv?, dataPath?}
+const mechMeta = new Map(); // id -> {name, pilot, team}
+
+/* Initiative state */
+let initOrder = []; // [{id, roll}]
+let initIndex = -1;
 
 /* Range / LOS / Measure */
 let measurement = null; // {from:{q,r}, to:{q,r}, dist}
 let losActive = false;
 let losSource = null;
-let measureMode = false;
-let measureAnchor = null;
+let measureMode = false;      // top-bar toggle
+let measureAnchor = null;     // first click in measure mode
+
+/* Paint tool mode (mutually exclusive buttons) */
+let toolMode = 'select'; // 'select' | 'height' | 'terrain' | 'cover' | 'clear' | 'paintFixed'
+
+/* Fixed Paint state */
+let fixedPaint = { terrainIndex:0, height:0, coverIndex:0 };
+
+/* Undo / Redo (tile edits) */
+const UNDO_LIMIT = 50;
+const undoStack = [];
+const redoStack = [];
+let currentStroke = null;
 
 /* Map Lock */
 let mapLocked = localStorage.getItem('hexmap_map_locked') === '1';
@@ -140,6 +263,7 @@ function on(id, ev, fn){ const el = typeof id==='string' ? document.getElementBy
 function toSvgPoint(clientX, clientY){ const pt = svg.createSVGPoint(); pt.x = clientX; pt.y = clientY; return pt.matrixTransform(svg.getScreenCTM().inverse()); }
 
 /* ---------- Geometry ---------- */
+// odd-q, pointy-top axial
 function offsetToPixel(q, r, size) {
   const h = Math.sqrt(3) * size;
   const x = q * (size * 1.5);
@@ -168,18 +292,47 @@ function hexToHsl(hex) { hex = hex.replace('#',''); const n = parseInt(hex, 16);
 function hslToHex(h,s,l) { h/=360; s/=100; l/=100; function f(n){ const k = (n + h*12) % 12; const a = s * Math.min(l,1-l); const c = l - a * Math.max(-1, Math.min(k-3, Math.min(9-k,1))); return Math.round(255*c); } return "#" + [f(0),f(8),f(4)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
 function adjustLightness(hex, deltaPct) { let {h,s,l} = hexToHsl(hex); l = Math.max(0, Math.min(100, l + deltaPct)); return hslToHex(h,s,l); }
 
-/* ---------- Autosave ---------- */
+/* ---------- Autosave and Send ---------- */
 function serializeState(){
   const meta = { cols, rows, hexSize };
-  const data = [...tiles.values()].map(t => ({ q:t.q, r:t.r, h:t.height, ter:t.terrainIndex, cov:t.coverIndex }));
-  const tok = tokens.map(t => ({ id:t.id, q:t.q, r:t.r, scale:t.scale, angle:t.angle, colorIndex:t.colorIndex, label:t.label }));
-  const metaMap = {}; mechMeta.forEach((v, k) => { metaMap[k] = v; });
 
-  // initiative fields removed from core (MechMenu manages UX)
+  const data = [...tiles.values()].map(t => ({
+    q: t.q, r: t.r,
+    h: t.height,
+    ter: t.terrainIndex,
+    cov: t.coverIndex
+  }));
 
-  return JSON.stringify({ meta, data, tokens: tok, mechMeta: metaMap });
+  const tok = tokens.map(t => ({
+    id: t.id, q: t.q, r: t.r,
+    scale: t.scale,
+    angle: t.angle,
+    colorIndex: t.colorIndex,
+    label: t.label
+  }));
+
+  const metaMap = {};
+  mechMeta.forEach((v, k) => { metaMap[k] = v; });
+
+  // include initiative (flat fields for compatibility)
+  const safeInitOrder = Array.isArray(initOrder)
+    ? initOrder.map(o => ({ id: o.id, roll: o.roll }))
+    : [];
+  const safeInitIndex = Number.isFinite(initIndex) ? initIndex : -1;
+
+  return JSON.stringify({
+    meta,
+    data,
+    tokens: tok,
+    mechMeta: metaMap,
+    initOrder: safeInitOrder,
+    initIndex: safeInitIndex
+  });
 }
-function saveLocal(){ try { localStorage.setItem('hexmap_autosave', serializeState()); } catch {} }
+function saveLocal(){
+  try { localStorage.setItem('hexmap_autosave', serializeState()); } catch {}
+}
+
 function loadLocal(){
   try {
     const raw = localStorage.getItem('hexmap_autosave');
@@ -191,7 +344,7 @@ function loadLocal(){
   } catch { return false; }
 }
 
-/* ---------- Patterns (kept) ---------- */
+/* ---------- Patterns ---------- */
 function ensurePatterns() {
   let pats = document.getElementById('tex-pats');
   if (!pats) { pats = document.createElementNS(svgNS,'g'); pats.setAttribute('id','tex-pats'); defs.appendChild(pats); }
@@ -212,19 +365,221 @@ function ensurePatterns() {
   const ink = '#00000033';
   const inkBold = '#00000055';
 
-  // (same pattern builders as before) ...
-  pat('pat-grass', u, u, (p)=>{ /* ... */ const g1=document.createElementNS(svgNS,'path'); g1.setAttribute('d',`M0 ${u*0.8} L ${u*0.8} 0`); g1.setAttribute('stroke', ink); g1.setAttribute('stroke-width', sw2); g1.setAttribute('fill','none'); const g2=document.createElementNS(svgNS,'path'); g2.setAttribute('d',`M${u*0.2} ${u} L ${u} ${u*0.2}`); g2.setAttribute('stroke', ink); g2.setAttribute('stroke-width', sw2); g2.setAttribute('fill','none'); p.append(g1,g2); });
-  pat('pat-rock', u, u, (p)=>{ const a=document.createElementNS(svgNS,'path'); a.setAttribute('d',`M0 0 L ${u} ${u}`); a.setAttribute('stroke', inkBold); a.setAttribute('stroke-width', sw); a.setAttribute('fill','none'); const b=document.createElementNS(svgNS,'path'); b.setAttribute('d',`M${u} 0 L 0 ${u}`); b.setAttribute('stroke', ink); b.setAttribute('stroke-width', sw2); b.setAttribute('fill','none'); p.append(a,b); });
-  pat('pat-water', u, u*0.6, (p)=>{ const y=(u*0.6)/2; const path=document.createElementNS(svgNS,'path'); path.setAttribute('d',`M0 ${y} C ${u*0.25} ${y-0.35*u}, ${u*0.75} ${y+0.35*u}, ${u} ${y}`); path.setAttribute('stroke', inkBold); path.setAttribute('stroke-width', sw2); path.setAttribute('fill','none'); p.append(path); });
-  pat('pat-sand', u, u, (p)=>{ const mk=(cx,cy,r,op)=>{ const c=document.createElementNS(svgNS,'circle'); c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',Math.max(0.7,r)); c.setAttribute('fill','#00000028'); c.setAttribute('opacity',op); return c; }; p.append(mk(u*0.2,u*0.3, sw2*0.45, 1), mk(u*0.6,u*0.2, sw2*0.45, .9), mk(u*0.8,u*0.7, sw2*0.5, .7), mk(u*0.35,u*0.8, sw2*0.4, .8)); });
-  pat('pat-asphalt', u, u, (p)=>{ const mk=(cx,cy,op)=>{ const c=document.createElementNS(svgNS,'circle'); c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',Math.max(0.5,u*0.05)); c.setAttribute('fill','#00000033'); c.setAttribute('opacity',op); return c; }; p.append(mk(u*0.25,u*0.30,.6), mk(u*0.65,u*0.20,.5), mk(u*0.75,u*0.70,.45), mk(u*0.35,u*0.75,.55)); const dash=document.createElementNS(svgNS,'path'); dash.setAttribute('d',`M ${-u*0.1} ${u*1.1} L ${u*1.1} ${-u*0.1}`); dash.setAttribute('stroke','#ffd24a66'); dash.setAttribute('stroke-width',Math.max(1,u*0.06)); dash.setAttribute('stroke-dasharray',`${(u*0.25).toFixed(2)}, ${(u*0.18).toFixed(2)}`); dash.setAttribute('fill','none'); p.append(dash); });
-  pat('pat-urban', u, u, (p)=>{ const g1=document.createElementNS(svgNS,'path'); g1.setAttribute('d',`M 0 ${u*0.5} H ${u} M ${u*0.5} 0 V ${u}`); g1.setAttribute('stroke','#0000003a'); g1.setAttribute('stroke-width',Math.max(1,u*0.05)); g1.setAttribute('fill','none'); const g2=document.createElementNS(svgNS,'path'); g2.setAttribute('d',`M 0 ${u*0.25} H ${u} M ${u*0.25} 0 V ${u}`); g2.setAttribute('stroke','#00000022'); g2.setAttribute('stroke-width',Math.max(1,u*0.035)); g2.setAttribute('fill','none'); p.append(g1,g2); });
-  pat('pat-snow', u, u, (p)=>{ const a=document.createElementNS(svgNS,'path'); a.setAttribute('d',`M0 ${u} L ${u} 0`); a.setAttribute('stroke','#bfc9d6'); a.setAttribute('stroke-width',sw2); a.setAttribute('opacity',0.4); a.setAttribute('fill','none'); const b=document.createElementNS(svgNS,'path'); b.setAttribute('d',`M0 0 L ${u} ${u}`); b.setAttribute('stroke','#d4dbe6'); b.setAttribute('stroke-width',sw2); b.setAttribute('opacity',0.3); b.setAttribute('fill','none'); p.append(a,b); });
-  pat('pat-lava', u, u, (p)=>{ const crack=document.createElementNS(svgNS,'path'); crack.setAttribute('d',`M0 ${u*0.6} Q ${u*0.3} ${u*0.3}, ${u*0.6} ${u*0.7} T ${u} ${u*0.4}`); crack.setAttribute('stroke','#ff4500'); crack.setAttribute('stroke-width',sw2*1.4); crack.setAttribute('opacity',0.9); crack.setAttribute('fill','none'); const glow=document.createElementNS(svgNS,'path'); glow.setAttribute('d',`M0 ${u*0.8} Q ${u*0.4} ${u*0.5}, ${u*0.8} ${u*0.9}`); glow.setAttribute('stroke','#ffd54a'); glow.setAttribute('stroke-width',sw2); glow.setAttribute('opacity',0.7); glow.setAttribute('fill','none'); p.append(crack,glow); });
-  pat('pat-moon', u, u, (p)=>{ function crater(cx,cy,r,op){ const c=document.createElementNS(svgNS,'circle'); c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',r); c.setAttribute('fill','#888'); c.setAttribute('opacity',op); return c; } p.append(crater(u*0.25,u*0.25, sw*0.6, 0.6), crater(u*0.7,u*0.35, sw*0.8, 0.5), crater(u*0.5,u*0.75, sw*0.7, 0.4)); });
-  pat('pat-ice', u, u, (p)=>{ const crack1=document.createElementNS(svgNS,'path'); crack1.setAttribute('d',`M0 ${u*0.3} L ${u} ${u*0.1}`); crack1.setAttribute('stroke','#7fcde8'); crack1.setAttribute('stroke-width',sw2); crack1.setAttribute('opacity',0.5); crack1.setAttribute('fill','none'); const crack2=document.createElementNS(svgNS,'path'); crack2.setAttribute('d',`M${u*0.2} ${u} L ${u*0.8} 0`); crack2.setAttribute('stroke','#a4dff2'); crack2.setAttribute('stroke-width',sw2*0.9); crack2.setAttribute('opacity',0.4); crack2.setAttribute('fill','none'); p.append(crack1,crack2); });
-  pat('pat-volcanic', u, u, (p)=>{ function fleck(cx,cy,r,color,op){ const c=document.createElementNS(svgNS,'circle'); c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',r); c.setAttribute('fill',color); c.setAttribute('opacity',op); return c; } p.append(fleck(u*0.2,u*0.3, sw*0.5, '#555', 0.6), fleck(u*0.7,u*0.4, sw*0.4, '#777', 0.5), fleck(u*0.4,u*0.7, sw*0.6, '#333', 0.7), fleck(u*0.8,u*0.2, sw*0.5, '#c33', 0.7)); });
-  pat('pat-holo', u, u, (p) => { const vline=document.createElementNS(svgNS,'rect'); vline.setAttribute('x',0); vline.setAttribute('y',0); vline.setAttribute('width',u*0.15); vline.setAttribute('height',u); vline.setAttribute('fill','#00ff80'); vline.setAttribute('opacity',0.15); const diag=document.createElementNS(svgNS,'path'); diag.setAttribute('d',`M0,${u} L${u},0`); diag.setAttribute('stroke','#00ff80'); diag.setAttribute('stroke-width',u*0.05); diag.setAttribute('opacity',0.25); p.append(vline, diag); });
+  pat('pat-grass', u, u, (p)=>{
+    const g1 = document.createElementNS(svgNS,'path');
+    g1.setAttribute('d', `M0 ${u*0.8} L ${u*0.8} 0`);
+    g1.setAttribute('stroke', ink); g1.setAttribute('stroke-width', sw2); g1.setAttribute('fill','none');
+    const g2 = document.createElementNS(svgNS,'path');
+    g2.setAttribute('d', `M${u*0.2} ${u} L ${u} ${u*0.2}`);
+    g2.setAttribute('stroke', ink); g2.setAttribute('stroke-width', sw2); g2.setAttribute('fill','none');
+    p.append(g1,g2);
+  });
+
+  pat('pat-rock', u, u, (p)=>{
+    const a = document.createElementNS(svgNS,'path');
+    a.setAttribute('d', `M0 0 L ${u} ${u}`);
+    a.setAttribute('stroke', inkBold); a.setAttribute('stroke-width', sw); a.setAttribute('fill','none');
+    const b = document.createElementNS(svgNS,'path');
+    b.setAttribute('d', `M${u} 0 L 0 ${u}`);
+    b.setAttribute('stroke', ink); b.setAttribute('stroke-width', sw2); b.setAttribute('fill','none');
+    p.append(a,b);
+  });
+
+  pat('pat-water', u, u*0.6, (p)=>{
+    const y = (u*0.6)/2;
+    const path = document.createElementNS(svgNS,'path');
+    path.setAttribute('d', `M0 ${y} C ${u*0.25} ${y-0.35*u}, ${u*0.75} ${y+0.35*u}, ${u} ${y}`);
+    path.setAttribute('stroke', inkBold); path.setAttribute('stroke-width', sw2); path.setAttribute('fill','none');
+    p.append(path);
+  });
+
+  pat('pat-sand', u, u, (p)=>{
+    const mk = (cx,cy,r,op) => {
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', Math.max(0.7, r));
+      c.setAttribute('fill', '#00000028'); c.setAttribute('opacity', op);
+      return c;
+    };
+    p.append(mk(u*0.2,u*0.3, sw2*0.45, 1),
+             mk(u*0.6,u*0.2, sw2*0.45, .9),
+             mk(u*0.8,u*0.7, sw2*0.5, .7),
+             mk(u*0.35,u*0.8, sw2*0.4, .8));
+  });
+
+  pat('pat-asphalt', u, u, (p) => {
+    const mk = (cx,cy,op) => {
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx', cx);
+      c.setAttribute('cy', cy);
+      c.setAttribute('r', Math.max(0.5, u*0.05));
+      c.setAttribute('fill', '#00000033'); c.setAttribute('opacity', op);
+      return c;
+    };
+    p.append(
+      mk(u*0.25,u*0.30, .6),
+      mk(u*0.65,u*0.20, .5),
+      mk(u*0.75,u*0.70, .45),
+      mk(u*0.35,u*0.75, .55)
+    );
+    const dash = document.createElementNS(svgNS,'path');
+    dash.setAttribute('d', `M ${-u*0.1} ${u*1.1} L ${u*1.1} ${-u*0.1}`);
+    dash.setAttribute('stroke', '#ffd24a66');
+    dash.setAttribute('stroke-width', Math.max(1, u*0.06));
+    dash.setAttribute('stroke-dasharray', `${(u*0.25).toFixed(2)}, ${(u*0.18).toFixed(2)}`);
+    dash.setAttribute('fill','none');
+    p.append(dash);
+  });
+
+  pat('pat-urban', u, u, (p) => {
+    const g1 = document.createElementNS(svgNS,'path');
+    g1.setAttribute('d', `M 0 ${u*0.5} H ${u} M ${u*0.5} 0 V ${u}`);
+    g1.setAttribute('stroke', '#0000003a');
+    g1.setAttribute('stroke-width', Math.max(1, u*0.05));
+    g1.setAttribute('fill','none');
+
+    const g2 = document.createElementNS(svgNS,'path');
+    g2.setAttribute('d', `M 0 ${u*0.25} H ${u} M ${u*0.25} 0 V ${u}`);
+    g2.setAttribute('stroke', '#00000022');
+    g2.setAttribute('stroke-width', Math.max(1, u*0.035));
+    g2.setAttribute('fill','none');
+
+    p.append(g1, g2);
+  });
+
+  pat('pat-snow', u, u, (p) => {
+    const a = document.createElementNS(svgNS,'path');
+    a.setAttribute('d', `M0 ${u} L ${u} 0`);
+    a.setAttribute('stroke', '#bfc9d6');
+    a.setAttribute('stroke-width', sw2);
+    a.setAttribute('opacity', 0.4);
+    a.setAttribute('fill','none');
+
+    const b = document.createElementNS(svgNS,'path');
+    b.setAttribute('d', `M0 0 L ${u} ${u}`);
+    b.setAttribute('stroke', '#d4dbe6');
+    b.setAttribute('stroke-width', sw2);
+    b.setAttribute('opacity', 0.3);
+    b.setAttribute('fill','none');
+
+    p.append(a,b);
+  });
+
+  pat('pat-lava', u, u, (p) => {
+    const crack = document.createElementNS(svgNS,'path');
+    crack.setAttribute('d', `M0 ${u*0.6} Q ${u*0.3} ${u*0.3}, ${u*0.6} ${u*0.7} T ${u} ${u*0.4}`);
+    crack.setAttribute('stroke', '#ff4500');
+    crack.setAttribute('stroke-width', sw2*1.4);
+    crack.setAttribute('opacity', 0.9);
+    crack.setAttribute('fill','none');
+
+    const glow = document.createElementNS(svgNS,'path');
+    glow.setAttribute('d', `M0 ${u*0.8} Q ${u*0.4} ${u*0.5}, ${u*0.8} ${u*0.9}`);
+    glow.setAttribute('stroke', '#ffd54a');
+    glow.setAttribute('stroke-width', sw2);
+    glow.setAttribute('opacity', 0.7);
+    glow.setAttribute('fill','none');
+
+    p.append(crack, glow);
+  });
+
+  pat('pat-moon', u, u, (p) => {
+    function crater(cx, cy, r, op) {
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
+      c.setAttribute('fill', '#888'); c.setAttribute('opacity', op);
+      return c;
+    }
+    p.append(
+      crater(u*0.25, u*0.25, sw*0.6, 0.6),
+      crater(u*0.7,  u*0.35, sw*0.8, 0.5),
+      crater(u*0.5,  u*0.75, sw*0.7, 0.4)
+    );
+  });
+
+  pat('pat-ice', u, u, (p) => {
+    const crack1 = document.createElementNS(svgNS,'path');
+    crack1.setAttribute('d', `M0 ${u*0.3} L ${u} ${u*0.1}`);
+    crack1.setAttribute('stroke', '#7fcde8');
+    crack1.setAttribute('stroke-width', sw2);
+    crack1.setAttribute('opacity', 0.5);
+    crack1.setAttribute('fill','none');
+
+    const crack2 = document.createElementNS(svgNS,'path');
+    crack2.setAttribute('d', `M${u*0.2} ${u} L ${u*0.8} 0`);
+    crack2.setAttribute('stroke', '#a4dff2');
+    crack2.setAttribute('stroke-width', sw2*0.9);
+    crack2.setAttribute('opacity', 0.4);
+    crack2.setAttribute('fill','none');
+
+    p.append(crack1, crack2);
+  });
+
+  pat('pat-volcanic', u, u, (p) => {
+    function fleck(cx, cy, r, color, op) {
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', r);
+      c.setAttribute('fill', color); c.setAttribute('opacity', op);
+      return c;
+    }
+    p.append(
+      fleck(u*0.2, u*0.3, sw*0.5, '#555', 0.6),
+      fleck(u*0.7, u*0.4, sw*0.4, '#777', 0.5),
+      fleck(u*0.4, u*0.7, sw*0.6, '#333', 0.7),
+      fleck(u*0.8, u*0.2, sw*0.5, '#c33', 0.7)
+    );
+  });
+
+pat('pat-holo', u, u, (p) => {
+  // vertical scanline
+  const vline = document.createElementNS(svgNS, 'rect');
+  vline.setAttribute('x', 0);
+  vline.setAttribute('y', 0);
+  vline.setAttribute('width', u * 0.15);
+  vline.setAttribute('height', u);
+  vline.setAttribute('fill', '#00ff80');
+  vline.setAttribute('opacity', 0.15);
+
+  // diagonal glow line
+  const diag = document.createElementNS(svgNS, 'path');
+  diag.setAttribute('d', `M0,${u} L${u},0`);
+  diag.setAttribute('stroke', '#00ff80');
+  diag.setAttribute('stroke-width', u * 0.05);
+  diag.setAttribute('opacity', 0.25);
+
+  p.append(vline, diag);
+});
+
+}
+
+/* ===== Drop-shadow filters per height (H1..H5) ===== */
+function ensureDropShadowFilters() {
+  let bank = document.getElementById('hex-drop-bank');
+  if (!bank) { bank = document.createElementNS(svgNS,'g'); bank.id = 'hex-drop-bank'; defs.appendChild(bank); }
+  for (let h=1; h<=5; h++){
+    let f = document.getElementById(`hexDropH${h}`);
+    const base   = hexSize * 0.18;
+    const extra  = Math.max(0,h) * hexSize*0.10;
+    const dxdy   = (base + extra) * 0.90;
+    const blur   = hexSize * (0.09 + 0.02*h);
+    const alpha  = Math.min(0.70, 0.30 + 0.08*h);
+
+    if (!f) {
+      f = document.createElementNS(svgNS,'filter');
+      f.setAttribute('id', `hexDropH${h}`);
+      bank.appendChild(f);
+    }
+    f.setAttribute('x','-50%'); f.setAttribute('y','-50%');
+    f.setAttribute('width','200%'); f.setAttribute('height','200%');
+
+    f.replaceChildren();
+    const ds = document.createElementNS(svgNS,'feDropShadow');
+    ds.setAttribute('dx', dxdy.toFixed(2));
+    ds.setAttribute('dy', dxdy.toFixed(2));
+    ds.setAttribute('stdDeviation', blur.toFixed(2));
+    ds.setAttribute('flood-color', '#000');
+    ds.setAttribute('flood-opacity', alpha.toFixed(3));
+    f.appendChild(ds);
+  }
 }
 
 /* ---------- Camera (viewBox) ---------- */
@@ -248,17 +603,19 @@ const camera = {
   reset(){ this.inited=false; this.fitToContent(); }
 };
 
-/* ===== Zoom buttons ===== */
-on('btnZoomIn',  'click', () => zoomAtViewportCenter(1/1.15));
-on('btnZoomOut', 'click', () => zoomAtViewportCenter(1.15));
+/* ===== Undo/Redo & Zoom buttons ===== */
+on('btnUndo', 'click', () => { undo(); svg.focus(); });
+on('btnRedo', 'click', () => { redo(); svg.focus(); });
 function zoomAtViewportCenter(factor){
   const vb = svg.viewBox.baseVal;
   const cx = vb.x + vb.width  / 2;
   const cy = vb.y + vb.height / 2;
   camera.zoomAt({ x: cx, y: cy }, factor);
 }
+on('btnZoomIn',  'click', () => zoomAtViewportCenter(1/1.15));
+on('btnZoomOut', 'click', () => zoomAtViewportCenter(1.15));
 
-/* ---------- Drawer Toggles (panels only) ---------- */
+/* ---------- Drawer Toggles ---------- */
 if (toggleLeft)  toggleLeft.addEventListener('click', () => leftPanel.classList.toggle('collapsed'));
 if (closeLeft)   closeLeft.addEventListener('click', () => leftPanel.classList.add('collapsed'));
 if (toggleRight) toggleRight.addEventListener('click', () => rightPanel.classList.toggle('collapsed'));
@@ -266,13 +623,17 @@ if (closeRight)  closeRight.addEventListener('click', () => rightPanel.classList
 
 /* ---------- Help popup ---------- */
 if (helpPopup) helpPopup.hidden = true;
-if (btnHelp) btnHelp.addEventListener('click', () => { if (!helpPopup) return; helpPopup.hidden = !helpPopup.hidden; });
+if (btnHelp) btnHelp.addEventListener('click', () => {
+  if (!helpPopup) return;
+  helpPopup.hidden = !helpPopup.hidden;
+});
+if (closeHelp) closeHelp.addEventListener('click', () => { if (helpPopup) helpPopup.hidden = true; });
 
 /* ---------- Top-bar LOS / Measure toggles ---------- */
 function setBtnToggleState(btn, on){
   if (!btn) return;
   btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-  btn.classList.toggle('active', !!on);
+  if (on) btn.classList.add('active'); else btn.classList.remove('active');
 }
 if (btnLOS) {
   btnLOS.addEventListener('click', () => {
@@ -302,12 +663,12 @@ function requestRender(){
   renderQueued=true;
   requestAnimationFrame(()=>{ render(); renderQueued=false; });
 }
-window.requestRender = requestRender; // expose to modules
 
 function render() {
   ensurePatterns();
 
   // clear layers
+  gShadows.replaceChildren();
   gPolys.replaceChildren();
   gTex.replaceChildren();
   gOver.replaceChildren();
@@ -330,16 +691,20 @@ function render() {
   });
 
   // Base hexes + textures (+ cover ring)
-  tiles.forEach(t => {
-    const poly = document.createElementNS(svgNS,'polygon');
-    const terrain = TERRAINS[t.terrainIndex];
+tiles.forEach(t => {
+  const poly = document.createElementNS(svgNS,'polygon');
+  const terrain = TERRAINS[t.terrainIndex];
 
-    // darken by |height| (no drop shadows anymore)
-    const SCALE = 8;
-    const MAX_OFFSET = 50;
-    let brightnessOffset = -Math.min(MAX_OFFSET, Math.abs(t.height) * SCALE);
-    const fillColor = adjustLightness(terrain.fill, brightnessOffset);
-    const strokeW = Math.max(1, size * 0.03);
+  // how strong each step darkens
+  const SCALE = 8;  
+  // optional max cap so it doesn't go pitch black
+  const MAX_OFFSET = 50;
+
+  // always darken by distance from 0
+  let brightnessOffset = -Math.min(MAX_OFFSET, Math.abs(t.height) * SCALE);
+
+  const fillColor = adjustLightness(terrain.fill, brightnessOffset);
+  const strokeW = Math.max(1, size * 0.03);
 
     poly.setAttribute('points', geom.get(key(t.q,t.r)).ptsStr);
     poly.setAttribute('class','hex');
@@ -347,6 +712,13 @@ function render() {
     poly.setAttribute('stroke', '#00000066');
     poly.setAttribute('stroke-width', strokeW);
     poly.dataset.q = t.q; poly.dataset.r = t.r;
+
+    if (t.height > 0) {
+      const bucket = Math.min(5, Math.max(1, t.height));
+      poly.setAttribute('filter', `url(#hexDropH${bucket})`);
+    } else {
+      poly.removeAttribute('filter');
+    }
     gPolys.appendChild(poly);
 
     const tex = document.createElementNS(svgNS,'polygon');
@@ -378,7 +750,7 @@ function render() {
   function relLum(hex) {
     hex = hex.replace('#','');
     const n = parseInt(hex,16);
-    const r = (n>>16)&255, g = (n>>8)&255, b = (n)&255;
+    const r = (n>>16)&255, g = (n>>8)&255, b = n&255;
     const chan = v => (v/=255) <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4);
     return 0.2126*chan(r) + 0.7152*chan(g) + 0.0722*chan(b);
   }
@@ -431,8 +803,8 @@ function render() {
   // Tokens
   const fontTok = Math.max(14, hexSize * 0.3);
   tokens.forEach(tok => {
-    const center = geom.get(key(tok.q, tok.r));
-    if (!center || center.x === undefined) return;
+const center = geom.get(key(tok.q, tok.r));
+if (!center || center.x === undefined) return;
     const cx = center.x, cy = center.y;
     const rTok = Math.max(6, hexSize * TOKEN_BASE_SCALE * (tok.scale || 1));
 
@@ -441,8 +813,9 @@ function render() {
     if (tok.id === selectedTokenId) g.classList.add('selected');
     g.setAttribute('transform', `translate(${cx},${cy}) rotate(${tok.angle||0})`);
     g.dataset.id = tok.id;
+    
     g.dataset.rtok = String(rTok);
-
+    
     const tokPts = ptsToString(hexPointsArray(0, 0, rTok));
 
     const base = document.createElementNS(svgNS,'polygon');
@@ -508,14 +881,11 @@ function render() {
     label.textContent = tok.label || 'MECH';
     g.appendChild(label);
 
-    // Optional init badge (if MechMenu exposed a getter)
+    // NEW: render init badge using current roll (if present)
+    // We'll read the roll from a Map we maintain (initRolls)
     const roll = (typeof getInitRollFor === 'function') ? getInitRollFor(tok.id) : undefined;
     renderInitBadge(g, roll, rTok);
-
-    // MV badge from mechMeta
-    const meta = mechMeta.get(tok.id);
-    renderMvBadge(g, meta?.mv || null, rTok);
-
+    
     gTokens.appendChild(g);
   });
 
@@ -561,73 +931,24 @@ function render() {
 
   if (!camera.inited) camera.fitToContent();
   saveLocal();
+
   updateTokenControls();
 }
 
-/* ---------- Mv/Init badge helpers (core-side) ---------- */
-function renderInitBadge(parentG, roll){
-  const old = parentG.querySelector('.init-badge');
-  if (old) old.remove();
-  if (roll == null || roll === '' || Number.isNaN(+roll)) return;
+const tokenControls = document.getElementById('tokenControls');
+const btnTurnLeft   = document.getElementById('btnTurnLeft');
+const btnTurnRight  = document.getElementById('btnTurnRight');
 
-  const badge = document.createElementNS(svgNS, 'g');
-  badge.setAttribute('class', 'init-badge');
+btnTurnLeft && btnTurnLeft.addEventListener('click', () => rotateToken(-60));
+btnTurnRight && btnTurnRight.addEventListener('click', () => rotateToken(+60));
 
-  const r = Number(parentG.dataset.rtok) || 24;
-  badge.setAttribute('transform', `translate(0,${r * 1.1})`);
-
-  const c = document.createElementNS(svgNS, 'circle');
-  c.setAttribute('r', 12);
-  badge.appendChild(c);
-
-  const t = document.createElementNS(svgNS, 'text');
-  t.setAttribute('text-anchor', 'middle');
-  t.setAttribute('dominant-baseline', 'central');
-  t.textContent = String(roll);
-  badge.appendChild(t);
-
-  parentG.appendChild(badge);
-}
-function mvLabel(mv){
-  if (!mv) return null;
-  const walk = +(mv.walk ?? 0);
-  const run  = +(mv.run  ?? Math.ceil(walk * 1.5));
-  const jump = +(mv.jump ?? 0);
-  return `${walk}/${run}/${jump}`;
-}
-function renderMvBadge(parentG, mv, rTok){
-  const old = parentG.querySelector('.mv-badge');
-  if (old) old.remove();
-  const label = mvLabel(mv);
-  if (!label) return;
-
-  const badge = document.createElementNS(svgNS, 'g');
-  badge.setAttribute('class', 'mv-badge');
-  const r = Number(parentG.dataset.rtok) || (rTok || 24);
-  badge.setAttribute('transform', `translate(${r * 0.95},${-r * 0.95})`);
-
-  const rect = document.createElementNS(svgNS, 'rect');
-  rect.setAttribute('x', -18); rect.setAttribute('y', -10);
-  rect.setAttribute('rx', 4);  rect.setAttribute('ry', 4);
-  rect.setAttribute('width', 36); rect.setAttribute('height', 20);
-  rect.setAttribute('class', 'mv-bg');
-  badge.appendChild(rect);
-
-  const t = document.createElementNS(svgNS, 'text');
-  t.setAttribute('text-anchor', 'middle');
-  t.setAttribute('dominant-baseline', 'central');
-  t.setAttribute('font-size', 10);
-  t.textContent = label;
-  badge.appendChild(t);
-
-  parentG.appendChild(badge);
-}
-
-/* ---------- Token controls ---------- */
 function updateTokenControls() {
   if (!tokenControls) return;
   const sel = getSelected();
-  if (!sel) { tokenControls.style.display = 'none'; return; }
+  if (!sel) {
+    tokenControls.style.display = 'none';
+    return;
+  }
   const center = offsetToPixel(sel.q, sel.r, hexSize);
   const pt = svg.createSVGPoint();
   pt.x = center.x; pt.y = center.y;
@@ -637,6 +958,26 @@ function updateTokenControls() {
   tokenControls.style.top  = (screenPt.y - 30) + 'px';
   tokenControls.style.display = 'block';
 }
+
+/* ---------- Stroke / Undo helpers ---------- */
+function pushUndo(action){ undoStack.push(action); while (undoStack.length > UNDO_LIMIT) undoStack.shift(); redoStack.length = 0; }
+function beginStroke(){ currentStroke = { type:'batch', edits: [] }; }
+function recordEdit(q,r, prev, next){
+  if (!currentStroke) beginStroke();
+  if (prev.h===next.h && prev.ter===next.ter && prev.cov===next.cov) return;
+  currentStroke.edits.push({ q,r, prev, next });
+}
+function endStroke(){ if (currentStroke && currentStroke.edits.length) pushUndo(currentStroke); currentStroke = null; requestRender(); }
+function applyEdits(edits, usePrev){
+  for (const e of edits){
+    const t = tiles.get(key(e.q,e.r)); if (!t) continue;
+    const src = usePrev ? e.prev : e.next;
+    t.height = src.h; t.terrainIndex = src.ter; t.coverIndex = src.cov;
+  }
+  requestRender();
+}
+function undo(){ if (mapLocked) return; const a = undoStack.pop(); if (!a) return; if (a.type==='batch'){ applyEdits([...a.edits].reverse(), true); } redoStack.push(a); }
+function redo(){ if (mapLocked) return; const a = redoStack.pop(); if (!a) return; if (a.type==='batch'){ applyEdits(a.edits, false); } undoStack.push(a); }
 
 /* ---------- Hex math ---------- */
 function offsetToCube(q,r){ const x=q; const z = r - ((q - (q&1))>>1); const y = -x - z; return {x,y,z}; }
@@ -664,26 +1005,37 @@ function recomputeLOS(){
   outline.setAttribute('class','los-source');
   gLos.appendChild(outline);
 
+  // eye height over *true* ground (negative allowed)
   const z0 = getHexHeight(losSource.q, losSource.r) + EYE_Z;
 
   tiles.forEach(t => {
+    // skip self
     if (t.q === losSource.q && t.r === losSource.r) return;
 
     const tgtCube = offsetToCube(t.q, t.r);
     const line    = cubeLine(srcCube, tgtCube);
 
+    // target eye height
     const z1 = getHexHeight(t.q, t.r) + EYE_Z;
+
     let blocked = false;
 
+    // short adjacency is trivially visible
     if (line.length > 2) {
       for (let i = 1; i < line.length - 1; i++) {
         const midOff = cubeToOffset(line[i]);
         const midT   = tiles.get(key(midOff.q, midOff.r));
         const ground = getHexHeight(midOff.q, midOff.r);
+
+        // cover adds to the blocking top
         const covIdx   = midT?.coverIndex ?? 0;
         const blockTop = ground + (COVER_BLOCK_HEIGHT[covIdx] || 0);
+
+        // param along segment; if cubeLine doesn't carry t, use i/(N-1)
         const tParam = i / (line.length - 1);
         const zRay   = z0 + (z1 - z0) * tParam;
+
+        // if terrain + cover reach/cross the ray, it blocks LOS
         if (blockTop + LOS_EPS >= zRay) { blocked = true; break; }
       }
     }
@@ -691,6 +1043,7 @@ function recomputeLOS(){
     if (!blocked) markVisible(t, srcP);
   });
 }
+
 function markVisible(t, srcP){
   const center = tileCenter(t.q,t.r);
   const poly = document.createElementNS(svgNS,'polygon');
@@ -716,11 +1069,104 @@ function setMeasurement(fromCell, toCell){
 }
 function clearMeasurement(){ measurement = null; gMeasure.replaceChildren(); }
 
-/* ---------- Painting / Interaction (integrated with TerrainMenu) ---------- */
+/* ---------- Painting / Interaction ---------- */
 let isSpaceHeld=false, isPanning=false, panLast=null;
-let tokenDragActive=false;
+let brushMode=null; // 'height'|'terrain'|'cover'|'reset'|'sample'|'fixed'
+let sample=null;
+let paintedThisStroke=null;
 
 function setCursor(){ if (isPanning) svg.style.cursor='grabbing'; else if (isSpaceHeld) svg.style.cursor='grab'; else svg.style.cursor='default'; }
+
+/* Tool mode UI */
+const toolButtons = [btnSelect, btnHeight, btnTerrain, btnCover, btnClearTile].filter(Boolean);
+function setToolMode(mode){
+  toolMode = mode;
+  toolButtons.forEach(btn => {
+    const on = (btn === ({
+      select:btnSelect, height:btnHeight, terrain:btnTerrain, cover:btnCover, clear:btnClearTile
+    }[mode]));
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (on) btn.classList.add('active'); else btn.classList.remove('active');
+  });
+  if (btnPaintFixed) {
+    const onFixed = (mode === 'paintFixed');
+    btnPaintFixed.setAttribute('aria-pressed', onFixed ? 'true' : 'false');
+    btnPaintFixed.classList.toggle('active', onFixed);
+  }
+  brushMode = null; sample = null; paintedThisStroke=null;
+}
+if (btnSelect)    btnSelect.addEventListener('click', () => setToolMode('select'));
+if (btnHeight)    btnHeight.addEventListener('click', () => setToolMode('height'));
+if (btnTerrain)   btnTerrain.addEventListener('click', () => setToolMode('terrain'));
+if (btnCover)     btnCover.addEventListener('click', () => setToolMode('cover'));
+if (btnClearTile) btnClearTile.addEventListener('click', () => setToolMode('clear'));
+setToolMode('select'); // default safe mode
+
+/* Fixed Paint selectors init (drop-in replacement) */
+function initFixedPaintSelectors(){
+  if (selPaintTerrain) {
+    selPaintTerrain.replaceChildren();
+    TERRAINS.forEach((t, i) => {
+      const opt = document.createElement('option');
+      opt.value = String(i);
+      opt.textContent = t.name;
+      selPaintTerrain.appendChild(opt);
+    });
+    selPaintTerrain.value = String(fixedPaint.terrainIndex);
+  }
+
+  if (selPaintCover) {
+    selPaintCover.replaceChildren();
+    COVERS.forEach((c, i) => {
+      const opt = document.createElement('option');
+      opt.value = String(i);
+      opt.textContent = c;
+      selPaintCover.appendChild(opt);
+    });
+    selPaintCover.value = String(fixedPaint.coverIndex);
+  }
+
+  if (selPaintHeight) {
+    selPaintHeight.replaceChildren();
+    for (let h = -3; h <= 5; h++) {
+      const opt = document.createElement('option');
+      opt.value = String(h);
+      opt.textContent = String(h);
+      selPaintHeight.appendChild(opt);
+    }
+    selPaintHeight.value = String(fixedPaint.height);
+  }
+}
+initFixedPaintSelectors();
+
+selPaintTerrain?.addEventListener('change', () => { fixedPaint.terrainIndex = +selPaintTerrain.value || 0; });
+selPaintHeight?.addEventListener('change',  () => { fixedPaint.height       = +selPaintHeight.value  || 0; });
+selPaintCover?.addEventListener('change',   () => { fixedPaint.coverIndex   = +selPaintCover.value   || 0; });
+
+btnPaintFixed?.addEventListener('click', () => {
+  setToolMode(toolMode === 'paintFixed' ? 'select' : 'paintFixed');
+});
+btnClearFixed?.addEventListener('click', () => {
+  if (selPaintTerrain) selPaintTerrain.value = 0;
+  if (selPaintHeight)  selPaintHeight.value  = 0;
+  if (selPaintCover)   selPaintCover.value   = 0;
+  fixedPaint = { terrainIndex:0, height:0, coverIndex:0 };
+  setToolMode('paintFixed');
+});
+
+/* Tile mutators + helpers used by paint */
+const cycleHeight = t => { const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; t.height=(t.height>=5)?-3:t.height+1; const next={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; recordEdit(t.q,t.r,prev,next); };
+const cycleTerrain = t => { const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; t.terrainIndex=(t.terrainIndex+1)%TERRAINS.length; const next={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; recordEdit(t.q,t.r,prev,next); };
+const cycleCover = t => { const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; t.coverIndex=(t.coverIndex+1)%COVERS.length; const next={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; recordEdit(t.q,t.r,prev,next); };
+const resetTile = t => { const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; t.height=0; t.terrainIndex=0; t.coverIndex=0; const next={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; recordEdit(t.q,t.r,prev,next); };
+const applySampleTo = (t, sam) => { const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; t.height=sam.h; t.terrainIndex=sam.ter; t.coverIndex=sam.cov; const next={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; recordEdit(t.q,t.r,prev,next); };
+function applyFixedToTile(t){
+  const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex};
+  const next={h:fixedPaint.height,ter:fixedPaint.terrainIndex,cov:fixedPaint.coverIndex};
+  if (prev.h===next.h && prev.ter===next.ter && prev.cov===next.cov) return;
+  t.height=next.h; t.terrainIndex=next.ter; t.coverIndex=next.cov;
+  recordEdit(t.q,t.r,prev,next);
+}
 
 svg.addEventListener('pointerdown', (e) => {
   const pt = toSvgPoint(e.clientX, e.clientY);
@@ -751,11 +1197,10 @@ svg.addEventListener('pointerdown', (e) => {
     return;
   }
 
-  // Token selection/drag (only when not painting)
-  if (tokElHit && e.button===0 && (TerrainMenu?.getToolMode?.() === 'select')) {
+  // Token selection/drag (only in select mode)
+  if (toolMode==='select' && tokElHit && e.button===0) {
     e.preventDefault();
     selectedTokenId = tokElHit.dataset.id;
-    tokenDragActive = true;
     tokenDragId = selectedTokenId;
     svg.setPointerCapture(e.pointerId);
     requestRender();
@@ -763,13 +1208,13 @@ svg.addEventListener('pointerdown', (e) => {
   }
 
   // Deselect if clicking empty space in select mode
-  if (TerrainMenu?.getToolMode?.() === 'select' && !tokElHit && e.button===0) {
+  if (toolMode==='select' && !tokElHit && e.button===0) {
     selectedTokenId = null;
     requestRender();
   }
 
   // RANGE: selected token + right-click ⇒ range to target
-  if (TerrainMenu?.getToolMode?.() === 'select' && e.button===2 && selectedTokenId) {
+  if (toolMode==='select' && e.button===2 && selectedTokenId) {
     e.preventDefault();
     let targetCell;
     if (tokElHit) {
@@ -786,8 +1231,11 @@ svg.addEventListener('pointerdown', (e) => {
     return;
   }
 
+  // Hex hit for LOS or painting
+  if (!hexElHit) return;
+
   // LOS click sets source (left)
-  if (losActive && e.button===0 && !e.ctrlKey && hexElHit) {
+  if (losActive && e.button===0 && !e.ctrlKey) {
     const q = +hexElHit.dataset.q, r = +hexElHit.dataset.r;
     losSource = {q,r};
     recomputeLOS();
@@ -798,20 +1246,62 @@ svg.addEventListener('pointerdown', (e) => {
   if (mapLocked) { e.preventDefault(); return; }
 
   // If in SELECT mode, never paint
-  if (TerrainMenu?.getToolMode?.() === 'select') return;
+  if (toolMode==='select') return;
 
-  // Painting — defer to TerrainMenu to choose brush + stroke
-  if (!hexElHit) return;
+  // Painting — toolMode directly selects brush mode
   e.preventDefault();
+  beginStroke();
+  paintedThisStroke = new Set();
+
   const q = +hexElHit.dataset.q, r = +hexElHit.dataset.r;
   const t = tiles.get(key(q,r));
+  sample = null;
 
-  TerrainMenu?._internal?.startPaintStroke();
-  const alt = !!e.altKey;
-  TerrainMenu?._internal?.setBrushFromTool({ altEyedropper: alt, tileForSample: t });
-  TerrainMenu?.paintHex?.(t);
-  svg.setPointerCapture(e.pointerId);
+  // Eyedropper (Alt): in any paint mode copies tile to sample OR to fixedPaint if in paintFixed
+  if (e.altKey) {
+    if (toolMode === 'paintFixed') {
+      fixedPaint.height       = t.height;
+      fixedPaint.terrainIndex = t.terrainIndex;
+      fixedPaint.coverIndex   = t.coverIndex;
+      if (selPaintHeight)  selPaintHeight.value  = fixedPaint.height;
+      if (selPaintTerrain) selPaintTerrain.value = fixedPaint.terrainIndex;
+      if (selPaintCover)   selPaintCover.value   = fixedPaint.coverIndex;
+      brushMode = 'fixed';
+    } else {
+      sample = { h:t.height, ter:t.terrainIndex, cov:t.coverIndex };
+      brushMode = 'sample';
+    }
+  } else {
+    brushMode =
+      toolMode==='height'     ? 'height'  :
+      toolMode==='terrain'    ? 'terrain' :
+      toolMode==='cover'      ? 'cover'   :
+      toolMode==='clear'      ? 'reset'   :
+      toolMode==='paintFixed' ? 'fixed'   : null;
+  }
+
+  if (brushMode) {
+    paintHex(t);
+    svg.setPointerCapture(e.pointerId);
+  }
 });
+
+function paintHex(t){
+  const k = key(t.q,t.r);
+  if (paintedThisStroke && paintedThisStroke.has(k)) return;
+  switch(brushMode){
+    case 'height':  cycleHeight(t); break;
+    case 'terrain': cycleTerrain(t); break;
+    case 'cover':   cycleCover(t); break;
+    case 'reset':   resetTile(t); break;
+    case 'sample':  if (sample) applySampleTo(t, sample); break;
+    case 'fixed':   applyFixedToTile(t); break;
+    default: return;
+  }
+  paintedThisStroke && paintedThisStroke.add(k);
+  requestRender();
+  if (losActive && losSource) recomputeLOS();
+}
 
 svg.addEventListener('pointermove', (e) => {
   const cur = toSvgPoint(e.clientX, e.clientY);
@@ -822,7 +1312,7 @@ svg.addEventListener('pointermove', (e) => {
     return;
   }
 
-  if (tokenDragActive && tokenDragId) {
+  if (tokenDragId) {
     const sel = tokens.find(t => t.id === tokenDragId);
     if (sel) {
       const cell = pixelToCell(cur.x, cur.y);
@@ -833,15 +1323,15 @@ svg.addEventListener('pointermove', (e) => {
     return;
   }
 
+  if (!brushMode) return;
   if (mapLocked) return;
 
-  // live-paint hover
   const target = document.elementFromPoint(e.clientX, e.clientY);
   const hexEl = target && target.closest ? target.closest('.hex') : null;
   if (!hexEl) return;
   const q = +hexEl.dataset.q, r = +hexEl.dataset.r;
   const t = tiles.get(key(q,r));
-  TerrainMenu?.paintHex?.(t);
+  paintHex(t);
 });
 
 function endPointer(e){
@@ -850,21 +1340,26 @@ function endPointer(e){
     try { svg.releasePointerCapture(e.pointerId); } catch {}
     return;
   }
-  if (tokenDragActive) {
-    tokenDragActive = false; tokenDragId = null;
+  if (tokenDragId) {
+    tokenDragId = null;
     try { svg.releasePointerCapture(e.pointerId); } catch {}
     saveLocal();
     return;
   }
-  TerrainMenu?._internal?.endPaintStroke?.();
+  if (brushMode) {
+    brushMode=null; sample=null;
+    paintedThisStroke=null;
+    try { svg.releasePointerCapture(e.pointerId); } catch {}
+    endStroke();
+  }
 }
 svg.addEventListener('pointerup', endPointer);
 svg.addEventListener('pointercancel', endPointer);
 svg.addEventListener('lostpointercapture', endPointer);
 svg.addEventListener('contextmenu', (e)=> e.preventDefault());
 
-/* ===== Touch pinch/pan + wheel zoom ===== */
-const pointers = new Map();
+/* ===== Pinch-to-zoom + two-finger pan ===== */
+const pointers = new Map(); // pointerId -> {x,y}
 let pinchStartDist = null;
 let pinchStartScale = null;
 let pinchCenterSvg = null;
@@ -919,11 +1414,16 @@ svg.addEventListener('pointermove', (e) => {
 
 function endTouch(e){
   if (pointers.has(e.pointerId)) pointers.delete(e.pointerId);
-  if (pointers.size < 2) { pinchStartDist = null; pinchStartScale = null; pinchCenterSvg = null; }
+  if (pointers.size < 2) {
+    pinchStartDist = null;
+    pinchStartScale = null;
+    pinchCenterSvg = null;
+  }
 }
 svg.addEventListener('pointerup', endTouch, { passive: true });
 svg.addEventListener('pointercancel', endTouch, { passive: true });
 
+/* ===== Wheel zoom ===== */
 svg.addEventListener('wheel', (e) => {
   e.preventDefault();
   const factor = e.deltaY < 0 ? 1/1.15 : 1.15;
@@ -931,12 +1431,14 @@ svg.addEventListener('wheel', (e) => {
   camera.zoomAt(pt, factor);
 }, { passive:false });
 
-/* ===== Recenter + Space pan ===== */
+/* ===== Recenter button ===== */
 on('btnRecenter', 'click', () => { camera.reset(); svg.focus(); });
+
+/* ===== Space key (grab-to-pan) ===== */
 document.addEventListener('keydown', (e)=>{ if (e.code === 'Space') { isSpaceHeld=true; setCursor(); } });
 document.addEventListener('keyup',   (e)=>{ if (e.code === 'Space') { isSpaceHeld=false; setCursor(); } });
 
-/* ---------- View + docks ---------- */
+/* ---------- View + menu + docks ---------- */
 function toggleFullscreen() {
   const el = document.documentElement;
   if (!document.fullscreenElement) el.requestFullscreen?.();
@@ -958,6 +1460,7 @@ function toggleDockB(){
   if (show && frameB && !frameB.src) frameB.src = SHEETS_BASE;
 }
 
+// Hamburger (guarded if hidden)
 function toggleMenu(){ if (!menuPopup) return; menuPopup.style.display = (menuPopup.style.display === 'block') ? 'none' : 'block'; }
 if (menuBtn) menuBtn.addEventListener('click', (e)=>{ e.stopPropagation(); toggleMenu(); });
 document.addEventListener('click', (e) => {
@@ -981,7 +1484,10 @@ document.addEventListener('keydown', (e)=>{
 
 /* ===== Keyboard navigation + tokens ===== */
 svg.addEventListener('keydown', (e) => {
-  // Undo/Redo moved to TerrainMenu (its own buttons); keep camera keys here
+  // Undo/Redo
+  if ((e.ctrlKey || e.metaKey) && !e.shiftKey && (e.key === 'z' || e.key === 'Z')) { e.preventDefault(); undo(); return; }
+  if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || e.key === 'Y' || (e.shiftKey && (e.key === 'z' || e.key === 'Z')))) { e.preventDefault(); redo(); return; }
+
   const step = (camera.w/camera.scale) * 0.06;
   if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','0','f','F','s','S','d','D','h','H','l','L','n','N','[',']','+','-','=','q','Q','e','E','Enter','Backspace','Delete'].includes(e.key)) e.preventDefault();
 
@@ -1008,7 +1514,7 @@ svg.addEventListener('keydown', (e) => {
   else if (e.key === 'Backspace' || e.key === 'Delete') { deleteToken(); }
 });
 
-/* ---------- Controls that remain in core ---------- */
+/* ---------- Controls ---------- */
 function regen() {
   if (mapLocked) { alert('Map is locked. Unlock to regenerate.'); return; }
   cols = +elCols.value || 10;
@@ -1025,20 +1531,182 @@ elHex.addEventListener('change', () => {
 
 on('clear','click', () => {
   if (mapLocked) { alert('Map is locked. Unlock to clear.'); return; }
-  // Use TerrainMenu stroke helpers to keep undo consistent
-  TerrainMenu?.beginStroke?.();
-  tiles.forEach(t => {
-    const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex};
-    t.height=0; t.terrainIndex=0; t.coverIndex=0;
-    const next={h:t.height,ter:t.terrainIndex,cov:t.coverIndex};
-    TerrainMenu?.recordEdit?.(t.q,t.r,prev,next);
-  });
-  TerrainMenu?.endStroke?.();
-  clearLOS(); clearMeasurement();
+  beginStroke(); tiles.forEach(t => resetTile(t)); endStroke(); clearLOS(); clearMeasurement();
 });
 
-/* ===== Export PNG of current view ===== */
-on('qcExportPNG', exportPNG);
+/* ===== Export JSON Modal ===== */
+function showJsonModal(text){
+  const wrap = document.createElement('div');
+  wrap.className = 'json-modal';
+  wrap.innerHTML = `
+    <div class="json-modal__panel" role="dialog" aria-modal="true" aria-label="Export JSON">
+      <header class="json-modal__head">
+        <strong>Export Map JSON</strong>
+        <button class="icon-btn json-modal__close" title="Close" aria-label="Close">✕</button>
+      </header>
+      <div class="json-modal__body">
+  <div class="small muted" style="margin-bottom:8px;">
+    <strong>COMSTAR UPLINK:</strong> Transmission file generated copy code or download file.
+  </div>
+  <textarea class="json-modal__ta" readonly></textarea>
+</div>
+      <footer class="json-modal__foot">
+        <button class="btn sm" id="jsonCopyBtn">Copy</button>
+        <button class="btn sm" id="jsonDownloadBtn">Download</button>
+        <button class="btn sm" id="jsonCloseBtn">Close</button>
+      </footer>
+    </div>
+  `;
+  document.body.appendChild(wrap);
+
+  const ta = wrap.querySelector('.json-modal__ta');
+  ta.value = text;
+  ta.focus();
+  ta.select();
+
+  const close = () => { wrap.remove(); };
+  wrap.querySelector('.json-modal__close').addEventListener('click', close);
+  wrap.querySelector('#jsonCloseBtn').addEventListener('click', close);
+  wrap.addEventListener('click', (e) => { if (e.target === wrap) close(); });
+  document.addEventListener('keydown', function esc(ev){
+    if (ev.key === 'Escape') { ev.preventDefault(); close(); document.removeEventListener('keydown', esc); }
+  });
+
+  // Copy
+  wrap.querySelector('#jsonCopyBtn').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(ta.value); }
+    catch { /* if clipboard is blocked, text is selected for manual copy */ }
+  });
+
+  // Download
+  wrap.querySelector('#jsonDownloadBtn').addEventListener('click', () => {
+    const stamp = new Date().toISOString().replace(/[:T]/g,'-').slice(0,19); // YYYY-MM-DD-HH-MM-SS
+    const filename = `Battletech-Map-${stamp}.json`;
+    const blob = new Blob([ta.value], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 0);
+  });
+}
+on('exportJson','click', () => { showJsonModal(serializeState()); });
+
+
+/* ===== Import JSON Modal (BattleTech-flavored) ===== */
+function showImportModal() {
+  const wrap = document.createElement('div');
+  wrap.className = 'json-modal';
+  wrap.innerHTML = `
+    <div class="json-modal__panel" role="dialog" aria-modal="true" aria-label="Import Map JSON">
+      <header class="json-modal__head">
+        <strong>Import Map JSON</strong>
+        <button class="icon-btn json-modal__close" title="Close" aria-label="Close">✕</button>
+      </header>
+
+      <div class="json-modal__body">
+        <div class="small muted" style="margin-bottom:8px;">
+          <strong>COMSTAR UPLINK:</strong> Paste a transmission code here or import file.</code>
+        </div>
+        <textarea class="json-modal__ta" id="importTa" placeholder="{ ... }"></textarea>
+
+        <div class="row gap" style="align-items:center; margin-top:10px;">
+          <input type="file" id="importFileTemp" accept="application/json" hidden />
+          <button class="btn sm" id="importChooseBtn">Choose File…</button>
+          <span class="small muted" id="importFileName">No file selected</span>
+        </div>
+      </div>
+
+      <footer class="json-modal__foot">
+        <button class="btn sm" id="importLoadBtn">Load</button>
+        <button class="btn sm" id="importCloseBtn">Close</button>
+      </footer>
+    </div>
+  `;
+  document.body.appendChild(wrap);
+
+  // modal elements
+  const ta         = wrap.querySelector('#importTa');
+  const fileInput  = wrap.querySelector('#importFileTemp');
+  const chooseBtn  = wrap.querySelector('#importChooseBtn');
+  const fileLabel  = wrap.querySelector('#importFileName');
+  const loadBtn    = wrap.querySelector('#importLoadBtn');
+
+  // UX niceties
+  ta.focus();
+  document.documentElement.style.overflow = 'hidden';
+  const close = () => { wrap.remove(); document.documentElement.style.overflow = ''; };
+
+  wrap.querySelector('.json-modal__close').addEventListener('click', close);
+  wrap.querySelector('#importCloseBtn').addEventListener('click', close);
+  wrap.addEventListener('click', (e) => { if (e.target === wrap) close(); });
+  document.addEventListener('keydown', function esc(ev){
+    if (ev.key === 'Escape') { ev.preventDefault(); close(); document.removeEventListener('keydown', esc); }
+  });
+
+  // trigger native picker
+  chooseBtn.addEventListener('click', () => fileInput.click());
+
+  // when file chosen, read it and populate textarea (so user can glance/edit)
+  fileInput.addEventListener('change', () => {
+    const f = fileInput.files?.[0];
+    if (!f) { fileLabel.textContent = 'No file selected'; return; }
+    fileLabel.textContent = f.name;
+    const r = new FileReader();
+    r.onload = () => { ta.value = String(r.result || ''); };
+    r.onerror = () => { alert('Failed to read file.'); };
+    r.readAsText(f);
+  });
+
+  // allow drag & drop onto the textarea
+  ta.addEventListener('dragover', (e) => { e.preventDefault(); });
+  ta.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const f = e.dataTransfer?.files?.[0];
+    if (!f) return;
+    if (!/\.json$/i.test(f.name)) { alert('Drop a .json file.'); return; }
+    fileLabel.textContent = f.name;
+    const r = new FileReader();
+    r.onload = () => { ta.value = String(r.result || ''); };
+    r.readAsText(f);
+  });
+
+  // apply imported JSON when clicking Load
+  loadBtn.addEventListener('click', () => {
+    if (window.mapLocked) { alert('Map is locked. Unlock to import.'); return; }
+    const raw = ta.value.trim();
+    if (!raw) { alert('Paste JSON or choose a file.'); return; }
+    try {
+      const obj = JSON.parse(raw);
+      applyState(obj);                // your existing unified importer
+      // return focus to stage for immediate input
+      const svg = document.getElementById('svg');
+      if (svg && typeof svg.focus === 'function') svg.focus();
+      close();
+    } catch (err) {
+      alert('Import failed: ' + (err?.message || err));
+    }
+  });
+}
+
+// Wire to top-bar Import button
+on('importJsonBtn','click', () => { showImportModal(); });
+
+
+/* ---------- Quick legend builder (kept for patterns) ---------- */
+function renderLegendRadios(){
+  if (!elLegend) return;
+  elLegend.replaceChildren();
+}
+renderLegendRadios();
+
+/* ---------- Menu quick controls ---------- */
+function safeOn(id, handler){ const el=document.getElementById(id); if (el) el.addEventListener('click', ()=>{ handler(); svg.focus(); }); }
+safeOn('qcExportPNG', exportPNG);
+
+/* Export PNG of current view */
 async function exportPNG(){
   try {
     const vb = svg.viewBox.baseVal;
@@ -1089,13 +1757,222 @@ function rotateToken(delta){ const t = getSelected(); if (!t) return; t.angle = 
 function resizeToken(f){ const t = getSelected(); if (!t) return; t.scale = clamp((t.scale||1) * f, 0.4, 2.0); requestRender(); saveLocal(); }
 function cycleTeam(dir){ const t = getSelected(); if (!t) return; const len = TEAMS.length; t.colorIndex = ((t.colorIndex||0) + dir + len) % len; requestRender(); saveLocal(); }
 function renameToken(){ const t = getSelected(); if (!t) return; const name = prompt('Token label:', t.label || ''); if (name !== null) { t.label = name.trim().slice(0,24) || 'MECH'; requestRender(); saveLocal(); } }
-function deleteToken(){ const t = getSelected(); if (!t) return; tokens = tokens.filter(x => x.id !== t.id); mechMeta.delete(t.id); selectedTokenId = null; requestRender(); saveLocal(); }
+function deleteToken(){ const t = getSelected(); if (!t) return; tokens = tokens.filter(x => x.id !== t.id); mechMeta.delete(t.id); selectedTokenId = null; renderMechList(); renderInit(); requestRender(); saveLocal(); }
 
-/* ---------- Legend (kept minimal) ---------- */
-function renderLegendRadios(){ if (!elLegend) return; elLegend.replaceChildren(); }
-renderLegendRadios();
+/* ---------- Presets ----------
+const TER = { GRASS:0, ROCK:1, WATER:2, SAND:3, ASPHALT:4, URBAN:5 };
+const COV = { NONE:0, LIGHT:1, MED:2, HEAVY:3 };
 
-/* ---------- Unified state applier ---------- */
+function buildFlatData(c, r, ter = TER.GRASS){
+  const arr = [];
+  for (let rr=0; rr<r; rr++) for (let qq=0; qq<c; qq++)
+    arr.push({ q:qq, r:rr, h:0, ter, cov:0 });
+  return arr;
+}
+function idx(q,r,c){ return r*c+q; }
+
+function addRiver(data, c, r, {meander=0.30, width=1} = {}){
+  let x = Math.floor(c/2);
+  for (let y=0; y<r; y++){
+    for (let w=-Math.floor(width/2); w<=Math.floor(width/2); w++){
+      const q = Math.max(0, Math.min(c-1, x+w));
+      const i = idx(q,y,c);
+      data[i].ter = TER.WATER; data[i].h = 0; data[i].cov = COV.NONE;
+      for (const side of [-1, +1]){
+        const x2 = Math.max(0, Math.min(c-1, q+side));
+        const j  = idx(x2,y,c);
+        if (data[j].ter !== TER.WATER) data[j].ter = TER.SAND;
+      }
+    }
+    if (Math.random() < meander) x += (Math.random()<0.5?-1:1);
+    x = Math.max(1, Math.min(c-2, x));
+  }
+}
+function addLake(data, c, r, {cx, cy, rx=4, ry=3}){
+  for (let y=0; y<r; y++){
+    for (let x=0; x<c; x++){
+      const nx = (x-cx)/rx, ny = (y-cy)/ry;
+      if (nx*nx + ny*ny <= 1.0){
+        const i = idx(x,y,c);
+        data[i].ter = TER.WATER; data[i].h = 0; data[i].cov = COV.NONE;
+      } else if (nx*nx + ny*ny <= 1.35){
+        const i = idx(x,y,c);
+        if (data[i].ter !== TER.WATER) data[i].ter = TER.SAND;
+      }
+    }
+  }
+}
+function addRidge(data, c, r, {x0=3, x1, baseH=1, crownH=3}){
+  x1 = x1 ?? (c-4);
+  for (let y=0; y<r; y++){
+    const t = y/(r-1);
+    const x = Math.round(x0*(1-t) + x1*t);
+    for (let dx=-1; dx<=1; dx++){
+      const q = Math.max(0, Math.min(c-1, x+dx));
+      const i = idx(q,y,c);
+      data[i].ter = TER.ROCK;
+      data[i].h = (dx===0 ? crownH : baseH);
+      data[i].cov = (dx===0 ? COV.MED : COV.LIGHT);
+    }
+  }
+}
+function addCrater(data, c, r, {cx, cy, radius=3, ringH=2}){
+  for (let y=0; y<r; y++){
+    for (let x=0; x<c; x++){
+      const d = Math.hypot(x-cx, y-cy);
+      if (d <= radius){
+        const i = idx(x,y,c);
+        data[i].ter = TER.ROCK;
+        const rim = Math.abs(d - (radius-0.8));
+        data[i].h = (rim<0.9) ? ringH : -1;
+        data[i].cov = COV.LIGHT;
+      }
+    }
+  }
+}
+function addCityBlocks(data, c, r, {blockW=4, blockH=3, gap=1}){
+  for (let y=0; y<r; y++){
+    for (let x=0; x<c; x++){
+      const inRoad = ((x % (blockW+gap)) >= blockW) || ((y % (blockH+gap)) >= blockH);
+      const i = idx(x,y,c);
+      if (inRoad){
+        data[i].ter = TER.ASPHALT; data[i].h = 0; data[i].cov = COV.NONE;
+      } else {
+        data[i].ter = TER.URBAN;   data[i].h = 0; data[i].cov = COV.HEAVY;
+      }
+    }
+  }
+}
+function sprinkleCover(data, c, r, {density=0.06, kind=COV.LIGHT}){
+  const n = Math.floor(c*r*density);
+  for (let k=0; k<n; k++){
+    const x = Math.floor(Math.random()*c);
+    const y = Math.floor(Math.random()*r);
+    const i = idx(x,y,c);
+    if (data[i].ter !== TER.WATER) data[i].cov = Math.max(data[i].cov, kind);
+  }
+}
+
+const PRESETS = {
+  neoprene_31x17:         { meta:{ cols:31, rows:17, hexSize:120 }, data:null, tokens:[] },
+  paper_15x17:            { meta:{ cols:15, rows:17, hexSize:120 }, data:null, tokens:[] },
+  double_neoprene_62x17:  { meta:{ cols:62, rows:17, hexSize:120 }, data:null, tokens:[] },
+  four_paper_30x34:       { meta:{ cols:30, rows:34, hexSize:120 }, data:null, tokens:[] },
+
+  neoprene_31x17_grasslands: {
+    meta:{ cols:31, rows:17, hexSize:120 },
+    data:(() => {
+      const c=31, r=17; const d=buildFlatData(c,r,TER.GRASS);
+      sprinkleCover(d,c,r,{ density:0.08, kind:COV.LIGHT });
+      return d;
+    })(),
+    tokens:[]
+  },
+
+  neoprene_31x17_river_valley: {
+    meta:{ cols:31, rows:17, hexSize:120 },
+    data:(() => {
+      const c=31, r=17; const d=buildFlatData(c,r,TER.GRASS);
+      addRiver(d,c,r,{ meander:0.35, width: Math.max(1, Math.round(c*0.03)) });
+      sprinkleCover(d,c,r,{ density:0.05, kind:COV.LIGHT });
+      return d;
+    })(),
+    tokens:[]
+  },
+
+  neoprene_31x17_crater_field: {
+    meta:{ cols:31, rows:17, hexSize:120 },
+    data:(() => {
+      const c=31, r=17; const d=buildFlatData(c,r,TER.GRASS);
+      addCrater(d,c,r,{
+        cx: Math.round(c*0.26), cy: Math.round(r*0.35),
+        radius: Math.max(2, Math.round(Math.min(c,r)*0.14)), ringH:2
+      });
+      addCrater(d,c,r,{
+        cx: Math.round(c*0.58), cy: Math.round(r*0.62),
+        radius: Math.max(3, Math.round(Math.min(c,r)*0.20)), ringH:2
+      });
+      sprinkleCover(d,c,r,{ density:0.04, kind:COV.MED });
+      return d;
+    })(),
+    tokens:[]
+  },
+
+  neoprene_31x17_ridge_and_stream: {
+    meta:{ cols:31, rows:17, hexSize:120 },
+    data:(() => {
+      const c=31, r=17; const d=buildFlatData(c,r,TER.GRASS);
+      addRidge(d,c,r,{
+        x0: Math.round(c*0.16),
+        x1: Math.round(c*0.84),
+        baseH:1, crownH:3
+      });
+      addRiver(d,c,r,{ meander:0.25, width:1 });
+      sprinkleCover(d,c,r,{ density:0.05, kind:COV.LIGHT });
+      return d;
+    })(),
+    tokens:[]
+  },
+
+  neoprene_31x17_city_block: {
+    meta:{ cols:31, rows:17, hexSize:120 },
+    data:(() => {
+      const c=31, r=17; const d=buildFlatData(c,r,TER.GRASS);
+      addCityBlocks(d,c,r,{
+        blockW: Math.max(3, Math.round(c*0.13)),
+        blockH: Math.max(3, Math.round(r*0.18)),
+        gap: 1
+      });
+      return d;
+    })(),
+    tokens:[]
+  },
+
+  paper_15x17_island_lake: {
+    meta:{ cols:15, rows:17, hexSize:120 },
+    data:(() => {
+      const c=15, r=17; const d=buildFlatData(c,r,TER.GRASS);
+      addLake(d,c,r,{
+        cx: Math.round(c*0.55),
+        cy: Math.round(r*0.48),
+        rx: Math.max(3, Math.round(c*0.33)),
+        ry: Math.max(3, Math.round(r*0.24))
+      });
+      sprinkleCover(d,c,r,{ density:0.06, kind:COV.LIGHT });
+      return d;
+    })(),
+    tokens:[]
+  },
+
+  paper_15x17_quarry: {
+    meta:{ cols:15, rows:17, hexSize:120 },
+    data:(() => {
+      const c=15, r=17; const d=buildFlatData(c,r,TER.GRASS);
+      addRidge(d,c,r,{
+        x0: Math.max(1, Math.round(c*0.10)),
+        x1: Math.min(c-2, Math.round(c*0.80)),
+        baseH:0, crownH:2
+      });
+      addCrater(d,c,r,{
+        cx: Math.round(c*0.70),
+        cy: Math.round(r*0.70),
+        radius: Math.max(3, Math.round(Math.min(c,r)*0.22)),
+        ringH:2
+      });
+      for (let y = Math.round(r*0.60); y < r; y++){
+        for (let x = Math.round(c*0.55); x < c; x++){
+          const i = idx(x,y,c);
+          d[i].ter = TER.ROCK;
+          d[i].h = Math.max(d[i].h, 1);
+        }
+      }
+      return d;
+    })(),
+    tokens:[]
+  }
+};
+*/
+/* ---------- Unified state applier (presets/import/local) ---------- */
 function applyState(obj){
   try{
     const meta = obj.meta || {};
@@ -1103,7 +1980,9 @@ function applyState(obj){
     rows    = Number.isFinite(meta.rows)    ? meta.rows    : rows;
     hexSize = Number.isFinite(meta.hexSize) ? meta.hexSize : hexSize;
 
-    elCols.value = cols; elRows.value = rows; elHex.value  = hexSize;
+    elCols.value = cols;
+    elRows.value = rows;
+    elHex.value  = hexSize;
 
     // rebuild tile grid
     tiles.clear();
@@ -1140,17 +2019,22 @@ function applyState(obj){
       for (const [id, m] of Object.entries(obj.mechMeta)) mechMeta.set(id, m);
     }
 
+    // initiative (flat fields)
+    if (Array.isArray(obj.initOrder)) {
+      initOrder = obj.initOrder.map(o => ({ id: o.id, roll: o.roll }));
+    } else {
+      initOrder = [];
+    }
+    initIndex = Number.isFinite(obj.initIndex) ? obj.initIndex : -1;
+
     // reset transient UI
     selectedTokenId = null;
     measurement = null;
     losSource = null;
     camera.inited = false;
 
-    // let MechMenu rebuild its side UI if present
-    if (window.MechMenu && typeof MechMenu.onStateApplied === 'function') {
-      MechMenu.onStateApplied();
-    }
-
+    renderMechList();
+    renderInit();
     requestRender();
     if (losActive) recomputeLOS();
     saveLocal();
@@ -1159,6 +2043,16 @@ function applyState(obj){
     alert('Failed to load state/preset.');
   }
 }
+/* Hook the select to apply presets
+if (elPresets) elPresets.addEventListener('change', (e)=>{
+  const id = e.target.value;
+  if (!id) return;
+  const p = PRESETS[id];
+  if (!p) return;
+  const obj = p.data ? p : { meta: p.meta, data: buildFlatData(p.meta.cols, p.meta.rows), tokens: [] };
+  applyState(obj);
+});
+*/
 
 /* ---------- Dice (2d6) ---------- */
 document.querySelectorAll('[data-dice="2d6"]').forEach(btn=>{
@@ -1170,87 +2064,321 @@ document.querySelectorAll('[data-dice="2d6"]').forEach(btn=>{
   });
 });
 
-/* ---------- Presets loader (same behavior) ---------- */
-const APP_SCOPE = '/Battletech-Mobile-Skirmish/';
-const PRESET_BASE = `${APP_SCOPE}presets/`;
-const PRESET_INDEX_URL = `${PRESET_BASE}index.json`;
+/* ---------- Mech panel logic ---------- */
+function teamNameToColorIndex(teamName){
+  const map = { 'Alpha': 1, 'Bravo': 0, 'Clan': 4, 'Merc': 3 };
+  return map[teamName] ?? 0;
+}
+function shortLabel(name){ return (name||'MECH').slice(0, 18); }
 
-async function loadPresetList() {
-  try {
-    const res = await fetch(PRESET_INDEX_URL, { cache: 'no-store' });
-    if (!res.ok) throw new Error('Failed to load presets index');
-    const list = await res.json();
+function addMechFromForm(){
+  const rawInput = (mechName?.value || '').trim();
+  const { tokenLabel, displayName } = resolveMech(rawInput);
 
-    const sel = document.getElementById('presets');
-    if (!sel) return;
+  const pilot = (pilotName?.value || '').trim();
+  const team  = (teamSelect?.value || 'Alpha');
+  const colorIndex = teamNameToColorIndex(team);
 
-    sel.innerHTML = '<option value="">— Choose… —</option>';
-    for (const p of list) {
-      const opt = document.createElement('option');
-      opt.value = p.file;
-      opt.textContent = p.name || p.id;
-      sel.appendChild(opt);
+  const id = addTokenAtViewCenter(tokenLabel, colorIndex);   // token shows short code
+  mechMeta.set(id, { name: displayName, pilot, team });      // roster shows pretty name
+
+  renderMechList();
+  renderInit();
+  saveLocal();  // persist immediately
+
+  if (mechName) mechName.value = '';
+  if (pilotName) pilotName.value = '';
+}
+if (btnAddMech) btnAddMech.addEventListener('click', addMechFromForm);
+// allow Enter key in mechName field
+mechName?.addEventListener('keydown', e => { if (e.key === 'Enter') addMechFromForm(); });
+
+function renderMechList(){
+  if (!mechList) return;
+  mechList.replaceChildren();
+  tokens.forEach(t => {
+    const meta = mechMeta.get(t.id) || { name: t.label, pilot:'', team:'Alpha' };
+    const li = document.createElement('li');
+    li.dataset.id = t.id;
+    li.innerHTML = `
+      <div class="row between">
+        <div>
+          <strong>${meta.name || t.label || 'MECH'}</strong>
+          ${meta.pilot ? `<div class="small muted">Pilot: ${meta.pilot}</div>` : ''}
+          <div class="small muted">Team: ${meta.team || '—'}</div>
+        </div>
+        <div class="mini-actions">
+          <button class="btn sm" data-act="select">Select</button>
+          <button class="btn sm" data-act="center">Center</button>
+          <button class="btn sm" data-act="turnL">⟲</button>
+          <button class="btn sm" data-act="turnR">⟳</button>
+          <button class="btn sm" data-act="bigger">＋</button>
+          <button class="btn sm" data-act="smaller">－</button>
+          <button class="btn sm" data-act="delete">🗑</button>
+        </div>
+      </div>
+    `;
+    mechList.appendChild(li);
+  });
+}
+if (mechList) mechList.addEventListener('click', (e)=>{
+  const btn = e.target.closest('button'); if (!btn) return;
+  const li = e.target.closest('li'); if (!li) return;
+  const id = li.dataset.id;
+  const tok = tokens.find(t => t.id === id); if (!tok) return;
+
+  switch (btn.dataset.act) {
+    case 'select':
+      selectedTokenId = id; requestRender(); break;
+    case 'center': {
+      const c = tileCenter(tok.q, tok.r);
+      const vb = svg.viewBox.baseVal;
+      camera.x = c.x - (vb.width/2);
+      camera.y = c.y - (vb.height/2);
+      camera.setViewBox();
+      break;
     }
+    case 'turnL': tok.angle = ((tok.angle||0) - 60 + 360) % 360; requestRender(); saveLocal(); break;
+    case 'turnR': tok.angle = ((tok.angle||0) + 60) % 360; requestRender(); saveLocal(); break;
+    case 'bigger': tok.scale = clamp((tok.scale||1) * 1.10, 0.4, 2.0); requestRender(); saveLocal(); break;
+    case 'smaller': tok.scale = clamp((tok.scale||1) / 1.10, 0.4, 2.0); requestRender(); saveLocal(); break;
+    case 'delete':
+      tokens = tokens.filter(x => x.id !== id);
+      mechMeta.delete(id);
+      if (selectedTokenId === id) selectedTokenId = null;
+      renderMechList(); renderInit(); requestRender(); saveLocal();
+      break;
+  }
+});
 
-    sel.addEventListener('change', async (e) => {
-      const file = e.target.value;
-      if (!file) return;
-      await applyPresetFromUrl(`${PRESET_BASE}${file}`);
-      svg?.focus?.();
+/* ---------- Mech index (id + name) for dropdown ---------- */
+let MECH_INDEX = [];                        // [{id:"GRF-1N", name:"Griffin 1N"}, ...]
+const mechById = new Map();                 // "GRF-1N" -> "Griffin 1N"
+const mechByName = new Map();               // "griffin 1n" -> "GRF-1N"
+
+async function loadMechIndex(){
+  try{
+    const res = await fetch('assets/mechs.json'); // adjust path
+    const data = await res.json();
+    MECH_INDEX = Array.isArray(data) ? data : (data.mechs || []);
+    mechById.clear(); mechByName.clear();
+
+    const dl = document.getElementById('mechListData');
+    if (dl) dl.replaceChildren();
+
+    MECH_INDEX.forEach(({id, name})=>{
+      if(!id || !name) return;
+      const up = id.toUpperCase();
+      mechById.set(up, name);
+      mechByName.set(name.toLowerCase(), up);
+      if (dl){
+        const opt = document.createElement('option');
+        opt.value = name;        // users see/select by "Griffin 1N"
+        opt.label = up;          // browser may show the code as a hint
+        dl.appendChild(opt);
+      }
     });
+  }catch(err){
+    console.warn('mechs.json load failed', err);
+  }
+}
+loadMechIndex();
 
-    const qid = new URLSearchParams(location.search).get('preset');
-    if (qid) {
-      const hit = list.find(p => p.id === qid);
-      if (hit) await applyPresetFromUrl(`${PRESET_BASE}${hit.file}`);
+/* ---------- Helpers: resolve typed input -> token label + display ---------- */
+function normalizeId(str){
+  // "grf1n" / "GRF 1N" -> "GRF-1N" (best-effort without being strict)
+  return (str||'')
+    .toUpperCase()
+    .replace(/\s+/g,'')
+    .replace(/^([A-Z]{2,4})(\d)/, '$1-$2');
+}
+
+function resolveMech(input){
+  const raw = (input||'').trim();
+  if (!raw) return { tokenLabel:'MECH', displayName:'MECH' };
+
+  const asId = normalizeId(raw);
+  if (mechById.has(asId))   return { tokenLabel: asId, displayName: mechById.get(asId) }; // ID known
+  if (mechByName.has(raw.toLowerCase())) {
+    const id = mechByName.get(raw.toLowerCase());
+    return { tokenLabel: id, displayName: raw }; // Name known
+  }
+
+  // Free text fallback
+  return { tokenLabel: shortLabel(raw.toUpperCase()), displayName: raw };
+}
+
+
+
+/* Initiative (2d6 simple) */
+function renderInit(){
+  if (!initList) return;
+  initList.replaceChildren();
+  if (!initOrder.length){
+    // clear map and badges if no order
+    initRolls.clear();
+    refreshInitBadges();
+    return;
+  }
+
+  // rebuild the id -> roll map from initOrder
+  initRolls = new Map(initOrder.map(e => [e.id, e.roll]));
+
+  initOrder.forEach((entry, idx) => {
+    const tok = tokens.find(t => t.id === entry.id);
+    if (!tok) return;
+    const meta = mechMeta.get(entry.id) || { name: tok.label };
+    const li = document.createElement('li');
+    if (idx === initIndex) li.classList.add('current');
+    li.innerHTML = `<strong>${meta.name || tok.label}</strong> — roll: <em>${entry.roll}</em>`;
+    initList.appendChild(li);
+  });
+
+  // repaint badges after updating the list
+  refreshInitBadges();
+}
+
+function roll2d6(){ return (Math.floor(Math.random()*6)+1) + (Math.floor(Math.random()*6)+1); }
+
+if (btnRollInitAll) btnRollInitAll.addEventListener('click', ()=>{
+  initOrder = tokens
+    .map(t => ({ id: t.id, roll: roll2d6() }))
+    .sort((a,b)=> b.roll - a.roll);
+  initIndex = initOrder.length ? 0 : -1;
+  renderInit(); // this rebuilds initRolls + badges
+});
+
+if (btnClearInit) btnClearInit.addEventListener('click', ()=>{
+  initOrder = []; initIndex = -1;
+  renderInit(); // clears map + badges
+});
+
+if (btnNextTurn) btnNextTurn.addEventListener('click', ()=>{
+  if (!initOrder.length) return;
+  initIndex = (initIndex + 1) % initOrder.length;
+  renderInit(); // flips 'is-current' highlight
+});
+
+// --- Initiative badge renderer ---
+// parentG: token's <g> (origin at token center)
+// roll: number | null
+// r: token radius (px)
+function renderInitBadge(parentG, roll){
+  const old = parentG.querySelector('.init-badge');
+  if (old) old.remove();
+  if (roll == null || roll === '' || Number.isNaN(+roll)) return;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const badge = document.createElementNS(svgNS, 'g');
+  badge.setAttribute('class', 'init-badge');
+
+  // place it center-bottom relative to token radius
+  const r = Number(parentG.dataset.rtok) || 24;
+  badge.setAttribute('transform', `translate(0,${r * 1.1})`);
+
+  const c = document.createElementNS(svgNS, 'circle');
+  c.setAttribute('r', 12);   // base size (CSS can scale up)
+  badge.appendChild(c);
+
+  const t = document.createElementNS(svgNS, 'text');
+  t.setAttribute('text-anchor', 'middle');
+  t.setAttribute('dominant-baseline', 'central');
+  t.textContent = String(roll);
+  badge.appendChild(t);
+
+  parentG.appendChild(badge);
+}
+
+
+
+// Holds the latest initiative roll per token id
+let initRolls = new Map(); // id -> number
+
+function getInitRollFor(id){
+  return initRolls.get(id);
+}
+
+// Repaint all badges to match initOrder/initIndex
+function refreshInitBadges(){
+  if (!gTokens) return;
+  const currentId = (initOrder && initOrder.length && initIndex >= 0) ? initOrder[initIndex].id : null;
+
+  gTokens.querySelectorAll('g.token').forEach(g => {
+    const id = g.dataset.id;
+    const rTok = Number(g.dataset.rtok) || 24;
+    const roll = initRolls.get(id);
+    renderInitBadge(g, roll, rTok);
+
+    // highlight the "current turn" token's badge
+    const badge = g.querySelector(':scope > g.init-badge');
+    if (badge){
+      if (id === currentId) badge.classList.add('is-current');
+      else badge.classList.remove('is-current');
     }
-  } catch (err) {
-    console.error('[Presets] ', err);
-  }
+  });
 }
 
-async function applyPresetFromUrl(url) {
-  try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`Failed to load preset ${url}`);
-    const preset = await res.json();
-    applyPreset(preset);
-  } catch (err) {
-    console.error('[Preset load] ', err);
-    alert('Could not load preset.');
-  }
-}
 
-function applyPreset(preset) {
-  if (!preset || typeof preset !== 'object') return;
-  try {
-    const g = preset.meta || preset.grid || {};
-    const meta = {
-      cols: Number.isFinite(+g.cols) ? +g.cols : +document.getElementById('cols')?.value || 0,
-      rows: Number.isFinite(+g.rows) ? +g.rows : +document.getElementById('rows')?.value || 0,
-      hexSize: Number.isFinite(+g.hexSize) ? +g.hexSize : +document.getElementById('hexSize')?.value || 0,
+/* Export/Import for mech roster only */
+if (btnExportMechs) btnExportMechs.addEventListener('click', ()=>{
+  const out = tokens.map(t => ({
+    id: t.id, q:t.q, r:t.r, scale:t.scale, angle:t.angle, colorIndex:t.colorIndex,
+    label: t.label, meta: mechMeta.get(t.id) || null
+  }));
+  const blob = new Blob([JSON.stringify(out, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'mechs.json';
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 0);
+});
+if (btnImportMechs && importFile){
+  btnImportMechs.addEventListener('click', ()=> importFile.click());
+  importFile.addEventListener('change', (e)=>{
+    const f = e.target.files?.[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = ()=>{
+      try{
+        const arr = JSON.parse(r.result);
+        if (!Array.isArray(arr)) throw new Error('Invalid file');
+        arr.forEach(m=>{
+          const id = (tokens.find(t=>t.id===m.id)) ? (String(Date.now())+Math.random().toString(16).slice(2,6)) : (m.id || (String(Date.now())+Math.random().toString(16).slice(2,6)));
+          const tok = {
+            id,
+            q: clamp(m.q||0,0,cols-1),
+            r: clamp(m.r||0,0,rows-1),
+            scale: clamp(m.scale||1,0.4,2),
+            angle: (m.angle||0)%360,
+            colorIndex: (m.colorIndex||0)%TEAMS.length,
+            label: (m.label || m.meta?.name || 'MECH').slice(0,24)
+          };
+          tokens.push(tok);
+          if (m.meta) mechMeta.set(id, m.meta);
+        });
+        renderMechList(); requestRender(); saveLocal();
+      } catch(err){ alert('Import failed: '+err.message); }
+      importFile.value = '';
     };
-
-    const raw = Array.isArray(preset.data) ? preset.data : (Array.isArray(preset.tiles) ? preset.tiles : []);
-    const data = raw.map(t => ({
-      q: +(t.q ?? t.c ?? t.col ?? t.x),
-      r: +(t.r ?? t.row ?? t.y),
-      h: +(t.h ?? t.height ?? t.elevation ?? 0),
-      ter: +(t.ter ?? t.terrain ?? t.type ?? 0),
-      cov: +(t.cov ?? t.cover ?? 0),
-    })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
-
-    const tokens = Array.isArray(preset.tokens) ? preset.tokens : [];
-    const mechMeta = (preset.mechMeta && typeof preset.mechMeta === 'object') ? preset.mechMeta : {};
-
-    const state = { meta, data, tokens, mechMeta };
-    applyState(state);
-  } catch (errPrimary) {
-    console.warn('[Preset] applyState failed:', errPrimary);
-  }
+    r.readAsText(f);
+  });
 }
 
-// Boot overlay (unchanged), network glue (unchanged) ...
+/* ---------- Sidebar/Dock restore ---------- */
+if (localStorage.getItem('hexmap_dockA_show') === '1') { dockA.classList.add('show'); if (frameA && !frameA.src) frameA.src = SHEETS_BASE; }
+if (localStorage.getItem('hexmap_dockB_show') === '1') { dockB.classList.add('show'); if (frameB && !frameB.src) frameB.src = SHEETS_BASE; }
+/* Flechs buttons in Mechs panel (optional) */
+on('btnFlechsP1','click', () => {
+  if (!dockA.classList.contains('show')) toggleDockA();
+  if (frameA && !frameA.src) frameA.src = SHEETS_BASE;
+  svg.focus();
+});
+on('btnFlechsP2','click', () => {
+  if (!dockB.classList.contains('show')) toggleDockB();
+  if (frameB && !frameB.src) frameB.src = SHEETS_BASE;
+  svg.focus();
+});
+
+/* ---------- Boot overlay logic (always plays) ---------- */
 (() => {
   const bootEl = document.getElementById('btBoot');
   if (!bootEl) return;
@@ -1274,8 +2402,15 @@ function applyPreset(preset) {
   ];
 
   let i = 0;
-  function appendLine(line){ if (!logEl) return; logEl.textContent += line + '\n'; logEl.scrollTop = logEl.scrollHeight; }
-  function setProgress(p){ if (!barEl) return; barEl.style.width = p + '%'; }
+  function appendLine(line){
+    if (!logEl) return;
+    logEl.textContent += line + '\n';
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+  function setProgress(p){
+    if (!barEl) return;
+    barEl.style.width = p + '%';
+  }
   function nextLine(){
     if (i < LINES.length) {
       appendLine(LINES[i]);
@@ -1306,57 +2441,257 @@ function applyPreset(preset) {
 /* ---------- Init ---------- */
 if (!loadLocal()) { initTiles(); }
 requestRender();
+renderMechList();
+svg && svg.focus();
 
-// Mount modules (after DOM ready)
-window.addEventListener('DOMContentLoaded', () => {
-  // Terrain menu
-  window.TerrainMenu?.mount({
-    tiles, key, TERRAINS, COVERS,
-    get mapLocked(){ return mapLocked; },
-    requestRender,
-    saveLocal,
-  });
+/* ---------- Preset JSON (GH Pages) ---------- */
 
-  // Mech menu
-  window.MechMenu?.mount({
-    tokens,
-    mechMeta,
-    addTokenAtViewCenter,
-    requestRender,
-    saveLocal,
-    selectToken: (id) => { selectedTokenId = id; },
-    centerOnToken: (tok) => {
-      const c = tileCenter(tok.q, tok.r);
-      const vb = svg.viewBox.baseVal;
-      camera.x = c.x - (vb.width/2);
-      camera.y = c.y - (vb.height/2);
-      camera.setViewBox();
-    },
-    INDEX_BASE
-  });
+const APP_SCOPE = '/Battletech-Mobile-Skirmish/';            // repo path on github pages
+const PRESET_BASE = `${APP_SCOPE}presets/`;
+const PRESET_INDEX_URL = `${PRESET_BASE}index.json`;
 
-  svg && svg.focus();
-});
+async function loadPresetList() {
+  try {
+    const res = await fetch(PRESET_INDEX_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to load presets index');
+    const list = await res.json();
 
-// Presets
+    const sel = document.getElementById('presets');
+    if (!sel) return;
+
+    // reset with placeholder
+    sel.innerHTML = '<option value="">— Choose… —</option>';
+
+    // add options from index.json
+    for (const p of list) {
+      const opt = document.createElement('option');
+      opt.value = p.file;                  // filename (e.g., neoprene_31x17.json)
+      opt.textContent = p.name || p.id;    // display label
+      sel.appendChild(opt);
+    }
+
+    // change → fetch & apply
+    sel.addEventListener('change', async (e) => {
+      const file = e.target.value;
+      if (!file) return;
+      await applyPresetFromUrl(`${PRESET_BASE}${file}`);
+      // return focus to stage for immediate input
+      const svg = document.getElementById('svg');
+      if (svg && typeof svg.focus === 'function') svg.focus();
+    });
+
+    // optional: auto-load via ?preset=id
+    const qid = new URLSearchParams(location.search).get('preset');
+    if (qid) {
+      const hit = list.find(p => p.id === qid);
+      if (hit) await applyPresetFromUrl(`${PRESET_BASE}${hit.file}`);
+    }
+  } catch (err) {
+    console.error('[Presets] ', err);
+  }
+}
+
+async function applyPresetFromUrl(url) {
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to load preset ${url}`);
+    const preset = await res.json();
+    applyPreset(preset);
+  } catch (err) {
+    console.error('[Preset load] ', err);
+    alert('Could not load preset.');
+  }
+}
+
+/* ---------- Glue into your existing engine ---------- */
+function applyPreset(preset) {
+  if (!preset || typeof preset !== 'object') return;
+
+  try {
+    // 1) Normalize META exactly like export/import
+    const g = preset.meta || preset.grid || {};
+    const meta = {
+      cols: Number.isFinite(+g.cols) ? +g.cols : +document.getElementById('cols')?.value || 0,
+      rows: Number.isFinite(+g.rows) ? +g.rows : +document.getElementById('rows')?.value || 0,
+      hexSize: Number.isFinite(+g.hexSize) ? +g.hexSize : +document.getElementById('hexSize')?.value || 0,
+    };
+
+    // 2) Normalize DATA to short keys [{q,r,h,ter,cov}]
+    const raw = Array.isArray(preset.data)
+      ? preset.data
+      : (Array.isArray(preset.tiles) ? preset.tiles : []);
+
+    const data = raw.map(t => ({
+      q: +(t.q ?? t.c ?? t.col ?? t.x),
+      r: +(t.r ?? t.row ?? t.y),
+      h: +(t.h ?? t.height ?? t.elevation ?? 0),
+      ter: +(t.ter ?? t.terrain ?? t.type ?? 0),
+      cov: +(t.cov ?? t.cover ?? 0),
+    })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
+
+    // 3) Tokens / mechMeta pass-through
+    const tokens = Array.isArray(preset.tokens) ? preset.tokens : [];
+    const mechMeta = (preset.mechMeta && typeof preset.mechMeta === 'object') ? preset.mechMeta : {};
+
+    // 4) Build state and try the same path as Import
+    const state = { meta, data, tokens, mechMeta };
+
+    // Debug preview (shows in DevTools if you need it)
+    console.log('[Preset] normalized →', { meta, samples: data.slice(0, 3), tokens: tokens.length });
+
+    if (typeof applyState === 'function') {
+      applyState(state); // primary path (should match Import behavior exactly)
+    } else {
+      throw new Error('applyState not found');
+    }
+
+  } catch (errPrimary) {
+    console.warn('[Preset] applyState failed, falling back to manual paint:', errPrimary);
+
+    // ------ Fallback path: resize UI, regen, paint, redraw ------
+    const g = preset.meta || preset.grid || {};
+    const elCols = document.getElementById('cols');
+    const elRows = document.getElementById('rows');
+    const elHex  = document.getElementById('hexSize');
+
+    if (g.cols && elCols) elCols.value = Number(g.cols);
+    if (g.rows && elRows) elRows.value = Number(g.rows);
+    if (g.hexSize && elHex) elHex.value = Number(g.hexSize);
+
+    if (typeof regenerateGrid === 'function') regenerateGrid();
+    else if (typeof window.regen === 'function') window.regen();
+
+    const raw = Array.isArray(preset.data)
+      ? preset.data
+      : (Array.isArray(preset.tiles) ? preset.tiles : []);
+
+    // Normalize to long keys for painter
+    const tiles = raw.map(t => ({
+      q: +(t.q ?? t.c ?? t.col ?? t.x),
+      r: +(t.r ?? t.row ?? t.y),
+      terrain: +(t.terrain ?? t.ter ?? t.type ?? 0),
+      height: +(t.height ?? t.h ?? t.elevation ?? 0),
+      cover: +(t.cover ?? t.cov ?? 0),
+    })).filter(t => Number.isFinite(t.q) && Number.isFinite(t.r));
+
+    // Write via engine API if available, and also patch backing store aliases
+    for (const t of tiles) {
+      if (typeof setHexProps === 'function') {
+        setHexProps(t.q, t.r, { terrain: t.terrain, height: t.height, cover: t.cover });
+      } else if (typeof paintHex === 'function') {
+        paintHex(t.q, t.r, t.terrain, t.height, t.cover);
+      }
+
+      const k = (typeof key === 'function') ? key(t.q, t.r) : `${t.q},${t.r}`;
+      const tile = (window.tiles?.get?.(k)) || window.grid?.[t.r]?.[t.q] || window.board?.at?.(t.r)?.[t.q];
+      if (tile) {
+        tile.terrain = tile.type = tile.ter = t.terrain;
+        tile.height = tile.elevation = tile.h = tile.z = t.height;
+        tile.cover = tile.cov = t.cover;
+      }
+
+      if (typeof updateHexVisual === 'function') updateHexVisual(t.q, t.r);
+      if (typeof styleHex === 'function') styleHex(t.q, t.r);
+    }
+
+    // Tokens on fallback
+    if (Array.isArray(preset.tokens) && preset.tokens.length) {
+      if (typeof clearTokens === 'function') clearTokens();
+      if (typeof importTokens === 'function') importTokens(preset.tokens);
+    }
+
+    // Visual toggles & redraw
+    if (typeof setTexturesEnabled === 'function') setTexturesEnabled(true);
+    if (typeof recalcShading === 'function') recalcShading();
+    if (typeof recomputeLOS === 'function') recomputeLOS();
+    if (typeof redrawWorld === 'function') redrawWorld();
+    if (typeof redraw === 'function') redraw();
+  }
+
+  // 5) Optional overrides (keep as-is)
+  if (preset.overrides && typeof preset.overrides === 'object') {
+    const o = preset.overrides;
+    if (typeof setShowCoords === 'function' && 'showCoords' in o) setShowCoords(!!o.showCoords);
+    if (typeof setTexturesEnabled === 'function' && 'textures' in o) setTexturesEnabled(o.textures !== 'off');
+    if (typeof setLabelsEnabled === 'function' && 'labels' in o) setLabelsEnabled(o.labels !== 'off');
+  }
+
+  // 6) Legacy blob ONLY if data is a string
+  if (typeof preset.data === 'string' && typeof loadSerializedMap === 'function') {
+    try { loadSerializedMap(preset.data); } catch (e) { console.warn('[Preset] Legacy blob failed', e); }
+  }
+}
+
+
+// Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
 
-/* ---------- Dock restore + Flechs shortcuts ---------- */
-if (localStorage.getItem('hexmap_dockA_show') === '1') { dockA.classList.add('show'); if (frameA && !frameA.src) frameA.src = SHEETS_BASE; }
-if (localStorage.getItem('hexmap_dockB_show') === '1') { dockB.classList.add('show'); if (frameB && !frameB.src) frameB.src = SHEETS_BASE; }
-on('btnFlechsP1','click', () => { if (!dockA.classList.contains('show')) toggleDockA(); if (frameA && !frameA.src) frameA.src = SHEETS_BASE; svg.focus(); });
-on('btnFlechsP2','click', () => { if (!dockB.classList.contains('show')) toggleDockB(); if (frameB && !frameB.src) frameB.src = SHEETS_BASE; svg.focus(); });
 
-/* ---------- Keep CSS --header-h synced ---------- */
+/* ===== ONLINE GLUE (full-state on demand) ===== */
+(function () {
+  function wireReceive() {
+    if (!window.Net) return;
+    Net.onSnapshot = (stateObj) => {
+      try {
+        applyState(stateObj);
+        if (typeof requestRender === 'function') requestRender();
+      } catch (e) { console.warn(e); }
+    };
+  }
+
+  function wireSend() {
+    const btn = document.getElementById('btnSend');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      try {
+        if (!window.Net || typeof Net.sendSnapshot !== 'function') {
+          alert('Not online yet. Click Online and join a room first.');
+          return;
+        }
+        const obj = JSON.parse(serializeState());
+        await Net.sendSnapshot(obj);
+        alert('Sent.');
+      } catch (e) {
+        alert(e?.message || 'Send failed.');
+      }
+    });
+  }
+
+  // hook up now + when networking announces readiness
+  wireReceive();
+  window.addEventListener('net-ready', wireReceive);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireSend);
+  } else {
+    wireSend();
+  }
+})();
+
+
+// Keep CSS --header-h synced to the real toolbar height (so drawers/stage align)
 (() => {
   const root = document.documentElement;
   const header = document.querySelector('.ui-topbar');
+
   function syncHeaderH() {
     if (!header) return;
     const h = Math.ceil(header.getBoundingClientRect().height);
     root.style.setProperty('--header-h', h + 'px');
   }
+
+  // Update on load, resize, and whenever the header wraps/resizes
   window.addEventListener('load', syncHeaderH);
   window.addEventListener('resize', syncHeaderH);
-  setTimeout(syncHeaderH, 50);
+  if ('ResizeObserver' in window && header) {
+    new ResizeObserver(syncHeaderH).observe(header);
+  }
+
+  syncHeaderH();
 })();
+
+
+
+
+
+
