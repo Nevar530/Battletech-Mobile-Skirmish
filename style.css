@@ -424,7 +424,7 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 
 /* shared base (both badges) */
 .init-badge > circle,
-.move-badge > rectangle {
+.move-badge > rect {
   fill: #111418;
   opacity: 0.85;
   stroke: #e8eef6;
