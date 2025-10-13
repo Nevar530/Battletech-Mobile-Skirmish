@@ -2345,64 +2345,72 @@ function getMovementForToken(id){
   return { walk, run, jump };
 }
 
+// Choose: 'pill' (default) or 'triad'
 const MOVE_BADGE_STYLE = 'pill';
 
 // --- Movement badge (TOP) ---
-// parentG: token <g>, movement: {walk,run,jump} | null, rTok: px
 function renderMoveBadge(parentG, movement, rTok){
+  // clear any prior badge
   const old = parentG.querySelector('.move-badge');
   if (old) old.remove();
 
   const svgNS = 'http://www.w3.org/2000/svg';
   const r = Number(rTok) || Number(parentG.dataset.rtok) || 24;
 
-  // Base group anchored above the token
+  // anchor badge *above* token center
   const badge = document.createElementNS(svgNS, 'g');
   badge.setAttribute('class', `move-badge ${MOVE_BADGE_STYLE}`);
   badge.setAttribute('transform', `translate(0,${-r * 1.12})`);
 
-  // Fallback if no movement known yet
-  if (!movement) {
-    const t = document.createElementNS(svgNS,'text');
-    t.setAttribute('text-anchor','middle');
-    t.setAttribute('dominant-baseline','central');
-    t.textContent = '—/—/—';
-    badge.appendChild(t);
-    parentG.appendChild(badge);
-    return;
-  }
+  // If we have no movement yet, still show a visible pill so users know it's loading/unknown.
+  const label = movement
+    ? `${movement.walk}/${movement.run}/${movement.jump}`
+    : '—/—/—';
 
   // ===== OPTION A: PILL (rounded rectangle that auto-sizes to text)
   if (MOVE_BADGE_STYLE === 'pill') {
-    const t = document.createElementNS(svgNS,'text');
-    t.setAttribute('class','mv-pill-text');
+    // draw text first so we can measure it
+    const t = document.createElementNS(svgNS, 'text');
     t.setAttribute('text-anchor','middle');
     t.setAttribute('dominant-baseline','central');
-    t.textContent = `${movement.walk}/${movement.run}/${movement.jump}`;
+    // inline styles so external CSS can't accidentally shrink it
+    t.style.fontSize = '18px';
+    t.style.fontWeight = '800';
+    t.style.fill = '#b8c4ff';
+    t.style.pointerEvents = 'none';
+    t.style.userSelect = 'none';
+    t.textContent = label;
+
     badge.appendChild(t);
-    parentG.appendChild(badge); // attach so getBBox works
+    parentG.appendChild(badge); // must be in DOM for getBBox()
 
     const bb = t.getBBox();
     const padX = 10, padY = 6;
-    const rect = document.createElementNS(svgNS,'rect');
+    const rxry = (bb.height / 2 + padY);
+
+    const rect = document.createElementNS(svgNS, 'rect');
     rect.setAttribute('x', (-bb.width/2 - padX).toFixed(2));
     rect.setAttribute('y', (-bb.height/2 - padY).toFixed(2));
     rect.setAttribute('width',  (bb.width  + padX*2).toFixed(2));
     rect.setAttribute('height', (bb.height + padY*2).toFixed(2));
-    rect.setAttribute('rx', (bb.height/2 + padY).toFixed(2));
-    rect.setAttribute('ry', (bb.height/2 + padY).toFixed(2));
-    rect.setAttribute('class','mv-pill-bg');
+    rect.setAttribute('rx', rxry.toFixed(2));
+    rect.setAttribute('ry', rxry.toFixed(2));
+    // inline styles for guaranteed look
+    rect.style.fill = '#2c2f33';
+    rect.style.opacity = '0.95';
+    rect.style.stroke = '#b8c4ff';
+    rect.style.strokeWidth = '2px';
 
-    badge.insertBefore(rect, t); // put bg behind text
+    badge.insertBefore(rect, t); // bg behind text
     return;
   }
 
   // ===== OPTION B: TRIAD (three small circles: walk top, run left, jump right)
   if (MOVE_BADGE_STYLE === 'triad') {
     const tri = document.createElementNS(svgNS, 'g');
-    tri.setAttribute('class','move-badge triad');
+    tri.setAttribute('class','triad');
 
-    const rr = Math.max(9, r * 0.22);         // dot radius
+    const rr = Math.max(9, r * 0.22);  // dot radius
     const dyTop  = -r * 1.1;
     const dxSide = r * 0.55;
     const dySide = dyTop + rr * 1.6;
@@ -2414,29 +2422,42 @@ function renderMoveBadge(parentG, movement, rTok){
 
       const c = document.createElementNS(svgNS,'circle');
       c.setAttribute('r', rr.toFixed(2));
+      c.style.fill = '#2c2f33';
+      c.style.opacity = '0.95';
+      c.style.stroke = '#b8c4ff';
+      c.style.strokeWidth = '2px';
       g.appendChild(c);
 
       const tx = document.createElementNS(svgNS,'text');
       tx.setAttribute('text-anchor','middle');
       tx.setAttribute('dominant-baseline','central');
       tx.textContent = String(val);
+      tx.style.fontSize = '12px';
+      tx.style.fontWeight = '800';
+      tx.style.fill = '#e8eef6';
+      tx.style.pointerEvents = 'none';
       g.appendChild(tx);
 
       tri.appendChild(g);
     }
 
-    dot(0,        dyTop,  movement.walk, 'walk'); // top
-    dot(-dxSide,  dySide, movement.run,  'run');  // left
-    dot(+dxSide,  dySide, movement.jump, 'jump'); // right
+    const w = movement ? movement.walk : '—';
+    const ru = movement ? movement.run  : '—';
+    const j = movement ? movement.jump : '—';
+
+    dot(0,        dyTop,  w,  'walk'); // top
+    dot(-dxSide,  dySide, ru, 'run');  // left
+    dot(+dxSide,  dySide, j,  'jump'); // right
 
     badge.appendChild(tri);
     parentG.appendChild(badge);
     return;
   }
 
-  // default fallback (shouldn't hit)
+  // default (shouldn't hit)
   parentG.appendChild(badge);
 }
+
 
 // Holds the latest initiative roll per token id
 let initRolls = new Map(); // id -> number
@@ -2448,25 +2469,29 @@ function getInitRollFor(id){
 // Repaint all badges to match initOrder/initIndex
 function refreshInitBadges(){
   if (!gTokens) return;
-  const currentId = (initOrder && initOrder.length && initIndex >= 0) ? initOrder[initIndex].id : null;
+  const currentId = (initOrder && initOrder.length && initIndex >= 0)
+    ? initOrder[initIndex].id : null;
 
   gTokens.querySelectorAll('g.token').forEach(g => {
     const id = g.dataset.id;
     const rTok = Number(g.dataset.rtok) || 24;
     const roll = initRolls.get(id);
+
     renderInitBadge(g, roll, rTok);
 
-// highlight the "current turn" token's badge
-const badge = g.querySelector(':scope > g.init-badge');
-if (badge) {
-  if (id === currentId) badge.classList.add('is-current');
-  else badge.classList.remove('is-current');
-// preserve highlight through rotation / re-render
-if (id === currentId) g.classList.add('turn-active');
-else g.classList.remove('turn-active');
+    // highlight the "current turn" token's badge
+    const badge = g.querySelector(':scope > g.init-badge');
+    if (badge) {
+      if (id === currentId) badge.classList.add('is-current');
+      else badge.classList.remove('is-current');
+    }
+
+    // preserve highlight through rotation / re-render
+    if (id === currentId) g.classList.add('turn-active');
+    else g.classList.remove('turn-active');
+  });
 }
-});
-}
+
 
 
 /* Export/Import for mech roster only */
@@ -2839,6 +2864,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
