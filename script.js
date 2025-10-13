@@ -939,7 +939,8 @@ if (!center || center.x === undefined) return;
     // We'll read the roll from a Map we maintain (initRolls)
     const roll = (typeof getInitRollFor === 'function') ? getInitRollFor(tok.id) : undefined;
     renderInitBadge(g, roll, rTok);
-    renderMvBadge(g, meta?.mv || null, rTok);   // ★ add this line
+const meta = mechMeta.get(tok.id);
+renderMvBadge(g, meta?.mv || null, rTok);
     
     gTokens.appendChild(g);
   });
@@ -2135,9 +2136,13 @@ function addMechFromForm(){
   const colorIndex = teamNameToColorIndex(team);
 
   const id = addTokenAtViewCenter(tokenLabel, colorIndex);   // token shows short code
-  mechMeta.set(id, { name: displayName, pilot, team });      // roster shows pretty name
-  mv: mv || null,           // ★ for token badge
-  dataPath: path || ''      // ★ for TRS:80 deep-link / fetch later
+mechMeta.set(id, { 
+  name: displayName, 
+  pilot, 
+  team,
+  mv: mv || null,          // ★ for token badge
+  dataPath: path || ''     // ★ for TRS:80 deep-link / fetch later
+});
 
   renderMechList();
   renderInit();
@@ -2413,7 +2418,8 @@ function refreshInitBadges(){
     const rTok = Number(g.dataset.rtok) || 24;
     const roll = initRolls.get(id);
     renderInitBadge(g, roll, rTok);
-    renderMvBadge(g, meta?.mv || null, rTok);   // ★ add this line
+const meta = mechMeta.get(tok.id);
+renderMvBadge(g, meta?.mv || null, rTok);
 
     // highlight the "current turn" token's badge
     const badge = g.querySelector(':scope > g.init-badge');
@@ -2795,6 +2801,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
