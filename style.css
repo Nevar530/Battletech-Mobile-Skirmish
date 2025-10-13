@@ -499,6 +499,39 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   letter-spacing: 0.5px;
 }
 
+/* base shared: include rect for move badge */
+.init-badge > circle,
+.move-badge > circle,
+.move-badge > rect {
+  fill: #111418;
+  opacity: 0.85;
+  stroke: #e8eef6;
+  stroke-width: 1;
+}
+
+.move-badge.pill .mv-pill-bg {
+  fill: #2c2f33;
+  opacity: 0.95;
+  stroke: #b8c4ff;
+  stroke-width: 2px;
+}
+
+.move-badge.pill .mv-pill-text {
+  font-size: 18px;         /* readable width-wise */
+  font-weight: 800;
+  fill: #b8c4ff;
+  letter-spacing: 0.5px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.move-badge.pill {
+  transform-box: fill-box;
+  transform-origin: 50% 180%;
+  transform: scale(1);     /* text measured; no big scale needed */
+}
+
+
 /* ===== Measure Label ===== */
 .measure-label {
   font-weight: 700;
