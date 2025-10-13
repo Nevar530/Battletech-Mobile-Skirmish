@@ -519,6 +519,32 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   transform-origin: 50% 50%;
 }
 
+/* ===== Pill-style movement badge ===== */
+.move-badge.pill {
+  transform-box: fill-box;
+  transform-origin: 50% 180%; /* stay above mech */
+}
+
+.mv-pill-bg {
+  fill: #2c2f33;
+  stroke: #b8c4ff;
+  stroke-width: 2px;
+  opacity: 0.95;
+
+  /* You can scale the whole pill without JS */
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(1.4);  /* << increase/decrease overall size */
+}
+
+.mv-pill-text {
+  font-size: 18px;        /* adjust for readability */
+  font-weight: 800;
+  fill: #b8c4ff;
+  letter-spacing: 0.5px;
+  user-select: none;
+  pointer-events: none;
+}
 
 
 /* ===== Measure Label ===== */
