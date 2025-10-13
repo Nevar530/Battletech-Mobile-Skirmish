@@ -49,20 +49,8 @@
 
     <!-- ===== Top bar ===== -->
     <header class="ui-topbar" role="banner">
-      <div class="brand"><span class="bt">MSS:80</span></div>
+      <div class="brand"><span class="bt">MSS:84</span></div>
       <div class="spacer"></div>
-
-      <!-- Undo / Redo -->
-      <button id="btnUndo" class="icon-btn" title="Undo (Ctrl+Z)" aria-label="Undo">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
-          <path d="M7 7V3L1 9l6 6v-4h6a5 5 0 110 10h-2v-2h2a3 3 0 100-6H7z" fill="currentColor"/>
-        </svg>
-      </button>
-      <button id="btnRedo" class="icon-btn" title="Redo (Ctrl+Y)" aria-label="Redo">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
-          <path d="M17 7V3l6 6-6 6v-4h-6a5 5 0 100 10h2v-2h-2a3 3 0 110-6h6z" fill="currentColor"/>
-        </svg>
-      </button>
 
       <!-- Zoom Out / Zoom In -->
       <button id="btnZoomOut" class="icon-btn" title="Zoom Out (Wheel/−)">
@@ -88,18 +76,6 @@
       <!-- Fullscreen -->
       <button id="fsBtn" class="icon-btn" title="Fullscreen (F)">⛶</button>
 
-      <!-- Save / Load -->
-      <button id="exportJson" class="icon-btn" title="Save JSON (Export)">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
-          <path d="M5 20h14v-2H5v2zm7-18l5 5h-3v6h-4V7H7l5-5z" fill="currentColor"/>
-        </svg>
-      </button>
-      <button id="importJsonBtn" class="icon-btn" title="Load JSON (Import)">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
-          <path d="M19 13v6H5v-6H3v8h18v-8h-2zM11 3v8H8l4 4 4-4h-3V3h-2z" fill="currentColor"/>
-        </svg>
-      </button>
-
       <!-- Help -->
       <button id="btnHelp" class="icon-btn" title="Controls Help">
         <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
@@ -107,17 +83,17 @@
         </svg>
       </button>
 
-<!-- LOS / Measure -->
-<button id="btnToggleMeasure" class="icon-btn" title="Measure (Manual Range Mode)">
-  <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
-    <path d="M3 16l5 5 13-13-5-5L3 16zm3.5.5l8.5-8.5 1 1-8.5 8.5-1-1zm3-3l6-6 1 1-6 6-1-1zm3-3l3-3 1 1-3 3-1-1z" fill="currentColor"/>
-  </svg>
-</button>
-<button id="btnToggleLOS" class="icon-btn" title="Line of Sight (L)">
-  <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
-    <path d="M11 2v3a7 7 0 016 6h3v2h-3a7 7 0 01-6 6v3h-2v-3a7 7 0 01-6-6H2v-2h3a7 7 0 016-6V2h2zm1 5a5 5 0 100 10 5 5 0 000-10z" fill="currentColor"/>
-  </svg>
-</button>
+      <!-- LOS / Measure -->
+      <button id="btnToggleMeasure" class="icon-btn" title="Measure (Manual Range Mode)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M3 16l5 5 13-13-5-5L3 16zm3.5.5l8.5-8.5 1 1-8.5 8.5-1-1zm3-3l6-6 1 1-6 6-1-1zm3-3l3-3 1 1-3 3-1-1z" fill="currentColor"/>
+        </svg>
+      </button>
+      <button id="btnToggleLOS" class="icon-btn" title="Line of Sight (L)">
+        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+          <path d="M11 2v3a7 7 0 016 6h3v2h-2a7 7 0 01-6 6v3h-2v-3a7 7 0 01-6-6H2v-2h3a7 7 0 016-6V2h2zm1 5a5 5 0 100 10 5 5 0 000-10z" fill="currentColor"/>
+        </svg>
+      </button>
 
       <!-- Segmented: Terrain / Mechs -->
       <div class="seg-group">
@@ -147,21 +123,21 @@
         <button id="btnDockR" class="icon-btn" title="Toggle Flechs Dock (P2)">P2</button>
       </div>
 
-    <div class="toolbar-row" style="align-items:center; gap:8px;">
-  <button id="btn-online" class="icon-btn" title="Online">UPLINK</button>
-  <button id="btnSend" class="icon-btn" title="Send state to peer">TRANSMIT</button>
+      <div class="toolbar-row" style="align-items:center; gap:8px;">
+        <button id="btn-online" class="icon-btn" title="Online">UPLINK</button>
+        <button id="btnSend" class="icon-btn" title="Send state to peer">TRANSMIT</button>
 
-  <!-- NEW: tiny status pill -->
-  <span id="net-pill" class="net-pill is-offline" title="Sync status">
-    <b class="lamp" aria-hidden="true"></b>
-    <span class="txt">
-      <span class="state">ONLINE</span>
-      [<span id="net-count">0</span>] :
-      <span id="net-ago">no tx</span> :
-      // <span id="net-user">P1</span>
-    </span>
-  </span>
-</div>
+        <!-- tiny status pill -->
+        <span id="net-pill" class="net-pill is-offline" title="Sync status">
+          <b class="lamp" aria-hidden="true"></b>
+          <span class="txt">
+            <span class="state">ONLINE</span>
+            [<span id="net-count">0</span>] :
+            <span id="net-ago">no tx</span> :
+            // <span id="net-user">P1</span>
+          </span>
+        </span>
+      </div>
     </header>
 
     <!-- ===== LEFT DRAWER ===== -->
@@ -176,80 +152,21 @@
       </div>
       <div class="panel-body">
 
-        <!-- Quick Tools -->
-        <section class="group">
-          <h3>Quick Tools</h3>
-          <div class="row gap">
-            <button id="btnSelect" class="btn" aria-pressed="true">Select/Move</button>
-            <button id="btnHeight" class="btn">Height</button>
-            <button id="btnTerrain" class="btn">Terrain</button>
-            <button id="btnCover" class="btn">Cover</button>
-            <button id="btnClearTile" class="btn">Clear</button>
-          </div>
-          <div class="small muted">Hotkeys: Left-click (Height), Right-click (Terrain), Ctrl+Left (Cover), Ctrl+Right (Clear)</div>
-        </section>
+        <!-- TerrainMenu (module renders here) -->
+        <section class="group" id="terrainMenuRoot"></section>
 
-        <!-- Quick Paint (Fixed) -->
-        <section class="group" id="fixedPaintGroup">
-          <h3>Quick Paint</h3>
-          <div class="row gap">
-            <label class="stack" style="min-width:140px;">
-              <span>Terrain</span>
-              <select id="selPaintTerrain"></select>
-            </label>
-            <label class="stack" style="min-width:120px;">
-              <span>Height</span>
-              <select id="selPaintHeight"></select>
-            </label>
-            <label class="stack" style="min-width:120px;">
-              <span>Cover</span>
-              <select id="selPaintCover"></select>
-            </label>
-          </div>
-          <div class="row gap">
-            <button id="btnPaintFixed" class="btn" aria-pressed="false">Paint</button>
-            <button id="btnClearFixed" class="btn">Clear</button>
-          </div>
-          <div class="small muted">Pick values, then click/drag on the map. Alt+Click eyedrops current hex.</div>
-        </section>
-
-        <section class="group">
-          <h3>Fill Terrain</h3>
-          <div class="row">
-            <label class="stack" style="min-width:220px;">
-              <span>Fill map with</span>
-              <select id="fillTerrain">
-                <option value="">— Select terrain —</option>
-              </select>
-            </label>
-          </div>
-          <div class="small muted">Only changes terrain; keeps height & cover. Undo with Ctrl+Z.</div>
-        </section>
-
-        <!-- Presets -->
+        <!-- Presets (core uses this) -->
         <section class="group">
           <h3>Preset maps</h3>
           <label class="stack">
             <span class="muted">Choose</span>
             <select id="presets">
               <option value="">— Choose… —</option>
-              <option value="neoprene_31x17">Neoprene (31×17)</option>
-              <option value="paper_15x17">Paper (15×17)</option>
-              <option value="double_neoprene_62x17">Double Neoprene (62×17)</option>
-              <option value="four_paper_30x34">Four Paper (30×34)</option>
-
-              <option value="neoprene_31x17_grasslands">Neoprene: Grasslands (31×17)</option>
-              <option value="neoprene_31x17_river_valley">Neoprene: River Valley (31×17)</option>
-              <option value="neoprene_31x17_crater_field">Neoprene: Crater Field (31×17)</option>
-              <option value="neoprene_31x17_ridge_and_stream">Neoprene: Ridge + Stream (31×17)</option>
-              <option value="neoprene_31x17_city_block">Neoprene: City Block (31×17)</option>
-              <option value="paper_15x17_island_lake">Paper: Island Lake (15×17)</option>
-              <option value="paper_15x17_quarry">Paper: Quarry (15×17)</option>
             </select>
           </label>
         </section>
 
-        <!-- Grid settings -->
+        <!-- Grid settings (core uses these) -->
         <section class="group">
           <h3>Grid Settings</h3>
           <div class="row">
@@ -287,55 +204,8 @@
       </div>
       <div class="panel-body">
 
-        <!-- Add Mech -->
-        <section class="group">
-          <h3>Add Mech</h3>
-          <div class="mp-row">
-            <label class="stack">
-  <span>Mech</span>
-  <input id="mechName" type="text" list="mechListData" placeholder="e.g., GRF-1N or Griffin 1N" />
-  <datalist id="mechListData"></datalist>
-</label>
-
-            <label class="stack">
-              <span>Pilot</span>
-              <input id="pilotName" type="text" placeholder="Pilot (optional)" />
-            </label>
-          </div>
-          <div class="mp-actions">
-            <label class="stack">
-              <span>Team</span>
-              <select id="teamSelect">
-                <option value="Alpha">Alpha</option>
-                <option value="Bravo">Bravo</option>
-                <option value="Clan">Clan</option>
-                <option value="Merc">Merc</option>
-              </select>
-            </label>
-            <button id="btnAddMech" class="btn">Add Mech</button>
-          </div>
-        </section>
-
-        <!-- Initiative + Dice -->
-        <div class="group-grid-2">
-          <section class="group">
-            <div class="row between">
-              <h3>Initiative</h3>
-              <div class="mini-actions">
-                <button class="btn sm" id="btnRollInitAll">Roll All</button>
-                <button class="btn sm" id="btnClearInit">Clear</button>
-                <button class="btn sm" id="btnNextTurn">Next ▶</button>
-              </div>
-            </div>
-            <ul id="initList" class="list init-list" aria-live="polite"></ul>
-          </section>
-
-          <section class="group">
-            <h3>Dice Roller</h3>
-            <div class="row gap"><button class="btn" data-dice="2d6">2d6</button></div>
-            <output id="diceOut" class="dice-out">—</output>
-          </section>
-        </div>
+        <!-- MechMenu (module renders here) -->
+        <section class="group" id="mechMenuRoot"></section>
 
         <!-- Flechs Sheets helper -->
         <section class="group">
@@ -349,20 +219,7 @@
               <button id="btnFlechsP2" class="btn sm" title="Open Flechs Sheets (P2)">P2</button>
             </div>
           </div>
-          <div class="small muted">Opens the docks for live mech stats & damage tracking.</div>
-        </section>
-
-        <!-- Mech Roster -->
-        <section class="group">
-          <div class="row between">
-            <h3>Mech Roster</h3>
-            <div class="mini-actions">
-              <button class="btn sm" id="btnExportMechs">Export</button>
-              <button class="btn sm" id="btnImportMechs">Import</button>
-              <input id="importFile" type="file" accept="application/json" hidden />
-            </div>
-          </div>
-          <ul id="mechList" class="list mech-list" aria-live="polite"></ul>
+          <div class="small muted">Opens the docks for live mech stats &amp; damage tracking.</div>
         </section>
 
       </div>
@@ -380,7 +237,7 @@
       </div>
       <div class="panel-body">
         <div class="small">
-          <strong>Map & Camera</strong><br />
+          <strong>Map &amp; Camera</strong><br />
           Mouse: Wheel = Zoom · Left-drag (Space held) = Pan · Middle-drag = Pan<br />
           Keyboard: Arrows = Pan · 0 = Recenter · F = Fullscreen<br />
           Touch: Pinch = Zoom · Two-finger drag = Pan<br /><br />
@@ -393,7 +250,7 @@
           <strong>Tokens</strong><br />
           N = Add · Q/E = Rotate · +/- = Size · [ / ] = Team · Enter = Rename · Delete = Remove<br /><br />
 
-          <strong>Export/Import</strong>: Top bar JSON buttons.
+          <strong>Online</strong>: UPLINK to join a room, TRANSMIT to send your current state.
         </div>
       </div>
     </div>
@@ -430,7 +287,7 @@
         <rect id="frameBorder" class="gridBorder"></rect>
         <g id="world-polys"></g>
         <g id="world-textures"></g>
-        <g id="world-shadows"></g>
+        <!-- removed: world-shadows -->
         <g id="world-overlays"></g>
         <g id="world-labels"></g>
         <g id="world-tokens"></g>
@@ -451,136 +308,139 @@
   </div>
 
   <!-- ==== Load order ==== -->
+  <!-- modules first so window.TerrainMenu/MechMenu exist when script.js mounts them -->
+  <script type="module" src="terrainMenu.js"></script>
+  <script type="module" src="mechMenu.js"></script>
   <script src="script.js"></script>
   <script type="module" src="network.js"></script>
 
   <!-- Online + Send wiring (minimal) -->
-<script>
-  (function () {
-    const onlineBtn = document.getElementById('btn-online');
-    const sendBtn   = document.getElementById('btnSend');
+  <script>
+    (function () {
+      const onlineBtn = document.getElementById('btn-online');
+      const sendBtn   = document.getElementById('btnSend');
 
-    // ===== NEW: net status state/DOM =====
-    const NET_FRESH_MS = 30_000; // green if activity within last 30s
+      // ===== NEW: net status state/DOM =====
+      const NET_FRESH_MS = 30_000; // green if activity within last 30s
 
-    const net = {
-      last: 0,                  // last send/receive timestamp (ms)
-      count: 0,                 // # of sends from this client
-      user: localStorage.getItem('playerLabel') || 'P1'
-    };
+      const net = {
+        last: 0,                  // last send/receive timestamp (ms)
+        count: 0,                 // # of sends from this client
+        user: localStorage.getItem('playerLabel') || 'P1'
+      };
 
-    const $pill  = document.getElementById('net-pill');
-    const $count = document.getElementById('net-count');
-    const $ago   = document.getElementById('net-ago');
-    const $user  = document.getElementById('net-user');
+      const $pill  = document.getElementById('net-pill');
+      const $count = document.getElementById('net-count');
+      const $ago   = document.getElementById('net-ago');
+      const $user  = document.getElementById('net-user');
 
-    function timeAgo(ms){
-      if(!ms) return 'no tx';
-      const s = Math.floor((Date.now()-ms)/1000);
-      if (s < 5)  return 'just now';
-      if (s < 60) return `${s}s ago`;
-      const m = Math.floor(s/60); if (m < 60) return `${m}m ago`;
-      const h = Math.floor(m/60); return `${h}h ago`;
-    }
-    function refreshNetUI(){
-      const online = net.last && (Date.now() - net.last) < NET_FRESH_MS;
-      $pill.classList.toggle('is-online',  online);
-      $pill.classList.toggle('is-offline', !online);
-      $count.textContent = net.count;
-      $ago.textContent   = timeAgo(net.last);
-      $user.textContent  = net.user;
-    }
-    function markSent(){
-      net.last = Date.now();
-      net.count++;
-      refreshNetUI();
-    }
-    function markReceived(sender){
-      net.last = Date.now();
-      if (sender) net.user = sender;   // show who sent last
-      refreshNetUI();
-    }
-    setInterval(refreshNetUI, 2000);
-    refreshNetUI();
-
-    // ===== Online join =====
-    onlineBtn?.addEventListener('click', async () => {
-      try {
-        if (!window.Net || typeof Net.joinRoom !== 'function') {
-          alert('Networking not ready yet. Try again in a moment.');
-          return;
-        }
-        const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
-        if (!code) return;
-
-        const name = prompt('Your name?') || net.user || 'Player';
-        try { Net.identify?.({ name }); } catch {}
-        // remember locally
-        net.user = name;
-        localStorage.setItem('playerLabel', name);
+      function timeAgo(ms){
+        if(!ms) return 'no tx';
+        const s = Math.floor((Date.now()-ms)/1000);
+        if (s < 5)  return 'just now';
+        if (s < 60) return `${s}s ago`;
+        const m = Math.floor(s/60); if (m < 60) return `${m}m ago`;
+        const h = Math.floor(m/60); return `${h}h ago`;
+      }
+      function refreshNetUI(){
+        const online = net.last && (Date.now() - net.last) < NET_FRESH_MS;
+        $pill.classList.toggle('is-online',  online);
+        $pill.classList.toggle('is-offline', !online);
+        $count.textContent = net.count;
+        $ago.textContent   = timeAgo(net.last);
+        $user.textContent  = net.user;
+      }
+      function markSent(){
+        net.last = Date.now();
+        net.count++;
         refreshNetUI();
-
-        const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
-        alert('Joined room: ' + roomId);
-      } catch (e) {
-        alert(e?.message || 'Failed to join room');
       }
-    });
+      function markReceived(sender){
+        net.last = Date.now();
+        if (sender) net.user = sender;   // show who sent last
+        refreshNetUI();
+      }
+      setInterval(refreshNetUI, 2000);
+      refreshNetUI();
 
- // Receive full-state snapshots (peer presses Send)
-function attachReceiver() {
-  if (!window.Net) return;
-  Net.onSnapshot = (stateObj) => {
-    try {
-      applyState(stateObj);
-      if (typeof requestRender === 'function') requestRender();
+      // ===== Online join =====
+      onlineBtn?.addEventListener('click', async () => {
+        try {
+          if (!window.Net || typeof Net.joinRoom !== 'function') {
+            alert('Networking not ready yet. Try again in a moment.');
+            return;
+          }
+          const code = prompt('Enter 3 words (e.g., "ember orbit fox")');
+          if (!code) return;
 
-      // NEW: update the pill with who sent it
-      const sender = stateObj?.meta?.sender || 'Unknown';
-      markReceived(sender);
+          const name = prompt('Your name?') || net.user || 'Player';
+          try { Net.identify?.({ name }); } catch {}
+          // remember locally
+          net.user = name;
+          localStorage.setItem('playerLabel', name);
+          refreshNetUI();
 
-    } catch (e) { console.warn(e); }
-  };
-}
-    attachReceiver();
-    window.addEventListener('net-ready', attachReceiver);
-
-    // ===== Send current state =====
-    sendBtn?.addEventListener('click', async () => {
-      try {
-        if (!window.Net || typeof Net.sendSnapshot !== 'function') {
-          alert('Not online yet. Click Online and join a room first.');
-          return;
+          const roomId = await Net.joinRoom(code, { maxPlayers: 2 });
+          alert('Joined room: ' + roomId);
+        } catch (e) {
+          alert(e?.message || 'Failed to join room');
         }
-        const obj = JSON.parse(serializeState());
+      });
 
-        // NEW: add a tiny meta block so peer can show your name
-        obj.meta = { sender: net.user, ts: Date.now() };
+      // Receive full-state snapshots (peer presses Send)
+      function attachReceiver() {
+        if (!window.Net) return;
+        Net.onSnapshot = (stateObj) => {
+          try {
+            applyState(stateObj);
+            if (typeof requestRender === 'function') requestRender();
 
-        await Net.sendSnapshot(obj);
+            // update the pill with who sent it
+            const sender = stateObj?.meta?.sender || 'Unknown';
+            markReceived(sender);
 
-        // NEW: update status
-        markSent();
-      } catch (e) {
-        alert(e?.message || 'Send failed');
+          } catch (e) { console.warn(e); }
+        };
       }
-    });
-  })();
-</script>
+      attachReceiver();
+      window.addEventListener('net-ready', attachReceiver);
 
-  <footer style="position:fixed; bottom:0; left:0; width:100%; 
-               font-size:0.5em; text-align:center; color:#888; 
-               padding:2px 0; border-top:1px solid #333; 
+      // ===== Send current state =====
+      sendBtn?.addEventListener('click', async () => {
+        try {
+          if (!window.Net || typeof Net.sendSnapshot !== 'function') {
+            alert('Not online yet. Click Online and join a room first.');
+            return;
+          }
+          const obj = JSON.parse(serializeState());
+
+          // add a tiny meta block so peer can show your name
+          obj.meta = { sender: net.user, ts: Date.now() };
+
+          await Net.sendSnapshot(obj);
+
+          // update status
+          markSent();
+        } catch (e) {
+          alert(e?.message || 'Send failed');
+        }
+      });
+    })();
+  </script>
+
+  <footer style="position:fixed; bottom:0; left:0; width:100%;
+               font-size:0.5em; text-align:center; color:#888;
+               padding:2px 0; border-top:1px solid #333;
                background:#111; z-index:999;">
-  BattleTech and ’Mech are registered trademarks of Topps Company, Inc. 
-  Catalyst Game Labs is the current licensee. ||
-  This is a free fan-made tool, not affiliated with or endorsed by Topps, Catalyst, or Microsoft. ||
-  Flechs Sheets is a separate fan project by BisonAIs, embedded here for convenience. ||
-      <a href="https://github.com/Nevar530/Battletech-Mobile-Skirmish" target="_blank" 
-     style="color:#4af; text-decoration:none;">
-     Source on GitHub
-  </a>
-</footer>
+    BattleTech and ’Mech are registered trademarks of Topps Company, Inc.
+    Catalyst Game Labs is the current licensee. ||
+    This is a free fan-made tool, not affiliated with or endorsed by Topps, Catalyst, or Microsoft. ||
+    Flechs Sheets is a separate fan project by BisonAIs, embedded here for convenience. ||
+    <a href="https://github.com/Nevar530/Battletech-Mobile-Skirmish" target="_blank"
+       style="color:#4af; text-decoration:none;">
+       Source on GitHub
+    </a>
+  </footer>
 
 </body>
 </html>
