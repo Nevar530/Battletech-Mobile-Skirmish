@@ -2161,15 +2161,10 @@ const mechByName      = new Map();   // "archer arc-2k" -> "ARC-2K"
 const movementByModel = new Map();   // "ARC-2K" -> {walk, jump}
 const manifestByModel = new Map();   // "ARC-2K" -> full item
 
-function resolvedAssetsUrl(file){
-  // If APP_SCOPE is defined (you have it later in this file), honor it; else use relative.
-  const base = (typeof APP_SCOPE === 'string' && APP_SCOPE) ? APP_SCOPE.replace(/\/?$/, '/') : '';
-  return base + 'assets/' + file;
-}
-
 async function loadMechIndex(){
   try{
-    const res = await fetch(resolvedAssetsUrl('manifest.json'), { cache: 'no-store' });
+    // IMPORTANT: use a simple relative path to avoid APP_SCOPE timing issues
+    const res = await fetch('assets/manifest.json', { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const root = await res.json(); // { generated, count, items: [...] }
     const list = Array.isArray(root) ? root : (Array.isArray(root?.items) ? root.items : []);
@@ -2203,9 +2198,6 @@ async function loadMechIndex(){
         dl.appendChild(opt);
       }
     });
-
-    // Dev aid: warn if nothing mapped
-    if (!movementByModel.size) console.warn('[manifest] loaded but movementByModel is empty');
 
     // repaint now that MV exists
     (typeof refreshMovementBadges === 'function') ? refreshMovementBadges() : requestRender?.();
@@ -2245,10 +2237,6 @@ function resolveMech(input){
   // fallback
   return { tokenLabel: raw.slice(0,18).toUpperCase(), displayName: raw, model:null };
 }
-
-
-
-
 
 /* Initiative (2d6 simple) */
 function renderInit(){
@@ -2903,6 +2891,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
