@@ -881,10 +881,13 @@ if (!center || center.x === undefined) return;
     label.textContent = tok.label || 'MECH';
     g.appendChild(label);
 
-    // NEW: render init badge using current roll (if present)
-    // We'll read the roll from a Map we maintain (initRolls)
-    const roll = (typeof getInitRollFor === 'function') ? getInitRollFor(tok.id) : undefined;
-    renderInitBadge(g, roll, rTok);
+// TOP badge: Walk / Run / Jump
+const mv = (typeof getMovementForToken === 'function') ? getMovementForToken(tok.id) : null;
+renderMoveBadge(g, mv, rTok);
+
+// BOTTOM badge: Initiative (keep existing behavior)
+const roll = (typeof getInitRollFor === 'function') ? getInitRollFor(tok.id) : undefined;
+renderInitBadge(g, roll, rTok);
     
     gTokens.appendChild(g);
   });
@@ -2289,6 +2292,51 @@ function renderInitBadge(parentG, roll){
   parentG.appendChild(badge);
 }
 
+// --- Movement lookup from manifest-driven meta ---
+function getMovementForToken(id){
+  const meta = mechMeta.get(id);
+  const model = meta?.model ? String(meta.model).toUpperCase() : null;
+  if (!model) return null;
+  const mv = movementByModel?.get?.(model);
+  if (!mv) return null;
+
+  const walk = Number(mv.walk) || 0;
+  const jump = Number(mv.jump) || 0;
+  const run  = Math.ceil(walk * 1.5);   // BattleTech run = ceil(walk * 1.5)
+  return { walk, run, jump };
+}
+
+// --- Movement badge (TOP) ---
+// parentG: token <g>, movement: {walk,run,jump}, rTok: token radius (px)
+function renderMoveBadge(parentG, movement, rTok){
+  const old = parentG.querySelector('.move-badge');
+  if (old) old.remove();
+  if (!movement) return;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const badge = document.createElementNS(svgNS, 'g');
+  badge.setAttribute('class', 'move-badge');
+
+  const r = Number(rTok) || Number(parentG.dataset.rtok) || 24;
+  // position TOP of token
+  badge.setAttribute('transform', `translate(0,${-r * 1.1})`);
+
+  const c = document.createElementNS(svgNS, 'circle');
+  c.setAttribute('r', 12);
+  badge.appendChild(c);
+
+  const t = document.createElementNS(svgNS, 'text');
+  t.setAttribute('text-anchor', 'middle');
+  t.setAttribute('dominant-baseline', 'central');
+  t.textContent = `${movement.walk}/${movement.run}/${movement.jump}`;
+  badge.appendChild(t);
+
+  const title = document.createElementNS(svgNS, 'title');
+  title.textContent = `W/R/J: ${movement.walk} / ${movement.run} / ${movement.jump}`;
+  badge.appendChild(title);
+
+  parentG.appendChild(badge);
+}
 
 
 // Holds the latest initiative roll per token id
@@ -2689,6 +2737,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
