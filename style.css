@@ -463,7 +463,7 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 
 .init-badge > text,
 .move-badge > text {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 700;
   fill: #e8eef6;
   pointer-events: none;
