@@ -307,12 +307,16 @@
     <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
   </div>
 
-  <!-- ==== Load order ==== -->
-  <!-- modules first so window.TerrainMenu/MechMenu exist when script.js mounts them -->
-  <script type="module" src="terrainMenu.js"></script>
-  <script type="module" src="mechMenu.js"></script>
-  <script src="script.js"></script>
-  <script type="module" src="network.js"></script>
+<!-- ==== Load order ==== -->
+<!-- 1️⃣ legacy modules first (create globals like window.TerrainMenu) -->
+<script src="./modules/terrainMenu.js"></script>
+<script src="./modules/mechMenu.js"></script>
+
+<!-- 2️⃣ main runtime that uses those globals -->
+<script src="./script.js"></script>
+
+<!-- 3️⃣ ES-module files last so they don't block legacy globals -->
+<script type="module" src="./network.js"></script>
 
   <!-- Online + Send wiring (minimal) -->
   <script>
