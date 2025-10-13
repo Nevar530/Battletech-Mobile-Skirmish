@@ -420,36 +420,6 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   filter: drop-shadow(0 0 4px #00ff80) drop-shadow(0 0 8px #00ff80);
 }
 
-/* initiative badge scaling */
-.init-badge {
-  transform-box: fill-box;
-  transform-origin: 50% -80%;   /* X = 50% (center), Y = 100% (bottom) */
-  transform: scale(4);
-}
-
-.init-badge circle {
-  fill: var(--panel);
-  stroke: #fff;
-  stroke-width: 3px;       /* thicker border */
-  opacity: 0.95;
-}
-
-.init-badge text {
-  font-weight: 900;
-  font-size: 14px;         /* bigger number */
-  fill: #fff;
-  stroke: rgba(0,0,0,0.5); /* dark outline for readability */
-  stroke-width: 1.5px;
-  user-select: none;
-  pointer-events: none;
-}
-
-.init-badge.is-current circle {
-  stroke: var(--ink);
-  stroke-width: 4px;
-  filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-}
-
 /* ===== Movement & Initiative Badges ===== */
 
 /* shared base (both badges) */
@@ -463,32 +433,73 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 
 .init-badge > text,
 .move-badge > text {
-  font-size: 14px;
   font-weight: 700;
   fill: #e8eef6;
   pointer-events: none;
   user-select: none;
 }
 
-/* highlight the current-turn token’s initiative badge (keeps your old effect) */
+/* ===== Initiative Badge (bottom) ===== */
+.init-badge {
+  transform-box: fill-box;
+  transform-origin: 50% -80%;  /* bottom-center anchor */
+  transform: scale(3.6);       /* slightly smaller than before */
+}
+
+.init-badge > circle {
+  fill: var(--panel);
+  stroke: #fff;
+  stroke-width: 3px;
+  opacity: 0.95;
+}
+
+.init-badge > text {
+  font-weight: 900;
+  font-size: 14px;
+  fill: #fff;
+  stroke: rgba(0,0,0,0.5); /* dark outline for readability */
+  stroke-width: 1.5px;
+}
+
+/* highlight the current-turn token’s initiative badge */
 .init-badge.is-current > circle {
   fill: #ffd93d;
   stroke: #111418;
+  stroke-width: 4px;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
 }
 .init-badge.is-current > text {
   fill: #111418;
 }
 
-/* optional subtle distinction between top (move) and bottom (init) */
+/* optional glowing ring for the entire token while active */
+.token.turn-active polygon.ring {
+  stroke: #ffd93d !important;
+  filter: drop-shadow(0 0 4px #ffd93d);
+}
+
+/* ===== Movement Badge (top) ===== */
+.move-badge {
+  transform-box: fill-box;
+  transform-origin: 50% 180%;  /* top-center anchor */
+  transform: scale(5.5);       /* larger, easier to read */
+}
+
 .move-badge > circle {
   fill: #2c2f33;
   opacity: 0.9;
-}
-.move-badge > text {
-  font-size: 14px;
-  fill: #b8c4ff;
+  stroke: #b8c4ff;
+  stroke-width: 2px;
 }
 
+.move-badge > text {
+  font-size: 22px;
+  font-weight: 800;
+  fill: #b8c4ff;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Measure Label ===== */
 .measure-label {
   font-weight: 700;
   fill: #fff;
@@ -498,6 +509,7 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   text-anchor: middle;
   dominant-baseline: central;
 }
+
 
 /* Hide footer on mobile screens */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
