@@ -443,7 +443,7 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 .init-badge {
   transform-box: fill-box;
   transform-origin: 50% -80%;  /* bottom-center anchor */
-  transform: scale(3.6);       /* slightly smaller than before */
+  transform: scale(3.6);
 }
 
 .init-badge > circle {
@@ -457,7 +457,7 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   font-weight: 900;
   font-size: 12px;
   fill: #fff;
-  stroke: rgba(0,0,0,0.5); /* dark outline for readability */
+  stroke: rgba(0,0,0,0.5);
   stroke-width: 1.5px;
 }
 
@@ -479,12 +479,6 @@ html, body, #wrap { height:100%; background:#0b0f14; }
 }
 
 /* ===== Movement Badge (top) ===== */
-.move-badge {
-  transform-box: fill-box;
-  transform-origin: 50% 180%;  /* top-center anchor */
-  transform: scale(5.5);       /* larger, easier to read */
-}
-
 .move-badge > circle {
   fill: #2c2f33;
   opacity: 0.9;
@@ -499,25 +493,18 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   letter-spacing: 0.5px;
 }
 
-/* base shared: include rect for move badge */
-.init-badge > circle,
-.move-badge > circle,
-.move-badge > rect {
-  fill: #111418;
-  opacity: 0.85;
-  stroke: #e8eef6;
-  stroke-width: 1;
-}
-
+/* Pill-style movement badge */
 .move-badge.pill .mv-pill-bg {
   fill: #2c2f33;
   opacity: 0.95;
   stroke: #b8c4ff;
   stroke-width: 2px;
+  rx: 8px;  /* extra rounding for smoother capsule look */
+  ry: 8px;
 }
 
 .move-badge.pill .mv-pill-text {
-  font-size: 18px;         /* readable width-wise */
+  font-size: 18px;
   font-weight: 800;
   fill: #b8c4ff;
   letter-spacing: 0.5px;
@@ -525,11 +512,13 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   pointer-events: none;
 }
 
+/* Allow JS translate() to control vertical position — no CSS transform here */
+.move-badge,
 .move-badge.pill {
   transform-box: fill-box;
-  transform-origin: 50% 180%;
-  transform: scale(1);     /* text measured; no big scale needed */
+  transform-origin: 50% 50%;
 }
+
 
 
 /* ===== Measure Label ===== */
