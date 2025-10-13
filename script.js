@@ -2083,7 +2083,7 @@ function addMechFromForm(){
   const colorIndex = teamNameToColorIndex(team);
 
   const id = addTokenAtViewCenter(tokenLabel, colorIndex);   // token shows short code
-  mechMeta.set(id, { name: displayName, pilot, team });      // roster shows pretty name
+  mechMeta.set(id, { name: displayName, model, pilot, team });      // roster shows pretty name
 
   renderMechList();
   renderInit();
@@ -2154,62 +2154,92 @@ if (mechList) mechList.addEventListener('click', (e)=>{
   }
 });
 
-/* ---------- Mech index (id + name) for dropdown ---------- */
-let MECH_INDEX = [];                        // [{id:"GRF-1N", name:"Griffin 1N"}, ...]
-const mechById = new Map();                 // "GRF-1N" -> "Griffin 1N"
-const mechByName = new Map();               // "griffin 1n" -> "GRF-1N"
+/* ---------- Mech index (manifest-driven: uses items[]) ---------- */
+// Maps used elsewhere
+let MANIFEST_INDEX = [];
+const mechByModel        = new Map();   // "ARC-2K" -> "Archer ARC-2K"
+const mechByName         = new Map();   // "archer arc-2k" -> "ARC-2K"
+const movementByModel    = new Map();   // "ARC-2K" -> {walk, jump}
+const manifestByModel    = new Map();   // "ARC-2K" -> full item
 
 async function loadMechIndex(){
   try{
-    const res = await fetch('assets/mechs.json'); // adjust path
-    const data = await res.json();
-    MECH_INDEX = Array.isArray(data) ? data : (data.mechs || []);
-    mechById.clear(); mechByName.clear();
+    const res = await fetch('assets/manifest.json', { cache: 'no-store' });
+    const root = await res.json(); // { generated, count, items: [...] }
+    const list = Array.isArray(root) ? root
+               : (Array.isArray(root?.items) ? root.items : []);
+
+    MANIFEST_INDEX = list;
+
+    mechByModel.clear();
+    mechByName.clear();
+    movementByModel.clear();
+    manifestByModel.clear();
 
     const dl = document.getElementById('mechListData');
     if (dl) dl.replaceChildren();
 
-    MECH_INDEX.forEach(({id, name})=>{
-      if(!id || !name) return;
-      const up = id.toUpperCase();
-      mechById.set(up, name);
-      mechByName.set(name.toLowerCase(), up);
+    list.forEach(row => {
+      const model   = String(row?.model || '').toUpperCase().trim();
+      const display = String(row?.displayName || model || '').trim();
+      if (!model || !display) return;
+
+      mechByModel.set(model, display);
+      mechByName.set(display.toLowerCase(), model);
+      movementByModel.set(model, {
+        walk: Number(row?.movement?.walk) || 0,
+        jump: Number(row?.movement?.jump) || 0
+      });
+      manifestByModel.set(model, row);
+
       if (dl){
         const opt = document.createElement('option');
-        opt.value = name;        // users see/select by "Griffin 1N"
-        opt.label = up;          // browser may show the code as a hint
+        opt.value = display;    // users type/select by pretty name
+        opt.label = model;      // browser may show model code as hint
         dl.appendChild(opt);
       }
     });
+
+    // Force a repaint so MV badges appear once data is ready
+    if (typeof refreshMovementBadges === 'function') refreshMovementBadges();
+    else if (typeof requestRender === 'function') requestRender();
+
   }catch(err){
-    console.warn('mechs.json load failed', err);
+    console.warn('manifest load failed', err);
   }
 }
 loadMechIndex();
 
-/* ---------- Helpers: resolve typed input -> token label + display ---------- */
-function normalizeId(str){
-  // "grf1n" / "GRF 1N" -> "GRF-1N" (best-effort without being strict)
-  return (str||'')
-    .toUpperCase()
-    .replace(/\s+/g,'')
-    .replace(/^([A-Z]{2,4})(\d)/, '$1-$2');
-}
-
+/* ---------- Helpers: resolve typed input -> model + display ---------- */
 function resolveMech(input){
   const raw = (input||'').trim();
-  if (!raw) return { tokenLabel:'MECH', displayName:'MECH' };
+  if (!raw) return { tokenLabel:'MECH', displayName:'MECH', model:null };
 
-  const asId = normalizeId(raw);
-  if (mechById.has(asId))   return { tokenLabel: asId, displayName: mechById.get(asId) }; // ID known
-  if (mechByName.has(raw.toLowerCase())) {
-    const id = mechByName.get(raw.toLowerCase());
-    return { tokenLabel: id, displayName: raw }; // Name known
+  // If they typed an exact displayName from manifest
+  const byNameModel = mechByName.get(raw.toLowerCase());
+  if (byNameModel) {
+    return {
+      tokenLabel: byNameModel,                      // token shows model code
+      displayName: mechByModel.get(byNameModel) || raw,
+      model: byNameModel
+    };
   }
 
-  // Free text fallback
-  return { tokenLabel: shortLabel(raw.toUpperCase()), displayName: raw };
+  // If they typed a model-like string, normalize & match
+  const up = raw.toUpperCase().replace(/\s+/g,'');
+  const normalizedModel = up.replace(/^([A-Z]{2,5})-?(\d.*)$/, '$1-$2'); // "ARC2K" -> "ARC-2K"
+  if (mechByModel.has(normalizedModel)) {
+    return {
+      tokenLabel: normalizedModel,
+      displayName: mechByModel.get(normalizedModel),
+      model: normalizedModel
+    };
+  }
+
+  // Fallback (free text)
+  return { tokenLabel: raw.slice(0,18).toUpperCase(), displayName: raw, model:null };
 }
+
 
 
 
@@ -2843,6 +2873,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
