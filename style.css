@@ -485,7 +485,7 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   opacity: 0.9;
 }
 .move-badge > text {
-  font-size: 9px;
+  font-size: 14px;
   fill: #b8c4ff;
 }
 
