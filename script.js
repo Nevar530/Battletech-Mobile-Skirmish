@@ -1369,9 +1369,17 @@ function endPointer(e){
     return;
   }
 
-  // no drag happened: clear any prep + release just in case
+  if (brushMode) {
+    brushMode = null;
+    sample = null;
+    paintedThisStroke = null;
+    try { svg.releasePointerCapture(e.pointerId); } catch {}
+    endStroke();
+  }
+
   dragStartPt = null;
-  try { svg.releasePointerCapture(e.pointerId); } catch {}
+}
+
 
 
 
@@ -2832,6 +2840,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
