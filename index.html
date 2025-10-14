@@ -9,6 +9,12 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://sheets.flechs.net" />
 
+<script type="module">
+  import { mountSheet } from './modules/sheet.js';
+  const sheet = mountSheet({ target: document.body, startOpen: true });
+  // Later: sheet.setIds('map-1','token-A'); sheet.open();
+</script>
+  
   <!-- ==== Firebase init (default app + Firestore) ==== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
