@@ -224,6 +224,8 @@ let hexSize = +elHex.value;
 let tiles = new Map(); // key-> {q,r,height,terrainIndex,coverIndex}
 const key = (q,r)=>`${q},${r}`;
 
+const CURRENT_MAP_ID = 'local'; // used for per-map save slots in MSS:84 Sheet
+
 let tokens = []; // {id,q,r,scale,angle,colorIndex,label}
 let selectedTokenId = null;
 let tokenDragId = null;
@@ -1433,6 +1435,20 @@ svg.addEventListener('wheel', (e) => {
   const pt = toSvgPoint(e.clientX, e.clientY);
   camera.zoomAt(pt, factor);
 }, { passive:false });
+
+// === DOUBLE CLICK TO OPEN SHEET ===
+svg.addEventListener('dblclick', (e) => {
+  const tokEl = e.target.closest?.('g.token');
+  if (!tokEl) return; // not a token
+  const tid = tokEl.dataset.id;
+  selectedTokenId = tid;
+  requestRender?.();
+
+  if (window.MSS84_SHEET) {
+    MSS84_SHEET.setIds(CURRENT_MAP_ID, tid);
+    MSS84_SHEET.open();
+  }
+});
 
 /* ===== Recenter button ===== */
 on('btnRecenter', 'click', () => { camera.reset(); svg.focus(); });
@@ -2792,6 +2808,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
