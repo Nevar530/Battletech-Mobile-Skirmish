@@ -1206,10 +1206,10 @@ svg.addEventListener('pointerdown', (e) => {
 
 // Token selection (click) — don't preventDefault so dblclick can fire
 if (toolMode==='select' && tokElHit && e.button===0) {
+  e.preventDefault();
   selectedTokenId = tokElHit.dataset.id;
-  dragStartPt = { x: pt.x, y: pt.y };
-  // don't set tokenDragId yet; wait for movement threshold
-  // optionally: don't setPointerCapture yet either
+  dragStartPt = toSvgPoint(e.clientX, e.clientY); // start threshold check
+  // DO NOT set tokenDragId yet; we’ll promote after threshold in pointermove
   requestRender();
   return;
 }
@@ -1320,43 +1320,44 @@ svg.addEventListener('pointermove', (e) => {
     return;
   }
 
-if (selectedTokenId && (e.buttons & 1) && toolMode === 'select') {
-  // If we haven't started dragging yet, check threshold
-if (!tokenDragId && dragStartPt) {
-  const dx = cur.x - dragStartPt.x;
-  const dy = cur.y - dragStartPt.y;
-  if (Math.hypot(dx, dy) >= DRAG_THRESH) {
-    tokenDragId = selectedTokenId;
-    svg.setPointerCapture?.(e.pointerId); // start capture only when dragging
-  }
-}
+  // delayed drag start (avoid accidental drags)
+  if (selectedTokenId && (e.buttons & 1) && toolMode === 'select') {
+    if (!tokenDragId && dragStartPt) {
+      const dx = cur.x - dragStartPt.x;
+      const dy = cur.y - dragStartPt.y;
+      if (Math.hypot(dx, dy) >= DRAG_THRESH) {
+        tokenDragId = selectedTokenId;
+        svg.setPointerCapture?.(e.pointerId);
+      }
+    }
+  } // <— closes the outer if
 
-
-if (tokenDragId) {
-  const sel = tokens.find(t => t.id === tokenDragId);
-  if (sel) {
-    const cell = pixelToCell(cur.x, cur.y);
-    sel.q = clamp(cell.q, 0, cols-1);
-    sel.r = clamp(cell.r, 0, rows-1);
-    requestRender();
+  if (tokenDragId) {
+    const sel = tokens.find(t => t.id === tokenDragId);
+    if (sel) {
+      const cell = pixelToCell(cur.x, cur.y);
+      sel.q = clamp(cell.q, 0, cols - 1);
+      sel.r = clamp(cell.r, 0, rows - 1);
+      requestRender();
+    }
+    return;
   }
-  return;
-}
 
   if (!brushMode) return;
   if (mapLocked) return;
 
   const target = document.elementFromPoint(e.clientX, e.clientY);
-  const hexEl = target && target.closest ? target.closest('.hex') : null;
+  const hexEl = target?.closest?.('.hex');
   if (!hexEl) return;
+
   const q = +hexEl.dataset.q, r = +hexEl.dataset.r;
-  const t = tiles.get(key(q,r));
+  const t = tiles.get(key(q, r));
   paintHex(t);
 });
 
 function endPointer(e){
   if (isPanning) {
-    isPanning=false; panLast=null; setCursor();
+    isPanning = false; panLast = null; setCursor();
     try { svg.releasePointerCapture(e.pointerId); } catch {}
     return;
   }
@@ -1380,20 +1381,11 @@ function endPointer(e){
   dragStartPt = null;
 }
 
-
-
-
-  if (brushMode) {
-    brushMode=null; sample=null;
-    paintedThisStroke=null;
-    try { svg.releasePointerCapture(e.pointerId); } catch {}
-    endStroke();
-  }
-}
 svg.addEventListener('pointerup', endPointer);
 svg.addEventListener('pointercancel', endPointer);
 svg.addEventListener('lostpointercapture', endPointer);
 svg.addEventListener('contextmenu', (e)=> e.preventDefault());
+
 
 /* ===== Pinch-to-zoom + two-finger pan ===== */
 const pointers = new Map(); // pointerId -> {x,y}
@@ -2840,6 +2832,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
