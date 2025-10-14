@@ -1079,6 +1079,8 @@ let isSpaceHeld=false, isPanning=false, panLast=null;
 let brushMode=null; // 'height'|'terrain'|'cover'|'reset'|'sample'|'fixed'
 let sample=null;
 let paintedThisStroke=null;
+let dragStartPt = null;
+const DRAG_THRESH = 4; // px in SVG coords
 
 function setCursor(){ if (isPanning) svg.style.cursor='grabbing'; else if (isSpaceHeld) svg.style.cursor='grab'; else svg.style.cursor='default'; }
 
@@ -1202,15 +1204,16 @@ svg.addEventListener('pointerdown', (e) => {
     return;
   }
 
-  // Token selection/drag (only in select mode)
-  if (toolMode==='select' && tokElHit && e.button===0) {
-    e.preventDefault();
-    selectedTokenId = tokElHit.dataset.id;
-    tokenDragId = selectedTokenId;
-    svg.setPointerCapture(e.pointerId);
-    requestRender();
-    return;
-  }
+// Token selection (click) — don't preventDefault so dblclick can fire
+if (toolMode==='select' && tokElHit && e.button===0) {
+  selectedTokenId = tokElHit.dataset.id;
+  dragStartPt = { x: pt.x, y: pt.y };
+  // don't set tokenDragId yet; wait for movement threshold
+  // optionally: don't setPointerCapture yet either
+  requestRender();
+  return;
+}
+
 
   // Deselect if clicking empty space in select mode
   if (toolMode==='select' && !tokElHit && e.button===0) {
@@ -1317,16 +1320,28 @@ svg.addEventListener('pointermove', (e) => {
     return;
   }
 
-  if (tokenDragId) {
-    const sel = tokens.find(t => t.id === tokenDragId);
-    if (sel) {
-      const cell = pixelToCell(cur.x, cur.y);
-      sel.q = clamp(cell.q, 0, cols-1);
-      sel.r = clamp(cell.r, 0, rows-1);
-      requestRender();
-    }
-    return;
+if (selectedTokenId && (e.buttons & 1) && toolMode === 'select') {
+  // If we haven't started dragging yet, check threshold
+if (!tokenDragId && dragStartPt) {
+  const dx = cur.x - dragStartPt.x;
+  const dy = cur.y - dragStartPt.y;
+  if (Math.hypot(dx, dy) >= DRAG_THRESH) {
+    tokenDragId = selectedTokenId;
+    svg.setPointerCapture?.(e.pointerId); // start capture only when dragging
   }
+}
+
+
+if (tokenDragId) {
+  const sel = tokens.find(t => t.id === tokenDragId);
+  if (sel) {
+    const cell = pixelToCell(cur.x, cur.y);
+    sel.q = clamp(cell.q, 0, cols-1);
+    sel.r = clamp(cell.r, 0, rows-1);
+    requestRender();
+  }
+  return;
+}
 
   if (!brushMode) return;
   if (mapLocked) return;
@@ -1345,12 +1360,21 @@ function endPointer(e){
     try { svg.releasePointerCapture(e.pointerId); } catch {}
     return;
   }
+
   if (tokenDragId) {
     tokenDragId = null;
+    dragStartPt = null;
     try { svg.releasePointerCapture(e.pointerId); } catch {}
     saveLocal();
     return;
   }
+
+  // no drag happened: clear any prep + release just in case
+  dragStartPt = null;
+  try { svg.releasePointerCapture(e.pointerId); } catch {}
+}
+
+
   if (brushMode) {
     brushMode=null; sample=null;
     paintedThisStroke=null;
@@ -2808,6 +2832,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
