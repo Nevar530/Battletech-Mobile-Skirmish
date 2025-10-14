@@ -10,9 +10,12 @@
   <link rel="preconnect" href="https://sheets.flechs.net" />
 
 <script type="module">
-  import { mountSheet } from './modules/sheet.js';
-  const sheet = mountSheet({ target: document.body, startOpen: true });
-  // Later: sheet.setIds('map-1','token-A'); sheet.open();
+  import { Sheet } from './modules/sheet.js';
+
+  const sheet = Sheet.mount(document.body);
+  // optional:
+  // sheet.setIds('map-1', 'token-A');
+  sheet.open(); // start open
 </script>
   
   <!-- ==== Firebase init (default app + Firestore) ==== -->
