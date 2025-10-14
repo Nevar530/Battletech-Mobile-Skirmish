@@ -1357,8 +1357,8 @@ if (fMech.bv)      fMech.bv.value      = sheet.mech?.bv      ?? '';
   renderWeapons();
 
   // Start open
-  wrap.classList.add('open');
-  wrap.setAttribute('aria-hidden', 'false');
+  // wrap.classList.add('open');
+  // wrap.setAttribute('aria-hidden', 'false');
 
   // ---- Public API ----
   window.MSS84_SHEET = {
