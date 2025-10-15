@@ -2182,7 +2182,15 @@ function addMechFromForm(){
 
   renderMechList();
   renderInit();
-  refreshMovementBadges?.();
+  // NEW: pre-seed this token's sheet from mech JSON (static fields)
+await seedSheetFromManifestIfNeeded(CURRENT_MAP_ID, tok.id, {
+  displayName: String(mechNameInput?.value || tok.label || ''),
+  model:       String(mechListData?.selectedOptions?.[0]?.label || '')
+});
+
+// Re-render (also updates MV badges)
+refreshMovementBadges();
+
   saveLocal();  // persist immediately
 
   if (mechName) mechName.value = '';
@@ -2330,6 +2338,104 @@ async function loadMechIndex(){
 }
 loadMechIndex();
 
+// Seed per-token sheet from manifest/mech JSON (static fields only)
+async function seedSheetFromManifestIfNeeded(mapId, tokenId, { displayName, model } = {}) {
+  try {
+    const mid = mapId || (typeof CURRENT_MAP_ID !== 'undefined' ? CURRENT_MAP_ID : 'local');
+    const tid = tokenId;
+    if (!tid) return;
+
+    // If the sheet already exists locally, do nothing.
+    const sheetKey = `mss84:sheet:${mid}:${tid}`;
+    if (localStorage.getItem(sheetKey)) return;
+
+    // Resolve manifest row by model (preferred) or by display name.
+    let row = null;
+    if (model && manifestByModel.has(model.toUpperCase())) {
+      row = manifestByModel.get(model.toUpperCase());
+    } else if (displayName && mechByName.has(displayName.toLowerCase())) {
+      const m = mechByName.get(displayName.toLowerCase());
+      row = manifestByModel.get(m);
+    }
+    if (!row) return;
+
+    // Resolve path and apply data/ fallback
+    let path = row?.path || row?.file || row?.url || '';
+    if (!path) return;
+    if (!path.startsWith('data/')) path = `data/${path}`;
+
+    // Fetch mech json
+    let mech = null;
+    try { mech = await (await fetch(path, { cache: 'no-store' })).json(); } catch {}
+    if (!mech) return;
+
+    // Build an initial static sheet (dynamic fields start empty)
+    const armorMax = mech?.armor || mech?.Armor || {};
+    const mv = mech?.movement || mech?.Movement || {};
+    const sinks = mech?.heatSinks ?? mech?.heat?.sinks ?? 0;
+
+    function pick(...ks){ for (const k of ks){ if (mech && mech[k]!=null) return mech[k]; } return ''; }
+
+    const seed = {
+      v: 1,
+      mech: {
+        chassis: pick('chassis','Chassis'),
+        variant: pick('variant','Variant'),
+        tons: Number(pick('tonnage','Tonnage','tons')) || 0
+      },
+      movement: {
+        stand: 0,
+        walk: Number(mv.walk||0),
+        run:  Number(mv.run||0),
+        jump: Number(mv.jump||0)
+      },
+      heat: {
+        current: 0,
+        sinks: Number(sinks||0)
+      },
+      armor: {
+        HD: { cur: Number(armorMax.HD||armorMax.Head||0), max: Number(armorMax.HD||armorMax.Head||0) },
+        CT: { cur: Number(armorMax.CT||armorMax['Center Torso']||0), max: Number(armorMax.CT||armorMax['Center Torso']||0), rr: Number(armorMax.CTR||armorMax['CT_RR']||armorMax['CT Rear']||0) },
+        LT: { cur: Number(armorMax.LT||armorMax['Left Torso']||0),   max: Number(armorMax.LT||armorMax['Left Torso']||0),   rr: Number(armorMax.LTR||armorMax['LT_RR']||armorMax['LT Rear']||0) },
+        RT: { cur: Number(armorMax.RT||armorMax['Right Torso']||0),  max: Number(armorMax.RT||armorMax['Right Torso']||0),  rr: Number(armorMax.RTR||armorMax['RT_RR']||armorMax['RT Rear']||0) },
+        LA: { cur: Number(armorMax.LA||armorMax['Left Arm']||0),     max: Number(armorMax.LA||armorMax['Left Arm']||0) },
+        RA: { cur: Number(armorMax.RA||armorMax['Right Arm']||0),    max: Number(armorMax.RA||armorMax['Right Arm']||0) },
+        LL: { cur: Number(armorMax.LL||armorMax['Left Leg']||0),     max: Number(armorMax.LL||armorMax['Left Leg']||0) },
+        RL: { cur: Number(armorMax.RL||armorMax['Right Leg']||0),    max: Number(armorMax.RL||armorMax['Right Leg']||0) },
+      },
+      weapons: Array.isArray(mech.weapons || mech.Weapons) ? (mech.weapons || mech.Weapons).map(w => ({
+        name: w.name || w.Name || '',
+        type: w.type || w.Type || '',
+        dmg:  Number(w.damage || w.Damage || 0),
+        heat: Number(w.heat   || w.Heat   || 0),
+        min:  Number(w.min    || w.Min    || 0),
+        s:    Number(w.short  || w.Short  || 0),
+        m:    Number(w.medium || w.Medium || 0),
+        l:    Number(w.long   || w.Long   || 0),
+        ammo: {
+          max: Number(w?.ammo?.max || w.Ammo || 0),
+          cur: Number(w?.ammo?.max || w.Ammo || 0)
+        }
+      })) : [],
+      equipment: { boards: {} }, // leave crit boards empty; user fills via UI
+      pilot: { name: '', callsign: '', gunnery: 4, piloting: 5, hits: [] },
+      notes: ''
+    };
+
+    localStorage.setItem(sheetKey, JSON.stringify(seed));
+    // Mark this token as dirty so first Transmit will carry dynamic edits (pilot, ammo, etc.)
+    try {
+      const k = `mss84:sheets:dirty:${mid}`;
+      const cur = JSON.parse(localStorage.getItem(k) || '{}');
+      cur[tid] = true;
+      localStorage.setItem(k, JSON.stringify(cur));
+    } catch {}
+  } catch (e) {
+    console.warn('seedSheetFromManifestIfNeeded skipped:', e);
+  }
+}
+
+
 /* ---------- Helpers: resolve typed input -> model + display ---------- */
 function resolveMech(input){
   const raw = (input||'').trim();
@@ -2468,6 +2574,16 @@ function getMovementForToken(id){
 
 // Choose: 'pill' (default) or 'triad'
 const MOVE_BADGE_STYLE = 'pill';
+
+// --- Safe refresher used after token add/import (prevents missing-fn crash) ---
+function refreshMovementBadges() {
+  try {
+    // Re-render everything; the mv badges are drawn during token render
+    requestRender?.();
+  } catch (e) {
+    console.warn('refreshMovementBadges: skipped', e);
+  }
+}
 
 // --- Movement badge (TOP) ---
 function renderMoveBadge(parentG, movement, rTok){
@@ -2915,6 +3031,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
