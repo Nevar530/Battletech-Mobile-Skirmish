@@ -203,7 +203,7 @@ export const Sheet = (() => {
   const PANEL_HTML = `
 <div class="mss84-sheet">
 
-  <button class="mss84-sheet__btn" id="sheetToggleBtn">Sheet</button>
+ 
 
   <aside class="mss84-sheet__wrap open" id="sheetWrap" aria-hidden="false">
     <header class="mss84-sheet__hdr">
