@@ -1458,11 +1458,10 @@ svg.addEventListener('wheel', (e) => {
   const pt = toSvgPoint(e.clientX, e.clientY);
   camera.zoomAt(pt, factor);
 }, { passive:false });
-
 // === DOUBLE CLICK TO OPEN SHEET (robust, capture-phase) ===
 svg.addEventListener('dblclick', (e) => {
-  // Walk the actual composed path so clicks on child shapes still resolve to the token <g>
-  const tokEl = e.composedPath?.().find(n => n?.nodeType===1 && n.tagName?.toLowerCase()==='g' && n.classList?.contains('token'));
+  const tokEl = (e.composedPath && e.composedPath().find(n => n?.nodeType===1 && n.tagName?.toLowerCase()==='g' && n.classList?.contains('token')))
+              || e.target.closest?.('g.token');
   if (!tokEl) return;
   const tid = tokEl.dataset.id;
   if (!tid) return;
@@ -1470,10 +1469,9 @@ svg.addEventListener('dblclick', (e) => {
   requestRender?.();
   if (window.MSS84_SHEET) {
     MSS84_SHEET.setIds(CURRENT_MAP_ID, tid);
-    MSS84_SHEET.open(); // force open on double‑click
+    MSS84_SHEET.open();
   }
 }, { capture:true });
-});
 
 
 /* ===== Recenter button ===== */
@@ -2834,3 +2832,14 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
+
+// Legacy interop for external sheet.js migrate()
+function clearAllOccupancy(){
+  try {
+    // best-effort: wipe any per-tile occupancy markers if present
+    if (typeof tiles !== 'undefined' && tiles && tiles.forEach) {
+      tiles.forEach(t => { if (t && 'occupied' in t) t.occupied = false; });
+    }
+  } catch(e) {}
+}
