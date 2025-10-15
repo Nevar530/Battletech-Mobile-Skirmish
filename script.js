@@ -1460,19 +1460,27 @@ svg.addEventListener('wheel', (e) => {
   camera.zoomAt(pt, factor);
 }, { passive:false });
 
-// === DOUBLE CLICK TO OPEN SHEET ===
+// === DOUBLE CLICK TO OPEN/CLOSE SHEET ===
 svg.addEventListener('dblclick', (e) => {
   const tokEl = e.target.closest?.('g.token');
   if (!tokEl) return; // not a token
+
   const tid = tokEl.dataset.id;
   selectedTokenId = tid;
   requestRender?.();
 
   if (window.MSS84_SHEET) {
-    MSS84_SHEET.setIds(CURRENT_MAP_ID, tid);
-    MSS84_SHEET.open();
+    const current = MSS84_SHEET.getIds();
+    // If same token double-clicked again → toggle (close if open)
+    if (current.mapId === CURRENT_MAP_ID && current.tokenId === tid) {
+      MSS84_SHEET.toggle();
+    } else {
+      MSS84_SHEET.setIds(CURRENT_MAP_ID, tid);
+      MSS84_SHEET.open();
+    }
   }
 });
+
 
 /* ===== Recenter button ===== */
 on('btnRecenter', 'click', () => { camera.reset(); svg.focus(); });
@@ -2832,6 +2840,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
