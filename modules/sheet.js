@@ -164,87 +164,101 @@ export const Sheet = (() => {
 .mss84-heatf{ display:grid; grid-template-columns: 2.7fr .9fr .9fr; gap:2px; }
 
 /* ===== WEAPONS TAB ===== */
-.mss84-weap{ border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-bottom:10px; }
-.mss84-weap__hdr{ display:flex; align-items:center; justify-content:space-between; padding:10px; background:#121212; cursor:pointer; }
-.mss84-weap__body{ display:block; padding:10px; background:#0e0e0e; border-top:1px solid var(--line); }
-.mss84-weap.closed .mss84-weap__body{ display:none; }
+.mss84-weap {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.mss84-weap__hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: #121212;
+  cursor: pointer;
+}
+.mss84-weap__body {
+  display: block;
+  padding: 10px;
+  background: #0e0e0e;
+  border-top: 1px solid var(--line);
+}
+.mss84-weap.closed .mss84-weap__body { display: none; }
 
-/* Add row layout */
-/* Two-row layout for add and list grids */
+/* ==== Add / Head / Row — unified 2-row layout ==== */
 .weap-add-grid,
 .weap-head,
 .weap-row {
-  display:grid;
-  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr .6fr .6fr .6fr;
-  grid-template-rows: auto auto;      /* two rows */
-  gap:6px 6px;
-  align-items:center;
+  display: grid;
+  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr .6fr .6fr .6fr .8fr .8fr 60px;
+  grid-template-rows: auto auto; /* two rows */
+  gap: 6px;
+  align-items: center;
+  width: 100%;
 }
 
-/* First line: name, type, dmg, heat, min, short, med, long */
-.weap-add-grid > *:nth-child(-n+5),
-.weap-head   > *:nth-child(-n+5),
-.weap-row    > *:nth-child(-n+5) {
-  grid-row:1;
+/* Row 1 → name through long */
+.weap-add-grid > *:nth-child(-n+8),
+.weap-head > *:nth-child(-n+8),
+.weap-row  > *:nth-child(-n+8) {
+  grid-row: 1;
 }
 
-/* Second line: ammo + action */
-.weap-add-grid > *:nth-child(n+6),
-.weap-head   > *:nth-child(n+6),
-.weap-row    > *:nth-child(n+6) {
-  grid-row:2;
-}
-
-/* narrow columns for ammo and delete */
-.weap-add-grid input[id^="wnAmmo"],
-.weap-row input[data-k^="ammo"],
-.weap-del {
-  width:100%;
-  text-align:center;
-}
-
-/* spacing + visual separation */
-.weap-row {
-  background:#141414;
-  border:1px solid #1f1f1f;
-  border-radius:8px;
-  padding:8px 10px;
-  margin-bottom:6px;
-}
-.weap-head { margin-bottom:8px; }
-
-/* make delete button sit bottom-right */
-.weap-del {
-  justify-self:end;
-  align-self:end;
-  width:30px; height:30px;
-  border:0; border-radius:6px;
-  background:#1f1f1f; color:#bbb; cursor:pointer;
-}
-.weap-del:hover{ background:#2a2a2a; color:#fff; }
-
-/* tighten add button line */
-.weap-add-grid button#wnAdd {
-  grid-column: 7 / span 2;  /* spans bottom right area */
+/* Row 2 → ammo/current + ammo/max + delete/add */
+.weap-add-grid > *:nth-child(n+9),
+.weap-head > *:nth-child(n+9),
+.weap-row  > *:nth-child(n+9) {
   grid-row: 2;
-  align-self:center;
 }
 
-/* List */
-.weap-list{ border:1px dashed #2a2a2a; border-radius:10px; padding:10px; background:#101010; }
-.weap-head, .weap-row{
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 32px;
-  gap:2px; align-items:center;
+/* narrow numeric columns */
+.weap-add-grid input[type="number"],
+.weap-row input[type="number"] {
+  width: 100%;
+  text-align: center;
 }
-.weap-head{ color:#aaa; font-size:12px; margin-bottom:6px; }
-.weap-row{ background:#141414; border:1px solid #1f1f1f; border-radius:8px; padding:6px; }
-.weap-row input{ padding:6px 8px; }
-.weap-del{
-  width:28px; height:28px; border:0; border-radius:6px; background:#1f1f1f; color:#bbb; cursor:pointer;
+
+/* list rows look like cards */
+.weap-row {
+  background: #141414;
+  border: 1px solid #1f1f1f;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
 }
-.weap-del:hover{ background:#2a2a2a; color:#fff; }
-`;
+.weap-head {
+  color: #aaa;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+/* delete / add buttons */
+.weap-del,
+.weap-add-grid button#wnAdd {
+  justify-self: end;
+  align-self: end;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 6px;
+  background: #1f1f1f;
+  color: #bbb;
+  cursor: pointer;
+}
+.weap-del:hover,
+.weap-add-grid button#wnAdd:hover {
+  background: #2a2a2a;
+  color: #fff;
+}
+
+/* spacing for list container */
+.weap-list {
+  border: 1px dashed #2a2a2a;
+  border-radius: 10px;
+  padding: 10px;
+  background: #101010;
+}
 
   function ensureStyles() {
     if (!document.getElementById(CSS_ID)) {
