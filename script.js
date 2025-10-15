@@ -2160,8 +2160,9 @@ function renderMechList(){
           <div class="small muted">Team: ${meta.team || '—'}</div>
         </div>
         <div class="mini-actions">
-          <button class="btn sm" data-act="select">Select</button>
-          <button class="btn sm" data-act="center">Center</button>
+          <button class="btn sm" data-act="select" title="Select">◎</button>
+          <button class="btn sm" data-act="center" title="Center">◉</button>
+          <button class="btn sm" data-act="sheet"  title="Open Sheet">📄</button>
           <button class="btn sm" data-act="turnL">⟲</button>
           <button class="btn sm" data-act="turnR">⟳</button>
           <button class="btn sm" data-act="bigger">＋</button>
@@ -2190,6 +2191,15 @@ if (mechList) mechList.addEventListener('click', (e)=>{
       camera.setViewBox();
       break;
     }
+      case 'sheet': {
+  // Open the MSS:84 Sheet module for this mech’s token
+  // (MSS84_SHEET is set by the module on mount)
+  if (window.MSS84_SHEET) {
+    MSS84_SHEET.setIds(CURRENT_MAP_ID, id);
+    MSS84_SHEET.open();
+  }
+  break;
+}
     case 'turnL': tok.angle = ((tok.angle||0) - 60 + 360) % 360; requestRender(); saveLocal(); break;
     case 'turnR': tok.angle = ((tok.angle||0) + 60) % 360; requestRender(); saveLocal(); break;
     case 'bigger': tok.scale = clamp((tok.scale||1) * 1.10, 0.4, 2.0); requestRender(); saveLocal(); break;
@@ -2840,6 +2850,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
