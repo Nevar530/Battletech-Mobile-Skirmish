@@ -191,7 +191,7 @@ export const Sheet = (() => {
 .weap-head,
 .weap-row {
   display: grid;
-  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr .6fr .6fr .6fr .8fr .8fr 60px;
+  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr 60px;
   grid-template-rows: auto auto; /* two rows */
   gap: 6px;
   align-items: center;
