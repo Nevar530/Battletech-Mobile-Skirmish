@@ -1325,7 +1325,8 @@ if (weapToggle && weapBlock) {
     };
 
     // Also expose legacy global for convenience
-    window.MSS84_SHEET = api;
+   window.MSS84_SHEET = Object.assign(window.MSS84_SHEET || {}, api);
+
 
     return api;
   }
