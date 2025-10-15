@@ -259,7 +259,7 @@ export const Sheet = (() => {
   padding: 10px;
   background: #101010;
 }
-
+`}
   function ensureStyles() {
     if (!document.getElementById(CSS_ID)) {
       const style = document.createElement('style');
