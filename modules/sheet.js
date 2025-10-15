@@ -664,13 +664,10 @@ if (btnLoad && !btnLoad.__wired) {
   btnLoad.__wired = true;
   btnLoad.addEventListener('click', () => {
     // Uses the loader we added earlier; fills static fields only, preserves dynamic
-if (typeof loadStaticFromJson === 'function') {
-  loadStaticFromJson('fill');
-} else if (window.MSS84_SHEET?.loadStaticFromJson) {
-  window.MSS84_SHEET.loadStaticFromJson('fill');
-} else {
-  console.warn('Load from JSON: loader not found (loadStaticFromJson)');
-}
+const fn = window.MSS84_SHEET?.loadStaticFromJson;
+if (typeof fn === 'function') fn('fill');
+else console.warn('Load from JSON: loader not found on MSS84_SHEET');
+
 
   });
 }
@@ -1319,7 +1316,7 @@ if (weapToggle && weapBlock) {
 
     // API
     const api = {
-      loadStaticFromJson,   // ← make the loader callable as MSS84_SHEET.loadStaticFromJson()
+        loadStaticFromJson: (...args) => window.MSS84_SHEET?.loadStaticFromJson?.(...args),
       open, close, toggle,
       setIds: (map, tok)=> changeIds(map, tok),
       getIds: ()=>({ mapId, tokenId }),
