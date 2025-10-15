@@ -280,6 +280,7 @@ export const Sheet = (() => {
     <header class="mss84-sheet__hdr">
       <div class="mss84-sheet__title">Mech Sheet <span id="savePulse" class="mss84-savepulse">Saved</span></div>
       <div class="mss84-sheet__spacer"></div>
+      <button class="mss84-sheet__x" id="loadFromJsonBtn" title="Pull static data from local /data JSON">Load Data</button>
       <button class="mss84-sheet__x" id="sheetCloseBtn">Close</button>
     </header>
 
@@ -809,14 +810,161 @@ if (!mech) return;
         renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
       } catch(e){ console.warn('auto-populate failed', e); }
     }
-let sheet = load(mapId, tokenId);
-    autoPopulateFromManifestIfNeeded();
 
+
+    // Manually load static mech data for the CURRENT token from /data JSON via manifest.
+// Fill "missing only" by default (preserves pilot, current armor/heat/ammo, crit hits, notes).
+async function loadStaticFromJson(fillMode = 'fill') {
+  try {
+    // 1) Identify target by fields already in the sheet UI/state
+    const chassis = (sheet?.mech?.chassis || fMech.chassis?.value || '').trim();
+    const variant = (sheet?.mech?.variant || fMech.variant?.value || '').trim();
+    const modelHint = (variant || '').toUpperCase(); // e.g., "ARC-2K"
+    const labelHint = `${chassis} ${variant}`.trim(); // e.g., "Archer ARC-2K"
+    const norm = s => String(s||'').toLowerCase();
+
+    // 2) Load manifest (accept array | {items:[]} | {entries:[]})
+    let manifest = null;
+    try { manifest = await (await fetch('data/manifest.json', {cache:'no-store'})).json(); } catch {}
+    const list = Array.isArray(manifest) ? manifest
+              : Array.isArray(manifest?.items) ? manifest.items
+              : Array.isArray(manifest?.entries) ? manifest.entries
+              : [];
+
+    if (!list.length) { console.warn('Load from JSON: manifest not found or empty'); return; }
+
+    // 3) Find a row: prefer exact displayName match, then model code match
+    let match = null;
+    if (labelHint) {
+      match = list.find(e => norm(e?.displayName || e?.name || e?.title) === norm(labelHint)) || null;
+    }
+    if (!match && modelHint) {
+      match = list.find(e => String(e?.model || '').toUpperCase() === modelHint) || null;
+    }
+    if (!match) { console.warn('Load from JSON: no manifest match for', {labelHint, modelHint}); return; }
+
+    // 4) Resolve mech JSON path with data/ fallback
+    let path = match.path || match.file || match.url || '';
+    if (!path) { console.warn('Load from JSON: manifest row has no path/file'); return; }
+    if (!path.startsWith('data/')) path = `data/${path}`;
+
+    // 5) Fetch mech JSON
+    let mech = null;
+    try { mech = await (await fetch(path, {cache:'no-store'})).json(); } catch {}
+    if (!mech) { console.warn('Load from JSON: mech file not found or invalid at', path); return; }
+
+    // 6) Fill static fields (preserve dynamic values)
+    //    Modes:
+    //      'fill'  → only set if currently empty/zero
+    //      'static'→ overwrite static sections (mech id, mv, sinks, armor max, weapons)
+    //      'all'   → overwrite everything (danger)
+    const overwriteStatic = (fillMode === 'static' || fillMode === 'all');
+    const overwriteAll    = (fillMode === 'all');
+
+    // a) Identity (mech)
+    const mChassis = mech.Chassis || mech.chassis || '';
+    const mVariant = mech.Variant || mech.variant || '';
+    const mTons    = Number(mech.Tons || mech.Tonnage || mech.tonnage || 0) || 0;
+
+    if (overwriteAll || overwriteStatic || !sheet.mech.chassis) sheet.mech.chassis = mChassis || sheet.mech.chassis;
+    if (overwriteAll || overwriteStatic || !sheet.mech.variant) sheet.mech.variant = mVariant || sheet.mech.variant;
+    if (overwriteAll || overwriteStatic || !sheet.mech.tonnage) sheet.mech.tonnage = mTons    || sheet.mech.tonnage;
+
+    // b) Movement
+    const mv = mech.Movement || mech.movement || {};
+    const w = Number(mv.Walk || mv.walk || 0) || 0;
+    const r = Number(mv.Run  || mv.run  || 0) || 0;
+    const j = Number(mv.Jump || mv.jump || 0) || 0;
+    if (overwriteAll || overwriteStatic || !sheet.move.walk) sheet.move.walk = w || sheet.move.walk;
+    if (overwriteAll || overwriteStatic || !sheet.move.run ) sheet.move.run  = r || sheet.move.run;
+    if (overwriteAll || overwriteStatic || !sheet.move.jump) sheet.move.jump = j || sheet.move.jump;
+
+    // c) Heat sinks
+    const sinks = Number(mech.HeatSinks ?? mech.heatSinks ?? mech?.heat?.sinks ?? 0) || 0;
+    if (overwriteAll || overwriteStatic || !sheet.heat.sinks) sheet.heat.sinks = sinks || sheet.heat.sinks;
+
+    // d) Armor max (and fill current if blank). Handle naming variants via resolveArmorBlock().
+    const armorMax = mech.Armor || mech.armor || {};
+    if (armorMax && typeof armorMax === 'object') {
+      for (const L of LOCS) {
+        const block = resolveArmorBlock(armorMax, L) || {};
+        const get = v => Number(v||0) || 0;
+        const extMax  = get(block.ext || block.Front || block.Armor || block.Max);
+        const rearMax = get(block.rear || block.Rear);
+        const strMax  = get(block.str  || block.Structure);
+
+        // Overwrite rules
+        if (overwriteAll || overwriteStatic) {
+          sheet.armor[L].ext.max  = extMax;
+          if (sheet.armor[L].rear) sheet.armor[L].rear.max = rearMax;
+          sheet.armor[L].str.max  = strMax;
+        } else {
+          if (!sheet.armor[L].ext.max)  sheet.armor[L].ext.max  = extMax;
+          if (sheet.armor[L].rear && !sheet.armor[L].rear.max) sheet.armor[L].rear.max = rearMax;
+          if (!sheet.armor[L].str.max)  sheet.armor[L].str.max  = strMax;
+        }
+
+        // Fill current if zero/blank (never clobber non-zero current)
+        if (!(sheet.armor[L].ext.cur > 0))  sheet.armor[L].ext.cur  = sheet.armor[L].ext.max;
+        if (sheet.armor[L].rear && !(sheet.armor[L].rear.cur > 0)) sheet.armor[L].rear.cur = sheet.armor[L].rear.max;
+        if (!(sheet.armor[L].str.cur > 0))  sheet.armor[L].str.cur  = sheet.armor[L].str.max;
+      }
+    }
+
+    // e) Weapons — seed only if empty, or if overwriteStatic/all requested
+    const srcWeaps = Array.isArray(mech.Weapons) ? mech.Weapons
+                    : Array.isArray(mech.weapons) ? mech.weapons : null;
+    if (srcWeaps && (overwriteAll || overwriteStatic || (sheet.weapons||[]).length === 0)) {
+      sheet.weapons = [];
+      srcWeaps.forEach(wi => {
+        const ammoMax = Number(wi?.AmmoMax || wi?.Ammo || wi?.ammo?.max || 0) || 0;
+        const isEnergy = String(wi?.Type || wi?.type || '').toLowerCase().includes('laser')
+                      || String(wi?.Name || wi?.name || '').toLowerCase().includes('laser')
+                      || String(wi?.Type || wi?.type || '').toLowerCase().includes('ppc');
+        sheet.weapons.push({
+          wid: sheet.nextWid++,
+          name: wi.Name || wi.name || '',
+          type: wi.Type || wi.type || '',
+          dmg:  (wi.Damage ?? wi.dmg ?? 0),
+          heat: Number(wi.Heat   ?? wi.heat ?? 0) || 0,
+          min:  Number(wi.Min    ?? wi.min  ?? 0) || 0,
+          s:    Number(wi.Short  ?? wi.s    ?? 0) || 0,
+          m:    Number(wi.Medium ?? wi.m    ?? 0) || 0,
+          l:    Number(wi.Long   ?? wi.l    ?? 0) || 0,
+          ammo: { cur: isEnergy ? 0 : ammoMax, max: ammoMax }
+        });
+      });
+    }
+
+    // 7) Persist + re-render (and mark dirty via save->markSheetDirty)
+    save(mapId, tokenId, sheet);
+    hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
+
+    // 8) Developer feedback
+    console.log('Load from JSON: OK', { path, mode: fillMode, labelHint, modelHint });
+  } catch (err) {
+    console.warn('Load from JSON: failed', err);
+  }
+}
+
+    
+    
+let sheet = load(mapId, tokenId);
+   // autoPopulateFromManifestIfNeeded();
+
+    
 
     // elements
     const wrap      = QS('#sheetWrap');
     const btn = document.querySelector('#sheetToggleBtn');
     const btnClose  = QS('#sheetCloseBtn');
+    const btnLoad  = QS('#loadFromJsonBtn');
+if (btnLoad) {
+  btnLoad.addEventListener('click', async () => {
+    // Default: fill missing only. Change to 'static' to overwrite static sections, or 'all' for full overwrite.
+    await loadStaticFromJson('fill');
+  });
+}
     const tabs      = QS('#sheetTabs');
     const savePulse = QS('#savePulse');
 
