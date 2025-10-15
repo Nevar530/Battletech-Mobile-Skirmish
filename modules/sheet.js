@@ -550,7 +550,9 @@ export const Sheet = (() => {
     };
   }
   const key = (map, tok) => `${STORAGE_NS}:${map}:${tok}`;
-
+  
+function packAllEquipment(){} // placeholder; replaced later
+  
   function migrate(d){
     if (d.version < 7){
       d.mech = d.mech || { chassis:'', variant:'', tonnage:0, bv:0 };
@@ -623,7 +625,7 @@ export const Sheet = (() => {
 
     return d;
   }
-
+function pulseSaved(){}        // placeholder; replaced later
   function save(map, tok, data){
     try{ localStorage.setItem(key(map,tok), JSON.stringify(data)); pulseSaved(); }
     catch(e){ console.warn('save fail', e); }
@@ -1030,80 +1032,139 @@ export const Sheet = (() => {
       });
     }
 
-    /* -------------------------------- Weapons -------------------------------- */
-    function addWeaponObj(w){
-      const wid = sheet.nextWid++;
-      sheet.weapons.push({
-        wid,
-        name: String(w.name||''),
-        type: String(w.type||''),
-        dmg:  (w.dmg===0||w.dmg)? w.dmg : '',
-        heat: clampNum(w.heat ?? 0, 0, 999),
-        min:  clampNum(w.min  ?? 0, 0, 999),
-        s:    clampNum(w.s    ?? 0, 0, 999),
-        m:    clampNum(w.m    ?? 0, 0, 999),
-        l:    clampNum(w.l    ?? 0, 0, 999),
-        ammo: { cur: clampNum(w?.ammo?.cur ?? 0, 0, 999), max: clampNum(w?.ammo?.max ?? 0, 0, 999) }
+/* -------------------------------- Weapons -------------------------------- */
+
+// Adds a weapon object to state, saves, and re-renders
+function addWeaponObj(w){
+  const wid = sheet.nextWid++;
+  sheet.weapons.push({
+    wid,
+    name: String(w.name||''),
+    type: String(w.type||''),
+    dmg:  (w.dmg===0||w.dmg)? w.dmg : '',
+    heat: clampNum(w.heat ?? 0, 0, 999),
+    min:  clampNum(w.min  ?? 0, 0, 999),
+    s:    clampNum(w.s    ?? 0, 0, 999),
+    m:    clampNum(w.m    ?? 0, 0, 999),
+    l:    clampNum(w.l    ?? 0, 0, 999),
+    ammo: { cur: clampNum(w?.ammo?.cur ?? 0, 0, 999), max: clampNum(w?.ammo?.max ?? 0, 0, 999) }
+  });
+  scheduleSave();
+  renderWeapons();
+}
+
+// Builds a weapon from the "Add Weapon" inputs
+function addWeaponFromFields(){
+  if (!wn) return;
+  const obj = {
+    name:(wn.name?.value||'').trim(),
+    type:(wn.type?.value||'').trim(),
+    dmg: wn.dmg?.value!=='' ? (isNaN(+wn.dmg.value) ? wn.dmg.value : +wn.dmg.value) : '',
+    heat: +wn.heat?.value||0,
+    min:  +wn.min?.value ||0,
+    s:    +wn.s?.value   ||0,
+    m:    +wn.m?.value   ||0,
+    l:    +wn.l?.value   ||0,
+    ammo:{ cur:+wn.ac?.value||0, max:+wn.ax?.value||0 }
+  };
+  if(!obj.name) return;
+  addWeaponObj(obj);
+
+  // reset fields
+  if (wn.name) wn.name.value='';
+  if (wn.type) wn.type.value='';
+  if (wn.dmg)  wn.dmg.value='';
+  if (wn.heat) wn.heat.value='';
+  if (wn.min)  wn.min.value='';
+  if (wn.s)    wn.s.value='';
+  if (wn.m)    wn.m.value='';
+  if (wn.l)    wn.l.value='';
+  if (wn.ac)   wn.ac.value='';
+  if (wn.ax)   wn.ax.value='';
+}
+
+// Apply edits to a weapon row, with clamping
+function applyWeaponEdit(w, path, val){
+  if(path==='name'||path==='type'){ w[path] = String(val||''); return; }
+  if(path==='dmg'){ w.dmg = (val==='' ? '' : (isNaN(+val) ? val : +val)); return; }
+  if(path==='heat'||path==='min'||path==='s'||path==='m'||path==='l'){ w[path] = clampNum(+val||0, 0, 999); return; }
+  if(path.startsWith('ammo.')){ const p = path.split('.')[1]; w.ammo[p] = clampNum(+val||0, 0, 999); return; }
+}
+
+// Render the list of weapon rows and bind events
+function renderWeapons(){
+  if (!weapRows) return;
+  weapRows.innerHTML='';
+  (sheet.weapons||[]).forEach(w=>{
+    const row = document.createElement('div');
+    row.className = 'weap-row';
+    row.innerHTML = `
+      <input type="text"   data-k="name" value="${escapeHtml(w.name)}"  title="Name">
+      <input type="text"   data-k="type" value="${escapeHtml(w.type)}"  title="Type">
+      <input type="text"   data-k="dmg"  value="${escapeAttr(w.dmg)}"   title="Damage">
+      <input type="number" data-k="heat" value="${w.heat}" min="0"      title="Heat">
+      <input type="number" data-k="min"  value="${w.min}"  min="0"      title="Min">
+      <input type="number" data-k="s"    value="${w.s}"    min="0"      title="Short">
+      <input type="number" data-k="m"    value="${w.m}"    min="0"      title="Med">
+      <input type="number" data-k="l"    value="${w.l}"    min="0"      title="Long">
+      <input type="number" data-k="ammo.cur" value="${w.ammo.cur}" min="0" title="Ammo Current">
+      <input type="number" data-k="ammo.max" value="${w.ammo.max}" min="0" title="Ammo Max">
+      <button class="weap-del" title="Remove">✕</button>
+    `;
+
+    // live edit bindings
+    Array.from(row.querySelectorAll('input')).forEach(inp=>{
+      inp.addEventListener('input', ()=>{
+        const k = inp.getAttribute('data-k');
+        applyWeaponEdit(w, k, inp.value);
+        scheduleSave();
       });
+    });
+
+    // delete weapon
+    row.querySelector('.weap-del').addEventListener('click', ()=>{
+      sheet.weapons = sheet.weapons.filter(x=> x.wid!==w.wid);
       scheduleSave();
       renderWeapons();
-    }
-    function addWeaponFromFields(){
-      const obj = {
-        name:(wn.name.value||'').trim(),
-        type:(wn.type.value||'').trim(),
-        dmg: wn.dmg.value!=='' ? (isNaN(+wn.dmg.value) ? wn.dmg.value : +wn.dmg.value) : '',
-        heat: +wn.heat.value||0,
-        min: +wn.min.value||0,
-        s:   +wn.s.value||0,
-        m:   +wn.m.value||0,
-        l:   +wn.l.value||0,
-        ammo:{ cur:+wn.ac.value||0, max:+wn.ax.value||0 }
-      };
-      if(!obj.name) return;
-      addWeaponObj(obj);
-      wn.name.value=''; wn.type.value=''; wn.dmg.value=''; wn.heat.value='';
-      wn.min.value=''; wn.s.value=''; wn.m.value=''; wn.l.value='';
-      wn.ac.value=''; wn.ax.value='';
-    }
-    function applyWeaponEdit(w, path, val){
-      if(path==='name'||path==='type'){ w[path] = String(val||''); return; }
-      if(path==='dmg'){ w.dmg = (val==='' ? '' : (isNaN(+val) ? val : +val)); return; }
-      if(path==='heat'||path==='min'||path==='s'||path==='m'||path==='l'){ w[path] = clampNum(+val||0, 0, 999); return; }
-      if(path.startsWith('ammo.')){ const p = path.split('.')[1]; w.ammo[p] = clampNum(+val||0, 0, 999); return; }
-    }
-    function renderWeapons(){
-      weapRows.innerHTML='';
-      (sheet.weapons||[]).forEach(w=>{
-        const row = document.createElement('div');
-        row.className = 'weap-row';
-        row.innerHTML = `
-          <input type="text"   data-k="name" value="${escapeHtml(w.name)}"  title="Name">
-          <input type="text"   data-k="type" value="${escapeHtml(w.type)}"  title="Type">
-          <input type="text"   data-k="dmg"  value="${escapeAttr(w.dmg)}"   title="Damage">
-          <input type="number" data-k="heat" value="${w.heat}" min="0"      title="Heat">
-          <input type="number" data-k="min"  value="${w.min}"  min="0"      title="Min">
-          <input type="number" data-k="s"    value="${w.s}"    min="0"      title="Short">
-          <input type="number" data-k="m"    value="${w.m}"    min="0"      title="Med">
-          <input type="number" data-k="l"    value="${w.l}"    min="0"      title="Long">
-          <input type="number" data-k="ammo.cur" value="${w.ammo.cur}" min="0" title="Ammo Current">
-          <input type="number" data-k="ammo.max" value="${w.ammo.max}" min="0" title="Ammo Max">
-          <button class="weap-del" title="Remove">✕</button>
-        `;
-        Array.from(row.querySelectorAll('input')).forEach(inp=>{
-          inp.addEventListener('input', ()=>{
-            const k = inp.getAttribute('data-k');
-            applyWeaponEdit(w, k, inp.value);
-            scheduleSave();
-          });
-        });
-        row.querySelector('.weap-del').addEventListener('click', ()=>{
-          sheet.weapons = sheet.weapons.filter(x=> x.wid!==w.wid);
-          scheduleSave(); renderWeapons();
-        });
-        weapRows.appendChild(row);
-      });
-    }
+    });
+
+    weapRows.appendChild(row);
+  });
+}
+
+/* ---- Wiring: Add + Toggle (call once after querying elements) ---- */
+
+// Add button + Enter-to-add on any add-field
+if (wnAddBtn){
+  wnAddBtn.addEventListener('click', addWeaponFromFields);
+}
+if (wn){
+  Object.values(wn).forEach(inp=>{
+    if (!inp) return;
+    inp.addEventListener('keydown', (e)=>{
+      if(e.key==='Enter'){ e.preventDefault(); addWeaponFromFields(); }
+    });
+  });
+}
+
+// Toggle open/closed for the Add Weapon block
+if (weapToggle && weapBlock) {
+  weapToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    weapBlock.classList.toggle('closed');
+  });
+
+  // Also allow clicking the header area to toggle
+  const hdr = weapBlock.querySelector('.mss84-weap__hdr');
+  if (hdr) {
+    hdr.addEventListener('click', (e) => {
+      if (e.target === weapToggle || e.target.closest('#weapToggle')) return;
+      weapBlock.classList.toggle('closed');
+    });
+  }
+}
+
 
     /* -------------------------- Melee damage auto-calc ------------------------- */
     const updateMeleeDamage = ()=>{
