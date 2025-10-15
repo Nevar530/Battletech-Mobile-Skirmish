@@ -1459,25 +1459,20 @@ svg.addEventListener('wheel', (e) => {
   camera.zoomAt(pt, factor);
 }, { passive:false });
 
-// === DOUBLE CLICK TO OPEN/CLOSE SHEET ===
+// === DOUBLE CLICK TO OPEN SHEET (robust, capture-phase) ===
 svg.addEventListener('dblclick', (e) => {
-  const tokEl = e.target.closest?.('g.token');
-  if (!tokEl) return; // not a token
-
+  // Walk the actual composed path so clicks on child shapes still resolve to the token <g>
+  const tokEl = e.composedPath?.().find(n => n?.nodeType===1 && n.tagName?.toLowerCase()==='g' && n.classList?.contains('token'));
+  if (!tokEl) return;
   const tid = tokEl.dataset.id;
+  if (!tid) return;
   selectedTokenId = tid;
   requestRender?.();
-
   if (window.MSS84_SHEET) {
-    const current = MSS84_SHEET.getIds();
-    // If same token double-clicked again → toggle (close if open)
-    if (current.mapId === CURRENT_MAP_ID && current.tokenId === tid) {
-      MSS84_SHEET.toggle();
-    } else {
-      MSS84_SHEET.setIds(CURRENT_MAP_ID, tid);
-      MSS84_SHEET.open();
-    }
+    MSS84_SHEET.setIds(CURRENT_MAP_ID, tid);
+    MSS84_SHEET.open(); // force open on double‑click
   }
+}, { capture:true });
 });
 
 
@@ -2839,26 +2834,3 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
