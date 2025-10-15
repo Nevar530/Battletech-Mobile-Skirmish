@@ -2269,9 +2269,25 @@ const manifestByModel = new Map();   // "ARC-2K" -> full item
 
 async function loadMechIndex(){
   try{
-    // IMPORTANT: use a simple relative path to avoid APP_SCOPE timing issues
-    const res = await fetch('assets/manifest.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    // Try multiple locations so we don't have to rewrite the 2,600-line file:
+    // 1) data/manifest.json (your current location)
+    // 2) assets/manifest.json (older builds)
+    // 3) manifest.json (root, if ever moved)
+    async function tryFetch(paths){
+      for (const p of paths){
+        try {
+          const r = await fetch(p, { cache: 'no-store' });
+          if (r.ok) return r;
+        } catch(_) {}
+      }
+      throw new Error('manifest.json not found in data/, assets/, or root');
+    }
+
+    const res = await tryFetch([
+      'data/manifest.json',
+      'assets/manifest.json',
+      'manifest.json'
+    ]);
     const root = await res.json(); // { generated, count, items: [...] }
     const list = Array.isArray(root) ? root : (Array.isArray(root?.items) ? root.items : []);
     MANIFEST_INDEX = list;
@@ -2899,6 +2915,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
