@@ -1325,9 +1325,10 @@ if (weapToggle && weapBlock) {
       load: ()=> load(mapId, tokenId),
       saveNow: ()=> save(mapId, tokenId, sheet),
       clearToken: ()=> remove(mapId, tokenId)
-      loadStaticFromJson,   // ← make the loader callable as MSS84_SHEET.loadStaticFromJson()
     };
 
+loadStaticFromJson,   // ← make the loader callable as MSS84_SHEET.loadStaticFromJson()
+    
     // Also expose legacy global for convenience
    window.MSS84_SHEET = Object.assign(window.MSS84_SHEET || {}, api);
 
