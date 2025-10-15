@@ -244,7 +244,7 @@ export const Sheet = (() => {
   width:28px; height:28px; border:0; border-radius:6px; background:#1f1f1f; color:#bbb; cursor:pointer;
 }
 .weap-del:hover{ background:#2a2a2a; color:#fff; }
-';
+`;
 
   function ensureStyles() {
     if (!document.getElementById(CSS_ID)) {
