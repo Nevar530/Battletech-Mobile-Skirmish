@@ -600,6 +600,8 @@ function attachReceiver() {
   document.addEventListener('DOMContentLoaded', () => {
     const sheet = Sheet.mount(document.body);   // mounts CLOSED
     window.sheet = sheet;                       // optional for debugging
+    window.MSS84_SHEET = sheet;                 // <— expose under the name script.js expects
+
   });
 </body>
 </html>
