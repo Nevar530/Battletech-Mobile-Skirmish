@@ -550,7 +550,7 @@ let __SHEET_BRIDGE = null;
       const sheet = __SHEET_BRIDGE;
   if (!sheet){ console.warn('Load from JSON: sheet not ready'); return; }
     // ---- resolve IDs safely (works offline) ----
-const currentMapId = (typeof mapId !== 'undefined' && mapId) ? mapId : 'local';
+let currentMapId = (typeof mapId !== 'undefined' && mapId) ? mapId : 'local';
 let currentTokId = (typeof tokenId !== 'undefined' && tokenId) ? tokenId : null;
       // Prefer the IDs stamped on the open sheet panel
 const __wrapEl = document.getElementById('sheetWrap');
