@@ -816,12 +816,27 @@ if (!mech) return;
 // Fill "missing only" by default (preserves pilot, current armor/heat/ammo, crit hits, notes).
 async function loadStaticFromJson(fillMode = 'fill') {
   try {
-    // 1) Identify target by fields already in the sheet UI/state
-    const chassis = (sheet?.mech?.chassis || fMech.chassis?.value || '').trim();
-    const variant = (sheet?.mech?.variant || fMech.variant?.value || '').trim();
-    const modelHint = (variant || '').toUpperCase(); // e.g., "ARC-2K"
-    const labelHint = `${chassis} ${variant}`.trim(); // e.g., "Archer ARC-2K"
-    const norm = s => String(s||'').toLowerCase();
+// 1) Gather best-available hints
+const chassis = (sheet?.mech?.chassis || fMech?.chassis?.value || '').trim();
+const variant = (sheet?.mech?.variant || fMech?.variant?.value || '').trim();
+let modelHint = (variant || '').toUpperCase();           // e.g., "ARC-2K"
+let labelHint = `${chassis} ${variant}`.trim();          // e.g., "Archer ARC-2K"
+
+// Try to fall back to the token's label if available
+try {
+  if ((!labelHint || !modelHint) && typeof window.getTokenLabelById === 'function') {
+    const lab = window.getTokenLabelById?.(mapId, tokenId);
+    if (lab && !labelHint) labelHint = String(lab).trim();
+    if (lab && !modelHint) {
+      const parts = String(lab).trim().split(/\s+/);
+      modelHint = (parts[parts.length - 1] || '').toUpperCase();
+    }
+  }
+} catch {}
+
+// Normalize helper
+const norm = s => String(s||'').toLowerCase();
+
 
     // 2) Load manifest (accept array | {items:[]} | {entries:[]})
     let manifest = null;
@@ -833,15 +848,40 @@ async function loadStaticFromJson(fillMode = 'fill') {
 
     if (!list.length) { console.warn('Load from JSON: manifest not found or empty'); return; }
 
-    // 3) Find a row: prefer exact displayName match, then model code match
-    let match = null;
-    if (labelHint) {
-      match = list.find(e => norm(e?.displayName || e?.name || e?.title) === norm(labelHint)) || null;
-    }
-    if (!match && modelHint) {
-      match = list.find(e => String(e?.model || '').toUpperCase() === modelHint) || null;
-    }
-    if (!match) { console.warn('Load from JSON: no manifest match for', {labelHint, modelHint}); return; }
+let match = null;
+
+// 3a) Try exact displayName match (e.g., "Archer ARC-2K")
+if (labelHint) {
+  match = list.find(e => norm(e?.displayName || e?.name || e?.title) === norm(labelHint)) || null;
+}
+
+// 3b) Try model token match (e.g., "ARC-2K")
+if (!match && modelHint) {
+  match = list.find(e => String(e?.model || '').toUpperCase() === modelHint) || null;
+}
+
+// 3c) If still no match, prompt the user to select/search
+if (!match) {
+  const q = (window.prompt?.(
+    'Type mech name or model (e.g., "Archer ARC-2K" or "ARC-2K"):'
+  ) || '').trim();
+
+  if (q) {
+    const qNorm = norm(q);
+    // Prefer exact displayName, then exact model, then contains search
+    match =
+      list.find(e => norm(e?.displayName || e?.name || e?.title) === qNorm) ||
+      list.find(e => String(e?.model || '').toUpperCase() === q.toUpperCase()) ||
+      list.find(e => norm(e?.displayName || e?.name || e?.title).includes(qNorm)) ||
+      null;
+  }
+}
+
+if (!match) {
+  console.warn('Load from JSON: no manifest match for', { labelHint, modelHint });
+  return;
+}
+
 
     // 4) Resolve mech JSON path with data/ fallback
     let path = match.path || match.file || match.url || '';
