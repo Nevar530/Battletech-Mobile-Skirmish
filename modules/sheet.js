@@ -464,6 +464,24 @@ export const Sheet = (() => {
   /* ------------------------------- Module state ------------------------------- */
   const LOCS = ['HD','LA','RA','LT','CT','RT','LL','RL'];
   const HAS_REAR = new Set(['LT','CT','RT']);
+    // Map our short codes to common JSON armor keys
+  const ARMOR_KEY_MAP = {
+    HD: ['HD','Head'],
+    CT: ['CT','Center Torso','Center','CTR'],
+    LT: ['LT','Left Torso','LTorso'],
+    RT: ['RT','Right Torso','RTorso'],
+    LA: ['LA','Left Arm'],
+    RA: ['RA','Right Arm'],
+    LL: ['LL','Left Leg'],
+    RL: ['RL','Right Leg'],
+  };
+  function resolveArmorBlock(armorObj, locCode){
+    if (!armorObj) return null;
+    const keys = ARMOR_KEY_MAP[locCode] || [locCode];
+    for (const k of keys){ if (armorObj[k] != null) return armorObj[k]; }
+    return null;
+  }
+
   const SLOTS_PER_LOC = 18;
   const STORAGE_NS = 'mss84:sheet';
 // Track unsent per-token sheet edits (per map), used by Transmit to include only changed sheets
@@ -673,27 +691,43 @@ function pulseSaved(){}        // placeholder; replaced later
         // Resolve token label as hint for chassis/variant
         const tok = (typeof getSelectedToken === 'function') ? getSelectedToken() : null;
         const hintLabel = tok && tok.label ? String(tok.label) : '';
-        // Fetch manifest
+        // Fetch manifest (accept several shapes: array | {items:[]} | {entries:[]})
         const manPath = 'data/manifest.json';
         let manifest = null;
         try { manifest = await (await fetch(manPath)).json(); } catch {}
-        if (!manifest || !Array.isArray(manifest.entries)) {
-          // try prefixed path entries directly if manifest is a flat object
-          manifest = manifest || {};
-        }
-        // Try to find an entry for Archer ARC-2K style using hint or existing fields
-        const targets = [];
+        const list = Array.isArray(manifest) ? manifest
+                  : Array.isArray(manifest?.items) ? manifest.items
+                  : Array.isArray(manifest?.entries) ? manifest.entries
+                  : [];
+
+        // Prepare a best-effort label to match ("Archer ARC-2K")
         const wantChassis = (sheet.mech?.chassis||'').trim();
         const wantVariant = (sheet.mech?.variant||'').trim();
         const label = (wantChassis && wantVariant) ? `${wantChassis} ${wantVariant}` : hintLabel;
         const norm = s => String(s||'').toLowerCase();
-        const cand = (manifest.entries || manifest || []);
+
+        // Find the first manifest row whose display/name matches label
         let match = null;
-        for (const e of cand){
-          const name = e?.name || e?.title || '';
-          if (!name) continue;
-          if (norm(name)===norm(label)) { match = e; break; }
+        for (const e of list){
+          const nameLike = e?.displayName || e?.name || e?.title || '';
+          if (!nameLike) continue;
+          if (norm(nameLike) === norm(label)) { match = e; break; }
         }
+        // Fallback: if direct label didn’t match, try by model token (e.g., "ARC-2K")
+        if (!match && label){
+          const m = label.split(' ').pop(); // last token often the model (ARC-2K)
+          for (const e of list){
+            const model = (e?.model||'').toUpperCase();
+            if (model && model === m.toUpperCase()) { match = e; break; }
+          }
+        }
+        if (!match) return;
+
+        // Resolve path and auto-prefix "data/" if missing
+        let path = match.path || match.file || match.url || '';
+        if (!path) return;
+        if (!path.startsWith('data/')) path = `data/${path}`;
+
         if (!match) return;
         let path = match.path || match.file || '';
         if (!path) return;
@@ -721,7 +755,7 @@ function pulseSaved(){}        // placeholder; replaced later
         // armor max
         if (mech.Armor && typeof mech.Armor==='object'){
           for (const L of LOCS){
-            const m = mech.Armor[L] || mech.Armor[locLabel(L)] || null;
+            const m = resolveArmorBlock(mech.Armor, L);
             const get = v => Number(v||0) || 0;
             if (m){
               sheet.armor[L].ext.max = get(m.ext || m.Front || m.Armor || m.Max || 0);
