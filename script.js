@@ -1458,20 +1458,27 @@ svg.addEventListener('wheel', (e) => {
   const pt = toSvgPoint(e.clientX, e.clientY);
   camera.zoomAt(pt, factor);
 }, { passive:false });
-// === DOUBLE CLICK TO OPEN SHEET (robust, capture-phase) ===
+
+// === DOUBLE CLICK TO OPEN/CLOSE SHEET ===
 svg.addEventListener('dblclick', (e) => {
-  const tokEl = (e.composedPath && e.composedPath().find(n => n?.nodeType===1 && n.tagName?.toLowerCase()==='g' && n.classList?.contains('token')))
-              || e.target.closest?.('g.token');
-  if (!tokEl) return;
+  const tokEl = e.target.closest?.('g.token');
+  if (!tokEl) return; // not a token
+
   const tid = tokEl.dataset.id;
-  if (!tid) return;
   selectedTokenId = tid;
   requestRender?.();
+
   if (window.MSS84_SHEET) {
-    MSS84_SHEET.setIds(CURRENT_MAP_ID, tid);
-    MSS84_SHEET.open();
+    const current = MSS84_SHEET.getIds();
+    // If same token double-clicked again → toggle (close if open)
+    if (current.mapId === CURRENT_MAP_ID && current.tokenId === tid) {
+      MSS84_SHEET.toggle();
+    } else {
+      MSS84_SHEET.setIds(CURRENT_MAP_ID, tid);
+      MSS84_SHEET.open();
+    }
   }
-}, { capture:true });
+});
 
 
 /* ===== Recenter button ===== */
@@ -2833,13 +2840,3 @@ window.addEventListener('load', loadPresetList);
   syncHeaderH();
 })();
 
-
-// Legacy interop for external sheet.js migrate()
-function clearAllOccupancy(){
-  try {
-    // best-effort: wipe any per-tile occupancy markers if present
-    if (typeof tiles !== 'undefined' && tiles && tiles.forEach) {
-      tiles.forEach(t => { if (t && 'occupied' in t) t.occupied = false; });
-    }
-  } catch(e) {}
-}
