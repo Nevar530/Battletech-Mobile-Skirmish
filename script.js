@@ -347,28 +347,23 @@ function serializeState(){
   });
 }
 
-// Gather unsent per-token sheets (set by sheet.js) and clear the dirty flags after reading
+// Gather unsent per-token sheets (marked by sheet.js) for this map, then clear flags
 function collectDirtySheetsForTransmit(mapId = CURRENT_MAP_ID || 'local'){
   const dirtyKey = `mss84:sheets:dirty:${mapId}`;
   let dirty = {};
   try { dirty = JSON.parse(localStorage.getItem(dirtyKey) || '{}'); } catch {}
-  const tokenIds = Object.keys(dirty);
-  if (!tokenIds.length) return {};
-
+  const ids = Object.keys(dirty);
+  if (!ids.length) return {};
   const out = {};
-  for (const tid of tokenIds){
+  for (const tid of ids){
     try{
       const raw = localStorage.getItem(`mss84:sheet:${mapId}:${tid}`);
       if (raw) out[tid] = JSON.parse(raw);
     }catch{}
   }
-  // clear dirty flags (we’re about to transmit these)
   try { localStorage.removeItem(dirtyKey); } catch {}
   return out;
 }
-
-
-
 function saveLocal(){
   try { localStorage.setItem('hexmap_autosave', serializeState()); } catch {}
 }
@@ -2126,25 +2121,21 @@ function applyState(obj){
     renderInit();
     requestRender();
     if (losActive) recomputeLOS();
-        // NEW: apply incoming per-token sheets (if present) to local storage (local-first)
+    
+    // Apply incoming per-token sheets (push-to-talk)
     if (obj && obj.sheets && typeof obj.sheets === 'object'){
-      const open = (window.MSS84_SHEET && typeof MSS84_SHEET.getIds === 'function')
-        ? MSS84_SHEET.getIds() : null;
       const mapId = CURRENT_MAP_ID || 'local';
-
+      const open = (window.MSS84_SHEET && typeof MSS84_SHEET.getIds === 'function') ? MSS84_SHEET.getIds() : null;
       for (const [tid, data] of Object.entries(obj.sheets)){
         try {
           localStorage.setItem(`mss84:sheet:${mapId}:${tid}`, JSON.stringify(data));
-          // If the sheet panel is open for this token, hot-rehydrate the UI
-          if (open && open.mapId === mapId && open.tokenId === tid
-              && typeof MSS84_SHEET.setIds === 'function') {
-            MSS84_SHEET.setIds(mapId, tid); // reloads sheet + re-renders
+          if (open && open.mapId === mapId && open.tokenId === tid && typeof MSS84_SHEET.setIds === 'function'){
+            MSS84_SHEET.setIds(mapId, tid);
           }
-        } catch (e) { console.warn('Failed to apply incoming sheet', tid, e); }
+        } catch(e){ console.warn('Incoming sheet apply failed', tid, e); }
       }
     }
-
-    saveLocal();
+saveLocal();
   } catch (err){
     console.error('applyState failed', err);
     alert('Failed to load state/preset.');
@@ -2866,9 +2857,8 @@ window.addEventListener('load', loadPresetList);
           return;
         }
         const obj = JSON.parse(serializeState());
-        // NEW: include only the tokens with unsent sheet edits
-const sheets = collectDirtySheetsForTransmit(CURRENT_MAP_ID);
-if (Object.keys(sheets).length) obj.sheets = sheets;
+        const sheets = collectDirtySheetsForTransmit(CURRENT_MAP_ID);
+        if (Object.keys(sheets).length) obj.sheets = sheets;
         await Net.sendSnapshot(obj);
         alert('Sent.');
       } catch (e) {
@@ -2909,7 +2899,6 @@ if (Object.keys(sheets).length) obj.sheets = sheets;
 
   syncHeaderH();
 })();
-
 
 
 
