@@ -552,6 +552,15 @@ let __SHEET_BRIDGE = null;
     // ---- resolve IDs safely (works offline) ----
 const currentMapId = (typeof mapId !== 'undefined' && mapId) ? mapId : 'local';
 let currentTokId = (typeof tokenId !== 'undefined' && tokenId) ? tokenId : null;
+      // Prefer the IDs stamped on the open sheet panel
+const __wrapEl = document.getElementById('sheetWrap');
+if (__wrapEl){
+  const mapAttr = __wrapEl.getAttribute('data-map-id');
+  const tokAttr = __wrapEl.getAttribute('data-token-id');
+  if (mapAttr) currentMapId = mapAttr;
+  if (tokAttr) currentTokId = tokAttr;
+}
+
 
 // try the open sheet wrapper first
 if (!currentTokId) {
@@ -887,7 +896,12 @@ function pulseSaved(){}        // placeholder; replaced later
     const wrap      = QS('#sheetWrap');
     const btn = document.querySelector('#sheetToggleBtn');
     const btnClose  = QS('#sheetCloseBtn');
-
+function __syncWrapIds(){
+  if (!wrap) return;
+  wrap.setAttribute('data-map-id', mapId);
+  wrap.setAttribute('data-token-id', tokenId);
+}
+__syncWrapIds();
 const btnLoad  = QS('#loadFromJsonBtn');
 
 
@@ -1502,6 +1516,8 @@ if (weapToggle && weapBlock) {
       mapId = newMap; tokenId = newTok;
       sheet = load(mapId, tokenId);
       __SHEET_BRIDGE = sheet;
+        __syncWrapIds();
+
       hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
       seedDefaultKitIfNeeded();
       seedMeleeIfNeeded();
