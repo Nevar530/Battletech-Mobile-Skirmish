@@ -469,7 +469,7 @@ export const Sheet = (() => {
   /* ---------------------- JSON manifest + mech loader ---------------------- */
   function __getTokenLabelById(tokenId){
     try{
-      const g = document.querySelector(`svg .token[data-id="${tokenId}"]`);
+      const g = document.querySelector(`svg .token[data-id="${currentTokId}"]`);
       const t = g?.querySelector('.label, text.label, text')?.textContent || '';
       return (t||'').trim();
     }catch{return '';}
@@ -543,6 +543,26 @@ export const Sheet = (() => {
     return (blk && (blk.Front != null || blk.Rear != null)) ? blk : null;
   }
   async function loadStaticFromJson(fillMode='fill'){
+    // ---- resolve IDs safely (works offline) ----
+const currentMapId = (typeof mapId !== 'undefined' && mapId) ? mapId : 'local';
+let currentTokId = (typeof tokenId !== 'undefined' && tokenId) ? tokenId : null;
+
+// try the open sheet wrapper first
+if (!currentTokId) {
+  const open = document.querySelector('.mss84-sheet[data-token-id], #sheetWrap[data-token-id]');
+  if (open) currentTokId = open.getAttribute('data-token-id');
+}
+// else a selected/visible token in the SVG, else any token
+if (!currentTokId) {
+  const g = document.querySelector('svg .token.is-selected, svg .token.is-open, svg .token');
+  if (g) currentTokId = g.getAttribute('data-id');
+}
+
+if (!currentTokId) {
+  console.warn('Load from JSON: no token id'); 
+  return;
+}
+
     // Uses the current sheet-scoped ids
     const currentMapId = mapId;
     const currentTokId = tokenId;
@@ -939,7 +959,7 @@ if (btnLoad && !btnLoad.__wired) {
 
     // save debounce
     let tSave=null;
-    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(mapId, tokenId, sheet), 200); };
+    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(currentMapId, currentTokId, sheet), 200); };
     const pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
 
     /* ------------------------------- Heat Bar ------------------------------- */
@@ -1514,7 +1534,7 @@ if (weapToggle && weapBlock) {
       setIds: (map, tok)=> changeIds(map, tok),
       getIds: ()=>({ mapId, tokenId }),
       load: ()=> load(mapId, tokenId),
-      saveNow: ()=> save(mapId, tokenId, sheet),
+      saveNow: ()=> save(currentMapId, currentTokId, sheet),
       clearToken: ()=> remove(mapId, tokenId)
     };
 
