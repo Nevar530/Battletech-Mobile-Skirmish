@@ -713,30 +713,25 @@ function pulseSaved(){}        // placeholder; replaced later
           if (!nameLike) continue;
           if (norm(nameLike) === norm(label)) { match = e; break; }
         }
-        // Fallback: if direct label didn’t match, try by model token (e.g., "ARC-2K")
-        if (!match && label){
-          const m = label.split(' ').pop(); // last token often the model (ARC-2K)
-          for (const e of list){
-            const model = (e?.model||'').toUpperCase();
-            if (model && model === m.toUpperCase()) { match = e; break; }
-          }
-        }
-        if (!match) return;
+// Fallback: if direct label didn’t match, try by model token (e.g., "ARC-2K")
+if (!match && label){
+  const m = label.split(' ').pop(); // last token often the model (ARC-2K)
+  for (const e of list){
+    const model = (e?.model || '').toUpperCase();
+    if (model && model === m.toUpperCase()) { match = e; break; }
+  }
+}
+if (!match) return;
 
-        // Resolve path and auto-prefix "data/" if missing
-        let path = match.path || match.file || match.url || '';
-        if (!path) return;
-        if (!path.startsWith('data/')) path = `data/${path}`;
+// Resolve path and auto-prefix "data/" if missing
+let path = match.path || match.file || match.url || '';
+if (!path) return;
+if (!path.startsWith('data/')) path = `data/${path}`;
 
-        if (!match) return;
-        let path = match.path || match.file || '';
-        if (!path) return;
-        // fix missing 'data/' prefix
-        if (!path.startsWith('data/')) path = `data/${path}`;
-        // fetch mech json
-        let mech = null;
-        try { mech = await (await fetch(path)).json(); } catch {}
-        if (!mech) return;
+// fetch mech json
+let mech = null;
+try { mech = await (await fetch(path)).json(); } catch {}
+if (!mech) return;
         // hydrate fields (defensive)
         sheet.mech = sheet.mech || { chassis:'', variant:'', tonnage:0, bv:0 };
         sheet.mech.chassis = mech.Chassis || sheet.mech.chassis;
