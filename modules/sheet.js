@@ -583,7 +583,7 @@ export const Sheet = (() => {
 
     // elements
     const wrap      = QS('#sheetWrap');
-    const btn       = QS('#sheetToggleBtn');
+    const btn = document.querySelector('#sheetToggleBtn');
     const btnClose  = QS('#sheetCloseBtn');
     const tabs      = QS('#sheetTabs');
     const savePulse = QS('#savePulse');
@@ -641,7 +641,7 @@ export const Sheet = (() => {
     const open   = ()=>{ wrap.classList.add('open'); wrap.setAttribute('aria-hidden','false'); };
     const close  = ()=>{ wrap.classList.remove('open'); wrap.setAttribute('aria-hidden','true'); };
     const toggle = ()=> (wrap.classList.contains('open')? close() : open());
-    btn.addEventListener('click', toggle);
+    if (btn) btn.addEventListener('click', toggle);
     btnClose.addEventListener('click', close);
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
 
