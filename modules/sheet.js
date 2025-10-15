@@ -466,7 +466,7 @@ export const Sheet = (() => {
   const HAS_REAR = new Set(['LT','CT','RT']);
   const SLOTS_PER_LOC = 18;
   const STORAGE_NS = 'mss84:sheet';
-  // Track which token sheets have unsent edits (per map), for push-to-sync
+// Track unsent per-token sheet edits (per map), used by Transmit to include only changed sheets
 const DIRTY_NS = 'mss84:sheets:dirty';
 function markSheetDirty(mapId, tokenId){
   try {
@@ -638,11 +638,7 @@ function packAllEquipment(){} // placeholder; replaced later
   }
 function pulseSaved(){}        // placeholder; replaced later
   function save(map, tok, data){
-      try{
-    localStorage.setItem(key(map,tok), JSON.stringify(data));
-    markSheetDirty(map, tok);                         // <-- add: flag unsent changes
-    pulseSaved();
-  }
+    try{ localStorage.setItem(key(map,tok), JSON.stringify(data)); try{ markSheetDirty(map, tok); }catch{}; pulseSaved(); }
     catch(e){ console.warn('save fail', e); }
   }
   function load(map, tok){
@@ -667,7 +663,104 @@ function pulseSaved(){}        // placeholder; replaced later
     // state
     let mapId = 'demo-map-1';
     let tokenId = 'token-A';
-    let sheet = load(mapId, tokenId);
+    
+    // Auto-populate static mech data from manifest/data on first open if empty
+    async function autoPopulateFromManifestIfNeeded() {
+      try {
+        // Only if mech chassis/variant are blank and weapons/armor max look empty
+        const isBlank = (!sheet?.mech?.chassis && !sheet?.mech?.variant);
+        if (!isBlank) return;
+        // Resolve token label as hint for chassis/variant
+        const tok = (typeof getSelectedToken === 'function') ? getSelectedToken() : null;
+        const hintLabel = tok && tok.label ? String(tok.label) : '';
+        // Fetch manifest
+        const manPath = 'manifest.json';
+        let manifest = null;
+        try { manifest = await (await fetch(manPath)).json(); } catch {}
+        if (!manifest || !Array.isArray(manifest.entries)) {
+          // try prefixed path entries directly if manifest is a flat object
+          manifest = manifest || {};
+        }
+        // Try to find an entry for Archer ARC-2K style using hint or existing fields
+        const targets = [];
+        const wantChassis = (sheet.mech?.chassis||'').trim();
+        const wantVariant = (sheet.mech?.variant||'').trim();
+        const label = (wantChassis && wantVariant) ? `${wantChassis} ${wantVariant}` : hintLabel;
+        const norm = s => String(s||'').toLowerCase();
+        const cand = (manifest.entries || manifest || []);
+        let match = null;
+        for (const e of cand){
+          const name = e?.name || e?.title || '';
+          if (!name) continue;
+          if (norm(name)===norm(label)) { match = e; break; }
+        }
+        if (!match) return;
+        let path = match.path || match.file || '';
+        if (!path) return;
+        // fix missing 'data/' prefix
+        if (!path.startsWith('data/')) path = `data/${path}`;
+        // fetch mech json
+        let mech = null;
+        try { mech = await (await fetch(path)).json(); } catch {}
+        if (!mech) return;
+        // hydrate fields (defensive)
+        sheet.mech = sheet.mech || { chassis:'', variant:'', tonnage:0, bv:0 };
+        sheet.mech.chassis = mech.Chassis || sheet.mech.chassis;
+        sheet.mech.variant = mech.Variant || sheet.mech.variant;
+        sheet.mech.tonnage = Number(mech.Tons || mech.Tonnage || sheet.mech.tonnage) || 0;
+        // movement
+        sheet.move = sheet.move || {stand:0,walk:4,run:6,jump:0};
+        if (mech.Movement){
+          sheet.move.walk = Number(mech.Movement.Walk || sheet.move.walk) || sheet.move.walk;
+          sheet.move.run  = Number(mech.Movement.Run  || sheet.move.run ) || sheet.move.run;
+          sheet.move.jump = Number(mech.Movement.Jump || sheet.move.jump) || sheet.move.jump;
+        }
+        // heat sinks
+        sheet.heat = sheet.heat || {current:0,sinks:10,effect:''};
+        sheet.heat.sinks = Number(mech.HeatSinks || sheet.heat.sinks) || sheet.heat.sinks;
+        // armor max
+        if (mech.Armor && typeof mech.Armor==='object'){
+          for (const L of LOCS){
+            const m = mech.Armor[L] || mech.Armor[locLabel(L)] || null;
+            const get = v => Number(v||0) || 0;
+            if (m){
+              sheet.armor[L].ext.max = get(m.ext || m.Front || m.Armor || m.Max || 0);
+              if (sheet.armor[L].rear){ sheet.armor[L].rear.max = get(m.rear || m.Rear || 0); }
+              sheet.armor[L].str.max  = get(m.str  || m.Structure || 0);
+              // set defaults current to max if previously zero
+              if (!(sheet.armor[L].ext.cur>0)) sheet.armor[L].ext.cur = sheet.armor[L].ext.max;
+              if (sheet.armor[L].rear && !(sheet.armor[L].rear.cur>0)) sheet.armor[L].rear.cur = sheet.armor[L].rear.max;
+              if (!(sheet.armor[L].str.cur>0)) sheet.armor[L].str.cur = sheet.armor[L].str.max;
+            }
+          }
+        }
+        // weapons
+        if (Array.isArray(mech.Weapons)){
+          sheet.weapons = [];
+          for (const w of mech.Weapons){
+            sheet.weapons.push({
+              id: sheet.nextWid++,
+              name: w.Name || w.name || '',
+              type: w.Type || w.type || '',
+              dmg:  Number(w.Damage || w.dmg || 0) || 0,
+              heat: Number(w.Heat   || w.heat|| 0) || 0,
+              min:  Number(w.Min    || w.min || 0) || 0,
+              s:    Number(w.Short  || w.s   || 0) || 0,
+              m:    Number(w.Medium || w.m   || 0) || 0,
+              l:    Number(w.Long   || w.l   || 0) || 0,
+              ac:   Number(w.Ammo   || w.ac  || 0) || 0,
+              ax:   Number(w.AmmoMax|| w.ax  || w.Ammo || 0) || 0
+            });
+          }
+        }
+        save(mapId, tokenId, sheet);
+        hydrateAll();
+        renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
+      } catch(e){ console.warn('auto-populate failed', e); }
+    }
+let sheet = load(mapId, tokenId);
+    autoPopulateFromManifestIfNeeded();
+
 
     // elements
     const wrap      = QS('#sheetWrap');
