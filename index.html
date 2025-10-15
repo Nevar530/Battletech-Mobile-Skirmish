@@ -8,13 +8,7 @@
   <title>MSS:84 || Mobile Skirmish System:84</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://sheets.flechs.net" />
-
-<script type="module">
-  import { Sheet } from './modules/sheet.js';
-  const sheet = Sheet.mount(document.body);   // mounts CLOSED by default
-  window.sheet = sheet; // (optional) for quick console checks
-</script>
-  
+ 
   <!-- ==== Firebase init (default app + Firestore) ==== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
@@ -113,6 +107,14 @@
         </svg>
       </button>
 
+      <!-- Sheet toggle (module expects this id) -->
+<button id="sheetToggleBtn" class="icon-btn" title="Open Mech Sheet" aria-label="Open Mech Sheet">
+  <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
+    <path d="M6 3h9l5 5v13H6V3zm9 0v5h5" fill="none" stroke="currentColor" stroke-width="2" />
+    <path d="M8 11h8M8 15h8M8 19h8" fill="none" stroke="currentColor" stroke-width="2" />
+  </svg>
+</button>
+      
 <!-- LOS / Measure -->
 <button id="btnToggleMeasure" class="icon-btn" title="Measure (Manual Range Mode)">
   <svg viewBox="0 0 24 24" class="ico" aria-hidden="true">
@@ -459,7 +461,7 @@
   <!-- ==== Load order ==== -->
   <script src="script.js"></script>
   <script type="module" src="network.js"></script>
-  <script src="modules/sheet.js" defer></script>
+  
 
   <!-- Online + Send wiring (minimal) -->
 <script>
