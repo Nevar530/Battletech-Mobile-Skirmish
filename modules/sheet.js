@@ -269,7 +269,8 @@
       if (overwriteAll || overwriteStatic || !sheet.move.jump) sheet.move.jump = j || sheet.move.jump;
 
       // Heat sinks (parse "12 Single")
-      const sinksRaw = (mech.HeatSinks ?? mech.heatSinks ?? mech?.heat?.sinks ?? sheet.heat.sinks || 0);
+      const sinksRaw = (mech.HeatSinks ?? mech.heatSinks ?? mech?.heat?.sinks ?? sheet.heat.sinks) || 0;
+
       const sinks = (typeof sinksRaw === 'string') ? (parseInt(sinksRaw,10) || 0) : (Number(sinksRaw)||0);
       if (overwriteAll || overwriteStatic || !sheet.heat.sinks) sheet.heat.sinks = sinks || sheet.heat.sinks;
 
