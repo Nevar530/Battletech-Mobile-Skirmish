@@ -205,7 +205,7 @@ export const Sheet = (() => {
 
  
 
-  <aside class="mss84-sheet__wrap open" id="sheetWrap" aria-hidden="false">
+  <aside class="mss84-sheet__wrap" id="sheetWrap" aria-hidden="true">
     <header class="mss84-sheet__hdr">
       <div class="mss84-sheet__title">Mech Sheet <span id="savePulse" class="mss84-savepulse">Saved</span></div>
       <div class="mss84-sheet__spacer"></div>
