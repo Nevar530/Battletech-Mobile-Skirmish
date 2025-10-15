@@ -679,10 +679,18 @@ if (!currentTokId) {
       }
     }
 
-    // Save + render
-    save(currentMapId, currentTokId, sheet);
+// Save + render
+save(currentMapId, currentTokId, sheet);
+if (typeof __RENDER_BRIDGE === 'function') {
+  __RENDER_BRIDGE();
+} else {
+  // fallback if bridge isn’t set yet
+  try {
     hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
-    console.log('Load from JSON: OK', { path, modelHint });
+  } catch {}
+}
+console.log('Load from JSON: OK', { path, modelHint });
+
   }
   const SLOTS_PER_LOC = 18;
   const STORAGE_NS = 'mss84:sheet';
@@ -1504,13 +1512,16 @@ if (weapToggle && weapBlock) {
 
 // expose a rerender hook for helpers outside this closure
 function __rerenderAll(){
-  hydrateAll(); 
-  renderBars(); 
-  renderArmor(); 
-  renderHeat(); 
+  hydrateAll();
+  renderBars();
+  renderArmor();
+  renderHeatBar();
+  syncHeatEffectField();
+  renderCritBoards();
   renderWeapons();
 }
 __RENDER_BRIDGE = __rerenderAll;
+
 
       
     /* -------------------------- Seeding defaults -------------------------- */
