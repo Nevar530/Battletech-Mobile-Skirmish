@@ -1319,6 +1319,7 @@ if (weapToggle && weapBlock) {
 
     // API
     const api = {
+      loadStaticFromJson,   // ← make the loader callable as MSS84_SHEET.loadStaticFromJson()
       open, close, toggle,
       setIds: (map, tok)=> changeIds(map, tok),
       getIds: ()=>({ mapId, tokenId }),
@@ -1327,7 +1328,7 @@ if (weapToggle && weapBlock) {
       clearToken: ()=> remove(mapId, tokenId)
     };
 
-loadStaticFromJson,   // ← make the loader callable as MSS84_SHEET.loadStaticFromJson()
+
     
     // Also expose legacy global for convenience
    window.MSS84_SHEET = Object.assign(window.MSS84_SHEET || {}, api);
