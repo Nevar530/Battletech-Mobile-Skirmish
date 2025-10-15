@@ -466,6 +466,17 @@ export const Sheet = (() => {
   const HAS_REAR = new Set(['LT','CT','RT']);
   const SLOTS_PER_LOC = 18;
   const STORAGE_NS = 'mss84:sheet';
+  // Track which token sheets have unsent edits (per map), for push-to-sync
+const DIRTY_NS = 'mss84:sheets:dirty';
+function markSheetDirty(mapId, tokenId){
+  try {
+    const k = `${DIRTY_NS}:${mapId || 'local'}`;
+    const cur = JSON.parse(localStorage.getItem(k) || '{}');
+    cur[tokenId] = true;
+    localStorage.setItem(k, JSON.stringify(cur));
+  } catch {}
+}
+
   const HEAT_MAX_DEFAULT = 30;
   const HEAT_TICKS = [5,10,15,20,25,30];
 
@@ -627,7 +638,11 @@ function packAllEquipment(){} // placeholder; replaced later
   }
 function pulseSaved(){}        // placeholder; replaced later
   function save(map, tok, data){
-    try{ localStorage.setItem(key(map,tok), JSON.stringify(data)); pulseSaved(); }
+      try{
+    localStorage.setItem(key(map,tok), JSON.stringify(data));
+    markSheetDirty(map, tok);                         // <-- add: flag unsent changes
+    pulseSaved();
+  }
     catch(e){ console.warn('save fail', e); }
   }
   function load(map, tok){
