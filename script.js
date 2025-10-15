@@ -8,6 +8,21 @@ const svgNS = 'http://www.w3.org/2000/svg';
 // ~1" token on a 1.25" board hex → 1 / 1.25 = 0.8
 const TOKEN_BASE_SCALE = 0.80;
 
+// --- Interop for Sheet.migrate() ---
+// Clears all crit-slot occupancy so packAllEquipment can repack cleanly
+window.clearAllOccupancy = function(d){
+  if (!d || !d.crits) return;
+  for (const L of Object.keys(d.crits)) {
+    const slots = d.crits[L] || [];
+    for (let i = 0; i < slots.length; i++) {
+      slots[i].occ    = false;
+      slots[i].label  = '';
+      slots[i].itemId = null;
+      slots[i].hit    = false;
+    }
+  }
+};
+
 // ===== LOS physics (supports negative ground) =====
 const EYE_Z = 0.9;                 // eye height above ground (tile height units)
 const COVER_BLOCK_HEIGHT = [0, 0.4, 0.9, 1.4]; // None, Light, Med, Heavy -> extra blocking height
@@ -2850,6 +2865,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
