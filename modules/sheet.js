@@ -199,16 +199,16 @@ export const Sheet = (() => {
 }
 
 /* Row 1 → name through long */
-.weap-add-grid > *:nth-child(-n+8),
-.weap-head > *:nth-child(-n+8),
-.weap-row  > *:nth-child(-n+8) {
+.weap-add-grid > *:nth-child(-n+5),
+.weap-head > *:nth-child(-n+5),
+.weap-row  > *:nth-child(-n+5) {
   grid-row: 1;
 }
 
 /* Row 2 → ammo/current + ammo/max + delete/add */
-.weap-add-grid > *:nth-child(n+9),
-.weap-head > *:nth-child(n+9),
-.weap-row  > *:nth-child(n+9) {
+.weap-add-grid > *:nth-child(n+6),
+.weap-head > *:nth-child(n+6),
+.weap-row  > *:nth-child(n+6) {
   grid-row: 2;
 }
 
@@ -403,15 +403,15 @@ export const Sheet = (() => {
           </div>
           <div class="mss84-weap__body">
             <div class="weap-add-grid">
-              <input type="text"   id="wnName"  placeholder="NAME (e.g., AC/10)">
-              <input type="text"   id="wnType"  placeholder="TYPE (Ballistic/Energy/Missile/Melee)">
-              <input type="number" id="wnDmg"   placeholder="DMG"  min="0">
+              <input type="text"   id="wnName"  placeholder="NAME">
+              <input type="text"   id="wnType"  placeholder="TYPE">
+              <input type="number" id="wnDmg"   placeholder="DAMAGE"  min="0">
               <input type="number" id="wnHeat"  placeholder="HEAT" min="0">
-              <input type="number" id="wnMin"   placeholder="MIN"  min="0">
-              <input type="number" id="wnS"     placeholder="SHORT" min="0">
-              <input type="number" id="wnM"     placeholder="MED"   min="0">
-              <input type="number" id="wnL"     placeholder="LONG"  min="0">
               <input type="number" id="wnAmmoC" placeholder="AMMO CUR" min="0">
+              <input type="number" id="wnMin"   placeholder="MINIMUN"  min="0">
+              <input type="number" id="wnS"     placeholder="SHORT" min="0">
+              <input type="number" id="wnM"     placeholder="MEDIUM"   min="0">
+              <input type="number" id="wnL"     placeholder="LONG"  min="0">
               <input type="number" id="wnAmmoX" placeholder="AMMO MAX" min="0">
               <button class="mss84-sheet__x" id="wnAdd" style="background:#163016;border:1px solid #234423;">Add</button>
             </div>
