@@ -1206,7 +1206,8 @@ svg.addEventListener('pointerdown', (e) => {
 
 // Token selection (click) — don't preventDefault so dblclick can fire
 if (toolMode==='select' && tokElHit && e.button===0) {
-    selectedTokenId = tokElHit.dataset.id;
+  e.preventDefault();
+  selectedTokenId = tokElHit.dataset.id;
   dragStartPt = toSvgPoint(e.clientX, e.clientY); // start threshold check
   // DO NOT set tokenDragId yet; we’ll promote after threshold in pointermove
   requestRender();
@@ -2839,4 +2840,24 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
