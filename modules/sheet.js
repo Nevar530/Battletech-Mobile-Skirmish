@@ -280,6 +280,7 @@ export const Sheet = (() => {
     <header class="mss84-sheet__hdr">
       <div class="mss84-sheet__title">Mech Sheet <span id="savePulse" class="mss84-savepulse">Saved</span></div>
       <div class="mss84-sheet__spacer"></div>
+      <button class="mss84-sheet__x" id="loadFromJsonBtn" title="Pull static data from local /data JSON">Load from JSON</button>
       <button class="mss84-sheet__x" id="sheetCloseBtn">Close</button>
     </header>
 
@@ -658,6 +659,19 @@ function pulseSaved(){}        // placeholder; replaced later
     const wrap      = QS('#sheetWrap');
     const btn = document.querySelector('#sheetToggleBtn');
     const btnClose  = QS('#sheetCloseBtn');
+    const btnLoad = QS('#loadFromJsonBtn');
+if (btnLoad && !btnLoad.__wired) {
+  btnLoad.__wired = true;
+  btnLoad.addEventListener('click', () => {
+    // Uses the loader we added earlier; fills static fields only, preserves dynamic
+    if (window.MSS84_SHEET?.loadStaticFromJson) {
+      window.MSS84_SHEET.loadStaticFromJson('fill');
+    } else {
+      console.warn('Load from JSON: loader not found (MSS84_SHEET.loadStaticFromJson)');
+    }
+  });
+}
+
     const tabs      = QS('#sheetTabs');
     const savePulse = QS('#savePulse');
 
