@@ -664,11 +664,14 @@ if (btnLoad && !btnLoad.__wired) {
   btnLoad.__wired = true;
   btnLoad.addEventListener('click', () => {
     // Uses the loader we added earlier; fills static fields only, preserves dynamic
-    if (window.MSS84_SHEET?.loadStaticFromJson) {
-      window.MSS84_SHEET.loadStaticFromJson('fill');
-    } else {
-      console.warn('Load from JSON: loader not found (MSS84_SHEET.loadStaticFromJson)');
-    }
+if (typeof loadStaticFromJson === 'function') {
+  loadStaticFromJson('fill');
+} else if (window.MSS84_SHEET?.loadStaticFromJson) {
+  window.MSS84_SHEET.loadStaticFromJson('fill');
+} else {
+  console.warn('Load from JSON: loader not found (loadStaticFromJson)');
+}
+
   });
 }
 
@@ -1322,6 +1325,7 @@ if (weapToggle && weapBlock) {
       load: ()=> load(mapId, tokenId),
       saveNow: ()=> save(mapId, tokenId, sheet),
       clearToken: ()=> remove(mapId, tokenId)
+      loadStaticFromJson,   // ← make the loader callable as MSS84_SHEET.loadStaticFromJson()
     };
 
     // Also expose legacy global for convenience
