@@ -1683,4 +1683,4 @@ if (srcWeaps && (overwriteAll || overwriteStatic || (sheet.weapons || []).length
 })();
 
 // ES module named export
-export const Sheet = window.MSS84_SHEET;
+// export const Sheet = window.MSS84_SHEET;
