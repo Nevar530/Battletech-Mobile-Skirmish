@@ -11,11 +11,8 @@
 
 <script type="module">
   import { Sheet } from './modules/sheet.js';
-
-  const sheet = Sheet.mount(document.body);
-  // optional:
-  // sheet.setIds('map-1', 'token-A');
-  // sheet.open(); // start open
+  const sheet = Sheet.mount(document.body);   // mounts CLOSED by default
+  window.sheet = sheet; // (optional) for quick console checks
 </script>
   
   <!-- ==== Firebase init (default app + Firestore) ==== -->
@@ -578,6 +575,9 @@ function attachReceiver() {
   })();
 </script>
 
+  
+  
+
   <footer style="position:fixed; bottom:0; left:0; width:100%; 
                font-size:0.5em; text-align:center; color:#888; 
                padding:2px 0; border-top:1px solid #333; 
@@ -591,6 +591,13 @@ function attachReceiver() {
      Source on GitHub
   </a>
 </footer>
-
+<!-- === Sheet Module Mount === -->
+<script type="module">
+  import { Sheet } from './modules/sheet.js';
+  // wait until DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const sheet = Sheet.mount(document.body);   // mounts CLOSED
+    window.sheet = sheet;                       // optional for debugging
+  });
 </body>
 </html>
