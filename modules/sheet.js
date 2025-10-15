@@ -8,6 +8,8 @@
 export const Sheet = (() => {
     // bridge for out-of-closure helpers
 let __SHEET_BRIDGE = null;
+      let __RENDER_BRIDGE = null;
+
   /* -------------------------- One-time CSS injection -------------------------- */
   const CSS_ID = 'mss84-sheet-styles';
   const CSS = `
@@ -1490,8 +1492,8 @@ if (weapToggle && weapBlock) {
     // demo harness
     function changeIds(newMap, newTok){
       mapId = newMap; tokenId = newTok;
-      __SHEET_BRIDGE = sheet;
       sheet = load(mapId, tokenId);
+      __SHEET_BRIDGE = sheet;
       hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
       seedDefaultKitIfNeeded();
       seedMeleeIfNeeded();
@@ -1500,6 +1502,17 @@ if (weapToggle && weapBlock) {
     if (demoMap) demoMap.addEventListener('change', ()=> changeIds(demoMap.value || 'demo-map-1', tokenId));
     if (demoTok)  demoTok.addEventListener('change', ()=> changeIds(mapId, demoTok.value || 'token-A'));
 
+// expose a rerender hook for helpers outside this closure
+function __rerenderAll(){
+  hydrateAll(); 
+  renderBars(); 
+  renderArmor(); 
+  renderHeat(); 
+  renderWeapons();
+}
+__RENDER_BRIDGE = __rerenderAll;
+
+      
     /* -------------------------- Seeding defaults -------------------------- */
     const seedDefaultKitIfNeeded = ()=>{
       if (sheet && !sheet._defaultSeeded) {
