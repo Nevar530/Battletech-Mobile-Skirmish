@@ -6,6 +6,8 @@
 //   // api.open(), api.close(), api.setIds(mapId, tokenId), etc.
 
 export const Sheet = (() => {
+    // bridge for out-of-closure helpers
+let __SHEET_BRIDGE = null;
   /* -------------------------- One-time CSS injection -------------------------- */
   const CSS_ID = 'mss84-sheet-styles';
   const CSS = `
@@ -543,6 +545,8 @@ export const Sheet = (() => {
     return (blk && (blk.Front != null || blk.Rear != null)) ? blk : null;
   }
   async function loadStaticFromJson(fillMode='fill'){
+      const sheet = __SHEET_BRIDGE;
+  if (!sheet){ console.warn('Load from JSON: sheet not ready'); return; }
     // ---- resolve IDs safely (works offline) ----
 const currentMapId = (typeof mapId !== 'undefined' && mapId) ? mapId : 'local';
 let currentTokId = (typeof tokenId !== 'undefined' && tokenId) ? tokenId : null;
@@ -569,7 +573,7 @@ if (!currentTokId) {
     if (lab){
       const parts = lab.trim().split(/\s+/);
       modelHint = (parts.length===1 ? parts[0] : parts[parts.length-1]).toUpperCase();
-    } else if (fMech?.variant?.value){
+    } else if (typeof fMech !== 'undefined' && fMech?.variant?.value){
       modelHint = String(fMech.variant.value||'').toUpperCase();
     }
     if (!modelHint){ console.warn('Load from JSON: no model code from token label or variant'); return; }
@@ -867,6 +871,7 @@ function pulseSaved(){}        // placeholder; replaced later
     let mapId = 'demo-map-1';
     let tokenId = 'token-A';
     let sheet = load(mapId, tokenId);
+    __SHEET_BRIDGE = sheet;
 
     // elements
     const wrap      = QS('#sheetWrap');
@@ -954,7 +959,7 @@ if (btnLoad && !btnLoad.__wired) {
 
     // save debounce
     let tSave=null;
-    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(currentMapId, currentTokId, sheet), 200); };
+    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(mapId, tokenId, sheet), 200); };
     const pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
 
     /* ------------------------------- Heat Bar ------------------------------- */
@@ -1485,6 +1490,7 @@ if (weapToggle && weapBlock) {
     // demo harness
     function changeIds(newMap, newTok){
       mapId = newMap; tokenId = newTok;
+      __SHEET_BRIDGE = sheet;
       sheet = load(mapId, tokenId);
       hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
       seedDefaultKitIfNeeded();
