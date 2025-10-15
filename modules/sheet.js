@@ -674,7 +674,7 @@ function pulseSaved(){}        // placeholder; replaced later
         const tok = (typeof getSelectedToken === 'function') ? getSelectedToken() : null;
         const hintLabel = tok && tok.label ? String(tok.label) : '';
         // Fetch manifest
-        const manPath = 'manifest.json';
+        const manPath = 'data/manifest.json';
         let manifest = null;
         try { manifest = await (await fetch(manPath)).json(); } catch {}
         if (!manifest || !Array.isArray(manifest.entries)) {
