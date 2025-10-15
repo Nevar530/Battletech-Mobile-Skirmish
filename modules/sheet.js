@@ -858,11 +858,14 @@ function pulseSaved(){}        // placeholder; replaced later
     const btn = document.querySelector('#sheetToggleBtn');
     const btnClose  = QS('#sheetCloseBtn');
 
-    const btnLoad = QS('#loadFromJsonBtn');
-    if (btnLoad && !btnLoad.__wired) {
-      btnLoad.__wired = true;
-      btnLoad.addEventListener('click', () => loadStaticFromJson('fill'));
-    }
+const btnLoad  = QS('#loadFromJsonBtn');
+
+
+if (btnLoad && !btnLoad.__wired) {
+  btnLoad.__wired = true;
+  btnLoad.addEventListener('click', () => loadStaticFromJson('fill'));
+}
+
     const tabs      = QS('#sheetTabs');
     const savePulse = QS('#savePulse');
 
