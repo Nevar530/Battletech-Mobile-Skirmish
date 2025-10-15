@@ -2966,6 +2966,14 @@ function applyPreset(preset) {
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
 
+// Safe helper used by sheet.js to get a token's current label
+window.getTokenLabelById = function(mapId, tokenId){
+  try{
+    const t = tokens?.get?.(tokenId) || tokens?.find?.(x => x.id === tokenId) || null;
+    return t?.label || t?.name || '';
+  }catch{ return ''; }
+};
+
 
 /* ===== ONLINE GLUE (full-state on demand) ===== */
 (function () {
@@ -3031,6 +3039,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
