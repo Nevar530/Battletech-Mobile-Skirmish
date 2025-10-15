@@ -2169,7 +2169,7 @@ function teamNameToColorIndex(teamName){
 }
 function shortLabel(name){ return (name||'MECH').slice(0, 18); }
 
-function addMechFromForm(){
+async function addMechFromForm(){
   const rawInput = (mechName?.value || '').trim();
   const { tokenLabel, displayName, model } = resolveMech(rawInput);
 
@@ -3031,6 +3031,7 @@ window.addEventListener('load', loadPresetList);
 
   syncHeaderH();
 })();
+
 
 
 
