@@ -465,6 +465,204 @@ export const Sheet = (() => {
   /* ------------------------------- Module state ------------------------------- */
   const LOCS = ['HD','LA','RA','LT','CT','RT','LL','RL'];
   const HAS_REAR = new Set(['LT','CT','RT']);
+
+  /* ---------------------- JSON manifest + mech loader ---------------------- */
+  function __getTokenLabelById(tokenId){
+    try{
+      const g = document.querySelector(`svg .token[data-id="${tokenId}"]`);
+      const t = g?.querySelector('.label, text.label, text')?.textContent || '';
+      return (t||'').trim();
+    }catch{return '';}
+  }
+
+  let __WEAP_DB = null;
+  async function __getWeaponsDb(){
+    if (__WEAP_DB) return __WEAP_DB;
+    try{
+      const r = await fetch('data/weapons.json', { cache: 'no-store' });
+      if (!r.ok) throw new Error('weapons.json missing');
+      const arr = await r.json();
+      const byKey = new Map();
+      arr.forEach(w=>{
+        const name = String(w.name || w.id || '').trim();
+        if (!name) return;
+        const entry = {
+          id: w.id || name,
+          name,
+          type: w.type || '',
+          damage: Number(w.damage || 0) || 0,
+          heat: Number(w.heat || 0) || 0,
+          ammo: (typeof w.ammo === 'number') ? Number(w.ammo) : null,
+          range: Object.assign({ pointblank: 0, short: 0, medium: 0, long: 0 }, w.range || {}),
+          aliases: Array.isArray(w.aliases) ? w.aliases : []
+        };
+        const keys = new Set([name.toLowerCase()]);
+        entry.aliases.forEach(a=>{
+          const s = String(a||'').trim(); if (!s) return;
+          keys.add(s.toLowerCase());
+          if (s.includes('{k}')) {
+            [2,3,4,5,6,7,8,9,10,12,15,20,30,40].forEach(n => {
+              keys.add(s.replaceAll('{k}', String(n)).toLowerCase());
+            });
+          }
+        });
+        keys.forEach(k => byKey.set(k, entry));
+      });
+      __WEAP_DB = { list: arr, byKey };
+      return __WEAP_DB;
+    }catch(e){
+      console.warn('weapons db load failed', e);
+      __WEAP_DB = { list: [], byKey: new Map() };
+      return __WEAP_DB;
+    }
+  }
+  function __matchWeaponStats(db, nameLike){
+    if (!db) return null;
+    const base = String(nameLike||'').trim();
+    if (!base) return null;
+    const keys = [base, base.replace(/\s+/g,' '), base.replace(/\s+/g,''), base.replaceAll('-', ' ')];
+    for (const k of keys){
+      const hit = db.byKey.get(k.toLowerCase());
+      if (hit) return hit;
+    }
+    return null;
+  }
+  function __armorBlockFromFlat(flat, L){
+    if (!flat) return null;
+    const m = {
+      HD: { Front: flat.head },
+      CT: { Front: flat.centerTorso, Rear: flat.rearCenterTorso },
+      LT: { Front: flat.leftTorso,   Rear: flat.rearLeftTorso   },
+      RT: { Front: flat.rightTorso,  Rear: flat.rearRightTorso  },
+      LA: { Front: flat.leftArm },
+      RA: { Front: flat.rightArm },
+      LL: { Front: flat.leftLeg },
+      RL: { Front: flat.rightLeg },
+    };
+    const blk = m[L];
+    return (blk && (blk.Front != null || blk.Rear != null)) ? blk : null;
+  }
+  async function loadStaticFromJson(fillMode='fill'){
+    // Uses the current sheet-scoped ids
+    const currentMapId = mapId;
+    const currentTokId = tokenId;
+    if (!currentTokId){ console.warn('Load from JSON: no token id'); return; }
+
+    // 1) label -> model code
+    const lab = __getTokenLabelById(currentTokId);
+    let modelHint = '';
+    if (lab){
+      const parts = lab.trim().split(/\s+/);
+      modelHint = (parts.length===1 ? parts[0] : parts[parts.length-1]).toUpperCase();
+    } else if (fMech?.variant?.value){
+      modelHint = String(fMech.variant.value||'').toUpperCase();
+    }
+    if (!modelHint){ console.warn('Load from JSON: no model code from token label or variant'); return; }
+
+    // 2) manifest lookup
+    let manifest=null;
+    try{ const r = await fetch('data/manifest.json', { cache:'no-store' }); manifest = await r.json(); }catch{}
+    const items = Array.isArray(manifest) ? manifest
+                : Array.isArray(manifest?.items) ? manifest.items
+                : Array.isArray(manifest?.entries) ? manifest.entries : [];
+    if (!items.length){ console.warn('Load from JSON: empty manifest'); return; }
+
+    const row = items.find(e => String(e?.model||'').toUpperCase() === modelHint);
+    if (!row){ console.warn('Load from JSON: model not found in manifest', modelHint); return; }
+
+    // 3) resolve path
+    let path = row.path || row.file || row.url || '';
+    if (!path){ console.warn('Load from JSON: manifest row missing path'); return; }
+    if (!path.startsWith('data/')) path = `data/${path}`;
+
+    // 4) fetch mech json
+    let mech=null;
+    try{ const r = await fetch(path, { cache:'no-store' }); mech = await r.json(); }catch{}
+    if (!mech){ console.warn('Load from JSON: mech json not found', path); return; }
+
+    const overwriteStatic = (fillMode==='static' || fillMode==='all');
+    const overwriteAll    = (fillMode==='all');
+
+    // Identity
+    const mChassis = mech.Chassis || mech.chassis || '';
+    const mVariant = mech.Variant || mech.variant || mech.model || '';
+    const mTons    = Number(mech.Tons || mech.Tonnage || mech.tonnage || mech.mass || 0) || 0;
+    if (overwriteAll || overwriteStatic || !sheet.mech.chassis) sheet.mech.chassis = mChassis;
+    if (overwriteAll || overwriteStatic || !sheet.mech.variant) sheet.mech.variant = mVariant;
+    if (overwriteAll || overwriteStatic || !sheet.mech.tonnage) sheet.mech.tonnage = mTons;
+
+    // Movement
+    const mv = mech.Movement || mech.movement || {};
+    const w  = Number(mv.Walk || mv.walk || 0) || 0;
+    const r  = Number(mv.Run  || mv.run  || (w ? (w+2) : 0)) || 0;
+    const j  = Number(mv.Jump || mv.jump || 0) || 0;
+    if (overwriteAll || overwriteStatic || !sheet.move.walk) sheet.move.walk = w || sheet.move.walk;
+    if (overwriteAll || overwriteStatic || !sheet.move.run ) sheet.move.run  = r || sheet.move.run;
+    if (overwriteAll || overwriteStatic || !sheet.move.jump) sheet.move.jump = j || sheet.move.jump;
+
+    // Heat sinks
+    const sinksRaw = (mech.HeatSinks ?? mech.heatSinks ?? (mech.heat && mech.heat.sinks) ?? sheet.heat.sinks) || 0;
+    const sinks = (typeof sinksRaw === 'string') ? (parseInt(sinksRaw,10) || 0) : (Number(sinksRaw)||0);
+    if (overwriteAll || overwriteStatic || !sheet.heat.sinks) sheet.heat.sinks = sinks || sheet.heat.sinks;
+
+    // Armor
+    const armorMax = mech.Armor || mech.armor || {};
+    if (armorMax && typeof armorMax === 'object'){
+      const get = v => Number(v||0) || 0;
+      for (const L of LOCS){
+        const blk = __armorBlockFromFlat(armorMax, L) || {};
+        const extMax  = get(blk.ext || blk.Front || blk.Armor || blk.Max);
+        const rearMax = get(blk.rear || blk.Rear);
+        const strMax  = get(blk.str  || blk.Structure);
+        if (overwriteAll || overwriteStatic){
+          sheet.armor[L].ext.max = extMax;
+          if (sheet.armor[L].rear) sheet.armor[L].rear.max = rearMax;
+          sheet.armor[L].str.max = strMax;
+        } else {
+          if (!sheet.armor[L].ext.max)  sheet.armor[L].ext.max  = extMax;
+          if (sheet.armor[L].rear && !sheet.armor[L].rear.max) sheet.armor[L].rear.max = rearMax;
+          if (!sheet.armor[L].str.max)  sheet.armor[L].str.max  = strMax;
+        }
+        if (!(sheet.armor[L].ext.cur > 0))  sheet.armor[L].ext.cur  = sheet.armor[L].ext.max;
+        if (sheet.armor[L].rear && !(sheet.armor[L].rear.cur > 0)) sheet.armor[L].rear.cur = sheet.armor[L].rear.max;
+        if (!(sheet.armor[L].str.cur > 0))  sheet.armor[L].str.cur  = sheet.armor[L].str.max;
+      }
+    }
+
+    // Weapons
+    const srcWeaps = Array.isArray(mech.Weapons) ? mech.Weapons
+                    : Array.isArray(mech.weapons) ? mech.weapons : null;
+    if (srcWeaps && (overwriteAll || overwriteStatic || (sheet.weapons||[]).length===0)){
+      const db = await __getWeaponsDb();
+      sheet.weapons = [];
+      sheet.nextWid = 1;
+      for (const wi of srcWeaps){
+        const nameLike = (wi.Name || wi.name || wi.Type || wi.type || '').trim();
+        const stats = __matchWeaponStats(db, nameLike);
+        const isEnergy = stats ? (String(stats.type||'').toLowerCase()==='energy')
+                               : /laser|ppc|plasma|flamer/i.test(nameLike);
+        const ammoFromStats = (stats && typeof stats.ammo === 'number') ? Number(stats.ammo) : 0;
+        const ammoMax = ammoFromStats || Number(wi?.AmmoMax || wi?.Ammo || wi?.ammo?.max || 0) || 0;
+        sheet.weapons.push({
+          wid: sheet.nextWid++,
+          name: nameLike,
+          type: stats ? stats.type : (wi.Type || wi.type || ''),
+          dmg:  stats ? Number(stats.damage || 0) : Number(wi.Damage || wi.damage || 0) || 0,
+          heat: stats ? Number(stats.heat   || 0) : Number(wi.Heat   || wi.heat   || 0) || 0,
+          min:  stats ? Number((stats.range && stats.range.pointblank) || 0) : Number(wi.Min    || wi.min    || 0) || 0,
+          s:    stats ? Number((stats.range && stats.range.short)      || 0) : Number(wi.Short  || wi.s      || 0) || 0,
+          m:    stats ? Number((stats.range && stats.range.medium)     || 0) : Number(wi.Medium || wi.m      || 0) || 0,
+          l:    stats ? Number((stats.range && stats.range.long)       || 0) : Number(wi.Long   || wi.l      || 0) || 0,
+          ammo: { max: ammoMax, cur: isEnergy ? 0 : ammoMax }
+        });
+      }
+    }
+
+    // Save + render
+    save(currentMapId, currentTokId, sheet);
+    hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
+    console.log('Load from JSON: OK', { path, modelHint });
+  }
   const SLOTS_PER_LOC = 18;
   const STORAGE_NS = 'mss84:sheet';
   const HEAT_MAX_DEFAULT = 30;
@@ -520,207 +718,6 @@ export const Sheet = (() => {
   const escapeAttr = v => (''+v).replace(/"/g,'&quot;');
 
   const ceilDiv = (a,b) => Math.ceil(a/b);
-  /* ---------------------- JSON manifest + mech loader ---------------------- */
-  function getTokenLabelById(tokenId){
-    try {
-      const g = document.querySelector(`svg .token[data-id="${tokenId}"]`);
-      const t = g?.querySelector('.label, text.label, text')?.textContent || '';
-      return (t||'').trim();
-    } catch { return ''; }
-  }
-
-  let _WEAP_DB = null;
-  async function getWeaponsDb(){
-    if (_WEAP_DB) return _WEAP_DB;
-    try{
-      const r = await fetch('data/weapons.json', { cache: 'no-store' });
-      if (!r.ok) throw new Error('weapons.json missing');
-      const arr = await r.json();
-      const byKey = new Map();
-      arr.forEach(w=>{
-        const name = String(w.name || w.id || '').trim();
-        if (!name) return;
-        const entry = {
-          id: w.id || name,
-          name,
-          type: w.type || '',
-          damage: Number(w.damage || 0) || 0,
-          heat: Number(w.heat || 0) || 0,
-          ammo: (typeof w.ammo === 'number') ? Number(w.ammo) : null,
-          range: Object.assign({ pointblank: 0, short: 0, medium: 0, long: 0 }, w.range || {}),
-          aliases: Array.isArray(w.aliases) ? w.aliases : []
-        };
-        const keys = new Set([name.toLowerCase()]);
-        entry.aliases.forEach(a=>{
-          const s = String(a||'').trim(); if (!s) return;
-          keys.add(s.toLowerCase());
-          if (s.includes('{k}')) {
-            [2,3,4,5,6,7,8,9,10,12,15,20,30,40].forEach(n => {
-              keys.add(s.replaceAll('{k}', String(n)).toLowerCase());
-            });
-          }
-        });
-        keys.forEach(k => byKey.set(k, entry));
-      });
-      _WEAP_DB = { list: arr, byKey };
-      return _WEAP_DB;
-    }catch(e){
-      console.warn('weapons db load failed', e);
-      _WEAP_DB = { list: [], byKey: new Map() };
-      return _WEAP_DB;
-    }
-  }
-  function matchWeaponStats(db, nameLike){
-    if (!db) return null;
-    const base = String(nameLike||'').trim();
-    if (!base) return null;
-    const keys = [
-      base,
-      base.replace(/\s+/g,' '),
-      base.replace(/\s+/g,''),
-      base.replaceAll('-', ' ')
-    ];
-    for (const k of keys){
-      const hit = db.byKey.get(k.toLowerCase());
-      if (hit) return hit;
-    }
-    return null;
-  }
-
-  function mapArmorBlock(flat, loc){
-    if (!flat) return null;
-    const m = {
-      HD: { Front: flat.head },
-      CT: { Front: flat.centerTorso, Rear: flat.rearCenterTorso },
-      LT: { Front: flat.leftTorso,   Rear: flat.rearLeftTorso   },
-      RT: { Front: flat.rightTorso,  Rear: flat.rearRightTorso  },
-      LA: { Front: flat.leftArm },
-      RA: { Front: flat.rightArm },
-      LL: { Front: flat.leftLeg },
-      RL: { Front: flat.rightLeg },
-    };
-    const blk = m[loc];
-    if (blk && (blk.Front != null || blk.Rear != null)) return blk;
-    return null;
-  }
-
-  async function loadStaticFromJson(fillMode='fill'){
-    const idInputMap = document.querySelector('#demoMapId');
-    const idInputTok = document.querySelector('#demoTokenId');
-    const mapId2     = idInputMap ? (idInputMap.value || 'demo-map-1') : (typeof mapId !== 'undefined' ? mapId : 'demo-map-1');
-    const tokenId2   = idInputTok ? (idInputTok.value || 'token-A')   : (typeof tokenId !== 'undefined' ? tokenId : 'token-A');
-    if (!tokenId2){ console.warn('Load from JSON: no token id'); return; }
-
-    const lab = getTokenLabelById(tokenId2);
-    let modelHint = '';
-    if (lab){
-      const parts = lab.split(/\s+/);
-      modelHint = parts.length === 1 ? parts[0].toUpperCase() : parts[parts.length-1].toUpperCase();
-    } else if (typeof fMech !== 'undefined' && fMech?.variant?.value){
-      modelHint = String(fMech.variant.value||'').toUpperCase();
-    }
-    if (!modelHint){ console.warn('Load from JSON: no model code from token label or variant'); return; }
-
-    let manifest=null;
-    try{
-      const r = await fetch('data/manifest.json', { cache:'no-store' });
-      manifest = await r.json();
-    }catch{}
-    const items = Array.isArray(manifest) ? manifest
-                : Array.isArray(manifest?.items) ? manifest.items
-                : Array.isArray(manifest?.entries) ? manifest.entries : [];
-    if (!items.length){ console.warn('Load from JSON: empty manifest'); return; }
-
-    const row = items.find(e => String(e?.model||'').toUpperCase() === modelHint);
-    if (!row){ console.warn('Load from JSON: model not found in manifest', modelHint); return; }
-
-    let path = row.path || row.file || row.url || '';
-    if (!path){ console.warn('Load from JSON: manifest row missing path'); return; }
-    if (!path.startsWith('data/')) path = `data/${path}`;
-
-    let mech=null;
-    try{ const r = await fetch(path, { cache:'no-store' }); mech = await r.json(); }catch{}
-    if (!mech){ console.warn('Load from JSON: mech json not found', path); return; }
-
-    const overwriteStatic = (fillMode==='static' || fillMode==='all');
-    const overwriteAll    = (fillMode==='all');
-
-    const mChassis = mech.Chassis || mech.chassis || '';
-    const mVariant = mech.Variant || mech.variant || mech.model || '';
-    const mTons    = Number(mech.Tons || mech.Tonnage || mech.tonnage || mech.mass || 0) || 0;
-
-    if (overwriteAll || overwriteStatic || !sheet.mech.chassis) sheet.mech.chassis = mChassis;
-    if (overwriteAll || overwriteStatic || !sheet.mech.variant) sheet.mech.variant = mVariant;
-    if (overwriteAll || overwriteStatic || !sheet.mech.tonnage) sheet.mech.tonnage = mTons;
-
-    const mv = mech.Movement || mech.movement || {};
-    const w  = Number(mv.Walk || mv.walk || 0) || 0;
-    const r  = Number(mv.Run  || mv.run  || (w ? (w+2) : 0)) || 0;
-    const j  = Number(mv.Jump || mv.jump || 0) || 0;
-    if (overwriteAll || overwriteStatic || !sheet.move.walk) sheet.move.walk = w || sheet.move.walk;
-    if (overwriteAll || overwriteStatic || !sheet.move.run ) sheet.move.run  = r || sheet.move.run;
-    if (overwriteAll || overwriteStatic || !sheet.move.jump) sheet.move.jump = j || sheet.move.jump;
-
-    const sinksRaw = (mech.HeatSinks ?? mech.heatSinks ?? (mech.heat && mech.heat.sinks) ?? sheet.heat.sinks) || 0;
-    const sinks = (typeof sinksRaw === 'string') ? (parseInt(sinksRaw,10) || 0) : (Number(sinksRaw)||0);
-    if (overwriteAll || overwriteStatic || !sheet.heat.sinks) sheet.heat.sinks = sinks || sheet.heat.sinks;
-
-    const armorMax = mech.Armor || mech.armor || {};
-    if (armorMax && typeof armorMax === 'object'){
-      const get = v => Number(v||0) || 0;
-      for (const L of LOCS){
-        const blk = mapArmorBlock(armorMax, L) || {};
-        const extMax  = get(blk.ext || blk.Front || blk.Armor || blk.Max);
-        const rearMax = get(blk.rear || blk.Rear);
-        const strMax  = get(blk.str  || blk.Structure);
-        if (overwriteAll || overwriteStatic){
-          sheet.armor[L].ext.max = extMax;
-          if (sheet.armor[L].rear) sheet.armor[L].rear.max = rearMax;
-          sheet.armor[L].str.max = strMax;
-        } else {
-          if (!sheet.armor[L].ext.max)  sheet.armor[L].ext.max  = extMax;
-          if (sheet.armor[L].rear && !sheet.armor[L].rear.max) sheet.armor[L].rear.max = rearMax;
-          if (!sheet.armor[L].str.max)  sheet.armor[L].str.max  = strMax;
-        }
-        if (!(sheet.armor[L].ext.cur > 0))  sheet.armor[L].ext.cur  = sheet.armor[L].ext.max;
-        if (sheet.armor[L].rear && !(sheet.armor[L].rear.cur > 0)) sheet.armor[L].rear.cur = sheet.armor[L].rear.max;
-        if (!(sheet.armor[L].str.cur > 0))  sheet.armor[L].str.cur  = sheet.armor[L].str.max;
-      }
-    }
-
-    const srcWeaps = Array.isArray(mech.Weapons) ? mech.Weapons
-                    : Array.isArray(mech.weapons) ? mech.weapons : null;
-    if (srcWeaps && (overwriteAll || overwriteStatic || (sheet.weapons||[]).length===0)){
-      const db = await getWeaponsDb();
-      sheet.weapons = [];
-      sheet.nextWid = 1;
-      for (const wi of srcWeaps){
-        const nameLike = (wi.Name || wi.name || wi.Type || wi.type || '').trim();
-        const stats = matchWeaponStats(db, nameLike);
-        const isEnergy = stats ? (String(stats.type||'').toLowerCase()==='energy')
-                               : /laser|ppc|plasma|flamer/i.test(nameLike);
-        const ammoFromStats = (stats && typeof stats.ammo === 'number') ? Number(stats.ammo) : 0;
-        const ammoMax = ammoFromStats || Number(wi?.AmmoMax || wi?.Ammo || wi?.ammo?.max || 0) || 0;
-        sheet.weapons.push({
-          wid: sheet.nextWid++,
-          name: nameLike,
-          type: stats ? stats.type : (wi.Type || wi.type || ''),
-          dmg:  stats ? Number(stats.damage || 0) : Number(wi.Damage || wi.damage || 0) || 0,
-          heat: stats ? Number(stats.heat   || 0) : Number(wi.Heat   || wi.heat   || 0) || 0,
-          min:  stats ? Number((stats.range && stats.range.pointblank) || 0) : Number(wi.Min    || wi.min    || 0) || 0,
-          s:    stats ? Number((stats.range && stats.range.short)      || 0) : Number(wi.Short  || wi.s      || 0) || 0,
-          m:    stats ? Number((stats.range && stats.range.medium)     || 0) : Number(wi.Medium || wi.m      || 0) || 0,
-          l:    stats ? Number((stats.range && stats.range.long)       || 0) : Number(wi.Long   || wi.l      || 0) || 0,
-          ammo: { max: ammoMax, cur: isEnergy ? 0 : ammoMax }
-        });
-      }
-    }
-
-    save(mapId2, tokenId2, sheet);
-    hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
-    console.log('Load from JSON: OK', { path, modelHint });
-  }
-
 
   /* -------------------------- Persistence / Versions ------------------------- */
   function blankSheet(){
@@ -860,17 +857,12 @@ function pulseSaved(){}        // placeholder; replaced later
     const wrap      = QS('#sheetWrap');
     const btn = document.querySelector('#sheetToggleBtn');
     const btnClose  = QS('#sheetCloseBtn');
+
     const btnLoad = QS('#loadFromJsonBtn');
-if (btnLoad && !btnLoad.__wired) {
-  btnLoad.__wired = true;
-  btnLoad.addEventListener('click', () => {
-    // Uses the loader we added earlier; fills static fields only, preserves dynamic
-loadStaticFromJson('fill');
-
-
-  });
-}
-
+    if (btnLoad && !btnLoad.__wired) {
+      btnLoad.__wired = true;
+      btnLoad.addEventListener('click', () => loadStaticFromJson('fill'));
+    }
     const tabs      = QS('#sheetTabs');
     const savePulse = QS('#savePulse');
 
@@ -1515,7 +1507,6 @@ if (weapToggle && weapBlock) {
 
     // API
     const api = {
-        loadStaticFromJson,
       open, close, toggle,
       setIds: (map, tok)=> changeIds(map, tok),
       getIds: ()=>({ mapId, tokenId }),
@@ -1524,11 +1515,8 @@ if (weapToggle && weapBlock) {
       clearToken: ()=> remove(mapId, tokenId)
     };
 
-
-    
     // Also expose legacy global for convenience
-   window.MSS84_SHEET = Object.assign(window.MSS84_SHEET || {}, api);
-
+    window.MSS84_SHEET = api;
 
     return api;
   }
