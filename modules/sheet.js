@@ -1591,43 +1591,45 @@ if (weapToggle && weapBlock) {
       }
 
       // Weapons
-      const db = await getWeaponsDb();
-      const srcWeaps = Array.isArray(mech.Weapons) ? mech.Weapons
-                      : Array.isArray(mech.weapons) ? mech.weapons : null;
-      if (srcWeaps && (overwriteAll || overwriteStatic || (sheet.weapons||[]).length === 0)) {
-        sheet.weapons = [];
-        sheet.nextWid = 1;
-        srcWeaps.forEach(wi => {
-          const nameLike = (wi.Name || wi.name || wi.Type || wi.type || '').trim();
-          const stats = matchWeaponStatsSync(db, wi);
-          const isEnergy = stats ? (String(stats.type||'').toLowerCase()==='energy')
-                                 : /laser|ppc|plasma|flamer/i.test(nameLike);
-          const ammoVal = stats ? (stats.ammo if isinstance(stats.ammo, (int, float)) else 0) : 0  # placeholder, will overwrite below
-        })
-        // Rebuild using stats
-        sheet.weapons = srcWeaps.map(wi => {
-          const nameLike = (wi.Name || wi.name || wi.Type || wi.type || '').trim();
-          const stats = matchWeaponStatsSync(db, wi);
-          const isEnergy = stats ? (String(stats.type||'').toLowerCase()==='energy')
-                                 : /laser|ppc|plasma|flamer/i.test(nameLike);
-          const ammoMax = (stats and isinstance(stats.get('ammo', None), (int, float))) and int(stats['ammo']) or 0
-          return {
-            wid: sheet.nextWid++,
-            name: nameLike,
-            type: stats ? stats.type : (wi.Type || wi.type || ''),
-            dmg:  stats ? stats.damage : Number(wi.Damage || wi.damage || 0) || 0,
-            heat: stats ? stats.heat   : Number(wi.Heat   || wi.heat   || 0) || 0,
-            min:  stats ? Number(stats.range.pointblank||0) || 0 : Number(wi.Min||wi.min||0)||0,
-            s:    stats ? Number(stats.range.short||0)      || 0 : Number(wi.Short||wi.s||0)||0,
-            m:    stats ? Number(stats.range.medium||0)     || 0 : Number(wi.Medium||wi.m||0)||0,
-            l:    stats ? Number(stats.range.long||0)       || 0 : Number(wi.Long||wi.l||0)||0,
-            ammo: {
-              max: stats && typeof stats.ammo === 'number' ? Number(stats.ammo)||0 : 0,
-              cur: stats && typeof stats.ammo === 'number' ? Number(stats.ammo)||0 : (isEnergy ? 0 : 0)
-            }
-          };
-        });
+      // Weapons: enrich using weapons.json
+const srcWeaps = Array.isArray(mech.Weapons) ? mech.Weapons
+                : Array.isArray(mech.weapons) ? mech.weapons : null;
+if (srcWeaps && (overwriteAll || overwriteStatic || (sheet.weapons || []).length === 0)) {
+  const db = await getWeaponsDb();
+  sheet.weapons = [];
+  sheet.nextWid = 1;
+
+  for (const wi of srcWeaps) {
+    const nameLike = (wi.Name || wi.name || wi.Type || wi.type || '').trim();
+    const stats = matchWeaponStatsSync(db, wi);
+
+    // Determine if it's energy (no ammo consumption)
+    const isEnergy = stats
+      ? (String(stats.type || '').toLowerCase() === 'energy')
+      : /laser|ppc|plasma|flamer/i.test(nameLike);
+
+    // Ammo from DB if numeric, else fall back to mech file hints, else 0
+    const ammoFromStats = (stats && typeof stats.ammo === 'number') ? Number(stats.ammo) : 0;
+    const ammoMax = ammoFromStats || Number(wi?.AmmoMax || wi?.Ammo || wi?.ammo?.max || 0) || 0;
+
+    sheet.weapons.push({
+      wid: sheet.nextWid++,
+      name: nameLike,
+      type: stats ? stats.type : (wi.Type || wi.type || ''),
+      dmg:  stats ? Number(stats.damage || 0) : Number(wi.Damage || wi.damage || 0) || 0,
+      heat: stats ? Number(stats.heat   || 0) : Number(wi.Heat   || wi.heat   || 0) || 0,
+      min:  stats ? Number((stats.range && stats.range.pointblank) || 0) : Number(wi.Min    || wi.min    || 0) || 0,
+      s:    stats ? Number((stats.range && stats.range.short)      || 0) : Number(wi.Short  || wi.s      || 0) || 0,
+      m:    stats ? Number((stats.range && stats.range.medium)     || 0) : Number(wi.Medium || wi.m      || 0) || 0,
+      l:    stats ? Number((stats.range && stats.range.long)       || 0) : Number(wi.Long   || wi.l      || 0) || 0,
+      ammo: {
+        max: ammoMax,
+        cur: isEnergy ? 0 : ammoMax
       }
+    });
+  }
+}
+
 
       // Persist & signal
       try { localStorage.setItem(skey(mapId, tokenId), JSON.stringify(sheet)); } catch {}
