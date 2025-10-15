@@ -460,7 +460,15 @@
 
   <!-- ==== Load order ==== -->
   <script src="script.js"></script>
+  <script type="module">
+ // import { Sheet } from './sheet.js';   // if the file is /sheet.js
+  import { Sheet } from './modules/sheet.js'; // use this instead if your file is /modules/sheet.js
+
+  // Mount once so the panel exists and the toggle button wires up:
+  window.MSS84_SHEET = Sheet.mount(document.body);
+</script>
   <script type="module" src="network.js"></script>
+  
   
 
   <!-- Online + Send wiring (minimal) -->
