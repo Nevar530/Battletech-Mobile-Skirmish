@@ -464,6 +464,28 @@ export const Sheet = (() => {
   /* ------------------------------- Module state ------------------------------- */
   const LOCS = ['HD','LA','RA','LT','CT','RT','LL','RL'];
   const HAS_REAR = new Set(['LT','CT','RT']);
+  // Ensure crit boards can be cleared even if the global helper is missing
+if (typeof window.clearAllOccupancy !== 'function') {
+  window.clearAllOccupancy = function clearAllOccupancy(boards) {
+    try {
+      if (!boards || typeof boards !== 'object') return;
+      for (const loc of Object.keys(boards)) {
+        const slots = boards[loc];
+        if (!Array.isArray(slots)) continue;
+        for (const s of slots) {
+          if (s && typeof s === 'object') {
+            // Only clear occupancy; preserve labels/ids so UI still shows items
+            s.occ = false;
+            if (typeof s.hit === 'undefined') s.hit = false;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('clearAllOccupancy (shim) skipped:', e);
+    }
+  };
+}
+
     // Map our short codes to common JSON armor keys
   const ARMOR_KEY_MAP = {
     HD: ['HD','Head'],
