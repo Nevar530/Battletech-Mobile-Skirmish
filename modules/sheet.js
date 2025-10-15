@@ -469,7 +469,7 @@ export const Sheet = (() => {
   /* ---------------------- JSON manifest + mech loader ---------------------- */
   function __getTokenLabelById(tokenId){
     try{
-      const g = document.querySelector(`svg .token[data-id="${currentTokId}"]`);
+      const g = document.querySelector(`svg .token[data-id="${tokenId}"]`);
       const t = g?.querySelector('.label, text.label, text')?.textContent || '';
       return (t||'').trim();
     }catch{return '';}
@@ -562,11 +562,6 @@ if (!currentTokId) {
   console.warn('Load from JSON: no token id'); 
   return;
 }
-
-    // Uses the current sheet-scoped ids
-    const currentMapId = mapId;
-    const currentTokId = tokenId;
-    if (!currentTokId){ console.warn('Load from JSON: no token id'); return; }
 
     // 1) label -> model code
     const lab = __getTokenLabelById(currentTokId);
@@ -1534,7 +1529,7 @@ if (weapToggle && weapBlock) {
       setIds: (map, tok)=> changeIds(map, tok),
       getIds: ()=>({ mapId, tokenId }),
       load: ()=> load(mapId, tokenId),
-      saveNow: ()=> save(currentMapId, currentTokId, sheet),
+      saveNow: ()=> save(mapId, tokenId, sheet),
       clearToken: ()=> remove(mapId, tokenId)
     };
 
