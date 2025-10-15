@@ -169,26 +169,81 @@ export const Sheet = (() => {
 .mss84-weap__body{ display:block; padding:10px; background:#0e0e0e; border-top:1px solid var(--line); }
 .mss84-weap.closed .mss84-weap__body{ display:none; }
 
-/* Two-row grid */
+/* Add row layout */
+/* Two-row layout for add and list grids */
 .weap-add-grid,
 .weap-head,
 .weap-row {
   display:grid;
-  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr .6fr .6fr .6fr .8fr .8fr 70px;
-  gap:6px;
+  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr .6fr .6fr .6fr;
+  grid-template-rows: auto auto;      /* two rows */
+  gap:6px 6px;
   align-items:center;
 }
 
+/* First line: name, type, dmg, heat, min, short, med, long */
+.weap-add-grid > *:nth-child(-n+5),
+.weap-head   > *:nth-child(-n+5),
+.weap-row    > *:nth-child(-n+5) {
+  grid-row:1;
+}
+
+/* Second line: ammo + action */
+.weap-add-grid > *:nth-child(n+6),
+.weap-head   > *:nth-child(n+6),
+.weap-row    > *:nth-child(n+6) {
+  grid-row:2;
+}
+
+/* narrow columns for ammo and delete */
+.weap-add-grid input[id^="wnAmmo"],
+.weap-row input[data-k^="ammo"],
+.weap-del {
+  width:100%;
+  text-align:center;
+}
+
+/* spacing + visual separation */
+.weap-row {
+  background:#141414;
+  border:1px solid #1f1f1f;
+  border-radius:8px;
+  padding:8px 10px;
+  margin-bottom:6px;
+}
+.weap-head { margin-bottom:8px; }
+
+/* make delete button sit bottom-right */
+.weap-del {
+  justify-self:end;
+  align-self:end;
+  width:30px; height:30px;
+  border:0; border-radius:6px;
+  background:#1f1f1f; color:#bbb; cursor:pointer;
+}
+.weap-del:hover{ background:#2a2a2a; color:#fff; }
+
+/* tighten add button line */
+.weap-add-grid button#wnAdd {
+  grid-column: 7 / span 2;  /* spans bottom right area */
+  grid-row: 2;
+  align-self:center;
+}
+
+/* List */
 .weap-list{ border:1px dashed #2a2a2a; border-radius:10px; padding:10px; background:#101010; }
+.weap-head, .weap-row{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 32px;
+  gap:2px; align-items:center;
+}
 .weap-head{ color:#aaa; font-size:12px; margin-bottom:6px; }
-.weap-row{ background:#141414; border:1px solid #1f1f1f; border-radius:8px; padding:8px; margin-bottom:6px; }
+.weap-row{ background:#141414; border:1px solid #1f1f1f; border-radius:8px; padding:6px; }
 .weap-row input{ padding:6px 8px; }
 .weap-del{
   width:28px; height:28px; border:0; border-radius:6px; background:#1f1f1f; color:#bbb; cursor:pointer;
-  justify-self:end;
 }
 .weap-del:hover{ background:#2a2a2a; color:#fff; }
-`;
 
   function ensureStyles() {
     if (!document.getElementById(CSS_ID)) {
