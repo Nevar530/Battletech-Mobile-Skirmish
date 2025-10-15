@@ -424,11 +424,11 @@ export const Sheet = (() => {
             <div class="hint">TYPE</div>
             <div class="hint">DAMAGE</div>
             <div class="hint">HEAT</div>
-            <div class="hint">MIN</div>
-            <div class="hint">SHORT</div>
-            <div class="hint">MED</div>
-            <div class="hint">LONG</div>
             <div class="hint">AMMO CUR</div>
+            <div class="hint">MINIMUM</div>
+            <div class="hint">SHORT</div>
+            <div class="hint">MEDIUM</div>
+            <div class="hint">LONG</div>
             <div class="hint">AMMO MAX</div>
             <div></div>
           </div>
