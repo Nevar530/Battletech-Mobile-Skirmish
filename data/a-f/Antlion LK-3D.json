@@ -1,0 +1,129 @@
+{
+  "name": "Antlion",
+  "chassis": "Antlion",
+  "model": "LK-3D",
+  "mulId": 6338,
+  "config": "Quad",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3117,
+  "source": "TRO: 3145 Federated Suns",
+  "rulesLevel": 4,
+  "role": "Missile Boat",
+  "mass": 45,
+  "engine": "225 XL Engine(IS)",
+  "structure": "IS Reinforced",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 22,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightLeg": 20,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 161
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "'Mech Mortar 4",
+      "location": "LT"
+    },
+    {
+      "type": "'Mech Mortar 4",
+      "location": "RT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "H"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Clan Mech Mortar-4",
+      "Clan Mech Mortar-4",
+      "BloodhoundActiveProbe",
+      "BloodhoundActiveProbe",
+      "BloodhoundActiveProbe",
+      "RemoteSensorDispenser",
+      "'Mech Mortar 4"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Mech Mortar-4",
+      "Clan Mech Mortar-4",
+      "Clan Ammo SC Mortar-4",
+      "Clan Ammo SC Mortar-4",
+      "Clan Ammo SC Mortar-4",
+      "Clan Ammo SC Mortar-4",
+      "Clan Ammo SC Mortar-4",
+      "Clan Ammo SC Mortar-4",
+      "ISCASEII",
+      "'Mech Mortar 4"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun"
+    ]
+  },
+  "text": {
+    "overview": "<p>The Antlion, a unique quad BattleMech developed by StarCorps, is a specialized unit in the Armed Forces of the Federated Suns, purpose-built for indirect fire support. Designed to address the diminishing efficiency of LRMs due to the rise of anti-missile systems, the Antlion stands out for its specific role in warfare. Despite limited adoption beyond the AFFS and select mercenary units, its production continues, underscoring its niche yet vital function on the battlefield. The Antlion represents a tactical shift in mech warfare, focusing on bombardment from cover rather than direct engagement.</p>",
+    "capabilities": "<p>The Antlion is characterized by its light frame and slow speed, making it unsuitable for direct combat. Its primary strength lies in its exceptional sensor capabilities, with an active probe that ensures nothing can approach undetected within a 240-meter radius. However, its armament, limited to a pair of light machine guns, offers minimal offensive capability, barely posing a threat even to unarmored infantry. The Antlion's real value is in its specialized role, utilizing its advanced sensor systems for indirect fire missions and tactical positioning rather than frontline engagement.</p>",
+    "deployment": "This is the only known variant",
+    "history": "<p>"
+  },
+  "manufacturers": {
+    "primary": [
+      "StarCorps Industries"
+    ],
+    "primaryFactory": [
+      "Crofton"
+    ],
+    "systems": {
+      "chassis": "StarFrame Medium Reinforced",
+      "engine": "GM SuperFusion 225 XL",
+      "armor": "Valiant Ringmail Light Ferro-Fibrous with CASE II",
+      "communications": "O/P 3950 COMSET M7",
+      "targeting": "Martin-Quarry Tarsys XLR 2.7 with Bloodhound Active"
+    }
+  }
+}

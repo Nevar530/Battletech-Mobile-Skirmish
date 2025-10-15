@@ -1,0 +1,133 @@
+{
+  "name": "Ostscout",
+  "chassis": "Ostscout",
+  "model": "OTT-7J",
+  "mulId": 2366,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2600,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Scout",
+  "mass": 35,
+  "engine": "280 Fusion Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 8,
+    "jump": 8
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 6,
+    "centerTorso": 12,
+    "rightTorso": 9,
+    "leftTorso": 9,
+    "rightArm": 6,
+    "leftArm": 6,
+    "rightLeg": 8,
+    "leftLeg": 8,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 72
+  },
+  "quirks": [
+    "imp_com",
+    "imp_sensors",
+    "low_profile",
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Ostscout was designed as a pure recon BattleMech by Ostmann Industries. To that end, it was built entirely around gathering data and getting out of trouble, tasks for which it is exceptional.",
+    "capabilities": "The Ostscout is quick enough to escape most traps, and very few other designs can match it in terms of speed and maneuverability. However its ability to run and leap out of danger came at the expense of offensive capability. In fact were it not for aggressive lobbying on the part of its test pilots the final production model would have been completely weaponless. As it is, the Ostscout would be hard-pressed to win a fight against all but the lightest 'Mechs. A poor combatant, the 'Mech excels at operating deep behind enemy lines, gathering as much information as possible about the terrain and the disposition of enemy forces. The true centerpiece of the design is its advanced sensor systems, including the TRSS.2L3 target-tracking system and powerful narrow-band Barret 4000 comm system. The sensor arrays themselves are mounted outside the main chassis due to their delicate nature, with the Ostscout using its arms to aim them. Everything from hydrological to geological data is recorded, so much data in fact that the 'Mech's computer cannot process it fast enough. This forces the Ostscout to move slowly when traveling through an area of interest, waving its arms seemingly at random, which makes it one of the few times the 'Mech is vulnerable to the enemy. However so long as the enemy's first salvo doesn't cripple it, the Ostscout will likely escape from an ambush.",
+    "deployment": "The Ostscout carries a single Tronel II Medium Laser mounted in its center torso. This weapon, while not extremely powerful, is enough to dissuade most light scout assets from attempting to pursue. The ten heat sinks the 'Mech carries is more than enough to handle the heat output of this single laser - indeed the Ostscout can jump 210 meters and fire laser at the same time without overheating at all. While it is protected by four and a half tons of armor, the real protection for the 'Mech is its speed and maneuverability. A massive sixteen-ton fusion engine more commonly seen in 'Mechs twice its size propels the Ostscout to a cruising speed of 86.4 km/h. Eight jump jets built into the left and right legs give it a maximum jumping distance of 240 meters, rivaling that of the Spider.",
+    "history": "Starting in 2600 Ostmann built and sold the Ostscout to fulfill many armies' need for a swift reconnaissance 'Mech, but eventually found that demand was outstripping their production ability. Rather than sacrifice their popular Ostroc line of urban-combat 'Mechs, the company licensed Kong Interstellar to start building the 'Mech in 2700, an arrangement similar to that struck regarding the Ostsol. Kong would continue to build Ostscouts for the next hundred years until the destruction of their factory on Connaught at the outset of the Succession Wars. Deprived of the possibility of replacement, many commanders began to hoard their Ostscouts like valuable treasure, parceling them out only for special missions. Most Ostscout pilots would not even attempt to engage enemy 'Mechs, as the advanced sensor system became extremely rare and nearly impossible to replace. This unwillingness to put the 'Mech in danger meant many survived the Succession Wars in practically mint condition, although many which suffered damage to their advanced sensors were forced to replace them with inferior, albeit more robust, systems. Besides the Great Houses, ComStar also utilized the Ostscout, and in the aftermath of the Clan Invasion and ComStar Schism began developing a new Ostscout variant for their Com Guards. This new model would maintain the same maneuverability and intelligence-gathering capabilities of the original while improving its offensive and defensive capabilities. Debuting with success in 3064, within the next three years nearly half of all Com Guard Ostscouts had been upgraded to the new variant; however it was soon discovered that both the Lyran Alliance and Word of Blake were fielding their own updated Ostscouts identical to ComStar's. The intelligence leak would be confirmed and traced back to Dag Kesselring, former Precentor of the 66th Division, who passed on information about the program to both the Lyrans and Blakists. Used by both sides in the Blakist Jihad, the newborn Republic of the Sphere would maintain production of the 11J model Ostscout after the fall of Terra both for its own relatively limited needs as well as export sales to the Federated Suns and Lyran Commonwealth. Still produced during the Dark Age era, aside from the Krupp plant's combat focused Phoenix models both Kong Interstellar and Robinson Standard BattleWorks reintroduced variants that lean more heavily towards the original look and recon aspects of the venerable 7J model."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kong Interstellar Corporation",
+      "Kong Interstellar Corporation",
+      "Ostmann Industries"
+    ],
+    "primaryFactory": [
+      "Connaught",
+      "Loxley",
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Kell /S",
+      "engine": "VOX 280",
+      "armor": "Durallex Light",
+      "communications": "Barret 4000",
+      "targeting": "TRSS.2L3",
+      "jumpjet": "Ostmann Sct-A"
+    }
+  }
+}

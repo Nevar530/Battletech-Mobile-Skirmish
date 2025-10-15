@@ -1,0 +1,174 @@
+{
+  "name": "Catapult",
+  "chassis": "Catapult",
+  "model": "CPLT-C1b",
+  "mulId": 480,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2688,
+  "source": "TRO: 3039",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 65,
+  "engine": "260 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 24,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 21,
+    "leftLeg": 21,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 179
+  },
+  "quirks": [
+    "no_arms",
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 15",
+      "location": "LA"
+    },
+    {
+      "type": "LRM 15",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "LRM 15",
+      "LRM 15",
+      "LRM 15",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "LRM 15"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "LRM 15",
+      "LRM 15",
+      "LRM 15",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "LRM 15"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Jump Jet",
+      "Medium Laser",
+      "IS Ammo LRM-15",
+      "IS Ammo LRM-15",
+      "ISCASE",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Jump Jet",
+      "Medium Laser",
+      "IS Ammo LRM-15",
+      "IS Ammo LRM-15",
+      "ISCASE",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Catapult, though a well-designed BattleMech, has had a tumultuous existence. Produced by Hollis Incorporated in record numbers for the SLDF, the Terran Hegemony ultimately decided to forgo contract renewal, leaving Hollis with a BattleMech line but no customer. When the facility was eventually retooled to produce the BattleMaster, they chose to completely abandon their Catapult chassis, and its numbers began to decline. The attrition of the Succession Wars left the Draconis Combine with many Catapults but no parts for them. Contracting Yori Mech Works, a production line was eventually built and new Catapults began entering the DCMS by 3033. The Capellan Confederation would follow suit and the Catapult would finally claim the popularity that it deserved.",
+    "capabilities": "Carrying two LRM launchers in its \"ears\" and four medium lasers in its body, the Catapult was a fire support 'Mech akin to the slightly larger Archer. The inclusion of jump jets, though, and the placement of the lasers allowed many Catapults to be their own bodyguards. Many Catapult MechWarriors choose to fire all of their LRM missiles at their chosen targets before closing in to exploit any armor breaches with their lasers. This does make the Catapult slightly more flexible than many traditional support 'Mechs, although its limited ammunition stores can hamper it in extended ranged battles.",
+    "deployment": "While visible in every military of note, the Capellan Confederation and Draconis Combine would lay claim to the lion's share of the design. When production for the Catapult began in both states, the divide only increased, with many states losing all of their examples of the design by the conclusion of the Jihad. The Royal variant of the Catapult, developed for the SLDF, improved every facet of the design. Better heat dissipation, stronger armor, more missile reloads, and integral CASE protection made for a powerful fire-support design. The CPLT-C1b and its advanced technology would be victims of the Succession Wars, but the discovery of the New Dallas Memory Core would bring the variant back into most militaries. The raging devastation of the Jihad left Houses Kurita and Liao as the sole Great Houses to field this variant, though the -C1b has also been seen in both mercenary and periphery state hands.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Hollis",
+      "engine": "Magna",
+      "armor": "Durallex",
+      "communications": "O/P",
+      "targeting": "O/P"
+    }
+  }
+}

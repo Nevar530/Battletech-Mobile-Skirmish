@@ -1,0 +1,194 @@
+{
+  "name": "Juliano",
+  "chassis": "Juliano",
+  "model": "JLN-5C",
+  "mulId": 8065,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3146,
+  "source": "TRO: Dark Age",
+  "rulesLevel": 2,
+  "mass": 90,
+  "engine": "360 XL Engine(IS)",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "16 IS Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 47,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 30,
+    "leftArm": 30,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 279
+  },
+  "quirks": [
+    "combat_computer"
+  ],
+  "weapons": [
+    {
+      "type": "Streak SRM 6",
+      "location": "LA"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "CLMediumPulseLaser",
+      "Clan Streak SRM 6 Ammo",
+      "Clan Streak SRM 6 Ammo",
+      "ISCASEII",
+      "IS Endo-Composite",
+      "Streak SRM 6",
+      "Streak SRM 6",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "CLMediumPulseLaser",
+      "Clan Streak SRM 6 Ammo",
+      "Clan Streak SRM 6 Ammo",
+      "ISCASEII",
+      "IS Light Ferro-Fibrous",
+      "Streak SRM 6",
+      "Streak SRM 6",
+      "Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "CLERLargeLaser",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "ER Large Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "CLERLargeLaser",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "ER Large Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERLargeLaser",
+      "ER Large Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit (ARMORED)",
+      "CLMediumPulseLaser",
+      "Sensors",
+      "Life Support",
+      "Medium Pulse Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Endo-Composite"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

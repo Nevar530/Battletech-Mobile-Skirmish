@@ -1,0 +1,175 @@
+{
+  "name": "Marauder",
+  "chassis": "Marauder",
+  "model": "MAD-9D",
+  "mulId": 6866,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3125,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 3,
+  "role": "Brawler",
+  "mass": 75,
+  "engine": "300 XL Engine(IS)",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (IS/Clan)",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 224
+  },
+  "quirks": [
+    "command_mech",
+    "hyper_actuator",
+    "low_profile"
+  ],
+  "weapons": [
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "H"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Silver Bullet Gauss Rifle",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "CLERLargeLaser",
+      "ISMediumXPulseLaser",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "Medium X-Pulse Laser",
+      "ER Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "CLERLargeLaser",
+      "ISMediumXPulseLaser",
+      "IS Endo-Composite",
+      "Medium X-Pulse Laser",
+      "ER Large Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Radical Heat Sink System",
+      "Radical Heat Sink System",
+      "Radical Heat Sink System"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISSBGR",
+      "ISSBGR",
+      "ISSBGR",
+      "ISSBGR",
+      "ISSBGR",
+      "ISSBGR",
+      "ISSBGR",
+      "Silver Bullet Gauss Ammo",
+      "Silver Bullet Gauss Ammo",
+      "Silver Bullet Gauss Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISMediumXPulseLaser",
+      "Sensors",
+      "Life Support",
+      "Medium X-Pulse Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Endo-Composite"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Endo-Composite"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "name": "Valkyrie",
+  "chassis": "Valkyrie",
+  "model": "VLK-QF",
+  "mulId": 3378,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2967,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Missile Boat",
+  "mass": 30,
+  "engine": "150 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "11 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 14,
+    "rightTorso": 12,
+    "leftTorso": 12,
+    "rightArm": 9,
+    "leftArm": 9,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 96
+  },
+  "quirks": [
+    "easy_maintain",
+    "imp_com"
+  ],
+  "weapons": [
+    {
+      "type": "Flamer",
+      "location": "RA"
+    },
+    {
+      "type": "LRM 10",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Flamer",
+      "Flamer"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "LRM 10",
+      "LRM 10",
+      "LRM 10"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "IS Ammo LRM-10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Heat Sink",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

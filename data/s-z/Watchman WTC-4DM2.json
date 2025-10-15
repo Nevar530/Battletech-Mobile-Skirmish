@@ -1,0 +1,164 @@
+{
+  "name": "Watchman",
+  "chassis": "Watchman",
+  "model": "WTC-4DM2",
+  "mulId": 8009,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3145,
+  "source": "Record Sheets: 3150",
+  "rulesLevel": 3,
+  "mass": 40,
+  "engine": "200 Fusion Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 16,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 12,
+    "leftArm": 12,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 137
+  },
+  "quirks": [
+    "easy_maintain",
+    "easy_pilot",
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "Large Re-engineered Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "LA"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "LA"
+    },
+    {
+      "type": "Magshot",
+      "location": "RA"
+    },
+    {
+      "type": "Magshot",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "ER Flamer",
+      "ER Flamer",
+      "IS Ferro-Fibrous",
+      "Large Re-engineered Laser",
+      "ER Flamer",
+      "ER Flamer"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "Magshot",
+      "Magshot"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMagshotGR Ammo",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

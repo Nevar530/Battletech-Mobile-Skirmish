@@ -1,0 +1,174 @@
+{
+  "name": "Penetrator",
+  "chassis": "Penetrator",
+  "model": "PTR-6S",
+  "mulId": 2468,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3059,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 75,
+  "engine": "300 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 28,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 23,
+    "leftLeg": 23,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 184
+  },
+  "quirks": [
+    "good_rep_1",
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "AMS",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ER Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ER Large Laser"
+    ],
+    "leftTorso": [
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightTorso": [
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISAntiMissileSystem",
+      "ISAMS Ammo",
+      "AMS"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The designers at Kallon Industries used the Black Hawk Clan OmniMech as the basis for the Penetrator.",
+    "capabilities": "The Penetrator has an all energy weapons arsenal and uses twelve double heat sinks to handle the massive heat load from its weapons. The 'Mech is lacking in speed though when compared to the Black Hawk. This is because the 'Mechs designers used a Vlar 300 fusion engine for its combat durability, giving the 'Mech a top speed of 64.8 km/h. To help offset the 'Mech's lack of mobility, the Penetrator has four Anderson 398 jump jets giving it added mobility with a jumping distance of one hundred and twenty meters. The Penetrator also carries a respectable thirteen tons of armor. The 'Mech's heavy armor protection, combined with its standard engine and unlimited amounts of ammunition, make for a 'Mech that is very rugged and hard to kill.",
+    "deployment": "A simple modification of the Penetrator, the 6S model removes one and a half tons of armor. This frees enough weight to add a Guardian ECM Suite to the 'Mech, protecting the 'Mech from foes' advanced electronics.",
+    "history": "With the threat of the Clans looming over it, the Federated Commonwealth dispatched a large number of Penetrators to units stationed in Lyran space. Following the secession of the Commonwealth's Lyran half and the formation of the Lyran Alliance under Katherine Steiner-Davion in 3058, many Penetrators ended up on the LAAF's rolls. Penetrators served on both sides of the FedCom Civil War, demonstrating their toughness yet again. The 'Mech's low reliance on ammunition made it ideal for the mobile campaigns that defined that conflict. Archer's Avengers and other allied forces conducted a planet-hopping campaign, always staying one step ahead of the Loyalist forces pursuing them. The Avengers had to live off the land because reliable supply lines were almost non-existent. The Penetrator was an ideal combat unit because it required little ammunition and had few advanced components. Several Penetrators were captured by mercenary units during the FedCom Civil War. According to rumors, Kallon Industries may soon change its policy of only selling the design to the Federated Commonwealth and now the Federated Suns."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kallon Weapon Industries"
+    ],
+    "primaryFactory": [
+      "Talon (Wernke)"
+    ],
+    "systems": {
+      "chassis": "Crucis G",
+      "engine": "Vlar 300",
+      "armor": "Durallex Heavy",
+      "jumpjet": "Anderson 398",
+      "communications": "Dalban Micronics with ECM",
+      "targeting": "Matabushi Sentinel"
+    }
+  }
+}

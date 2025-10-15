@@ -1,0 +1,157 @@
+{
+  "name": "Assassin",
+  "chassis": "Assassin",
+  "model": "ASN-101",
+  "mulId": 126,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3024,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Scout",
+  "mass": 40,
+  "engine": "280 Fusion Engine(IS)",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 7,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 7,
+    "centerTorso": 11,
+    "rightTorso": 9,
+    "leftTorso": 9,
+    "rightArm": 5,
+    "leftArm": 5,
+    "rightLeg": 5,
+    "leftLeg": 5,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 64
+  },
+  "quirks": [
+    "easy_maintain",
+    "cramped_cockpit",
+    "non_standard",
+    "poor_life_support"
+  ],
+  "weapons": [
+    {
+      "type": "Small Laser",
+      "location": "LL"
+    },
+    {
+      "type": "Small Laser",
+      "location": "RL"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 2",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "SRM 2",
+      "IS Ammo SRM-2",
+      "SRM 2"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "LRM 5",
+      "IS Ammo LRM-5",
+      "LRM 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Small Laser",
+      "Sensors",
+      "Life Support",
+      "Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Small Laser",
+      "Small Laser"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Small Laser",
+      "Small Laser"
+    ]
+  },
+  "text": {
+    "overview": "Many military finance experts outside the Star League saw the Assassin as more of a political pork project than a powerful fighting machine, yet it turned out to be a strong 'Mech in combat against light lances.",
+    "capabilities": "The Assassin was able to destroy these lighter 'Mechs due to its good speed and maneuverability, good armor coverage (in comparison to the 'Mechs it was built to battle against), and strong weaponry. The weapons of the 'Mech is essentially comprised of three systems: the long-range missile rack, the short-range missile rack, and the arm-mounted Martell midrange laser. The design is limited in durability unless assigned supply units for support because it can only carry a total of seventy-four salvos for both launchers. The most significant disadvantage for most pilots is the incredibly tight cockpit—one of the most confined cockpit designs in the Inner Sphere.",
+    "deployment": "The -101 Assassin was an unofficial variant produced in limited numbers by the Federated Suns during the Succession Wars. Removing some of the 'Mech's seven jump jets and shaving off a half ton of armor, they were able to fit three Maxell 50 small lasers, one in each leg and the third in the head. The design was seen as a failure, especially since it sacrifices 60 meters of the 'Mech's immense jumping distance, and only three were purported to have been built and stationed with the Capellan March Militia, though some cite circumstantial evidence of more constructed in secret.",
+    "history": "Maltex has changed the cockpit cooling system dozens of times over the Assassin's four hundred year service history in a bid to provide extra elbow room, but none of the attempts have been effective. As a result, most pilots experience a tight, painful ride that limits in-cockpit time to half that of most other conventional designs; many ex-Assassin pilots have established a history of back issues that will bother them for the rest of their lives. The ammo feed system for the short-range missile rack was the only other issue with the Assassin (mostly those made up to 2815). It commonly failed during high-heat settings due to chronic jamming and could only be repaired through total disassembly in a mechanical bay. Under significant corporate pressure, Holly ultimately introduced a new feed system in 2815 and even paid several years of recall repairs; nonetheless, there are still a huge number of individually owned Assassins that may still mount the problematic system. Maltex produced only a few hundred ASN-21s after their launch. Due to a lack of spare parts, those Assassins in service were utilized sparingly, however House Marik enthusiastically used the 'Mech late in the Third Succession War. When a rush of new BattleMech types entered the markets after 3058, the Assassin was nearly phased out of service. Those that have stayed in service are usually family heirlooms with some modifications."
+  },
+  "manufacturers": {
+    "primary": [
+      "Jalastar Aerospace (Refit)"
+    ],
+    "primaryFactory": [
+      "Panpour"
+    ],
+    "systems": {
+      "chassis": "Maltex 40",
+      "engine": "VOX 280",
+      "armor": "100 AFVTA",
+      "jumpjet": "Lox Lift Series 1",
+      "communications": "Garret T15 B",
+      "targeting": "Garret 500S"
+    }
+  }
+}

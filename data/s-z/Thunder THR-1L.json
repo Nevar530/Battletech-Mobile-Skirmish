@@ -1,0 +1,160 @@
+{
+  "name": "Thunder",
+  "chassis": "Thunder",
+  "model": "THR-1L",
+  "mulId": 3214,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3055,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "350 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "11 IS Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 34,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 216
+  },
+  "quirks": [
+    "cowl"
+  ],
+  "weapons": [
+    {
+      "type": "AC/20",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Autocannon/20",
+      "Autocannon/20",
+      "Autocannon/20",
+      "Autocannon/20",
+      "Autocannon/20",
+      "Autocannon/20",
+      "Autocannon/20",
+      "Autocannon/20"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumPulseLaser",
+      "LRM 5",
+      "IS Ammo LRM-5",
+      "IS Ammo AC/20",
+      "IS Ammo AC/20",
+      "IS Ammo AC/20",
+      "ISCASE",
+      "Medium Pulse Laser",
+      "LRM 5"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Autocannon/20",
+      "Autocannon/20",
+      "ISMediumPulseLaser",
+      "AC/20",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumPulseLaser",
+      "Medium Pulse Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Thunder is a product of the aftermath of the Fourth Succession War.",
+    "capabilities": "The primary weapon on the Thunder is the massive Kali Yama Big Bore Autocannon/20 which is capable of devastating most lighter 'Mechs with a single shot. This is backed up with three highly accurate Ceres Arms Model W Medium Pulse Lasers. Finally, for token long range defense capabilities, and giving the 'Mech limited indirect fire capabilities, the Thunder carries a Sian/Ceres Jaguar LRM-5 launcher.",
+    "deployment": "",
+    "history": "The 'Mech was built to make the most of new technologies that had made their way to the Capellan Confederation at the beginning of the 3050s. This was done by building the 'Mech around a Magna 350 XL Engine to maximize the available weight in the 'Mech. The Thunder also uses double heat sinks to make it capable of handling a high heat load from its weapons systems. The 'Mech is well protected with thirteen and a half tons of armor. Its weapons payload, and the design in general, uses a mix of advanced and off the shelf parts. This balanced mix makes the Thunder a valuable asset on the modern battlefield."
+  },
+  "manufacturers": {
+    "primary": [
+      "Ceres Metals Industries"
+    ],
+    "primaryFactory": [
+      "Sian",
+      "Capella and St. Ives"
+    ],
+    "systems": {
+      "chassis": "Hollis Mk III",
+      "engine": "Magna 350 XL",
+      "armor": "Ceres Heavy with CASE",
+      "communications": "Ceres Metals Model 21-Rs",
+      "targeting": "C-Apple Churchill"
+    }
+  }
+}

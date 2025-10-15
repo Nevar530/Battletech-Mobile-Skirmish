@@ -1,0 +1,154 @@
+{
+  "name": "Buccaneer",
+  "chassis": "Buccaneer",
+  "model": "BCN-6W",
+  "mulId": 438,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3073,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 55,
+  "engine": "275 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 7
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 27,
+    "rightTorso": 19,
+    "leftTorso": 19,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 24,
+    "leftLeg": 24,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 176
+  },
+  "quirks": [
+    "imp_target_short",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "MML 5",
+      "location": "RA"
+    },
+    {
+      "type": "MML 5",
+      "location": "LT"
+    },
+    {
+      "type": "MML 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "MML 5"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "IS Ammo MML-5 SRM",
+      "MML 5"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISC3iUnit",
+      "ISC3iUnit",
+      "MML 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Ammo MML-5 LRM",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

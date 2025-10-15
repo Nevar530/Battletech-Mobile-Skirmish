@@ -1,0 +1,186 @@
+{
+  "name": "Vanquisher",
+  "chassis": "Vanquisher",
+  "model": "VQR-7V",
+  "mulId": 5722,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3071,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 45,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 14,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 304
+  },
+  "quirks": [
+    "stable",
+    "bad_rep_clan",
+    "bad_rep_is",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISImprovedC3CPU",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISRotaryAC5",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISHeavyPPC",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISLightPPC",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISLightPPC",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISRotaryAC5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "leftTorso": [
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISLightPPC",
+      "ISLightPPC",
+      "IS Rotary AC/5 Ammo",
+      "IS Rotary AC/5 Ammo",
+      "IS Rotary AC/5 Ammo",
+      "IS Rotary AC/5 Ammo",
+      "IS Rotary AC/5 Ammo",
+      "ISCASE",
+      "Endo-Steel",
+      "1 ISLightPPC"
+    ],
+    "rightTorso": [
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISLightPPC",
+      "ISLightPPC",
+      "1 ISHeavyPPC",
+      "1 ISLightPPC"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISImprovedC3CPU",
+      "ISImprovedC3CPU",
+      "1 ISImprovedC3CPU"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Endo-Steel"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "Based on the King Crab, and built in the same factory that first produced the Mackie, the Vanquisher has a legendary pedigree.",
+    "capabilities": "In order to allow it to carry as heavy a payload as possible without sacrificing durability, the 'Mech is built on a Hollis Alteration Mark VI Endo Steel that carries a Vlar 300 fusion engine, which propels the 'Mech to a top speed of 54 km/h. The Vanquisher is protected by nineteen and a half tons of armor with CASE in both side torsos to protect the 'Mech from going down in an ammunition explosion.",
+    "deployment": "This variant also uses a Small Cockpit. It also uses a Heavy Duty Gyro. The traditional Vanquisher weaponry has been replaced by a Rotary AC/5 in each arm, while the side torsos each carry a Light PPC. For a a heavy knockout punch, there is a Heavy PPC in the right torso.",
+    "history": "The Vanquisher has its genesis in the development of reverse engineered Improved C3 Computers. Once the Word of Blake had perfected their version of C3i, Cameron St. Jamais contacted Skobel MechWorks and contracted them to produce a 'Mech that would showcase the features of the new system. The Vanquisher was the result of that request."
+  },
+  "manufacturers": {
+    "primary": [
+      "Skobel MechWorks"
+    ],
+    "primaryFactory": [
+      "Russia",
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Hollis Alteration Mark VI",
+      "engine": "Vlar 300",
+      "armor": "Aldis Plate with CASE",
+      "communications": "Skobel Wave VI Comm with C3i Computer",
+      "targeting": "Falcon 12b Watcher"
+    }
+  }
+}

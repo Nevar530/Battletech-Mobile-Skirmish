@@ -1,0 +1,172 @@
+{
+  "name": "Orion",
+  "chassis": "Orion",
+  "model": "C",
+  "mulId": 7998,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3142,
+  "source": "Record Sheets: 3150",
+  "rulesLevel": 3,
+  "mass": 75,
+  "engine": "300 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Lamellor (Clan)",
+    "head": 9,
+    "centerTorso": 35,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 21,
+    "leftArm": 21,
+    "rightLeg": 32,
+    "leftLeg": 32,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 224
+  },
+  "quirks": [
+    "easy_maintain",
+    "anti_air",
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Streak LRM 15",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "CLStreakLRM15",
+      "CLStreakLRM15",
+      "CLStreakLRM15",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "Clan Streak LRM 15 Ammo",
+      "Clan Streak LRM 15 Ammo",
+      "CLCASEII",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Streak LRM 15",
+      "ER Medium Pulse Laser"
+    ],
+    "rightTorso": [
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "Clan Gauss Ammo",
+      "Clan Gauss Ammo",
+      "CLCASEII",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Gauss Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Lamellor",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Ferro-Lamellor"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Ferro-Lamellor"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

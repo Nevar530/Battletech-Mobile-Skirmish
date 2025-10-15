@@ -1,0 +1,191 @@
+{
+  "name": "Highlander IIC",
+  "chassis": "Highlander IIC",
+  "model": "3",
+  "mulId": 1523,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3077,
+  "source": "Record Sheets: 3085 Unabridged - Old is the New New",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 90,
+  "engine": "270 Fusion (Clan) Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 40,
+    "rightTorso": 28,
+    "leftTorso": 28,
+    "rightArm": 30,
+    "leftArm": 30,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 17,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 278
+  },
+  "quirks": [
+    "command_mech",
+    "cowl",
+    "reinforced_legs",
+    "difficult_eject"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 20",
+      "location": "RT"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "LA"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "LA"
+    },
+    {
+      "type": "HAG/20",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "CLStreakSRM6",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Streak SRM 6",
+      "Streak SRM 6"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "HAG/20 Ammo",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "HAG/20"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "CLMediumPulseLaser",
+      "CLMediumPulseLaser",
+      "CLMediumPulseLaser",
+      "Clan Ammo LRM-20 (Clan) Artemis-capable",
+      "Clan Ammo LRM-20 (Clan) Artemis-capable",
+      "Clan Ammo LRM-20 (Clan) Artemis-capable",
+      "Clan Ammo LRM-20 (Clan) Artemis-capable",
+      "Clan Streak SRM 6 Ammo",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "CLLRM20",
+      "CLLRM20",
+      "CLLRM20",
+      "CLLRM20",
+      "CLArtemisIV",
+      "HAG/20 Ammo",
+      "HAG/20 Ammo",
+      "HAG/20 Ammo",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "LRM 20"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLECMSuite",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "One of the most popular Star League BattleMechs, many a Highlander accompanied General Aleksandr Kerensky into exile. Some were mothballed, but many found their way into the toumans of the Clans.",
+    "capabilities": "With the use of newer, lighter weapons, the damage potential of the Highlander has roughly doubled. The IIC also contains enough ammunition that it rarely needs to conserve any during Trials. Clan scientists were forced to rearrange the placement of some weapons within the 'Mech to allow it proper ammo feeds, but the design is largely unchanged. It carries the maximum amount of Ferro-Fibrous armor that can be crammed on the frame, fourteen and a half tons. As with the original, the IIC carries enough jump jets to move up to ninety meters at a time, allowing MechWarriors to execute the \"Highlander Burial\".",
+    "deployment": "This version introduced 3077 carries a HAG/20 with 4 tons of ammunition for long battlefield endurance and ECM Suite instead of the standard Gauss Rifle.",
+    "history": "As technology advanced, the weapons systems were upgraded until the design known as the Highlander IIC finally emerged. Though no new Highlanders have been produced in over a century, several hundred are still in scattered use throughout the touman of every Clan."
+  },
+  "manufacturers": {
+    "primary": [
+      "W-7 Facilities (Refit)"
+    ],
+    "primaryFactory": [
+      "Weingarten"
+    ],
+    "systems": {
+      "chassis": "SL-XT Modified",
+      "engine": "Fusion 270 Standard",
+      "armor": "Arcadia Compound Delta VII Ferro-Fibrous",
+      "jumpjet": "Prentiss-IIIA",
+      "communications": "C-XII Series B4 GDS",
+      "targeting": "C-12 Mk. III with Artemis IV FCS"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "name": "Awesome",
+  "chassis": "Awesome",
+  "model": "AWS-10KM",
+  "mulId": 172,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3068,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 80,
+  "engine": "240 Compact Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "18 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 26,
+    "leftArm": 26,
+    "rightLeg": 34,
+    "leftLeg": 34,
+    "rearCenterTorso": 20,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 247
+  },
+  "quirks": [
+    "battle_fists_la"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy PPC",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy PPC",
+      "location": "RT"
+    },
+    {
+      "type": "Snub-Nose PPC",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISSNPPC",
+      "ISSNPPC",
+      "IS Endo Steel",
+      "Snub-Nose PPC"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Heavy PPC",
+      "Heavy PPC",
+      "Heavy PPC",
+      "Heavy PPC",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Heavy PPC"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Heavy PPC",
+      "Heavy PPC",
+      "Heavy PPC",
+      "Heavy PPC",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Heavy PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "The Awesome was designed in 2665 for the Star League by the Technicron Conglomorate and was based on the aging STR-2C Striker. While not as fast as its forefather, the Awesome is a strong assault 'Mech.",
+    "capabilities": "The Awesome's abilities are nearly entirely dependent on its particle projection cannons. The AWS can withstand a severe and consistent onslaught from its weaponry thanks to several heat sinks. With one and a half tons more armor than the Striker, the AWS is more protected than even the BattleMaster. The Awesome, like any other BattleMech, has weaknesses. While it is lethal at range, it is less effective in close-quarters combat since its PPCs have a tougher time connecting with the victim. In that case, it just possesses a light weapon and a left fist to fall back on. Because of its limited mobility, it is vulnerable to flanking attacks from speedier opponents seeking to get past the PPCs. While they face arguably of the heaviest rear armor found on any BattleMech, the Awesome's lack of rear facing armaments or a weapon mount on its left arm has offered numerous MechWarriors a fighting chance. Formations of Awesomes (or even just a few) are incredibly effective and tough to stop or defeat when correctly placed by commanders who are knowledgeable of the AWS's limitations.",
+    "deployment": "The 10KM, a joint project between IBMU and Alshain Weaponry, was introduced in 3067. The 'Mech utilizes Irian's compact engine and Compact Gyro to save space at the expense of mass. It retains the speed and ECM of the 9Q, but utilizes an Endo Steel structure. Two Heavy PPCs deal a good amount of damage in each blow, while a Snub-Nose PPC is deadly and accurate at close range. At the time of its introduction the 10KM was reserved for only the elite units of the Free Worlds League and Draconis Combine, and thanks to an iron-clad contract even the wily Irian Technologies had trouble finding a loophole to sell the 'Mech to the other Houses or mercenary units.",
+    "history": "Awesomes can be found in every military House. Because the Free Worlds League has the last remaining manufacturing factories capable of generating the Awesome, it also has the most Awesomes of any of the Great Houses. Opinions on the 'Mech vary greatly within the League. Many people laud its powers, while others believe that its limited mobility is too high a price to pay for what it can do. Similar sentiments exist in the other Houses, but none of them can debate the issue beyond academics. Few commanders would turn down the opportunity to acquire an Awesome for their army. The Awesome is typically used to assault a fixed position or to breach the enemy's line of defense. They are also in demand for defensive operations. MechWarriors piloting the Awesome can expect to be involved in heavy battle and to be charged with obtaining or guarding the most crucial objectives from the adversary."
+  },
+  "manufacturers": {
+    "primary": [
+      "Irian BattleMechs Unlimited",
+      "Technicron Manufacturing",
+      "Technicron Manufacturing/Irian BattleMechs Unlimited"
+    ],
+    "primaryFactory": [
+      "Irian",
+      "Savannah",
+      "Tongatapu"
+    ],
+    "systems": {
+      "chassis": "Technicron Type GE",
+      "engine": "Pitban 240 Compact",
+      "armor": "Durallex Heavy Special",
+      "communications": "Garrett T19-G with ECM",
+      "targeting": "Dynatec 2780"
+    }
+  }
+}

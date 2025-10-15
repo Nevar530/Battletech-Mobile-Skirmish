@@ -1,0 +1,176 @@
+{
+  "name": "Emperor",
+  "chassis": "Emperor",
+  "model": "EMP-6L",
+  "mulId": 967,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3069,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 90,
+  "engine": "270 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Triple-Strength",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Stealth (InnerSphere)",
+    "head": 9,
+    "centerTorso": 44,
+    "rightTorso": 28,
+    "leftTorso": 28,
+    "rightArm": 30,
+    "leftArm": 30,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 14,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 279
+  },
+  "quirks": [
+    "command_mech"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "Stealth",
+      "Stealth",
+      "TSM",
+      "TSM",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "Stealth",
+      "Stealth",
+      "Gauss Rifle"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "Stealth",
+      "Stealth",
+      "TSM",
+      "TSM",
+      "TSM",
+      "TSM",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "ISCASE",
+      "Stealth",
+      "Stealth",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth",
+      "Stealth"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth",
+      "Stealth"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

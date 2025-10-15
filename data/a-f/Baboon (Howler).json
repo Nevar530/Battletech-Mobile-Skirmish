@@ -1,0 +1,159 @@
+{
+  "name": "Baboon",
+  "chassis": "Baboon",
+  "mulId": 189,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 2871,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 20,
+  "engine": "140 Fusion (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Clan Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 7,
+    "centerTorso": 8,
+    "rightTorso": 7,
+    "leftTorso": 7,
+    "rightArm": 5,
+    "leftArm": 5,
+    "rightLeg": 6,
+    "leftLeg": 6,
+    "rearCenterTorso": 2,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 57
+  },
+  "quirks": [
+    "ext_twist",
+    "low_profile",
+    "searchlight"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "CLLRM5",
+      "CLLRM5",
+      "CLLRM5",
+      "Clan Ammo LRM-5",
+      "Clan Ammo LRM-5",
+      "Clan Ammo LRM-5",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "LRM 5",
+      "LRM 5",
+      "LRM 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Howler is a potent missile boat for its size. Meant to provide fire support to light garrison Stars.",
+    "capabilities": "It is relatively fast for a 'Mech its size, topping out at 119 km/h. Its good speed and armament is made possible by the use of an endo steel structure and three tons of ferro-fibrous armor.",
+    "deployment": "The 'Mech carries three LRM-5 launchers and three tons of ammunition. It is also used extensively as a training 'Mech.",
+    "history": "The Howler (or Baboon, as the Inner Sphere calls it) was first seen in Clan Jade Falcon's second-line Clusters. Once thought to be unique to that Clan, the design has now appeared among the Snow Ravens, Star Adders, and Steel Vipers. The Steel Vipers returned to the Clan homeworlds and restructured their touman after the Jade Falcons kicked them out of the Inner Sphere occupied zones. Aside from improvements in front-line troops, numerous second-line units gained new people and equipment. Steel Vipers addressed the needs of its heavy forces with designs like as the Matador, Scylla, the heavy laser form of the Phoenix Hawk IIC, and the upgraded version of the Viper. Lighter second-line BattleMech formations, on the other hand, lagged behind. The Viper Khans explored acceptable designs to correct this imbalance and eventually settled on the successful Baboon."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kindraa Matilda-Carroll Main Production Facility",
+      "CJF Factory Zone 5"
+    ],
+    "primaryFactory": [
+      "Marshall (Molten)",
+      "Blackjack"
+    ],
+    "systems": {
+      "chassis": "Type-A Endo Steel",
+      "engine": "General Systems 120 XL",
+      "armor": "Type 2 Ferro Fibrous w/CASE",
+      "communications": "Mercer 973",
+      "targeting": "GEG Pattern 490/1"
+    }
+  }
+}

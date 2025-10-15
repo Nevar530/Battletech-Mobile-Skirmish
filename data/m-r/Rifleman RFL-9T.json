@@ -1,0 +1,166 @@
+{
+  "name": "Rifleman",
+  "chassis": "Rifleman",
+  "model": "RFL-9T",
+  "mulId": 2707,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3071,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 60,
+  "engine": "240 Fusion Engine(IS)",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Stealth (InnerSphere)",
+    "head": 9,
+    "centerTorso": 22,
+    "rightTorso": 16,
+    "leftTorso": 16,
+    "rightArm": 15,
+    "leftArm": 15,
+    "rightLeg": 21,
+    "leftLeg": 21,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 152
+  },
+  "quirks": [
+    "anti_air",
+    "imp_com",
+    "searchlight",
+    "ubiquitous_clan",
+    "ubiquitous_is"
+  ],
+  "weapons": [
+    {
+      "type": "Light PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Light Auto Cannon/5",
+      "location": "LA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RA"
+    },
+    {
+      "type": "Light Auto Cannon/5",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Light PPC",
+      "Light PPC",
+      "Light Auto Cannon/5",
+      "Light Auto Cannon/5",
+      "Stealth",
+      "Stealth",
+      "Light PPC",
+      "Light Auto Cannon/5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Light PPC",
+      "Light PPC",
+      "Light Auto Cannon/5",
+      "Light Auto Cannon/5",
+      "Stealth",
+      "Stealth",
+      "Light PPC",
+      "Light Auto Cannon/5"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISERMediumLaser",
+      "IS Ammo LAC/5",
+      "IS Ammo LAC/5",
+      "ISCASE",
+      "Stealth",
+      "Stealth",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "ISERMediumLaser",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "Stealth",
+      "Stealth",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth",
+      "Stealth"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth",
+      "Stealth"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "name": "Katana (Crockett)",
+  "chassis": "Katana (Crockett)",
+  "model": "CRK-5003-CJ",
+  "mulId": 1762,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3071,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 85,
+  "engine": "255 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 24,
+    "leftLeg": 24,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 200
+  },
+  "quirks": [
+    "easy_pilot",
+    "poor_life_support"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISLightPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISLightPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISSRM6",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISC3SlaveUnit",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISLightPPC",
+      "ISLightPPC",
+      "ISERMediumLaser",
+      "1 ISLightPPC",
+      "1 ISERMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISLightPPC",
+      "ISLightPPC",
+      "ISERMediumLaser",
+      "1 ISLightPPC",
+      "1 ISERMediumLaser"
+    ],
+    "leftTorso": [
+      "ImprovedJump Jet",
+      "ImprovedJump Jet",
+      "ISSRM6",
+      "ISSRM6",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "1 ISSRM6"
+    ],
+    "rightTorso": [
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet",
+      "ISSRM6",
+      "ISSRM6",
+      "ISSRM6 Ammo",
+      "ISSRM6 Ammo",
+      "ISLBXAC10 Ammo",
+      "ISLBXAC10 Ammo"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support",
+      "1 ISC3SlaveUnit"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Katana began its existence when the Draconis Combine was given several downgraded Crockett BattleMechs by ComStar as part of Operation Rosebud.",
+    "capabilities": "The Katana shares many of the same features as the Crockett, right down to the serial number. Just like the Crockett, the Katana mounts the same fusion engine and jump jets for similar ground speed and leaping ability. It is also protected by the same twelve and a half tons of armor and utilizes the same electronic systems. Unlike the original 'Mech, the Katana makes do with twenty standard heat sinks.",
+    "deployment": "This modification of the 5003-C unveiled in 3071 increases the jumping capacity to 150 meters through the inclusion of improved jump jets. Room is made for them by swapping out the lasers for paired Light PPCs and ER Medium Lasers. In addition, the heat dissipation system is upgraded to fifteen double heat sinks, allowing the CJ to handle the heat load of the weapons with no difficulty. The design still suffers from lack of CASE to protect its vulnerable ammunition bins, a fact that is especially important given the use of a standard fusion engine.",
+    "history": "During negotiations in 3035 Primus Myndo Waterly gave the Combine the Blankenburg Technologies storage facility on Soul as a gesture of good faith. The facility was handed over to Independence Weaponry (although for appearance's sake it was \"leased\" from Blankenburg) which, beyond a treasure trove of lostech weapons, also contained a number of Crocketts. IW went about reverse-engineering the weapons so they could produce copies at a nearby facility for sale to other Combine manufacturers and closely examined the Crocketts for several months. After making minor modifications these 'Mechs were renamed Katanas and used to replace Chargers in several DCMS units. The Katana quickly become a mainstay in many of the heavier mobile line units, especially after the invention of the C3 Computer. Recognizing the value in this new technology, IW quickly developed several new Katana variants which could effectively operate as part of C3 lances. When the \"lease\" expired and the Soul facility was returned to Blankenburg, the company hired on the entire IW Katana engineering team and entered into a technology-sharing agreement to continue production of new Katanas."
+  },
+  "manufacturers": {
+    "primary": [
+      "Blankenburg Technologies (Refit)"
+    ],
+    "primaryFactory": [
+      "Soul"
+    ],
+    "systems": {
+      "chassis": "Geometric 530 Hard Core",
+      "engine": "Strand 255",
+      "armor": "CarbonStrand 30 Weight AS",
+      "jumpjet": "Geotec 300I",
+      "communications": "GRPNTR Groundpainter 5",
+      "targeting": "Scope 30 RNDST"
+    }
+  }
+}

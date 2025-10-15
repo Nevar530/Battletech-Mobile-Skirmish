@@ -1,0 +1,152 @@
+{
+  "name": "Gurkha",
+  "chassis": "Gurkha",
+  "model": "GUR-4G",
+  "mulId": 4254,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3065,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 35,
+  "engine": "245 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 15,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 12,
+    "leftArm": 12,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 119
+  },
+  "quirks": [
+    "bad_rep_clan",
+    "bad_rep_is",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "4 ISERSmallLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISLargePulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISImprovedC3CPU",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERSmallLaser",
+      "ISERSmallLaser",
+      "ISERSmallLaser",
+      "ISERSmallLaser",
+      "4 ISERSmallLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Sword",
+      "Sword",
+      "Sword"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLargePulseLaser",
+      "ISLargePulseLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISLargePulseLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISImprovedC3CPU",
+      "ISImprovedC3CPU",
+      "1 ISImprovedC3CPU"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

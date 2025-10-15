@@ -1,0 +1,186 @@
+{
+  "name": "Bruin",
+  "chassis": "Bruin",
+  "model": "2",
+  "mulId": 429,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3083,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 80,
+  "engine": "320 XL (Clan) Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 35,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 25,
+    "leftArm": 25,
+    "rightLeg": 32,
+    "leftLeg": 32,
+    "rearCenterTorso": 14,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 240
+  },
+  "quirks": [
+    "rugged_1",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Ultra AC/5",
+      "location": "RA"
+    },
+    {
+      "type": "Large Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Ultra AC/5",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "SRM 2",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLargePulseLaser",
+      "CLLargePulseLaser",
+      "CLUltraAC5",
+      "CLUltraAC5",
+      "CLUltraAC5",
+      "Large Pulse Laser",
+      "Ultra AC/5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLargePulseLaser",
+      "CLLargePulseLaser",
+      "CLUltraAC5",
+      "CLUltraAC5",
+      "CLUltraAC5",
+      "Large Pulse Laser",
+      "Ultra AC/5"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMG",
+      "CLMG",
+      "CLMG",
+      "Clan Ultra AC/5 Ammo",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLMG",
+      "CLMG",
+      "CLMG",
+      "Clan Machine Gun Ammo - Half",
+      "Clan Ultra AC/5 Ammo",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLSRM2",
+      "Clan Ammo SRM-2",
+      "SRM 2"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

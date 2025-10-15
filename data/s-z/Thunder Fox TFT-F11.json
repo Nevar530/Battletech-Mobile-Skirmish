@@ -1,0 +1,106 @@
+{
+  "name": "Thunder Fox",
+  "chassis": "Thunder Fox",
+  "model": "TFT-F11",
+  "mulId": 6892,
+  "config": "Quad",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3119,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 4,
+  "role": "Sniper",
+  "mass": 55,
+  "engine": "275 XXL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 IS Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Hardened (InnerSphere)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightLeg": 26,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 201
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Life Support",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Life Support",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Cockpit",
+      "Sensors",
+      "Jump Jet",
+      "ISHeadTurret"
+    ],
+    "head": [
+      "Sensors",
+      "Sensors",
+      "CLERPPC (T)",
+      "CLERPPC (T)",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ER PPC"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "name": "Warhammer IIC",
+  "chassis": "Warhammer IIC",
+  "model": "10",
+  "mulId": 6859,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3120,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 80,
+  "engine": "320 Fusion (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "23 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 230
+  },
+  "quirks": [
+    "searchlight",
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLERLargeLaser",
+      "CLERLargeLaser",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "ER Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLERLargeLaser",
+      "CLERLargeLaser",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "ER Large Laser"
+    ],
+    "leftTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLSRM6",
+      "Clan Ammo SRM-6",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "SRM 6"
+    ],
+    "rightTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLSRM6",
+      "Clan Ammo SRM-6",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "SRM 6"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLERSmallLaser",
+      "Sensors",
+      "Life Support",
+      "ER Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Clan's interpretation on the classic Warhammer has never been subtle. The BattleMech's hyper-advanced technology only emphasized and improved its duty as a frontline brawler; boosting its mass by 10 tons (with equivalent increases in armor protection) made it even more powerful.",
+    "capabilities": "Thanks to their technological expertise, they were able to add ten tons with the same speed and firepower and nearly double the armor of the original. The Warhammer IIC is built on an Endo Steel frame and is protected by tons of ferro-fibrous armor. The result is a dangerous 'Mech, able to hold its own in any battle against the Inner Sphere. Also note that the armor was the primary concern when designing the IIC version rivaling even 100 ton assault 'Mechs in durability and protection.",
+    "deployment": "Introduced in the Dark Age era, this version carries four ER Large Lasers supported by twin SRM-6 launchers. A single ER Small Laser rounds out the armament. It's powered by a standard fusion engine, but uses an Endo Steel frame and ferro-fibrous armor.",
+    "history": "The Warhammer IIC is now the most common Clan BattleMech in the Inner Sphere. These remarkable machines are fielded by every major Inner Sphere force, Clan, and many large mercenary groups. It is only found on the periphery, where its equally outstanding price tag is simply too high for these countries to justify."
+  },
+  "manufacturers": {
+    "primary": [
+      "Snow Raven Industrial Complex Alpha",
+      "Mu Manufacturing Plant 3H",
+      "Sheridan LM-TA 8-10"
+    ],
+    "primaryFactory": [
+      "Dante",
+      "Paxon",
+      "Sheridan"
+    ],
+    "systems": {
+      "chassis": "SFX-80 Endo",
+      "engine": "Type 320 Fusion",
+      "armor": "Forging ZM15 Ferro-Fibrous",
+      "communications": "TDWS-37 Mk 2.2",
+      "targeting": "“Hephaestus” CT-44"
+    }
+  }
+}

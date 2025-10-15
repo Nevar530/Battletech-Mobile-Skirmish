@@ -1,0 +1,144 @@
+{
+  "name": "Dark Crow",
+  "chassis": "Dark Crow",
+  "model": "2",
+  "mulId": 824,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3084,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 55,
+  "engine": "330 XL (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 8,
+    "centerTorso": 20,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 128
+  },
+  "quirks": [
+    "low_arms"
+  ],
+  "weapons": [
+    {
+      "type": "LB 5-X AC",
+      "location": "LA"
+    },
+    {
+      "type": "LB 5-X AC",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLLBXAC5",
+      "CLLBXAC5",
+      "CLLBXAC5",
+      "CLLBXAC5",
+      "LB 5-X AC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLLBXAC5",
+      "CLLBXAC5",
+      "CLLBXAC5",
+      "CLLBXAC5",
+      "LB 5-X AC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERLargeLaser",
+      "CLERSmallLaser",
+      "Clan LB 5-X AC Ammo",
+      "Endo Steel",
+      "Endo Steel",
+      "ER Large Laser",
+      "ER Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "Clan LB 5-X Cluster Ammo",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

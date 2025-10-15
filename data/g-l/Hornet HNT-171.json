@@ -1,0 +1,147 @@
+{
+  "name": "Hornet",
+  "chassis": "Hornet",
+  "model": "HNT-171",
+  "mulId": 1548,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3051,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 20,
+  "engine": "100 Fusion Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 7,
+    "centerTorso": 8,
+    "rightTorso": 8,
+    "leftTorso": 8,
+    "rightArm": 6,
+    "leftArm": 6,
+    "rightLeg": 6,
+    "leftLeg": 6,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 62
+  },
+  "quirks": [
+    "low_profile",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISMediumLaser",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISMediumLaser"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Jump Jet",
+      "ISLRM5 Ammo",
+      "ISLRM5 Ammo",
+      "ISAMS Ammo",
+      "ISCASE",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Jump Jet",
+      "ISLRM5",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Endo-Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISAntiMissileSystem",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

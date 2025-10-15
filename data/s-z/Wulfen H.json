@@ -1,0 +1,170 @@
+{
+  "name": "Wulfen",
+  "chassis": "Wulfen",
+  "model": "H",
+  "mulId": 6262,
+  "config": "Biped Omnimech",
+  "techBase": "Mixed (Clan Chassis)",
+  "era": 3137,
+  "source": "TRO: 3145 The Clans",
+  "rulesLevel": 3,
+  "role": "Striker",
+  "mass": 30,
+  "engine": "300 XXL (Clan) Engine",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 10,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Stealth (InnerSphere)",
+    "head": 8,
+    "centerTorso": 15,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 14,
+    "leftLeg": 14,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 104
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "IS Stealth",
+      "IS Stealth",
+      "Improved Heavy Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "IS Stealth",
+      "IS Stealth"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "Clan Endo Steel",
+      "IS Stealth",
+      "IS Stealth",
+      "Improved Heavy Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "Clan Endo Steel",
+      "IS Stealth",
+      "IS Stealth",
+      "Improved Heavy Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLECMSuite",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Stealth",
+      "IS Stealth"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Stealth",
+      "IS Stealth"
+    ]
+  },
+  "text": {
+    "overview": "<P>The Wulfen, a light OmniMech from Clan Wolf, initially met with internal disapproval but soon gained admiration due to its sterling combat performances. Its prototypes showcased formidable capabilities during the invasions of the Republic, Free Worlds League, and Lyran Commonwealth, earning it a special place within Clan Wolf, especially among ristars (rising stars).</P>",
+    "capabilities": "<P>Boasting an amalgam of speed and stealth armor, the Wulfen excels in dictating engagement terms against heavier adversaries. Its versatility shines in long-range duels, disrupting supply chains, eliminating reconnaissance elements, and facilitating general advancements on the battlefield.</P><P>Leveraging a blend of Clan and Inner Sphere technologies, the Wulfen is equipped with a 300-rated Model 39b extra-light engine, Inner Sphere XL gyro, Process 12 endo steel chassis, and 10 tons of pod space. It also hosts an ECM suite, Full-Head Ejection System, and six and a half tons of Imstar V-Stealth stealth armor. This technological medley ensures the Wulfen remains a formidable contender on the battlefield.</P>",
+    "deployment": "<P>Designed for close combat, it's loaded with a heavy laser suite and four additional double heat sinks to manage the substantial heat load during prolonged engagements.</P>",
+    "history": "<P>Initially designed in 3137 on Tamar, its production saw a hiatus during the Clan's repositioning to the Lyran Commonwealth border, resuming in 3142 initially on Weingarten and later on Thermopolis. Star Captain Paul's ascendancy from a humble sibko to a Nova leader in the Third Wolf Guard Battle Cluster epitomizes the Wulfen's allure among the Clan's ambitious warriors.</P><P>The Wulfen's journey from controversy to a revered combat unit encapsulates Clan Wolf's evolving combat doctrines. Initially denounced by Star Colonel Josiah Ward as a symbol of Spheroid dishonor, the Wulfen's reputation was salvaged by saKhan Garner Kerensky, who triumphed over Ward in a Trial of Grievance using a Wulfen prototype. This event birthed the B configuration, which became a staple in later combat scenarios.</P>"
+  },
+  "manufacturers": {
+    "primary": [
+      "Kallon Weapon Industries",
+      "W-7 Facilities"
+    ],
+    "primaryFactory": [
+      "Thermopolis",
+      "Weingarten"
+    ],
+    "systems": {
+      "chassis": "Process 12 Endo Steel",
+      "engine": "Model 39b 300 XXL Engine",
+      "armor": "Imstar V-Stealth",
+      "communications": "Garret T11-b with ECM Suite",
+      "targeting": "ync Tracker (39-42071)"
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "name": "Rifleman",
+  "chassis": "Rifleman",
+  "model": "RFL-3N",
+  "mulId": 2697,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2770,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Sniper",
+  "mass": 60,
+  "engine": "240 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 6,
+    "centerTorso": 22,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 15,
+    "leftArm": 15,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 120
+  },
+  "quirks": [
+    "anti_air",
+    "imp_com",
+    "searchlight",
+    "ubiquitous_clan",
+    "ubiquitous_is"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Autocannon/5",
+      "location": "LA"
+    },
+    {
+      "type": "Autocannon/5",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Large Laser",
+      "Large Laser",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Large Laser",
+      "Autocannon/5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Large Laser",
+      "Large Laser",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Large Laser",
+      "Autocannon/5"
+    ],
+    "leftTorso": [
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Ammo AC/5"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

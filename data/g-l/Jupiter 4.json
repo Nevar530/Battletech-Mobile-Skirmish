@@ -1,0 +1,172 @@
+{
+  "name": "Jupiter",
+  "chassis": "Jupiter",
+  "model": "4",
+  "mulId": 6829,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3093,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 100,
+  "engine": "400 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "21 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 46,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 16,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 307
+  },
+  "quirks": [
+    "fine_manipulators",
+    "imp_sensors",
+    "imp_target_long"
+  ],
+  "weapons": [
+    {
+      "type": "Streak SRM 4",
+      "location": "LA"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 15",
+      "location": "LT"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 15",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLStreakSRM4",
+      "Clan Streak SRM 4 Ammo",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Streak SRM 4"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLStreakSRM4",
+      "Clan Streak SRM 4 Ammo",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Streak SRM 4"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLERPPC",
+      "CLERPPC",
+      "CLLRM15",
+      "CLLRM15",
+      "CLArtemisIV",
+      "Clan Ammo LRM-15 (Clan) Artemis-capable",
+      "Clan Ammo LRM-15 (Clan) Artemis-capable",
+      "Clan Endo Steel",
+      "ER PPC",
+      "LRM 15"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLERPPC",
+      "CLERPPC",
+      "CLLRM15",
+      "CLLRM15",
+      "CLArtemisIV",
+      "Clan Ammo LRM-15 (Clan) Artemis-capable",
+      "Clan Ammo LRM-15 (Clan) Artemis-capable",
+      "Clan Endo Steel",
+      "ER PPC",
+      "LRM 15"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "name": "Vulture Mk III",
+  "chassis": "Vulture Mk III",
+  "model": "D",
+  "mulId": 6275,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3109,
+  "source": "TRO: 3145 The Clans",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "300 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 24,
+    "leftLeg": 24,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 182
+  },
+  "quirks": [
+    "stable",
+    "variable_range_long"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Rotary AC/5",
+      "location": "LT"
+    },
+    {
+      "type": "Rotary AC/5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLMediumPulseLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLMediumPulseLaser (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 Ammo (omnipod)",
+      "CLRotaryAC5 Ammo (omnipod)",
+      "Rotary AC/5"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 (omnipod)",
+      "CLRotaryAC5 Ammo (omnipod)",
+      "CLRotaryAC5 Ammo (omnipod)",
+      "Rotary AC/5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLRotaryAC5 Ammo (omnipod)",
+      "CLRotaryAC5 Ammo (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

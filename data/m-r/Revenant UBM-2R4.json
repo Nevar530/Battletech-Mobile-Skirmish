@@ -1,0 +1,108 @@
+{
+  "name": "Revenant",
+  "chassis": "Revenant",
+  "model": "UBM-2R4",
+  "mulId": 6716,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 3142,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 3,
+  "role": "Scout",
+  "mass": 30,
+  "engine": "180 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 14,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightLeg": 14,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 112
+  },
+  "quirks": [
+    "imp_com"
+  ],
+  "weapons": [
+    {
+      "type": "TAG",
+      "location": "RT"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ER Flamer",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "RemoteSensorDispenser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Flamer"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "BeagleActiveProbe",
+      "BeagleActiveProbe",
+      "ISC3SlaveUnit",
+      "RemoteSensorDispenser",
+      "ISTAG",
+      "TAG"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "ISDroneOperatingSystem",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

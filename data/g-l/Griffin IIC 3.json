@@ -1,0 +1,164 @@
+{
+  "name": "Griffin IIC",
+  "chassis": "Griffin IIC",
+  "model": "3",
+  "mulId": 1312,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3060,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 40,
+  "engine": "240 Fusion (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 6
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 17,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 134
+  },
+  "quirks": [
+    "battle_fists_la",
+    "battle_fists_ra"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Streak SRM 2",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Streak SRM 2",
+      "location": "RT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLStreakSRM2",
+      "Clan Streak SRM 2 Ammo",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Heavy Medium Laser",
+      "Streak SRM 2"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLStreakSRM2",
+      "Clan Streak SRM 2 Ammo",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Heavy Medium Laser",
+      "Streak SRM 2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERLargeLaser",
+      "ER Large Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLHeavySmallLaser",
+      "Sensors",
+      "Life Support",
+      "Heavy Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

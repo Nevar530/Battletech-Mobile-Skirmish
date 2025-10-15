@@ -1,0 +1,188 @@
+{
+  "name": "Cyclops",
+  "chassis": "Cyclops",
+  "model": "CP-11-B",
+  "mulId": 774,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3071,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 90,
+  "engine": "270 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 36,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 26,
+    "leftArm": 26,
+    "rightLeg": 29,
+    "leftLeg": 29,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 241
+  },
+  "quirks": [
+    "battle_computer",
+    "cowl",
+    "difficult_eject",
+    "weak_head_2"
+  ],
+  "weapons": [
+    {
+      "type": "Gauss Rifle",
+      "location": "LT"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 4",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Medium Laser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Medium Laser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "LRM 10",
+      "LRM 10",
+      "IS Ammo LRM-10",
+      "IS Ammo LRM-10",
+      "ISCASE",
+      "Gauss Rifle",
+      "LRM 10"
+    ],
+    "rightTorso": [
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "ISCASE",
+      "Gauss Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "SRM 4",
+      "IS Ammo SRM-4",
+      "SRM 4"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Cyclops began production in 2710 as an assault BattleMech and headquarters unit for Star League Defense Force field commanders.",
+    "capabilities": "A decent mix of weapons provided the Cyclops with both long- and short-range firepower and a sizable engine to keep up with mobile operations. But the centerpiece of the Cyclops is its sophisticated holographic battle computer, the Tacticon B-2000. When combined with the Olmstead 840 tight beam comm suite with SatNav module, the Cyclops can effectively command a brigade across the surface of an entire world. Unfortunately the Cyclops is poorly protected relative to other assault 'Mechs with only ten tons of armor, and while its normal load of twelve heat sinks allows it to stay cool in most cases, they can prove to be inadequate in especially heavy situations.",
+    "deployment": "Introduced in 3071 this version of the Cyclops carries a second Gauss Rifle, thirteen and a half tons of Ferro-Fibrous armor and CASE. To make room for this equipment, engineers replaced the engine with a 270 rated model. Though this slows the Cyclops by 25%, the increased weaponry and armor protection compensates for the reduced speed.",
+    "history": "Unfortunately the Cyclops did not fare so well with the onset of the Amaris Civil War when the Rim Worlds Republic Military destroyed its primary factory on Caph in 2774. Spare parts for the machine quickly began to dry up, until by the end of the Succession Wars less than ten percent still had a working B-2000 computer. Lacking the critical part of being a command vehicle many Cyclopses were pressed into an assault role. Acting as the bodyguard or decoy for the real commanding officer, they proved to be swift if mediocre combat machines. As most enemies know about the vulnerable head and automatically target it in combat, many Cyclops pilots also began adding false head protectors to defend against impacts. A study by the NAIS after the Fourth Succession War would eventually find that these caused more harm than good by restricting vision and increasing shrapnel, ending the practice altogether. The rediscovery of the Helm Memory Core kick-started a number of attempts to replicate the B-2000 computer, however there were no successful attempts prior to the Clan Invasion. Also, the invention of the C3 Computer with its emphasis on small-scale networking, and a switch in doctrine to using DropShips as command posts, saw the Cyclops' command role decline. However Grumium Creations was eventually able to restart production of new variants of the 'Mech, and where it has participated a Cyclops with a working B-2000 has had noticeable effects. For this reason Cyclops 'Mechs with a working battle computer were reserved for high-ranking officers."
+  },
+  "manufacturers": {
+    "primary": [
+      "Hollis Incorporated (Refit only)",
+      "Lexatech Industries (Refit only)"
+    ],
+    "primaryFactory": [
+      "Corey",
+      "Hun Ho"
+    ],
+    "systems": {
+      "chassis": "Stormvanger HV-7",
+      "engine": "Hermes 270",
+      "armor": "Starshield Ferro-Fibrous with CASE",
+      "communications": "Olmstead 840",
+      "targeting": "Tacticon Tracer 280"
+    }
+  }
+}

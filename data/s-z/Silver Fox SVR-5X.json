@@ -1,0 +1,180 @@
+{
+  "name": "Silver Fox",
+  "chassis": "Silver Fox",
+  "model": "SVR-5X",
+  "mulId": 2944,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3065,
+  "source": "TRO: 3055",
+  "rulesLevel": 4,
+  "role": "Striker",
+  "mass": 35,
+  "engine": "315 XXL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 9,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Reflective (InnerSphere)",
+    "head": 9,
+    "centerTorso": 15,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 15,
+    "leftLeg": 15,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 112
+  },
+  "quirks": [
+    "non_standard",
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "Magshot",
+      "location": "LA"
+    },
+    {
+      "type": "Magshot",
+      "location": "LA"
+    },
+    {
+      "type": "Magshot",
+      "location": "LA"
+    },
+    {
+      "type": "Magshot",
+      "location": "LA"
+    },
+    {
+      "type": "Magshot",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "ISMagshotGR",
+      "Magshot",
+      "Magshot",
+      "Magshot",
+      "Magshot",
+      "Magshot"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERMediumLaser",
+      "ISERMediumLaser",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMagshotGR Ammo",
+      "Reflective",
+      "Reflective",
+      "Reflective"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISAngelECMSuite",
+      "ISAngelECMSuite",
+      "Reflective",
+      "Reflective",
+      "Reflective"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISTargeting Computer",
+      "ISTargeting Computer"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERSmallLaser",
+      "Sensors",
+      "Life Support",
+      "ER Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Reflective",
+      "Reflective"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Reflective",
+      "Reflective"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

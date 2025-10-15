@@ -1,0 +1,161 @@
+{
+  "name": "Shadow Cat II",
+  "chassis": "Shadow Cat II",
+  "model": "2",
+  "mulId": 2893,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3077,
+  "source": "TRO: 3085",
+  "rulesLevel": 4,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "360 XL (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 6
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 20,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 144
+  },
+  "quirks": [
+    "easy_maintain",
+    "low_profile"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RT"
+    },
+    {
+      "type": "ER Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERLargePulseLaser",
+      "CLERLargePulseLaser",
+      "CLERLargePulseLaser",
+      "CLLaserInsulator",
+      "Endo Steel",
+      "Endo Steel",
+      "ER Large Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLPartialWing",
+      "CLPartialWing",
+      "CLPartialWing",
+      "Jump Jet",
+      "Jump Jet",
+      "CLLRM10",
+      "Clan Ammo LRM-10",
+      "Clan Ammo LRM-10",
+      "Endo Steel",
+      "Endo Steel",
+      "LRM 10"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLPartialWing",
+      "CLPartialWing",
+      "CLPartialWing",
+      "Jump Jet",
+      "Jump Jet",
+      "CLLRM10",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "CLLaserInsulator",
+      "Ferro-Fibrous",
+      "LRM 10",
+      "ER Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

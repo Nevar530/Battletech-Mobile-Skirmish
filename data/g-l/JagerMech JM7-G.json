@@ -1,0 +1,165 @@
+{
+  "name": "JagerMech",
+  "chassis": "JagerMech",
+  "model": "JM7-G",
+  "mulId": 4392,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3068,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 70,
+  "engine": "280 XL Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 34,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 197
+  },
+  "quirks": [
+    "anti_air"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISRotaryAC2",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISLBXAC2",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC2",
+      "ISRotaryAC2",
+      "ISRotaryAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC2",
+      "ISRotaryAC2",
+      "ISRotaryAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISRotaryAC2",
+      "1 ISLBXAC2"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERMediumLaser",
+      "ISLBXAC2 Ammo",
+      "IS Rotary AC/2 Ammo",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "ISCASE",
+      "1 ISERMediumLaser"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERMediumLaser",
+      "ISLBXAC2 CL Ammo",
+      "IS Rotary AC/2 Ammo",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "ISCASE",
+      "1 ISERMediumLaser"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

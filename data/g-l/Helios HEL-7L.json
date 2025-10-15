@@ -1,0 +1,173 @@
+{
+  "name": "Helios",
+  "chassis": "Helios",
+  "model": "HEL-7L",
+  "mulId": 7989,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3144,
+  "source": "Record Sheets: 3150",
+  "rulesLevel": 3,
+  "role": "Sniper",
+  "mass": 60,
+  "engine": "240 XL Engine(IS)",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 25,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 19,
+    "leftLeg": 19,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 169
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Light PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "MML 5",
+      "location": "LT"
+    },
+    {
+      "type": "MML 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Light PPC",
+      "Light PPC",
+      "Light PPC",
+      "Light PPC",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Light PPC",
+      "Light PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "IS Endo-Composite",
+      "IS Light Ferro-Fibrous",
+      "Gauss Rifle"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISC3BoostedSystemSlaveUnit",
+      "ISC3BoostedSystemSlaveUnit",
+      "IS Endo-Composite",
+      "MML 5"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "IS Ammo MML-5 SRM",
+      "IS Ammo MML-5 LRM",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "ISCASEII",
+      "IS Light Ferro-Fibrous",
+      "MML 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Light Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Light Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Light Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "name": "Yeoman",
+  "chassis": "Yeoman",
+  "model": "YMN-10-OR",
+  "mulId": 3618,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3070,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 60,
+  "engine": "240 Light Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 23,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightArm": 18,
+    "leftArm": 18,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 168
+  },
+  "quirks": [
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 10",
+      "location": "LA"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RA"
+    },
+    {
+      "type": "MML 5",
+      "location": "LA"
+    },
+    {
+      "type": "MML 5",
+      "location": "LA"
+    },
+    {
+      "type": "MML 5",
+      "location": "RA"
+    },
+    {
+      "type": "MML 5",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "LRM 10",
+      "LRM 10",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "Endo Steel",
+      "Endo Steel",
+      "LRM 10",
+      "MML 5",
+      "MML 5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "LRM 10",
+      "LRM 10",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "Endo Steel",
+      "Endo Steel",
+      "LRM 10",
+      "MML 5",
+      "MML 5"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "IS Ammo LRM-10",
+      "IS Ammo MML-5 LRM",
+      "IS Ammo MML-5 SRM",
+      "ISCASE",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Jump Jet",
+      "IS Ammo LRM-10",
+      "IS Ammo LRM-10",
+      "IS Ammo MML-5 SRM",
+      "ISCASE",
+      "Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

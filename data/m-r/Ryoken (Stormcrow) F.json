@@ -1,0 +1,211 @@
+{
+  "name": "Ryoken",
+  "chassis": "Ryoken",
+  "model": "F",
+  "mulId": 2754,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3069,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 55,
+  "engine": "330 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 25,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightArm": 18,
+    "leftArm": 18,
+    "rightLeg": 25,
+    "leftLeg": 25,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 182
+  },
+  "quirks": [
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "Plasma Cannon",
+      "location": "LA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "LA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "LA"
+    },
+    {
+      "type": "Plasma Cannon",
+      "location": "RA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLPlasmaCannon (omnipod)",
+      "CLAPGaussRifle (omnipod)",
+      "CLAPGaussRifle (omnipod)",
+      "CLPlasmaCannonAmmo (omnipod)",
+      "CLPlasmaCannonAmmo (omnipod)",
+      "CLPlasmaCannonAmmo (omnipod)",
+      "CLAPGaussRifle Ammo (omnipod)",
+      "Plasma Cannon",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLPlasmaCannon (omnipod)",
+      "CLAPGaussRifle (omnipod)",
+      "CLAPGaussRifle (omnipod)",
+      "CLPlasmaCannonAmmo (omnipod)",
+      "CLPlasmaCannonAmmo (omnipod)",
+      "CLPlasmaCannonAmmo (omnipod)",
+      "CLAPGaussRifle Ammo (omnipod)",
+      "Plasma Cannon",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "ER Medium Laser",
+      "ER Medium Laser",
+      "ER Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "ER Medium Laser",
+      "ER Medium Laser",
+      "ER Small Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "The Stormcrow is a wide-spread, second generation OmniMech fielded by many Clans. However, within the Clan Smoke Jaguar touman, the Stormcrow was especially common during the Clan Invasion and was codenamed the Ryoken（a misspelling of ryōken - hunting dog) by the warriors of the DCMS who encountered it. Because of its versatility through its combination of mobility, armor, and firepower in its various configurations, the Stormcrow is a feared opponent on the battlefield.",
+    "capabilities": "The Stormcrow is built on a lightweight Endo Steel chassis and is powered by a 330 XL engine that propels it to a top speed of 97.2 km/h. The Stormcrow is protected by nine and a half tons of Ferro-Fibrous armor, giving the 'Mech the ability to survive encounters with other units that it isn't capable of outpacing.",
+    "deployment": "This variant uses a pair of arm-mounted plasma cannons that increase the target's heat. In addition to its capabilities as an anti-infantry unit, the 'Mech also has a pair of anti-personnel Gauss rifles in each arm, making the Stormcrow F devastating against unarmored infantry. For use against hardened targets, it has four ER medium lasers and two ER small lasers, with a pair of extra heat sinks.",
+    "history": "The Stormcrow was designed by Clan Hell's Horses and debuted during the Battle of Tokasha. It is also implied that Stormcrow prototypes were produced on Tokasha at Tokasha MechWorks. However, prototypes of the Stormcrow had only just debuted when Clan Ghost Bear won Tokasha through the Battle of Tokasha. As a result of the upheaval, design copies and moulds for the Stormcrow were scattered throughout Clan space. The final production version of the Stormcrow debuted in 2930, when Clan Snow Raven scientists finished with a series of minor design changes and rechristened the OmniMech."
+  },
+  "manufacturers": {
+    "primary": [
+      "Industrial Complex Alpha",
+      "Various"
+    ],
+    "primaryFactory": [
+      "Dante",
+      "Various"
+    ],
+    "systems": {
+      "chassis": "Model MHO-7E Endo-Steel",
+      "engine": "Fusion 330 Extralight",
+      "armor": "Compound H17/2 Ferro-Fibrous",
+      "communications": "GBX Series Integrated",
+      "targeting": "Tokasha B4-T&T"
+    }
+  }
+}

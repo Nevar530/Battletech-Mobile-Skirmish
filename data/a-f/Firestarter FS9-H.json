@@ -1,0 +1,172 @@
+{
+  "name": "Firestarter",
+  "chassis": "Firestarter",
+  "model": "FS9-H",
+  "mulId": 1096,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2703,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Scout",
+  "mass": 35,
+  "engine": "210 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 6
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 13,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 6,
+    "leftArm": 6,
+    "rightLeg": 8,
+    "leftLeg": 8,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 88
+  },
+  "quirks": [
+    "ubiquitous_clan",
+    "ubiquitous_is"
+  ],
+  "weapons": [
+    {
+      "type": "Flamer",
+      "location": "CT"
+    },
+    {
+      "type": "Flamer",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Flamer",
+      "location": "LA"
+    },
+    {
+      "type": "Flamer",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Medium Laser",
+      "Flamer",
+      "Medium Laser",
+      "Flamer"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Medium Laser",
+      "Flamer",
+      "Medium Laser",
+      "Flamer"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Machine Gun",
+      "IS Ammo MG - Full",
+      "Machine Gun"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Flamer",
+      "Flamer (R)",
+      "Flamer",
+      "Flamer"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "Originally intended as a mobile incendiary ’Mech, the Firestarter evolved into a decent scouting and reconnaissance platform.",
+    "capabilities": "Despite being shielded by five and a half tons of armor and capable of jumping 180 meters, the Firestarter was powerless against medium or heavyweight opponents. Instead, an entire strategy was built around its ability to cause wildfires, with strategically positioned blazes routing an opponent or covering a withdrawal and impeding any pursuit. Firestarter MechWarriors enjoyed setting fire to densely forested areas when enemy 'Mechs marched through them, as well as any buildings where the enemy was hiding. Other applications for the 'Mech included scorched earth tactics, though this grew less common as it became more important to capture rather than destroy the declining amount of precious resources, or leading units of Wasps and Stingers in deep penetration scouting and light raiding operations. This approach altered in the later Succession Wars when it was discovered that the Firestarter could not only set flames to prevent an enemy from following it, but also clear ambush spots for the advancing of friendly forces.",
+    "deployment": "The Firestarter carries four Purity L-Series flamers for incendiary work, one in each arm, one forward-facing in the center torso, and one rear-facing in the center torso. For additional anti-personnel work, the Firestarter has two Deprus RF machine guns mounted in either side of its torso which, combined with the flamers, can make short work of infantry units. The Firestarter carries one Magna Mk II medium laser in either arm for when it is forced to engage hard targets like vehicles and other BattleMechs. One ton of ammo located in its torso supplies the machine guns while 10 single heat sinks help keep it cool.",
+    "history": "Firestarters, both ancient and contemporary, can still be found in abundance among planetary militias and House troops. Even though Blakist forces have taken over CMW's principal plant on Coventry, spare parts are still accessible from other Firestarter producers (including LAW, Ceres Metals, Defiance, and Independence Weaponry). Loki field offices near the Circinus Federation frontier are concerned about reports of a new variety using endo steel technology on Federation-occupied worlds. With its particular load-out, this new variation appears to be designed to spread chaos and destruction. Firestarters have also been seen in Level II formations with Blakist soldiers in their Protectorate, most frequently at \"police demonstrations\" and guarding suspected prison sites. These versions are thought to be Coventry goods."
+  },
+  "manufacturers": {
+    "primary": [
+      "Coventry Metal Works",
+      "Argile Technologies",
+      "Diplass BattleMechs"
+    ],
+    "primaryFactory": [
+      "Coventry",
+      "Skye",
+      "Erdvynn"
+    ],
+    "systems": {
+      "chassis": "Argile H/09",
+      "engine": "Omni 210",
+      "armor": "Livingston Ceramics",
+      "jumpjet": "Luxor Load Lifters",
+      "communications": "Cyclops 14",
+      "targeting": "Tansech C30-97"
+    }
+  }
+}

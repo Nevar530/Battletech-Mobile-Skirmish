@@ -1,0 +1,183 @@
+{
+  "name": "Thor II",
+  "chassis": "Thor II",
+  "model": "D",
+  "mulId": 6285,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3093,
+  "source": "TRO: 3145 The Clans",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 70,
+  "engine": "350 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "22 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 23,
+    "leftLeg": 23,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 192
+  },
+  "quirks": [
+    "imp_com"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "LRM 15",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLLRM15 (omnipod)",
+      "CLLRM15 (omnipod)",
+      "Clan Ammo LRM-15 (omnipod)",
+      "Clan Ammo LRM-15 (omnipod)",
+      "LRM 15"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)"
+    ]
+  },
+  "text": {
+    "overview": "The Thor II is a Heavy Class Clan OmniMech which was first produced by Clan Jade Falcon during the early years of the thirty-second century.",
+    "capabilities": "The Thor II shares some similarities to its predecessor, such as the same size XL Fusion Engine, and physical appearance. What differs from the older design is its Pod Capacity; the Thor II has a 30.5 ton capacity over the older model's 22.5. This increase of capacity comes from the reshuffling of the 'Mech's internal components and dropping the original's permanently-mounted Jump Jets from the design. The Thor II's armor protection is slightly greater than the original, with half a ton more.",
+    "deployment": "Armed with mainly energy weaponry and a single missile launcher, this configuration again takes a page from the older model's configuration by the same name. In the arms is pair of ER Large Lasers and ER Mediums Lasers tied into a Targeting Computer. The left torso is home of the 15-tubed LRM launcher and its two tons of ammunition. Eight additional Double Heat Sinks and five Jump Jets round out the equipment for this configuration equipment.",
+    "history": "Initially produced by the Eagle Craft Group on Erewhon in the Inner Sphere, the Thor II (also known by the Clan as the Grand Summoner) proved to be a highly reliable replacement for the original Thor OmniMech. The design would soon be traded among other Inner Sphere Clans and became popular among their Warrior castes. One of the 'Mech's most noted actions was during Clan Wolf's Trial of Possession for then Clan Diamond Shark's entire Swimmer Khanate’s Beta Aimag. The flotilla’s commanders were able to bid down the Clan Wolf commander to a Cluster’s worth of forces on the world of Feltre. The Thor II's performance in the hands of Diamond Shark MechWarriors in this difficult terrain helped to turn the tide of battle and resulted in winning the Trial. Clan Jade Falcon first produced the Thor II as a distinct symbol of honor. This 'Mech is painted yearly in the parade scheme of a unit chosen by the Clan's Khan as part of tradition of honoring Clusters who had performed services honoring the Clan."
+  },
+  "manufacturers": {
+    "primary": [
+      "Eagle Craft Group"
+    ],
+    "primaryFactory": [
+      "Erewhon"
+    ],
+    "systems": {
+      "chassis": "Olivetti T4 Endo Steel",
+      "engine": "Magna 350 XL",
+      "armor": "Compound Beta FF",
+      "communications": "Model J-D 067",
+      "targeting": "Hawkeye 58"
+    }
+  }
+}

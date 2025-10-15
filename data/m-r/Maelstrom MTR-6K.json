@@ -1,0 +1,166 @@
+{
+  "name": "Maelstrom",
+  "chassis": "Maelstrom",
+  "model": "MTR-6K",
+  "mulId": 1990,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3062,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 75,
+  "engine": "375 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 38,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 32,
+    "leftLeg": 32,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 231
+  },
+  "quirks": [
+    "good_rep_1"
+  ],
+  "weapons": [
+    {
+      "type": "Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Particle Cannon",
+      "location": "RA"
+    },
+    {
+      "type": "Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "TAG",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Small Laser",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Small Laser",
+      "BeagleActiveProbe",
+      "BeagleActiveProbe",
+      "ISTAG",
+      "Small Laser",
+      "TAG"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Small Laser",
+      "Medium Laser",
+      "Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Medium Laser",
+      "Sensors",
+      "Life Support",
+      "Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "name": "Merlin",
+  "chassis": "Merlin",
+  "model": "MLN-1A",
+  "mulId": 2177,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3010,
+  "source": "TRO: 3058",
+  "rulesLevel": 1,
+  "role": "Brawler",
+  "mass": 60,
+  "engine": "240 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "18 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard ( (UnknownTechnologyBase))",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 19,
+    "leftLeg": 19,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 168
+  },
+  "quirks": [
+    "easy_maintain",
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Flamer",
+      "location": "LT"
+    },
+    {
+      "type": "Particle Cannon",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Flamer",
+      "Machine Gun",
+      "Machine Gun",
+      "Flamer"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon",
+      "LRM 5",
+      "Particle Cannon",
+      "LRM 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Ammo LRM-5",
+      "IS Machine Gun Ammo - Half"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Merlin uses components that are all reliable and readily available, making the Merlin a durable and easy-to-repair 'Mech.",
+    "capabilities": "The 'Mech is powered by a Pitban 240 fusion engine that gives it a top speed of 64.8 km/h. The Merlin carries ten and a half tons of armor, which is a respectable amount of protection for its weight. Additionally, the Merlin carries eighteen heat sinks to handle its heavy heat load.",
+    "deployment": "The Merlin is armed to be able to engage an enemy at any range. For long range combat, the 'Mech carries a Magna Hellstar PPC and a Holly LRM-5 launcher. To protect itself at medium to short ranges, a pair of Martell Model 5 medium lasers provide the Merlin with respectable short range firepower. Finally, to protect the 'Mech against infantry attacks, the Merlin has a Zippo Flamer and a Sperry Browning Machine Gun. Four Pitban LFT-50 series jump jets allow the 'Mech to travel up to 120 meters in the air.",
+    "history": "The Merlin debuted in 3010 as a product of the rebuilt Mountain Wolf BattleMechs. The Merlin was hailed as a technological marvel at the time it was released, as it was the first completely new design to be developed in over 100 years."
+  },
+  "manufacturers": {
+    "primary": [
+      "Mountain Wolf BattleMechs",
+      "Vandenberg Mechanized Industries"
+    ],
+    "primaryFactory": [
+      "Alpheratz",
+      "New Vandenberg"
+    ],
+    "systems": {
+      "chassis": "Heavy Star QAT-4",
+      "engine": "Pitban 240",
+      "armor": "Longanecker PlastiSteel",
+      "jumpjet": "Pitban LFT 50",
+      "communications": "Magestrix Alpha",
+      "targeting": "Magestrix Gamma"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "name": "Victor",
+  "chassis": "Victor",
+  "model": "VTR-11D",
+  "mulId": 3406,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3065,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 80,
+  "engine": "320 Light Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard",
+    "head": 9,
+    "centerTorso": 34,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 31,
+    "leftLeg": 31,
+    "rearCenterTorso": 13,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 232
+  },
+  "quirks": [
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "2 ISERLargeLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISC3SlaveUnit",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "2 ISERLargeLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISStreakSRM4"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISRotaryAC5 Ammo",
+      "ISRotaryAC5 Ammo",
+      "ISRotaryAC5 Ammo",
+      "ISStreakSRM4 Ammo",
+      "ISCASE",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support",
+      "1 ISC3SlaveUnit"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "The Victor was built in 2508 under contract to the Terran Hegemony as a support 'Mech with jump capabilities.",
+    "capabilities": "Standing at 14 meters tall, the Victor approaches the concept of support in an unorthodox way for a 'Mech of its weight class. While only possessing a ground speed of 64.8 km/h, the Victor achieves a high degree of mobility instead through the use of four jump jets, allowing it to jump up to one hundred and twenty meters. A Victor can therefore \"support\" friendly units by jumping directly into the fray and bringing its deadly close range arsenal to bear, an ability which can surprise inexperienced MechWarriors and prove advantageous in mountainous terrain. One sacrifice made for this superb mobility is the 'Mech's relatively light armor of only eleven and a half tons, while the lack of proper anti-infantry capabilities is a minor problem.",
+    "deployment": "Production began on the 11D on New Valencia during the FedCom Civil War. Powered by a Light Engine, the 11D adds an additional ton and a half of armor over that on the 10D. Two ER Large Lasers provide long-range firepower and the Streak SRM-4 is retained. The autocannon is replaced with a Rotary Autocannon/5 and three tons of ammunition in a CASE-protected bin. A C3 Slave allows integration with a C3 unit. Fifteen double heat sinks are able to effectively manage the heat levels.",
+    "history": "An estimated one thousand Victors had been produced by the time the Star League fell. Many of these left with Aleksandr Kerensky during the Exodus, and when HildCo Interplanetary's three Victor factories were destroyed during the First Succession War, the 'Mech became a prized target with all sides scrambling to salvage serviceable units. Only Independence Weaponry retained the ability to build new Victors, and with their capture by the Federated Suns during the Second Succession War it became the AFFS' primary assault 'Mech and a favorite command model for battalion and regimental commanders. Though the Draconis Combine would eventually retake the company following the War of 3039, most Kurita samurai were too proud to adopt a 'Mech now associated with their enemy, while the Davions made do with purchasing new models from the rebuilt HildCo factory in the St. Ives Compact and funding the construction of Styk's Tao MechWorks. By the time of the Clan Invasion new models of Victors were being produced which incorporated new-found lostech into their design. The formation of the Second Star League and destruction of Clan Smoke Jaguar would finally win the design acceptance by Combine warriors, while the conquest of Styk and St. Ives by the Capellan Confederation forced the Federated Commonwealth to contract General Motors to build more Victors. Though it had officially fallen out of favor, during the FedCom Civil War the Victor remained the favorite of Allied forces, with newer variants seeing use in the years afterwards"
+  },
+  "manufacturers": {
+    "primary": [
+      "HildCo Interplanetary",
+      "HildCo Interplanetary",
+      "General Motors/Blackwell Corporation",
+      "Independence Weaponry",
+      "Robinson Standard BattleWorks",
+      "Tao 'Mechworks",
+      "TharHes Industries"
+    ],
+    "primaryFactory": [
+      "St. Ives",
+      "Carver V/Liberty",
+      "New Valencia",
+      "Quentin",
+      "Robinson",
+      "Styk",
+      "Tharkad"
+    ],
+    "systems": {
+      "chassis": "Alshain Class 920 Endo Steel",
+      "engine": "Pitban 340",
+      "armor": "Durallex Heavy with CASE",
+      "jumpjet": "Lexington Ltd. Lifters",
+      "communications": "Sipher Security Plus",
+      "targeting": "Matabushi Sentinel"
+    }
+  }
+}

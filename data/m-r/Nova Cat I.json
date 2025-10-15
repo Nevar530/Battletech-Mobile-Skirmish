@@ -1,0 +1,201 @@
+{
+  "name": "Nova Cat",
+  "chassis": "Nova Cat",
+  "model": "I",
+  "mulId": 6870,
+  "config": "Biped Omnimech",
+  "techBase": "Mixed (Clan Chassis)",
+  "era": 3132,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 70,
+  "engine": "280 XL (Clan) Engine",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "21 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 35,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 216
+  },
+  "quirks": [
+    "ext_twist",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "TSEMP Cannon",
+      "location": "LA"
+    },
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "TSEMP Cannon",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "Improved Heavy Large Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "TSEMP Cannon"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "Improved Heavy Large Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "TSEMP Cannon"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "A Nova Cat heavy OmniMech built to protect the Nova Cats spiritually and militarily.",
+    "capabilities": "The basic components of this design, combined with its characteristics as an OmniMech, make it very simple to repair and leave room for the large amount of double heat sinks most variants carry. 13 ½ tons of standard armor make this 'Mech very difficult to kill.",
+    "deployment": "This configuration carries an Improved Heavy Large Laser, two Medium Pulse Lasers, and a TSEMP Cannon in each arm. Twenty-one double heat sinks keep heat manageable.",
+    "history": "After its defeat on Tukayyid, Khan Severen Leroux of Clan Nova Cat commissioned the Nova Cat OmniMech, meant to protect the Clan both militarily and spiritually. The 12 meter tall 'Mech is inspired by the Night Gyr created by Clan Jade Falcon."
+  },
+  "manufacturers": {
+    "primary": [
+      "Barcella Alpha",
+      "Irece Alpha"
+    ],
+    "primaryFactory": [
+      "Barcella",
+      "Irece"
+    ],
+    "systems": {
+      "chassis": "Mynx Type Heavy",
+      "engine": "Consolidated Fusion 280 Extralight",
+      "armor": "Alpha Compound Plate",
+      "communications": "JNE Integrated",
+      "targeting": "Build 2 CAT TTS"
+    }
+  }
+}

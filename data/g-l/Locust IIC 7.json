@@ -1,0 +1,162 @@
+{
+  "name": "Locust IIC",
+  "chassis": "Locust IIC",
+  "model": "7",
+  "mulId": 1920,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3076,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 25,
+  "engine": "200 Fusion (Clan) Engine(IS)",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 8,
+    "centerTorso": 10,
+    "rightTorso": 8,
+    "leftTorso": 8,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 10,
+    "leftLeg": 10,
+    "rearCenterTorso": 2,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 76
+  },
+  "quirks": [
+    "easy_maintain",
+    "low_profile",
+    "no_arms",
+    "weak_legs"
+  ],
+  "weapons": [
+    {
+      "type": "AP Gauss Rifle",
+      "location": "LA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "LA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "LA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle"
+    ],
+    "leftTorso": [
+      "CLAPGaussRifle Ammo",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "Endo Steel",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLTargeting Computer",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

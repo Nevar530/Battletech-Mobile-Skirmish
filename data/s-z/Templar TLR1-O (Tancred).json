@@ -1,0 +1,187 @@
+{
+  "name": "Templar",
+  "chassis": "Templar",
+  "model": "TLR1-O (Tancred)",
+  "mulId": 5193,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3067,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 85,
+  "engine": "340 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 44,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 28,
+    "leftArm": 28,
+    "rightLeg": 36,
+    "leftLeg": 36,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 263
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Rotary AC/5",
+      "location": "LA"
+    },
+    {
+      "type": "Rotary AC/5",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Rotary AC/5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISERLargeLaser (omnipod)",
+      "ISERLargeLaser (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "IS Endo Steel",
+      "Rotary AC/5",
+      "ER Large Laser",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISCASE",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERMediumLaser (omnipod)",
+      "IS Endo Steel",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERMediumLaser (omnipod)",
+      "Sensors",
+      "Life Support",
+      "ER Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "Configured for Tancred Sandoval, this configuration carries two Rotary Autocannon/5s that can fire at a rate six times as fast as a standard autocannon. These are backed up by three ER Medium Lasers for close combat. For long range engagements, the Tancred configuration has a single ER Large Laser. All of these weapons are linked to a Targeting Computer, giving them increased accuracy.",
+    "deployment": "The Templar is built on a lightweight Kallon Type XIX Endo Steel chassis and is powered by a KalTek 340 XL engine that gives the 'Mech a top speed of 64.8 km/h while sacrificing durability. The Templar has thirteen fixed double heat sinks and is armored with sixteen and a half tons of Starshield A armor with CASE fixed in the right torso. Overall, this allows the Templar to have forty tons of free pod space for weapons and equipment which the 'Mech uses effectively in its various configurations.",
+    "history": "With a noticeable lack of OmniMechs designed in the Federated Suns, Field Marshal Duke George Hasek went over the heads of the Department of the Quartermaster and commissioned Kallon Industries to design an assault OmniMech and backed the project with his own considerable financial resources. The resulting 'Mech is a force to be reckoned with on the modern battlefield."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kallon Industries"
+    ],
+    "primaryFactory": [
+      "Talon"
+    ],
+    "systems": {
+      "chassis": "Kallon Type XIX Endo Steel",
+      "engine": "KalTek 340 Extralight",
+      "armor": "Starshield A with CASE",
+      "communications": "Newberg Telescan 17",
+      "targeting": "Spar 3C MegaTrak"
+    }
+  }
+}

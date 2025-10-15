@@ -1,0 +1,197 @@
+{
+  "name": "Doloire",
+  "chassis": "Doloire",
+  "model": "DLR-OD",
+  "mulId": 6682,
+  "config": "Biped Omnimech",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3121,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 80,
+  "engine": "320 XL (Clan) Engine",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 38,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 232
+  },
+  "quirks": [
+    "multi_trac",
+    "command_mech"
+  ],
+  "weapons": [
+    {
+      "type": "ER Micro Laser",
+      "location": "LL"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "RL"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RA"
+    },
+    {
+      "type": "TSEMP Cannon",
+      "location": "LT"
+    },
+    {
+      "type": "TSEMP Cannon",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISLargeVibroblade (omnipod)",
+      "ISLargeVibroblade (omnipod)",
+      "ISLargeVibroblade (omnipod)",
+      "ISLargeVibroblade (omnipod)",
+      "ISAES",
+      "ISAES",
+      "ISAES",
+      "ISAES"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLStreakSRM4 (omnipod)",
+      "CLStreakSRM4 (omnipod)",
+      "CLStreakSRM4 (omnipod)",
+      "CLStreakSRM4 (omnipod)",
+      "ISAES",
+      "ISAES",
+      "ISAES",
+      "ISAES",
+      "Streak SRM 4",
+      "Streak SRM 4",
+      "Streak SRM 4",
+      "Streak SRM 4"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "Supercharger (omnipod)",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "TSEMP Cannon"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "TSEMP Cannon (omnipod)",
+      "Clan Streak SRM 4 Ammo (omnipod)",
+      "Clan Streak SRM 4 Ammo (omnipod)",
+      "ISCASEII (omnipod)",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "TSEMP Cannon"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo-Composite",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLERMicroLaser (omnipod)",
+      "ER Micro Laser"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLERMicroLaser (omnipod)",
+      "ER Micro Laser"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

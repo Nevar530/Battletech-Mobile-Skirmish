@@ -1,0 +1,172 @@
+{
+  "name": "Matador",
+  "chassis": "Matador",
+  "model": "2",
+  "mulId": 2099,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3069,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 60,
+  "engine": "240 Fusion (Clan) Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 192
+  },
+  "quirks": [
+    "battle_fists_la",
+    "battle_fists_ra"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "ATM 9",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "Heavy Medium Laser",
+      "Heavy Medium Laser",
+      "Heavy Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle Ammo",
+      "CLAPGaussRifle Ammo",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle"
+    ],
+    "leftTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLATM9",
+      "CLATM9",
+      "CLATM9",
+      "CLATM9",
+      "Clan Ammo ATM-9",
+      "Clan Ammo ATM-9 ER",
+      "Clan Ammo ATM-9 HE",
+      "ATM 9"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLTargeting Computer",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

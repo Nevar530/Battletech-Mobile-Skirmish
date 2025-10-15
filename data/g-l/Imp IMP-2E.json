@@ -1,0 +1,162 @@
+{
+  "name": "Imp",
+  "chassis": "Imp",
+  "model": "IMP-2E",
+  "mulId": 4358,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3005,
+  "source": "TRO: 3050",
+  "rulesLevel": 1,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "30 Single",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 40,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 25,
+    "leftArm": 25,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 21,
+    "rearRightTorso": 12,
+    "rearLeftTorso": 12,
+    "total": 288
+  },
+  "quirks": [
+    "command_mech",
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISPPC",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISPPC",
+      "location": "RT"
+    },
+    {
+      "type": "2 ISMediumLaser",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMediumLaser",
+      "1 ISMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISLRM15",
+      "ISLRM15",
+      "ISLRM15"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "ISPPC",
+      "ISPPC",
+      "ISPPC",
+      "ISMediumLaser",
+      "ISLRM15 Ammo",
+      "1 ISPPC",
+      "1 ISMediumLaser"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "ISPPC",
+      "ISPPC",
+      "ISPPC",
+      "ISMediumLaser",
+      "1 ISPPC",
+      "1 ISMediumLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumLaser",
+      "ISMediumLaser",
+      "2 ISMediumLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Heat Sink",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "name": "Centurion",
+  "chassis": "Centurion",
+  "model": "CN11-O",
+  "mulId": 6340,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3111,
+  "source": "TRO: 3145 Federated Suns",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 50,
+  "engine": "250 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 21,
+    "rightTorso": 16,
+    "leftTorso": 16,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 152
+  },
+  "quirks": [
+    "easy_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "LB 10-X AC",
+      "location": "RA"
+    },
+    {
+      "type": "LRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLBXAC10 (omnipod)",
+      "ISLBXAC10 (omnipod)",
+      "ISLBXAC10 (omnipod)",
+      "ISLBXAC10 (omnipod)",
+      "ISLBXAC10 (omnipod)",
+      "ISLBXAC10 (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "LB 10-X AC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "LRM 10 (omnipod)",
+      "LRM 10 (omnipod)",
+      "ISArtemisIV (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "LRM 10"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS LB 10-X AC Ammo (omnipod)",
+      "IS LB 10-X Cluster Ammo (omnipod)",
+      "IS Ammo LRM-10 Artemis-capable (omnipod)",
+      "IS Ammo LRM-10 Artemis-capable (omnipod)",
+      "ISCASEII (omnipod)",
+      "IS Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERMediumLaser (omnipod)",
+      "ISERMediumLaser (r) (omnipod)",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

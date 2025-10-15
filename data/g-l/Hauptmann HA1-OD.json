@@ -1,0 +1,178 @@
+{
+  "name": "Hauptmann",
+  "chassis": "Hauptmann",
+  "model": "HA1-OD",
+  "mulId": 1424,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3070,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 95,
+  "engine": "285 Fusion Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 45,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 40,
+    "leftLeg": 40,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 293
+  },
+  "quirks": [
+    "easy_maintain",
+    "ext_twist"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Rocket Launcher 10",
+      "location": "LA"
+    },
+    {
+      "type": "Rocket Launcher 10",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "C3 Master with TAG",
+      "location": "LT"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "RL10 (omnipod)",
+      "Heavy PPC",
+      "Rocket Launcher 10"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "RL10 (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "Rocket Launcher 10",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "C3 Master with TAG"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "IS Gauss Ammo (omnipod)",
+      "ISCASE",
+      "Gauss Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERMediumLaser (omnipod)",
+      "IS Gauss Ammo (omnipod)",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The first OmniMech both designed and built by the Lyran Alliance. The OmniMech is named after the rank held by officers in the LAAF.",
+    "capabilities": "The Hauptmann is built on a standard chassis and powered by a 285 fusion engine, adding to the 'Mech's durability as it cannot be killed by a side torso loss. The Hauptmann has eleven double heat sinks fixed on the chassis and can add more if needed in its various configurations. For protection, the Hauptmann carries eighteen and a half tons of armor and has CASE fixed in the right torso to protect against an ammunition explosion.",
+    "deployment": "The D configuration was developed during the Jihad to take on the Command Unit role. This configuration fitted a C3 Master Computer and a Targeting Computer in the Hauptmann's left torso. For ranged attacks this configuration has a Heavy PPC and Gauss Rifle with a single ton of ammunition. Complementing these weapons are a pair of 10-Tubed Rocket Launchers mounted in each of the 'Mech's arms. The 'Mech's only secondary weaponry is a pair of ER Medium Lasers.",
+    "history": "The inspiration for the Hauptmann is drawn from the Daishi OmniMech used by the Clans. Using information from captured Daishis and data gleaned from the construction of the Firestarter OmniMech, which was shared by the Draconis Combine, the end result is a powerful OmniMech capable of defending itself in most combat situations."
+  },
+  "manufacturers": {
+    "primary": [
+      "Coventry Metal Works"
+    ],
+    "primaryFactory": [
+      "Coventry"
+    ],
+    "systems": {
+      "chassis": "Coventry HAI III",
+      "engine": "Pitban 285",
+      "armor": "Glasgow Limited with CASE",
+      "communications": "TharHes Muse 54-58S",
+      "targeting": "Cyclops 9c"
+    }
+  }
+}

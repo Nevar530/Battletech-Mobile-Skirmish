@@ -1,0 +1,113 @@
+{
+  "name": "Stalking Spider",
+  "chassis": "Stalking Spider",
+  "mulId": 3045,
+  "config": "Quad",
+  "techBase": "Clan",
+  "era": 3059,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 50,
+  "engine": "250 Fusion (Clan) Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 21,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightLeg": 20,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 153
+  },
+  "quirks": [
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 4",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 4",
+      "location": "LT"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLMediumPulseLaser",
+      "CLMediumPulseLaser",
+      "CLSRM4",
+      "CLSRM4",
+      "Clan Ammo SRM-4",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "SRM 4",
+      "SRM 4"
+    ],
+    "rightTorso": [
+      "CLERPPC",
+      "CLERPPC",
+      "CLMASC",
+      "CLMASC",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "ER PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

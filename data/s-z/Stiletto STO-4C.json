@@ -1,0 +1,149 @@
+{
+  "name": "Stiletto",
+  "chassis": "Stiletto",
+  "model": "STO-4C",
+  "mulId": 5666,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3076,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 35,
+  "engine": "280 Light Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 16,
+    "rightTorso": 12,
+    "leftTorso": 12,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 116
+  },
+  "quirks": [
+    "multi_trac",
+    "difficult_eject"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISERMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISERMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISERMediumLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERMediumLaser"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "ISMML5 LRM Ammo",
+      "ISMML5 LRM Ammo",
+      "ISMML5 SRM Ammo",
+      "ISCASE",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "Endo-Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

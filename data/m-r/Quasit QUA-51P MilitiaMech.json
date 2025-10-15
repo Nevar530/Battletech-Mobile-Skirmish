@@ -1,0 +1,123 @@
+{
+  "name": "Quasit",
+  "chassis": "Quasit",
+  "model": "QUA-51P MilitiaMech",
+  "mulId": 2608,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3074,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Scout",
+  "mass": 45,
+  "engine": "225 Fusion Engine(IS)",
+  "structure": "IS Industrial",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "HeavyIndustrial (InnerSphere)",
+    "head": 8,
+    "centerTorso": 20,
+    "rightTorso": 13,
+    "leftTorso": 13,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 15,
+    "leftLeg": 15,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 120
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "Plasma Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Environmental Sealing"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISPlasmaRifle",
+      "ISPlasmaRifle",
+      "Environmental Sealing",
+      "Plasma Rifle"
+    ],
+    "leftTorso": [
+      "ISPlasmaRifleAmmo",
+      "Environmental Sealing"
+    ],
+    "rightTorso": [
+      "Machine Gun",
+      "IS Machine Gun Ammo - Half",
+      "Environmental Sealing",
+      "Machine Gun"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Environmental Sealing"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Environmental Sealing",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Environmental Sealing"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Environmental Sealing"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

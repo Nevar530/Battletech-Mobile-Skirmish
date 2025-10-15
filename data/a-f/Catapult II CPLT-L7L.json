@@ -1,0 +1,167 @@
+{
+  "name": "Catapult II",
+  "chassis": "Catapult II",
+  "model": "CPLT-L7L",
+  "mulId": 6465,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3136,
+  "source": "TRO: 3145 Capellan Confederation",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "280 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Heat-Dissipating (InnerSphere)",
+    "head": 9,
+    "centerTorso": 29,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 185
+  },
+  "quirks": [
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "Plasma Rifle",
+      "location": "LT"
+    },
+    {
+      "type": "Plasma Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "MML 9",
+      "location": "LA"
+    },
+    {
+      "type": "MML 9",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "MML 9"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "MML 9"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "ISPlasmaRifle",
+      "ISPlasmaRifle",
+      "ISPlasmaRifleAmmo",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 SRM",
+      "IS Heat-Dissipating",
+      "IS Heat-Dissipating",
+      "Plasma Rifle"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "ISPlasmaRifle",
+      "ISPlasmaRifle",
+      "ISPlasmaRifleAmmo",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 SRM",
+      "IS Heat-Dissipating",
+      "IS Heat-Dissipating",
+      "Plasma Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Heat-Dissipating",
+      "IS Heat-Dissipating"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

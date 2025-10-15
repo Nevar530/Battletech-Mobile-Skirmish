@@ -1,0 +1,158 @@
+{
+  "name": "Scylla",
+  "chassis": "Scylla",
+  "mulId": 5000,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3062,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 100,
+  "engine": "400 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 45,
+    "rightTorso": 33,
+    "leftTorso": 33,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 297
+  },
+  "quirks": [
+    "oversized"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLLRM20",
+      "location": "LA"
+    },
+    {
+      "type": "2 CLERMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLERLargeLaser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLRM20",
+      "CLLRM20",
+      "CLLRM20",
+      "CLLRM20",
+      "CLLRM20 Ammo",
+      "Endo Steel",
+      "1 CLLRM20"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLRM20",
+      "CLLRM20",
+      "CLLRM20",
+      "CLLRM20",
+      "CLLRM20 Ammo",
+      "CLLRM20 Ammo",
+      "CLLBXAC10 CL Ammo",
+      "CLLBXAC10 Ammo"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "2 CLERMediumLaser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLBXAC10",
+      "CLLBXAC10",
+      "CLLBXAC10",
+      "CLLBXAC10",
+      "CLLBXAC10",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLERLargeLaser",
+      "Sensors",
+      "Life Support",
+      "1 CLERLargeLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

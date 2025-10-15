@@ -1,0 +1,128 @@
+{
+  "name": "Ostsol",
+  "chassis": "Ostsol",
+  "model": "OTL-4F",
+  "mulId": 2372,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2871,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "300 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "16 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 22,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 144
+  },
+  "quirks": [
+    "imp_sensors",
+    "low_profile"
+  ],
+  "weapons": [
+    {
+      "type": "PPC",
+      "location": "LT"
+    },
+    {
+      "type": "PPC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "PPC",
+      "PPC",
+      "PPC",
+      "PPC"
+    ],
+    "rightTorso": [
+      "PPC",
+      "PPC",
+      "PPC",
+      "PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "Ostmann Industries had built up a solid portfolio of BattleMechs by 2693, having drawn up and produced the successful Ostwar, Ostsol, and Ostscout designs. Their attempt at a new member of their line-up, a heavy cavalry BattleMech capable of independent operations, would lead to the development of the Ostsol. Their manufacturing lines, however, were already overloaded by demand for the popular Ostsol, leading Ostmann  to partner with Kong Interstellar to manufacture the design on Kong's lines on Connaught. The pact would be profitable for both companies, and the Ostsol became a popular staple in both House armies and SLDF forces.",
+    "capabilities": "The Ostsol was created to fulfill a contract for a rapid heavy BattleMech with a fully energy-based armament. In this, Ostmann Industries was successful. The Ostsol has offered sterling service as a heavy cavalry design since its inception, and the shattered supply lines of the Succession Wars did little to reduce the 'Mech's effectiveness. The TRSS.2L3 sensors, reused after their outstanding use on the Ostscout, give the Ostsol excellent data gathering capabilities for a 'Mech of its role. However, just as with the earlier Ostroc, the Ostsol suffers from fragile arms and often loses them in combat.",
+    "deployment": "The Ostsol has been a popular fixture of House armies since its introduction. The Succession Wars did little to change this, and the 'Mech remained a common sight throughout the Inner Sphere. House Davion would attempt to refit some of their Ostsols into the -4F. Twin PPCs replaced the entire armament in an attempt to give this variant a greater punch. Never more than a stopgap design, the -4F eventually fell into extinction after the battles of the Jihad.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Kell",
+      "engine": "Vlar",
+      "armor": "Valiant",
+      "communications": "Barret",
+      "targeting": "TRSS"
+    }
+  }
+}

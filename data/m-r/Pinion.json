@@ -1,0 +1,156 @@
+{
+  "name": "Pinion",
+  "chassis": "Pinion",
+  "mulId": 4829,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3065,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 45,
+  "engine": "225 Fusion Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 21,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 153
+  },
+  "quirks": [
+    "bad_rep_clan"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLHeavyLargeLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLMediumPulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "2 CLMicroPulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLMediumPulseLaser",
+      "location": "LT"
+    },
+    {
+      "type": "2 CLMicroPulseLaser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "1 CLHeavyLargeLaser"
+    ],
+    "leftTorso": [
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLMediumPulseLaser",
+      "CLMicroPulseLaser",
+      "CLMicroPulseLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 CLMediumPulseLaser",
+      "2 CLMicroPulseLaser"
+    ],
+    "rightTorso": [
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLMediumPulseLaser",
+      "CLMicroPulseLaser",
+      "CLMicroPulseLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 CLMediumPulseLaser",
+      "2 CLMicroPulseLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

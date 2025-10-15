@@ -1,0 +1,162 @@
+{
+  "name": "Vandal",
+  "chassis": "Vandal",
+  "model": "LI-OA",
+  "mulId": 6462,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3142,
+  "source": "TRO: 3145 Capellan Confederation",
+  "rulesLevel": 4,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "325 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 32,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 200
+  },
+  "quirks": [
+    "variable_range_long"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Laser AMS",
+      "location": "RA"
+    },
+    {
+      "type": "C3 Master Boosted with TAG",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 4",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "PPC Capacitor (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Heavy PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLaserAntiMissileSystem (omnipod)",
+      "ISLaserAntiMissileSystem (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Laser AMS",
+      "C3 Master Boosted with TAG"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Life Support",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)",
+      "Supercharger",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Life Support",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)",
+      "SRM 4 (omnipod)",
+      "IS Ammo SRM-4 (omnipod)",
+      "ISCASEII",
+      "SRM 4"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Cockpit",
+      "Sensors"
+    ],
+    "head": [
+      "Sensors",
+      "Sensors"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "name": "Champion",
+  "chassis": "Champion",
+  "model": "C",
+  "mulId": 547,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 2867,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "300 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 28,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 27,
+    "leftLeg": 27,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 192
+  },
+  "quirks": [
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "2 CLMediumPulseLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLSmallPulseLaser",
+      "location": "CT"
+    },
+    {
+      "type": "1 CLSmallPulseLaser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLERMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLERMediumLaser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMediumPulseLaser",
+      "CLMediumPulseLaser",
+      "CLSRM6",
+      "CLArtemisIV",
+      "CLSRM6 Ammo (Clan) Artemis-capable",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "2 CLMediumPulseLaser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLBXAC10",
+      "CLLBXAC10",
+      "CLLBXAC10",
+      "CLLBXAC10",
+      "CLLBXAC10",
+      "CLLBXAC10 Ammo",
+      "CLLBXAC10 CL Ammo",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "CLSmallPulseLaser",
+      "1 CLSmallPulseLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLSmallPulseLaser",
+      "Sensors",
+      "Life Support",
+      "1 CLSmallPulseLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

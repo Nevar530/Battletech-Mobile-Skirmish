@@ -1,0 +1,213 @@
+{
+  "name": "No-Dachi",
+  "chassis": "No-Dachi",
+  "model": "NDA-3S",
+  "mulId": 5692,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3081,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 3,
+  "role": "Brawler",
+  "mass": 70,
+  "engine": "350 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Triple Strength Myomer",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 216
+  },
+  "quirks": [
+    "hyper_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISGuardianECM",
+      "location": "CT"
+    },
+    {
+      "type": "1 Mace",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "H"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISMediumVSPLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumVSPLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISSmallPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISMediumVSPLaser",
+      "ISMediumVSPLaser",
+      "ISMediumVSPLaser",
+      "ISMediumVSPLaser",
+      "ISMediumPulseLaser",
+      "ISSmallPulseLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISMediumVSPLaser",
+      "1 ISMediumVSPLaser",
+      "1 ISSmallPulseLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Endo-Steel",
+      "1 Mace"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISMediumPulseLaser",
+      "ISERMediumLaser",
+      "ISSmallLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "1 ISSmallLaser",
+      "1 ISERMediumLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISMediumPulseLaser",
+      "ISERMediumLaser",
+      "ISSmallLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "1 ISSmallLaser",
+      "1 ISERMediumLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "1 ISGuardianECM"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISSmallLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISSmallLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

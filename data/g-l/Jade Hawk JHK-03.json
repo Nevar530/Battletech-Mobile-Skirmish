@@ -1,0 +1,188 @@
+{
+  "name": "Jade Hawk",
+  "chassis": "Jade Hawk",
+  "model": "JHK-03",
+  "mulId": 6564,
+  "config": "Biped",
+  "techBase": "Mixed (Clan Chassis)",
+  "era": 3135,
+  "source": "TRO: 3145 Mercenaries",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 75,
+  "engine": "375 XL (Clan) Engine",
+  "structure": "Clan Endo Steel",
+  "myomer": "Triple-Strength",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 34,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 29,
+    "leftLeg": 29,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 216
+  },
+  "quirks": [
+    "distracting",
+    "reinforced_legs",
+    "non_standard"
+  ],
+  "weapons": [
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "CLERSmallLaser",
+      "CLERSmallLaser",
+      "TSM",
+      "ER Small Laser",
+      "ER Small Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "CLERSmallLaser",
+      "CLERSmallLaser",
+      "TSM",
+      "ER Small Laser",
+      "ER Small Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLPartialWing",
+      "CLPartialWing",
+      "CLPartialWing",
+      "Jump Jet",
+      "CLSRM6",
+      "CLSRM6",
+      "Clan Ammo SRM-6",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "SRM 6",
+      "SRM 6"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLPartialWing",
+      "CLPartialWing",
+      "CLPartialWing",
+      "Jump Jet",
+      "CLSRM6",
+      "CLSRM6",
+      "Clan Ammo SRM-6",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "SRM 6",
+      "SRM 6"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "CL Super Charger"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "TSM",
+      "TSM"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "TSM",
+      "TSM"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

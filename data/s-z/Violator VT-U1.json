@@ -1,0 +1,143 @@
+{
+  "name": "Violator",
+  "chassis": "Violator",
+  "model": "VT-U1",
+  "mulId": 6503,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3097,
+  "source": "TRO: 3145 Free Worlds League",
+  "rulesLevel": 4,
+  "role": "Skirmisher",
+  "mass": 45,
+  "engine": "225 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 21,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 18,
+    "leftLeg": 18,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 144
+  },
+  "quirks": [
+    "distracting",
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "MRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "MRM 10",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "MiningDrill",
+      "MiningDrill",
+      "MiningDrill",
+      "MiningDrill",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "MRM 10",
+      "MRM 10",
+      "ISApollo",
+      "IS MRM 10 Ammo",
+      "IS MRM 10 Ammo",
+      "ISCASE",
+      "IS Endo Steel",
+      "MRM 10"
+    ],
+    "rightTorso": [
+      "MRM 10",
+      "MRM 10",
+      "ISApollo",
+      "IS Endo Steel",
+      "MRM 10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit (armored)",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

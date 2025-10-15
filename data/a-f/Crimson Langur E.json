@@ -1,0 +1,197 @@
+{
+  "name": "Crimson Langur",
+  "chassis": "Crimson Langur",
+  "model": "E",
+  "mulId": 5677,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3068,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 50,
+  "engine": "350 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 23,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 24,
+    "leftLeg": 24,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 168
+  },
+  "quirks": [
+    "easy_maintain",
+    "imp_com",
+    "pro_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "Clan Endo Steel",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "ER Small Laser",
+      "ER Small Laser",
+      "ER Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLStreakSRM4 (omnipod)",
+      "CLStreakSRM4 (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "Clan Streak SRM 4 Ammo (omnipod)",
+      "Clan Endo Steel",
+      "Streak SRM 4",
+      "Streak SRM 4",
+      "ER Small Laser",
+      "ER Small Laser",
+      "ER Small Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "Khan Schmitt initiated many schemes to instill fresh energy in her Clan, one of which would result in new OmniMechs. The Crimson Langur, a fast medium mech designed for pilot safety, was born as a result of this.",
+    "capabilities": "The Crimson Langur is a remarkably fast 'Mech for its weight. In order to do this, it uses both an XL engine and an endo steel chassis to save weight. The design utilizes ten and a half tons of standard armor, the most the chassis can hold, though this weight only gives the Crimson Langur fifteen tons of pod space for modular equipment. To keep the warriors assigned to it in the fight longer, the Crimson Langur is equipped with a Full Head Ejection System.",
+    "deployment": "This configuration sacrifices its jump capability to mount six ER small lasers, three medium pulse lasers, and a pair of Streak SRM-4 launchers. It also has 11 double heat sinks.",
+    "history": "As the Blood Spirits planned to isolate themselves from the Clans following the Great Refusal, the Star Adders increased their raids on the Spirits until the Trials of Possession threatened the security of York and the morale of Clan Blood Spirit. Khan Schmitt initiated many schemes to instill fresh energy in her Clan, one of which would result in new OmniMechs. But, because the Spirits' finances have always been limited, they contacted Kindraa Mick-Kreese in the hopes of forging a better relationship. Kindraa, a staunch Crusader, was eager to assist, and a period of co-development and production started. When finished, the OmniMech was christened Crimson Langur to honor the new alliance between the two Clans."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kindraa Mick-Kreese Primary Production Facility",
+      "Unknown",
+      "York Y2 Facility"
+    ],
+    "primaryFactory": [
+      "Atreus (Clan)",
+      "Haven (Colleen)",
+      "York"
+    ],
+    "systems": {
+      "chassis": "York XT",
+      "engine": "350 XL",
+      "armor": "Beta J77",
+      "communications": "York Y2-Com",
+      "targeting": "York Y5- T&T5"
+    }
+  }
+}

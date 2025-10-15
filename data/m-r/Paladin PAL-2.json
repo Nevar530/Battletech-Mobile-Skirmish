@@ -1,0 +1,160 @@
+{
+  "name": "Paladin",
+  "chassis": "Paladin",
+  "model": "PAL-2",
+  "mulId": 2409,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3068,
+  "source": "TRO: 3055",
+  "rulesLevel": 4,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "360 XXL Engine",
+  "structure": "Composite",
+  "myomer": "Triple-Strength",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 6
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 28,
+    "leftLeg": 28,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 201
+  },
+  "quirks": [
+    "difficult_maintain",
+    "non_standard"
+  ],
+  "weapons": [
+    {
+      "type": "Rotary AC/2",
+      "location": "LA"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC2",
+      "ISRotaryAC2",
+      "ISRotaryAC2",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous",
+      "TSM",
+      "TSM",
+      "Rotary AC/2"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISMediumXPulseLaser",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous",
+      "TSM",
+      "TSM",
+      "Medium X-Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "ISStreakSRM6",
+      "ISStreakSRM6",
+      "ISStreakSRM4",
+      "Light Ferro-Fibrous",
+      "Streak SRM 6",
+      "Streak SRM 4"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "ISRotaryAC2 Ammo",
+      "IS Streak SRM 4 Ammo",
+      "IS Streak SRM 6 Ammo",
+      "ISCASE"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "TSM"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "TSM"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

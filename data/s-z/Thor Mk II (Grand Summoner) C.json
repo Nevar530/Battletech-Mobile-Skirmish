@@ -1,0 +1,168 @@
+{
+  "name": "Thor II",
+  "chassis": "Thor II",
+  "model": "C",
+  "mulId": 6284,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3093,
+  "source": "TRO: 3145 The Clans",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "350 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 23,
+    "leftLeg": 23,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 192
+  },
+  "quirks": [
+    "imp_com"
+  ],
+  "weapons": [
+    {
+      "type": "Large Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Ultra AC/20",
+      "location": "LT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RT"
+    },
+    {
+      "type": "Flamer",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLLargePulseLaser (omnipod)",
+      "CLLargePulseLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Large Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLLargePulseLaser (omnipod)",
+      "CLLargePulseLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Large Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLUltraAC20 (omnipod)",
+      "CLUltraAC20 (omnipod)",
+      "CLUltraAC20 (omnipod)",
+      "CLUltraAC20 (omnipod)",
+      "CLUltraAC20 (omnipod)",
+      "CLUltraAC20 (omnipod)",
+      "CLUltraAC20 (omnipod)",
+      "CLUltraAC20 (omnipod)",
+      "Clan Ultra AC/20 Ammo (omnipod)",
+      "Clan Ultra AC/20 Ammo (omnipod)",
+      "Ultra AC/20"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLStreakSRM4 (omnipod)",
+      "Clan Streak SRM 4 Ammo (omnipod)",
+      "Clan Ultra AC/20 Ammo (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Streak SRM 4"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLFlamer (omnipod)",
+      "Clan Endo Steel",
+      "Flamer"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Thor II is a Heavy Class Clan OmniMech which was first produced by Clan Jade Falcon during the early years of the thirty-second century.",
+    "capabilities": "The Thor II shares some similarities to its predecessor, such as the same size XL Fusion Engine, and physical appearance. What differs from the older design is its Pod Capacity; the Thor II has a 30.5 ton capacity over the older model's 22.5. This increase of capacity comes from the reshuffling of the 'Mech's internal components and dropping the original's permanently-mounted Jump Jets from the design. The Thor II's armor protection is slightly greater than the original, with half a ton more.",
+    "deployment": "The C Configuration is a Brawler, armed with close-in and hard hitting weaponry which is reminiscent of the original Thor's C Configuration. The Configuration's main gun is a left-torso Ultra Class 20 Autocannon with 3 tons of ammunition split between each of its side torsos. Its other weaponry includes: a pair of arm mounted Large Pulse Lasers, a 4-tubed Streak SRM Launcher, and a Flamer.",
+    "history": "Initially produced by the Eagle Craft Group on Erewhon in the Inner Sphere, the Thor II (also known by the Clan as the Grand Summoner) proved to be a highly reliable replacement for the original Thor OmniMech. The design would soon be traded among other Inner Sphere Clans and became popular among their Warrior castes. One of the 'Mech's most noted actions was during Clan Wolf's Trial of Possession for then Clan Diamond Shark's entire Swimmer Khanate’s Beta Aimag. The flotilla’s commanders were able to bid down the Clan Wolf commander to a Cluster’s worth of forces on the world of Feltre. The Thor II's performance in the hands of Diamond Shark MechWarriors in this difficult terrain helped to turn the tide of battle and resulted in winning the Trial. Clan Jade Falcon first produced the Thor II as a distinct symbol of honor. This 'Mech is painted yearly in the parade scheme of a unit chosen by the Clan's Khan as part of tradition of honoring Clusters who had performed services honoring the Clan."
+  },
+  "manufacturers": {
+    "primary": [
+      "Eagle Craft Group"
+    ],
+    "primaryFactory": [
+      "Erewhon"
+    ],
+    "systems": {
+      "chassis": "Olivetti T4 Endo Steel",
+      "engine": "Magna 350 XL",
+      "armor": "Compound Beta FF",
+      "communications": "Model J-D 067",
+      "targeting": "Hawkeye 58"
+    }
+  }
+}

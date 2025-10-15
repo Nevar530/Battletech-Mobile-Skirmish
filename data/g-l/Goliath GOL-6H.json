@@ -1,0 +1,180 @@
+{
+  "name": "Goliath",
+  "chassis": "Goliath",
+  "model": "GOL-6H",
+  "mulId": 1237,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 3071,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 80,
+  "engine": "320 Light Engine(IS)",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightLeg": 29,
+    "rearCenterTorso": 19,
+    "rearRightTorso": 13,
+    "rearLeftTorso": 13,
+    "total": 240
+  },
+  "quirks": [
+    "multi_trac",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "B-Pod",
+      "location": "Rear Left Leg"
+    },
+    {
+      "type": "B-Pod",
+      "location": "Rear Right Leg"
+    },
+    {
+      "type": "B-Pod",
+      "location": "Front Left Leg"
+    },
+    {
+      "type": "B-Pod",
+      "location": "Front Right Leg"
+    },
+    {
+      "type": "LRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Light Machine Gun Array",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy PPC",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Light Machine Gun Array",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "LRM 10",
+      "LRM 10",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "ISLMGA",
+      "IS Light Machine Gun Ammo - Half",
+      "IS Ammo LRM-10",
+      "IS Ammo LRM-10",
+      "ISCASE",
+      "LRM 10",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun Array"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Heavy PPC",
+      "Heavy PPC",
+      "Heavy PPC",
+      "Heavy PPC",
+      "LRM 10",
+      "LRM 10",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "ISLMGA",
+      "Heavy PPC",
+      "LRM 10",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun Array"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "The Goliath is used as a general assault 'Mech and until recently was not usually seen in large numbers because of the bias against quad 'Mechs prior to the 3060s.",
+    "capabilities": "The Goliath is armed with what would be considered a paltry armament for a 'Mech of its size.",
+    "deployment": "This variant uses a Light Engine to power a design that is similar to the 3M, but with added anti-infantry capabilities. The pair of Delta Dart LRM-10s are still present, along with a two-ton, CASE-protected ammunition bin. Also for use at long range is the Fusigon Strongtooth Heavy PPC that deals as much damage as the 3M's Gauss Rifle, albeit at reduced range. Up close, the 6H can call upon two Machine Gun Array-linked trios of Sperry Browning Light Machine Guns. This variant also has a B-Pod in each of its legs to protect against attacks from battle armor.",
+    "history": "The Goliath is the second 'Mech built in 2652 by Brigadier Corporation. The Goliath is based on lessons that were learned from the Scorpion. The first and most important difference is that the Goliath weighs in at 80 tons allowing it to carry a much heavier weapons payload and armor at the cost of mobility. In the late 3060s the Goliath saw renewed production and renewed popularity and has since become a powerful and respected assault 'Mech. In 3143, The Corean Enterprises - MacAdams-Suharno plant on Stewart was captured by Clan Wolf, and it's GOL-6M variant production line converted to produce a Clan version of the 'Mech."
+  },
+  "manufacturers": {
+    "primary": [
+      "Field Refit"
+    ],
+    "primaryFactory": [
+      "Refit"
+    ],
+    "systems": {
+      "chassis": "Corean VIII",
+      "engine": "Pitban 320 Light Fusion Engine",
+      "armor": "Starshield with CASE",
+      "communications": "Corean TransBand-J9",
+      "targeting": "Corean B-Tech"
+    }
+  }
+}

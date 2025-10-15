@@ -1,0 +1,213 @@
+{
+  "name": "Cudgel",
+  "chassis": "Cudgel",
+  "model": "CDG-1B",
+  "mulId": 766,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3053,
+  "source": "TRO: 3055",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 80,
+  "engine": "400 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 35,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 25,
+    "leftArm": 25,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 232
+  },
+  "quirks": [
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace",
+      "Mace"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "SRM 6",
+      "SRM 6",
+      "ISSmallPulseLaser",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "SRM 6",
+      "Small Pulse Laser",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISSmallPulseLaser",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "Small Pulse Laser",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Ammo SRM-6",
+      "IS Ammo MG - Full"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

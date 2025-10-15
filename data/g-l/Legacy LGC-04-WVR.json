@@ -1,0 +1,171 @@
+{
+  "name": "Legacy",
+  "chassis": "Legacy",
+  "model": "LGC-04-WVR",
+  "mulId": 5702,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3072,
+  "source": "Record Sheets: Record Sheets: 3067 Unabridged",
+  "rulesLevel": 3,
+  "role": "Brawler",
+  "mass": 80,
+  "engine": "320 Light Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 40,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 26,
+    "leftArm": 26,
+    "rightLeg": 34,
+    "leftLeg": 34,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 245
+  },
+  "quirks": [
+    "directional_torso_mount",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "Snub-Nose PPC",
+      "location": "LT"
+    },
+    {
+      "type": "Snub-Nose PPC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "ISClaw",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISSNPPC",
+      "ISSNPPC",
+      "ISC3iUnit",
+      "ISC3iUnit",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Snub-Nose PPC"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISSNPPC",
+      "ISSNPPC",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Snub-Nose PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Light Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Legacy was produced as a testbed for new technologies, including the Ultra AC/10 and C3i Computer.",
+    "capabilities": "They upgraded its targeting system and included the C3i, which allows six units to coordinate fire. Its thick armor protection, standard fusion engine, and CASE give the Legacy remarkable staying power on the battlefield. One of the weaknesses of the 'Mech is its slow speed compared to other 'Mechs of similar size, but the inclusion of jump jets sought to counter that with superior maneuverability.",
+    "deployment": "This Legacy uses the same frame and engine as the 03 model but uses a Compact Gyro to provide enough room to add MASC. This means it can reach a speed of 86km/h. The weaponry has been replaced with a pair of Snub-Nose PPCs, and the hand actuators have been replaced by Claws. The standard armor is replaced by Light Ferro-Fibrous.",
+    "history": "At the request of Word of Blake Precentor Martial Cameron St. Jamais. The designers used a failed Star League 'Mech called the Rising Star as the base for the Legacy."
+  },
+  "manufacturers": {
+    "primary": [
+      "Skobel MechWorks"
+    ],
+    "primaryFactory": [
+      "Russia",
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Skobel Template 8 Endo Steel",
+      "engine": "Pitban 240",
+      "armor": "Aldis Plate with CASE",
+      "jumpjet": "CurtissJet 80",
+      "communications": "Skobel Wave VII Comm with C3i Computer",
+      "targeting": "Falcon 15 Watcher"
+    }
+  }
+}

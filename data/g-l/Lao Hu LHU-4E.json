@@ -1,0 +1,183 @@
+{
+  "name": "Lao Hu",
+  "chassis": "Lao Hu",
+  "model": "LHU-4E",
+  "mulId": 5696,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3078,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 4,
+  "role": "Sniper",
+  "mass": 75,
+  "engine": "375 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StealthArmor",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 23,
+    "leftArm": 23,
+    "rightLeg": 28,
+    "leftLeg": 28,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 216
+  },
+  "quirks": [
+    "good_rep_1"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISGuardianECM",
+      "location": "H"
+    },
+    {
+      "type": "1 ISHeavyPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISRocketLauncher10",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISRocketLauncher10",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISRocketLauncher10",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Stealth Armor",
+      "Stealth Armor",
+      "1 ISHeavyPPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "Endo-Steel",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISRocketLauncher10",
+      "ISRocketLauncher10",
+      "ISRocketLauncher10",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Stealth Armor",
+      "Stealth Armor",
+      "1 ISRocketLauncher10",
+      "1 ISRocketLauncher10",
+      "1 ISRocketLauncher10"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISGauss Ammo",
+      "ISGauss Ammo",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "1 ISGuardianECM"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth Armor",
+      "Stealth Armor"
+    ]
+  },
+  "text": {
+    "overview": "Designed by a student at the Victoria Academy of Arms and Technology, the Lao Hu (\"Tiger\") is based on the Thunder BattleMech and is designed to correct perceived flaws in the Thunder by using new technologies available to the Capellan Confederation.",
+    "capabilities": "The Lao Hu is built on a lightweight Chariot Type II Endo Steel that carries a GM 375 XL Engine which gives the 'Mech a top speed of 86.4 km/h while sacrificing some survivability for more free weight and a heavier weapons payload. The Lao Hu is protected by an impressive thirteen and a half tons of armor, making it capable of weathering hits from all but the heaviest weapons.",
+    "deployment": "This variant is equipped with Stealth Armor powered by a Guardian ECM Suite. The weapons have been replaced so it carries a Heavy PPC, Gauss Rifle, and three Rocket Launcher 10s. The heat sinks have been increased to fourteen. To make room for all this equipment, the 4E uses an XL Gyro and a Small Cockpit.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Shengli Arms"
+    ],
+    "primaryFactory": [
+      "Victoria"
+    ],
+    "systems": {
+      "chassis": "Chariot Type II Endo Steel",
+      "engine": "GM 375 XL",
+      "armor": "Star Shell Standard",
+      "communications": "Dian-bao Comms, Standard",
+      "targeting": "O/P 911 Targeting and Tracking System"
+    }
+  }
+}

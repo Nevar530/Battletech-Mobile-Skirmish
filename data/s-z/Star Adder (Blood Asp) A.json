@@ -1,0 +1,178 @@
+{
+  "name": "Star Adder",
+  "chassis": "Star Adder",
+  "model": "A",
+  "mulId": 399,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3060,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 90,
+  "engine": "360 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "25 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 40,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 28,
+    "leftArm": 28,
+    "rightLeg": 34,
+    "leftLeg": 34,
+    "rearCenterTorso": 13,
+    "rearRightTorso": 11,
+    "rearLeftTorso": 11,
+    "total": 256
+  },
+  "quirks": [
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLHeavyLargeLaser (omnipod)",
+      "CLHeavyLargeLaser (omnipod)",
+      "CLHeavyLargeLaser (omnipod)",
+      "CLERPPC (omnipod)",
+      "CLERPPC (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Heavy Large Laser",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLHeavyLargeLaser (omnipod)",
+      "CLHeavyLargeLaser (omnipod)",
+      "CLHeavyLargeLaser (omnipod)",
+      "CLERPPC (omnipod)",
+      "CLERPPC (omnipod)",
+      "Clan Endo Steel",
+      "Heavy Large Laser",
+      "ER PPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Jump Jet (omnipod)",
+      "Clan Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Jump Jet (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "Clan Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "CLECMSuite (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ]
+  },
+  "text": {
+    "overview": "One of the first 'Mechs to field the breakthrough Heavy Laser technology, the Blood Asp proves to be an offensive powerhouse. Delivering incredible damage at all ranges, the Blood Asp makes short work of any enemy regardless of size.",
+    "capabilities": "Based on the Kingfisher, the Blood Asp adds an XL engine, but space constraints forced the replacement of the Kingfisher's ferro-fibrous armor with standard plate. The Blood Asp incorporates sixteen tons of this armor and fourteen double heat sinks in the base chassis.",
+    "deployment": "This configuration is built for assault. It uses an advanced Targeting Computer to guide a pair of ER PPCs and two Heavy Large Lasers. Eleven additional heat sinks fail to keep this configuration cool, especially with the addition of enough jump jets to leap ninety meters at a time. It also incorporates an ECM Suite to protect itself from enemy electronics.",
+    "history": "Created by Clan Star Adder as an insult to their enemies, Clan Blood Spirit, the Blood Asp has a large amount of available pod space for its size."
+  },
+  "manufacturers": {
+    "primary": [
+      "Sheridan LM-TA 8-10"
+    ],
+    "primaryFactory": [
+      "Sheridan"
+    ],
+    "systems": {
+      "chassis": "Type MAES-90 Light",
+      "engine": "Consolidated Fusion 360 XL",
+      "armor": "Forging ZZ7 Ceramic Plate",
+      "communications": "Series D8 CC-25X with ECM",
+      "targeting": "“Hermes” CT-42 Mk. II"
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "name": "Guillotine IIC",
+  "chassis": "Guillotine IIC",
+  "model": "2",
+  "mulId": 1346,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3070,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "280 Fusion (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 6
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 34,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 217
+  },
+  "quirks": [
+    "searchlight"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERPPC",
+      "CLERPPC",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "CLERMediumLaser",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "CLERMediumLaser",
+      "Clan Streak SRM 4 Ammo",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLStreakSRM4",
+      "Streak SRM 4"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Guillotine IIC is a simple upgrade of the original Guillotine BattleMech using Clan technology.",
+    "capabilities": "This version of that venerable 'Mech uses double heat sinks and an Endo Steel internal structure to save weight. These weight savings were used to upgrade the 'Mech's weapon systems. The original twelve tons of armor was left unchanged.",
+    "deployment": "Developed during the Jihad in 3070, this variant was remodelled for close-quarter combat. The variant removes both Large Pulse Lasers, using the space for two additional ER Medium Lasers and a Targeting Computer to guide them. The SRM 6 is exchanged for a Streak SRM 4 Launcher and one ton of ammunition. The standard armor was exchanged for Ferro-Fibrous armor, and the 'Mech was equipped with six Improved Jump Jets.",
+    "history": "Although Clan Coyote created this upgrade, Clan Star Adder was the first to use it in combat in 2892. With the introduction of the OmniMech, most Guillotine IICs were relegated to second-line and solahma duty."
+  },
+  "manufacturers": {
+    "primary": [
+      "Omega Orbital Production Plant",
+      "Irian BattleMechs Unlimited (Refit )",
+      "W-7 Facilities (Refit)"
+    ],
+    "primaryFactory": [
+      "Unknown",
+      "Angell II",
+      "Weingarten"
+    ],
+    "systems": {
+      "chassis": "Clan Modified Heavy Type X",
+      "engine": "Clan Standard 280 series",
+      "armor": "Forging OTR17b",
+      "jumpjet": "Clan Series Type 4 Heavy",
+      "communications": "JNE Integrated",
+      "targeting": "Series VI KITT"
+    }
+  }
+}

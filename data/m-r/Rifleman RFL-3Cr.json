@@ -1,0 +1,166 @@
+{
+  "name": "Rifleman",
+  "chassis": "Rifleman",
+  "model": "RFL-3Cr",
+  "mulId": 2696,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3071,
+  "source": "TRO: 3085u",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 60,
+  "engine": "240 Fusion Engine(IS)",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "HeavyFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 22,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 17,
+    "leftLeg": 17,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 148
+  },
+  "quirks": [
+    "anti_air",
+    "imp_com",
+    "searchlight",
+    "ubiquitous_clan",
+    "ubiquitous_is"
+  ],
+  "weapons": [
+    {
+      "type": "Autocannon/10",
+      "location": "LA"
+    },
+    {
+      "type": "Autocannon/10",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Autocannon/10"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Autocannon/10"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Medium Laser",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "Medium Laser",
+      "IS Ammo AC/10",
+      "IS Ammo AC/10",
+      "IS Ammo AC/10",
+      "IS Ammo AC/10",
+      "IS Ammo AC/10",
+      "ISCASE",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Heavy Ferro-Fibrous",
+      "Heavy Ferro-Fibrous"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

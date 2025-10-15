@@ -1,0 +1,188 @@
+{
+  "name": "Avatar",
+  "chassis": "Avatar",
+  "model": "AV1-OE",
+  "mulId": 165,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3062,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 70,
+  "engine": "280 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 192
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Ultra AC/10",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISERPPC (omnipod)",
+      "ISERPPC (omnipod)",
+      "ISERPPC (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ER PPC",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "Ultra AC/10"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISGuardianECMSuite (omnipod)",
+      "ISGuardianECMSuite (omnipod)",
+      "ISCASE"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "IS Ultra AC/10 Ammo (omnipod)",
+      "IS Ultra AC/10 Ammo (omnipod)",
+      "IS Ultra AC/10 Ammo (omnipod)",
+      "ISC3iUnit (omnipod)",
+      "ISC3iUnit (omnipod)",
+      "ISCASE"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Avatar OmniMech is the result of Inner Sphere initiative in response to Clan technology. Originating from the Draconis Combine's efforts post-capture of Clan 'Mechs, this seventy-ton platform is a significant presence in engagements involving the Draconis Combine Mustered Soldiery, the Lyran Alliance, and ComStar. It reaches speeds up to 64.8 km/h powered by an XL engine and is encased in twelve tons of armor with CASE systems for ammunition explosion containment. The 'Mech's design supports a substantial thirty-four tons of pod space for weapons.",
+    "capabilities": "Equipped with medium lasers as standard fixed armaments, the Avatar is designed to maintain offensive capabilities even with pod failure. In its primary loadout, the OmniMech is outfitted with long-range missile launchers, an autocannon, machine guns, and pulse lasers, allowing it to engage at various ranges with a broad selection of weaponry.",
+    "deployment": "Utilized by specialized forces, this variant combines a long-range electrical particle weapon with an autocannon capable of varied ammunition, augmented with electronic countermeasures and advanced targeting systems.",
+    "history": "Developed by Luthien Armor Works, the Avatar is a strategic development following the Battle of Luthien. The 'Mech's design retains the leg assembly from captured Clan 'Mechs, specifically the Mad Dog, with modifications to the torso to accommodate the bulkier Inner Sphere technology."
+  },
+  "manufacturers": {
+    "primary": [
+      "Crofton",
+      "Loburg",
+      "Luthien",
+      "Marduk",
+      "New Valencia",
+      "Son Hoa",
+      "St. Ives"
+    ],
+    "primaryFactory": [
+      "StarCorps Industries",
+      "StarCorps Industries",
+      "Luthien Armor Works",
+      "Victory Industries (formerly Norse BattleMech Works)",
+      "General Motors/Blackwell Corporation",
+      "StarCorps Industries",
+      "StarCorps Industries"
+    ],
+    "systems": {
+      "chassis": "Alshain Hagetaga-O7",
+      "engine": "Hermes 280 XL",
+      "armor": "StarSlab/4 with CASE",
+      "communications": "Sipher CommCon SCU-9",
+      "targeting": "Matabushi Stalker"
+    }
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "name": "Lightray",
+  "chassis": "Lightray",
+  "model": "LGH-4W",
+  "mulId": 4519,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3065,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 55,
+  "engine": "385 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 19,
+    "leftTorso": 19,
+    "rightArm": 18,
+    "leftArm": 18,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 185
+  },
+  "quirks": [
+    "hyper_actuator",
+    "bad_rep_is",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISLargePulseLaser",
+      "ISLargePulseLaser",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "Large Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERMediumLaser",
+      "ISERMediumLaser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERSmallLaser",
+      "IS Endo Steel",
+      "ER Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Lightray was designed by Martinson Armaments to be a heavy scout 'Mech and was put into production in 3064.",
+    "capabilities": "The Lightray is built on a lightweight Geometric 33B Endo Steel chassis to help maximize the available weight for weapons and equipment and features a gigantic LTV 385 XL engine, the largest that can possibly be carried by a 'Mech its size. The engine allows the scout 'Mech to outpace most other medium designs with a top speed of 118 kilometers per hour, though it lacks the added maneuverability that could be provided by jump jets. The Lightray carries ten and a half tons of Strasbourg Armaments Type 4 Ferro-Fibrous armor, giving the 'Mech a great deal of protection.",
+    "deployment": "The main weapon of the Lightray is its Tronel XIII Large Pulse Laser. Coupled with the Targeting Computer technology stolen from House Davion, this Word of Blake design is deadly accurate, even when moving at its top speed. The pair of Diverse Optics ER Medium Lasers and the Diverse Optics ER Small Laser add to the close-range damage the 'Mech can deal.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Martinson Armaments"
+    ],
+    "primaryFactory": [
+      "Australia",
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Geometric 33B Endo Steel",
+      "engine": "LTV 385 XL",
+      "armor": "Strasbourg Armaments Type 4 Ferro-Fibrous",
+      "communications": "Blow 107 Net (Improved)",
+      "targeting": "Scope 3580 with Targeting Computer"
+    }
+  }
+}

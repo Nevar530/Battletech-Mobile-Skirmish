@@ -1,0 +1,196 @@
+{
+  "name": "Thor",
+  "chassis": "Thor",
+  "model": "D",
+  "mulId": 3177,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 2872,
+  "source": "TRO: Clan Invasion",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 70,
+  "engine": "350 XL (Clan) Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "20 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 27,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 23,
+    "leftLeg": 23,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 182
+  },
+  "quirks": [
+    "imp_com",
+    "ubiquitous_clan"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "AMS",
+      "location": "LT"
+    },
+    {
+      "type": "AMS",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMG (omnipod)",
+      "CLAntiMissileSystem (omnipod)",
+      "Clan Machine Gun Ammo - Full (omnipod)",
+      "CLAMS Ammo (omnipod)",
+      "CLAMS Ammo (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Machine Gun",
+      "AMS"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMG (omnipod)",
+      "CLAntiMissileSystem (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "AMS",
+      "Machine Gun"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Summoner is a highly mobile heavy OmniMech with a mix of speed, mobility, armor, and firepower. Making it a highly effective and reliable mech commonly used by Clan Jade Falcon in a wide variety of roles.",
+    "capabilities": "The Summoner is powered by a lightweight 350 XL engine that gives the 'Mech a top speed of 86.4 km/h. The mobility of the Summoner is enhanced with five jump jets that allow it to jump up to one hundred and fifty meters. The Summoner has fourteen double heat sinks which are capable of handling the heat produced in most of the 'Mechs configurations with ease. To protect it from damage, the Summoner carries nine and a half tons of Ferro-Fibrous armor.",
+    "deployment": "A multi-role configuration of the Summoner, the D configuration is armed with a pair of ER Large Lasers for long range combat. These are backed up by a pair of ER Medium Lasers for short range combat. All of these lasers are linked to an advanced Targeting Computer making the 'Mech highly accurate. For anti-infantry combat, the 'Mech has a pair of Machine Guns. A pair of Anti-Missile Systems give the 'Mech protection from missile carrying 'Mechs and vehicles.",
+    "history": "Barely a second generation OmniMech, the Jade Falcons introduced the Summoner just after becoming the first Clan to win OmniMech technology from Clan Coyote in 2863. The Summoner was dubbed Thor, its Inner Sphere reporting name, by Victor Steiner-Davion himself after fighting one on Trellwan. The name was supposedly inspired by the weapons loadout (in Prime configuration): a PPC and an AC, lightning and thunder, which are associated with the Norse god Thor. Largely supplanted within the Jade Falcons by its successor the Grand Summoner during the Dark Age era, Clan Hell's Horses maintained production of the original on Svarstaad, ensuring by 3150 the Summoner was the oldest continuously produced OmniMech."
+  },
+  "manufacturers": {
+    "primary": [
+      "Eagle Craft Group",
+      "St. Louis MechWorks",
+      "Svarstaad Industriplex Gamma"
+    ],
+    "primaryFactory": [
+      "Ironhold",
+      "Niles",
+      "Svarstaad"
+    ],
+    "systems": {
+      "chassis": "JFS-703",
+      "engine": "Redline 350 XL",
+      "armor": "J63-3E Ferro Fibrous",
+      "jumpjet": "JF Standard",
+      "communications": "Model J-D 067",
+      "targeting": "Hawkeye 58"
+    }
+  }
+}

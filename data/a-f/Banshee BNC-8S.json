@@ -1,0 +1,202 @@
+{
+  "name": "Banshee",
+  "chassis": "Banshee",
+  "model": "BNC-8S",
+  "mulId": 250,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3070,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 95,
+  "engine": "380 XL Engine",
+  "structure": "Standard",
+  "myomer": "Triple-Strength",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard",
+    "head": 9,
+    "centerTorso": 44,
+    "rightTorso": 29,
+    "leftTorso": 29,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 39,
+    "leftLeg": 39,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 288
+  },
+  "quirks": [
+    "rugged_1",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISSNPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISC3SlaveUnit",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERLargeLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISGuardianECM",
+      "location": "RT"
+    },
+    {
+      "type": "2 ISMediumLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "ISC3SlaveUnit",
+      "1 ISC3SlaveUnit"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERMediumLaser",
+      "ISSNPPC",
+      "ISSNPPC",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "1 ISERMediumLaser",
+      "1 ISSNPPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISCASE",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10 Ammo",
+      "ISLBXAC10 Ammo"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "ISMediumLaser",
+      "ISERSmallLaser",
+      "ISMediumLaser",
+      "ISERMediumLaser",
+      "Triple Strength Myomer",
+      "1 ISERLargeLaser",
+      "1 ISGuardianECM",
+      "2 ISMediumLaser",
+      "1 ISERSmallLaser",
+      "1 ISERMediumLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISSmallLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISSmallLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Triple Strength Myomer"
+    ]
+  },
+  "text": {
+    "overview": "The Banshee, introduced in 2445 by the Terran Hegemony, is a 'Mech that was designed specifically for close-assault operations during the early years of BattleMech warfare.",
+    "capabilities": "A contemporary of the Mackie and Emperor, the Banshee is undeniably fast for one of the heaviest 'Mechs ever produced, and with fifteen tons of armor it is better protected than most other assault 'Mechs. However the use of a massive GM 380 fusion engine left little room for weaponry, and even at the time of its introduction the Banshee was considered undergunned compared to its privately-built competition. As critics noted, what use was impressive armor and mobility if a better-armed enemy could overwhelm and destroy it? The result was a mediocre 'Mech which even the lowly Rifleman could beat as long as it prevented the Banshee's mass from coming into play.",
+    "deployment": "The variant of the Banshee was created by the Word of Blake after they took over Hesperus II in 3070. It turns the 'Mech into a brawler with the inclusion of Triple Strength Myomer and a Hatchet. It returns to the XL engine of the 5S and keeps the ubiquitous Small Laser. The LB-X Autocannon/10 is retained from the 6S, though it moves to the other side. An ER Large Laser is added for use at long range and a Snub-Nose PPC is effective at medium range, though it is more damaging up close. An XL Gyro frees up tonnage for four medium lasers, two standard and two extended range models, as well an ER Small Laser. The inclusion of only thirteen double heat sinks ensures that the myomer activates easily. A C3 slave unit allows the 8S to share targeting telemetry, though the fact that it is not one of the Word's improved versions suggests that this 'Mech is not intended for use by Word of Blake Militia, but rather their mercenaries or even important planetary garrisons. Finally, eighteen tons of armor and a Guardian ECM Suite radically improve the defenses of the venerable Banshee.",
+    "history": "The Hegemony soldiered on though, producing five thousand Banshees in a decade before its poor combat performance finally forced them to stop production in 2455 and the 'Mech was relegated to training and militia units for the next few centuries. Even during the Succession Wars the 'Mech's poor reputation meant many commanders saw it as a liability rather than an asset; unless they were fighting on a backwater Periphery world or as part of a poorly-equipped outfit, most Banshees were placed in second-line reserves to provide fire support or fulfill the role of brawlers so that better-armed 'Mechs need not engage in hand-to-hand combat. In this way fully a third of the original Banshee production run remained operational by the dawn of the thirty-first century and could be found throughout the Inner Sphere and Periphery, with the lion's share residing within the Lyran Commonwealth. Though a few attempts had been made over the years to improve the Banshee, Defiance Industries was the first to produce a variant which markedly improved on the original and was suggested by many of its original critics. With help from the Federated Suns and access to blueprints from the original Hesperus II factories, the BNC-3S proved to be such a success the Lyrans began fielding them in front line units, surprising their enemies who ignored them to focus on \"real\" threats with thoroughly unexpected firepower. Under the Federated Commonwealth improvements would continue to be made, though not at the same priority level as other projects, and the much-improved BNC-5S was active in time to meet the Clan Invasion."
+  },
+  "manufacturers": {
+    "primary": [
+      "Defiance Industries",
+      "Defiance Manufacturing Annex"
+    ],
+    "primaryFactory": [
+      "Hesperus II",
+      "Kwangjong-ni"
+    ],
+    "systems": {
+      "chassis": "Foundation",
+      "engine": "Edasich Motors",
+      "armor": "Longanecker",
+      "communications": "Angst",
+      "targeting": "Angst"
+    }
+  }
+}

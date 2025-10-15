@@ -1,0 +1,155 @@
+{
+  "name": "Baboon",
+  "chassis": "Baboon",
+  "model": "3 'Devil'",
+  "mulId": 191,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3066,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 20,
+  "engine": "120 XL (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 7,
+    "centerTorso": 8,
+    "rightTorso": 7,
+    "leftTorso": 7,
+    "rightArm": 5,
+    "leftArm": 5,
+    "rightLeg": 6,
+    "leftLeg": 6,
+    "rearCenterTorso": 2,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 57
+  },
+  "quirks": [
+    "ext_twist",
+    "low_profile",
+    "searchlight"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERPPC",
+      "CLERPPC",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "ER PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMASC",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Howler is a potent missile boat for its size. Meant to provide fire support to light garrison Stars.",
+    "capabilities": "It is relatively fast for a 'Mech its size, topping out at 119 km/h. Its good speed and armament is made possible by the use of an endo steel structure and three tons of ferro-fibrous armor.",
+    "deployment": "Clan Snow Raven scientists refitted captured Howler 2s with an ER PPC and a targeting computer, turning the 'Mech into a sniper. This variant was supposedly inspired by the 30-ton Devil, a BattleMech design in turn inspired by early Howlers Clan Snow Raven had captured from Clan Fire Mandrill.",
+    "history": "The Howler (or Baboon, as the Inner Sphere calls it) was first seen in Clan Jade Falcon's second-line Clusters. Once thought to be unique to that Clan, the design has now appeared among the Snow Ravens, Star Adders, and Steel Vipers. The Steel Vipers returned to the Clan homeworlds and restructured their touman after the Jade Falcons kicked them out of the Inner Sphere occupied zones. Aside from improvements in front-line troops, numerous second-line units gained new people and equipment. Steel Vipers addressed the needs of its heavy forces with designs like as the Matador, Scylla, the heavy laser form of the Phoenix Hawk IIC, and the upgraded version of the Viper. Lighter second-line BattleMech formations, on the other hand, lagged behind. The Viper Khans explored acceptable designs to correct this imbalance and eventually settled on the successful Baboon."
+  },
+  "manufacturers": {
+    "primary": [
+      "Eden Rose [Potemkin Class](Refit)/Facility 12-D",
+      "Snow Raven Industrial Complex Alpha (Refit)"
+    ],
+    "primaryFactory": [
+      "Dante",
+      "Dante"
+    ],
+    "systems": {
+      "chassis": "Type-A Endo Steel",
+      "engine": "General Systems 120 XL",
+      "armor": "Type 2 Ferro Fibrous w/CASE",
+      "communications": "Mercer 973",
+      "targeting": "GEG Pattern 490/1"
+    }
+  }
+}

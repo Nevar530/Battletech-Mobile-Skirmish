@@ -1,0 +1,197 @@
+{
+  "name": "Seraph",
+  "chassis": "Seraph",
+  "model": "C-SRP-OC Comminus",
+  "mulId": 2872,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3069,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 85,
+  "engine": "255 Light Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Triple-Strength",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 40,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 27,
+    "leftArm": 27,
+    "rightLeg": 35,
+    "leftLeg": 35,
+    "rearCenterTorso": 13,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 256
+  },
+  "quirks": [
+    "imp_com",
+    "imp_sensors",
+    "bad_rep_clan",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Plasma Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "MRM 40",
+      "location": "RT"
+    },
+    {
+      "type": "Flamer",
+      "location": "H"
+    },
+    {
+      "type": "Flamer",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "TSM",
+      "TSM",
+      "Heavy PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISPlasmaRifle (omnipod)",
+      "ISPlasmaRifle (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "Plasma Rifle",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISPlasmaRifleAmmo (omnipod)",
+      "ISPlasmaRifleAmmo (omnipod)",
+      "ISC3iUnit",
+      "ISC3iUnit"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "IS MRM 40 Ammo (omnipod)",
+      "IS MRM 40 Ammo (omnipod)",
+      "ISCASE (omnipod)",
+      "MRM 40"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGuardianECMSuite (omnipod)",
+      "ISGuardianECMSuite (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Flamer (omnipod)",
+      "Flamer (omnipod)",
+      "Flamer",
+      "Flamer"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "TSM",
+      "TSM"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "TSM",
+      "TSM"
+    ]
+  },
+  "text": {
+    "overview": "The light assault 'Mech of the Celestial series of OmniMechs, the Seraph is somewhat slow for its weight, but it attempts to make up for that with the inclusion of Triple-Strength Myomer that enables the 'Mech to speed up to 64 kph when it runs hot.",
+    "capabilities": "Like the other Celestials, the Seraph makes use of a light fusion engine and a small cockpit, though other newer technologies are present only in its weaponry. As with the other Celestials, a C3i Computer is included. The main criticism of the Seraph Invictus is that it does not make very good use of its Triple-Strength Myomer. The design does not build enough heat to activate the musculature, a problem the Streak missile system only exacerbates.",
+    "deployment": "Though the Comminus variant is quite powerful against conventional units, it sacrifices little firepower against other 'Mechs. An MRM 40 is useful against either type of opponent, though it is more difficult to aim than other weapons. A Heavy PPC and two ER Medium Lasers work well against hardened targets. A Plasma Rifle deals heavy damage against enemy units, but is especially potent against infantry. Also heavily damaging to unarmored troops are the pair of Flamers. To protect the Seraph C from enemy electronics, it mounts a Guardian ECM Suite.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Gibson Federated BattleMechs",
+      "Martinson Armaments"
+    ],
+    "primaryFactory": [
+      "Gibson (Gibson Federated)",
+      "Terra (Martinson)"
+    ],
+    "systems": {
+      "chassis": "Celestial Series SP1",
+      "engine": "GM 255 Light Fusion with Triple-Strength Myomer",
+      "armor": "Durallex Divine Guardian",
+      "communications": "Master’s Voice Cel-Alpha",
+      "targeting": "Master’s Sight 1-Omega"
+    }
+  }
+}

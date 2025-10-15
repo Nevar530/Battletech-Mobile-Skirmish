@@ -1,0 +1,146 @@
+{
+  "name": "Striker",
+  "chassis": "Striker",
+  "model": "STC-2C",
+  "mulId": 3094,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2571,
+  "source": "TRO: 3058",
+  "rulesLevel": 1,
+  "role": "Brawler",
+  "mass": 80,
+  "engine": "320 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard ( (UnknownTechnologyBase))",
+    "head": 9,
+    "centerTorso": 35,
+    "rightTorso": 25,
+    "leftTorso": 25,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 216
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Autocannon/5",
+      "location": "LA"
+    },
+    {
+      "type": "Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "PPC",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Autocannon/5",
+      "Autocannon/5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Large Laser",
+      "Large Laser",
+      "IS Ammo AC/5",
+      "Large Laser"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "PPC",
+      "PPC",
+      "PPC",
+      "PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Medium Laser",
+      "Sensors",
+      "Life Support",
+      "Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

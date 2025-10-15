@@ -1,0 +1,133 @@
+{
+  "name": "Mackie",
+  "chassis": "Mackie",
+  "model": "MSK-6S",
+  "mulId": 1973,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2443,
+  "source": "TRO: 3075",
+  "rulesLevel": 4,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "360 Fusion Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Single",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Primitive (InnerSphere)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 28,
+    "leftLeg": 28,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 214
+  },
+  "quirks": [
+    "easy_maintain",
+    "pro_actuator",
+    "rugged_1",
+    "oversized"
+  ],
+  "weapons": [
+    {
+      "type": "AC/10",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Primitive Prototype PPC",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Primitive Prototype PPC",
+      "Primitive Prototype PPC",
+      "Primitive Prototype PPC",
+      "Primitive Prototype PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "AC/10"
+    ],
+    "rightTorso": [
+      "IS Ammo AC/10",
+      "IS Ammo AC/10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Heat Sink",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

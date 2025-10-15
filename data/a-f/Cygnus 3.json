@@ -1,0 +1,156 @@
+{
+  "name": "Cygnus",
+  "chassis": "Cygnus",
+  "model": "3",
+  "mulId": 783,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3075,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 95,
+  "engine": "380 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Clan Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 37,
+    "rightTorso": 25,
+    "leftTorso": 25,
+    "rightArm": 29,
+    "leftArm": 29,
+    "rightLeg": 35,
+    "leftLeg": 35,
+    "rearCenterTorso": 14,
+    "rearRightTorso": 13,
+    "rearLeftTorso": 13,
+    "total": 264
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "HAG/20",
+      "location": "LA"
+    },
+    {
+      "type": "HAG/20",
+      "location": "RA"
+    },
+    {
+      "type": "HAG/20",
+      "location": "LT"
+    },
+    {
+      "type": "HAG/20",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "Hyper-Assault Gauss Rifle/20 Ammo",
+      "Hyper-Assault Gauss Rifle/20 Ammo",
+      "HAG/20"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "Hyper-Assault Gauss Rifle/20 Ammo",
+      "Hyper-Assault Gauss Rifle/20 Ammo",
+      "HAG/20"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "Hyper-Assault Gauss Rifle/20 Ammo",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "HAG/20"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "Hyper-Assault Gauss Rifle/20 Ammo",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "HAG/20"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

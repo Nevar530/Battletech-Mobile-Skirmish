@@ -1,0 +1,189 @@
+{
+  "name": "Templar",
+  "chassis": "Templar",
+  "model": "TLR1-OF",
+  "mulId": 5709,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3068,
+  "source": "TRO: Jihad",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 85,
+  "engine": "340 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 44,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 28,
+    "leftArm": 28,
+    "rightLeg": 36,
+    "leftLeg": 36,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 263
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Light Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "C3 Master with TAG",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy PPC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISMediumPulseLaser (omnipod)",
+      "ISMediumPulseLaser (omnipod)",
+      "ISMediumPulseLaser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLightGaussRifle (omnipod)",
+      "ISLightGaussRifle (omnipod)",
+      "ISLightGaussRifle (omnipod)",
+      "ISLightGaussRifle (omnipod)",
+      "ISLightGaussRifle (omnipod)",
+      "IS Endo Steel",
+      "Light Gauss Rifle"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Laser",
+      "C3 Master with TAG"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "Heavy PPC (omnipod)",
+      "IS Light Gauss Ammo (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ISCASE",
+      "Heavy PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "Another command variation, this configuration mounts a C3 Master computer. It carries three Medium Pulse Lasers, a Heavy PPC, and a Light Gauss Rifle. Four jump jets give it a 120 meter jump range.",
+    "deployment": "The Templar is built on a lightweight Kallon Type XIX Endo Steel chassis and is powered by a KalTek 340 XL engine that gives the 'Mech a top speed of 64.8 km/h while sacrificing durability. The Templar has thirteen fixed double heat sinks and is armored with sixteen and a half tons of Starshield A armor with CASE fixed in the right torso. Overall, this allows the Templar to have forty tons of free pod space for weapons and equipment which the 'Mech uses effectively in its various configurations.",
+    "history": "With a noticeable lack of OmniMechs designed in the Federated Suns, Field Marshal Duke George Hasek went over the heads of the Department of the Quartermaster and commissioned Kallon Industries to design an assault OmniMech and backed the project with his own considerable financial resources. The resulting 'Mech is a force to be reckoned with on the modern battlefield."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kallon Industries"
+    ],
+    "primaryFactory": [
+      "Talon"
+    ],
+    "systems": {
+      "chassis": "Kallon Type XIX Endo Steel",
+      "engine": "KalTek 340 Extralight",
+      "armor": "Starshield A with CASE",
+      "communications": "Newberg Telescan 17",
+      "targeting": "Spar 3C MegaTrak"
+    }
+  }
+}

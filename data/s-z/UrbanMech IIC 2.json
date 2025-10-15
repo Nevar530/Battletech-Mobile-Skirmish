@@ -1,0 +1,141 @@
+{
+  "name": "UrbanMech IIC",
+  "chassis": "UrbanMech IIC",
+  "model": "2",
+  "mulId": 3362,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3070,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 30,
+  "engine": "90 Fusion (Clan) Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 11,
+    "rightTorso": 8,
+    "leftTorso": 8,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 96
+  },
+  "quirks": [
+    "ext_twist",
+    "low_profile",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Flamer",
+      "location": "LA"
+    },
+    {
+      "type": "HAG/20",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLFlamer",
+      "Flamer"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "HAG/20 Ammo",
+      "HAG/20"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Jump Jet"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Jump Jet",
+      "HAG/20 Ammo"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Heat Sink",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "The UrbanMech IIC is a Clan IIC-style upgrade of the original UrbanMech.",
+    "capabilities": "Designed as a cheap, efficient urban combat vehicle, the UrbanMech IIC improves upon its predecessor by utilizing an HAG/20 that allows the 'Mech's main gun to put down large volumes of fire, though the MechWarrior must still watch ammo consumption carefully. The flamer is a backup weapon that allows the design to stay in the fight after its ammunition has run out.",
+    "deployment": "Introduced during the Jihad in 3070, the UrbanMech IIC 2 swaps the autocannon and laser for a Class 20 Hyper Assault Gauss Rifle with 2 tons of ammunition and a Flamer.",
+    "history": "Around the same time as the development of the OmniMech during the Golden Century, Clan Coyote technicians reworked this venerable design. They studied battle data from as far back as the Amaris Civil War and used this research as the basis for their upgrades. They apparently decided that the UrbanMech (known as the Urbie to its fans and detractors alike) did not need much reworking. While the Coyotes field the most UrbanMech IICs, the 'Mechs are also fielded by the Goliath Scorpions, Snow Ravens, Ice Hellions, and Hell's Horses."
+  },
+  "manufacturers": {
+    "primary": [
+      "Refit Transitional Facility HH-Beta",
+      "Beta Plant 2W"
+    ],
+    "primaryFactory": [
+      "Nouveaux Paris",
+      "Tamaron"
+    ],
+    "systems": {
+      "chassis": "Mk. VI Standard Light Chassis",
+      "engine": "Clan Model XT4 Standard (90)",
+      "armor": "Forging ZK11 Standard",
+      "jumpjet": "Clan Light Series Mk. II",
+      "communications": "Build 1685 Tacticom",
+      "targeting": "HT9 TTS"
+    }
+  }
+}

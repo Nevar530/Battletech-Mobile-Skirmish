@@ -1,0 +1,161 @@
+{
+  "name": "Mortis",
+  "chassis": "Mortis",
+  "model": "MS-1P",
+  "mulId": 6467,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3122,
+  "source": "TRO: 3145 Capellan Confederation",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 75,
+  "engine": "375 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 25,
+    "leftTorso": 25,
+    "rightArm": 21,
+    "leftArm": 21,
+    "rightLeg": 25,
+    "leftLeg": 25,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 208
+  },
+  "quirks": [
+    "distracting"
+  ],
+  "weapons": [
+    {
+      "type": "Rocket Launcher 10",
+      "location": "CT"
+    },
+    {
+      "type": "TSEMP Cannon",
+      "location": "RT"
+    },
+    {
+      "type": "Large VSP Laser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISLargeVariableSpeedLaser",
+      "ISLargeVariableSpeedLaser",
+      "ISLargeVariableSpeedLaser",
+      "ISLargeVariableSpeedLaser",
+      "ISAES",
+      "ISAES",
+      "ISAES",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Large VSP Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "ISAES",
+      "ISAES",
+      "ISAES"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "TSEMP Cannon",
+      "TSEMP Cannon",
+      "TSEMP Cannon",
+      "TSEMP Cannon",
+      "TSEMP Cannon",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "TSEMP Cannon"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "RL10",
+      "Rocket Launcher 10"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

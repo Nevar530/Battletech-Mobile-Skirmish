@@ -1,0 +1,169 @@
+{
+  "name": "Blood Kite",
+  "chassis": "Blood Kite",
+  "model": "2",
+  "mulId": 3837,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3066,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 85,
+  "engine": "255 Fusion Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "22 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 39,
+    "rightTorso": 27,
+    "leftTorso": 27,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 240
+  },
+  "quirks": [
+    "easy_maintain",
+    "rugged_2"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLERPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLLRM15",
+      "location": "RT"
+    },
+    {
+      "type": "2 CLERPPC",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLLightActiveProbe",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLERPPC",
+      "CLERPPC",
+      "Endo Steel",
+      "Endo Steel",
+      "1 CLERPPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLLRM15",
+      "CLLRM15",
+      "CLArtemisIV",
+      "CLLRM15 Ammo (Clan) Artemis-capable",
+      "CLLRM15 Ammo (Clan) Artemis-capable",
+      "Endo Steel"
+    ],
+    "leftTorso": [
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "Jump Jet",
+      "CLERPPC",
+      "CLERPPC",
+      "CLERPPC",
+      "CLERPPC",
+      "Endo Steel",
+      "2 CLERPPC"
+    ],
+    "rightTorso": [
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "Jump Jet",
+      "CLLRM15",
+      "CLLRM15",
+      "CLArtemisIV",
+      "CLLRM15 Ammo (Clan) Artemis-capable",
+      "CLLRM15 Ammo (Clan) Artemis-capable",
+      "Endo Steel",
+      "Endo Steel",
+      "1 CLLRM15"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLLightActiveProbe",
+      "Sensors",
+      "Life Support",
+      "1 CLLightActiveProbe"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

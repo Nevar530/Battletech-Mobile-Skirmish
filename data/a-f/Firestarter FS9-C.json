@@ -1,0 +1,200 @@
+{
+  "name": "Firestarter",
+  "chassis": "Firestarter",
+  "model": "FS9-C",
+  "mulId": 1111,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3064,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 35,
+  "engine": "210 Fusion Engine(IS)",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 6
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 15,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 10,
+    "leftLeg": 10,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 98
+  },
+  "quirks": [
+    "ubiquitous_clan",
+    "ubiquitous_is"
+  ],
+  "weapons": [
+    {
+      "type": "Flamer",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Flamer",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Rocket Launcher 15",
+      "location": "RT"
+    },
+    {
+      "type": "Rocket Launcher 15",
+      "location": "RT"
+    },
+    {
+      "type": "Rocket Launcher 10",
+      "location": "LT"
+    },
+    {
+      "type": "Rocket Launcher 10",
+      "location": "LT"
+    },
+    {
+      "type": "Rocket Launcher 10",
+      "location": "CT"
+    },
+    {
+      "type": "Rocket Launcher 10",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Flamer",
+      "Medium Laser",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Flamer",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Flamer",
+      "Medium Laser",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Flamer",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "RL10",
+      "RL10",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Rocket Launcher 10",
+      "Rocket Launcher 10"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "RL15",
+      "RL15",
+      "RL15",
+      "RL15",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Rocket Launcher 15",
+      "Rocket Launcher 15"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "RL10",
+      "RL10",
+      "Rocket Launcher 10",
+      "Rocket Launcher 10"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "Originally intended as a mobile incendiary ’Mech, the Firestarter evolved into a decent scouting and reconnaissance platform.",
+    "capabilities": "Despite being shielded by five and a half tons of armor and capable of jumping 180 meters, the Firestarter was powerless against medium or heavyweight opponents. Instead, an entire strategy was built around its ability to cause wildfires, with strategically positioned blazes routing an opponent or covering a withdrawal and impeding any pursuit. Firestarter MechWarriors enjoyed setting fire to densely forested areas when enemy 'Mechs marched through them, as well as any buildings where the enemy was hiding. Other applications for the 'Mech included scorched earth tactics, though this grew less common as it became more important to capture rather than destroy the declining amount of precious resources, or leading units of Wasps and Stingers in deep penetration scouting and light raiding operations. This approach altered in the later Succession Wars when it was discovered that the Firestarter could not only set flames to prevent an enemy from following it, but also clear ambush spots for the advancing of friendly forces.",
+    "deployment": "The FS9-C is an upgrade of the Firestarter manufactured by Coventry Metal Works for the Periphery starting in 3064. The armor has been upgraded to ferro-fibrous and the 'Mech carries two flamers, two medium lasers, two RL-15s, and four RL-10s, giving it an incredible one-shot kill capability against heavier 'Mechs. The already overwhelming number of Firestarters in the near Periphery led to the failure of this variant.",
+    "history": "Firestarters, both ancient and contemporary, can still be found in abundance among planetary militias and House troops. Even though Blakist forces have taken over CMW's principal plant on Coventry, spare parts are still accessible from other Firestarter producers (including LAW, Ceres Metals, Defiance, and Independence Weaponry). Loki field offices near the Circinus Federation frontier are concerned about reports of a new variety using endo steel technology on Federation-occupied worlds. With its particular load-out, this new variation appears to be designed to spread chaos and destruction. Firestarters have also been seen in Level II formations with Blakist soldiers in their Protectorate, most frequently at \"police demonstrations\" and guarding suspected prison sites. These versions are thought to be Coventry goods."
+  },
+  "manufacturers": {
+    "primary": [
+      "Gift of the Magi",
+      "Inc."
+    ],
+    "primaryFactory": [
+      "Baltazar III"
+    ],
+    "systems": {
+      "chassis": "Foundation Ultralight Endo Steel",
+      "engine": "Omni 210",
+      "armor": "Lexington Ltd. High Grade",
+      "jumpjet": "Luxor Load Lifters",
+      "communications": "Cyclops 14",
+      "targeting": "Tansech C30-97"
+    }
+  }
+}

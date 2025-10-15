@@ -1,0 +1,134 @@
+{
+  "name": "Ursa",
+  "chassis": "Ursa",
+  "model": "URA-2A",
+  "mulId": 6627,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 3122,
+  "source": "TRO: 3145 Lyran Commonwealth",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "325 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 29,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightLeg": 23,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 200
+  },
+  "quirks": [
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LT"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Rotary AC/2",
+      "location": "RT"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "ISMediumXPulseLaser",
+      "ISMediumXPulseLaser",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "IS Endo Steel",
+      "ER PPC",
+      "Medium X-Pulse Laser",
+      "Medium X-Pulse Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISRotaryAC2",
+      "ISRotaryAC2",
+      "ISRotaryAC2",
+      "ISMediumXPulseLaser",
+      "ISMediumXPulseLaser",
+      "ISRotaryAC2 Ammo",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Rotary AC/2",
+      "Medium X-Pulse Laser",
+      "Medium X-Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "TharHes Industries"
+    ],
+    "primaryFactory": [
+      "Tharkad"
+    ],
+    "systems": {}
+  }
+}

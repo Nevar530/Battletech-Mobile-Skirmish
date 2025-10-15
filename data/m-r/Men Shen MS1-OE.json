@@ -1,0 +1,207 @@
+{
+  "name": "Men Shen",
+  "chassis": "Men Shen",
+  "model": "MS1-OE",
+  "mulId": 2165,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3070,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 55,
+  "engine": "330 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 24,
+    "leftLeg": 24,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 176
+  },
+  "quirks": [
+    "imp_com",
+    "imp_sensors",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Light Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun Array",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun Array",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Plasma Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Light Machine Gun (omnipod)",
+      "Light Machine Gun (omnipod)",
+      "Light Machine Gun (omnipod)",
+      "Light Machine Gun (omnipod)",
+      "ISLMGA (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun Array"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Light Machine Gun (omnipod)",
+      "Light Machine Gun (omnipod)",
+      "Light Machine Gun (omnipod)",
+      "Light Machine Gun (omnipod)",
+      "ISLMGA (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun Array"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser (omnipod)",
+      "IS Light Machine Gun Ammo - Full (omnipod)",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISPlasmaRifle (omnipod)",
+      "ISPlasmaRifle (omnipod)",
+      "Medium Laser (omnipod)",
+      "ISPlasmaRifleAmmo (omnipod)",
+      "ISPlasmaRifleAmmo (omnipod)",
+      "IS Light Machine Gun Ammo - Full (omnipod)",
+      "Plasma Rifle",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "BeagleActiveProbe",
+      "BeagleActiveProbe"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

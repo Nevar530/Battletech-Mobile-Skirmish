@@ -1,0 +1,225 @@
+{
+  "name": "Ares",
+  "chassis": "Ares",
+  "model": "ARS-V1C Aphrodite",
+  "mulId": 6688,
+  "config": "Tripod Omnimech",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3136,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 135,
+  "engine": "270 Fusion Engine(IS)",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "15 IS Double",
+  "movement": {
+    "walk": 2,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 12,
+    "centerTorso": 60,
+    "rightTorso": 40,
+    "leftTorso": 40,
+    "rightArm": 41,
+    "leftArm": 41,
+    "rightLeg": 56,
+    "leftLeg": 56,
+    "rearCenterTorso": 22,
+    "rearRightTorso": 16,
+    "rearLeftTorso": 16,
+    "total": 456
+  },
+  "quirks": [
+    "command_mech",
+    "distracting",
+    "searchlight"
+  ],
+  "weapons": [
+    {
+      "type": "Rotary AC/5",
+      "location": "LA"
+    },
+    {
+      "type": "Streak LRM 5",
+      "location": "RA"
+    },
+    {
+      "type": "Streak LRM 5",
+      "location": "RA"
+    },
+    {
+      "type": "Streak LRM 5",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 2",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    },
+    {
+      "type": "SRM 2",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "CT"
+    },
+    {
+      "type": "SRM 2",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink (OMNIPOD)",
+      "ISDoubleHeatSink (OMNIPOD)",
+      "CLRotaryAC5 (OMNIPOD)",
+      "CLRotaryAC5 (OMNIPOD)",
+      "CLRotaryAC5 (OMNIPOD)",
+      "CLRotaryAC5 (OMNIPOD)",
+      "CLRotaryAC5 Ammo|CLRotaryAC5 Ammo (OMNIPOD)",
+      "CLRotaryAC5 Ammo|CLRotaryAC5 Ammo (OMNIPOD)",
+      "ISCASEII (OMNIPOD)",
+      "IS Endo-Composite",
+      "Rotary AC/5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink (OMNIPOD)",
+      "ISDoubleHeatSink (OMNIPOD)",
+      "CLStreakLRM5 (OMNIPOD)",
+      "CLStreakLRM5 (OMNIPOD)",
+      "CLStreakLRM5 (OMNIPOD)",
+      "Clan Streak LRM 5 Ammo|Clan Streak LRM 5 Ammo (OMNIPOD)",
+      "ISCASEII (OMNIPOD)",
+      "IS Endo-Composite",
+      "Streak LRM 5",
+      "Streak LRM 5",
+      "Streak LRM 5"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink (OMNIPOD)",
+      "ISDoubleHeatSink (OMNIPOD)",
+      "CLERMediumLaser",
+      "CLERSmallLaser",
+      "LRM 5",
+      "SRM 2",
+      "IS Ammo LRM-5",
+      "ISC3MasterUnit (OMNIPOD)",
+      "ISC3MasterUnit (OMNIPOD)",
+      "ISC3MasterUnit (OMNIPOD)",
+      "ISCASEII",
+      "ER Medium Laser",
+      "ER Small Laser",
+      "LRM 5",
+      "SRM 2"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink (OMNIPOD)",
+      "ISDoubleHeatSink (OMNIPOD)",
+      "CLERMediumLaser",
+      "CLERSmallLaser",
+      "LRM 5",
+      "SRM 2",
+      "IS Ammo SRM-2",
+      "ISC3MasterUnit (OMNIPOD)",
+      "ISC3MasterUnit (OMNIPOD)",
+      "ISC3MasterUnit (OMNIPOD)",
+      "ISCASEII",
+      "ER Medium Laser",
+      "ER Small Laser",
+      "LRM 5",
+      "SRM 2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "ISDoubleHeatSink (OMNIPOD)",
+      "ISDoubleHeatSink (OMNIPOD)",
+      "CLERSmallLaser",
+      "SRM 2",
+      "ISAngelECMSuite (OMNIPOD)",
+      "IS Endo-Composite",
+      "ER Small Laser",
+      "SRM 2"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo-Composite",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISAntiPersonnelPod",
+      "ISAntiPersonnelPod"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISAntiPersonnelPod",
+      "ISAntiPersonnelPod"
+    ]
+  },
+  "text": {
+    "overview": "<p>The Ares BattleMech, a product of the Rhodes Project, represents a significant advancement in super-heavy Mech technology. Developed as a more versatile successor to the Poseidon, the Ares compensates for its heavier weight and slower speed with robust armor, a reconfigurable payload, and the capacity to transport friendly battle armor. Its OmniMech design allows for rapid servicing and a wide array of firepower options, including artillery support. Visually similar to its sister Mech, the Poseidon, the Ares adds an element of unpredictability on the battlefield, keeping enemy commanders guessing about its actual capabilities until it engages in combat.</p>",
+    "capabilities": "<p>The Ares, built on a unique tripedal humanoid chassis, closely resembles the Poseidon in appearance but is distinct in its operational capabilities. The intentional similarity in design serves not only as an engineering convenience but also as a strategic ploy to confuse observers and enemies. Equipped with a versatile array of weapons configurations, the Ares can adapt to various combat roles, from direct engagement to artillery support. Its various field configurations, each with specialized nomenclature, further contribute to the Mech's versatility and adaptability on the battlefield.</p>",
+    "deployment": "The C configuration is known as Aphrodite. It is configured to serve as a command unit for a C3 Network. Its most noted feature is its two C3 master computers and its Angel ECM. Its weaponry includes 3 Clan 5-tubed Streak LRM Launchers and a Clan Class 5 Rotary Autocannon. The 2 tons of LRM and 2 tons of Autocannon ammunition with its parent weapons and they are protected by CASE II. Five additional Double Heat Sinks are fitted to this configuration.",
+    "history": "<p>The Ares BattleMech's story is a narrative of technological evolution and strategic foresight in the wake of the Jihad, as envisioned by the Republic of the Sphere's Rhodes Project. Developed alongside the Poseidon as a more versatile super-heavy Mech, the Ares was designed not just as a response to emerging threats but also as a symbol of a new era in Mech warfare. Its development aimed to push the limits of Mech capabilities, incorporating flexibility in armament and operations, a stark contrast to traditional Mech designs.<p>In the tumultuous period following the Blackout and the rise of the Fortress Republic, the Ares emerged as a critical asset. Prototypes were first deployed at the Serbian proving grounds on Terra in 3135, where they engaged rebel senatorial forces. This conflict marked the Ares's baptism by fire, proving its worth in actual combat conditions. The Mech's performance in this secretive but pivotal engagement informed subsequent refinements, leading to the production of the versatile PSD-V2 models.<p>The deployment of the Ares has been strategic and selective, with units primarily assigned to Stone’s Brigade regiments, notably in the Lament and the Defenders on Terra. Additionally, a significant number of Ares Mechs are stationed at the Devil’s Rock factories, emphasizing their importance in safeguarding key Republic sites. As tensions rise near the Fortress Republic's boundaries, the Ares stands at the forefront of the Republic's defense strategy, particularly against potential Clan invasions.<p>As the Republic's military landscape continues to evolve, the Ares remains a critical component of its armed forces. Its diverse configurations, ranging from the Zeus to the Apollo, illustrate its adaptability and effectiveness in various combat roles. The Ares, with its unique tripedal design and modular weapon systems, represents the Republic's commitment to maintaining a formidable and flexible military presence in an uncertain future.</p>"
+  },
+  "manufacturers": {
+    "primary": [
+      "Rhodes Foundry"
+    ],
+    "primaryFactory": [
+      "Devil’s Rock"
+    ],
+    "systems": {
+      "chassis": "Rhodes-M Endo-Composite",
+      "engine": "PlasmaStar 270",
+      "armor": "Maximillian 320 with CASE II",
+      "communications": "Titan’s Shout Mk. IVA",
+      "targeting": "Titan’s Vantage Mk. II"
+    }
+  }
+}

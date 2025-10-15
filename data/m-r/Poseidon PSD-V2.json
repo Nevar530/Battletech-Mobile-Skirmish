@@ -1,0 +1,225 @@
+{
+  "name": "Poseidon",
+  "chassis": "Poseidon",
+  "model": "PSD-V2",
+  "mulId": 6684,
+  "config": "Tripod",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3136,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 125,
+  "engine": "375 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "20 IS Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 12,
+    "centerTorso": 55,
+    "rightTorso": 40,
+    "leftTorso": 40,
+    "rightArm": 36,
+    "leftArm": 36,
+    "rightLeg": 40,
+    "leftLeg": 40,
+    "rearCenterTorso": 21,
+    "rearRightTorso": 12,
+    "rearLeftTorso": 12,
+    "total": 384
+  },
+  "quirks": [
+    "command_mech",
+    "distracting",
+    "searchlight"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "MRM 20",
+      "location": "RA"
+    },
+    {
+      "type": "TSEMP Cannon",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 2",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    },
+    {
+      "type": "SRM 2",
+      "location": "RT"
+    },
+    {
+      "type": "SRM 2",
+      "location": "CT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "CLERPPC",
+      "CLERPPC",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER PPC",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "MRM 20",
+      "MRM 20",
+      "ISApollo",
+      "TSEMP Cannon",
+      "TSEMP Cannon",
+      "TSEMP Cannon",
+      "MRM 20",
+      "TSEMP Cannon"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "CLERMediumLaser",
+      "CLERSmallLaser",
+      "LRM 5",
+      "SRM 2",
+      "IS Ammo SRM-2",
+      "IS MRM 20 Ammo",
+      "CLCASEII",
+      "IS Endo Steel",
+      "ER Medium Laser",
+      "ER Small Laser",
+      "LRM 5",
+      "SRM 2"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "CLERMediumLaser",
+      "CLERSmallLaser",
+      "LRM 5",
+      "SRM 2",
+      "IS Ammo LRM-5",
+      "IS MRM 20 Ammo",
+      "CLCASEII",
+      "ER Medium Laser",
+      "ER Small Laser",
+      "LRM 5",
+      "SRM 2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "SRM 2",
+      "CLERSmallLaser",
+      "IS Endo Steel",
+      "SRM 2",
+      "ER Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISAntiPersonnelPod",
+      "ISAntiPersonnelPod"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISAntiPersonnelPod",
+      "ISAntiPersonnelPod"
+    ]
+  },
+  "text": {
+    "overview": "<p>The Poseidon represents a groundbreaking achievement in BattleMech engineering, successfully surpassing the “100-ton barrier” that had long been a limit for Mech design. Emergent from the chaos of the Jihad and the technological innovations of the Word of Blake, the Poseidon was developed by the Republic of the Sphere as part of the ambitious Rhodes Project. This super-heavy tripod Mech, often referred to as a \"Colossal,\" embodies the culmination of efforts to create a Mech that is bigger, stronger, and more formidable than any predecessor. It stands as a testament to the Republic's readiness to embrace advanced warfare technology in the wake of the Blackout and the subsequent Fortress Republic initiative.</p>",
+    "capabilities": "<p>The PSD-V2 Poseidon, drawing inspiration from the Orca project and the Word of Blake’s Omega, features reengineered endo steel bones and reinforced actuators for enhanced stability and battlefield flexibility. Unlike its spiritual predecessor, the Orca, the Poseidon boasts greater stability and flexibility, making it a formidable presence on the battlefield. This super-heavy tripod is designed not just for raw power but also for operational versatility, showcasing the pinnacle of Mech engineering in the post-Jihad era.</p>",
+    "deployment": "",
+    "history": "<p>"
+  },
+  "manufacturers": {
+    "primary": [
+      "Rhodes Foundry"
+    ],
+    "primaryFactory": [
+      "Devil’s Rock"
+    ],
+    "systems": {
+      "chassis": "Rhodes-P Endo Steel",
+      "engine": "PlasmaStar 375 XL",
+      "armor": "Maximillian 320 with CASE II",
+      "communications": "Titan’s Shout Mk. IVA",
+      "targeting": "Titan’s Vantage Mk. II with Apollo FCS"
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "name": "Solitaire",
+  "chassis": "Solitaire",
+  "model": "2",
+  "mulId": 5655,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3080,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 25,
+  "engine": "250 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "CLMASC",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 10,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 10,
+    "rightTorso": 9,
+    "leftTorso": 9,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 86
+  },
+  "quirks": [
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLHeavyLargeLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLHeavyMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLHeavySmallLaser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Endo-Steel",
+      "Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Endo-Steel",
+      "Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavySmallLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Ferro-Fibrous",
+      "1 CLHeavyMediumLaser",
+      "1 CLHeavySmallLaser"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "Endo-Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLHeavyLargeLaser"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "CLMASC"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

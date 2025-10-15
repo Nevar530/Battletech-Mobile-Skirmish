@@ -1,0 +1,159 @@
+{
+  "name": "Snake",
+  "chassis": "Snake",
+  "model": "SNK-2Br",
+  "mulId": 2977,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3070,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 45,
+  "engine": "225 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Stealth (InnerSphere)",
+    "head": 8,
+    "centerTorso": 16,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 112
+  },
+  "quirks": [
+    "imp_target_short",
+    "pro_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Streak SRM 2",
+      "location": "LT"
+    },
+    {
+      "type": "Streak SRM 2",
+      "location": "LT"
+    },
+    {
+      "type": "Plasma Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "Plasma Rifle",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Stealth",
+      "Stealth"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISPlasmaRifle",
+      "ISPlasmaRifle",
+      "ISPlasmaRifle",
+      "ISPlasmaRifle",
+      "Stealth",
+      "Stealth",
+      "Plasma Rifle",
+      "Plasma Rifle"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "ISStreakSRM2",
+      "ISStreakSRM2",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "Stealth",
+      "Stealth",
+      "Streak SRM 2",
+      "Streak SRM 2"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "ISPlasmaRifleAmmo",
+      "ISPlasmaRifleAmmo",
+      "IS Streak SRM 2 Ammo",
+      "ISCASE",
+      "Stealth",
+      "Stealth"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth",
+      "Stealth"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth",
+      "Stealth"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

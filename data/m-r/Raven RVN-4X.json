@@ -1,0 +1,140 @@
+{
+  "name": "Raven",
+  "chassis": "Raven",
+  "model": "RVN-4X",
+  "mulId": 2669,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3031,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Striker",
+  "mass": 35,
+  "engine": "175 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 16,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 15,
+    "leftLeg": 15,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 112
+  },
+  "quirks": [
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Machine Gun",
+      "Machine Gun",
+      "IS Ammo MG - Full",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "IS Ammo SRM-6"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "SRM 6",
+      "SRM 6",
+      "SRM 6"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Heat Sink",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "name": "Wolverine II",
+  "chassis": "Wolverine II",
+  "model": "WVR-7H",
+  "mulId": 3585,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2770,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 55,
+  "engine": "275 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 20,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 161
+  },
+  "quirks": [
+    "command_mech",
+    "imp_com",
+    "pro_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Ultra AC/5",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISUltraAC5",
+      "ISUltraAC5",
+      "ISUltraAC5",
+      "ISUltraAC5",
+      "ISUltraAC5",
+      "IS Ultra AC/5 Ammo",
+      "IS Ultra AC/5 Ammo",
+      "IS Endo Steel",
+      "Ultra AC/5"
+    ],
+    "leftTorso": [
+      "SRM 6",
+      "SRM 6",
+      "ISArtemisIV",
+      "IS Ammo SRM-6 Artemis-capable",
+      "ISCASE",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "SRM 6"
+    ],
+    "rightTorso": [
+      "ISCASE",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "IS Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISMediumPulseLaser",
+      "Sensors",
+      "Life Support",
+      "Medium Pulse Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Wolverine commonly served as a heavy scout unit. Often deployed in situations where heavy opposition could easily destroy lighter BattleMechs, it has had a reliable service record ever since its initial deployment within the Star League Defense Force. With respectable armor, speed, and firepower, it can easily outfight lighter enemy scouts and defend itself capably if ambushed.",
+    "capabilities": "The autocannon, missile system and laser found on most Wolverines are all reliable and well-storied systems. Unfortunately, the jump jets suffer from an opposing reputation; the Northrup 12000's are underpowered and prone to breakdowns. The one defining system to be found on the Wolverine, however, are its superb Tek BattleCom and Garret T11-b communications systems. The comgear, regardless of the manufacturer, is well-shielded and features a multi-channel transmitter and receiver, making the Wolverine a powerful Command BattleMech for scouting formations.",
+    "deployment": "Similar in many ways to the 7D, the 7H—referred to as the Wolverine II—was used by the Royal Brigades of the SLDF starting in 2770 and was also an upgrade of the 6R. It utilizes an Endo Steel structure, Ferro-Fibrous armor, and double heat sinks to increase combat capabilities. Extra armor protects the legs, while CASE protects all the ammo bins. Like the 7D, the autocannon is upgraded to an Ultra-class model and the medium laser is upgraded to a pulse version. In addition, the SRM-6 is slaved to an Artemis IV Fire Control System to improve the accuracy of the individual missiles.",
+    "history": "A widespread part of every major military, the Wolverine has manufacturing plants scattered throughout the entire Inner Sphere. While certain states-notably the Free Worlds League-have larger numbers of the design, only the Capellans began facing a shortage of the Wolverine after the loss of their Nanking facilities."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kallon Industries and SLDF Research Division"
+    ],
+    "primaryFactory": [
+      "New Earth"
+    ],
+    "systems": {
+      "chassis": "Crucis XL",
+      "engine": "CoreTek 275",
+      "armor": "Armorscale Ferro Fibrous with CASE",
+      "jumpjet": "Anderson 500",
+      "communications": "Dalban Commline",
+      "targeting": "Garret T11S"
+    }
+  }
+}

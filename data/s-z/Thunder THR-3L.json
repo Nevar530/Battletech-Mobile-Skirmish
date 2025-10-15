@@ -1,0 +1,179 @@
+{
+  "name": "Thunder",
+  "chassis": "Thunder",
+  "model": "THR-3L",
+  "mulId": 3216,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3066,
+  "source": "TRO: 3055",
+  "rulesLevel": 3,
+  "role": "Missile Boat",
+  "mass": 70,
+  "engine": "350 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Triple-Strength",
+  "heatSinks": "11 IS Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Stealth (InnerSphere)",
+    "head": 9,
+    "centerTorso": 34,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 216
+  },
+  "quirks": [
+    "cowl"
+  ],
+  "weapons": [
+    {
+      "type": "Arrow IV",
+      "location": "RT"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "IS Stealth",
+      "IS Stealth",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "IS Stealth",
+      "IS Stealth"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISStreakSRM6",
+      "ISStreakSRM6",
+      "ISERMediumLaser",
+      "ISArrowIVAmmo",
+      "ISArrowIVHomingAmmo",
+      "IS Streak SRM 6 Ammo",
+      "ISCASE",
+      "IS Stealth",
+      "IS Stealth",
+      "Streak SRM 6",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "ISArrowIV",
+      "IS Stealth",
+      "IS Stealth",
+      "Arrow IV"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERMediumLaser",
+      "Triple Strength Myomer",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Triple Strength Myomer",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Stealth",
+      "IS Stealth"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Stealth",
+      "IS Stealth"
+    ]
+  },
+  "text": {
+    "overview": "The Thunder is a product of the aftermath of the Fourth Succession War.",
+    "capabilities": "The 3L variant of the Thunder is intended for artillery fire support. The 'Mech is armed with an Arrow IV artillery missile launcher and carries a pair of ER Medium Lasers and a Streak SRM-6 for close range protection. The 'Mech is also outfitted with Triple Strength Myomer, allowing it to travel at speeds of 97.2 km/h when operating at the correct temperature. The 'Mech is also armored with Stealth Armor, making it a much harder target to hit.",
+    "deployment": "",
+    "history": "The 'Mech was built to make the most of new technologies that had made their way to the Capellan Confederation at the beginning of the 3050s. This was done by building the 'Mech around a Magna 350 XL Engine to maximize the available weight in the 'Mech. The Thunder also uses double heat sinks to make it capable of handling a high heat load from its weapons systems. The 'Mech is well protected with thirteen and a half tons of armor. Its weapons payload, and the design in general, uses a mix of advanced and off the shelf parts. This balanced mix makes the Thunder a valuable asset on the modern battlefield."
+  },
+  "manufacturers": {
+    "primary": [
+      "Ceres Metals Industries"
+    ],
+    "primaryFactory": [
+      "Sian",
+      "Capella and St. Ives"
+    ],
+    "systems": {
+      "chassis": "Hollis Mk III",
+      "engine": "Magna 350 XL",
+      "armor": "Ceres Heavy with CASE",
+      "communications": "Ceres Metals Model 21-Rs",
+      "targeting": "C-Apple Churchill"
+    }
+  }
+}

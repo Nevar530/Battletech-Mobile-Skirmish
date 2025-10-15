@@ -1,0 +1,747 @@
+[Hussar HSR-300-D.mtf]
+Unparsed: Enhanced communication and surveillance apparatus form a part of the Hussar's core capabilities, with the original Field Ranger Sightseer schematics being replicated in 3055, thus bolstering its reconnaissance prowess. This technological integration rendered the Hussar invaluable during the FedCom Civil War, with its deployment often aimed at disrupting enemy supply lines, embodying a strategy not alien to several hard-line Lyran commanders of the era.
+[Annihilator ANH-1A.mtf]
+Unparsed: 1 ISAC10, Right Arm, Ammo:40
+[Annihilator ANH-3A.mtf]
+Unparsed: 2 ISLAC2, Right Arm, Ammo:360
+[Annihilator ANH-4A.mtf]
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:40
+Unparsed: 1 ISLAC2, Center Torso, Ammo:90
+[Annihilator C.mtf]
+Unparsed: 1 CLUltraAC10, Right Arm, Ammo:80
+[Assassin ASN-23.mtf]
+Unparsed: 1 ISLRM5, Right Torso, Ammo:24
+[Assassin ASN-30.mtf]
+Unparsed: 1 ISLBXAC5, Right Torso, Ammo:20
+[Assassin ASN-99.mtf]
+Unparsed: 1 ISSRM2, Right Torso, Ammo:50
+[Atlas AS7-CM.mtf]
+Unparsed: C3 Computer (Master), Left Arm
+[Atlas AS7-K.mtf]
+Unparsed: 1 ISGaussRifle, Right Torso, Ammo:16
+Unparsed: 1 ISLRM20, Left Torso, Ammo:12
+Unparsed: 1 ISAntiMissileSystem, Left Arm, Ammo:12
+[Atlas AS7-S.mtf]
+Unparsed: 1 ISAC20, Right Torso, Ammo:15
+Unparsed: 1 ISLRM20, Left Torso, Ammo:12
+Unparsed: 1 ISSRM6, Left Torso, Ammo:15
+Unparsed: 2 ISStreakSRM2, Left Torso (R), Ammo:50
+[Atlas AS7-S2.mtf]
+Unparsed: 1 ISHeavyGaussRifle, Right Torso, Ammo:16
+Unparsed: 1 ISLRM15, Left Torso, Ammo:16
+[Awesome AWS-9M.mtf]
+Unparsed: 1 ISStreakSRM2, Left Arm, Ammo:50
+[Banshee BNC-5S.mtf]
+Unparsed: 1 ISGaussRifle, Left Torso, Ammo:8
+Unparsed: 1 ISSRM6, Right Arm, Ammo:15
+[Banshee BNC-6S.mtf]
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:20
+Unparsed: 1 ISHeavyGaussRifle, Left Torso, Ammo:20
+[Banshee BNC-7S.mtf]
+Unparsed: 1 ISGaussRifle, Left Torso, Ammo:16
+Unparsed: 1 ISSRM6, Right Torso, Ammo:15
+[Banshee BNC-8S.mtf]
+Unparsed: 1 ISLBXAC10, Left Torso, Ammo:20
+[Blackjack BJ-2.mtf]
+Unparsed: 2 ISStreakSRM2, Right Torso, Ammo:50
+[Blackjack BJ-4.mtf]
+Unparsed: 1 ISLAC5, Right Arm, Ammo:80
+[Bombardier BMB-05A.mtf]
+Unparsed: 1 ISArrowIVSystem, Left Arm, Ammo:20
+Unparsed: 1 ISAntiMissileSystem, Head, Ammo:24
+[Bombardier BMB-12D.mtf]
+Unparsed: 1 ISLRM20, Right Torso, Ammo:12
+Unparsed: 1 ISSRM4, Right Arm, Ammo:25
+Unparsed: 1 ISAntiMissileSystem, Center Torso, Ammo:12
+[Bombardier BMB-14C.mtf]
+Unparsed: 1 ISLRM20, Right Torso, Ammo:24
+[Bombardier BMB-14K.mtf]
+Unparsed: 3 ISMachine Gun, Right Arm, Ammo:100
+Unparsed: 2 ISMML7, Right Torso, Ammo:85
+[Caesar CES-3R Gertrude.mtf]
+Unparsed: 1 ISGaussRifle, Right Torso, Ammo:16
+[Caesar CES-4S.mtf]
+Unparsed: 1 ISHeavyGaussRifle, Right Torso, Ammo:12
+[Cataphract CTF-3D.mtf]
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:20
+Unparsed: 1 ISUltraAC5, Right Arm, Ammo:20
+[Cataphract CTF-3L.mtf]
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:20
+[Cataphract CTF-4L.mtf]
+Unparsed: 1 ISGaussRifle, Right Torso, Ammo:16
+[Cataphract CTF-4X.mtf]
+Unparsed: 1 ISAC5, Right Arm, Ammo:80
+Unparsed: 1 ISLRM5, Head, Ammo:24
+[Catapult CPLT-C2.mtf]
+Unparsed: 1 ISLRM15, Right Arm, Ammo:32
+Unparsed: 1 ISLBXAC2, Right Torso, Ammo:45
+[Catapult CPLT-C3.mtf]
+Unparsed: 1 ISArrowIVSystem, Right Arm, Ammo:5
+[Catapult CPLT-C5.mtf]
+Unparsed: 1 ISArrowIVSystem, Right Arm, Ammo:20
+[Catapult CPLT-C6.mtf]
+Unparsed: 2 ISPlasmaRifle, Right Arm, Ammo:60
+[Catapult CPLT-K5.mtf]
+Unparsed: 1 ISMRM30, Right Arm, Ammo:32
+[Centurion CN9-D.mtf]
+Unparsed: 1 ISLBXAC10, Right Arm, Ammo:20
+Unparsed: 1 ISLRM10, Left Torso, Ammo:24
+[Centurion CN9-D3.mtf]
+Unparsed: 1 ISLBXAC10, Right Arm, Ammo:20
+Unparsed: 1 ISLRM10, Left Torso, Ammo:24
+[Centurion CN9-D3D.mtf]
+Unparsed: 1 ISLightGaussRifle, Right Arm, Ammo:32
+Unparsed: 1 ISLRM10, Left Torso, Ammo:12
+[Centurion CN9-D4D.mtf]
+Unparsed: 1 ISLightGaussRifle, Right Arm, Ammo:16
+Unparsed: 1 ISLRM15, Left Torso, Ammo:16
+[Centurion CN9-D5.mtf]
+Unparsed: 1 ISRotaryAC5, Right Arm, Ammo:60
+[Centurion CN9-D9.mtf]
+Unparsed: 1 ISPlasmaRifle, Right Arm, Ammo:20
+Unparsed: 1 ISLRM10, Left Torso, Ammo:24
+[Centurion CN9-YLW2.mtf]
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:16
+[Champion C.mtf]
+Unparsed: 1 CLLBXAC10, Right Torso, Ammo:20
+Unparsed: 1 CLSRM6, Left Torso, Ammo:15
+[Champion CHP-1N.mtf]
+Unparsed: 1 ISSRM6, Left Torso, Ammo:15
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:20
+[Champion CHP-3N.mtf]
+Unparsed: 1 ISSRM6, Left Torso, Ammo:15
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:20
+[Champion CHP-3P.mtf]
+Unparsed: 1 ISUltraAC10, Right Torso, Ammo:30
+Unparsed: 1 ISImprovedNarc, Left Torso, Ammo:8
+[Charger CGR-3K.mtf]
+Unparsed: 1 ISLRM20, Right Torso, Ammo:12
+[Charger CGR-C.mtf]
+Unparsed: 1 ISLRM20, Right Torso, Ammo:18
+[Charger CGR-KMZ.mtf]
+Unparsed: 1 ISMML9, Right Torso, Ammo:22
+[Charger CGR-SA5.mtf]
+Unparsed: 2 ISStreakSRM6, Left Arm, Ammo:15
+Unparsed: 1 ISLBXAC20, Right Torso, Ammo:15
+[Cicada CDA-3M.mtf]
+Unparsed: 1 ISUltraAC5, Left Torso, Ammo:20
+[Clint CLNT-2-3UL.mtf]
+Unparsed: 1 ISPlasmaRifle, Right Arm, Ammo:30
+[Clint CLNT-3-3T.mtf]
+Unparsed: 1 ISLAC5, Right Arm, Ammo:40
+[Commando COM-7B.mtf]
+Unparsed: 2 ISSRM4, Center Torso, Ammo:25
+[Commando COM-7S.mtf]
+Unparsed: 2 ISStreakSRM2, Right Arm, Ammo:50
+Unparsed: 1 ISSRM4, Center Torso, Ammo:25
+[Crockett CRK-5003-3.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:30
+Unparsed: 1 ISLBXAC10, Left Torso, Ammo:30
+[Crockett CRK-5005-1.mtf]
+Unparsed: 1 ISMML3, Right Torso, Ammo:73
+Unparsed: 1 ISLBXAC10, Left Torso, Ammo:20
+[Cyclops CP-11-H.mtf]
+Unparsed: 1 ISAC20, Right Torso, Ammo:10
+[Daishi (Dire Wolf) C.mtf]
+Unparsed: Streak SRM 4 (OS), Head
+[Dervish DV-7D.mtf]
+Unparsed: 1 ISLRM10, Right Torso, Ammo:24
+Unparsed: 1 ISStreakSRM2, Right Arm, Ammo:100
+[Dervish DV-8D.mtf]
+Unparsed: 1 ISLRM15, Left Torso, Ammo:32
+[Dervish DV-9D.mtf]
+Unparsed: 2 ISMML5, Right Torso, Ammo:116
+[Dragon DRG-5N.mtf]
+Unparsed: 1 ISLRM10, Center Torso, Ammo:24
+Unparsed: 1 ISUltraAC5, Right Arm, Ammo:20
+[Enforcer ENF-5D.mtf]
+Unparsed: 1 ISLBXAC10, Right Arm, Ammo:20
+[Exterminator EXT-4D.mtf]
+Unparsed: 1 ISLRM10, Left Torso, Ammo:12
+Unparsed: 1 ISAntiMissileSystem, Right Torso, Ammo:12
+[Exterminator EXT-5E.mtf]
+Unparsed: 1 ISImprovedNarc, Left Torso, Ammo:16
+[Exterminator EXT-5F.mtf]
+Unparsed: 1 ISMML7, Left Torso, Ammo:31
+[Falcon FLC-4P.mtf]
+Unparsed: 1 ISAntiMissileSystem, Left Torso, Ammo:12
+[Falcon FLC-6C.mtf]
+Unparsed: 1 CLAntiMissileSystem, Left Torso, Ammo:24
+[Firefly C.mtf]
+Unparsed: 1 CLSRM2, Right Torso, Ammo:50
+[Firefly FFL-4A.mtf]
+Unparsed: 1 ISLRM5, Right Torso, Ammo:24
+[Firefly FFL-4B.mtf]
+Unparsed: 1 ISLRM5, Right Torso, Ammo:24
+Unparsed: 1 ISAntiMissileSystem, Left Arm, Ammo:12
+[Firefly FFL-4C.mtf]
+Unparsed: 1 ISAntiMissileSystem, Left Arm, Ammo:12
+Unparsed: 1 ISLRM5, Right Torso, Ammo:24
+[Firefly FFL-4D.mtf]
+Unparsed: 1 ISAntiMissileSystem, Left Arm, Ammo:12
+Unparsed: 1 ISLRM5, Right Torso, Ammo:24
+[Firefly FFL-4DA.mtf]
+Unparsed: 1 ISLRM5, Right Torso, Ammo:24
+[Firestarter FS9-P.mtf]
+Unparsed: 1 ISSRM2, Right Torso, Ammo:50
+[Firestarter FS9-S.mtf]
+Unparsed: 1 ISAntiMissileSystem, Left Torso, Ammo:12
+[Flashman FLS-C.mtf]
+Unparsed: 1 ISAntiMissileSystem, Right Torso, Ammo:12
+[Flea Fire Ant.mtf]
+Unparsed: 3 ISMachine Gun, Right Arm, Ammo:100
+[Flea FLE-19.mtf]
+Unparsed: 4 ISLightMG, Right Arm, Ammo:100
+[Grand Dragon DRG-7K.mtf]
+Unparsed: 1 ISMRM10, Center Torso, Ammo:24
+[Grand Dragon DRG-9KC.mtf]
+Unparsed: 1 ISMML5, Left Torso, Ammo:44
+[Grand Dragon DRG-C.mtf]
+Unparsed: 1 ISLRM10, Center Torso, Ammo:24
+[Grasshopper GHR-5J.mtf]
+Unparsed: 1 ISStreakSRM2, Head, Ammo:100
+Unparsed: 1 ISAntiMissileSystem, Right Torso, Ammo:12
+[Grasshopper GHR-6K.mtf]
+Unparsed: 1 ISStreakSRM4, Head, Ammo:25
+[Grasshopper GHR-C.mtf]
+Unparsed: 1 ISStreakSRM2, Head, Ammo:50
+Unparsed: 1 ISAntiMissileSystem, Right Torso, Ammo:12
+[Guillotine GLT-5M.mtf]
+Unparsed: 1 ISSRM6, Center Torso, Ammo:15
+[Guillotine GLT-6WB.mtf]
+Unparsed: 1 ISLRM15, Center Torso, Ammo:8
+[Guillotine GLT-6WB2.mtf]
+Unparsed: 1 ISLightGaussRifle, Left Arm, Ammo:16
+Unparsed: 1 ISLRM5, Center Torso, Ammo:24
+[Guillotine GLT-8D.mtf]
+Unparsed: 1 ISStreakSRM6, Center Torso, Ammo:15
+[Hatamoto-Chi HTM-27T.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:30
+[Hatamoto-Chi HTM-28T.mtf]
+Unparsed: 1 ISStreakSRM6, Right Torso, Ammo:30
+[Hatamoto-Kaze HTM-27V.mtf]
+Unparsed: 1 ISLRM5, Right Torso, Ammo:96
+[Hatamoto-Ku HTM-27W.mtf]
+Unparsed: 1 ISAC5, Right Torso, Ammo:20
+[Hatchetman HCT-5S.mtf]
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:10
+[Hermes II HER-5C.mtf]
+Unparsed: 1 ISImprovedNarc, Left Arm, Ammo:12
+[Hermes II HER-5ME.mtf]
+Unparsed: 1 ISLightGaussRifle, Right Torso, Ammo:32
+[Hermes II HER-5S.mtf]
+Unparsed: 1 ISUltraAC5, Right Torso, Ammo:20
+[Hermes II HER-5SA.mtf]
+Unparsed: 1 ISUltraAC5, Right Torso, Ammo:20
+[Highlander HGN-734.mtf]
+Unparsed: 1 ISLBXAC20, Right Torso, Ammo:15
+Unparsed: 1 ISStreakSRM6, Left Torso, Ammo:15
+[Highlander HGN-736.mtf]
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:16
+Unparsed: 1 ISStreakSRM4, Left Arm, Ammo:25
+Unparsed: 1 ISLRM20, Left Torso, Ammo:12
+[Highlander HGN-738.mtf]
+Unparsed: 1 ISHeavyGaussRifle, Right Torso, Ammo:12
+Unparsed: 1 ISLRM15, Left Torso, Ammo:8
+Unparsed: 1 ISStreakSRM4, Center Torso, Ammo:25
+[Hoplite C.mtf]
+Unparsed: 1 CLUltraAC10, Right Arm, Ammo:30
+Unparsed: 1 CLLRM15, Left Arm, Ammo:16
+[Hoplite HOP-4A.mtf]
+Unparsed: 1 ISLRM5, Left Torso, Ammo:24
+Unparsed: 1 ISAC10, Right Torso, Ammo:10
+[Hoplite HOP-4C.mtf]
+Unparsed: 1 ISLRM5, Left Torso, Ammo:24
+Unparsed: 1 ISAC10, Right Torso, Ammo:10
+[Hornet HNT-171.mtf]
+Unparsed: 1 ISLRM5, Right Torso, Ammo:48
+Unparsed: 1 ISAntiMissileSystem, Head, Ammo:12
+[Hunchback HBK-5H.mtf]
+Unparsed: 1 ISAC20, Right Torso, Ammo:10
+[Hunchback HBK-5M.mtf]
+Unparsed: 1 ISAC20, Right Torso, Ammo:5
+[Hunchback HBK-5N.mtf]
+Unparsed: 1 ISAC20, Right Torso, Ammo:10
+[Hunchback HBK-5S.mtf]
+Unparsed: 1 ISLBXAC20, Right Torso, Ammo:20
+[Hunchback HBK-5SG.mtf]
+Unparsed: 1 ISGaussRifle, Right Torso, Ammo:16
+[Hunchback HBK-5SS.mtf]
+Unparsed: 1 ISMML9, Right Torso, Ammo:37
+[Hunchback HBK-6N.mtf]
+Unparsed: 1 ISAC20, Right Torso, Ammo:20
+[Hussar HSR-200-D.mtf]
+Unparsed: Enhanced communication and surveillance apparatus form a part of the Hussar's core capabilities, with the original Field Ranger Sightseer schematics being replicated in 3055, thus bolstering its reconnaissance prowess. This technological integration rendered the Hussar invaluable during the FedCom Civil War, with its deployment often aimed at disrupting enemy supply lines, embodying a strategy not alien to several hard-line Lyran commanders of the era.
+[Hussar HSR-400-D.mtf]
+Unparsed: 1 ISLBXAC10, Left Torso, Ammo:10
+Unparsed: Enhanced communication and surveillance apparatus form a part of the Hussar's core capabilities, with the original Field Ranger Sightseer schematics being replicated in 3055, thus bolstering its reconnaissance prowess. This technological integration rendered the Hussar invaluable during the FedCom Civil War, with its deployment often aimed at disrupting enemy supply lines, embodying a strategy not alien to several hard-line Lyran commanders of the era.
+[Hussar HSR-500-D.mtf]
+Unparsed: Enhanced communication and surveillance apparatus form a part of the Hussar's core capabilities, with the original Field Ranger Sightseer schematics being replicated in 3055, thus bolstering its reconnaissance prowess. This technological integration rendered the Hussar invaluable during the FedCom Civil War, with its deployment often aimed at disrupting enemy supply lines, embodying a strategy not alien to several hard-line Lyran commanders of the era.
+[Hussar HSR-900-D.mtf]
+Unparsed: 1 ISLAC2, Center Torso, Ammo:45
+Unparsed: Enhanced communication and surveillance apparatus form a part of the Hussar's core capabilities, with the original Field Ranger Sightseer schematics being replicated in 3055, thus bolstering its reconnaissance prowess. This technological integration rendered the Hussar invaluable during the FedCom Civil War, with its deployment often aimed at disrupting enemy supply lines, embodying a strategy not alien to several hard-line Lyran commanders of the era.
+[Hussar HSR-950-D.mtf]
+Unparsed: Enhanced communication and surveillance apparatus form a part of the Hussar's core capabilities, with the original Field Ranger Sightseer schematics being replicated in 3055, thus bolstering its reconnaissance prowess. This technological integration rendered the Hussar invaluable during the FedCom Civil War, with its deployment often aimed at disrupting enemy supply lines, embodying a strategy not alien to several hard-line Lyran commanders of the era.
+[Imp C.mtf]
+Unparsed: 1 CLLRM20, Right Arm, Ammo:18
+[Imp IMP-2E.mtf]
+Unparsed: 1 ISLRM15, Right Arm, Ammo:8
+[Imp IMP-3E.mtf]
+Unparsed: 1 ISLRM15, Right Arm, Ammo:16
+[Imp IMP-4E.mtf]
+Unparsed: 1 ISLRM20, Right Arm, Ammo:12
+[JagerMech JM6-DD.mtf]
+Unparsed: 1 ISUltraAC5, Right Arm, Ammo:40
+Unparsed: 1 ISAC2, Right Arm, Ammo:90
+[JagerMech JM6-H.mtf]
+Unparsed: 1 ISLBXAC2, Right Arm, Ammo:45
+[JagerMech JM7-F.mtf]
+Unparsed: 1 ISRotaryAC5, Right Arm, Ammo:80
+[JagerMech JM7-G.mtf]
+Unparsed: 1 ISRotaryAC2, Left Arm, Ammo:90
+Unparsed: 1 ISLBXAC2, Left Arm, Ammo:90
+[Javelin JVN-10P.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:15
+Unparsed: 2 ISStreakSRM2, Left Torso, Ammo:50
+[Javelin JVN-11B.mtf]
+Unparsed: 1 ISSRM4, Right Torso, Ammo:50
+[Javelin JVN-11F.mtf]
+Unparsed: 3 ISMG, Right Arm, Ammo:200
+[Jenner JR7-C.mtf]
+Unparsed: 1 ISSRM4, Center Torso, Ammo:25
+[Jenner JR7-C2.mtf]
+Unparsed: 1 ISMML5, Right Arm, Ammo:64
+[Katana (Crockett) CRK-5003-C.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:30
+Unparsed: 1 ISLBXAC10, Left Torso, Ammo:20
+[Katana (Crockett) CRK-5003-CJ.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:30
+Unparsed: 1 ISLBXAC10, Left Torso, Ammo:20
+[Katana (Crockett) CRK-5003-CM.mtf]
+Unparsed: 1 ISSRM6, Left Torso, Ammo:15
+Unparsed: 1 ISLBXAC10, Left Torso, Ammo:20
+[King Crab KGC-001.mtf]
+Unparsed: 1 ISLRM15, Left Torso, Ammo:8
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:32
+Unparsed: 1 ISStreakSRM2, Right Torso, Ammo:100
+[King Crab KGC-005.mtf]
+Unparsed: 1 ISLBXAC20, Right Arm, Ammo:30
+Unparsed: 2 ISStreakSRM4, Left Torso, Ammo:25
+[King Crab KGC-008.mtf]
+Unparsed: 1 ISLAC2, Right Torso, Ammo:45
+[Kintaro KTO-19.mtf]
+Unparsed: 1 ISLRM5, Left Arm, Ammo:24
+Unparsed: 1 ISSRM6, Left Arm, Ammo:30
+Unparsed: 1 ISNarcBeacon, Center Torso, Ammo:12
+[Kintaro KTO-21.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:30
+Unparsed: 1 ISImprovedNarc, Left Torso, Ammo:12
+[Kintaro KTO-C.mtf]
+Unparsed: 1 ISLRM5, Right Torso, Ammo:24
+Unparsed: 1 ISSRM6, Left Arm, Ammo:30
+[Kintaro KTO-K.mtf]
+Unparsed: 1 ISStreakSRM6, Left Arm, Ammo:30
+[Lancelot LNC25-03.mtf]
+Unparsed: 1 ISAC5, Right Arm, Ammo:20
+[Lancelot LNC25-05.mtf]
+Unparsed: 2 ISMachine Gun, Right Arm, Ammo:200
+[Loki (Hellbringer) D.mtf]
+Unparsed: Anti-BattleArmor Pods (B-Pods), Left Leg
+Unparsed: Anti-BattleArmor Pods (B-Pods), Left Leg
+Unparsed: Anti-BattleArmor Pods (B-Pods), Right Leg
+Unparsed: Anti-BattleArmor Pods (B-Pods), Right Leg
+[Mauler MAL-3R.mtf]
+Unparsed: 1 ISLRM15, Right Torso, Ammo:32
+Unparsed: 1 ISLBXAC10, Left Arm, Ammo:40
+[Mauler MAL-C.mtf]
+Unparsed: 1 ISLRM15, Right Torso, Ammo:32
+Unparsed: 2 ISAC2, Right Torso, Ammo:45
+[Mongoose MON-69.mtf]
+Unparsed: 1 ISSRM2, Left Torso, Ammo:50
+[Orion ON1-M.mtf]
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:20
+Unparsed: 1 ISLRM20, Left Arm, Ammo:12
+Unparsed: 1 ISSRM4, Left Torso, Ammo:50
+Unparsed: 1 ISNarcBeacon, Center Torso, Ammo:12
+[Orion ON2-M.mtf]
+Unparsed: 1 ISGaussRifle, Right Torso, Ammo:16
+Unparsed: 1 ISLRM15, Left Torso, Ammo:16
+[Panther PNT-10K.mtf]
+Unparsed: 1 ISSRM4, Center Torso, Ammo:25
+[Panther PNT-12A.mtf]
+Unparsed: 1 ISStreakSRM4, Center Torso, Ammo:25
+[Panther PNT-16K.mtf]
+Unparsed: 2 ISStreakSRM4, Center Torso, Ammo:25
+[Panther PNT-C.mtf]
+Unparsed: 1 ISSRM4, Center Torso, Ammo:25
+[Quickdraw QKD-5K.mtf]
+Unparsed: 1 ISSRM4, Center Torso, Ammo:25
+[Quickdraw QKD-5M.mtf]
+Unparsed: 1 ISLRM10, Left Torso, Ammo:12
+Unparsed: 1 ISSRM4 (OS), Center Torso
+[Quickdraw QKD-8K.mtf]
+Unparsed: 1 ISMRM30, Right Torso, Ammo:16
+[Quickdraw QKD-C.mtf]
+Unparsed: 1 ISSRM4, Center Torso, Ammo:25
+[Raven RVN-4L.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:15
+Unparsed: 1 ISNarcBeacon, Left Arm, Ammo:12
+[Raven RVN-4LC.mtf]
+Unparsed: 1 ISNarcBeacon, Left Arm, Ammo:12
+Unparsed: 1 ISSRM6, Right Torso, Ammo:15
+[Raven RVN-SR.mtf]
+Unparsed: 4 ISMachine Gun, Right Arm, Ammo:100
+Unparsed: 1 ISNarcBeacon, Left Arm, Ammo:12
+Unparsed: 1 ISSRM6, Right Torso, Ammo:15
+[Raven RVN-SS.mtf]
+Unparsed: 1 ISStreakSRM6, Right Torso, Ammo:15
+[Sentinel STN-3L.mtf]
+Unparsed: 1 ISUltraAC5, Left Arm, Ammo:20
+Unparsed: 1 ISStreakSRM2, Right Torso, Ammo:50
+[Sentinel STN-3M.mtf]
+Unparsed: 1 ISUltraAC5, Left Arm, Ammo:20
+Unparsed: 1 ISSRM2, Right Torso, Ammo:50
+[Sentinel STN-4D.mtf]
+Unparsed: 1 ISRotaryAC5, Left Arm, Ammo:40
+[Sentinel STN-5WB.mtf]
+Unparsed: 2 ISLAC5, Left Arm, Ammo:20
+[Sentinel STN-C.mtf]
+Unparsed: 1 ISUltraAC5, Left Arm, Ammo:20
+Unparsed: 1 ISSRM2, Right Torso, Ammo:50
+[Shogun SHG-2E.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:30
+Unparsed: 1 ISLRM15, Right Arm, Ammo:16
+[Stalker STK-5M.mtf]
+Unparsed: 1 ISLRM10, Right Arm, Ammo:48
+Unparsed: 1 ISSRM6, Right Torso, Ammo:30
+Unparsed: 1 ISNarcBeacon, Left Torso, Ammo:12
+[Stalker STK-5S.mtf]
+Unparsed: 1 ISLRM10, Right Arm, Ammo:24
+Unparsed: 1 ISSRM6, Right Torso, Ammo:30
+Unparsed: 1 ISAntiMissileSystem, Left Torso, Ammo:12
+[Stalker STK-6M.mtf]
+Unparsed: 1 ISLRM15, Right Arm, Ammo:48
+[Stalker STK-7D.mtf]
+Unparsed: 1 ISStreakSRM4, Right Arm, Ammo:25
+[Stalker STK-8S.mtf]
+Unparsed: 1 ISHeavyGaussRifle, Right Torso, Ammo:12
+[Thorn THE-N.mtf]
+Unparsed: 1 ISLRM5, Right Arm, Ammo:24
+[Thorn THE-N2.mtf]
+Unparsed: 1 ISMML7, Right Arm, Ammo:31
+[Thug THG-12E.mtf]
+Unparsed: 1 ISSRM6, Left Torso, Ammo:15
+[Thug THG-12K.mtf]
+Unparsed: 1 ISSRM6, Right Torso, Ammo:15
+[Trebuchet TBT-7M.mtf]
+Unparsed: 1 ISLRM15, Left Arm, Ammo:16
+Unparsed: 1 ISNarcBeacon, Left Torso, Ammo:12
+[Trebuchet TBT-9K.mtf]
+Unparsed: 1 ISMRM20, Left Arm, Ammo:36
+[UrbanMech UM-R63.mtf]
+Unparsed: 1 ISLBXAC10, Right Arm, Ammo:10
+[UrbanMech UM-R68.mtf]
+Unparsed: 1 ISMRM30, Right Arm, Ammo:16
+[Urbanmech UM-R69.mtf]
+Unparsed: 1 ISUltraAC10, Right Arm, Ammo:10
+[UrbanMech UM-R70.mtf]
+Unparsed: 1 ISRotaryAC5, Right Arm, Ammo:40
+[Victor VTR-10D.mtf]
+Unparsed: 1 ISUltraAC20, Right Arm, Ammo:30
+Unparsed: 1 ISStreakSRM4, Left Torso, Ammo:25
+[Victor VTR-10L.mtf]
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:24
+Unparsed: 1 ISSRM6, Right Torso, Ammo:15
+[Victor VTR-11D.mtf]
+Unparsed: 1 ISRotaryAC5, Right Arm, Ammo:60
+Unparsed: 1 ISStreakSRM4, Left Torso, Ammo:25
+[Victor VTR-9D.mtf]
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:16
+Unparsed: 1 ISSRM4, Left Torso, Ammo:25
+[Victor VTR-9K.mtf]
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:16
+Unparsed: 1 ISSRM4, Left Torso, Ammo:25
+[Victor VTR-C.mtf]
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:16
+Unparsed: 1 ISSRM4, Left Torso, Ammo:25
+[Vindicator VND-3L.mtf]
+Unparsed: 1 ISLRM5, Left Torso, Ammo:24
+[Vindicator VND-4L.mtf]
+Unparsed: 1 ISLRM5, Left Torso, Ammo:24
+[Vindicator VND-6L.mtf]
+Unparsed: 1 ISPlasmaRifle, Right Arm, Ammo:20
+[Vulcan VT-5M.mtf]
+Unparsed: 1 ISMachine Gun, Left Arm, Ammo:200
+[Vulcan VT-6C.mtf]
+Unparsed: 3 ISLightMG, Left Arm, Ammo:200
+[Vulcan VT-6M.mtf]
+Unparsed: 1 ISMachine Gun, Left Arm, Ammo:200
+Unparsed: 1 ISLightGaussRifle, Right Torso, Ammo:32
+[Whitworth WTH-1H.mtf]
+Unparsed: 1 ISSRM6, Left Torso, Ammo:15
+[Whitworth WTH-2.mtf]
+Unparsed: 1 ISLRM10, Right Torso, Ammo:24
+[Whitworth WTH-2A.mtf]
+Unparsed: 2 ISStreakSRM4, Right Torso, Ammo:25
+[Whitworth WTH-3.mtf]
+Unparsed: 2 ISLRM5, Right Torso, Ammo:96
+[Whitworth WTH-K.mtf]
+Unparsed: 1 ISMML7, Right Torso, Ammo:34
+[Wolf Trap (Tora) WFT-1.mtf]
+Unparsed: 1 ISLBXAC10, Right Arm, Ammo:20
+Unparsed: 1 ISLRM10, Center Torso, Ammo:12
+[Wolf Trap (Tora) WFT-B.mtf]
+Unparsed: 1 ISLBXAC10, Right Arm, Ammo:20
+Unparsed: 1 ISLRM5, Center Torso, Ammo:24
+[Wolf Trap (Tora) WFT-C.mtf]
+Unparsed: 1 ISLBXAC10, Right Arm, Ammo:20
+Unparsed: 1 ISLRM10, Center Torso, Ammo:12
+[Wyvern WVE-5N.mtf]
+Unparsed: 1 ISLRM10, Center Torso, Ammo:12
+Unparsed: 1 ISSRM6, Right Torso, Ammo:15
+[Wyvern WVE-9N.mtf]
+Unparsed: 1 ISLRM10, Center Torso, Ammo:12
+Unparsed: 1 ISStreakSRM2, Right Torso, Ammo:50
+[Zeus X ZEU-9WD.mtf]
+Unparsed: 1 ISLBXAC20, Left Arm, Ammo:15
+[Zeus ZEU-9S.mtf]
+Unparsed: 1 ISLRM15, Right Arm, Ammo:8
+[Zeus ZEU-9T.mtf]
+Unparsed: 1 ISLRM15, Right Arm, Ammo:16
+[Copperhead CPR-HD-002.mtf]
+Unparsed: Streak SRM 2 (OS), Head
+[Hammer HMR-3P.mtf]
+Unparsed: 1 ISStreakSRM4, Left Torso, Ammo:25
+[Prometheus.mtf]
+Unparsed: 1 CLMG, Left Torso, Ammo:200
+Unparsed: 1 CLLRM15, Right Torso, Ammo:16
+Unparsed: 1 CLSRM6, Right Torso, Ammo:15
+[War Dog WR-DG-02FC.mtf]
+Unparsed: Streak SRM 2 (OS), Left Leg
+Unparsed: Streak SRM 2 (OS), Right Leg
+[Wildfire P1-WF.mtf]
+Unparsed: 1 ISMachine Gun, Right Arm, Ammo:200
+Unparsed: 1 ISStreakSRM2, Right Leg, Ammo:50
+[Hankyu (Arctic Cheetah) Prime.mtf]
+Unparsed: TAG (Clan), Left Torso
+[Nobori-nin (Huntsman) Prime.mtf]
+Unparsed: TAG (Clan), Left Torso
+[Spartan SPT-N3.mtf]
+Unparsed: <p>Post-Star League, the Spartan's presence dwindled significantly, with only a few units known to be operational. Notably, Snord's Irregulars operated a few well-maintained Spartans, utilizing them effectively in various combat scenarios. This period marked the Spartan as a symbol of lost Star League technology, with its operational units being remnants of a bygone era.</p><p>The Word of Blake's period saw a brief attempt at reviving the Spartan, with efforts to produce new units on Terra. However, this initiative was short-lived and had minimal impact on the Spartan's overall presence in the Inner Sphere.</p><p>In the post-Jihad era, the discovery of Spartan blueprints by the Capellan Confederation led to a resurgence in interest. The Capellans developed the SPT-N4 variant, which incorporated modern technology into the classic design. This variant aimed to enhance the Spartan's battlefield utility while retaining its fundamental characteristics. The reintroduction of the Spartan into modern warfare, especially its sale to prominent units like the Wolf's Dragoons, indicated its enduring legacy as a versatile and reliable 'Mech, despite its historical scarcity and the challenges of modern mech combat.</p>
+[Anubis ABS-3L.mtf]
+Unparsed: 2 ISLRM5, Right Torso, Ammo:24
+[Anubis ABS-3R.mtf]
+Unparsed: 1 ISLRM5, Right Torso, Ammo:24
+[Arcas.mtf]
+Unparsed: 1 CLStreakSRM4, Right Torso, Ammo:25
+[Argus AGS-2D.mtf]
+Unparsed: 1 ISLRM15, Left Arm, Ammo:32
+[Axman AXM-3S.mtf]
+Unparsed: 1 ISLBXAC20, Right Torso, Ammo:20
+[Blood Kite 2.mtf]
+Unparsed: 1 CLLRM15, Right Arm, Ammo:32
+[Blood Kite.mtf]
+Unparsed: 1 CLLRM15, Right Arm, Ammo:48
+Unparsed: 1 CLSRM4, Left Torso, Ammo:25
+[Bloodhound B1-HND.mtf]
+Unparsed: 1 ISStreakSRM6, Right Torso, Ammo:15
+[Bloodhound B2-HND.mtf]
+Unparsed: 1 ISStreakSRM6, Right Torso, Ammo:15
+[Burrock.mtf]
+Unparsed: 1 CLUltraAC20, Right Arm, Ammo:20
+[Chimera CMA-1S.mtf]
+Unparsed: 1 ISMachine Gun, Right Arm, Ammo:100
+Unparsed: 1 ISMRM20, Right Torso, Ammo:24
+[Chimera CMA-C.mtf]
+Unparsed: 1 ISMRM20, Right Torso, Ammo:24
+[Cronus CNS-3M.mtf]
+Unparsed: 1 ISSRM4, Center Torso, Ammo:25
+[Cronus CNS-5M.mtf]
+Unparsed: 1 ISStreakSRM4, Center Torso, Ammo:25
+[Fafnir FNR-5.mtf]
+Unparsed: 1 ISHeavyGaussRifle, Right Torso, Ammo:32
+[Fafnir FNR-5B.mtf]
+Unparsed: 1 ISGaussRifle, Right Torso, Ammo:32
+[Hellfire 2.mtf]
+Unparsed: 1 CLATM6, Right Torso, Ammo:40
+[Hellfire.mtf]
+Unparsed: 2 CLLRM10, Right Torso, Ammo:24
+[Lao Hu LHU-3B.mtf]
+Unparsed: C3 Computer [Master], Right Torso
+[Lao Hu LHU-3C.mtf]
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:16
+Unparsed: 3 ISLRM5, Left Torso, Ammo:72
+[Lightray LGH-4Y.mtf]
+Unparsed: 2 ISSRM2, Right Torso, Ammo:50
+[Lobo.mtf]
+Unparsed: 1 CLATM6, Right Torso, Ammo:40
+Unparsed: 1 CLAntiMissileSystem, Head, Ammo:24
+[Ninja-To NJT-2.mtf]
+Unparsed: 1 ISMRM10, Right Torso, Ammo:24
+[No-Dachi NDA-1K.mtf]
+Unparsed: 1 ISSRM2, Left Arm, Ammo:50
+Unparsed: 1 ISSRM4, Center Torso, Ammo:25
+Unparsed: 1 ISMRM20, Left Torso, Ammo:24
+[No-Dachi NDA-2K.mtf]
+Unparsed: 1 ISMRM10, Left Torso, Ammo:96
+[Rabid Coyote.mtf]
+Unparsed: 1 CLATM12, Left Torso, Ammo:20
+[Razorback RZK-9S.mtf]
+Unparsed: 1 ISStreakSRM4, Left Arm, Ammo:25
+Unparsed: 2 ISMachine Gun, Right Torso, Ammo:100
+[Scylla.mtf]
+Unparsed: 1 CLLRM20, Right Arm, Ammo:18
+Unparsed: 1 CLLBXAC10, Right Torso, Ammo:20
+[Spirit.mtf]
+Unparsed: 1 CLStreakSRM4, Right Arm, Ammo:25
+Unparsed: 1 CLLRM10, Left Arm, Ammo:12
+[Tessen TSN-1C.mtf]
+Unparsed: 1 ISImprovedNarc, Left Arm, Ammo:16
+[Tessen TSN-C3.mtf]
+Unparsed: 1 ISImprovedNarc, Left Arm, Ammo:16
+[Thanatos THS-4S.mtf]
+Unparsed: 1 ISMRM20, Right Arm, Ammo:24
+[Vanquisher VQR-2B.mtf]
+Unparsed: 2 ISUltraAC5, Right Arm, Ammo:120
+[Verfolger VR5-R.mtf]
+Unparsed: 1 ISLBXAC10, Left Torso, Ammo:30
+Unparsed: 1 ISAntiMissileSystem, Head, Ammo:24
+[Bowman 2.mtf]
+Unparsed: 1 CLLRM20, Right Arm, Ammo:24
+[Bowman 3.mtf]
+Unparsed: 1 CLATM9, Left Torso, Ammo:21
+Unparsed: 1 CLHAG20, Right Arm, Ammo:18
+[Hellfire 3.mtf]
+Unparsed: 1 CLSRM6, Right Torso, Ammo:45
+Unparsed: 1 CLPlasmaCannon, Left Arm, Ammo:40
+[Mad Cat Mk II 2.mtf]
+Unparsed: 1 CLStreakSRM4, Left Torso, Ammo:50
+Unparsed: 1 CLGaussRifle, Right Arm, Ammo:16
+Unparsed: 1 CLLBXAC20, Left Arm, Ammo:10
+[Mad Cat Mk II 3.mtf]
+Unparsed: 1 CLLRM10, Right Torso, Ammo:24
+Unparsed: 1 CLHAG30, Right Arm, Ammo:32
+[Rabid Coyote 2.mtf]
+Unparsed: 1 CLATM3, Left Torso, Ammo:120
+[Scylla 2.mtf]
+Unparsed: 1 CLHAG20, Right Arm, Ammo:24
+[Scylla 3.mtf]
+Unparsed: 1 CLHAG30, Right Arm, Ammo:12
+Unparsed: 1 CLLBXAC20, Left Arm, Ammo:10
+[Akuma AKU-2X.mtf]
+Unparsed: 1 ISLBXAC10, Right Torso, Ammo:20
+Unparsed: 1 ISMRM40, Left Torso, Ammo:18
+[Akuma AKU-2XK.mtf]
+Unparsed: 1 ISMML9, Left Torso, Ammo:39
+Unparsed: 1 ISRotaryAC5, Right Torso, Ammo:40
+[Anubis ABS-4C.mtf]
+Unparsed: 1 ISMML5, Left Torso, Ammo:48
+Unparsed: C
+[Argus AGS-5D.mtf]
+Unparsed: 1 ISStreakSRM6, Left Arm, Ammo:30
+[Argus AGS-6F.mtf]
+Unparsed: 1 ISAC20, Right Arm, Ammo:20
+Unparsed: 1 ISSRM6, Left Arm, Ammo:15
+[Bloodhound B3-HND.mtf]
+Unparsed: 1 ISFluidGun, Right Arm, Ammo:40
+[Fafnir FNR-5WB.mtf]
+Unparsed: 1 ISPlasmaRifle, Left Torso, Ammo:50
+[Hellspawn HSN-10G.mtf]
+Unparsed: 1 ISMML7, Left Torso, Ammo:51
+[Lao Hu LHU-3L.mtf]
+Unparsed: 1 ISLRM10, Left Torso, Ammo:12
+Unparsed: 1 ISRotaryAC5, Right Arm, Ammo:60
+Unparsed: 1 ISPlasmaRifle, Left Arm, Ammo:10
+[Lao Hu LHU-4E.mtf]
+Unparsed: 1 ISGaussRifle, Right Arm, Ammo:16
+[Legacy LGC-05.mtf]
+Unparsed: 1 ISMML7, Right Torso, Ammo:34
+[Lightray LGH-7W.mtf]
+Unparsed: 1 ISMML3, Left Torso, Ammo:80
+[Perseus P1E.mtf]
+Unparsed: SRM 6 (I-OS), Center Torso
+[Razorback RZK-10S.mtf]
+Unparsed: 1 ISMML5, Left Arm, Ammo:48
+[Sagittaire SGT-9D.mtf]
+Unparsed: 1 ISMediumLaser (R), Head (R)
+Unparsed: 1 ISMediumLaser (R), Center Torso (R)
+Unparsed: 1 ISLBXAC10, Right Arm, Ammo:40
+[Stiletto STO-4C.mtf]
+Unparsed: 1 ISMML5, Left Torso, Ammo:72
+[Thanatos THS-4T.mtf]
+Unparsed: 1 ISLBXAC20, Left Torso, Ammo:15
+Unparsed: 1 ISMRM20, Right Arm, Ammo:24
+[Thanatos THS-6S.mtf]
+Unparsed: 1 ISLRM5, Right Arm, Ammo:48
+[Uziel UZL-8S.mtf]
+Unparsed: 1 ISStreakSRM6, Center Torso, Ammo:15
+[Vanquisher VQR-7U.mtf]
+Unparsed: 1 ISHeavyFlamer, Head, Ammo:10
+Unparsed: 1 ISPlasmaRifle, Right Arm, Ammo:40
+[Vanquisher VQR-7V.mtf]
+Unparsed: 1 ISRotaryAC5, Right Arm, Ammo:100
+[Verfolger VR6-C.mtf]
+Unparsed: 1 ISMML9, Right Torso, Ammo:52
+[Hyena HYN-KTO.mtf]
+Unparsed: IS Ferro-Fibrous
+[Jabberwocky ConstructionMech JAW-66D.mtf]
+Unparsed: Environmental Sealing
+Unparsed: Industrial Triple Strength Myomer
+Unparsed: Industrial Triple Strength Myomer
+Unparsed: Industrial Triple Strength Myomer
+Unparsed: -Empty-
+Unparsed: -Empty-
+Unparsed: -Empty-
+[Fennec FEC-1CM.mtf]
+Unparsed: C3 Computer (Master), Right Torso
+[Pack Hunter II.mtf]
+Unparsed: Anti-BattleArmor Pods (B-Pods), Left Leg
+Unparsed: Anti-BattleArmor Pods (B-Pods), Right Leg
+[Panther PNT-12K.mtf]
+Unparsed: 1 ISMRM10, Left Torso, Ammo:24
+[Turkina U.mtf]
+Unparsed: IS HarJel (OMNIPOD) (ARMORED)
+Unparsed: IS HarJel (OMNIPOD) (ARMORED)
+[BattleMaster BLR-10S.mtf]
+Unparsed: 1 ISStreakSRM4, Left Torso, Ammo:25
+Unparsed: 1 ISERSmallLaser (R), Head (R)
+[BattleMaster BLR-CM.mtf]
+Unparsed: C3 Computer (Master), Left Torso
+Unparsed: C3 Computer (Master), Right Torso
+[Wulfen (Prime).mtf]
+Unparsed: Clan Endo Steel
+Unparsed: IS Stealth
+Unparsed: IS Stealth
+Unparsed: -Empty-
+Unparsed: -Empty-
+Unparsed: -Empty-
+Unparsed: -Empty-
+[Antlion LK-3D.mtf]
+Unparsed: The Antlion's inception by StarCorps marks a strategic evolution in BattleMech design, focusing on indirect fire support to counteract the growing efficiency of anti-missile systems. Initially designed to complement the Osiris and intended for the Federated Suns' military, the Antlion found its place after Gittleman and Abzug moved to the New Colony Region and collaborated with Detroit Consolidated MechWorks. This transition facilitated the Antlion's integration into the AFFS and highlighted its unique role in modern warfare.
+Unparsed: <p>
+Unparsed: In practical deployment, the Antlion has demonstrated its effectiveness in specialized missions, particularly in urban warfare. Its successful use in the city-fighting in Bueller showcased the Mech's ability to coordinate with battle armor units for ambush tactics, utilizing the urban landscape to its advantage. Similarly, during the invasion of New Syrtis, Antlions were employed as mobile infantry interdiction platforms, adeptly maneuvering through the city's infrastructure to disrupt enemy forces. Their sophisticated sensor systems, primarily the active probe, have been instrumental in these operations, allowing for precise indirect fire and strategic positioning.
+Unparsed: <p>
+Unparsed: However, the Antlion's limitations in direct combat have been exposed in several engagements. Instances where Antlion units were overrun by faster and more heavily armed enemies underscore the Mech's vulnerability in frontline battles. This has led to discussions among AFFS officers about the potential development of a direct-fire escort variant, though StarCorps maintains that other Mechs in their lineup adequately fulfill this role. Despite these challenges, the Antlion continues to serve as a testament to the necessity and effectiveness of specialized units in asymmetric warfare and remains a valuable asset in the Federated Suns' arsenal.
+Unparsed: </p>
+[Hatamoto-Godai HTM-30Z.mtf]
+Unparsed: C3 Boosted System (Master), Left Torso
+Unparsed: C3 Boosted System (Master), Right Torso
+[Black Hawk (Standard) 2.mtf]
+Unparsed: 1 CLATM6, Right Arm, Ammo:40
+[Pendragon PDG-3R.mtf]
+Unparsed: C3 Computer (Master), Left Torso
+[Yu Huang Y-H12GC.mtf]
+Unparsed: C3 Boosted System (Master), Left Torso
+[Ares ARS-V1 Aphrodite.mtf]
+Unparsed: C3 Computer (Master), Left Torso
+Unparsed: C3 Computer (Master), Right Torso
+[Celerity CLR-03-OA.mtf]
+Unparsed: SRM 6 (I-OS), Head
+Unparsed: SRM 6 (I-OS), Head
+[Poseidon PSD-V2.mtf]
+Unparsed: The Poseidon BattleMech, emerging in the wake of the Jihad and amid the complex political landscape of the Fortress Republic, represents a significant milestone in the evolution of BattleMech technology. Developed as part of the Republic of the Sphere's ambitious Rhodes Project, the Poseidon broke through the “100-ton barrier,” a long-standing limitation in Mech design, to become a symbol of the Republic's commitment to advanced warfare technology.
+Unparsed: <p>
+Unparsed: The Poseidon's first deployment at the Serbian proving grounds on Terra in 3135 was a pivotal moment in its history. Engaged against rebel senatorial forces, the PSD-X1 test bed models of the Poseidon achieved a stunning victory, thanks largely to their imposing presence and formidable weaponry. This crucial engagement underlined the effectiveness of the Poseidon in combat and led to the refinements that characterized the final PSD-V2 models.
+Unparsed: <p>
+Unparsed: In the current era, Poseidon-class superheavy tripods are exclusively deployed by the most elite and reliable commands of the Republic Armed Forces (RAF). Their primary role remains defensive, underscoring their strategic importance as a deterrent and a symbol of strength. The deployment and operational history of the Poseidon reflect not just the Republic's technological prowess but also its strategic acumen in leveraging such advanced machines in the ever-evolving landscape of interstellar warfare.
+Unparsed: </p>

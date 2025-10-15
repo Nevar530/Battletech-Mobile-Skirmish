@@ -1,0 +1,151 @@
+{
+  "name": "Blitzkrieg",
+  "chassis": "Blitzkrieg",
+  "model": "BTZ-3F",
+  "mulId": 394,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3061,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 50,
+  "engine": "350 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 8,
+    "centerTorso": 17,
+    "rightTorso": 13,
+    "leftTorso": 13,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 116
+  },
+  "quirks": [
+    "directional_torso_mount",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Ultra AC/20",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Ultra AC/20 Ammo",
+      "IS Ultra AC/20 Ammo",
+      "IS Ultra AC/20 Ammo",
+      "IS Ultra AC/20 Ammo",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISUltraAC20",
+      "Endo Steel",
+      "Ultra AC/20"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

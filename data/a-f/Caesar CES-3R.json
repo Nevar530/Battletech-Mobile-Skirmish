@@ -1,0 +1,179 @@
+{
+  "name": "Caesar",
+  "chassis": "Caesar",
+  "model": "CES-3R",
+  "mulId": 455,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3049,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 70,
+  "engine": "280 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "16 IS Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 21,
+    "leftArm": 21,
+    "rightLeg": 21,
+    "leftLeg": 21,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 168
+  },
+  "quirks": [
+    "hyper_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMediumPulseLaser",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "ISMediumPulseLaser",
+      "ER PPC",
+      "Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMediumPulseLaser (R)",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "Medium Pulse Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISMediumPulseLaser (R)",
+      "ISCASE",
+      "Gauss Rifle",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "Originally a reverse engineered version of the Capellan Confederation's Cataphract intended to mask development of the Federated Commonwealth's fearsome Axman, the Caesar would turn out to be a good but not great BattleMech in its own right.",
+    "capabilities": "The Caesar was built to do as much damage to an enemy at as great a stand-off range as possible. The 'Mech therefore carries primarily long-ranged armament. The 'Mech also uses an 280-rated XL engine and sixteen double heat sinks, both of which save significant amounts of weight, in order to carry as many weapons and as much armor as possible. The 'Mech utilizes CASE to protect against ammunition explosions should an enemy be able to breach the ten and a half tons of armor that protect it.",
+    "deployment": "The primary long-ranged weapon on the Caesar is a Poland Main Model A Gauss rifle that can shear off just under a ton of armor with each shot, supplied with two tons of reloads. This is backed up at long ranges by a Johnston High Speed ER PPC, which can do two-thirds of the damage of the Gauss rifle but is not dependent on limited ammunition. For close-range engagements, the Caesar carries four Sutel Precision Line medium pulse lasers, two of which are rear-mounted, allowing it to put up a crippling defense against any enemies that can get close to the 'Mech. The large volume of heat sinks carried ensure the Caesar can fire all its weapons while hardly breaking a sweat, making it a popular choice for missions in areas of extremely high temperatures.",
+    "history": "Supposedly the sole design intended to come out of Johnston Industries' then-new 'Mech lines on New Syrtis, the Caesar received notable public attention in an attempt to distract from development of the Axman. The finished 'Mech surprisingly enough proved to be a high-quality design itself. Though never attracting great sales, the Caesar would prove to be relatively popular in the Capellan March, among Lyran units on the Clan front, and with both FedCom-employed mercenaries and the Com Guards. Johnston attempted to redress its mediocre sales in the wake of the FedCom Civil War, developing two new variants intended to focus specifically on the qualities desired by the Lyran Alliance and Federated Suns. The resulting upswing in sales saw the Caesar in increasing use among those opposing the Word of Blake during the Jihad, with the LAAF in particular adopting the design almost as a means of honoring the assassinated Caesar Steiner."
+  },
+  "manufacturers": {
+    "primary": [
+      "Johnston Industries"
+    ],
+    "primaryFactory": [
+      "New Syrtis"
+    ],
+    "systems": {
+      "chassis": "Dorwinion CES Standard",
+      "engine": "GM 280 Extralight",
+      "armor": "Kallon Royalstar with CASE",
+      "communications": "Johnston Wide Band",
+      "targeting": "Randar Pinpoint-HY"
+    }
+  }
+}

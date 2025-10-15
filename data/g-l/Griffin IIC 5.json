@@ -1,0 +1,181 @@
+{
+  "name": "Griffin IIC",
+  "chassis": "Griffin IIC",
+  "model": "5",
+  "mulId": 1314,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3071,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 40,
+  "engine": "240 Fusion (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 7
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 17,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 134
+  },
+  "quirks": [
+    "battle_fists_la",
+    "battle_fists_ra"
+  ],
+  "weapons": [
+    {
+      "type": "Light Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "CLLightMG",
+      "CLLightMG",
+      "CLLightMG",
+      "Clan Light Machine Gun Ammo - Half",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun"
+    ],
+    "rightTorso": [
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "CLERSmallLaser",
+      "CLLightMG",
+      "CLLightMG",
+      "CLLightMG",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "ER Small Laser",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLERLargeLaser",
+      "Sensors",
+      "Life Support",
+      "ER Large Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "name": "Celerity",
+  "chassis": "Celerity",
+  "model": "CLR-03-OC",
+  "mulId": 6706,
+  "config": "Quad Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3138,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 4,
+  "role": "Scout",
+  "mass": 15,
+  "engine": "240 XXL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 16,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 4,
+    "centerTorso": 5,
+    "rightTorso": 4,
+    "leftTorso": 4,
+    "rightLeg": 1,
+    "rearCenterTorso": 1,
+    "rearRightTorso": 1,
+    "rearLeftTorso": 1,
+    "total": 24
+  },
+  "quirks": [
+    "imp_com",
+    "exp_actuator"
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMASC",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDroneOperatingSystem",
+      "RemoteSensorDispenser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "BeagleActiveProbe (omnipod)",
+      "BeagleActiveProbe (omnipod)"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

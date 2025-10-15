@@ -1,0 +1,155 @@
+{
+  "name": "Xanthos",
+  "chassis": "Xanthos",
+  "model": "XNT-6O",
+  "mulId": 6825,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 3094,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 Compact Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Stealth (InnerSphere)",
+    "head": 9,
+    "centerTorso": 46,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightLeg": 42,
+    "rearCenterTorso": 16,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 323
+  },
+  "quirks": [
+    "imp_life_support"
+  ],
+  "weapons": [
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "PPC",
+      "location": "RT"
+    },
+    {
+      "type": "PPC",
+      "location": "LT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "CT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "PPC",
+      "PPC",
+      "PPC",
+      "ISERMediumLaser",
+      "IS Stealth",
+      "IS Stealth",
+      "PPC",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "PPC",
+      "PPC",
+      "PPC",
+      "ISERMediumLaser",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "IS Coolant Pod",
+      "IS Stealth",
+      "IS Stealth",
+      "ER Medium Laser",
+      "PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "LRM 10",
+      "LRM 10",
+      "ISERMediumLaser",
+      "ISERMediumLaser",
+      "ISSmallPulseLaser",
+      "ISSmallPulseLaser",
+      "IS Ammo LRM-10",
+      "ER Medium Laser",
+      "ER Medium Laser",
+      "Small Pulse Laser",
+      "Small Pulse Laser",
+      "LRM 10"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "<p>The Xanthos, a trailblazing four-legged BattleMech, represents a significant leap in Mech engineering. Developed by Hollis Inc. under the guidance of Dr. David Harrison, it was a pioneering attempt to create a stable and robust firing platform. Introduced in 2564, the Xanthos combined the vision of advanced Mech technology with practical battlefield application. Despite its challenging debut and initial design hurdles, the Xanthos was a harbinger of the technological advancements to come, influencing subsequent Mech designs like the Scorpion and Goliath. Its unique quad-legged structure set it apart in the realm of BattleMechs, making it a notable addition to the arsenals of House Liao and, later, various elite units across the Inner Sphere.</p>",
+    "capabilities": "<p>The refined Xanthos emerged as a formidable assault Mech, well-equipped for enduring combat. Boasting over twenty tons of armor and twenty-three heat sinks, it was designed for sustained battlefield presence. Its armament included a long-range PPC and a powerful GE autocannon, complemented by a trio of lasers and an SRM-6 for close-quarters engagement. Despite limited ammunition for the autocannon and missile rack, the Xanthos’s energy weapons provided ample firepower for cleanup operations, making it a reliable asset in prolonged engagements. The Mech's design evolution overcame initial hurdles, cementing its status as a solid assault platform.</p>",
+    "deployment": "This Dark Age variant carries two PPCs, two Small Pulse Lasers, four ER medium lasers, and a single LRM-10. It is protected by Stealth Armor and uses a Guardian ECM Suite.",
+    "history": "<p>The Xanthos's history is marked by both innovation and adversity. Born from Hollis Inc.'s foray into BattleMech construction, the Xanthos was a bold step into uncharted design territory. Dr. Harrison's vision of a stable, four-legged Mech was ahead of its time but faced challenges due to Hollis's inexperience and secretive development approach. The early versions of the Xanthos, particularly the 2O prototype, were plagued by mechanical and design inefficiencies, resulting in poor performance during Star League trials.</p><p>Despite these initial failures, the Xanthos eventually found a degree of success with House Liao, though issues with delivery and changing military needs led to its decline by the Second Succession War. Hollis Inc.'s financial struggles and the eventual success with the BattleMaster marked a turning point for the company, but the Xanthos remained a symbol of early technological ambition.</p><p>The rediscovery of the Hegemony Memory Core in the 3070s led to a resurgence of interest in the Xanthos design. Newer variants, incorporating modern technologies and refinements, were developed and deployed by various factions, including the Capellan Confederation, Lyran Commonwealth, and mercenary units. These modern iterations of the Xanthos demonstrated the enduring potential of Dr. Harrison's original concept, adapted to the evolving demands of futuristic warfare.</p>"
+  },
+  "manufacturers": {
+    "primary": [
+      "Hollis Incorporated"
+    ],
+    "primaryFactory": [
+      "Corey"
+    ],
+    "systems": {
+      "chassis": "Hollis XNT Mark V",
+      "engine": "Vlar 300 Compact",
+      "armor": "Ceres Heavy Stealth",
+      "communications": "HartfordCo Com 2500",
+      "targeting": "HartfordCo XKX 2"
+    }
+  }
+}

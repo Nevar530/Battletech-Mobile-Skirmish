@@ -1,0 +1,193 @@
+{
+  "name": "Firestarter",
+  "chassis": "Firestarter",
+  "model": "FS9-P",
+  "mulId": 1095,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3064,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 35,
+  "engine": "210 Fusion Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 6
+  },
+  "armor": {
+    "type": "Standard",
+    "head": 9,
+    "centerTorso": 13,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightArm": 7,
+    "leftArm": 7,
+    "rightLeg": 7,
+    "leftLeg": 7,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 80
+  },
+  "quirks": [
+    "ubiquitous_clan",
+    "ubiquitous_is"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISFlamer",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISFlamer",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISFlamer",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISFlamer",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISSRM2",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISFlamer",
+      "ISMediumLaser",
+      "1 ISFlamer",
+      "1 ISMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISFlamer",
+      "ISMediumLaser",
+      "1 ISFlamer",
+      "1 ISMediumLaser"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "ISSmallLaser",
+      "ISFlamer",
+      "ISSRM2",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 ISSmallLaser",
+      "1 ISFlamer",
+      "1 ISSRM2"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "ISSmallLaser",
+      "ISFlamer",
+      "ISSRM2",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 ISSmallLaser",
+      "1 ISFlamer"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISSRM2 Ammo"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "Originally intended as a mobile incendiary ’Mech, the Firestarter evolved into a decent scouting and reconnaissance platform.",
+    "capabilities": "Despite being shielded by five and a half tons of armor and capable of jumping 180 meters, the Firestarter was powerless against medium or heavyweight opponents. Instead, an entire strategy was built around its ability to cause wildfires, with strategically positioned blazes routing an opponent or covering a withdrawal and impeding any pursuit. Firestarter MechWarriors enjoyed setting fire to densely forested areas when enemy 'Mechs marched through them, as well as any buildings where the enemy was hiding. Other applications for the 'Mech included scorched earth tactics, though this grew less common as it became more important to capture rather than destroy the declining amount of precious resources, or leading units of Wasps and Stingers in deep penetration scouting and light raiding operations. This approach altered in the later Succession Wars when it was discovered that the Firestarter could not only set flames to prevent an enemy from following it, but also clear ambush spots for the advancing of friendly forces.",
+    "deployment": "Manufactured by the Circinus Federation in 3064, the -P is similar to the -S, but it uses 10 double heat sinks. It removes the defensive and scouting equipment, as well as a half-ton of armor to add an additional small Laser and a pair of SRM-2s. The missile launchers are commonly loaded with Inferno rounds.",
+    "history": "Firestarters, both ancient and contemporary, can still be found in abundance among planetary militias and House troops. Even though Blakist forces have taken over CMW's principal plant on Coventry, spare parts are still accessible from other Firestarter producers (including LAW, Ceres Metals, Defiance, and Independence Weaponry). Loki field offices near the Circinus Federation frontier are concerned about reports of a new variety using endo steel technology on Federation-occupied worlds. With its particular load-out, this new variation appears to be designed to spread chaos and destruction. Firestarters have also been seen in Level II formations with Blakist soldiers in their Protectorate, most frequently at \"police demonstrations\" and guarding suspected prison sites. These versions are thought to be Coventry goods."
+  },
+  "manufacturers": {
+    "primary": [
+      "Coventry Metal Works"
+    ],
+    "primaryFactory": [
+      "Coventry"
+    ],
+    "systems": {
+      "chassis": "Foundation Ultralight Endo Steel",
+      "engine": "Omni 210",
+      "armor": "Livingston Ceramics",
+      "jumpjet": "Luxor Load Lifters",
+      "communications": "Cyclops 14",
+      "targeting": "Tansech C30-97"
+    }
+  }
+}

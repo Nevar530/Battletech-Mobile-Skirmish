@@ -1,0 +1,185 @@
+{
+  "name": "Malice",
+  "chassis": "Malice",
+  "model": "MAL-XV",
+  "mulId": 6726,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3140,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "400 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (IS/Clan)",
+    "head": 9,
+    "centerTorso": 42,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 20,
+    "rearRightTorso": 12,
+    "rearLeftTorso": 12,
+    "total": 307
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "LAC/5",
+      "location": "LT"
+    },
+    {
+      "type": "LAC/5",
+      "location": "RT"
+    },
+    {
+      "type": "LAC/5",
+      "location": "LA"
+    },
+    {
+      "type": "LAC/5",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLImprovedMediumHeavyLaser",
+      "CLImprovedMediumHeavyLaser",
+      "Light Auto Cannon/5",
+      "Light Auto Cannon/5",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Improved Heavy Medium Laser",
+      "LAC/5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "CLImprovedMediumHeavyLaser",
+      "CLImprovedMediumHeavyLaser",
+      "Light Auto Cannon/5",
+      "Light Auto Cannon/5",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Improved Heavy Medium Laser",
+      "LAC/5"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLImprovedMediumHeavyLaser",
+      "CLImprovedMediumHeavyLaser",
+      "Light Auto Cannon/5",
+      "Light Auto Cannon/5",
+      "IS Ammo LAC/5",
+      "IS Ammo LAC/5",
+      "IS Ammo LAC/5",
+      "IS Ammo LAC/5",
+      "CLCASEII",
+      "Improved Heavy Medium Laser",
+      "LAC/5"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLImprovedMediumHeavyLaser",
+      "CLImprovedMediumHeavyLaser",
+      "Light Auto Cannon/5",
+      "Light Auto Cannon/5",
+      "IS Ammo LAC/5",
+      "IS Ammo LAC/5",
+      "IS Ammo LAC/5",
+      "IS Ammo LAC/5",
+      "CLCASEII",
+      "Improved Heavy Medium Laser",
+      "LAC/5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

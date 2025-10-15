@@ -1,0 +1,192 @@
+{
+  "name": "Grigori",
+  "chassis": "Grigori",
+  "model": "C-GRG-OE Eminus",
+  "mulId": 1325,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3072,
+  "source": "TRO: 3075",
+  "rulesLevel": 4,
+  "role": "Brawler",
+  "mass": 60,
+  "engine": "240 Light Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 186
+  },
+  "quirks": [
+    "imp_com",
+    "imp_sensors",
+    "bad_rep_clan",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Thunderbolt 15",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "H"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISERPPC (omnipod)",
+      "ISERPPC (omnipod)",
+      "ISERPPC (omnipod)",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Thunderbolt 15 (omnipod)",
+      "Thunderbolt 15 (omnipod)",
+      "Thunderbolt 15 (omnipod)",
+      "IS Ammo Thunderbolt-15 (omnipod)",
+      "IS Ammo Thunderbolt-15 (omnipod)",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Thunderbolt 15"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ISC3iUnit",
+      "ISC3iUnit",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ISCASE (omnipod)",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "ISERMediumLaser (omnipod)",
+      "ISERSmallLaser (omnipod)",
+      "ER Medium Laser",
+      "ER Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Grigori is one of the Word of Blake's new Celestial series OmniMechs designed by Doctor Devon Cortland.",
+    "capabilities": "It is constructed on a standard chassis, but makes use of eleven tons of Light Ferro-Fibrous armor, a light fusion engine, and an XL Gyro; as well as the small cockpit that is common to all of the Celestials. Like the other Celestials, the Grigori has a C3i Computer to help direct its fire.",
+    "deployment": "The Eminus configuration carries an experimental Thunderbolt 15 and two tons of ammunition. An ER PPC supplements its fire at range. If an enemy gets closer, the Grigori E can do more damage with five ER Medium Lasers and an ER Small.",
+    "history": "The Grigori (named after fallen angels from Christianity) was added to the Word of Blake Militia's arsenal in late 3069 as Doctor Cortland oversaw the final production personally."
+  },
+  "manufacturers": {
+    "primary": [
+      "Gibson Federated BattleMechs",
+      "Martinson Armaments"
+    ],
+    "primaryFactory": [
+      "Gibson (Gibson Federated)",
+      "Terra (Martinson)"
+    ],
+    "systems": {
+      "chassis": "Celestial Series GG1",
+      "engine": "GM 240 Light Fusion",
+      "armor": "Divine Shield-B Light Ferro",
+      "communications": "Master’s Voice Cel-Alpha",
+      "targeting": "Master’s Sight 1-Omega"
+    }
+  }
+}

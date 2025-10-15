@@ -1,0 +1,134 @@
+{
+  "name": "Hornet",
+  "chassis": "Hornet",
+  "model": "HNT-151",
+  "mulId": 1545,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2760,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Striker",
+  "mass": 20,
+  "engine": "100 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 8,
+    "rightTorso": 8,
+    "leftTorso": 8,
+    "rightArm": 6,
+    "leftArm": 6,
+    "rightLeg": 6,
+    "leftLeg": 6,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 64
+  },
+  "quirks": [
+    "low_profile",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Small Laser",
+      "Small Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "IS Ammo LRM-5"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "LRM 5",
+      "LRM 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "Kallon Industries designed the Hornet to fill the urban reconnaissance role for the SLDF. Unfortunately for Kallon, the Hornet was firmly rejected and the 'Mech was only produced for a scant two years before its lines shut down. After the collapse of the Star League, the furious combat (and casualties) of the Succession Wars would force many training, militia, or otherwise undesirable 'Mechs into frontline commands. As a result, when Kallon Industries rediscovered the plans for their Hornet design, they rushed it back into production knowing full well that they would doubtlessly be able to sell their full output.",
+    "capabilities": "Slow but well armored for its size, the Hornet stands apart from other \"bug\" 'Mechs with its LRM rack. Giving it the ability to hit at ranges well beyond most other light scouts, the Hornet can easily harry larger 'Mechs or finish off fleeing units. Therefore, it is often used in the scout hunting or light fire support role, where it offers steady if somewhat lackluster service.",
+    "deployment": "Most of Kallon's production was sold to mercenary outfits, periphery forces, or planetary militias within the Federated Suns. The AFFS itself, long used to their capable Valkyries, were unimpressed by the more fragile and less-powerful Hornet, limiting sales. It was only after its deployment by Wolf's Dragoons-who made good use of the design time and time again-that the Hornet saw larger deployment by House Davion.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Fischer",
+      "engine": "Hermes",
+      "armor": "Bulletban",
+      "communications": "Tri-Word",
+      "targeting": "Dalban"
+    }
+  }
+}

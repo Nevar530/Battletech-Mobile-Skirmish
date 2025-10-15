@@ -1,0 +1,174 @@
+{
+  "name": "Fafnir",
+  "chassis": "Fafnir",
+  "model": "FNR-6U",
+  "mulId": 5720,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3081,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 Light Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 IS Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 46,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 16,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 307
+  },
+  "quirks": [
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Ultra AC/20",
+      "location": "LA"
+    },
+    {
+      "type": "Ultra AC/20",
+      "location": "RA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "LT"
+    },
+    {
+      "type": "Light PPC",
+      "location": "LT"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RT"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "Ultra AC/20"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "Ultra AC/20"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Light PPC",
+      "Light PPC",
+      "Light PPC",
+      "Light PPC",
+      "IS Ultra AC/20 Ammo",
+      "IS Ultra AC/20 Ammo",
+      "IS Ultra AC/20 Ammo",
+      "ISCASE",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Light PPC",
+      "Light PPC"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Light PPC",
+      "Light PPC",
+      "Light PPC",
+      "Light PPC",
+      "IS Ultra AC/20 Ammo",
+      "IS Ultra AC/20 Ammo",
+      "IS Ultra AC/20 Ammo",
+      "ISCASE",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Light PPC",
+      "Light PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Light Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

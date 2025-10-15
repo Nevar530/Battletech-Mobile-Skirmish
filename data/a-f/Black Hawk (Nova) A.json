@@ -1,0 +1,161 @@
+{
+  "name": "Black Hawk",
+  "chassis": "Black Hawk",
+  "model": "A",
+  "mulId": 335,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 2870,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 50,
+  "engine": "250 XL (Clan) Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "14 Clan Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 23,
+    "rightTorso": 16,
+    "leftTorso": 16,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 160
+  },
+  "quirks": [
+    "combat_computer",
+    "low_profile"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Anti-Missile System",
+      "location": "LT"
+    },
+    {
+      "type": "Anti-Missile System",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERPPC (OMNIPOD)",
+      "CLERPPC (OMNIPOD)",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERPPC (OMNIPOD)",
+      "CLERPPC (OMNIPOD)",
+      "ER PPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLMediumPulseLaser (OMNIPOD)",
+      "CLAntiMissileSystem (OMNIPOD)",
+      "Medium Pulse Laser",
+      "Anti-Missile System"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLAntiMissileSystem (OMNIPOD)",
+      "CLAMS Ammo (OMNIPOD)",
+      "Anti-Missile System"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Nova is a versatile medium OmniMech that is capable of acting as a workhorse design in most forces. In fact, the design is so well balanced that it inspired the creation of the Black Hawk-KU, an Inner Sphere design based on the Nova and named using the Inner Sphere code name for this 'Mech: Black Hawk.",
+    "capabilities": "A long range sniper configuration, the Nova A has a pair of powerful Clan ER PPCs for long range combat. For protection at close range, the Nova A has a single Medium Pulse Laser and also mounts two Anti-Missile Systems for protection from missile fire.",
+    "deployment": "A long range sniper configuration, the Nova A has a pair of powerful Clan ER PPCs for long range combat. For protection at close range, the Nova A has a single Medium Pulse Laser and also mounts two Anti-Missile Systems for protection from missile fire.",
+    "history": "The Black Hawk's debut battle was the combined assault on Kindraa Smythe-Jewel on Foster in 2872 launched by the Hell's Horses, Clan Coyote and Kindraa Payne that saw the Smythe-Jewels wiped out as a faction. However, the number of Novas has been diminishing. Only spare parts have been in production since 2921. Designed as an early OmniMech by Clan Hell's Horses, the Nova was produced at the famous Tokasha Mechworks beginning in 2870. At the time of its introduction, the Nova was designed for infantry support, and was the first OmniMech designed with hardpoints allowing Elementals to easily mount and dismount the chassis. However, after Tokasha was taken by Clan Ghost Bear during the Battle of Tokasha, production of the Nova ceased. Since 2921, every Clan has acquired Nova OmniMechs as isorla. Although the last Nova factory was replaced to create Pouncers, the very few remaining in Clan Space have gotten into the hands of Aggressor Mechwarriors."
+  },
+  "manufacturers": {
+    "primary": [
+      "Tokasha MechWorks",
+      "Olivetti Weaponry"
+    ],
+    "primaryFactory": [
+      "Tokasha",
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "Star League XTA",
+      "engine": "250 XL Model SF-2",
+      "armor": "Forge Type HH30",
+      "jumpjet": "Clan Standard Type A2",
+      "communications": "CH3B",
+      "targeting": "Version Omega-V TTS"
+    }
+  }
+}

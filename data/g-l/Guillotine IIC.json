@@ -1,0 +1,174 @@
+{
+  "name": "Guillotine IIC",
+  "chassis": "Guillotine IIC",
+  "mulId": 1345,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 2889,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "280 Fusion (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "16 Clan Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 27,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 192
+  },
+  "quirks": [
+    "searchlight"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLERPPC",
+      "CLERPPC",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLargePulseLaser",
+      "CLLargePulseLaser",
+      "CLLargePulseLaser",
+      "CLLargePulseLaser",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Large Pulse Laser",
+      "Large Pulse Laser"
+    ],
+    "leftTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Jump Jet",
+      "CLERMediumLaser",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Jump Jet",
+      "CLERMediumLaser",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLSRM6",
+      "Clan Ammo SRM-6",
+      "SRM 6"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Guillotine IIC is a simple upgrade of the original Guillotine BattleMech using Clan technology.",
+    "capabilities": "This version of that venerable 'Mech uses double heat sinks and an Endo Steel internal structure to save weight. These weight savings were used to upgrade the 'Mech's weapon systems. The original twelve tons of armor was left unchanged.",
+    "deployment": "From long range, the Guillotine IIC replaced the Large Laser of the original with a Clan Mk. XVII ER PPC. Of the original four Medium Lasers, two were upgraded to Kolibri Delta Series Large Pulse Lasers, while the other pair were replaced with Series 2f ER Medium Lasers. The SRM-6 was replaced with a lighter Clan Series 4d.",
+    "history": "Although Clan Coyote created this upgrade, Clan Star Adder was the first to use it in combat in 2892. With the introduction of the OmniMech, most Guillotine IICs were relegated to second-line and solahma duty."
+  },
+  "manufacturers": {
+    "primary": [
+      "Omega Orbital Production Plant",
+      "Irian BattleMechs Unlimited (Refit )",
+      "W-7 Facilities (Refit)"
+    ],
+    "primaryFactory": [
+      "Unknown",
+      "Angell II",
+      "Weingarten"
+    ],
+    "systems": {
+      "chassis": "Clan Modified Heavy Type X",
+      "engine": "Clan Standard 280 series",
+      "armor": "Forging OTR17b",
+      "jumpjet": "Clan Series Type 4 Heavy",
+      "communications": "JNE Integrated",
+      "targeting": "Series VI KITT"
+    }
+  }
+}

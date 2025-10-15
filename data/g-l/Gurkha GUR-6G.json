@@ -1,0 +1,181 @@
+{
+  "name": "Gurkha",
+  "chassis": "Gurkha",
+  "model": "GUR-6G",
+  "mulId": 5663,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3067,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 3,
+  "role": "Striker",
+  "mass": 35,
+  "engine": "245 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 14,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 15,
+    "leftLeg": 15,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 112
+  },
+  "quirks": [
+    "bad_rep_clan",
+    "bad_rep_is",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISImprovedC3CPU",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISERLargeLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 Sword",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERSmallLaser",
+      "ISERSmallLaser",
+      "ISERSmallLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERSmallLaser",
+      "1 ISERSmallLaser",
+      "1 ISERSmallLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Sword",
+      "Sword",
+      "Sword",
+      "1 Sword"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERMediumLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERMediumLaser"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISERMediumLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERLargeLaser",
+      "1 ISERMediumLaser"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISImprovedC3CPU",
+      "ISImprovedC3CPU",
+      "1 ISImprovedC3CPU"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo-Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

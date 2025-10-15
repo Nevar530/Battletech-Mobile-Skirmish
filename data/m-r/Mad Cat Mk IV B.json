@@ -1,0 +1,163 @@
+{
+  "name": "Mad Cat Mk IV",
+  "chassis": "Mad Cat Mk IV",
+  "model": "B",
+  "mulId": 6572,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3136,
+  "source": "TRO: 3145 Mercenaries",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 75,
+  "engine": "375 XXL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Lamellor (Clan)",
+    "head": 9,
+    "centerTorso": 35,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 31,
+    "leftLeg": 31,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 224
+  },
+  "quirks": [
+    "stable",
+    "pro_actuator",
+    "non_standard"
+  ],
+  "weapons": [
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "HAG/30",
+      "location": "RT"
+    },
+    {
+      "type": "ATM 9",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Improved Heavy Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor",
+      "Clan Ferro-Lamellor"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLATM9 (omnipod)",
+      "CLATM9 (omnipod)",
+      "CLATM9 (omnipod)",
+      "CLATM9 (omnipod)",
+      "Clan Ammo ATM-9 (omnipod)",
+      "Clan Ammo ATM-9 (omnipod)",
+      "CLCASEII (omnipod)",
+      "Clan Endo Steel",
+      "ATM 9"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "HAG/30 Ammo (omnipod)",
+      "HAG/30 Ammo (omnipod)",
+      "CLCASEII (omnipod)",
+      "Clan Endo Steel",
+      "HAG/30"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro (armored)",
+      "Gyro (armored)",
+      "Gyro (armored)",
+      "Gyro (armored)",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "HAG/30 Ammo (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

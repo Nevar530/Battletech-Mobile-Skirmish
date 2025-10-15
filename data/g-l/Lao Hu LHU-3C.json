@@ -1,0 +1,150 @@
+{
+  "name": "Lao Hu",
+  "chassis": "Lao Hu",
+  "model": "LHU-3C",
+  "mulId": 4480,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3064,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 75,
+  "engine": "375 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 23,
+    "leftArm": 23,
+    "rightLeg": 28,
+    "leftLeg": 28,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 216
+  },
+  "quirks": [
+    "good_rep_1"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERLargeLaser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "1 ISERLargeLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLRM5",
+      "ISLRM5",
+      "ISLRM5",
+      "ISLRM5 Ammo",
+      "ISLRM5 Ammo",
+      "ISLRM5 Ammo",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGauss Ammo",
+      "ISGauss Ammo",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "Designed by a student at the Victoria Academy of Arms and Technology, the Lao Hu (\"Tiger\") is based on the Thunder BattleMech and is designed to correct perceived flaws in the Thunder by using new technologies available to the Capellan Confederation.",
+    "capabilities": "The Lao Hu is built on a lightweight Chariot Type II Endo Steel that carries a GM 375 XL Engine which gives the 'Mech a top speed of 86.4 km/h while sacrificing some survivability for more free weight and a heavier weapons payload. The Lao Hu is protected by an impressive thirteen and a half tons of armor, making it capable of weathering hits from all but the heaviest weapons.",
+    "deployment": "The 3C is intended to spar with its enemies at long range. The 'Mech replaced the LB 20-X AC with a powerful Gauss Rifle. Additionally, the 3C removed the LRM-15 in favor of three LRM-5 launchers, giving it the same firepower but allowing it to spread it over a greater number of targets.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Shengli Arms"
+    ],
+    "primaryFactory": [
+      "Victoria"
+    ],
+    "systems": {
+      "chassis": "Chariot Type II Endo Steel",
+      "engine": "GM 375 XL",
+      "armor": "Star Shell Standard",
+      "communications": "Dian-bao Comms, Standard",
+      "targeting": "O/P 911 Targeting and Tracking System"
+    }
+  }
+}

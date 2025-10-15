@@ -1,0 +1,177 @@
+{
+  "name": "Vindicator",
+  "chassis": "Vindicator",
+  "model": "VND-4L",
+  "mulId": 3429,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3063,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 45,
+  "engine": "225 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "StealthArmor",
+    "head": 9,
+    "centerTorso": 18,
+    "rightTorso": 16,
+    "leftTorso": 16,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 18,
+    "leftLeg": 18,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 144
+  },
+  "quirks": [
+    "rugged_1",
+    "difficult_eject"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "H"
+    },
+    {
+      "type": "1 ISGuardianECM",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "Stealth Armor",
+      "Stealth Armor",
+      "1 ISERPPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "ISLRM5",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "Stealth Armor",
+      "Stealth Armor",
+      "1 ISGuardianECM"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "ISLRM5 Ammo",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISCASE",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "ISERMediumLaser",
+      "1 ISERMediumLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISMediumPulseLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISMediumPulseLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth Armor",
+      "Stealth Armor"
+    ]
+  },
+  "text": {
+    "overview": "The Vindicator is one of the most well-known Capellan Confederation BattleMechs. This workhorse of the CCAF was built in 2826 between the First and Second Succession War to maximize the effectiveness of the Confederation's surviving production capabilities and fulfill as many roles as possible.",
+    "capabilities": "The 'Mech has a top speed of only 64.8 km/h, which allows it to keep up with most heavy 'Mechs and some slower medium 'Mechs. Four jump jets give it a jumping capability of up to 120 meters that, while not up to par with the greater distances of 'Mechs like the Phoenix Hawk, allows the Vindicator the ability to outmaneuver most heavier 'Mechs, as well as making it easier to traverse rough terrain. It also carries more armor than the Phoenix Hawk with good overall coverage, particularly on its rear torso and legs, making it better protected than smaller 'Mechs. Armament for the 'Mech is adequate though its primary weapons are unsuited for point-blank ranges, while sixteen heat sinks help keep it cool.",
+    "deployment": "The 4L Vindicator is a major upgrade to the design, part of Ceres Metals' efforts to revive the line in 3063. The engine has been replaced with a 225-rated extralight engine, granting the 'Mech a top speed of 86.4 km/h, and its jumping distance was increased to 150 meters with an additional jump jet. The 'Mech uses double heat sinks for its advanced weapons load, which includes an ER PPC and LRM-5 for striking power at long range and an ER medium laser and medium pulse laser for short range work. Finally, the 'Mech carries a Guardian ECM Suite and is protected with nine tons of Stealth Armor, making it harder to target at range. The 4L became a common design among Shadow Lances following their introduction.",
+    "history": "Designed by committee, the Vindicator's \"jack-of-all-trades\" nature means it does not excel in any one role but fulfills them adequately. With almost all of its components produced on Capella, the Vindicator is also cheap, easy to mass produce, and quick to repair with a ready supply of spare parts. Unfortunately, early models of the Vindicator suffered from a design flaw wherein the head-mounted laser created a bulge in the cockpit. More than making the space cramped for tall MechWarriors, it also interfered with the ejection propulsion system, resulting in the deaths of a number of MechWarriors when their ejection seats exploded during ejection. Engineers managed to redesign the cockpit layout prior to the War of 3039, eliminating the deadly intrusion and decreasing the chance of said unfortunate malfunction. Due to its relatively lackluster design and the outrageous mark-ups on spare parts sold to out-of-state parties, the Vindicator has remained almost exclusive to the Capellan Confederation since its introduction. Even in the wake of the Fourth Succession War, with a good portion of their military complex and resources gone, the Capellan leadership continued funding production of this 'Mech and updated it with the rediscovery of lostech. Following the introduction of the Firestarter OmniMech and its spread by the Second Star League production of the Vindicator was curtailed, though the line would be partially revived with a couple of specialized variants in 3060."
+  },
+  "manufacturers": {
+    "primary": [
+      "Ceres Metals Industries"
+    ],
+    "primaryFactory": [
+      "Capella"
+    ],
+    "systems": {
+      "chassis": "Ceresplex IV",
+      "engine": "VOX 225 XL",
+      "armor": "Starshield with CASE",
+      "jumpjet": "Anderson Propulsion 30",
+      "communications": "CeresCom Model 21-Rs",
+      "targeting": "C-Apple Churchill"
+    }
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "name": "Uziel",
+  "chassis": "Uziel",
+  "model": "UZL-8S",
+  "mulId": 5679,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3075,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 50,
+  "engine": "250 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 8
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 24,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 160
+  },
+  "quirks": [
+    "cowl",
+    "bad_rep_is",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISGuardianECM",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISMediumPulseLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISMediumPulseLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet",
+      "ISStreakSRM6 Ammo",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "1 ISGuardianECM"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISStreakSRM6",
+      "ISStreakSRM6"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo-Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISImprovedJump Jet",
+      "ISImprovedJump Jet"
+    ]
+  },
+  "text": {
+    "overview": "Built at Defiance Industries' Furillo plant, the Uziel is an effective medium 'Mech that is looked down upon by the LAAF simply because it is produced on Furillo and not at the prestigious Hesperus facility. A varied weapons mix makes the Uziel an excellent trooper 'Mech.",
+    "capabilities": "The Uziel is built on a Foundation E50 Endo Steel chassis that has a GM 300 XL engine that provides the 'Mech with a top speed of 97.2 km/h. The 'Mech's mobility is enhanced with six Rawlings 50 jump jets that allow the 'Mech to jump up to one hundred and eighty meters. The Uziel is armored with eight tons of Maximillian 100 armor that gives the Uziel adequate protection from enemy fire. To dissipate the heat produced by the 'Mech's weapons, it carries eleven double heat sinks.",
+    "deployment": "This variant introduced in 3075 trades all the weaponry of the 3S for a Streak SRM-6, Guardian ECM Suite, and a pair of Medium Pulse Lasers in each arm. The engine has been replaced with a smaller model, which reduces the 8S top speed to 86km/h. However, eight Improved Jump Jets provide more mobility.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Defiance Industries"
+    ],
+    "primaryFactory": [
+      "Furillo"
+    ],
+    "systems": {
+      "chassis": "Foundation E50 Endo Steel",
+      "engine": "GM 300 XL",
+      "armor": "Maximillian 100",
+      "jumpjet": "Rawlings 50",
+      "communications": "Neil 6000-g",
+      "targeting": "RCA Instatrac Mark XXII"
+    }
+  }
+}

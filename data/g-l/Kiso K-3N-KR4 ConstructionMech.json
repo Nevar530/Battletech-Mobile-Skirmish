@@ -1,0 +1,96 @@
+{
+  "name": "Kiso",
+  "chassis": "Kiso",
+  "model": "K-3N-KR4 ConstructionMech",
+  "mulId": 1802,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 2703,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "mass": 100,
+  "engine": "200 Fusion Engine",
+  "structure": "Industrial",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 2,
+    "jump": 0
+  },
+  "armor": {
+    "type": "HeavyIndustrial (InnerSphere)",
+    "head": 9,
+    "centerTorso": 23,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightLeg": 32,
+    "rearCenterTorso": 16,
+    "rearRightTorso": 14,
+    "rearLeftTorso": 14,
+    "total": 248
+  },
+  "quirks": [],
+  "locations": {
+    "leftTorso": [
+      "Heat Sink",
+      "Communications Equipment (3 ton)",
+      "Communications Equipment (3 ton)",
+      "Communications Equipment (3 ton)",
+      "Lift Hoist",
+      "Lift Hoist",
+      "Lift Hoist",
+      "Rock Cutter",
+      "Rock Cutter",
+      "Rock Cutter",
+      "Rock Cutter",
+      "Rock Cutter"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Lift Hoist",
+      "Lift Hoist",
+      "Lift Hoist",
+      "Pile Driver",
+      "Pile Driver",
+      "Pile Driver",
+      "Pile Driver",
+      "Pile Driver",
+      "Pile Driver",
+      "Pile Driver",
+      "Pile Driver"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Cargo Container (10 tons)",
+      "Cargo Container (10 tons)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

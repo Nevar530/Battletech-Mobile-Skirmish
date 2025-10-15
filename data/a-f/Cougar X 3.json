@@ -1,0 +1,146 @@
+{
+  "name": "Cougar",
+  "chassis": "Cougar",
+  "model": "X 3",
+  "mulId": 6953,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3093,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 3,
+  "role": "Striker",
+  "mass": 35,
+  "engine": "175 XL (Clan) Engine",
+  "structure": "IS Composite",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 8,
+    "centerTorso": 14,
+    "rightTorso": 12,
+    "leftTorso": 12,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 105
+  },
+  "quirks": [
+    "ubiquitous_clan"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Streak LRM 10",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLERLargePulseLaser",
+      "CLERLargePulseLaser",
+      "CLERLargePulseLaser",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "Clan Ferro-Fibrous",
+      "ER Large Pulse Laser",
+      "ER Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLStreakLRM10",
+      "CLStreakLRM10",
+      "Clan Streak LRM 10 Ammo",
+      "Streak LRM 10"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLTargeting Computer",
+      "CLTargeting Computer"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

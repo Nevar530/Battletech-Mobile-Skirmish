@@ -1,0 +1,162 @@
+{
+  "name": "Bombard",
+  "chassis": "Bombard",
+  "model": "BMB-013",
+  "mulId": 419,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3063,
+  "source": "TRO: 3055",
+  "rulesLevel": 4,
+  "role": "Missile Boat",
+  "mass": 50,
+  "engine": "100 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 2,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 22,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightArm": 15,
+    "leftArm": 15,
+    "rightLeg": 23,
+    "leftLeg": 23,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 160
+  },
+  "quirks": [
+    "bad_rep_is",
+    "non_standard"
+  ],
+  "weapons": [
+    {
+      "type": "Thunderbolt 15",
+      "location": "LA"
+    },
+    {
+      "type": "Thunderbolt 15",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Thunderbolt 15",
+      "Thunderbolt 15",
+      "Thunderbolt 15",
+      "IS Ammo Thunderbolt-15",
+      "IS Ammo Thunderbolt-15",
+      "IS Ammo Thunderbolt-15",
+      "Endo Steel",
+      "Endo Steel",
+      "Thunderbolt 15"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Thunderbolt 15",
+      "Thunderbolt 15",
+      "Thunderbolt 15",
+      "IS Ammo Thunderbolt-15",
+      "IS Ammo Thunderbolt-15",
+      "IS Ammo Thunderbolt-15",
+      "Endo Steel",
+      "Endo Steel",
+      "Thunderbolt 15"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Heat Sink",
+      "Heat Sink",
+      "ISERMediumLaser",
+      "ISCASE",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Heat Sink",
+      "Heat Sink",
+      "ISERMediumLaser",
+      "ISCASE",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Spikes"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Spikes"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

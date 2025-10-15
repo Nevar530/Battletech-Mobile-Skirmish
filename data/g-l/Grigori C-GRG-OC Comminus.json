@@ -1,0 +1,188 @@
+{
+  "name": "Grigori",
+  "chassis": "Grigori",
+  "model": "C-GRG-OC Comminus",
+  "mulId": 1323,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3069,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "240 Light Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 186
+  },
+  "quirks": [
+    "imp_com",
+    "imp_sensors",
+    "bad_rep_clan",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "MRM 10",
+      "location": "LA"
+    },
+    {
+      "type": "MRM 10",
+      "location": "LA"
+    },
+    {
+      "type": "MRM 10",
+      "location": "LA"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "MRM 10 (omnipod)",
+      "MRM 10 (omnipod)",
+      "MRM 10 (omnipod)",
+      "MRM 10 (omnipod)",
+      "MRM 10 (omnipod)",
+      "MRM 10 (omnipod)",
+      "MRM 10",
+      "MRM 10",
+      "MRM 10"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISStreakSRM6 (omnipod)",
+      "ISStreakSRM6 (omnipod)",
+      "ISStreakSRM6 (omnipod)",
+      "ISStreakSRM6 (omnipod)",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Streak SRM 6",
+      "Streak SRM 6"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "IS Streak SRM 6 Ammo (omnipod)",
+      "IS MRM 10 Ammo (omnipod)",
+      "ISC3iUnit",
+      "ISC3iUnit",
+      "ISCASE (omnipod)",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "ISGuardianECMSuite (omnipod)",
+      "ISGuardianECMSuite (omnipod)"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Grigori is one of the Word of Blake's new Celestial series OmniMechs designed by Doctor Devon Cortland.",
+    "capabilities": "It is constructed on a standard chassis, but makes use of eleven tons of Light Ferro-Fibrous armor, a light fusion engine, and an XL Gyro; as well as the small cockpit that is common to all of the Celestials. Like the other Celestials, the Grigori has a C3i Computer to help direct its fire.",
+    "deployment": "This variant also jumps, though it also adds a Guardian ECM Suite for further defensive measures. Three MRM 10s aim to take advantage of the integral C3 network, while twin Streak SRM-6s spreads fire out all over an enemy target. Two ER Medium Lasers back up the missile weapons in case they run out of ammunition.",
+    "history": "The Grigori (named after fallen angels from Christianity) was added to the Word of Blake Militia's arsenal in late 3069 as Doctor Cortland oversaw the final production personally."
+  },
+  "manufacturers": {
+    "primary": [
+      "Gibson Federated BattleMechs",
+      "Martinson Armaments"
+    ],
+    "primaryFactory": [
+      "Gibson (Gibson Federated)",
+      "Terra (Martinson)"
+    ],
+    "systems": {
+      "chassis": "Celestial Series GG1",
+      "engine": "GM 240 Light Fusion",
+      "armor": "Divine Shield-B Light Ferro",
+      "communications": "Master’s Voice Cel-Alpha",
+      "targeting": "Master’s Sight 1-Omega"
+    }
+  }
+}

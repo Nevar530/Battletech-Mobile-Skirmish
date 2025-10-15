@@ -1,0 +1,172 @@
+{
+  "name": "Gallant",
+  "chassis": "Gallant",
+  "model": "GLT-8-0",
+  "mulId": 1174,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3078,
+  "source": "TRO: 3085",
+  "rulesLevel": 4,
+  "role": "Missile Boat",
+  "mass": 70,
+  "engine": "210 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 28,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 29,
+    "leftLeg": 29,
+    "rearCenterTorso": 13,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 208
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "Thunderbolt 10",
+      "location": "LA"
+    },
+    {
+      "type": "Thunderbolt 10",
+      "location": "RA"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Thunderbolt 10",
+      "Thunderbolt 10",
+      "Thunderbolt 10"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Thunderbolt 10",
+      "Thunderbolt 10",
+      "ISMediumXPulseLaser",
+      "ISMediumXPulseLaser",
+      "Thunderbolt 10",
+      "Medium X-Pulse Laser",
+      "Medium X-Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "ISMediumXPulseLaser",
+      "ISMediumXPulseLaser",
+      "Medium X-Pulse Laser",
+      "Medium X-Pulse Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "IS Ammo Thunderbolt-10",
+      "IS Ammo Thunderbolt-10",
+      "IS Ammo Thunderbolt-10",
+      "ISCASE"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "name": "Wolverine",
+  "chassis": "Wolverine",
+  "model": "WVR-9W2",
+  "mulId": 3584,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3077,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 55,
+  "engine": "275 XL Engine(IS)",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 7
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 25,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 169
+  },
+  "quirks": [
+    "command_mech",
+    "ext_twist",
+    "imp_com",
+    "pro_actuator",
+    "ubiquitous_clan",
+    "ubiquitous_is",
+    "cramped_cockpit"
+  ],
+  "weapons": [
+    {
+      "type": "MML 5",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMML5",
+      "ISMML5",
+      "ISMML5",
+      "ISArtemisIV",
+      "ISERSmallLaser",
+      "IS Ammo MML-5 LRM Artemis-capable",
+      "IS Ammo MML-5 SRM Artemis-capable",
+      "Light Ferro-Fibrous",
+      "MML 5",
+      "ER Small Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Light PPC",
+      "Light PPC",
+      "Light PPC",
+      "Light PPC",
+      "Light Ferro-Fibrous",
+      "Light PPC",
+      "Light PPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "ISCASE",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "ISC3SlaveUnit",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERMediumLaser",
+      "Sensors",
+      "Life Support",
+      "ER Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Wolverine commonly served as a heavy scout unit. Often deployed in situations where heavy opposition could easily destroy lighter BattleMechs, it has had a reliable service record ever since its initial deployment within the Star League Defense Force. With respectable armor, speed, and firepower, it can easily outfight lighter enemy scouts and defend itself capably if ambushed.",
+    "capabilities": "The autocannon, missile system and laser found on most Wolverines are all reliable and well-storied systems. Unfortunately, the jump jets suffer from an opposing reputation; the Northrup 12000's are underpowered and prone to breakdowns. The one defining system to be found on the Wolverine, however, are its superb Tek BattleCom and Garret T11-b communications systems. The comgear, regardless of the manufacturer, is well-shielded and features a multi-channel transmitter and receiver, making the Wolverine a powerful Command BattleMech for scouting formations.",
+    "deployment": "Introduced in 3084 this variant has an ER medium laser and ER small laser to provide close range firepower. An Artemis IV system attached to an MML-5 and a pair of Light PPCs provide long range firepower. A C3 Slave shares targeting data, while a Guardian ECM Suite disrupts enemy electronics. Light Ferro-Fibrous armor and CASE protect the Wolverine. Seven Improved Jump Jets improve mobility.",
+    "history": "A widespread part of every major military, the Wolverine has manufacturing plants scattered throughout the entire Inner Sphere. While certain states-notably the Free Worlds League-have larger numbers of the design, only the Capellans began facing a shortage of the Wolverine after the loss of their Nanking facilities."
+  },
+  "manufacturers": {
+    "primary": [
+      "Luthien Armor Works"
+    ],
+    "primaryFactory": [
+      "New Samarkand"
+    ],
+    "systems": {
+      "chassis": "Crucis-A",
+      "engine": "Core Tek 275",
+      "armor": "Maximillian 60",
+      "jumpjet": "Northrup 12000",
+      "communications": "Garret T11-b",
+      "targeting": "Sync Tracker(39-42071)"
+    }
+  }
+}

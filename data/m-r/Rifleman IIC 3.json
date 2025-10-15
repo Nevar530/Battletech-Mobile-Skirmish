@@ -1,0 +1,180 @@
+{
+  "name": "Rifleman IIC",
+  "chassis": "Rifleman IIC",
+  "model": "3",
+  "mulId": 2712,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3062,
+  "source": "TRO: 3085u",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 65,
+  "engine": "195 Fusion (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "21 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 211
+  },
+  "quirks": [
+    "anti_air",
+    "imp_com"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Ultra AC/2",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Ultra AC/2",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLUltraAC2",
+      "CLUltraAC2",
+      "Clan Ultra AC/2 Ammo",
+      "Endo Steel",
+      "Endo Steel",
+      "Heavy Large Laser",
+      "Ultra AC/2"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLUltraAC2",
+      "CLUltraAC2",
+      "Clan Ultra AC/2 Ammo",
+      "Endo Steel",
+      "Endo Steel",
+      "Heavy Large Laser",
+      "Ultra AC/2"
+    ],
+    "leftTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Jump Jet",
+      "Endo Steel"
+    ],
+    "rightTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Jump Jet",
+      "Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLActiveProbe",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Rifleman IIC is an upgrade of the venerable Rifleman BattleMech. Five tons heavier than the design it is based on, the Rifleman IIC is also slower.",
+    "capabilities": "Five tons heavier than the design it is based on, the Rifleman IIC is also slower. This creates a great deal more room with which to mount other equipment. Further weight savings are found in the use of an Endo Steel frame. One of the first upgrades to the design was maxing out its protection, with eleven tons of Ferro-Fibrous armor.",
+    "deployment": "Following the surprise invasion of Huntress, most of the Clans looked to upgrade the defenders of their homeworlds. In so doing, Clan Cloud Cobra decided to upgrade their aging Rifleman IICs. The IIC 3 first entered service in the early part of 3062. Based upon the original design, it nonetheless uses two Model HHC-30 Ultra Autocannon/2s to plink at a target from long range. Any opponent who believes he or she is facing a IIC 2 is quickly surprised, however, when the IIC 3 opens up with its paired Series 4D-2 Heavy Large Lasers. Twenty one double heat sinks keep this design cool-running. This rebuilt version still mounts the Active Probe.",
+    "history": "An ancient rebuild of an already ancient design, the Rifleman IIC has soldiered on throughout the centuries. The ’Mech can be found in service with most Clans (a notable exception is Clan Wolf, which prefers the Glass Spider) and several Inner Sphere powers. Its simplicity is matched only by its effectiveness, and new variants continue to debut."
+  },
+  "manufacturers": {
+    "primary": [
+      "Complex H-4 CCC"
+    ],
+    "primaryFactory": [
+      "Hector"
+    ],
+    "systems": {
+      "chassis": "CCo-B Endo",
+      "engine": "Fusion 195 Mk. VI, Mod. 3",
+      "armor": "Forging ZM15 Ferro-Fibrous",
+      "jumpjet": "\"Highlifter\" 44",
+      "communications": "Garret T11-A",
+      "targeting": "GH D5j TTS with Active Probe"
+    }
+  }
+}

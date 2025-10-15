@@ -1,0 +1,186 @@
+{
+  "name": "Flamberge",
+  "chassis": "Flamberge",
+  "model": "C",
+  "mulId": 1118,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3077,
+  "source": "TRO: 3085",
+  "rulesLevel": 3,
+  "role": "Missile Boat",
+  "mass": 70,
+  "engine": "280 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 216
+  },
+  "quirks": [
+    "imp_target_med"
+  ],
+  "weapons": [
+    {
+      "type": "SRM 6",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Arrow IV",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Clan TAG",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLSRM6",
+      "CLMediumPulseLaser (omnipod)",
+      "Clan Ammo SRM-6 (omnipod)",
+      "CLArrowIVAmmo (omnipod)",
+      "CLArrowIVAmmo (omnipod)",
+      "CLArrowIVHomingAmmo (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "SRM 6",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLSRM6",
+      "CLERLargeLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "Clan Ammo SRM-6 (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "SRM 6",
+      "ER Large Laser",
+      "Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "CLTAG (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "ER Medium Laser",
+      "Clan TAG"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLArrowIV (omnipod)",
+      "CLArrowIV (omnipod)",
+      "Arrow IV"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

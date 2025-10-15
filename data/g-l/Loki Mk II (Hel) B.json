@@ -1,0 +1,177 @@
+{
+  "name": "Loki Mk II",
+  "chassis": "Loki Mk II",
+  "model": "B",
+  "mulId": 6279,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3121,
+  "source": "TRO: 3145 The Clans",
+  "rulesLevel": 3,
+  "role": "Brawler",
+  "mass": 65,
+  "engine": "260 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "15 Clan Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 21,
+    "leftLeg": 21,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 182
+  },
+  "quirks": [
+    "multi_trac"
+  ],
+  "weapons": [
+    {
+      "type": "Long Tom Cannon",
+      "location": "LT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (OMNIPOD)",
+      "CLDoubleHeatSink (OMNIPOD)",
+      "CLDoubleHeatSink (OMNIPOD)",
+      "CLDoubleHeatSink (OMNIPOD)",
+      "CLERLargeLaser (OMNIPOD)",
+      "CLMediumPulseLaser (OMNIPOD)",
+      "CLMediumPulseLaser (OMNIPOD)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "ISLongTomCannon (OMNIPOD)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Long Tom Cannon"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (OMNIPOD)",
+      "CLDoubleHeatSink (OMNIPOD)",
+      "CLMediumPulseLaser (OMNIPOD)",
+      "CLMediumPulseLaser (OMNIPOD)",
+      "ISLongTomCannonAmmo (OMNIPOD)",
+      "ISLongTomCannonAmmo (OMNIPOD)",
+      "ISLongTomCannonAmmo (OMNIPOD)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (OMNIPOD)",
+      "CLDoubleHeatSink (OMNIPOD)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "CLDoubleHeatSink (OMNIPOD)",
+      "CLDoubleHeatSink (OMNIPOD)"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

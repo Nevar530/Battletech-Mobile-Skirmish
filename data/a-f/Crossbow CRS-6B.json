@@ -1,0 +1,146 @@
+{
+  "name": "Crossbow",
+  "chassis": "Crossbow",
+  "model": "CRS-6B",
+  "mulId": 733,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2473,
+  "source": "TRO: 3075",
+  "rulesLevel": 1,
+  "role": "Missile Boat",
+  "mass": 60,
+  "engine": "300 Fusion Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 17,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 13,
+    "leftArm": 13,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 128
+  },
+  "quirks": [
+    "obsolete",
+    "poor_target_long"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 10",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "PPC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "LRM 10",
+      "LRM 10",
+      "Medium Laser",
+      "IS Ammo LRM-10",
+      "LRM 10",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "LRM 10",
+      "LRM 10",
+      "Medium Laser",
+      "IS Ammo LRM-10",
+      "LRM 10",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "PPC",
+      "PPC",
+      "PPC",
+      "PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The predecessor to Clan Steel Viper's Crossbow OmniMech, the original Crossbow first saw battlefield action for the Lyran Commonwealth in 2468. The 60-ton 'Mech is speedy for its era, capable of 86 km/h. This came at the expense of armor, however, as the Crossbow is only protected by eight tons of armor.",
+    "capabilities": "A fire support 'Mech, the Crossbow carries a pair of CDC Double-Five LRM-10s. A pair of Rassal Blue-Beam Medium Lasers back them up at close range. The four weapons are all mounted in the arms, which were envisaged as easily-repairable turrets as much as arms. It is this configuration that seems to have been the inspiration for the Clan OmniMech. The Crossbow’s only torso-mounted weapon is an A-4 “Lightning” Series PPC. The lack of any additional heat sinks leaves the PPC as a medium-range weapon or an alternative when the Crossbow runs out of missiles.",
+    "deployment": "",
+    "history": "The production model, the 6B, came a few years later. The heavy 'Mech was the first produced by Arcturan Arms and the third homegrown BattleMech produced in the Commonwealth. Arcturan Arms fell on hard times when the capital was relocated from Arcturus to Tharkad, forcing them to shut down the factory in 2490 after producing only a few hundred Crossbows. MacEnroe Motors bought out the financially troubled company in 2541, which shut down Crossbow production in 2550."
+  },
+  "manufacturers": {
+    "primary": [
+      "Arcturan Arms",
+      "MacEnroe Motors"
+    ],
+    "primaryFactory": [
+      "Arcturus"
+    ],
+    "systems": {
+      "chassis": "Arc Walker 6X-B",
+      "engine": "AA Eterna 300",
+      "armor": "Diamond Skin Beta Series",
+      "jumpjet": "Unknown",
+      "communications": "Arc Signal 1100",
+      "targeting": "Arc Walker T&T Prime"
+    }
+  }
+}

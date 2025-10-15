@@ -1,0 +1,144 @@
+{
+  "name": "Linebacker",
+  "chassis": "Linebacker",
+  "model": "E",
+  "mulId": 1890,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3061,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "390 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 25,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 24,
+    "leftLeg": 24,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 192
+  },
+  "quirks": [
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "ATM 6",
+      "location": "LA"
+    },
+    {
+      "type": "ATM 6",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLATM6 (omnipod)",
+      "CLATM6 (omnipod)",
+      "CLATM6 (omnipod)",
+      "Clan Ammo ATM-6 (omnipod)",
+      "Clan Ammo ATM-6 ER (omnipod)",
+      "Clan Ammo ATM-6 HE (omnipod)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "ATM 6"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLATM6 (omnipod)",
+      "CLATM6 (omnipod)",
+      "CLATM6 (omnipod)",
+      "Clan Ammo ATM-6 (omnipod)",
+      "Clan Ammo ATM-6 ER (omnipod)",
+      "Clan Ammo ATM-6 HE (omnipod)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "ATM 6"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERLargeLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLightActiveProbe (omnipod)",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

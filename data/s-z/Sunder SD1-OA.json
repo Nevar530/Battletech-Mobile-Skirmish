@@ -1,0 +1,178 @@
+{
+  "name": "Sunder",
+  "chassis": "Sunder",
+  "model": "SD1-OA",
+  "mulId": 3125,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3056,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 90,
+  "engine": "360 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 41,
+    "rightTorso": 28,
+    "leftTorso": 28,
+    "rightArm": 30,
+    "leftArm": 30,
+    "rightLeg": 33,
+    "leftLeg": 33,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 264
+  },
+  "quirks": [
+    "ext_twist"
+  ],
+  "weapons": [
+    {
+      "type": "Gauss Rifle",
+      "location": "LA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "CT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "CT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "ISGaussRifle (omnipod)",
+      "Gauss Rifle"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISERPPC (omnipod)",
+      "ISERPPC (omnipod)",
+      "ISERPPC (omnipod)",
+      "ER PPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumPulseLaser (omnipod)",
+      "IS Gauss Ammo (omnipod)",
+      "IS Gauss Ammo (omnipod)",
+      "Medium Pulse Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumPulseLaser (omnipod)",
+      "IS Ammo LRM-5 (omnipod)",
+      "IS Ammo LRM-5 (omnipod)",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "LRM 5 (omnipod)",
+      "LRM 5 (omnipod)",
+      "LRM 5",
+      "LRM 5"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "LRM 5 (omnipod)",
+      "Sensors",
+      "Life Support",
+      "LRM 5"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Sunder OmniMech is a product of the Draconis Combine's initiative to reengineer captured Clan Loki and Thor chassis for similar roles. Though initially plagued by actuator wear and missile exhaust issues, it was not until late 3056 that the Sunder was deployed widely.",
+    "capabilities": "This ninety-ton behemoth is powered by a Hermes 360 XL engine, enabling a top speed of 65 km/h, which is respectable for its weight class. The Sunder is armored with sixteen and a half tons of protection and equipped with fifteen double heat sinks to manage the heat load from its diverse weaponry. The Sunder can carry up to 36 tons of pod-mounted equipment. Despite its slower speed and the quality difference between Inner Sphere and Clan technology, the Sunder performs its intended roles marginally well.",
+    "deployment": "Primarily designed for long-range engagements, the ER PPC and Gauss Rifle provide significant direct fire support while the trio of LRM-5 launchers allow for indirect fire support, making it a valuable asset in holding enemy units at distance or softening targets before they close in. The Medium Pulse Lasers ensure it has enough short-range firepower to deter lighter, faster mechs attempting to breach its minimum effective range.",
+    "history": "<p>Sunders were key players in Operation Bulldog, particularly along the Clan border. Their 36-ton pod space, utilized to peak efficiency, allowed them to compete favorably with Clan Masakari and Gladiator OmniMechs. Many Sunders were also equipped as lance or company C3 nodes, significantly enhancing DCMS units' performance. They continued to prove their worth in subsequent conflicts like the Lyons Thumb incident and the Ghost Bear War, showcasing the strategic advantages of OmniMech technology in protracted engagements. Noteworthy engagements and MechWarriors have contributed to the Sunder's reputation.</p> <p>During Operation Bulldog, a commander of the Fourth Pesht Regulars distinguished himself against Nova Cat opponents, later earning renown on Kiamba by challenging a Second Bear Regulars Trinary's Star Captain to single combat, thereby allowing his unit to regroup. Another MechWarrior known as 'the Scourge of Addicks' gained repute for her unique configurations specializing in anti-infantry warfare, employing flamers, machine guns, and Inferno SRM launchers. These historical narratives underline the Sunder's versatility and the valor of its pilots in various combat scenarios. The production of this OmniMech in the Draconis Combine was halted due to the destruction of the Luthien Armor Works factory by Word of Blake forces in 3068.</p>"
+  },
+  "manufacturers": {
+    "primary": [
+      "StarCorps Industries",
+      "StarCorps Industries",
+      "Luthien Armor Works",
+      "StarCorps Industries",
+      "StarCorps Industries"
+    ],
+    "primaryFactory": [
+      "Crofton",
+      "Loburg",
+      "Luthien",
+      "Son Hoa",
+      "St. Ives"
+    ],
+    "systems": {
+      "chassis": "Alshain Class 98 Omni",
+      "engine": "Hermes 360 XL",
+      "armor": "Mitchell Argon",
+      "communications": "Sipher Security Plus",
+      "targeting": "Matabushi Sentinel"
+    }
+  }
+}

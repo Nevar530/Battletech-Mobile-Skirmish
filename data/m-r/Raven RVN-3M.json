@@ -1,0 +1,157 @@
+{
+  "name": "Raven",
+  "chassis": "Raven",
+  "model": "RVN-3M",
+  "mulId": 5444,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3053,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 35,
+  "engine": "210 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 6,
+    "centerTorso": 11,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 8,
+    "leftLeg": 8,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 80
+  },
+  "quirks": [
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Narc",
+      "location": "LA"
+    },
+    {
+      "type": "LRM 15",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISNarcBeacon",
+      "ISNarcBeacon",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "Narc"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISSmallPulseLaser",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "Small Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Small Laser",
+      "IS Ammo LRM-15 Narc-capable",
+      "IS Ammo LRM-15 Narc-capable",
+      "ISNarc Pods",
+      "ISNarc Pods",
+      "ISCASE",
+      "Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "LRM 15",
+      "LRM 15",
+      "LRM 15",
+      "Small Laser",
+      "Small Laser",
+      "LRM 15"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Heat Sink",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "name": "Deva",
+  "chassis": "Deva",
+  "model": "C-DVA-OA Dominus",
+  "mulId": 886,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3069,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 70,
+  "engine": "280 Light Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 IS Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 216
+  },
+  "quirks": [
+    "imp_com",
+    "imp_sensors",
+    "bad_rep_clan",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "Rotary AC/5",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "MML 7",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Light PPC",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC5 (OMNIPOD)",
+      "ISRotaryAC5 (OMNIPOD)",
+      "ISRotaryAC5 (OMNIPOD)",
+      "ISRotaryAC5 (OMNIPOD)",
+      "ISRotaryAC5 (OMNIPOD)",
+      "ISRotaryAC5 (OMNIPOD)",
+      "ISERSmallLaser (OMNIPOD)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Rotary AC/5",
+      "ER Small Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISMML7 (OMNIPOD)",
+      "ISMML7 (OMNIPOD)",
+      "ISMML7 (OMNIPOD)",
+      "ISMML7 (OMNIPOD)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "MML 7"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISRotaryAC5 Ammo (OMNIPOD)",
+      "ISRotaryAC5 Ammo (OMNIPOD)",
+      "ISRotaryAC5 Ammo (OMNIPOD)",
+      "IS Ammo MML-7 LRM (OMNIPOD)",
+      "IS Ammo MML-7 SRM (OMNIPOD)",
+      "ISCASE (OMNIPOD)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERMediumLaser (OMNIPOD)",
+      "ISERMediumLaser (OMNIPOD)",
+      "ISC3iUnit",
+      "ISC3iUnit",
+      "ISTargeting Computer (OMNIPOD)",
+      "ISTargeting Computer (OMNIPOD)",
+      "ISTargeting Computer (OMNIPOD)",
+      "ISTargeting Computer (OMNIPOD)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Light PPC (OMNIPOD)",
+      "Light PPC (OMNIPOD)",
+      "Light PPC"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

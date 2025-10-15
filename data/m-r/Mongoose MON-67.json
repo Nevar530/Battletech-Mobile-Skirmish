@@ -1,0 +1,134 @@
+{
+  "name": "Mongoose",
+  "chassis": "Mongoose",
+  "model": "MON-67",
+  "mulId": 2210,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2830,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Striker",
+  "mass": 25,
+  "engine": "200 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 12,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 88
+  },
+  "quirks": [
+    "command_mech",
+    "easy_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Small Laser",
+      "Sensors",
+      "Life Support",
+      "Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "The Mongoose BattleMech was introduced in 2660 as a deep recon 'Mech and a direct competitor (and hopeful replacement) for the Locust.",
+    "capabilities": "The Kell/D Chassis around which the Mongoose is built uses Endo Steel construction techniques that, combined with an all energy weapon armament and standard engine, made the Mongoose very sturdy for its size. This also allows it to mount five tons of Ferro-Fibrous armor, much more than other light 'Mechs and gives the Mongoose the capability to survive a direct PPC hit to the chest without suffering internal damage. A top speed of 129 km/h and cruising speed of 86 km/h, one of the fastest of any 'Mech, makes up for the lack of jump jets on the design. Only ten heat sinks means the 'Mech is liable to run hot if the pilot is not careful, especially when the cooling jacket protecting the center torso laser fails",
+    "deployment": "The MON-67 is the downgraded version of the MON-66 Mongoose introduced in 2830. The MON-67 removes the active probe and replaces the Endo Steel structure with a standard structure while the armor has been downgraded to standard plate armor. To keep the same level of protection as before, half a ton of armor has been added to the Mongoose.",
+    "history": "As the 'Mech reached Star League Defense Force units though, it was found that the Beagle Active Probe on the Mongoose gave it extremely good command and control features that endeared it to light 'Mech command lances. Within eight years of its introduction the Mongoose was the standard command 'Mech for all light and recon lances. Due to its advanced electronics the Mongoose was capable of coordinating the maneuverings of an entire company of light 'Mechs and at the same time could engage medium 'Mechs with some success thanks to its weaponry and armoring. Its popularity ensured that the Mongoose had a target on its back after the dissolution of the Star League. The start of the Succession Wars went poorly for the Mongoose when its factory on Ozawa was destroyed in 2837. The loss of the factory meant the 'Mech was already becoming a rarity by the Second Succession War and with many of its components now lostech surviving Mongooses were forced to make-do with inferior spare parts. This was especially true for the Beagle Active Probe, and by the end of the Succession Wars not a single operational Mongoose serving the Great Houses had a functioning example. This trend was reversed with the recovery of the Helm Memory Core and many Mongooses were rebuilt to their former glory. ComStar was also revealed to have kept many Mongooses in their secret storage facilities which they used to outfit the Com Guards. Diplan 'MechYards eventually restarted Mongoose production from their factory on Aix-la-Chapelle and the design would continue to see use for years to come, including during the Jihad."
+  },
+  "manufacturers": {
+    "primary": [
+      "Field Refit"
+    ],
+    "primaryFactory": [
+      "Various"
+    ],
+    "systems": {
+      "chassis": "Kell/D",
+      "engine": "Nissan 200",
+      "armor": "Mitchell GA3",
+      "communications": "ON-5",
+      "targeting": "ON-6"
+    }
+  }
+}

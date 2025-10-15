@@ -1,0 +1,168 @@
+{
+  "name": "Avalanche",
+  "chassis": "Avalanche",
+  "model": "AVL-1OB",
+  "mulId": 6398,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3133,
+  "source": "TRO: 3145 Draconis Combine",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 50,
+  "engine": "250 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 24,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightArm": 15,
+    "leftArm": 15,
+    "rightLeg": 21,
+    "leftLeg": 21,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 160
+  },
+  "quirks": [
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "Light PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Thunderbolt 5",
+      "location": "LT"
+    },
+    {
+      "type": "Thunderbolt 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Light PPC (omnipod)",
+      "Light PPC (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Light PPC",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Light PPC (omnipod)",
+      "Light PPC (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Light PPC",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Thunderbolt 5 (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Thunderbolt 5"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Thunderbolt 5 (omnipod)",
+      "IS Ammo Thunderbolt-5 (omnipod)",
+      "IS Ammo Thunderbolt-5 (omnipod)",
+      "ISCASE",
+      "IS Endo Steel",
+      "Thunderbolt 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "IS Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Avalanche is a thirty-second century medium OmniMech, first deployed by the Draconis Combine and Clan Nova Cat.",
+    "capabilities": "Constructed using Inner Sphere technologies, the 'Mech design was envisioned with economics in mind. The Avalanche is powered by a 250-rated fusion engine, giving it a modest maximum speed of 86 km/h, while its hull is protected by 10 tons of standard armor, which gives it less armor protection than other designs of the time. Mobility is enhanced with five jump jets, and CASE mounted in its right torso protects against complete destruction from a magazine detonation. Additional equipment and weapons are allotted 16 tons of pod space, giving decent flexibility.",
+    "deployment": "A long-range fighter, this configuration features a light PPC and ER medium laser in each arm, while each of its side torsos receives a Thunderbolt 5 missile launcher, fed by two tons of ammunition located in the right torso.",
+    "history": "The 'Mech was conceived as part of a joint project between House Kurita and its then ally Clan Nova Cat, and served as part of an effort to aid in the rebuilding the Clan's depleted touman as a result of the aftermath of the 2nd Combine-Dominion War that ended in 3101. The 'Mech would be developed over the next 30 years, however development would prove to be challenging for both groups. After decades of development, the Avalanche would still have a number of design flaws which would give it a bad reputation among warriors of Clan Nova Cat. The 'Mech would soon be deployed shortly before House Kurita's invasion of the Republic of the Sphere, where it would serve among House Kurita's elite forces. After the destruction of Clan Nova Cat, as a result of its revolt against Coordinator Yori Kurita, the dead Clan's allotment of Avalanches would be sold off to other Inner Sphere powers."
+  },
+  "manufacturers": {
+    "primary": [
+      "Luthien Armor Works"
+    ],
+    "primaryFactory": [
+      "Luthien"
+    ],
+    "systems": {
+      "chassis": "Luthien Class M Endo Steel",
+      "engine": "Hermes 250",
+      "armor": "Mitchel Argon Standard with CASE",
+      "jumpjet": "Icarus Standard",
+      "communications": "Sipher CommCon SCU-9",
+      "targeting": "Matabushi Stalker"
+    }
+  }
+}

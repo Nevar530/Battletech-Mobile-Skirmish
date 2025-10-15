@@ -1,0 +1,154 @@
+{
+  "name": "Argus",
+  "chassis": "Argus",
+  "model": "AGS-6F",
+  "mulId": 5684,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3078,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "300 Light Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 27,
+    "leftLeg": 27,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 195
+  },
+  "quirks": [
+    "easy_maintain",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISSRM6",
+      "ISSRM6",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISAC20",
+      "ISAC20",
+      "ISAC20",
+      "ISAC20",
+      "ISAC20",
+      "ISAC20",
+      "ISAC20",
+      "ISAC20",
+      "ISAC20",
+      "ISAC20"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "ISERMediumLaser",
+      "ISSRM6 Ammo",
+      "ISCASE",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous",
+      "1 ISERMediumLaser"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "ISERMediumLaser",
+      "ISAC20 Ammo",
+      "ISAC20 Ammo",
+      "ISAC20 Ammo",
+      "ISAC20 Ammo",
+      "ISCASE",
+      "Endo-Steel",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous",
+      "1 ISERMediumLaser"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

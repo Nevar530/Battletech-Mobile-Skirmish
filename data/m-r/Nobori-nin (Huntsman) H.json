@@ -1,0 +1,198 @@
+{
+  "name": "Nobori-nin",
+  "chassis": "Nobori-nin",
+  "model": "H",
+  "mulId": 2294,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3063,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 50,
+  "engine": "250 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 25,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 24,
+    "leftLeg": 24,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 169
+  },
+  "quirks": [
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "Heavy Medium Laser",
+      "Heavy Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "ER Large Laser",
+      "Heavy Medium Laser",
+      "Heavy Medium Laser",
+      "Heavy Small Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Jump Jet",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Jump Jet",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "CLECMSuite (omnipod)"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "CLActiveProbe (omnipod)"
+    ]
+  },
+  "text": {
+    "overview": "Exemplifying the OmniMech concept, the flexible Huntsman was the premier medium 'Mech of Clan Nova Cat during Operation REVIVAL.",
+    "capabilities": "No expense has been spared in the construction of this front-line OmniMech that uses an Extra-Light Engine, Endo Steel structure, and nine tons of Ferro-Fibrous armor. Five jump jets enable it to leap up to 150 meters at a time.",
+    "deployment": "A powerful reconnaissance unit, the Huntsman H carries an Active Probe and an ECM Suite. It also mounts a pair of ER Large Lasers, a Heavy Small Laser, and four Heavy Medium Lasers that are all tied to an advanced Targeting Computer. Six additional double heat sinks strain to keep heat levels manageable.",
+    "history": "First seen within the 119th Nova Cat Striker Cluster during the Battle of Luthien, a Draconis Combine Mustered Soldiery intelligence officer dubbed the OmniMech with the name of \"Nobori-nin\" (Japanese for \"Banner-bearer\") due to the single fin-like projection rising from the back of the 'Mech reminding him of the banner samurai worn on their backs in feudal Japan. Prized for its flexibility across a wide range of opponents and battlefield conditions, the Huntsman was almost exclusively a Nova Cat design during the initial Clan Invasion, but prior to the Word of Blake Jihad had entered service with Clans Diamond Shark, Cloud Cobra and Star Adder."
+  },
+  "manufacturers": {
+    "primary": [
+      "Irece Alpha",
+      "Avon Alpha",
+      "and Brim Ironworks",
+      "Clan Protectorate Arms"
+    ],
+    "primaryFactory": [
+      "Irece",
+      "Avon",
+      "Brim",
+      "Asellus Australis"
+    ],
+    "systems": {
+      "chassis": "Mynx Type Medium Endo Steel",
+      "engine": "250 Consolidated XL Fusion",
+      "armor": "Alpha Compound Ferro-Fibrous",
+      "jumpjet": "Northrup Starlifters M50s Standard"
+    }
+  }
+}

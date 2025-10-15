@@ -1,0 +1,189 @@
+{
+  "name": "Doloire",
+  "chassis": "Doloire",
+  "model": "DLR-OC",
+  "mulId": 6681,
+  "config": "Biped Omnimech",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3121,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 80,
+  "engine": "320 XL (Clan) Engine",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 38,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 232
+  },
+  "quirks": [
+    "multi_trac",
+    "command_mech"
+  ],
+  "weapons": [
+    {
+      "type": "Streak SRM 6",
+      "location": "LL"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "RL"
+    },
+    {
+      "type": "LRM 20",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "C3 Master with TAG",
+      "location": "LT"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "IS Lance (omnipod)",
+      "IS Lance (omnipod)",
+      "IS Lance (omnipod)",
+      "IS Lance (omnipod)",
+      "ISAES",
+      "ISAES",
+      "ISAES",
+      "ISAES"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLArtemisV (omnipod)",
+      "CLArtemisV (omnipod)",
+      "ISAES",
+      "ISAES",
+      "ISAES",
+      "ISAES",
+      "LRM 20"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERSmallPulseLaser (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "ISC3MasterUnit (omnipod)",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "ER Small Pulse Laser",
+      "C3 Master with TAG"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLStreakSRM6 (omnipod)",
+      "CLStreakSRM6 (omnipod)",
+      "Clan Streak SRM 6 Ammo (omnipod)",
+      "Clan Streak SRM 6 Ammo (omnipod)",
+      "Clan Ammo LRM-20 (Clan) Artemis V-capable (omnipod)",
+      "Clan Ammo LRM-20 (Clan) Artemis V-capable (omnipod)",
+      "Clan Ammo LRM-20 (Clan) Artemis V-capable (omnipod)",
+      "ISCASEII (omnipod)",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "Streak SRM 6"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo-Composite",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLStreakSRM6 (omnipod)",
+      "CLStreakSRM6 (omnipod)",
+      "Streak SRM 6"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLStreakSRM6 (omnipod)",
+      "CLStreakSRM6 (omnipod)",
+      "Streak SRM 6"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

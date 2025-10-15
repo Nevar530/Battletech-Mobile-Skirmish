@@ -1,0 +1,198 @@
+{
+  "name": "Prometheus",
+  "chassis": "Prometheus",
+  "mulId": 4871,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3053,
+  "source": "Unbound",
+  "rulesLevel": 4,
+  "role": "Sniper",
+  "mass": 75,
+  "engine": "375 XL Fusion Engine (Inner Sphere)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "13 Double (Inner Sphere)",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 8,
+    "centerTorso": 35,
+    "rightTorso": 25,
+    "leftTorso": 25,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 28,
+    "leftLeg": 28,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 206
+  },
+  "quirks": [
+    "non_standard",
+    "prototype"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLMG",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLMG",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLMG",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLMG",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLMG",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLLargePulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLERPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLLRM15",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLSRM6",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLargePulseLaser",
+      "CLLargePulseLaser",
+      "CLMediumPulseLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLLargePulseLaser",
+      "1 CLMediumPulseLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLERPPC",
+      "CLERPPC",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLERPPC"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Life Support",
+      "CLLRM15",
+      "CLLRM15",
+      "CLSRM6",
+      "CLMG",
+      "CLMG",
+      "CLMG",
+      "CLLRM15 Ammo",
+      "CLSRM6 Ammo",
+      "1 CLMG",
+      "1 CLMG",
+      "1 CLLRM15",
+      "1 CLSRM6"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Life Support",
+      "CLLRM15",
+      "CLLRM15",
+      "CLSRM6",
+      "CLMG",
+      "CLMG",
+      "CLMG",
+      "CLLRM15 Ammo",
+      "Ferro-Fibrous",
+      "1 CLMG",
+      "1 CLMG",
+      "1 CLMG"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "Cockpit",
+      "Sensors"
+    ],
+    "head": [
+      "Sensors",
+      "Sensors",
+      "CLMG Ammo (100)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

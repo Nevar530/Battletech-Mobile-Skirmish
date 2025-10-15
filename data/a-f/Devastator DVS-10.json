@@ -1,0 +1,168 @@
+{
+  "name": "Devastator",
+  "chassis": "Devastator",
+  "model": "DVS-10",
+  "mulId": 7984,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3142,
+  "source": "Record Sheets: 3150",
+  "rulesLevel": 3,
+  "mass": 100,
+  "engine": "400 XL Engine(IS)",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "18 IS Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 47,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 40,
+    "leftLeg": 40,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 295
+  },
+  "quirks": [
+    "hyper_actuator",
+    "searchlight"
+  ],
+  "weapons": [
+    {
+      "type": "Large Re-engineered Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Large Re-engineered Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Re-engineered Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Re-engineered Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder (ARMORED)",
+      "Upper Arm Actuator",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "IS Endo-Composite",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "Large Re-engineered Laser"
+    ],
+    "rightArm": [
+      "Shoulder (ARMORED)",
+      "Upper Arm Actuator",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "Large Re-engineered Laser",
+      "IS Endo-Composite",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "Large Re-engineered Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "IS Endo-Composite"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Supercharger (ARMORED)",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro (ARMORED)",
+      "Gyro (ARMORED)",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Re-engineered Laser",
+      "Medium Re-engineered Laser",
+      "Medium Re-engineered Laser",
+      "Medium Re-engineered Laser",
+      "Medium Re-engineered Laser",
+      "Medium Re-engineered Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip (ARMORED)",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip (ARMORED)",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

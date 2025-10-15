@@ -1,0 +1,222 @@
+{
+  "name": "Lobo",
+  "chassis": "Lobo",
+  "model": "3",
+  "mulId": 5669,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3077,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 40,
+  "engine": "240 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Clan Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 18,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 12,
+    "leftArm": 12,
+    "rightLeg": 19,
+    "leftLeg": 19,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 134
+  },
+  "quirks": [
+    "ext_twist",
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Machine Gun Array",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun Array",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "LT"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "LT"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RT"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLMG",
+      "CLMG",
+      "CLMG",
+      "CLMG",
+      "CLMGA",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Machine Gun Array",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLMG",
+      "CLMG",
+      "CLMG",
+      "CLMG",
+      "CLMGA",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Machine Gun Array",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLStreakSRM4",
+      "CLMediumPulseLaser",
+      "CLAPGaussRifle",
+      "Clan Streak SRM 4 Ammo",
+      "Clan Ferro-Fibrous",
+      "Medium Pulse Laser",
+      "Streak SRM 4",
+      "AP Gauss Rifle"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERPPC",
+      "CLERPPC",
+      "CLStreakSRM4",
+      "CLAPGaussRifle",
+      "Clan Machine Gun Ammo - Half",
+      "CLAPGaussRifle Ammo",
+      "Clan Endo Steel",
+      "ER PPC",
+      "Streak SRM 4",
+      "AP Gauss Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

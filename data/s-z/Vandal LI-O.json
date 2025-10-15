@@ -1,0 +1,152 @@
+{
+  "name": "Vandal",
+  "chassis": "Vandal",
+  "model": "LI-O",
+  "mulId": 6461,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3142,
+  "source": "TRO: 3145 Capellan Confederation",
+  "rulesLevel": 4,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "325 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 32,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 200
+  },
+  "quirks": [
+    "variable_range_long"
+  ],
+  "weapons": [
+    {
+      "type": "Large VSP Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Rotary AC/5",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLargeVSPLaser (omnipod)",
+      "ISLargeVSPLaser (omnipod)",
+      "ISLargeVSPLaser (omnipod)",
+      "ISLargeVSPLaser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Large VSP Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISERSmallLaser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Rotary AC/5",
+      "ER Small Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Life Support",
+      "Supercharger",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Life Support",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISCASEII"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Cockpit",
+      "Sensors"
+    ],
+    "head": [
+      "Sensors",
+      "Sensors",
+      "ISAngelECMSuite (omnipod)",
+      "ISAngelECMSuite (omnipod)",
+      "ISC3BoostedSystemSlaveUnit (omnipod)",
+      "ISC3BoostedSystemSlaveUnit (omnipod)"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

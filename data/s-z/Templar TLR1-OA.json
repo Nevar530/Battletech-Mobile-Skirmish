@@ -1,0 +1,173 @@
+{
+  "name": "Templar",
+  "chassis": "Templar",
+  "model": "TLR1-OA",
+  "mulId": 5195,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3062,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 85,
+  "engine": "340 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 44,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 28,
+    "leftArm": 28,
+    "rightLeg": 36,
+    "leftLeg": 36,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 263
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Ultra AC/10",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 6",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISERPPC (omnipod)",
+      "ISERPPC (omnipod)",
+      "ISERPPC (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISUltraAC10 (omnipod)",
+      "ISStreakSRM6 (omnipod)",
+      "ISStreakSRM6 (omnipod)",
+      "IS Endo Steel",
+      "Ultra AC/10",
+      "Streak SRM 6"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "ISTargeting Computer (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)",
+      "IS Ultra AC/10 Ammo (omnipod)",
+      "IS Ultra AC/10 Ammo (omnipod)",
+      "IS Ultra AC/10 Ammo (omnipod)",
+      "IS Streak SRM 6 Ammo (omnipod)",
+      "ISCASE",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGuardianECMSuite (omnipod)",
+      "ISGuardianECMSuite (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "Intended for long range combat, the Templar A is configured to engage an enemy at long ranges. To do this, it carries an ER PPC as its primary weapon backed up by an Ultra Autocannon/10 which can fire at twice the rate of a standard autocannon. Both of these are linked to an advanced Targeting Computer for increased accuracy. For close combat, the Templar A has a Streak SRM-6 launcher and for increased mobility this configuration has four jump jets, letting it jump up to one hundred and twenty meters. To protect the 'Mech from enemy electronic warfare systems, the 'Mech has a Guardian ECM Suite and to handle the 'Mech's heavy heat load, it has an additional double heat sink.",
+    "deployment": "The Templar is built on a lightweight Kallon Type XIX Endo Steel chassis and is powered by a KalTek 340 XL engine that gives the 'Mech a top speed of 64.8 km/h while sacrificing durability. The Templar has thirteen fixed double heat sinks and is armored with sixteen and a half tons of Starshield A armor with CASE fixed in the right torso. Overall, this allows the Templar to have forty tons of free pod space for weapons and equipment which the 'Mech uses effectively in its various configurations.",
+    "history": "With a noticeable lack of OmniMechs designed in the Federated Suns, Field Marshal Duke George Hasek went over the heads of the Department of the Quartermaster and commissioned Kallon Industries to design an assault OmniMech and backed the project with his own considerable financial resources. The resulting 'Mech is a force to be reckoned with on the modern battlefield."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kallon Industries"
+    ],
+    "primaryFactory": [
+      "Talon"
+    ],
+    "systems": {
+      "chassis": "Kallon Type XIX Endo Steel",
+      "engine": "KalTek 340 Extralight",
+      "armor": "Starshield A with CASE",
+      "communications": "Newberg Telescan 17",
+      "targeting": "Spar 3C MegaTrak"
+    }
+  }
+}

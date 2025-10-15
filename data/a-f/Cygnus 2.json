@@ -1,0 +1,168 @@
+{
+  "name": "Cygnus",
+  "chassis": "Cygnus",
+  "model": "2",
+  "mulId": 782,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3075,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 95,
+  "engine": "380 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Clan Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 38,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 31,
+    "leftArm": 31,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 14,
+    "rearLeftTorso": 14,
+    "total": 280
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "HAG/40",
+      "location": "LA"
+    },
+    {
+      "type": "HAG/40",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "HAG/40"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "CLHAG40",
+      "HAG/40"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "Hyper-Assault Gauss Rifle/40 Ammo",
+      "Hyper-Assault Gauss Rifle/40 Ammo",
+      "Hyper-Assault Gauss Rifle/40 Ammo",
+      "Hyper-Assault Gauss Rifle/40 Ammo",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "Hyper-Assault Gauss Rifle/40 Ammo",
+      "Hyper-Assault Gauss Rifle/40 Ammo",
+      "Hyper-Assault Gauss Rifle/40 Ammo",
+      "Hyper-Assault Gauss Rifle/40 Ammo",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

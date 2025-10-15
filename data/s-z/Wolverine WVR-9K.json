@@ -1,0 +1,202 @@
+{
+  "name": "Wolverine",
+  "chassis": "Wolverine",
+  "model": "WVR-9K",
+  "mulId": 3581,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3074,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 55,
+  "engine": "275 Light Engine",
+  "structure": "Endo Steel",
+  "myomer": "Triple-Strength",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 27,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 18,
+    "leftArm": 18,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 185
+  },
+  "quirks": [
+    "command_mech",
+    "ext_twist",
+    "imp_com",
+    "pro_actuator",
+    "ubiquitous_clan",
+    "ubiquitous_is",
+    "cramped_cockpit"
+  ],
+  "weapons": [
+    {
+      "type": "Snub-Nose PPC",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun Array",
+      "location": "RA"
+    },
+    {
+      "type": "B-Pod",
+      "location": "RT"
+    },
+    {
+      "type": "B-Pod",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 4",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "TSM",
+      "TSM",
+      "TSM"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISSNPPC",
+      "ISSNPPC",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "ISLMGA",
+      "TSM",
+      "Snub-Nose PPC",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun Array"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "ISBPod",
+      "SRM 4",
+      "IS Ammo SRM-4",
+      "IS Light Machine Gun Ammo - Half",
+      "ISCASE",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "B-Pod",
+      "SRM 4"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "ISBPod",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "B-Pod"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "TSM"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "TSM"
+    ]
+  },
+  "text": {
+    "overview": "The Wolverine commonly served as a heavy scout unit. Often deployed in situations where heavy opposition could easily destroy lighter BattleMechs, it has had a reliable service record ever since its initial deployment within the Star League Defense Force. With respectable armor, speed, and firepower, it can easily outfight lighter enemy scouts and defend itself capably if ambushed.",
+    "capabilities": "The autocannon, missile system and laser found on most Wolverines are all reliable and well-storied systems. Unfortunately, the jump jets suffer from an opposing reputation; the Northrup 12000's are underpowered and prone to breakdowns. The one defining system to be found on the Wolverine, however, are its superb Tek BattleCom and Garret T11-b communications systems. The comgear, regardless of the manufacturer, is well-shielded and features a multi-channel transmitter and receiver, making the Wolverine a powerful Command BattleMech for scouting formations.",
+    "deployment": "The 9K Wolverine introduced in 3074 uses a Light Engine for power. The resulting decrease in tonnage necessitated a complete revision of the weapon systems. Its main gun is the Snub-Nose PPC mounted in the right arm. An SRM-4 is the only other heat-building weapon mounted on the 'Mech. A trio of Light Machine Guns are also in the arm, linked to a Machine Gun Array to deter infantry. To counteract battle armor, the 9K carries a pair of B-Pods. This Wolverine variant carries a Sword in its left hand and a C3 Slave in the head to feed targeting telemetry back to lance-mates. Triple Strength Myomers make the sword more powerful and the design faster when they heat up, but a MechWarrior must disengage some of the ten double heat sinks in order to build the necessary heat. In light of the heavier engine, the inclusion of a Compact Gyro seems unhelpful at best.",
+    "history": "A widespread part of every major military, the Wolverine has manufacturing plants scattered throughout the entire Inner Sphere. While certain states-notably the Free Worlds League-have larger numbers of the design, only the Capellans began facing a shortage of the Wolverine after the loss of their Nanking facilities."
+  },
+  "manufacturers": {
+    "primary": [
+      "Victory Industries (formerly Norse BattleMech Works)"
+    ],
+    "primaryFactory": [
+      "Marduk"
+    ],
+    "systems": {
+      "chassis": "Crucia-A",
+      "engine": "Nissan 275XL",
+      "armor": "Starshield A with CASE",
+      "jumpjet": "Northrup 12000",
+      "communications": "Garret T11-b",
+      "targeting": "Cat Eyes 5"
+    }
+  }
+}

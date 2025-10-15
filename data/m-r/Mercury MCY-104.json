@@ -1,0 +1,176 @@
+{
+  "name": "Mercury",
+  "chassis": "Mercury",
+  "model": "MCY-104",
+  "mulId": 2170,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3069,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 20,
+  "engine": "160 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "MASC",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 8,
+    "rightTorso": 7,
+    "leftTorso": 7,
+    "rightArm": 6,
+    "leftArm": 6,
+    "rightLeg": 8,
+    "leftLeg": 8,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 69
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "2 ISERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISImprovedC3CPU",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISTAG",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERMediumLaser",
+      "ISERMediumLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "2 ISERMediumLaser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISImprovedC3CPU",
+      "ISImprovedC3CPU",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISImprovedC3CPU"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMASC",
+      "ISTAG",
+      "1 ISTAG"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERSmallLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISERSmallLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "The Mercury debuted for the first time in 2742, intended as a replacement for the aging Wasps and Stingers in use by the Star League Defense Force. Hailed as the beginning of a new age in 'Mech design, the Mercury was faster and better-armed than its competition without sacrificing armor protection.",
+    "capabilities": "It also featured an advancement in weapons installation, making use of a modular replacement system to allow for easier repairs. The ideal scout and raider, sales of the Mercury were limited exclusively to the SLDF.",
+    "deployment": "An upgrade fielded by the Word of Blake during the Jihad in 3069, the 104 uses an XL Engine for power. This allows the addition of an extra ER Medium Laser and TAG to the 102, with the remaining ton going into improving the armor coverage. The heat sinks are not upgraded, however, so this Mercury could find itself in heat trouble.",
+    "history": "After the Amaris Civil War and the dissolution of the Star League, those SLDF units which still fielded the Mercury were either stationed on Terra or at the Graham IV factory, all of whom left with General Kerensky in the Exodus. In the Succession Wars which followed, the Mercury factories were destroyed and the design teetered on the edge of the abyss. Of those SLDF units which stayed behind, the 3rd Regimental Combat Team had the highest concentration of the 'Mechs, with twelve Mercuries gathered together in the 8th Recon Battalion. All of them were ultimately lost during fighting on Sendai in 2798. As the years wore on those desperate few Mercuries still clinging to existence were increasingly rebuilt in haphazard fashion with less advanced and more shoddy parts until they ceased to look quite like the noble 'Mechs they once were. In the end nothing could be done to stop the decline of the Mercury and it eventually became extinct in the Inner Sphere. It was with some surprise that ComStar unveiled their Com Guards early in the thirty-first century, a brand-new military force fielding a number of extinct designs such as the Mercury. Precentor Martial Anastasius Focht even went so far as to restart three of the mothballed Mercury production lines on Terra to resume production of the original model. A new variant, the MCY-97, was unveiled in time to meet the Clan Invasion (the Clans had also preserved the Mercury, and indeed its revolutionary design was responsible for their development of the OmniMech). One of these lines was eventually turned over to making the Nexus in 3054 while the rest continued to produce so many Mercuries that the 'Mech's life was extended for several more years. This included the dark years of the Jihad, when the Word of Blake also used the Mercury to outfit their Militia."
+  },
+  "manufacturers": {
+    "primary": [
+      "Skobel MechWorks"
+    ],
+    "primaryFactory": [
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Bergan MX II",
+      "engine": "LTV 160 XL",
+      "armor": "Mitchell-091 Ferro-Fibrous",
+      "communications": "DataTech 401",
+      "targeting": "Skyhunter IV Overview"
+    }
+  }
+}

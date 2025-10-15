@@ -1,0 +1,182 @@
+{
+  "name": "Gladiator",
+  "chassis": "Gladiator",
+  "model": "P",
+  "mulId": 1210,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3069,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 95,
+  "engine": "380 XL (Clan) Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 37,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 40,
+    "leftLeg": 40,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 259
+  },
+  "quirks": [
+    "distracting"
+  ],
+  "weapons": [
+    {
+      "type": "Plasma Cannon",
+      "location": "LA"
+    },
+    {
+      "type": "HAG/30",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLPlasmaCannon (omnipod)",
+      "CLPlasmaCannonAmmo (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Plasma Cannon"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "CLHAG30 (omnipod)",
+      "Clan Ferro-Fibrous",
+      "HAG/30"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLMASC",
+      "CLMASC",
+      "CLMASC",
+      "CLMASC",
+      "Heavy Medium Laser",
+      "Heavy Medium Laser",
+      "Heavy Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLLRM10 (omnipod)",
+      "Hyper-Assault Gauss Rifle/30 Ammo (omnipod)",
+      "Hyper-Assault Gauss Rifle/30 Ammo (omnipod)",
+      "Hyper-Assault Gauss Rifle/30 Ammo (omnipod)",
+      "Clan Ammo LRM-10 (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "LRM 10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "Fast and powerful, the Executioner, known as the Gladiator in the Inner Sphere, is an assault OmniMech often deployed by Clan Ghost Bear. Though originally produced by Clan Ghost Bear, design schematics for the Executioner were actually acquired in a trial with Clan Burrock. Using a massive Heavy Force 380 XL Engine, the Executioner has a top speed of 64.8 km/h. A MASC system enhances the top speed to 86.4 km/h (albeit only in short bursts), and four permanently mounted Pryzhok WM10 jump jets give the 'Mech the ability to propel itself 120 meters into the air. This unusual emphasis on speed gives the Executioner unmatched speed for its weight class, as it is often capable of keeping up with 'Mechs twenty or thirty tons lighter than itself. The Executioner also carries thirteen and a half tons of Ferro-Fibrous armor, which is below average for its weight class, but generally adequate. Sixteen double heat sinks are mounted to cool the 'Mech down.",
+    "capabilities": "The Executioner P has a powerful HAG 30 and an LRM-10 rack for long-range combat. Three Heavy Medium Lasers provide short-range firepower. The Executioner P also carries a recently developed Plasma Cannon, which is effectively a supersized Flamer - it elevates heat levels, and is very effective against infantry.",
+    "deployment": "Even though the design has not been used since the 3060s, the Home Clans withdrew it from use after the Wars of Reaving, possibly due to its reputation with the Spheroid Clans like Clan Ghost Bear.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Alshain BattleWorx"
+    ],
+    "primaryFactory": [
+      "Alshain"
+    ],
+    "systems": {
+      "chassis": "Clan Series Assault SXE",
+      "engine": "380 Heavy Force XL",
+      "armor": "Arcadia Compound Delta VII Ferro-Fibrous",
+      "jumpjet": "Pryzhok WM 10",
+      "communications": "Dash-2 Optima",
+      "targeting": "Hakkøn-Morris LAP"
+    }
+  }
+}

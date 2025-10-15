@@ -1,0 +1,181 @@
+{
+  "name": "Nova Cat",
+  "chassis": "Nova Cat",
+  "model": "H",
+  "mulId": 6869,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3099,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "280 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "19 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 35,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 216
+  },
+  "quirks": [
+    "ext_twist",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "LB 20-X AC",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "CLImprovedHeavyLargeLaser (omnipod)",
+      "Improved Heavy Large Laser",
+      "Improved Heavy Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLLBXAC20 (omnipod)",
+      "CLLBXAC20 (omnipod)",
+      "CLLBXAC20 (omnipod)",
+      "CLLBXAC20 (omnipod)",
+      "CLLBXAC20 (omnipod)",
+      "CLLBXAC20 (omnipod)",
+      "CLLBXAC20 (omnipod)",
+      "CLLBXAC20 (omnipod)",
+      "CLLBXAC20 (omnipod)",
+      "Clan LB 20-X AC Ammo (omnipod)",
+      "LB 20-X AC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "Clan LB 20-X Cluster Ammo (omnipod)",
+      "Clan LB 20-X Cluster Ammo (omnipod)",
+      "Clan LB 20-X AC Ammo (omnipod)",
+      "Clan Coolant Pod (omnipod)",
+      "Clan Coolant Pod (omnipod)",
+      "Clan Coolant Pod (omnipod)",
+      "CL Super Charger (omnipod)",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "A Nova Cat heavy OmniMech built to protect the Nova Cats spiritually and militarily.",
+    "capabilities": "The basic components of this design, combined with its characteristics as an OmniMech, make it very simple to repair and leave room for the large amount of double heat sinks most variants carry. 13 ½ tons of standard armor make this 'Mech very difficult to kill.",
+    "deployment": "This Nova Cat configuration was introduced in the Dark Age. It carries an LB 20-X, Medium Pulse Laser, and two Improved Heavy Large Lasers. Nineteen double heat sinks are partnered with three Coolant Pods to keep the heat under control, and an engine Supercharger allows this configuration to reach 86km/h in brief spurts.",
+    "history": "After its defeat on Tukayyid, Khan Severen Leroux of Clan Nova Cat commissioned the Nova Cat OmniMech, meant to protect the Clan both militarily and spiritually. The 12 meter tall 'Mech is inspired by the Night Gyr created by Clan Jade Falcon."
+  },
+  "manufacturers": {
+    "primary": [
+      "Barcella Alpha",
+      "Irece Alpha"
+    ],
+    "primaryFactory": [
+      "Barcella",
+      "Irece"
+    ],
+    "systems": {
+      "chassis": "Mynx Type Heavy",
+      "engine": "Consolidated Fusion 280 Extralight",
+      "armor": "Alpha Compound Plate",
+      "communications": "JNE Integrated",
+      "targeting": "Build 2 CAT TTS"
+    }
+  }
+}

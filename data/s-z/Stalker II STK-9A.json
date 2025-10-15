@@ -1,0 +1,196 @@
+{
+  "name": "Stalker II",
+  "chassis": "Stalker II",
+  "model": "STK-9A",
+  "mulId": 6515,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3137,
+  "source": "TRO: 3145 Free Worlds League",
+  "rulesLevel": 4,
+  "role": "Juggernaut",
+  "mass": 85,
+  "engine": "255 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Hardened (InnerSphere)",
+    "head": 9,
+    "centerTorso": 36,
+    "rightTorso": 25,
+    "leftTorso": 25,
+    "rightArm": 23,
+    "leftArm": 23,
+    "rightLeg": 25,
+    "leftLeg": 25,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 216
+  },
+  "quirks": [
+    "combat_computer",
+    "pro_actuator",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Extended LRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "Extended LRM 10",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "H"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Medium Laser",
+      "Medium Laser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Medium Laser",
+      "Medium Laser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Life Support",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "IS Ammo Extended LRM-10",
+      "IS Ammo Extended LRM-10",
+      "ISCASEII",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Extended LRM 10"
+    ],
+    "rightTorso": [
+      "Life Support",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "IS Ammo Extended LRM-10",
+      "IS Ammo Extended LRM-10",
+      "ISCASEII",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Extended LRM 10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser",
+      "Cockpit",
+      "Sensors",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "head": [
+      "Sensors",
+      "Sensors",
+      "Medium Laser",
+      "Medium Laser",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "Based on the original Star League-era BattleMech, the Stalker II is a complete top-to-bottom redesign that takes advantage of technological advancements gained since the last era of open warfare ended.",
+    "capabilities": "One of the aspects that contributed to the original Stalker's success was variants that used Star League-era fire control systems. In order to recapture this particular aspect of the old design, the Stalker II was fitted with a modern Targeting Computer that ties into its eight Magna Mk. II Medium Lasers. For its long-range firepower, the 'Mech relies on two Irian Weapon Works 10-Tubed Extended-Range LRM Launchers with four tons of ammunition tied to them.",
+    "deployment": "Designed to take great deal of punishment, the Stalker II's armor protection consists of twenty-seven tons of Riese-675 Hardened Armor with CASE II. The Stalker II is powered by a Strand rated-255 Fusion Engine, the very same model used to power its ancient brethren over the centuries. The old power plant proved unable to overcome the weight of new heavy armor and causes the 'Mech's maximum speed to be slowed down to only 43 km/h. Adding to these protected aspects of the design, the cockpit has been moved to the torso, while a Compact Gyro is installed to make room for it.",
+    "history": "Its conception was propelled by the events of Gray Monday in 3132. Irian engineers on Shiro III reviewed records of the classic Stalker over its service life and focused their efforts on taking the best of those qualities for their new design. These efforts resulted in the Stalker II, giving troops an incredibly durable assault 'Mech that is able to withstand horrific amounts of punishment. First deployed by the armed forces of the Duchy of Andurien in 3137, the Stalker II was deployed in all of its major commands. The 'Mech first saw action during the Duchy of Oriente's invasion of Andurien. Shortly after the conflict, Irian began selling the Stalker II to Andurien allies as a means of drumming up needed cash for the Duchy. Sales of the design would see the 'Mech deployed with various combat units within the Capellan Confederation and the now-defunct Marik-Stewart Commonwealth. The Stalker II made a name for itself during the Commonwealth's last days, fighting against Lyran and Clan Wolf forces. In the fighting on Rexburg, two Stalker IIs from the Thirteenth Atrean Dragoons engaged in a Clan trial to buy time for the rest of their company to withdraw from the battlefield. Each Stalker II engaged an entire Nova of light 'Mechs and combat vehicles. The trial by combat ended when one of the Stalker IIs fell to its foes and the other defeated its opponents, even though the pilot eventually succumbed to neurohelmet feedback effects."
+  },
+  "manufacturers": {
+    "primary": [
+      "Irian BattleMechs Unlimited"
+    ],
+    "primaryFactory": [
+      "Shiro III"
+    ],
+    "systems": {
+      "chassis": "Irian Chassis Class 38 Endo Steel",
+      "engine": "Strand 255",
+      "armor": "Riese-675 Hardened with CASE II",
+      "communications": "Irian E.A.R.",
+      "targeting": "Wasat Aggressor with Advanced Targeting Computer"
+    }
+  }
+}

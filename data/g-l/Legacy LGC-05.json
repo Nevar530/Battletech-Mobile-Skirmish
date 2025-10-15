@@ -1,0 +1,196 @@
+{
+  "name": "Legacy",
+  "chassis": "Legacy",
+  "model": "LGC-05",
+  "mulId": 5703,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3073,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 80,
+  "engine": "240 Compact Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 2
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 40,
+    "rightTorso": 27,
+    "leftTorso": 27,
+    "rightArm": 26,
+    "leftArm": 26,
+    "rightLeg": 34,
+    "leftLeg": 34,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 247
+  },
+  "quirks": [
+    "directional_torso_mount",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "H"
+    },
+    {
+      "type": "1 ISMML7",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISImprovedC3CPU",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISLightPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISLightPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumVSPLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISMediumVSPLaser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumVSPLaser",
+      "ISMediumVSPLaser",
+      "ISLightPPC",
+      "ISLightPPC",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISLightPPC",
+      "1 ISMediumVSPLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumVSPLaser",
+      "ISMediumVSPLaser",
+      "ISLightPPC",
+      "ISLightPPC",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISLightPPC",
+      "1 ISMediumVSPLaser"
+    ],
+    "leftTorso": [
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISArtemisIV",
+      "ISImprovedC3CPU",
+      "ISImprovedC3CPU",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISMML7",
+      "1 ISImprovedC3CPU"
+    ],
+    "rightTorso": [
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISArtemisIV",
+      "ISMML7 LRM Ammo Artemis-capable",
+      "ISMML7 SRM Ammo Artemis-capable",
+      "Endo-Steel",
+      "ISCASE"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Endo-Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERSmallLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISERSmallLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "The Legacy was produced as a testbed for new technologies, including the Ultra AC/10 and C3i Computer.",
+    "capabilities": "They upgraded its targeting system and included the C3i, which allows six units to coordinate fire. Its thick armor protection, standard fusion engine, and CASE give the Legacy remarkable staying power on the battlefield. One of the weaknesses of the 'Mech is its slow speed compared to other 'Mechs of similar size, but the inclusion of jump jets sought to counter that with superior maneuverability.",
+    "deployment": "This variant uses a Compact Engine and Compact Gyro to increase survivability. It has the same top speed as the standard Legacy and drops the jump range to sixty meters. Each arm carries a Medium Variable Speed Pulse Laser and a Light PPC, supported by two torso mounted MML-7s with Artemis IV fire control systems. A head-mounted ER Small Laser rounds out the armament. Thirteen double heat sinks are installed as well",
+    "history": "At the request of Word of Blake Precentor Martial Cameron St. Jamais. The designers used a failed Star League 'Mech called the Rising Star as the base for the Legacy."
+  },
+  "manufacturers": {
+    "primary": [
+      "Skobel MechWorks"
+    ],
+    "primaryFactory": [
+      "Russia",
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Skobel Template 8 Endo Steel",
+      "engine": "Pitban 240",
+      "armor": "Aldis Plate with CASE",
+      "jumpjet": "CurtissJet 80",
+      "communications": "Skobel Wave VII Comm with C3i Computer",
+      "targeting": "Falcon 15 Watcher"
+    }
+  }
+}

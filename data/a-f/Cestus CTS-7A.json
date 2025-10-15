@@ -1,0 +1,177 @@
+{
+  "name": "Cestus",
+  "chassis": "Cestus",
+  "model": "CTS-7A",
+  "mulId": 535,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3070,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 65,
+  "engine": "260 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 32,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 211
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "LT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "LT"
+    },
+    {
+      "type": "LB 20-X AC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMediumPulseLaser",
+      "ISERMediumLaser",
+      "ER Medium Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMediumPulseLaser",
+      "ISERMediumLaser",
+      "ER Medium Laser",
+      "Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISStreakSRM4",
+      "ISStreakSRM4",
+      "IS Streak SRM 4 Ammo",
+      "IS LB 20-X AC Ammo",
+      "IS LB 20-X Cluster Ammo",
+      "IS LB 20-X Cluster Ammo",
+      "Streak SRM 4",
+      "Streak SRM 4"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "LB 20-X AC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLBXAC20",
+      "ISLBXAC20"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The SLDF's original design specifications for the Cestus, a medium fire-support BattleMech, asked for two PPCs, two big lasers, and a pair of medium pulse lasers.",
+    "capabilities": "The new generation of Cestus BattleMechs produced in the last decade is powered by GM's efficient 260 XL engine, with a top speed of 64 kph—a rating that many perceive to be on the slow side for a 'Mech at the light end of the heavy spectrum. The Cestus' weaponry, on the other hand, makes it a lethal foe at any range. The huge torso-mounted Gauss gun can provide catastrophic damage at long range. The Gauss rifle is supported by large and medium lasers installed in each arm. The Cestus retains both of its hand actuators for close-range fighting, capable of gripping or striking an opponent as needed.",
+    "deployment": "A variant created by Blue Shot Weapons, the 7A turns the Cestus into a close range brawler. The first step was the removal of all the weaponry. In their places are newer guns, the largest of which is the LB-X Autocannon/20. With three tons of ammunition, the MechWarrior has the flexibility to swap between slugs and cluster rounds. This is backed up by paired ER medium lasers, Medium Pulse Lasers, and Streak SRM-4s. As long as the autocannon has rounds, heat can be an issue, so it should be managed with care.",
+    "history": "The CTS-6Y Cestus began production for the Star League Defense Force in 2766. However the original CTS-6X Cestus was produced during 2603. Introduced by General Motors and constructed at their Kathil plant, the Cestus served in the Armed Forces of the Federated Suns after the Fall of the Star League until its factory became a casualty during a Capellan Confederation Armed Forces raid at the beginning of the Second Succession War. The 'Mech was originally designed to carry a heavy energy weapons payload, but because of complications encountered with the heat sinks on the 'Mech, the upgraded Cestus was modified to carry a mix of ballistic and energy weapons. The Cestus was reintroduced by both Blue Shot Weapons and General Motors in the mid-3050s."
+  },
+  "manufacturers": {
+    "primary": [
+      "Blue Shot Weapons"
+    ],
+    "primaryFactory": [
+      "Solaris VIIl"
+    ],
+    "systems": {
+      "chassis": "GM Heavy CVA",
+      "engine": "GM 260 XL",
+      "armor": "Durallex Special Heavy",
+      "communications": "TharHes Thalia HM-22",
+      "targeting": "Salamander Systems CommPhase Unit"
+    }
+  }
+}

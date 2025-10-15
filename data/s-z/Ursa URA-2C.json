@@ -1,0 +1,131 @@
+{
+  "name": "Ursa",
+  "chassis": "Ursa",
+  "model": "URA-2C",
+  "mulId": 6628,
+  "config": "Quad",
+  "techBase": "Clan",
+  "era": 3125,
+  "source": "TRO: 3145 Lyran Commonwealth",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "325 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (IS/Clan)",
+    "head": 9,
+    "centerTorso": 29,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightLeg": 23,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 200
+  },
+  "quirks": [
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Rotary AC/2",
+      "location": "RT"
+    },
+    {
+      "type": "ER PPC",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERPPC",
+      "CLERPPC",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "CLMASC",
+      "CLMASC",
+      "CLMASC",
+      "Clan Endo Steel",
+      "ER Medium Pulse Laser",
+      "ER Medium Pulse Laser",
+      "ER PPC"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLRotaryAC2",
+      "CLRotaryAC2",
+      "CLRotaryAC2",
+      "CLRotaryAC2",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "CLERMediumPulseLaser",
+      "CLRotaryAC2 Ammo",
+      "Clan Endo Steel",
+      "ER Medium Pulse Laser",
+      "ER Medium Pulse Laser",
+      "Rotary AC/2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

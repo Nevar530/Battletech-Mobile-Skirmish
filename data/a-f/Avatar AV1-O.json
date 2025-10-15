@@ -1,0 +1,195 @@
+{
+  "name": "Avatar",
+  "chassis": "Avatar",
+  "model": "AV1-O",
+  "mulId": 160,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3056,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 70,
+  "engine": "280 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 192
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "LB 10-X AC",
+      "location": "RA"
+    },
+    {
+      "type": "LRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RT"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISMediumPulseLaser (OMNIPOD)",
+      "ISMediumPulseLaser (OMNIPOD)",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLBXAC10 (OMNIPOD)",
+      "ISLBXAC10 (OMNIPOD)",
+      "ISLBXAC10 (OMNIPOD)",
+      "ISLBXAC10 (OMNIPOD)",
+      "ISLBXAC10 (OMNIPOD)",
+      "ISLBXAC10 (OMNIPOD)",
+      "LB 10-X AC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "LRM 10 (OMNIPOD)",
+      "LRM 10 (OMNIPOD)",
+      "ISArtemisIV (OMNIPOD)",
+      "Machine Gun (OMNIPOD)",
+      "IS Ammo LRM-10 Artemis-capable (OMNIPOD)",
+      "IS Ammo LRM-10 Artemis-capable (OMNIPOD)",
+      "IS Ammo LRM-10 Artemis-capable (OMNIPOD)",
+      "ISCASE",
+      "LRM 10",
+      "Machine Gun"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "LRM 10 (OMNIPOD)",
+      "LRM 10 (OMNIPOD)",
+      "ISArtemisIV (OMNIPOD)",
+      "Machine Gun (OMNIPOD)",
+      "IS Ammo MG - Full (OMNIPOD)",
+      "IS LB 10-X AC Ammo (OMNIPOD)",
+      "IS LB 10-X Cluster Ammo (OMNIPOD)",
+      "ISCASE",
+      "LRM 10",
+      "Machine Gun"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Avatar OmniMech is the result of Inner Sphere initiative in response to Clan technology. Originating from the Draconis Combine's efforts post-capture of Clan 'Mechs, this seventy-ton platform is a significant presence in engagements involving the Draconis Combine Mustered Soldiery, the Lyran Alliance, and ComStar. It reaches speeds up to 64.8 km/h powered by an XL engine and is encased in twelve tons of armor with CASE systems for ammunition explosion containment. The 'Mech's design supports a substantial thirty-four tons of pod space for weapons.",
+    "capabilities": "Equipped with medium lasers as standard fixed armaments, the Avatar is designed to maintain offensive capabilities even with pod failure. In its primary loadout, the OmniMech is outfitted with long-range missile launchers, an autocannon, machine guns, and pulse lasers, allowing it to engage at various ranges with a broad selection of weaponry.",
+    "deployment": "The primary configuration of the Avatar emphasizes flexibility across different combat ranges. It is equipped with two LRM-10 launchers augmented with Artemis IV Fire Control Systems, enhancing missile precision. The configuration is further bolstered by an LB-X Autocannon/10, capable of firing a versatile array of munitions from solid slugs to cluster rounds, allowing it to adapt to diverse battlefield roles. For engagements at close quarters, this variant integrates two Machine Guns for anti-infantry and light armor scenarios, supplemented by two Medium Pulse Lasers for reliable pinpoint damage against hardened targets.",
+    "history": "Developed by Luthien Armor Works, the Avatar is a strategic development following the Battle of Luthien. The 'Mech's design retains the leg assembly from captured Clan 'Mechs, specifically the Mad Dog, with modifications to the torso to accommodate the bulkier Inner Sphere technology."
+  },
+  "manufacturers": {
+    "primary": [
+      "Crofton",
+      "Loburg",
+      "Luthien",
+      "Marduk",
+      "New Valencia",
+      "Son Hoa",
+      "St. Ives"
+    ],
+    "primaryFactory": [
+      "StarCorps Industries",
+      "StarCorps Industries",
+      "Luthien Armor Works",
+      "Victory Industries (formerly Norse BattleMech Works)",
+      "General Motors/Blackwell Corporation",
+      "StarCorps Industries",
+      "StarCorps Industries"
+    ],
+    "systems": {
+      "chassis": "Alshain Hagetaga-O7",
+      "engine": "Hermes 280 XL",
+      "armor": "StarSlab/4 with CASE",
+      "communications": "Sipher CommCon SCU-9",
+      "targeting": "Matabushi Stalker"
+    }
+  }
+}

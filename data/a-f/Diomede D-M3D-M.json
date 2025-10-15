@@ -1,0 +1,168 @@
+{
+  "name": "Diomede",
+  "chassis": "Diomede",
+  "model": "D-M3D-M",
+  "mulId": 6823,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3092,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "200 Fusion Engine(IS)",
+  "structure": "IS Industrial",
+  "myomer": "Standard",
+  "heatSinks": "12 Single",
+  "movement": {
+    "walk": 2,
+    "jump": 0
+  },
+  "armor": {
+    "type": "HeavyIndustrial (InnerSphere)",
+    "head": 9,
+    "centerTorso": 45,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 33,
+    "leftArm": 33,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 16,
+    "rearRightTorso": 12,
+    "rearLeftTorso": 12,
+    "total": 304
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "MML 7",
+      "location": "RT"
+    },
+    {
+      "type": "MML 7",
+      "location": "LT"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "Gauss Rifle"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Machine Gun",
+      "Machine Gun",
+      "IS Ammo MG - Full",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "leftTorso": [
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "Medium Laser",
+      "IS Ammo MML-7 LRM",
+      "IS Ammo MML-7 SRM",
+      "ISCASE",
+      "Medium Laser",
+      "MML 7"
+    ],
+    "rightTorso": [
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "Medium Laser",
+      "IS Ammo MML-7 LRM",
+      "IS Ammo MML-7 SRM",
+      "ISCASE",
+      "Medium Laser",
+      "MML 7"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Ejection Seat (Industrial Mech)",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Tracks"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Tracks"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "name": "Turkina",
+  "chassis": "Turkina",
+  "model": "U",
+  "mulId": 3333,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3077,
+  "source": "TRO: Clan Invasion",
+  "rulesLevel": 4,
+  "role": "Juggernaut",
+  "mass": 95,
+  "engine": "285 XL (Clan) Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Clan Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 45,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 40,
+    "leftLeg": 40,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 288
+  },
+  "quirks": [
+    "easy_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ATM 9",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RA"
+    },
+    {
+      "type": "LRM 15",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 15",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLTargeting Computer (OMNIPOD)",
+      "Coolant Pod (OMNIPOD) (ARMORED)",
+      "IS HarJel (OMNIPOD) (ARMORED)",
+      "ER Small Laser",
+      "ER Small Laser",
+      "ER Small Laser",
+      "ER Small Laser",
+      "ER Small Laser",
+      "ER Small Laser",
+      "ER Small Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLATM9 (OMNIPOD)",
+      "CLATM9 (OMNIPOD)",
+      "CLATM9 (OMNIPOD)",
+      "CLATM9 (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLERSmallLaser (OMNIPOD)",
+      "Clan Ammo ATM-9 (OMNIPOD)",
+      "Clan Ammo ATM-9 (OMNIPOD)",
+      "IS HarJel (OMNIPOD) (ARMORED)",
+      "ATM 9",
+      "ER Small Laser",
+      "ER Small Laser",
+      "ER Small Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Jump Jet",
+      "CLLRM15 (OMNIPOD)",
+      "CLLRM15 (OMNIPOD)",
+      "Clan Ammo LRM-15 (OMNIPOD)",
+      "LRM 15"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Jump Jet",
+      "CLLRM15 (OMNIPOD)",
+      "CLLRM15 (OMNIPOD)",
+      "Clan Ammo LRM-15 (OMNIPOD)",
+      "LRM 15"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "IS HarJel (OMNIPOD) (ARMORED)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLActiveProbe (OMNIPOD)",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Talons (OMNIPOD)",
+      "Talons (OMNIPOD)"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Talons (OMNIPOD)",
+      "Talons (OMNIPOD)"
+    ]
+  },
+  "text": {
+    "overview": "The Turkina is a powerful OmniMech that was first seen in the Turkina Keshik at the Battle of Tukayyid, and entered general service with Clan Jade Falcon following the end of the Refusal War. In a design oddity, the Turkina mounts enough jump jets to vault 90 meters hardwired onto the frame, rather than using them in modular pods. While this simplified repair, it also uses tonnage that could be devoted to other systems when a mission does not call for jumping. Designers also included fifteen double heat sinks, four more than could be fit into the engine, so they are fixed in the torso. The Turkina has 42 tons available for modular pods.",
+    "capabilities": "Designed for space operations, this Turkina configuration mounts several experimental systems. A BattleMech HarJel System protects the torso against breaches, and two Liquid Storage tanks provide additional fuel for the jump jets. A Coolant Pod can quickly dissipate the heat built up by the ten ER Small Lasers, twin LRM-15s, and ATM-9. An Active Probe allows the Turkina U to find enemy forces, and the Talons mounted in each leg prevent the Turkina from floating away from the hull. To provide additional protection the Liquid Storage tanks, Harjel systems, and Coolant Pod have all been armored against enemy fire.",
+    "deployment": "",
+    "history": "The Turkina is named after Turkina, the first Jade Falcon to be tamed, who inspired the leaders of Clan Jade Falcon in its early days. The name of the Turkina Keshik is also derived from this bird."
+  },
+  "manufacturers": {
+    "primary": [
+      "Complex Beta",
+      "Olivetti Weapons"
+    ],
+    "primaryFactory": [
+      "Ironhold",
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "JF Standard",
+      "engine": "285 JF Extralight",
+      "armor": "JF Standard",
+      "communications": "JF Integrated",
+      "targeting": "Series JFIX/Olivetti Pinpoint Advanced"
+    }
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "name": "Bloodhound",
+  "chassis": "Bloodhound",
+  "model": "B3-HND",
+  "mulId": 5671,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3081,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 3,
+  "role": "Striker",
+  "mass": 45,
+  "engine": "315 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 20,
+    "rightTorso": 16,
+    "leftTorso": 16,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 18,
+    "leftLeg": 18,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 144
+  },
+  "quirks": [
+    "imp_sensors",
+    "pro_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISBPod",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISBeagleActiveProbe",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISERFlamer",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERFlamer",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERFlamer",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERFlamer",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumPulseLaser",
+      "ISERFlamer",
+      "ISERFlamer",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERFlamer",
+      "1 ISERFlamer",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumPulseLaser",
+      "ISERFlamer",
+      "ISERFlamer",
+      "ISFluidGun",
+      "ISFluidGun",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISMediumPulseLaser",
+      "1 ISERFlamer",
+      "1 ISERFlamer"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISBeagleActiveProbe",
+      "ISBeagleActiveProbe",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISBeagleActiveProbe"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISFluidGun Ammo",
+      "ISFluidGun Ammo",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISBPod",
+      "1 ISBPod"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

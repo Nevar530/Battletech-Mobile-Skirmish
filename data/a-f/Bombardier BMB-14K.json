@@ -1,0 +1,155 @@
+{
+  "name": "Bombardier",
+  "chassis": "Bombardier",
+  "model": "BMB-14K",
+  "mulId": 425,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3071,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 65,
+  "engine": "325 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard",
+    "head": 9,
+    "centerTorso": 29,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 208
+  },
+  "quirks": [
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISMGA",
+      "location": "RA"
+    },
+    {
+      "type": "2 ISMML7",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISC3SlaveUnit",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMML7 SRM Ammo",
+      "ISMML7 SRM Ammo",
+      "ISMML7 LRM Ammo",
+      "ISMML7 LRM Ammo",
+      "ISMML7 LRM Ammo"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMachine Gun",
+      "ISMachine Gun",
+      "ISMachine Gun",
+      "ISMGA",
+      "ISMG Ammo (100)",
+      "1 ISMGA"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "2 ISMML7"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support",
+      "1 ISC3SlaveUnit"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "Many 'Mechs were developed during the height of the Star League, created for the large and well-supplied formations of the SLDF. The Bombardier was no exception; employed as light artillery support, the onslaught of the Succession Wars destroyed its primary factories and left its manufacturer, Wakazashi Enterprises, without even the original plans for the design. With Wakazashi refusing to produce even spare parts for existing machines, the Bombardier began to steadily fall out of favor. Eventually it began to serve as little more than a mobile collection of spare parts, often dismantled to better service other designs such as the Archer.",
+    "capabilities": "With many variants built around twin LRM-20 launchers, what should have been a recipe for success instead inspired mediocrity. The LRMs only carried a ton of ammunition per launcher; while the SLDF and their massive logistical elements could easily resupply the BattleMech, the chaos of the Succession Wars were less than ideal for the Bombardier. The secondary weapons, both reliant upon ammunition themselves, lead to a BattleMech that heavily depended on a reliable logistical train and strong supporting elements. It comes to no surprise that most militaries and MechWarriors instead chose to ignore the Bombardier in favor of other missile support platforms.",
+    "deployment": "Never a common design, the remnants of the SLDF's Bombardier forces were scattered throughout all of the Great Houses and periphery states. The Free Worlds League and Draconis Combine fielded the highest concentration of BMB-10D's, though the mercantile FWL happily sold refurbished models to all willing parties. A variant made from older mothballed models, the -14K is a Kuritan take on the ancient design. Replacing the standard array with a large array of MMLs, machine guns, and a c3 Slave makes this variant a dangerous customer at every range.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "KetoBond",
+      "engine": "VOX",
+      "armor": "Choutaka",
+      "communications": "Neil",
+      "targeting": "DLK"
+    }
+  }
+}

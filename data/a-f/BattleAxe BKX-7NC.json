@@ -1,0 +1,152 @@
+{
+  "name": "BattleAxe",
+  "chassis": "BattleAxe",
+  "model": "BKX-7NC",
+  "mulId": 278,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2480,
+  "source": "TRO: 3075",
+  "rulesLevel": 1,
+  "role": "Missile Boat",
+  "mass": 70,
+  "engine": "280 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 20,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 144
+  },
+  "quirks": [
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Particle Cannon",
+      "location": "LA"
+    },
+    {
+      "type": "Particle Cannon",
+      "location": "RA"
+    },
+    {
+      "type": "LRM 5",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Heat Sink",
+      "Heat Sink",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Heat Sink",
+      "Heat Sink",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon"
+    ],
+    "leftTorso": [
+      "LRM 5",
+      "LRM 5",
+      "IS Ammo LRM-5",
+      "LRM 5",
+      "LRM 5"
+    ],
+    "rightTorso": [
+      "SRM 6",
+      "SRM 6",
+      "LRM 5",
+      "LRM 5",
+      "IS Ammo SRM-6",
+      "SRM 6",
+      "LRM 5",
+      "LRM 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

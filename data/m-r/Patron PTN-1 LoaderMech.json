@@ -1,0 +1,101 @@
+{
+  "name": "Patron",
+  "chassis": "Patron",
+  "model": "PTN-1 LoaderMech",
+  "mulId": 4793,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2470,
+  "source": "TRO: 3075",
+  "rulesLevel": 4,
+  "role": "Ambusher",
+  "mass": 15,
+  "engine": "40 Fuel Cell Engine(IS)",
+  "structure": "IS Industrial",
+  "myomer": "Standard",
+  "heatSinks": "1 Single",
+  "movement": {
+    "walk": 2,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Commercial (InnerSphere)",
+    "head": 3,
+    "centerTorso": 3,
+    "rightTorso": 2,
+    "leftTorso": 2,
+    "rightArm": 2,
+    "leftArm": 2,
+    "rightLeg": 2,
+    "leftLeg": 2,
+    "rearCenterTorso": 2,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 24
+  },
+  "quirks": [],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "MechSprayer"
+    ],
+    "rightTorso": [
+      "Lift Hoist/Arresting Hoist",
+      "Lift Hoist/Arresting Hoist",
+      "Lift Hoist/Arresting Hoist"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

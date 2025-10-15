@@ -1,0 +1,159 @@
+{
+  "name": "Battle Cobra",
+  "chassis": "Battle Cobra",
+  "model": "H",
+  "mulId": 272,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3061,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 40,
+  "engine": "240 Fusion (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 16,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 17,
+    "leftLeg": 17,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 124
+  },
+  "quirks": [
+    "ext_twist"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLERLargeLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "ER Large Laser",
+      "Heavy Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "ER Large Laser",
+      "Heavy Medium Laser"
+    ],
+    "leftTorso": [
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Battle Cobra was already in the prototype stages when Clan Steel Viper introduced their first OmniMech, the Crossbow.",
+    "capabilities": "The Battle Cobra makes use of Endo Steel and Ferro-Fibrous technologies, but uses a standard Fusion Engine for increased durability.",
+    "deployment": "Instead of the pulse lasers common to the other variants, the H configuration mounts a pair each of ER Large Lasers and Heavy Medium Lasers. Four additional double heat sinks help to keep heat levels manageable.",
+    "history": "The Battle Cobra prototypes were quickly redesigned to allow similar arm-mounted Omni-Pods, debuting only a few years later. Like the Crossbow, the Battle Cobra does not mount fixed jump jets and cannot mount them in their arms - therefore, early Battle Cobras would not be jump-capable. The first of the design saw deployment in 2873, and even though all of its weapon mounts are in the arms, this 'Mech has been in production ever since. However, the 'Mech's production facilities in Clan Space would end up being destroyed during the Annihilation of of Clan Steel Viper in 3075 on New Kent."
+  },
+  "manufacturers": {
+    "primary": [
+      "Novy Minsky Armaments Plant"
+    ],
+    "primaryFactory": [
+      "New Kent"
+    ],
+    "systems": {
+      "chassis": "Cobra Endo Steel",
+      "engine": "New Kent Type 240",
+      "armor": "Ferro-Fibrous V3",
+      "communications": "Bishop 400 Holly-Meridian CTC",
+      "targeting": "Spanke 112-A"
+    }
+  }
+}

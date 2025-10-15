@@ -1,0 +1,154 @@
+{
+  "name": "Scylla",
+  "chassis": "Scylla",
+  "model": "3",
+  "mulId": 5724,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3082,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 100,
+  "engine": "400 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 45,
+    "rightTorso": 33,
+    "leftTorso": 33,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 297
+  },
+  "quirks": [
+    "oversized"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLERPPC",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLHeavyLargeLaser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLBXAC20",
+      "CLLBXAC20",
+      "CLLBXAC20",
+      "CLLBXAC20",
+      "CLLBXAC20",
+      "CLLBXAC20",
+      "CLLBXAC20",
+      "CLLBXAC20",
+      "CLLBXAC20"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLHAG30",
+      "CLHAG30",
+      "CLHAG30",
+      "CLHAG30",
+      "CLHAG30",
+      "CLHAG30",
+      "CLHAG30",
+      "CLHAG30",
+      "CLHAG30 Ammo"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLLBXAC20 Ammo",
+      "CLLBXAC20 CL Ammo",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 CLHeavyLargeLaser"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "CLERPPC",
+      "CLERPPC",
+      "CLHAG30 Ammo",
+      "CLHAG30 Ammo",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLERPPC"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

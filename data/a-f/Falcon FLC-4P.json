@@ -1,0 +1,131 @@
+{
+  "name": "Falcon",
+  "chassis": "Falcon",
+  "model": "FLC-4P",
+  "mulId": 1027,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3050,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Scout",
+  "mass": 30,
+  "engine": "180 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 5
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 14,
+    "rightTorso": 12,
+    "leftTorso": 12,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 13,
+    "leftLeg": 13,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 96
+  },
+  "quirks": [
+    "low_profile"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISSmallLaser",
+      "1 ISSmallLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumPulseLaser",
+      "ISSmallLaser",
+      "1 ISMediumPulseLaser",
+      "1 ISSmallLaser"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "ISAntiMissileSystem"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "ISAMS Ammo"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Heat Sink",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "name": "Daboku",
+  "chassis": "Daboku",
+  "model": "DCMS-MX90-D",
+  "mulId": 788,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3038,
+  "source": "TRO: 3039",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 90,
+  "engine": "270 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 Single",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 23,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 152
+  },
+  "quirks": [
+    "prototype"
+  ],
+  "weapons": [
+    {
+      "type": "Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "Autocannon/2",
+      "location": "LT"
+    },
+    {
+      "type": "Autocannon/2",
+      "location": "LT"
+    },
+    {
+      "type": "Autocannon/2",
+      "location": "RT"
+    },
+    {
+      "type": "Autocannon/2",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "LRM 10",
+      "LRM 10",
+      "Autocannon/2",
+      "Autocannon/2",
+      "IS Ammo AC/2",
+      "IS Ammo LRM-10",
+      "ISCASE",
+      "LRM 10",
+      "Autocannon/2",
+      "Autocannon/2"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "LRM 10",
+      "LRM 10",
+      "Autocannon/2",
+      "Autocannon/2",
+      "IS Ammo AC/2",
+      "IS Ammo LRM-10",
+      "ISCASE",
+      "LRM 10",
+      "Autocannon/2",
+      "Autocannon/2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Daboku, first appearing at the tail end of the Succession Wars, was a prime example of trying to improve on an already effective design. Made to mimic the combat role of the Awesome assault 'Mech, the Daboku was to use a wide mix of weaponry and certain pieces of newly-rediscovered technology to create a new premier assault 'Mech for the DCMS. Unfortunately, Luthien Armor Works and the Daboku's design committee grossly dropped the ball. While the Daboku could engage at ranges beyond many other Assault 'Mechs, its firepower was minimal and the design itself was plagued with technical problems. Ammunition jams, heat management issues, short-circuits-all were minimal compared to the miswired CASE sensors that would often trigger the auto eject sequence with only a single impact on the right armor panel.",
+    "capabilities": "The long range of the Daboku is both its defining feature and its saving grace. Slow, underarmored, and prone to overheating, any enemy BattleMechs able to close with the Daboku often found it easy to dispatch. MechWarriors of every origin despised the design, with few able to use the Daboku to accomplish the tasks expected of a 90-ton machine.",
+    "deployment": "As an in-house design, House Kurita was the sole manufacturer and user of the design at its inception. The War of 3039 saw many Daboku spread to the Combine's two main foes, with MechWarriors from the Federated Commonwealth often salvaging the design. It was a small measure of revenge that Kuritan samurai could exploit the same weakness that had lost them so many 'Mechs, quickly using the CASE sensor flaw against any MechWarriors fielding captured Dabokus. The Daboku, due to its many problems, quickly fell out of favor. None remained by the FedCom Civil War, and the design itself was quickly supplanted by the much more effective Mauler.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Alshain",
+      "engine": "Hermes",
+      "armor": "Wakazashi",
+      "communications": "Sipher",
+      "targeting": "Matabushi"
+    }
+  }
+}

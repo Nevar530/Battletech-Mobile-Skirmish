@@ -1,0 +1,98 @@
+{
+  "name": "Scorpion",
+  "chassis": "Scorpion",
+  "model": "SCP-1N",
+  "mulId": 2837,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 2570,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Skirmisher",
+  "mass": 55,
+  "engine": "330 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 24,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightLeg": 10,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 112
+  },
+  "quirks": [
+    "bad_rep_clan",
+    "bad_rep_is",
+    "hard_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "PPC",
+      "location": "RT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "IS Ammo SRM-6"
+    ],
+    "rightTorso": [
+      "PPC",
+      "PPC",
+      "PPC",
+      "SRM 6",
+      "SRM 6",
+      "PPC",
+      "SRM 6"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "Every company has their beginnings. Many know Brigadier Corporation as one of the industrial powerhouses of the Free Worlds League. But at first, Brigadier was little more than a contract manufacturer for existing Hegemony designs. Ambition—along with a healthy lust for profits—would eventually spurn Brigadier to lunge towards manufacturing their own in-house designs, which would be boldly launched with the Scorpion: a quad BattleMech. Though Dr. Harrison, a strong proponent for quad designs, claimed that his new Scorpion would revolutionize 'Mech warfare, the Scorpion turned out to be barely more than a boondoggle. Sales were low, and few mourned the loss of the main factory on Oliver when it was destroyed in 2837.",
+    "capabilities": "The Scorpion is typically armed with a reliable one-two weapon combination. A primary large energy weapon or autocannon opens up holes, while a missile weapon usually takes advantage of any exposed weaknesses. While powerful in theory, in practice the Scorpion mounts barely more firepower than 'Mechs twenty tons lighter. With armor coverage barely better than some light 'Mechs, a badly positioned Scorpion is easy prey for better-armed BattleMechs. Combined with the bucking, bumpy ride the Scorpion has to offer, few choose to voluntarily pilot the design.",
+    "deployment": "Scorpions can be found throughout every part of the Inner Sphere. They are not a common design, and the limitations of the Succession Wars lead many Successor States to neglect their Scorpions in favor of better, more reliable designs. Upgrade kits would eventually appear with the discovery of the Helm Core, which gradually lead to the base SCP-1N Scorpion remaining solely in the hands of poorer nations or mercenary commands.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Brigadier",
+      "engine": "Vox",
+      "armor": "StarSlab",
+      "communications": "Garret",
+      "targeting": "Garret"
+    }
+  }
+}

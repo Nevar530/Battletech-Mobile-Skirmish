@@ -1,0 +1,186 @@
+{
+  "name": "Archangel",
+  "chassis": "Archangel",
+  "model": "C-ANG-OC Comminus",
+  "mulId": 68,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3069,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 Compact Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 47,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 307
+  },
+  "quirks": [
+    "command_mech",
+    "imp_com",
+    "imp_sensors",
+    "bad_rep_clan",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "MRM 40",
+      "location": "LA"
+    },
+    {
+      "type": "MRM 40",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40 (omnipod)",
+      "MRM 40"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "IS MRM 40 Ammo (omnipod)",
+      "IS MRM 40 Ammo (omnipod)",
+      "ISCASE (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "IS MRM 40 Ammo (omnipod)",
+      "IS MRM 40 Ammo (omnipod)",
+      "ISCASE (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISERSmallLaser (R) (omnipod)",
+      "ISC3iUnit",
+      "ISC3iUnit",
+      "ER Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "ISGuardianECMSuite (omnipod)",
+      "ISGuardianECMSuite (omnipod)"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "Debuting in 3069, the Celestial series of OmniMechs are engineered to be used by the elite Word of Blake Manei Domini troops.",
+    "capabilities": "The Archangel is the largest of these. Designed to be an \"anchor\" for Word formations, the 'Mech is known as a \"zombie\" because of its ability to take extreme amounts of damage and continue operating. The Archangel features a compact fusion engine, compact gyro, a small cockpit, and nineteen and a half tons of standard armor, which frees up a large amount of internal space, while an Endo Steel frame opens up free tonnage, making heavier components possible. A C3i Computer helps direct and coordinate fire.",
+    "deployment": "",
+    "history": "The odd variant out, the Archangel C eschews PPCs in favor of two MRM 40s, each of which are fed by a two-ton, CASE-protected ammunition bin. They are supplemented by a pair of ER Medium Lasers and a rear-mounted ER Small Laser. A Guardian ECM Suite protects it from enemy electronics."
+  },
+  "manufacturers": {
+    "primary": [
+      "Gibson Federated BattleMechs",
+      "Martinson Armaments"
+    ],
+    "primaryFactory": [
+      "Gibson (Gibson Federated)",
+      "Terra (Martinson)"
+    ],
+    "systems": {
+      "chassis": "Celestial Series AA1E",
+      "engine": "Immortus 300 Compact Fusion",
+      "armor": "Durallex Heavy Gold",
+      "communications": "Master’s Voice Cel-Alpha",
+      "targeting": "Master’s Sight 1-Omega"
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "name": "Flea",
+  "chassis": "Flea",
+  "model": "FLE-15",
+  "mulId": 1136,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2523,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Scout",
+  "mass": 20,
+  "engine": "120 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 5,
+    "centerTorso": 8,
+    "rightTorso": 5,
+    "leftTorso": 5,
+    "rightArm": 4,
+    "leftArm": 4,
+    "rightLeg": 4,
+    "leftLeg": 4,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 48
+  },
+  "quirks": [
+    "easy_maintain",
+    "imp_life_support",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Flamer",
+      "location": "CT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Medium Laser",
+      "Machine Gun",
+      "Medium Laser",
+      "Machine Gun"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Medium Laser",
+      "Machine Gun",
+      "Medium Laser",
+      "Machine Gun"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Small Laser (R)",
+      "Small Laser"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Small Laser (R)",
+      "Small Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Flamer",
+      "IS Ammo MG - Full",
+      "Flamer"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "The Flea was the direct descendant of the Free Worlds League first scout 'Mech, the Trooper. Neither the Trooper nor the Flea would impress any military analysts, though, with their generally slow speed and fragile armor making them easy prey for even the lightest opposing BattleMechs. With production of the Flea ceasing even before the start of the Succession Wars, this generally unpopular design seemed destined for the history books until the appearance of Wolf's Dragoons and their many ancient BattleMechs, Flea included.",
+    "capabilities": "The Flea, as a 'Mech with many different variants, can accomplish many different roles. However, most of these models work best in infantry support roles, where the heavier armor and firepower of the 'Mech make it a valued friend and a dangerous foe. The firepower of the Flea itself is stronger than one might suspect; if cornered, inattentive scout 'Mechs can quickly find themselves at the mercy of a Flea.",
+    "deployment": "The main Earthwerks factory for the Flea was reopened following the signing of an exclusive contract with the Wolf's Dragoons. Initially only producing replacement parts and an occasional replacement 'Mech, Earthwerks eventually opened a second line to keep up with increasing demand. Expiration of the Dragoon contract in 3041 was welcomed by Earthwerks; the publicity gained through the Dragoons had created a healthy market for the Flea. A common variant, the FLE-15 was a dedicated anti-infantry variant found within the Free Worlds League and Dragoon forces. Its role saw low attrition rates, and this older model remained in service until the end of the Jihad.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Earthwerks",
+      "engine": "GM",
+      "armor": "Livingston",
+      "communications": "Neil",
+      "targeting": "Dalban"
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "name": "Lament",
+  "chassis": "Lament",
+  "model": "LMT-4RC",
+  "mulId": 6724,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3137,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 3,
+  "role": "Brawler",
+  "mass": 65,
+  "engine": "325 XL Engine(IS)",
+  "structure": "IS Composite",
+  "myomer": "Standard",
+  "heatSinks": "21 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 211
+  },
+  "quirks": [
+    "multi_trac",
+    "pro_actuator",
+    "difficult_maintain",
+    "non_standard"
+  ],
+  "weapons": [
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Improved Heavy Large Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLImprovedHeavyLargeLaser",
+      "CLImprovedHeavyLargeLaser",
+      "CLImprovedHeavyLargeLaser",
+      "IS Light Ferro-Fibrous",
+      "Improved Heavy Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLImprovedHeavyLargeLaser",
+      "CLImprovedHeavyLargeLaser",
+      "CLImprovedHeavyLargeLaser",
+      "IS Light Ferro-Fibrous",
+      "Improved Heavy Large Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLImprovedHeavyLargeLaser",
+      "CLImprovedHeavyLargeLaser",
+      "CLImprovedHeavyLargeLaser",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Improved Heavy Large Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLImprovedHeavyLargeLaser",
+      "CLImprovedHeavyLargeLaser",
+      "CLImprovedHeavyLargeLaser",
+      "Radical Heat Sink System",
+      "Radical Heat Sink System",
+      "Radical Heat Sink System",
+      "IS Light Ferro-Fibrous",
+      "Improved Heavy Large Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

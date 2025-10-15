@@ -1,0 +1,163 @@
+{
+  "name": "Salamander",
+  "chassis": "Salamander",
+  "model": "PPR-7T",
+  "mulId": 6860,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3111,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 3,
+  "role": "Missile Boat",
+  "mass": 80,
+  "engine": "320 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 42,
+    "rightTorso": 28,
+    "leftTorso": 28,
+    "rightArm": 26,
+    "leftArm": 26,
+    "rightLeg": 34,
+    "leftLeg": 34,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 247
+  },
+  "quirks": [
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Extended LRM 10",
+      "location": "LA"
+    },
+    {
+      "type": "Extended LRM 15",
+      "location": "LT"
+    },
+    {
+      "type": "Extended LRM 15",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "Extended LRM 10",
+      "IS Ammo Extended LRM-10",
+      "IS Ammo Extended LRM-10",
+      "ISC3BoostedSystemSlaveUnit",
+      "ISC3BoostedSystemSlaveUnit",
+      "IS Endo Steel",
+      "Extended LRM 10"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "IS Ammo Extended LRM-15",
+      "IS Ammo Extended LRM-15",
+      "IS Ammo Extended LRM-15",
+      "Extended LRM 15"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "Extended LRM 15",
+      "IS Ammo Extended LRM-15",
+      "IS Ammo Extended LRM-15",
+      "IS Ammo Extended LRM-15",
+      "Extended LRM 15"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

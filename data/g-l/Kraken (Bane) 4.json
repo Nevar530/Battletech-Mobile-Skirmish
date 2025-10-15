@@ -1,0 +1,190 @@
+{
+  "name": "Kraken",
+  "chassis": "Kraken",
+  "model": "4",
+  "mulId": 1844,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3066,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 XL (Clan) Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 46,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 13,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 304
+  },
+  "quirks": [
+    "ext_twist",
+    "pro_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "Ultra AC/20",
+      "location": "LA"
+    },
+    {
+      "type": "Ultra AC/20",
+      "location": "RA"
+    },
+    {
+      "type": "ATM 6",
+      "location": "LT"
+    },
+    {
+      "type": "ATM 6",
+      "location": "RT"
+    },
+    {
+      "type": "ATM 6",
+      "location": "RT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "Clan Ultra AC/20 Ammo",
+      "Clan Ultra AC/20 Ammo",
+      "Ultra AC/20"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "Clan Ultra AC/20 Ammo",
+      "Clan Ultra AC/20 Ammo",
+      "Ultra AC/20"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLATM6",
+      "CLATM6",
+      "CLATM6",
+      "Clan Ammo ATM-6",
+      "Clan Ultra AC/20 Ammo",
+      "Clan Ultra AC/20 Ammo",
+      "ATM 6"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLATM6",
+      "CLATM6",
+      "CLATM6",
+      "CLATM6",
+      "CLATM6",
+      "CLATM6",
+      "CLERLargeLaser",
+      "Clan Ammo ATM-6",
+      "Clan Ammo ATM-6 ER",
+      "Clan Ammo ATM-6 HE",
+      "ATM 6",
+      "ATM 6",
+      "ER Large Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Bane is a BattleMech that is based upon a Star League prototype that was never put into production. Tagged the Kraken by Inner Sphere forces who opposed it.",
+    "capabilities": "The Bane was first built in 2827. It was originally a significant part of many Clan toumans, but was gradually relegated to second-line status following the introduction of the OmniMech. As such, it is still critical to many defensive units. The design uses a lightweight XL Engine so that it can mount the arsenal that it does. Nineteen tons of armor protects this venerable assault 'Mech.",
+    "deployment": "This redesign actually addresses the ammunition-dependency of the earlier Banes. In this upgrade, Clan Jade Falcon scientists changed many elements of the Bane slightly, resulting in a 'Mech with a different appearance than its predecessors. Its focus is also short range, as evidenced by twin Model SH Ultra Autocannon/20s. Six tons of ammunition is adequate, though only barely. Three System 4 ATM 6s, along with four tons of ammunition, give the design great flexibility at all ranges. A single Series 7K ER Large Laser allows the 'Mech to stay in the fight in the event its ammunition bins have run dry. Seventeen double heat sinks are unequal to the task assigned them. The Falcons first deployed this multi-use design between 3065 and 3067.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Tokasha MechWorks Alpha",
+      "Olivetti Weapons"
+    ],
+    "primaryFactory": [
+      "Tokasha",
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "Type AXT, Mk. XX",
+      "engine": "Fusion 300 XL",
+      "armor": "Forging C745",
+      "communications": "JNE Integrated",
+      "targeting": "Series VI TTS"
+    }
+  }
+}

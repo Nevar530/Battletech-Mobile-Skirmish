@@ -1,0 +1,142 @@
+{
+  "name": "Catapult",
+  "chassis": "Catapult",
+  "model": "CPLT-C3",
+  "mulId": 481,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3049,
+  "source": "TRO: 3050",
+  "rulesLevel": 3,
+  "role": "Missile Boat",
+  "mass": 65,
+  "engine": "260 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 24,
+    "rightTorso": 19,
+    "leftTorso": 19,
+    "rightArm": 13,
+    "leftArm": 13,
+    "rightLeg": 18,
+    "leftLeg": 18,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 160
+  },
+  "quirks": [
+    "no_arms",
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "2 ISMediumLaser",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "ISMediumLaser",
+      "1 ISMediumLaser"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISArrowIVSystem (Split)",
+      "ISMediumLaser",
+      "ISArrowIV Ammo",
+      "1 ISMediumLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumLaser",
+      "ISMediumLaser",
+      "2 ISMediumLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Heat Sink",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

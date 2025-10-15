@@ -1,0 +1,122 @@
+{
+  "name": "Great Turtle",
+  "chassis": "Great Turtle",
+  "model": "GTR-2",
+  "mulId": 1282,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 3068,
+  "source": "TRO: 3055",
+  "rulesLevel": 4,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 Compact Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 46,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightLeg": 42,
+    "rearCenterTorso": 16,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 323
+  },
+  "quirks": [
+    "imp_target_short",
+    "poor_performance"
+  ],
+  "weapons": [
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RT"
+    },
+    {
+      "type": "Medium X-Pulse Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Life Support (armored)",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "ISMediumXPulseLaser (armored)",
+      "ISERMediumLaser (armored)",
+      "Endo Steel",
+      "Endo Steel",
+      "Medium X-Pulse Laser",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Life Support (armored)",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "ISERPPC (armored)",
+      "ISERPPC (armored)",
+      "ISERPPC (armored)",
+      "PPC Capacitor (armored)",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "ER PPC"
+    ],
+    "centerTorso": [
+      "Fusion Engine (armored)",
+      "Fusion Engine (armored)",
+      "Fusion Engine (armored)",
+      "Gyro (armored)",
+      "Gyro (armored)",
+      "Cockpit (armored)",
+      "Sensors (armored)",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Endo Steel"
+    ],
+    "head": [
+      "Sensors (armored)",
+      "Sensors (armored)",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMediumXPulseLaser (armored)",
+      "Medium X-Pulse Laser"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

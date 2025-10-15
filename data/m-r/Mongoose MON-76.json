@@ -1,0 +1,184 @@
+{
+  "name": "Mongoose",
+  "chassis": "Mongoose",
+  "model": "MON-76",
+  "mulId": 2214,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3077,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 25,
+  "engine": "200 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "MASC",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 12,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 89
+  },
+  "quirks": [
+    "command_mech",
+    "easy_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISGuardianECM",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumPulseLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumPulseLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISMediumPulseLaser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISGuardianECM"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumPulseLaser",
+      "ISMASC",
+      "1 ISMediumPulseLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISSmallLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISSmallLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "The Mongoose BattleMech was introduced in 2660 as a deep recon 'Mech and a direct competitor (and hopeful replacement) for the Locust.",
+    "capabilities": "The Kell/D Chassis around which the Mongoose is built uses Endo Steel construction techniques that, combined with an all energy weapon armament and standard engine, made the Mongoose very sturdy for its size. This also allows it to mount five tons of Ferro-Fibrous armor, much more than other light 'Mechs and gives the Mongoose the capability to survive a direct PPC hit to the chest without suffering internal damage. A top speed of 129 km/h and cruising speed of 86 km/h, one of the fastest of any 'Mech, makes up for the lack of jump jets on the design. Only ten heat sinks means the 'Mech is liable to run hot if the pilot is not careful, especially when the cooling jacket protecting the center torso laser fails",
+    "deployment": "The MON-76 is an upgrade of the Mongoose introduced in 3077. The original electronics, weapons, engine, and cooling system have been stripped from the chassis and the design was completely rebuilt. As far as the engine, the original Nissan 200 was replaced with an ExtraLight version and includes a MASC system allowing for incredible bursts of speed. Next, the standard heat sinks originally found on the 'Mech were replaced with double strength units. The original Beagle Active Probe was replaced with a Guardian ECM Suite to allow the Mongoose to interfere with enemy electronics, and the original medium lasers have been replaced with Medium Pulse Lasers.",
+    "history": "As the 'Mech reached Star League Defense Force units though, it was found that the Beagle Active Probe on the Mongoose gave it extremely good command and control features that endeared it to light 'Mech command lances. Within eight years of its introduction the Mongoose was the standard command 'Mech for all light and recon lances. Due to its advanced electronics the Mongoose was capable of coordinating the maneuverings of an entire company of light 'Mechs and at the same time could engage medium 'Mechs with some success thanks to its weaponry and armoring. Its popularity ensured that the Mongoose had a target on its back after the dissolution of the Star League. The start of the Succession Wars went poorly for the Mongoose when its factory on Ozawa was destroyed in 2837. The loss of the factory meant the 'Mech was already becoming a rarity by the Second Succession War and with many of its components now lostech surviving Mongooses were forced to make-do with inferior spare parts. This was especially true for the Beagle Active Probe, and by the end of the Succession Wars not a single operational Mongoose serving the Great Houses had a functioning example. This trend was reversed with the recovery of the Helm Memory Core and many Mongooses were rebuilt to their former glory. ComStar was also revealed to have kept many Mongooses in their secret storage facilities which they used to outfit the Com Guards. Diplan 'MechYards eventually restarted Mongoose production from their factory on Aix-la-Chapelle and the design would continue to see use for years to come, including during the Jihad."
+  },
+  "manufacturers": {
+    "primary": [
+      "Diplan 'Mechyards"
+    ],
+    "primaryFactory": [
+      "Aix-la-Chapelle"
+    ],
+    "systems": {
+      "chassis": "Kell/D Endo Steel",
+      "engine": "Nissan 200 XL with MASC",
+      "armor": "Mitchell GA3 Ferro-Fibrous",
+      "communications": "ON-5",
+      "targeting": "ON-6 with ECM"
+    }
+  }
+}

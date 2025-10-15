@@ -1,0 +1,175 @@
+{
+  "name": "Assassin",
+  "chassis": "Assassin",
+  "model": "ASN-99",
+  "mulId": 130,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3068,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Scout",
+  "mass": 40,
+  "engine": "280 XL Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 7
+  },
+  "armor": {
+    "type": "StealthArmor",
+    "head": 9,
+    "centerTorso": 16,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 19,
+    "leftLeg": 19,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 128
+  },
+  "quirks": [
+    "easy_maintain",
+    "cramped_cockpit",
+    "non_standard",
+    "poor_life_support"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISLightPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISSRM2",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISTAG",
+      "location": "H"
+    },
+    {
+      "type": "1 ISGuardianECM",
+      "location": "LT"
+    },
+    {
+      "type": "1 Sword",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Stealth Armor",
+      "Stealth Armor",
+      "1 Sword"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISLightPPC",
+      "ISLightPPC",
+      "Stealth Armor",
+      "Stealth Armor",
+      "1 ISLightPPC"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "ISSRM2",
+      "ISSRM2 Ammo",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "Stealth Armor",
+      "Stealth Armor",
+      "1 ISSRM2",
+      "1 ISGuardianECM"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "ISSRM2",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISTAG",
+      "Sensors",
+      "Life Support",
+      "1 ISTAG"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth Armor",
+      "Stealth Armor"
+    ]
+  },
+  "text": {
+    "overview": "Many military finance experts outside the Star League saw the Assassin as more of a political pork project than a powerful fighting machine, yet it turned out to be a strong 'Mech in combat against light lances.",
+    "capabilities": "The Assassin was able to destroy these lighter 'Mechs due to its good speed and maneuverability, good armor coverage (in comparison to the 'Mechs it was built to battle against), and strong weaponry. The weapons of the 'Mech is essentially comprised of three systems: the long-range missile rack, the short-range missile rack, and the arm-mounted Martell midrange laser. The design is limited in durability unless assigned supply units for support because it can only carry a total of seventy-four salvos for both launchers. The most significant disadvantage for most pilots is the incredibly tight cockpit—one of the most confined cockpit designs in the Inner Sphere.",
+    "deployment": "When Hellespont 'Mech Works first acquired the Assassin from the Maltex Corporation, the ASN-99 was the original testbed design. Incorporating more armor than any previous variant, thanks in large part to the inclusion of an XL engine, its long-range punch is provided by a light PPC, while it can rely upon two SRM-2s at close range. Target Acquisition Gear enables it to call down supporting fire should the Assassin find itself embroiled in a fight. This variant also mounts stealth armor and a sword.",
+    "history": "Maltex has changed the cockpit cooling system dozens of times over the Assassin's four hundred year service history in a bid to provide extra elbow room, but none of the attempts have been effective. As a result, most pilots experience a tight, painful ride that limits in-cockpit time to half that of most other conventional designs; many ex-Assassin pilots have established a history of back issues that will bother them for the rest of their lives. The ammo feed system for the short-range missile rack was the only other issue with the Assassin (mostly those made up to 2815). It commonly failed during high-heat settings due to chronic jamming and could only be repaired through total disassembly in a mechanical bay. Under significant corporate pressure, Holly ultimately introduced a new feed system in 2815 and even paid several years of recall repairs; nonetheless, there are still a huge number of individually owned Assassins that may still mount the problematic system. Maltex produced only a few hundred ASN-21s after their launch. Due to a lack of spare parts, those Assassins in service were utilized sparingly, however House Marik enthusiastically used the 'Mech late in the Third Succession War. When a rush of new BattleMech types entered the markets after 3058, the Assassin was nearly phased out of service. Those that have stayed in service are usually family heirlooms with some modifications."
+  },
+  "manufacturers": {
+    "primary": [
+      "Hellespont 'Mech Works"
+    ],
+    "primaryFactory": [
+      "Sian"
+    ],
+    "systems": {
+      "chassis": "Hellespont Type A 40 series",
+      "engine": "VOX 280 XL",
+      "armor": "Ceres Stealth",
+      "jumpjet": "Lox Lift Series 1",
+      "communications": "Garret T15 B with ECM",
+      "targeting": "Garret 500S"
+    }
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "name": "Spider",
+  "chassis": "Spider",
+  "model": "SDR-8K",
+  "mulId": 3016,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3084,
+  "source": "TRO: 3085",
+  "rulesLevel": 4,
+  "role": "Scout",
+  "mass": 30,
+  "engine": "240 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 8,
+    "jump": 8
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 10,
+    "rightTorso": 8,
+    "leftTorso": 8,
+    "rightArm": 7,
+    "leftArm": 7,
+    "rightLeg": 8,
+    "leftLeg": 8,
+    "rearCenterTorso": 2,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 71
+  },
+  "quirks": [
+    "easy_maintain",
+    "nimble_jumper",
+    "no_eject"
+  ],
+  "weapons": [
+    {
+      "type": "Snub-Nose PPC",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISSNPPC",
+      "ISSNPPC",
+      "PPC Capacitor",
+      "Endo Steel",
+      "Snub-Nose PPC"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Spider was the first BattleMech produced by Newhart Industries, designed in 2650 as a light reconnaissance and attack 'Mech to be used by Star League Defense Force Special Operations forces such as the Blackhearts.",
+    "capabilities": "In terms of maneuverability the Spider has a ground speed comparable to a Locust and can out-jump either the vaunted Wasp or Stinger light 'Mechs. Built with top-of-the-line reliable parts, sophisticated reconnaissance equipment and an energy weapon payload which allowed for extended operations without resupply, the Spider was a great success. While not produced in large numbers it could be rapidly manufactured and so served up through to the end of the Star League.",
+    "deployment": "A post-Jihad variant developed by the Combine in 3084, the SDR-8K uses a Compact Gyro and a 240 XL Fusion Engine to maintain its ground speed while allowing it to carry four tons of Ferro-Fibrous armor, the extra weight left being used to swap the lasers of the stock Spider for a single torso mounted PPC Capacitor-enhanced Snub-Nose PPC",
+    "history": "Beyond exceeding all of the SLDF's minimum requirements Newhart had actually designed the Spider before receiving the Star League's request for proposals and were ready to begin production immediately, factors which helped the company win the contract very quickly. Newhart's Spider factory on New Earth was destroyed in 2776 as part of the Amaris Civil War and very few Spiders ended up in the hands of the Successor States when the Star League dissolved. As their numbers began to dwindle during the Succession Wars, entire offensive operations were conducted simply to secure spare parts for these 'Mechs. So rare was the Spider that Wolf's Dragoons were notable for having an entire lance of Spiders (albeit split among the various regiments). This trend towards extinction was finally reversed when the Free Worlds League was able to secure the schematics for the Spider. In a deal with Nimakachi Fusion Products Limited, the company was given exclusive control of the 'Mech's technical specifications in exchange for building them for the Free Worlds League. Nimakachi began building new Spiders from their factory on Tematagi and later expanded their facilities on Lapida II to produce them as well, resulting in the Free Worlds League and Draconis Combine having the largest number of Spiders in active service. The recovery of lost Star League technology inspired Nimakachi to update the Spider with new upgrades, resulting in the improved SDR-7M and the derivative Venom. While the Free Worlds League did not express much interest in these 'Mechs, Nimakachi found ready buyers among the other Great Houses. In particular the Draconis Combine had lost a large number of light 'Mechs during the Clan Invasion and bought up local- and foreign-made Spiders to replenish their ranks. The Word of Blake also expressed an interest in these Spiders and bought a number to outfit their military. These Spiders were used as part of the Blakist conquest of Terra and were later gifted to the Protectorate Militia, where they fought in the Jihad. Starting in 3067, the Spider was restyled by Nimakachi which allowed the addition of an ejection system to the cockpit of the new SDR-7K, 7K2, and 7KC."
+  },
+  "manufacturers": {
+    "primary": [
+      "Nimakachi Fusion Products Limited"
+    ],
+    "primaryFactory": [
+      "Lapida II"
+    ],
+    "systems": {
+      "chassis": "Crucis-II Deluxe Endo Steel",
+      "engine": "Pitban 240 XL",
+      "armor": "Kallon FWL Special Ferro-Fibrous",
+      "jumpjet": "Rawlings 75",
+      "communications": "Omicron 4002 Networking Channel",
+      "targeting": "TRSS Eagle Eye"
+    }
+  }
+}

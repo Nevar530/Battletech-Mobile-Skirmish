@@ -1,0 +1,203 @@
+{
+  "name": "Daishi",
+  "chassis": "Daishi",
+  "model": "C",
+  "mulId": 815,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3054,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 XL (Clan) Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "23 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 47,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 41,
+    "leftLeg": 41,
+    "rearCenterTorso": 14,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 304
+  },
+  "quirks": [
+    "imp_target_long",
+    "difficult_eject"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ATM 6",
+      "location": "LA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RA"
+    },
+    {
+      "type": "ATM 6",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERPPC (omnipod)",
+      "CLERPPC (omnipod)",
+      "CLATM6 (omnipod)",
+      "CLATM6 (omnipod)",
+      "CLATM6 (omnipod)",
+      "Clan Ammo ATM-6 (omnipod)",
+      "ER PPC",
+      "ATM 6"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERPPC (omnipod)",
+      "CLERPPC (omnipod)",
+      "CLATM6 (omnipod)",
+      "CLATM6 (omnipod)",
+      "CLATM6 (omnipod)",
+      "Clan Ammo ATM-6 (omnipod)",
+      "ER PPC",
+      "ATM 6"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "Jump Jet (omnipod)",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "CLTargeting Computer (omnipod)",
+      "Jump Jet (omnipod)",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "CLECMSuite (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLStreakSRM4 (OS) (omnipod)",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ]
+  },
+  "text": {
+    "overview": "The Dire Wolf is one of the OmniMechs that became feared throughout the Inner Sphere during the initial Clan Invasion and rightly so.",
+    "capabilities": "The Dire Wolf weighs in at an impressive one hundred tons and has a relatively slow cruising speed of 54 km/h provided by a 300 XL engine. Its speed and armor protection matches that of an Atlas, but it has superior potential firepower with fifty and a half tons of free pod space for weapons and equipment. It is these traits which saw the 'Mech christened Daishi (pseudo-Japanese for \"Great Death\") by the criminal underbelly of the Draconis Combine, a name that would be proven grimly accurate time and time again.",
+    "deployment": "The C configuration is configured to be highly mobile and flexible. The Dire Wolf C can jump up to ninety meters. The primary weapons carried are a pair of ER PPCs. These are supported by two new ATM 6 launchers which are capable of firing missiles that are intended for short, intermediate, and long ranges. The C configuration also carries four Medium Pulse Lasers and a single shot Streak SRM-4 launcher. The direct fire weapons are all linked to a Targeting Computer, increasing their lethality, and the C configuration is protected from enemy electronic warfare equipment with an ECM Suite.",
+    "history": "The Dire Wolf was the brainchild of the Clan Wolf scientist caste, but was actually first produced by Clan Smoke Jaguar. Hearing rumors that Clan Wolf was developing the \"Ultimate Assault OmniMech\", the Jaguars won the plans and production rights in a trial that, rumor has it, was fought dishonorably. Production commenced on Huntress in 3010. In 3019, Clan Wolf began production of the OmniMech on Strana Mechty as well; Star Colonel Ulric won a trial of possession to expand manufacture into Clan Wolf. Beyond the limited manufacture of the Dire Wolf on Outreach, all Dire Wolves outside of Clans Smoke Jaguar and Wolf (or the Wolf's Dragoons) are either gifts, isorla, or were acquired through trade."
+  },
+  "manufacturers": {
+    "primary": [
+      "Phan Industriplex",
+      "Wolf Clan Site #1",
+      "Svarstaad Industriplex Delta"
+    ],
+    "primaryFactory": [
+      "Huntress",
+      "Strana Mechty",
+      "Svarstaad"
+    ],
+    "systems": {
+      "chassis": "Titan HX",
+      "engine": "Starfire 300 XL",
+      "armor": "Compound 12B2 Standard",
+      "communications": "TJ6 “Bell” Integrated Communication System",
+      "targeting": "Mars System 9"
+    }
+  }
+}

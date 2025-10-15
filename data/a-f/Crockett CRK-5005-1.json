@@ -1,0 +1,177 @@
+{
+  "name": "Crockett",
+  "chassis": "Crockett",
+  "model": "CRK-5005-1",
+  "mulId": 729,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3070,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 85,
+  "engine": "255 Light Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard",
+    "head": 9,
+    "centerTorso": 40,
+    "rightTorso": 27,
+    "leftTorso": 27,
+    "rightArm": 28,
+    "leftArm": 28,
+    "rightLeg": 36,
+    "leftLeg": 36,
+    "rearCenterTorso": 14,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 263
+  },
+  "quirks": [
+    "easy_pilot",
+    "poor_life_support"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERLargeLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERLargeLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMML3",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISImprovedC3CPU",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "1 ISERLargeLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "1 ISERLargeLaser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISMML3",
+      "ISMML3",
+      "1 ISMML3"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet",
+      "ISMML3",
+      "ISMML3",
+      "ISLBXAC10 Ammo",
+      "ISLBXAC10 Ammo",
+      "IS Ammo MML-3 LRM",
+      "IS Ammo MML-3 SRM",
+      "ISCASE"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "ISImprovedC3CPU",
+      "ISImprovedC3CPU",
+      "1 ISImprovedC3CPU"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ImprovedJump Jet",
+      "ImprovedJump Jet"
+    ]
+  },
+  "text": {
+    "overview": "Introduced in 2735, the Crockett was originally designed and built for the Star League as a training BattleMech with combat capability in response to needs during the Hidden Wars.",
+    "capabilities": "Due to the fact that the Crockett was originally a training 'Mech, it carries a variety of weapons. In addition, the highly-advanced Scope 30 RNDST targeting-tracking system gave the large lasers superior range to any other laser system at the time of its introduction. The Crockett is also very well-protected thanks to sixteen and a half tons of armor. Finally it carries three jump jets, one in either leg and the rear torso, giving it a range of 90 meters.",
+    "deployment": "This model produced by Word of Blake in 3070 uses a Light Engine for power so that it can add improved jump jets that enable it to jump up to 150 meters. The small lasers of the 5004-1 have been removed and it utilizes a small cockpit, cementing its role as a front line unit rather than a training 'Mech.",
+    "history": "Ten years after its introduction, however, Star League Defense Force commanders began to realize that Blankenburg Technologies had taken the \"combat capability\" requirement almost too seriously, and began to field the 'Mech on the front lines. Beyond its heavy weapons load-out, large number of heat sinks and use of jump jets, part of what made the Crockett successful was the enemy's unfamiliarity with this design, giving it an added advantage. Its cockpit systems, simplified for use as a trainer, allowed anyone to pilot the Crockett with only a minimal amount of familiarization training. The Crockett did not go without its growing pains, however. Once it was pressed into combat there was a flaw found in the cockpit's life support system that resulted in the death of three MechWarriors. This flaw was corrected in future production, with previously-issued machines recalled and refitted with the life support system upgrade. In service to the SLDF the hallmark tactic of the Crockett was to engage an enemy 'Mech at range and, before the enemy could accurately target it, jump behind them to attack their weaker rear. So effective was the Crockett that, following the dissolution of the Star League and start of the Succession Wars, many of the Great Houses removed the 'Mech from their training programs and used them to fight on the front lines. As many of the Crockett's components became lostech Blankenburg was forced to make do with inferior spare parts, reducing its capabilities with every year. Eventually the last few Crocketts were little more than a collection of salvaged parts, largely unrecognizable from their original design, until the 'Mech finally went extinct within the Inner Sphere. This changed starting in the thirty-first century, thanks to ComStar's secret stockpile of Star League-era 'Mechs. Original models of the Crockett were used to outfit the Com Guards while downgraded versions were gifted to the Draconis Combine as part of Operation Rosebud. With the Clan Invasion surviving models of the design were also seen among second-line Clan forces. As part of Precentor Martial Anastasius Focht's rearmament program the Blankenburg production line on Terra was reopened to start producing new Crocketts starting in 3054, although it would be only a few years until the Word of Blake conquered the planet and began supplying themselves and their Free Worlds League allies. In order to maintain their supply ComStar contracted Grumium Creations to begin producing Crocketts starting in 3062 and the 'Mech fought on both sides during the Jihad."
+  },
+  "manufacturers": {
+    "primary": [
+      "Blankenburg Technologies"
+    ],
+    "primaryFactory": [
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Geometric 530 Hard Core",
+      "engine": "Strand 255 Light",
+      "armor": "CarboStrand 30 Weight AS",
+      "jumpjet": "Geotec 300",
+      "communications": "GRPNTR Groundpainter 5",
+      "targeting": "Scope 30 RNDST"
+    }
+  }
+}

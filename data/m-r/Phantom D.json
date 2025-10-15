@@ -1,0 +1,162 @@
+{
+  "name": "Phantom",
+  "chassis": "Phantom",
+  "model": "D",
+  "mulId": 2484,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3052,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 40,
+  "engine": "360 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 9,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 12,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 12,
+    "leftArm": 12,
+    "rightLeg": 13,
+    "leftLeg": 13,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 115
+  },
+  "quirks": [
+    "imp_sensors"
+  ],
+  "weapons": [
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLERMediumLaser (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLStreakSRM4 (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "Clan Streak SRM 4 Ammo (omnipod)",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Streak SRM 4",
+      "ER Small Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser (omnipod)",
+      "Clan Endo Steel",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Phantom was pushed into production by Khan Phelan Ward shortly before the Refusal War between Clan Wolf and Clan Jade Falcon, designed around Khan Ward's extensive experience with Inner Sphere tactics.",
+    "capabilities": "Intended to push a medium reconnaissance 'Mech to the most extreme limits, the Phantom is built on a lightweight Type-A Endo Steel chassis and is propelled to a top speed of 151.2 km/h by a Light Force 360 XL Engine. The Phantom also boasts strong protection for its size with six tons of Composite A-2 Ferro-Fibrous armor.",
+    "deployment": "The D configuration is something of a compromise between the B and C configurations. The 'Mech carries three ER Medium Lasers and an ER Small Laser for a powerful short range punch. These are backed up by a highly accurate Streak SRM-4 launcher.",
+    "history": "After the Wars of Reaving, the Phantom replaced the Fire Moth Omnimech for the remaining Home Clans because of its similar role and heavier profile."
+  },
+  "manufacturers": {
+    "primary": [
+      "W-5 Facilities",
+      "Wolf Clan Site 1"
+    ],
+    "primaryFactory": [
+      "Eden",
+      "Arc-Royal"
+    ],
+    "systems": {
+      "chassis": "Type-A Endo Steel",
+      "engine": "Light Force 360 (XL)",
+      "armor": "Composite A-2 Ferro-Fibrous",
+      "communications": "Howler 79",
+      "targeting": "Model 92 “Stalker”"
+    }
+  }
+}

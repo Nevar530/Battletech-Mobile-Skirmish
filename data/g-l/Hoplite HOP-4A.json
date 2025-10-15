@@ -1,0 +1,123 @@
+{
+  "name": "Hoplite",
+  "chassis": "Hoplite",
+  "model": "HOP-4A",
+  "mulId": 4329,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2578,
+  "source": "TRO: 3050",
+  "rulesLevel": 1,
+  "role": "None",
+  "mass": 55,
+  "engine": "220 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "16 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 18,
+    "leftArm": 18,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 184
+  },
+  "quirks": [
+    "no_arms"
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink",
+      "ISLRM5"
+    ],
+    "rightTorso": [
+      "ISAC10",
+      "ISAC10",
+      "ISAC10",
+      "ISAC10",
+      "ISAC10",
+      "ISAC10",
+      "ISAC10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLRM5 Ammo",
+      "ISAC10 Ammo"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "Martinson Armaments designed the Hoplite as a support 'Mech for deployment alongside the infantry divisions of the newly formed Star League Defense Force.",
+    "capabilities": "The Hoplite is slow for a medium 'Mech, with a top speed of only 64.8 km/h. However its 11.5 tons of armor and heavy arsenal, both impressive for a 'Mech of its size, makes the Hoplite a rugged machine able to fight its way out of most situations using superior firepower.",
+    "deployment": "The original Reunification War era model, save for using an older Dalban Sniper targeting and tracking system, was all but identical to the 4C.",
+    "history": "The Hoplite first saw service with the newly formed Star League Defense Force during the Reunification War before being relegated to Terran Hegemony militia units in the twenty-seventh century. While every Hoplite in the Inner Sphere was destroyed during the Amaris Crisis and the early Succession Wars, Aleksandr Kerensky's SLDF exiles found the simple and rugged design ideal for bolstering their forces in the months prior to the Exodus Civil War. Selected by Wolf's Dragoons in the belief that the ancient design wouldn't arouse undue attention, it had the complete opposite effect, and only raised more questions as to the Dragoons' origins when they arrived in 3005. After the mercenaries cut ties with the Clan Homeworlds in 3020, they also lost access to replacement Hoplites, with attrition bringing the design close to extinction by the Jihad. During the Jihad, when the surviving Dragoons relocated to Arc-Royal, experimental refits were performed on the remaining Hoplites, which continued after the conflict's end."
+  },
+  "manufacturers": {
+    "primary": [
+      "Martinson Armaments"
+    ],
+    "primaryFactory": [
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Star League HO-01a",
+      "engine": "DAV 220",
+      "armor": "DuraShield 12-b.1",
+      "communications": "MultiGab 2000",
+      "targeting": "Dalban Sniper"
+    }
+  }
+}

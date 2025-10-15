@@ -1,0 +1,154 @@
+{
+  "name": "Dasher II",
+  "chassis": "Dasher II",
+  "mulId": 848,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3077,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Scout",
+  "mass": 40,
+  "engine": "400 XL (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 10,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 6,
+    "centerTorso": 7,
+    "rightTorso": 7,
+    "leftTorso": 7,
+    "rightArm": 5,
+    "leftArm": 5,
+    "rightLeg": 7,
+    "leftLeg": 7,
+    "rearCenterTorso": 2,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 57
+  },
+  "quirks": [
+    "poor_performance"
+  ],
+  "weapons": [
+    {
+      "type": "ER Micro Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "ER Micro Laser",
+      "ER Micro Laser",
+      "ER Micro Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "ER Micro Laser",
+      "ER Micro Laser",
+      "ER Micro Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "name": "Toro",
+  "chassis": "Toro",
+  "model": "TR-A-6",
+  "mulId": 3277,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2548,
+  "source": "TRO: 3075",
+  "rulesLevel": 1,
+  "role": "Missile Boat",
+  "mass": 35,
+  "engine": "175 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 14,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 14,
+    "leftLeg": 14,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 104
+  },
+  "quirks": [
+    "cramped_cockpit"
+  ],
+  "weapons": [
+    {
+      "type": "Particle Cannon",
+      "location": "LA"
+    },
+    {
+      "type": "LRM 5",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Heat Sink",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "LRM 5",
+      "IS Ammo LRM-5",
+      "LRM 5"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "LRM 5",
+      "IS Ammo LRM-5",
+      "LRM 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Toro was the Taurian Concordat's first indigenous BattleMech. First produced in 2481, the design was based on captured Firebees and developed as a collaboration between the three best arms manufacturers in the Concordat.",
+    "capabilities": "The light 'Mech is slow by 31st century standards, but it was quite maneuverable for the Age of War. The design topped out at 86 km/h. It was protected by a respectable six and a half tons of armor. Its comparatively low cost allowed entire battalions to swiftly be equipped with BattleMechs",
+    "deployment": "The Toro was a long-range fighter. It was armed with a Taurus WarWorks PPC and two Delta Dart LRM-5 launchers. The standard allotment of heat sinks was sufficient as long as the MechWarrior managed his or her heat wisely. Two tons of ammunition kept the Toro in protracted engagements and allowed flexibility in ammo selection. Due to the lack of short-range backup, Toros were arrayed in staggered lines so as to allow them to support each other.",
+    "history": "The Toro took to the front lines against the Star League in the Reunification War, but was not enough to stop the combined might of the Inner Sphere. The League shut down and demolished all of the Toro factories by 2598 in the hope that it would crush Taurian nationalism, though there is no evidence it had the desired effect. Under the Star League aegis, the Taurian heavy industry produced League 'Mechs, a situation they pragmatically continued with following its fall. Thanks to the dissemination of the Hegemony Memory Core during the Jihad the Toro was finally revived by manufacturers in the Concordat, Calderon Protectorate, Magistracy of Canopus and ironically the Federated Suns."
+  },
+  "manufacturers": {
+    "primary": [
+      "Taurus WarWorks"
+    ],
+    "primaryFactory": [
+      "Taurus (discontinued 2598)"
+    ],
+    "systems": {
+      "chassis": "Humanoid Mk. VI TR",
+      "engine": "Magna 175",
+      "armor": "Ecto-Mineral Armorplate 2",
+      "communications": "VeraTech MilCom Suite 3",
+      "targeting": "VeraTech MechTnT XVT20S"
+    }
+  }
+}

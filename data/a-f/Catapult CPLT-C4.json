@@ -1,0 +1,144 @@
+{
+  "name": "Catapult",
+  "chassis": "Catapult",
+  "model": "CPLT-C4",
+  "mulId": 482,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2565,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Missile Boat",
+  "mass": 65,
+  "engine": "260 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 22,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightArm": 15,
+    "leftArm": 15,
+    "rightLeg": 23,
+    "leftLeg": 23,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 160
+  },
+  "quirks": [
+    "no_arms",
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 20",
+      "location": "LA"
+    },
+    {
+      "type": "LRM 20",
+      "location": "RA"
+    },
+    {
+      "type": "Small Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "LRM 20",
+      "LRM 20",
+      "LRM 20",
+      "LRM 20",
+      "LRM 20",
+      "LRM 20"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "LRM 20",
+      "LRM 20",
+      "LRM 20",
+      "LRM 20",
+      "LRM 20",
+      "LRM 20"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "IS Ammo LRM-20",
+      "IS Ammo LRM-20"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "IS Ammo LRM-20",
+      "IS Ammo LRM-20"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Small Laser",
+      "Small Laser",
+      "Small Laser",
+      "Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Catapult, though a well-designed BattleMech, has had a tumultuous existence. Produced by Hollis Incorporated in record numbers for the SLDF, the Terran Hegemony ultimately decided to forgo contract renewal, leaving Hollis with a BattleMech line but no customer. When the facility was eventually retooled to produce the BattleMaster, they chose to completely abandon their Catapult chassis, and its numbers began to decline. The attrition of the Succession Wars left the Draconis Combine with many Catapults but no parts for them. Contracting Yori Mech Works, a production line was eventually built and new Catapults began entering the DCMS by 3033. The Capellan Confederation would follow suit and the Catapult would finally claim the popularity that it deserved.",
+    "capabilities": "Carrying two LRM launchers in its \"ears\" and four medium lasers in its body, the Catapult was a fire support 'Mech akin to the slightly larger Archer. The inclusion of jump jets, though, and the placement of the lasers allowed many Catapults to be their own bodyguards. Many Catapult MechWarriors choose to fire all of their LRM missiles at their chosen targets before closing in to exploit any armor breaches with their lasers. This does make the Catapult slightly more flexible than many traditional support 'Mechs, although its limited ammunition stores can hamper it in extended ranged battles.",
+    "deployment": "While visible in every military of note, the Capellan Confederation and Draconis Combine would lay claim to the lion's share of the design. When production for the Catapult began in both states, the divide only increased, with many states losing all of their examples of the design by the conclusion of the Jihad. A rarely seen modification, the CPLT-C4 and its larger LRM racks left this variant with little in terms of secondary weaponry. Mostly found in Capellan forces, the creation of the Trinity Alliance and the reappearance of advanced military hardware within the Confederation would give House Liao the luxury to sell most CPLT-C4's to their new periphery allies. Regardless, this variant would not survive the ravages of the Jihad, and it has not been seen for some time.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Hollis",
+      "engine": "Magna",
+      "armor": "Durallex",
+      "communications": "O/P",
+      "targeting": "O/P"
+    }
+  }
+}

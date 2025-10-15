@@ -1,0 +1,173 @@
+{
+  "name": "Arctic Fox",
+  "chassis": "Arctic Fox",
+  "model": "AF1",
+  "mulId": 91,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3059,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 30,
+  "engine": "180 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 15,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 10,
+    "leftLeg": 10,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 96
+  },
+  "quirks": [
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 4",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 4",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Medium Laser (OMNIPOD)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Medium Laser (OMNIPOD)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISERPPC (OMNIPOD)",
+      "ISERPPC (OMNIPOD)",
+      "ISERPPC (OMNIPOD)",
+      "SRM 4 (OMNIPOD)",
+      "IS Ammo SRM-4 (OMNIPOD)",
+      "ER PPC",
+      "SRM 4"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "SRM 4 (OMNIPOD)",
+      "SRM 4"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "<P>The Kell Hounds' first OmniMech came with their salvage from Luthien, and recognizing the value of a reconfigurable 'Mech, they sought to replicate the machine. The Arctic Fox is their successful attempt, embodying versatility and adaptability in battle.</P>",
+    "capabilities": "<P>Well armored for a light ’Mech, the Arctic Fox can stand up to most Inner Sphere designs of similar weight. Upon reaching an efficient range for its weapons load, the OmniMech is best used holding that range and taking advantage of natural cover. For warriors with a penchant for up-close-and-personal combat, however, the Arctic Fox does not disappoint. The Arctic Fox’s snarling visage is backed by fourteen tons of pod space for weapons.</P>",
+    "deployment": "<!-- Primary Variant -->The Arctic Fox Prime is equipped with an extended-range PPC, backed by an array of medium-range weapons. This configuration ensures a potent mix of range and firepower, enabling it to engage enemies effectively at various distances.",
+    "history": "<P>Morgan Kell had the Arc-Royal facilities attempt a clone of the machine. However, only after Phelan Kell and his Wolves-In-Exile arrived were the final bugs worked out. In return for the Kell Hounds' material support for Phelan's Wolves, Clan technical advisors helped the Kells finish reverse-engineering a Clan Uller (known to the Clans as a Kit Fox). Though the Kells have access to Clan materials, the Arctic Fox is built with only Inner Sphere technology, for logistical as well as strategic reasons. The Kell Hounds use most of the Clan material they get for the upkeep of their captured Clan 'Mechs. Also, with their support of \"training farm\" units and ARDC defense regiments, the Kells wished to offer this versatile design to those who could afford it, but had no Clan technology. The Kell Hounds do not use the designation of AF1. In Clan fashion, they refer to the basic machine as the Arctic Fox Prime. The name evokes the 'Mech's progenitor, the Clan Kit Fox, as well as the new Wolf-in-Exile Clan 'Mech, the Arctic Wolf. Variants are designated A, B, C and D.</P>"
+  },
+  "manufacturers": {
+    "primary": [
+      "Arc-Royal MechWorks"
+    ],
+    "primaryFactory": [
+      "Arc-Royal"
+    ],
+    "systems": {
+      "chassis": "AR-3 Endo Steel",
+      "engine": "GM 180 XL",
+      "armor": "Royal-7 Standard",
+      "communications": "K9 Communications System",
+      "targeting": "Type IV Bloodhound T & T System"
+    }
+  }
+}

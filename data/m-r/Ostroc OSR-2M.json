@@ -1,0 +1,134 @@
+{
+  "name": "Ostroc",
+  "chassis": "Ostroc",
+  "model": "OSR-2M",
+  "mulId": 2353,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2793,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "300 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 22,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 144
+  },
+  "quirks": [
+    "low_profile"
+  ],
+  "weapons": [
+    {
+      "type": "Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Large Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Heat Sink",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "The Ostroc is a heavy 'Mech, weighing in at the lower end of its weight class, originally designed to act as an urban combatant during the Age of War.",
+    "capabilities": "Its unique walker/pod profile, later seen in the Stalker and Marauder, combined with a low silhouette similar to the UrbanMech makes the Ostroc difficult to spot in an urban environment. Fast for its size, well-armored and boasting good medium- and short-range firepower, the Ostroc was also capable when fighting outside a cityscape, particularly as a heavy scout/raider.",
+    "deployment": "An experimental model produced by Kong Interstellar for the Free Worlds League in 2793, the 2M variant of the Ostroc focuses on the 'Mech's maneuverability. Five jump jets, two in each leg and one in the rear torso, have been added to the design, giving it a maximum jumping distance of one hundred and fifty meters. In order to make this change, the medium lasers and the SRM-4 launcher were removed. Relatively few of these were built between the League's annexation of Connaught and the factory's destruction.",
+    "history": "The best-known of Ostmann Industries' Ost Class of 'Mechs, the Ostroc debuted in 2511 and proved so successful in this role production continued for approximately 200 years. While a quality 'Mech, the low production capacity of Ostmann Industries made the Ostroc a rarity; indeed the company licensed their other Ost 'Mechs out to Kong Interstellar just to maintain their rate of production, and the majority of those produced were assigned garrison duties within the Terran Hegemony. Still, the 'Mech saw action in every major conflict of the Star League, especially towards the end in the civil war and subsequent First Succession War. The destruction of Ostmann Industries meant an end to any new Ostrocs, although all sides of the Succession Wars continued to field these 'Mechs in combat, particularly the Draconis Combine. It was because of the small number and wide dispersal of surviving Ostrocs that the design was largely passed over while others were being updated after the Helm Memory Core discovery. A major revitalization of the design took place within the Capellan Confederation after the Clan Invasion. Having largely rebuilt their forces after the previous decades' setbacks, the Strategios wanted to update the ancient 'Mech, but rather than reverse-engineering the original they ordered all Capellan 'Mech manufacturers to submit bids for a replacement. Ceres Metals was the only one to send in a proposal which matched exactly what they wanted and won the contract, completing the first production run in January 3067. Versions of these new Ostrocs also started showing up in the Taurian Concordat and Circinus Federation, a result of espionage according to Capellan charges."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kong Interstellar Corporation"
+    ],
+    "primaryFactory": [
+      "Connaught"
+    ],
+    "systems": {
+      "chassis": "Ost II",
+      "engine": "Vlar 300",
+      "armor": "Riese 475",
+      "jumpjet": "HildCo 13 Jump Jets",
+      "communications": "Ostmann-L",
+      "targeting": "Ferdinand-a"
+    }
+  }
+}

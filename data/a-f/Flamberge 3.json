@@ -1,0 +1,187 @@
+{
+  "name": "Flamberge",
+  "chassis": "Flamberge",
+  "model": "3",
+  "mulId": 1115,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3087,
+  "source": "TRO: 3085",
+  "rulesLevel": 4,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "280 XL (Clan) Engine(IS)",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 6
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 216
+  },
+  "quirks": [
+    "imp_target_med"
+  ],
+  "weapons": [
+    {
+      "type": "SRM 4",
+      "location": "LA"
+    },
+    {
+      "type": "Ultra AC/20",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 4",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Micro Pulse Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLSRM4",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "Clan Ultra AC/20 Ammo",
+      "Clan Ultra AC/20 Ammo",
+      "SRM 4"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLMediumPulseLaser",
+      "CLSRM4",
+      "Clan Ammo SRM-4",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Medium Pulse Laser",
+      "SRM 4"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLPartialWing",
+      "CLPartialWing",
+      "CLPartialWing",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "Ultra AC/20"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLPartialWing",
+      "CLPartialWing",
+      "CLPartialWing",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet",
+      "Clan Ultra AC/20 Ammo",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMediumPulseLaser",
+      "CLMicroPulseLaser",
+      "Medium Pulse Laser",
+      "Micro Pulse Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Improved Jump Jet",
+      "Clan Improved Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "Initially a Partial Wing test-bed, the Flamberge became a prominent Clan Jade Falcon OmniMech, helping to inspire the Falcon's Dark Age era design style aesthetic.",
+    "capabilities": "Built on an Endo Steel chassis, powered by a 280 rated XL Engine, and clad in thirteen and a half tons of armor, while slower than other front-line OmniMechs of similar weight, the bulk of the Flamberge's variants feature Jump Jets and the design was built with them in mind. Mounting eleven double heat sinks on its base frame, the design had thirty-five tons of available pod space.",
+    "deployment": "With performance identical to the Flamberge 2, the Flamberge 3 has a completely different weapons load. It's armed with an Ultra AC/20, paired SRM-4 launchers, Medium Pulse Lasers, and a single Micro Pulse Laser rounding out the armament.",
+    "history": "Developing the experimental Partial Wing technology in the 3060s, attempts by the Falcon scientists to develop a new production design using it were unsuccessful and the project was ultimately shelved. Cut-off from the Clan Homeworlds as losses mounted in the Jihad, in 3074 then Khan Marthe Pryde tasked Merchant Daniel and the Falcon design teams to use whatever was available to rebuild her forces. After removing much of the internal components of the wings, retaining the inbuilt Pattern J7 SRM-6 launchers in the shoulders to avoid further delays, the reborn test-bed featured an imposing bird-like cosmetic appearance that helped the Flamberge secure a prominent position in the Clan Jade Falcon Touman."
+  },
+  "manufacturers": {
+    "primary": [
+      "Olivetti Weaponry"
+    ],
+    "primaryFactory": [
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "JF 7 Light Endo Steel",
+      "engine": "280 XL Fusion",
+      "armor": "JF Standard",
+      "communications": "JF Integrated",
+      "targeting": "JFIX/Olivetti Pinpoint Advanced"
+    }
+  }
+}

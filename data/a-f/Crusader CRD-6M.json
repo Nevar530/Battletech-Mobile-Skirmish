@@ -1,0 +1,191 @@
+{
+  "name": "Crusader",
+  "chassis": "Crusader",
+  "model": "CRD-6M",
+  "mulId": 761,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3074,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "195 XL Engine(IS)",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 28,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 21,
+    "leftLeg": 21,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 184
+  },
+  "quirks": [
+    "easy_maintain",
+    "rugged_1",
+    "ubiquitous_clan",
+    "ubiquitous_is"
+  ],
+  "weapons": [
+    {
+      "type": "Streak SRM 4",
+      "location": "LL"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "RL"
+    },
+    {
+      "type": "MML 7",
+      "location": "LA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "LA"
+    },
+    {
+      "type": "MML 7",
+      "location": "RA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "Light PPC",
+      "Light PPC",
+      "MML 7",
+      "Light PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "Light PPC",
+      "Light PPC",
+      "MML 7",
+      "Light PPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "IS Ammo MML-7 LRM",
+      "IS Ammo MML-7 LRM",
+      "IS Ammo MML-7 SRM",
+      "IS Ammo MML-7 SRM",
+      "ISCASE"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "Improved Jump Jet",
+      "IS Streak SRM 4 Ammo",
+      "ISCASE"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Improved Jump Jet",
+      "Improved Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISStreakSRM4",
+      "Streak SRM 4"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISStreakSRM4",
+      "Streak SRM 4"
+    ]
+  },
+  "text": {
+    "overview": "The Crusader was initially designed as a close combat BattleMech for the Star League Defense Force, but soon proved itself to be a very adaptable, multi-role design. This reliable workhorse of the SLDF, while not excelling in any one job, was quite capable of accomplishing just about any mission, whether it be close assault, anti-aircraft, counter-insurgency, or even reconnaissance. Its versatility and large number of manufacturers ensured the Crusader its place as one of the most common heavy 'Mechs in the Inner Sphere.",
+    "capabilities": "Each arm was equipped with an LRM launcher, laser and machine gun, while the SRM launchers were built into the legs and mounted at hip height to provide a stable firing location and avoid interference with the LRMs' flight path. Early Crusader models had issues with the arm-mounted launchers and lasers overheating and causing stress to the actuators and internal structure, but this was rectified with the additions of the now-distinctive collars which deflect hot gasses away. The Crusader was well-protected with twelve tons of armor, particularly around the legs, which made it a good hand-to-hand combatant. A thirteen and a half ton fusion engine allowed the Crusader to achieve a decent cruising speed of 43.2 km/h. One disadvantage to the Crusader was its inadequate heat management system, carrying just ten standard heat sinks to handle all the waste heat produced by its weapons and equipment.",
+    "deployment": "This variant was produced in the Free Worlds League starting in 3074 during the Jihad. It carries two Streak SRM-4 launchers in the legs, while each arm carries a Light PPC and MML-7. The 'Mech's top speed was reduced, so engineers fitted Improved Jump Jets to compensate.",
+    "history": "The Crusader received its baptism of fire during the Reunification War and remained a common fixture in the regiments of the SLDF for many centuries. Even after the fall of the Star League, the various Successor States continued to field large numbers of Crusaders in their armies, thanks to factories located on Tharkad, Oliver, Asuncion and Bernardo. House Steiner in particular was a notable Crusader user, thanks in part to their well-trained technicians who could have damaged units turned around and ready to fight in a single day. A variety of new production variants and field modification kits were turned out for the Crusader after the recovery of the Helm Memory Core, just in time for the Clan Invasion. In the wake of the Clan Invasion, one of the first new Crusader variants was built by the Cosby BattleMech Research Firm, the (in)famous producer of the No-Dachi 'Mech. Hoping to overcome the lack of prestige of their previous design and win the favor of the Coordinator, the company acquired manufacturing rights to the Crusader through the hostile takeover of another company and unveiled an updated variant of the 'Mech around the start of the FedCom Civil War. Additional variants would continue to be produced in the years since, including models utilized by the Word of Blake during the Jihad."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kallon Weapon Industries",
+      "Kallon Weapon Industries"
+    ],
+    "primaryFactory": [
+      "Bernardo",
+      "Loyalty"
+    ],
+    "systems": {
+      "chassis": "Crucis-B",
+      "engine": "Hermes 260 XL",
+      "armor": "Riese-500 with CASE",
+      "communications": "Garret T11-b",
+      "targeting": "Garret A6"
+    }
+  }
+}

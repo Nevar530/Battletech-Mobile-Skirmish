@@ -1,0 +1,158 @@
+{
+  "name": "Osiris",
+  "chassis": "Osiris",
+  "model": "OSR-5D",
+  "mulId": 5660,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3081,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 30,
+  "engine": "210 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 7
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous",
+    "head": 9,
+    "centerTorso": 15,
+    "rightTorso": 9,
+    "leftTorso": 9,
+    "rightArm": 9,
+    "leftArm": 9,
+    "rightLeg": 13,
+    "leftLeg": 13,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 101
+  },
+  "quirks": [
+    "ext_twist"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISHeavyPPC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "Jump Jet",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "Light Ferro-Fibrous",
+      "1 ISHeavyPPC"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Osiris was essentially modeled after the Clan Dragonfly and designed by the same engineers who designed the Anubis. The Osiris was designed to be a fast, hit-and-fade style offensive platform and can perform well in that capacity with its awesome speed, although it does appear to rely too heavily on its mobility to protect it from damage.",
+    "capabilities": "While the limits of Inner Sphere technology forced the designers to skimp on the specifications somewhat, the Osiris does maintain the same speed as the design it is based off of with its powerful Pharaoh 240 XL. The armor and jump capacity are sadly lacking, however, as the Osiris can only jump half as far as the Dragonfly with its four Rawlings 61 jump jets and is armored with four and a half tons of StarGuard Ferro-Fibrous.",
+    "deployment": "This Jihad-era variant developed in 3081 drops all the weaponry in favor of a single Heavy PPC. The 'Mech makes room for this by using an XL Gyro and a smaller XL Engine that reduces the top speed to approximately 110km/h. This Osiris variant has a 210 meter jump capability and is protected by Light Ferro-Fibrous armor.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Achernar BattleMechs"
+    ],
+    "primaryFactory": [
+      "New Avalon"
+    ],
+    "systems": {
+      "chassis": "FITES-O",
+      "engine": "Pharaoh 240 XL",
+      "armor": "StarGuard Ferro-Fibrous",
+      "communications": "Achernar Electronics HID-8.7",
+      "targeting": "Federated Hunter Mk. VII"
+    }
+  }
+}

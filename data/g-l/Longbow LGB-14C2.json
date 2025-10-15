@@ -1,0 +1,201 @@
+{
+  "name": "Longbow",
+  "chassis": "Longbow",
+  "model": "LGB-14C2",
+  "mulId": 6854,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3088,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 3,
+  "role": "Missile Boat",
+  "mass": 85,
+  "engine": "255 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 32,
+    "rightTorso": 23,
+    "leftTorso": 23,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 31,
+    "leftLeg": 31,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 224
+  },
+  "quirks": [
+    "anti_air",
+    "searchlight",
+    "ubiquitous_is",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "MML 9",
+      "location": "LA"
+    },
+    {
+      "type": "MML 9",
+      "location": "LA"
+    },
+    {
+      "type": "MML 9",
+      "location": "RA"
+    },
+    {
+      "type": "MML 9",
+      "location": "RA"
+    },
+    {
+      "type": "MML 9",
+      "location": "LT"
+    },
+    {
+      "type": "MML 9",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "MML 9",
+      "MML 9"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "MML 9",
+      "MML 9"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 SRM",
+      "ISCASE",
+      "MML 9"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 SRM",
+      "IS Ammo MML-9 SRM",
+      "ISCASE",
+      "MML 9"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERMediumLaser",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "ISC3BoostedSystemSlaveUnit",
+      "ISC3BoostedSystemSlaveUnit"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 SRM"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 SRM"
+    ]
+  },
+  "text": {
+    "overview": "The Longbow, introduced in 2480 as the LGB-0C Longbow, has seen service in the armies of the Inner Sphere since the days of the Star League and is one of the most well-known fire support 'Mechs in existence.",
+    "capabilities": "The Longbow is a massive BattleMech weighing in at 85 tons and is able to move at a top speed of 54.0 km/h, thanks to a Strand 255 fusion engine. The Longbow is protected by fourteen and a half tons of armor. Some have criticized the design for its lack of CASE - making an otherwise rugged 'Mech vulnerable to a loss by an ammunition explosion. As a fire-support 'Mech though, the Longbow is a trusted and reliable machine that can be counted on to carry out the mission it is designed for.",
+    "deployment": "This upgrade of the 14C removes two of the ER Medium Lasers and replaces them with a Boosted C3 Slave unit. It is otherwise identical to the 14C.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "StarCorps Industries",
+      "StarCorps (FWL) Industries",
+      "StarCorps Industries",
+      "StarCorps Industries"
+    ],
+    "primaryFactory": [
+      "Crofton",
+      "Emris IV",
+      "Fletcher (TH)",
+      "Loburg"
+    ],
+    "systems": {
+      "chassis": "StarCorps 100 LGB",
+      "engine": "Strand 340",
+      "armor": "StarSlab/9.5 Mk II",
+      "communications": "O/P 3000 COMSET",
+      "targeting": "Octagon Tartrac System C"
+    }
+  }
+}

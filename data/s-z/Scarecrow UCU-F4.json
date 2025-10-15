@@ -1,0 +1,244 @@
+{
+  "name": "Scarecrow",
+  "chassis": "Scarecrow",
+  "model": "UCU-F4",
+  "mulId": 6336,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3099,
+  "source": "TRO: 3145 Federated Suns",
+  "rulesLevel": 4,
+  "role": "Brawler",
+  "mass": 40,
+  "engine": "200 XL Engine(IS)",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (IS/Clan)",
+    "head": 9,
+    "centerTorso": 18,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 18,
+    "leftLeg": 18,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 128
+  },
+  "quirks": [
+    "bad_rep_is",
+    "difficult_maintain",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "CT"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "H"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun Array",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun Array",
+      "location": "LA"
+    },
+    {
+      "type": "B-Pod",
+      "location": "LL"
+    },
+    {
+      "type": "B-Pod",
+      "location": "RL"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERMediumLaser",
+      "ISMediumPulseLaser",
+      "CLLightMG",
+      "CLLightMG",
+      "CLLightMG",
+      "CLLightMG",
+      "CLLMGA",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "Chameleon Light Polarization Shield",
+      "ER Medium Laser",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun Array",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERMediumLaser",
+      "ISMediumPulseLaser",
+      "CLLightMG",
+      "CLLightMG",
+      "CLLightMG",
+      "CLLightMG",
+      "CLLMGA",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "Chameleon Light Polarization Shield",
+      "ER Medium Laser",
+      "Medium Pulse Laser",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun Array"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "BloodhoundActiveProbe",
+      "BloodhoundActiveProbe",
+      "BloodhoundActiveProbe",
+      "IS Endo-Composite",
+      "Chameleon Light Polarization Shield"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Clan Light Machine Gun Ammo - Half",
+      "ISCASEII",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "Chameleon Light Polarization Shield"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "CLERMediumLaser",
+      "ER Flamer",
+      "ER Medium Laser",
+      "ER Flamer"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ER Flamer",
+      "Sensors",
+      "Life Support",
+      "ER Flamer"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISBPod",
+      "Chameleon Light Polarization Shield",
+      "B-Pod"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISBPod",
+      "Chameleon Light Polarization Shield",
+      "B-Pod"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

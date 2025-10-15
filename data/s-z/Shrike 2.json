@@ -1,0 +1,186 @@
+{
+  "name": "Shrike",
+  "chassis": "Shrike",
+  "model": "2",
+  "mulId": 6293,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3115,
+  "source": "TRO: 3145 The Clans",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 95,
+  "engine": "380 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Laser",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 44,
+    "rightTorso": 29,
+    "leftTorso": 29,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 39,
+    "leftLeg": 39,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 288
+  },
+  "quirks": [
+    "distracting",
+    "command_mech",
+    "reinforced_legs"
+  ],
+  "weapons": [
+    {
+      "type": "Ultra AC/10",
+      "location": "LA"
+    },
+    {
+      "type": "Ultra AC/10",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "Clan Ultra AC/10 Ammo",
+      "Ultra AC/10",
+      "Ultra AC/10"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLPartialWing",
+      "CLPartialWing",
+      "CLPartialWing",
+      "Jump Jet",
+      "Jump Jet",
+      "CLERMediumLaser",
+      "Clan Ultra AC/10 Ammo",
+      "Clan Ultra AC/10 Ammo",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLPartialWing",
+      "CLPartialWing",
+      "CLPartialWing",
+      "Jump Jet",
+      "Jump Jet",
+      "CLERMediumLaser",
+      "Clan Ammo LRM-10",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLRM10",
+      "Clan Ferro-Fibrous",
+      "LRM 10"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Shrike's humble origins derive from Red Devil Industries' Onager, which was clearly inspired by the aesthetics of Olivetti's Flamberge and Eyrie.",
+    "capabilities": "Despite being heavier than its spiritual forefather, the Shrike outperforms the Onager in every way. It can outmaneuver many heavy and assault 'Mechs, and jump jets combined with a partial wing allow the Shrike to reach regions where most 'Mechs in its weight class cannot. The Shrike's armaments and targeting computer let it to remain a safe distance from its opponents, perhaps keeping the pilot safe without sacrificing accuracy, and reinforced legs promote Death From Above strikes on those who get too close. The Shrike is a command 'Mech with heavy armor, a command station, and a terrifying falcon shape.",
+    "deployment": "Introduced in 3115, the second variant of the Shrike replaces the ER Large Lasers with ER medium lasers, which allows the autocannons to be upgraded to pair of Ultra Autocannon/10s.",
+    "history": "At first appearance, one might mistake the ferocious Shrike for another falcon-themed BattleMech manufactured by Olivetti Weaponry. Eagle Craft Group adopted the Onager concept and retooled it to fit the Clan Council's rejuvenation mandates and design philosophy, following in the footsteps of the Eyrie. The heavier Shrike, which debuted shortly after Olivetti's similarly fashioned Gyrfalcon, drew praise from the warrior caste when it outperformed the Onager in every category. Many Falcon fighters issued Trials of Possession for Shrikes after observing them struggle against fast, heavy 'Mechs. Because of its agility, thick armor, range, precision, and terrifying battlefield presence, the Shrike has quickly become a favorite among Galaxy and Cluster commanders. Although a few salvaged chassis have appeared on Lyran black markets, the Shrike remains a Jade Falcon asset."
+  },
+  "manufacturers": {
+    "primary": [
+      "Eagle Craft Group"
+    ],
+    "primaryFactory": [
+      "Erewhon"
+    ],
+    "systems": {
+      "chassis": "DSAM Endo 4",
+      "engine": "Olivetti 380 XL",
+      "armor": "Forging ZM15 Ferro-Fibrous",
+      "jumpjet": "Grandthrust Mk 5 with Partial Wing",
+      "communications": "Raptor X-T Type iii",
+      "targeting": "Goshawk E-Series"
+    }
+  }
+}

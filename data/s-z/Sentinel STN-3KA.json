@@ -1,0 +1,123 @@
+{
+  "name": "Sentinel",
+  "chassis": "Sentinel",
+  "model": "STN-3KA",
+  "mulId": 2858,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2830,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Scout",
+  "mass": 40,
+  "engine": "240 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "13 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 18,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 18,
+    "leftLeg": 18,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 128
+  },
+  "quirks": [
+    "imp_com"
+  ],
+  "weapons": [
+    {
+      "type": "Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "SRM 2",
+      "location": "RT"
+    },
+    {
+      "type": "Large Laser",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightTorso": [
+      "Small Laser",
+      "SRM 2",
+      "IS Ammo SRM-2",
+      "Small Laser",
+      "SRM 2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Heat Sink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "name": "Night Gyr",
+  "chassis": "Night Gyr",
+  "model": "H",
+  "mulId": 2269,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3062,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 75,
+  "engine": "300 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 28,
+    "leftLeg": 28,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 220
+  },
+  "quirks": [
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Ultra AC/10",
+      "location": "LA"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLUltraAC10 (omnipod)",
+      "CLUltraAC10 (omnipod)",
+      "CLUltraAC10 (omnipod)",
+      "CLUltraAC10 (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Ultra AC/10"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Gauss Rifle"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLHeavyLargeLaser (omnipod)",
+      "CLHeavyLargeLaser (omnipod)",
+      "CLHeavyLargeLaser (omnipod)",
+      "Clan Ultra AC/10 Ammo (omnipod)",
+      "Clan Ultra AC/10 Ammo (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Heavy Large Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Clan Gauss Ammo (omnipod)",
+      "Clan Gauss Ammo (omnipod)",
+      "CLECMSuite (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLMediumPulseLaser (omnipod)",
+      "Sensors",
+      "Life Support",
+      "Medium Pulse Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Night Gyr came back with Clan Jade Falcon leaders following their return to the Clan homeworlds in 3051 to elect a new ilKhan. It has become more prevalent in the Falcon touman following the Refusal War.",
+    "capabilities": "No expense was spared in the manufacture of this OmniMech that uses an XL Engine and Endo Steel to save weight. It also incorporates eleven and a half tons of Ferro-Fibrous armor. Though it is on the slow end for a Clan heavy 'Mech, the Night Gyr mounts four fixed jump jets that enable it to jump up to 120 meters in a single bound. The design was a testbed for some new technologies, including the Laser Heat Sink, which was eventually phased out due to a lack of increased performance.",
+    "deployment": "The heavy laser variant only mounts one, a Heavy Large Laser. A Gauss Rifle gives it long-range firepower, while an Ultra Autocannon/10 is effective at medium and short range. A Medium Pulse Laser is an accurate backup weapon. Five heat sinks are added to ensure the design never has to worry about heat. An ECM Suite provides protection against some enemy electronics.",
+    "history": "During the Wars of Reaving, Night Gyr's production facilities on Ironhold, would end up being destroyed in 3076."
+  },
+  "manufacturers": {
+    "primary": [
+      "Ironhold Gamma Complex"
+    ],
+    "primaryFactory": [
+      "Ironhold"
+    ],
+    "systems": {
+      "chassis": "JF 7 Light Endo Steel",
+      "engine": "300 JF Extralight",
+      "armor": "Compound JF Ferro Fibrous",
+      "jumpjet": "JF Standard",
+      "communications": "JF 3048 Series II",
+      "targeting": "Ironhold Mk II"
+    }
+  }
+}

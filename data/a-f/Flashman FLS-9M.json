@@ -1,0 +1,203 @@
+{
+  "name": "Flashman",
+  "chassis": "Flashman",
+  "model": "FLS-9M",
+  "mulId": 1127,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3070,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 75,
+  "engine": "300 Light Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous",
+    "head": 9,
+    "centerTorso": 29,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 27,
+    "leftLeg": 27,
+    "rearCenterTorso": 16,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 220
+  },
+  "quirks": [
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISHeavyPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISHeavyPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "2 ISMediumPulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "RT"
+    },
+    {
+      "type": "2 ISMediumPulseLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISMediumLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 ISHeavyPPC",
+      "1 ISMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISMediumLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 ISHeavyPPC",
+      "1 ISMediumLaser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "ISMediumLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Light Ferro-Fibrous",
+      "2 ISMediumPulseLaser",
+      "1 ISMediumLaser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "ISMediumLaser",
+      "Light Ferro-Fibrous",
+      "2 ISMediumPulseLaser",
+      "1 ISMediumLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Endo Steel",
+      "Light Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISSmallLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISSmallLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Flashman is an underrated heavy 'Mech, commonly called a \"flashbulb\" by MechWarriors for its heavy-energy configuration.",
+    "capabilities": "Designed to provide continuous energy based fire support for lancemates moving to attack or covering fire for withdrawing units. The use of a Faust/Shinji AT/TS targeting-tracking system gives the Flashman a level of accuracy few can match, while fifteen double heat sinks give it an effective heat management system. The 'Mech is also notable for using an extralight engine which makes it fast for its size, though not at the expense of protection thanks to thirteen and a half tons of armor.",
+    "deployment": "This second Word of Blake variant, introduced in 3070 and built for House Marik forces loyal to the Blakists, is less flashy than the 9B but still effective. Like that variant, the 9M utilizes an Endo Steel chassis and a Light Engine, although it is a smaller engine with a top speed of 64 km/h to enable this Flashman to mount paired Heavy PPCs. Unfortunately its heat dissipation system is strained to the limit just to keep up with the powerful cannons. Up close, four medium lasers and four medium pulse lasers deliver withering firepower, while the addition of a Small Laser seems an afterthought.",
+    "history": "The Flashman, which was first introduced in 2701, is a 'Mech that is capable of engaging an enemy for extended periods of time with little re-supply. This made it one of the most prized 'Mechs in a commander's arsenal during the Star League and saw heavy use by line regiments, typically in a \"fire brigade\" role for heavy and assault lances. During advances it would stay to the rear to protect against ambushes and provide fire support for its lancemates. Towards the end of the Star League, several divisions had battalions composed of nothing but Flashmen, and thanks to its popularity these 'Mechs saw frequent use on the front lines. When the League dissolved, the design spread amongst the Successor States but fewer than 500 Flashmen were still operational at the start of the First Succession War. Their heavy use during this fighting saw many destroyed and production of new 'Mechs abruptly stopped in 2796 when Renault-Prime Industries on Wasat was destroyed. The Flashman was saved from extinction thanks to Defiance Industries, which was able to acquire the schematics and produced a downgraded version at their Hesperus II plant. Thanks to the fact that they owned the only remaining Flashman factory and could replace their combat losses, the Lyran Commonwealth remained the largest user of Flashman 'Mechs throughout the Succession Wars - at least until the unveiling of the Com Guards. ComStar also supplied examples of downgraded Flashmen to the Draconis Combine as part of Operation Rosebud. Following the recovery of the Helm Memory Core, Defiance Industries was able to restart production of original-model Flashman 'Mechs in the 3050s and built new variants for ComStar. After the Word of Blake seized control of Defiance Industries they also produced new variants which were supplied to their Militia for the Jihad."
+  },
+  "manufacturers": {
+    "primary": [
+      "Defiance Industries"
+    ],
+    "primaryFactory": [
+      "Hesperus II"
+    ],
+    "systems": {
+      "chassis": "FLS/HV-1 Endo",
+      "engine": "Defiance 300",
+      "armor": "Durallex Light Ferro-Fibrous",
+      "communications": "Duoteck 195",
+      "targeting": "Faust/Shinji AT/TS"
+    }
+  }
+}

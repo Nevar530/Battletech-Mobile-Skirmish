@@ -1,0 +1,138 @@
+{
+  "name": "Strider",
+  "chassis": "Strider",
+  "model": "SR1-OX",
+  "mulId": 3093,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3071,
+  "source": "TRO: 3058",
+  "rulesLevel": 4,
+  "role": "Striker",
+  "mass": 40,
+  "engine": "240 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 15,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 12,
+    "leftArm": 12,
+    "rightLeg": 14,
+    "leftLeg": 14,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 120
+  },
+  "quirks": [
+    "easy_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "MML 3",
+      "location": "LA"
+    },
+    {
+      "type": "MML 3",
+      "location": "RA"
+    },
+    {
+      "type": "Bombast Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMML3 (omnipod)",
+      "ISMML3 (omnipod)",
+      "MML 3"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMML3 (omnipod)",
+      "ISMML3 (omnipod)",
+      "MML 3"
+    ],
+    "leftTorso": [
+      "IS Ammo MML-3 LRM (omnipod)",
+      "ISCASE",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Bombast Laser (omnipod)",
+      "Bombast Laser (omnipod)",
+      "Bombast Laser (omnipod)",
+      "IS Ammo MML-3 SRM (omnipod)",
+      "ISCASE",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Bombast Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

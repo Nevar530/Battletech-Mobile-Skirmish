@@ -1,0 +1,170 @@
+{
+  "name": "Catapult",
+  "chassis": "Catapult",
+  "model": "CPLT-H2",
+  "mulId": 486,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3064,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "260 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 13,
+    "leftArm": 13,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 176
+  },
+  "quirks": [
+    "no_arms",
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "3 ISRocketLauncher20",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISRocketLauncher20",
+      "location": "LA"
+    },
+    {
+      "type": "2 ISRocketLauncher20",
+      "location": "RT"
+    },
+    {
+      "type": "2 ISRocketLauncher20",
+      "location": "LT"
+    },
+    {
+      "type": "2 ISMediumLaser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISPPC",
+      "ISPPC",
+      "ISPPC",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "1 ISPPC",
+      "1 ISRocketLauncher20"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "3 ISRocketLauncher20"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "2 ISRocketLauncher20"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISRocketLauncher20",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "2 ISRocketLauncher20"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumLaser",
+      "ISMediumLaser",
+      "2 ISMediumLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

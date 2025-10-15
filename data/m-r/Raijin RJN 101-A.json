@@ -1,0 +1,176 @@
+{
+  "name": "Raijin",
+  "chassis": "Raijin",
+  "model": "RJN-101-A",
+  "mulId": 2626,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3053,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 50,
+  "engine": "300 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 6,
+    "jump": 6
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 18,
+    "rightTorso": 13,
+    "leftTorso": 13,
+    "rightArm": 13,
+    "leftArm": 13,
+    "rightLeg": 13,
+    "leftLeg": 13,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 125
+  },
+  "quirks": [
+    "ext_twist",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RT"
+    },
+    {
+      "type": "Streak SRM 2",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "SRM 6",
+      "SRM 6",
+      "IS Ammo SRM-6",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "SRM 6"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "ISStreakSRM2",
+      "IS Streak SRM 2 Ammo",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "IS Ferro-Fibrous",
+      "ER PPC",
+      "Streak SRM 2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Raijin is designed to be highly mobile and capable of engaging an enemy at a variety of ranges.",
+    "capabilities": "The 'Mech's relatively light armor can be a liability if it is engaged in close combat or finds itself in a protracted engagement.",
+    "deployment": "The Raijin is built around a Vlar 300 XL Engine that gives it a top speed of 97.2 km/h. For added mobility, the Raijin carries six Rawlings 60 jump jets, allowing the 'Mech to jump up to one hundred and eighty meters. The Raijin carries seven tons of Krupp 200 Ferro-Fibrous armor. For long-range striking power, the Raijin carries a Blankenburg 200 ER PPC that can be used to engage a target at up to six hundred and ninety meters. For close combat, the Raijin has three highly accurate Blankenburg Technologies Medium Pulse Lasers. Additionally, to seek out any weak points in an enemy's armor, the Raijin has a Holly SRM-6 and an ammunition efficient Holly Streak SRM-2.",
+    "history": "The Raijin was designed after the Battle of Tukayyid to rearm ComGuard units that had suffered losses in the campaign. Despite having stockpiled Star League-era BattleMechs at his disposal, Precentor Martial Focht wanted something unfamiliar to both the Inner Sphere and the Clans. The Raijin was redesigned after Word of Blake forces lost considerable amounts of the design during its taking of Terra from ComStar in 3058. Newly redesigned Raijin II units began to be deployed in 3066, with older versions of the 'Mech being refitted to RJN-200-A variant standards. While off-shoots of the 200-A were deployed to elite Divisions."
+  },
+  "manufacturers": {
+    "primary": [
+      "Krupp Armament Works"
+    ],
+    "primaryFactory": [
+      "Terra"
+    ],
+    "systems": {
+      "chassis": "Krupp 200",
+      "engine": "Vlar 300 XL",
+      "armor": "Krupp 200 Ferro-Fibrous",
+      "jumpjet": "Rawlings 60",
+      "communications": "Exeter Longscan 200",
+      "targeting": "Garret T12A"
+    }
+  }
+}

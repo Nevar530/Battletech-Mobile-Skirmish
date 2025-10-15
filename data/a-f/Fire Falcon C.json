@@ -1,0 +1,188 @@
+{
+  "name": "Fire Falcon",
+  "chassis": "Fire Falcon",
+  "model": "C",
+  "mulId": 1065,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3052,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 25,
+  "engine": "200 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 10,
+    "rightTorso": 9,
+    "leftTorso": 9,
+    "rightArm": 6,
+    "leftArm": 6,
+    "rightLeg": 10,
+    "leftLeg": 10,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 76
+  },
+  "quirks": [
+    "imp_sensors"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLMediumPulseLaser (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "CLSmallPulseLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Medium Pulse Laser",
+      "ER Small Laser",
+      "Small Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLMG (omnipod)",
+      "CLMG (omnipod)",
+      "CLMG (omnipod)",
+      "CLMG (omnipod)",
+      "Clan Machine Gun Ammo - Half (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLSRM6 (omnipod)",
+      "CLSRM6 (omnipod)",
+      "Clan Ammo SRM-6 (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "SRM 6",
+      "SRM 6"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLActiveProbe (omnipod)",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Fire Falcon was created in the early-3050s, apparently as a replacement for the Mist Lynx.",
+    "capabilities": "The Fire Falcon is faster, has more front-facing armor, and more pod space, though it lacks the Jump Jets of that earlier 'Mech. It makes use of weight-saving materials in the form of an XL Engine, an Endo Steel internal structure, and four tons of Ferro-Fibrous armor. Clan Jade Falcon first produced this OmniMech on their capital of Ironhold, but they soon began to produce it on the Occupation Zone headquarters of Sudeten. In November of 3069, Clan Steel Viper would sack Ironhold as part that Clan's effort to expel the Jade Falcons from the Clan Homeworlds. The invasion would end up destroying the Fire Falcon's production facilities, letting the design fade from use by Homeworlds based Clans.",
+    "deployment": "Designed for scouting and work against conventional infantry, the C uses an Active Probe to find hidden targets. To use against those targets, it carries a Medium and Small Pulse Laser, one ER Small Laser, and a pair of SRM-6s. Against soft targets, four Machine Guns provide ample killing power.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Ironhold Alpha Complex",
+      "Olivetti Weapons"
+    ],
+    "primaryFactory": [
+      "Ironhold",
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "JF 3 Light Endo-Steel",
+      "engine": "JF 200 XL",
+      "armor": "Compound JF Ferro-Fibrous",
+      "communications": "JF Integrated",
+      "targeting": "Series JFVIII KITT"
+    }
+  }
+}

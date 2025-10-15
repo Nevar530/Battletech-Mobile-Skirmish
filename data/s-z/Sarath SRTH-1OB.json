@@ -1,0 +1,144 @@
+{
+  "name": "Sarath",
+  "chassis": "Sarath",
+  "model": "SRTH-1OB",
+  "mulId": 6508,
+  "config": "Quad Omnimech",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3122,
+  "source": "TRO: 3145 Free Worlds League",
+  "rulesLevel": 4,
+  "role": "Skirmisher",
+  "mass": 50,
+  "engine": "250 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Triple-Strength",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 8,
+    "centerTorso": 25,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightLeg": 24,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 184
+  },
+  "quirks": [
+    "distracting",
+    "compact_mech",
+    "low_profile",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "Plasma Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "RT"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "RT"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "RT"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "TSM",
+      "TSM",
+      "TSM",
+      "TSM",
+      "TSM",
+      "TSM"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISPlasmaRifle (T) (omnipod)",
+      "ISPlasmaRifle (T) (omnipod)",
+      "Medium Laser (T) (omnipod)",
+      "Medium Laser (T) (omnipod)",
+      "ER Flamer (T) (omnipod)",
+      "ER Flamer (T) (omnipod)",
+      "ER Flamer (T) (omnipod)",
+      "ER Flamer (T) (omnipod)",
+      "ISQuadTurret",
+      "Plasma Rifle",
+      "Medium Laser",
+      "Medium Laser",
+      "ER Flamer",
+      "ER Flamer",
+      "ER Flamer",
+      "ER Flamer"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISPlasmaRifleAmmo (omnipod)",
+      "ISPlasmaRifleAmmo (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERSmallLaser",
+      "Sensors",
+      "Life Support",
+      "ER Small Laser"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

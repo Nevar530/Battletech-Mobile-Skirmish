@@ -1,0 +1,156 @@
+{
+  "name": "Black Lanner",
+  "chassis": "Black Lanner",
+  "model": "A",
+  "mulId": 363,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3052,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 55,
+  "engine": "385 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 25,
+    "rightTorso": 16,
+    "leftTorso": 16,
+    "rightArm": 13,
+    "leftArm": 13,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 153
+  },
+  "quirks": [
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RA"
+    },
+    {
+      "type": "Clan TAG",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERPPC (omnipod)",
+      "CLERPPC (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "ER PPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLTAG (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan TAG"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLActiveProbe (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMASC",
+      "CLMASC"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLECMSuite (omnipod)",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "Newly developed by Clan Jade Falcon for the Clan Invasion of the Inner Sphere, the Black Lanner is a fast medium OmniMech that can take on a variety of roles.",
+    "capabilities": "Intended as a front-line 'Mech, the Black Lanner makes use of all weight-saving technology available to the Clan Jade Falcon scientists who designed it, including an XL Engine, Endo Steel, and eight tons of Ferro-Fibrous armor. The Black Lanner also includes a MASC system on the base chassis that enables it to run up to 151 km/h in bursts, allowing it to outrun many 'Mechs half its size. The design sacrifices pod space for that speed however, with an engine almost half the Black Lanner's weight leaving a mere thirteen tons for offensive weaponry.",
+    "deployment": "The Black Lanner A is configured for electronic warfare and scouting. It uses an Active Probe to find hidden units, an ECM Suite to counteract enemy electronics, and a TAG spotting laser to designate targets for homing artillery. Offensively, it can call upon an ER PPC and a pair of Medium Pulse Lasers.",
+    "history": "Its development triggered from the lessons learned from the Jade Falcon touman's performance during the Placement Trials for Operation REVIVAL, delays with the initial models meant the Black Lanner only arrived in the Inner Sphere with the returning Falcon Khans following the selection of ilKhan Ulric Kerensky, first seeing action during the Battle of Tukayyid as fire-support units in light reconnaissance Stars. Since its initial deployment, the Black Lanner remained primarily a Jade Falcon design, with Clan Ice Hellion and Steel Viper also using a sizable number acquired due to numerous battles and trials between rival Clans since Tukayyid. While used for independent operations, the Black Lanner is most frequently seen in conjunction with lighter designs. Mixed Stars of Black Lanners, Fire Falcons and Fire Moths are common, with the lighter 'Mechs acting as spotters and harassers for the heavier 'Mechs, flushing out the opposing units for the Black Lanner to move in for the kill. This synergistic relationship is similar to that shared between the smaller indigenous Fire Falcon and the introduced black lanners on Ironhold, both birds benefiting from the presence of the other. Originally built on the Jade Falcon homeworld of Ironhold, production would also eventually begin in the Inner Sphere to mitigate the distance to the Clan Homeworlds. By the dawn of the Wars of Reaving, production of the Black Lanner would cease in Clan Space by 3068 as tensions between the Falcons and the Homeworld Clans increased."
+  },
+  "manufacturers": {
+    "primary": [
+      "Ironhold Alpha Complex",
+      "Olivetti Weapons"
+    ],
+    "primaryFactory": [
+      "Ironhold",
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "JF 5 Light Endo Steel",
+      "engine": "385 JF Extralight",
+      "armor": "Compound JF Ferro-Fibrous",
+      "communications": "JF Integrated",
+      "targeting": "Series JFVII Integrated"
+    }
+  }
+}

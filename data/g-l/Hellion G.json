@@ -1,0 +1,176 @@
+{
+  "name": "Hellion",
+  "chassis": "Hellion",
+  "model": "G",
+  "mulId": 6939,
+  "config": "Biped Omnimech",
+  "techBase": "Mixed (Clan Chassis)",
+  "era": 3119,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 3,
+  "role": "Striker",
+  "mass": 30,
+  "engine": "210 XL (Clan) Engine",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 15,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 14,
+    "leftLeg": 14,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 105
+  },
+  "quirks": [
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Improved Heavy Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "TSEMP One-Shot",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Improved Heavy Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "CLImprovedMediumHeavyLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Improved Heavy Medium Laser",
+      "Improved Heavy Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "TSEMP One-Shot (omnipod)",
+      "TSEMP One-Shot (omnipod)",
+      "TSEMP One-Shot (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "TSEMP One-Shot"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLRM10 (omnipod)",
+      "Clan Ammo LRM-10 (omnipod)",
+      "CLMASC",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "LRM 10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink"
+    ]
+  },
+  "text": {
+    "overview": "The Hellion is a product of Clan Ice Hellion and their philosophy that espouses speed above all else. Based on the Mist Lynx, the Hellion is a fast OmniMech that has respectable firepower.",
+    "capabilities": "This light 'Mech is rather difficult to kill, incorporating five and a half tons of Ferro-Fibrous armor. To save weight, the Hellion also uses an Endo Steel chassis. While it is not especially fast for its size, the Hellion does use MASC to allow for bursts of additional speed.",
+    "deployment": "This version carries an LRM-10 and three Improved Heavy Medium Lasers. It also packs an Inner Sphere-built TSEMP One Shot cannon in the left torso.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Hector MechWorks Facility Alpha",
+      "Prosoma War Works",
+      "Svarstaad Industriplex Alpha"
+    ],
+    "primaryFactory": [
+      "Hector",
+      "Valencia",
+      "Svarstaad"
+    ],
+    "systems": {
+      "chassis": "Hellion Light Endo Steel V5",
+      "engine": "210 XL",
+      "armor": "Compound Gamma Ferro-Fibrous",
+      "communications": "HCFA 3035 3.0",
+      "targeting": "HCFA 3047 1.5"
+    }
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "name": "Locust IIC",
+  "chassis": "Locust IIC",
+  "model": "6",
+  "mulId": 1919,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3075,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Scout",
+  "mass": 25,
+  "engine": "200 Fusion (Clan) Engine(IS)",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 8,
+    "centerTorso": 13,
+    "rightTorso": 9,
+    "leftTorso": 9,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 11,
+    "leftLeg": 11,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 86
+  },
+  "quirks": [
+    "easy_maintain",
+    "low_profile",
+    "no_arms",
+    "weak_legs"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Machine Gun Array",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Machine Gun Array",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHeavyMG",
+      "CLHeavyMG",
+      "CLHeavyMG",
+      "CLHMGA",
+      "Heavy Machine Gun",
+      "Heavy Machine Gun",
+      "Heavy Machine Gun",
+      "Heavy Machine Gun Array"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHeavyMG",
+      "CLHeavyMG",
+      "CLHeavyMG",
+      "CLHMGA",
+      "Heavy Machine Gun",
+      "Heavy Machine Gun",
+      "Heavy Machine Gun",
+      "Heavy Machine Gun Array"
+    ],
+    "leftTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Clan Heavy Machine Gun Ammo - Full",
+      "Endo Steel",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "Endo Steel",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

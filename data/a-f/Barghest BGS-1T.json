@@ -1,0 +1,120 @@
+{
+  "name": "Barghest",
+  "chassis": "Barghest",
+  "model": "BGS-1T",
+  "mulId": 252,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 3058,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 70,
+  "engine": "350 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 208
+  },
+  "quirks": [
+    "directional_torso_mount"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "LB 20-X AC",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ER Large Laser",
+      "ER Large Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "LB 20-X AC"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "During her reign over the Lyran Alliance, Katherine Steiner-Davion decided she wanted a four-legged BattleMech that would frighten its adversaries in the same way that the classic Atlas and Banshee designs did.",
+    "capabilities": "The Earthwerk GRF Quad chassis accommodates a Magna 350 XL engine, which saves weight and lets the 'Mech to carry a hefty weapons payload. The Barghest is shielded by thirteen tons of Durallex Heavy armor, which shields it from all but the most powerful enemy fire. The Barghest features ten double heat sinks to handle the 'Mech's heat buildup from its weaponry.",
+    "deployment": "The Barghest carries two BlazeFire Sweetshot ER Large Lasers that allow the 'Mech to hit a target at up to five hundred and seventy meters. For medium to close range combat, the Barghest carries a powerful Defiance Disintegrator LB-X Autocannon/20 that is capable of firing both standard ammunition and cluster rounds that act like 'Mech-sized shotgun shells. The 'Mech's simplicity is also a weakness, as the Barghest has only the two ER Large Lasers if the autocannon falls silent from a lack of ammunition or a jam.",
+    "history": "Katrina Steiner, Archon of the Lyran Alliance, created this novel and distinctive design. The Archon notified Tharkad's TharHes Industries that she desired to build a new design with a horrific appearance, similar to that of the Atlas or the Banshee. She also desired a four-legged design. TharHes executives tried unsuccessfully to persuade her to abandon the quad design, which has been heavily criticized for decades. TharHes Industries only realized the political and military consequences of a new quad design in the Lyran Alliance Armed Forces during the final testing of the new 'Mech, when new four-legged designs debuted in the Draconis Combine and Free Worlds League militaries. The Archon dubbed the finished 'Mech Barghest after the fierce, wolf-like monsters of folklore, after seeing its animalistic elegance and power."
+  },
+  "manufacturers": {
+    "primary": [
+      "TharHes Industries"
+    ],
+    "primaryFactory": [
+      "Tharkad"
+    ],
+    "systems": {
+      "chassis": "Earthwerk BGS Quad",
+      "engine": "Magna 350 XL",
+      "armor": "Durallex Heavy",
+      "communications": "TharHes Euterpe HM-14",
+      "targeting": "TharHes Ares-8a"
+    }
+  }
+}

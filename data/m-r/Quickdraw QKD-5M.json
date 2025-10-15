@@ -1,0 +1,147 @@
+{
+  "name": "Quickdraw",
+  "chassis": "Quickdraw",
+  "model": "QKD-5M",
+  "mulId": 2614,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3049,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "300 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 18,
+    "rightTorso": 17,
+    "leftTorso": 17,
+    "rightArm": 13,
+    "leftArm": 13,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 143
+  },
+  "quirks": [
+    "hyper_actuator",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "2 ISMediumLaser",
+      "location": "Right Torso (R)"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISMediumLaser"
+    ],
+    "leftTorso": [
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Jump Jet",
+      "Jump Jet",
+      "ISLRM10",
+      "ISLRM10",
+      "ISLRM10 Ammo",
+      "ISCASE"
+    ],
+    "rightTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "ISMediumLaser (R)",
+      "ISMediumLaser (R)"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "ISSRM4 (OS)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

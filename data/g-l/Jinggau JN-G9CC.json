@@ -1,0 +1,185 @@
+{
+  "name": "Jinggau",
+  "chassis": "Jinggau",
+  "model": "JN-G9CC",
+  "mulId": 1710,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3072,
+  "source": "TRO: 3060",
+  "rulesLevel": 3,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "325 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Stealth (InnerSphere)",
+    "head": 9,
+    "centerTorso": 28,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 184
+  },
+  "quirks": [
+    "low_profile",
+    "weak_head_2"
+  ],
+  "weapons": [
+    {
+      "type": "Large VSP",
+      "location": "RA"
+    },
+    {
+      "type": "Small VSP",
+      "location": "LA"
+    },
+    {
+      "type": "Small VSP",
+      "location": "LA"
+    },
+    {
+      "type": "Snub-Nose PPC",
+      "location": "RA"
+    },
+    {
+      "type": "Small VSP",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISSmallVariableSpeedLaser",
+      "ISSmallVariableSpeedLaser",
+      "ISSmallVariableSpeedLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Stealth",
+      "Stealth",
+      "Small VSP",
+      "Small VSP",
+      "Small VSP"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLargeVariableSpeedLaser",
+      "ISLargeVariableSpeedLaser",
+      "ISLargeVariableSpeedLaser",
+      "ISLargeVariableSpeedLaser",
+      "ISSNPPC",
+      "ISSNPPC",
+      "Endo Steel",
+      "Endo Steel",
+      "Stealth",
+      "Stealth",
+      "Large VSP",
+      "Snub-Nose PPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Stealth",
+      "Stealth"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "BeagleActiveProbe",
+      "BeagleActiveProbe",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Stealth",
+      "Stealth"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth",
+      "Stealth"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth",
+      "Stealth"
+    ]
+  },
+  "text": {
+    "overview": "The Jinggau is made to engage in direct combat, not lurk at the periphery or wait for a few fortunate long-range hits.",
+    "capabilities": "It can close relatively easily in virtually any terrain thanks to its top-end mobility for its weight, which includes a running speed of over 85 kph and a 150-meter leap capacity. With more than eleven tons of armor, the Jinggau has a very good chance of surviving whether traversing wide terrain or fighting in stand-up combat. The major offense comes from a number of strong hitting primary weapons including the Zhi-tong-yao (\"painkiller\") Gauss rifle. The weapon fires piercing shots until the Jinggau is within striking distance of its secondary lasers, which can frighten the pilot of even an assault mech. At that point, the main armaments continue to unleash their knockdown power punches while the lasers look for vulnerable areas to butcher an enemy machine.",
+    "deployment": "An advanced tech variant that emerged during the Jihad, the Jinggau's standard armor is replaced with Stealth Armor and the prerequisite Guardian ECM suite, while the jump jets are replaced with MASC. The weaponry has also been significantly altered, a Snub-Nose PPC and Large Variable Speed Pulse Laser as its main weaponry supported by a trio of Small VSP Lasers. To enhance its abilities, a Beagle active probe has been added to the 'Mech's equipment, while the standard gyro has been removed for a slightly more vulnerable XL gyro to free up the required weight.",
+    "history": "Word of Blake's Toyama faction started sending technicians and supplies to Capellan Chancellor Sun-Tzu Liao toward the end of 3058 to assist with the completion of overhauling the old Star League production facility on Victoria. This assistance, which appeared to be a personal debt owed to Chancellor Liao, aided the Capellans in finishing up construction on the Jinggau assembly line and increased production of the Duan Gung BattleMech design. The first Jinggau, which is Chinese for siren, is said to have left the factory in early 3059, but for unknown reasons, production was suspended for more than a year before being partially resumed. Presenting a lance of Jinggau to the Fourth Tau Ceti Rangers, Sun-Tzu Liao said, “This is not a ’Mech relegated to support roles, or reconnaissance or garrison duty. This is a BattleMech for seeking out your opponent and doing him harm. This is a ’Mech with which to make your enemy miserable.” The Jinggau's extended-range medium lasers, which are made by the Free Worlds League, intrigue engineers studying it. All of the Jinggau's components, with the exception of its jump jets and targeting system, are supposed to be constructed on Victoria, just like the Duan Gung."
+  },
+  "manufacturers": {
+    "primary": [
+      "Shengli Arms"
+    ],
+    "primaryFactory": [
+      "Victoria"
+    ],
+    "systems": {
+      "chassis": "Chariot Type II Endo Steel",
+      "engine": "VOX 325 XL",
+      "armor": "Ceres Heavy Stealth",
+      "jumpjet": "Hellespont Leapers",
+      "communications": "Dian-bao Comms, heavily insulated with ECM",
+      "targeting": "Dynatec Special T&T"
+    }
+  }
+}

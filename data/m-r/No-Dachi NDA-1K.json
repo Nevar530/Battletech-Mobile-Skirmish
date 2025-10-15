@@ -1,0 +1,167 @@
+{
+  "name": "No-Dachi",
+  "chassis": "No-Dachi",
+  "model": "NDA-1K",
+  "mulId": 4730,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3058,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 70,
+  "engine": "350 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Triple Strength Myomer",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 29,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 192
+  },
+  "quirks": [
+    "hyper_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumLaser",
+      "location": "H"
+    },
+    {
+      "type": "1 ISMRM20",
+      "location": "RT"
+    },
+    {
+      "type": "1 Sword",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "ISSRM2",
+      "ISSRM2 Ammo",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERPPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 Sword"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISMRM20",
+      "ISMRM20",
+      "ISMRM20",
+      "ISMRM20 Ammo",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISMRM20",
+      "ISMRM20",
+      "ISMRM20",
+      "ISMRM20 Ammo",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISMRM20"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISSRM4",
+      "ISSRM4 Ammo"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISMediumLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISMediumLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

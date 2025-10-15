@@ -1,0 +1,137 @@
+{
+  "name": "Crossbow",
+  "chassis": "Crossbow",
+  "model": "CRS-6C",
+  "mulId": 734,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2481,
+  "source": "TRO: 3075",
+  "rulesLevel": 1,
+  "role": "Skirmisher",
+  "mass": 60,
+  "engine": "300 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 8,
+    "centerTorso": 17,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 13,
+    "leftArm": 13,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 128
+  },
+  "quirks": [
+    "obsolete",
+    "poor_target_long"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Autocannon/10",
+      "location": "RA"
+    },
+    {
+      "type": "Particle Cannon",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "Autocannon/10",
+      "IS Ammo AC/10",
+      "Autocannon/10"
+    ],
+    "rightTorso": [
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon",
+      "Particle Cannon"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The predecessor to Clan Steel Viper's Crossbow OmniMech, the original Crossbow first saw battlefield action for the Lyran Commonwealth in 2468. The 60-ton 'Mech is speedy for its era, capable of 86 km/h. This came at the expense of armor, however, as the Crossbow is only protected by eight tons of armor.",
+    "capabilities": "This variant introduced in 2481, meant for close-quarters action, removed the missile launchers and one laser in favor of an Autocannon/10, though it had a limited ammunition supply",
+    "deployment": "",
+    "history": "The production model, the 6B, came a few years later. The heavy 'Mech was the first produced by Arcturan Arms and the third homegrown BattleMech produced in the Commonwealth. Arcturan Arms fell on hard times when the capital was relocated from Arcturus to Tharkad, forcing them to shut down the factory in 2490 after producing only a few hundred Crossbows. MacEnroe Motors bought out the financially troubled company in 2541, which shut down Crossbow production in 2550."
+  },
+  "manufacturers": {
+    "primary": [
+      "Arcturan Arms",
+      "MacEnroe Motors"
+    ],
+    "primaryFactory": [
+      "Arcturus"
+    ],
+    "systems": {
+      "chassis": "Arc Walker 6X-B",
+      "engine": "AA Eterna 300",
+      "armor": "Diamond Skin Beta Series",
+      "jumpjet": "Unknown",
+      "communications": "Arc Signal 1100",
+      "targeting": "Arc Walker T&T Prime"
+    }
+  }
+}

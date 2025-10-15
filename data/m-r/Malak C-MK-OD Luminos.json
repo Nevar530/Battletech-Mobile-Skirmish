@@ -1,0 +1,189 @@
+{
+  "name": "Malak",
+  "chassis": "Malak",
+  "model": "C-MK-OD Luminos",
+  "mulId": 1998,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3069,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 30,
+  "engine": "210 Light Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 7,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous (InnerSphere)",
+    "head": 9,
+    "centerTorso": 14,
+    "rightTorso": 11,
+    "leftTorso": 11,
+    "rightArm": 10,
+    "leftArm": 10,
+    "rightLeg": 13,
+    "leftLeg": 13,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 101
+  },
+  "quirks": [
+    "imp_com",
+    "imp_sensors",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "Light PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Light PPC (omnipod)",
+      "Light PPC (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous",
+      "Light PPC",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Light PPC (omnipod)",
+      "Light PPC (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Light PPC",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISERSmallLaser (omnipod)",
+      "ISC3iUnit",
+      "ISC3iUnit",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERSmallLaser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Light Ferro-Fibrous",
+      "ER Small Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "ISERSmallLaser (omnipod)",
+      "ER Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Light Ferro-Fibrous",
+      "IS Light Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Malak is the lightest in the Word of Blake's Celestial series of OmniMechs designed for the Manei Domini. The Malak, Arabic for \"angel,\" features a dazzling array of new construction materials in an attempt to free up as much weight as possible in a fast and reliable package.",
+    "capabilities": "The 'Mech is protected with six tons of Light Ferro-Fibrous armor which weighs less than standard armor. To free up even more space, the 'Mech mounts an XL Gyro, and a small cockpit in addition to its Endo Steel frame. A C3i Computer allows it to sync with other Manei Domini so equipped. Nine and a half tons are left for modular equipment.",
+    "deployment": "The D configuration is effective at all ranges with an all-energy loadout that gives it the ability to operate beyond the range of supply lines. Two Light PPCs have the longest range of the Luminos' weapons. This variant also carries a pair of ER Medium Lasers, giving it a very small window where its four largest guns overlap optimal ranges. Should the Malak D find itself inside the minimum range of the PPCs, it can utilize three ER Small Lasers.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Gibson Federated BattleMechs",
+      "Martinson Armaments"
+    ],
+    "primaryFactory": [
+      "Gibson (Gibson Federated)",
+      "Terra (Martinson)"
+    ],
+    "systems": {
+      "chassis": "Celestial Series MK1E",
+      "engine": "DefHes 210 Light Fusion",
+      "armor": "Divine Shield Light Ferro",
+      "communications": "Master’s Voice Cel-Alpha with C3i Computer",
+      "targeting": "Master’s Sight 1-Omega"
+    }
+  }
+}

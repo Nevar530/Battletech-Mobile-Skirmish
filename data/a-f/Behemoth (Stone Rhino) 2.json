@@ -1,0 +1,219 @@
+{
+  "name": "Behemoth",
+  "chassis": "Behemoth",
+  "model": "2",
+  "mulId": 319,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3061,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 XL (Clan) Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 44,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 42,
+    "leftLeg": 42,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 304
+  },
+  "quirks": [
+    "barrel_fists_la",
+    "barrel_fists_ra",
+    "pro_actuator",
+    "oversized",
+    "poor_performance",
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "AMS",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavySmallLaser",
+      "Heavy Large Laser",
+      "Heavy Medium Laser",
+      "Heavy Small Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLHeavySmallLaser",
+      "Heavy Large Laser",
+      "Heavy Medium Laser",
+      "Heavy Small Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLHeavyMediumLaser (R)",
+      "CLHeavyMediumLaser (R)",
+      "Clan Gauss Ammo",
+      "Clan Gauss Ammo",
+      "Gauss Rifle",
+      "Heavy Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLGaussRifle",
+      "CLHeavyMediumLaser (R)",
+      "CLHeavyMediumLaser (R)",
+      "Clan Gauss Ammo",
+      "Clan Gauss Ammo",
+      "Gauss Rifle",
+      "Heavy Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "CLAMS Ammo"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLAntiMissileSystem",
+      "Sensors",
+      "Life Support",
+      "AMS"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "CLAntiPersonnelPod"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "CLAntiPersonnelPod"
+    ]
+  },
+  "text": {
+    "overview": "The Stone Rhino was one of the most remarkable surprises sprung upon the Inner Sphere by the invading Clans. The Inner Sphere named the 'Mech Behemoth. It was apparently derived from the Matar, which was also known as \"Amaris' Folly\".",
+    "capabilities": "Though visually resembling the Matar, the Stone Rhino is ten tons lighter than \"Amaris' Folly\", marking it an assault-class 'Mech instead of a superheavy design. Despite the reduced weight it achieves a roughly similar damage output through superior Clan weaponry. Similar to its progenitor, the Stone Rhino is a fairly slow design with the addition of Jump Jets barely mitigating the mobility issues over short distances. Eighteen tons of armor provides reasonable protection until the 'Mech becomes a target of priority. Thus, despite bringing awesome firepower to the battlefield, these machines often cannot be used effectively by field commanders because they ultimately cannot afford to lose one.",
+    "deployment": "In order to plug holes in their touman, Clan Goliath Scorpion scientists revisited the Behemoth. Like Clan Smoke Jaguar before them, they upgraded and improved upon the design. This version used an Extra-light Engine to mount a pair of Thunderstroke Series 2b Gauss Rifles along the top of the 'Mech. Each arm carried a Series 4D-2 Heavy Large Laser, a Series 22a Heavy Medium Laser, and a General Systems Heavy Small Laser. It retained the shock-absorbing cowls of the original. Another pair of Heavy Mediums protected the rear of the 'Mech. A head-mounted Shield-3 Anti-Missile System defended against missiles, while an Anti-Personnel Pod in each leg discouraged unarmored infantry. This design had jump jets, nineteen tons of armor, and a meager sixteen double heat sinks.",
+    "history": "Developed during the Golden Century as somewhat of a passion project, the Scientist Caste of Clan Smoke Jaguar sought to prove the superiority of the Clans by turning the flawed Matar into a successful design to achieve what the Inner Sphere could not. The resulting 'Mech was christened the Stone Rhino in honor of the nearly indestructible beast native to Eden. Mainly seen in the Smoke Jaguars touman, scattered examples of the Stone Rhino do appear in other Clans even though it was produced in somewhat limited numbers. Because of these low production numbers, most Stone Rhinos in existence are ancient machines with long and storied histories of their combat actions and their quirks in the hangar. Following the fall of the Smoke Jaguars, Clan Goliath Scorpion's need for new machines to defend their captured Jaguar holdings led them to revisit the Matars original design specs. They rapidly developed a visually different and powerful \"new\" 'Mech that was immediately put into production on Tokasha while still using the Stone Rhino name. However, the Scorpions would soon need to scramble to establish new production elsewhere after Clan Hell's Horses captured their Tokasha holdings. This allowed the Horses to produce new variants, and the Horses ultimately established a production line for the 'Mech on Csesztreg following their ejection from the Clan Homeworlds."
+  },
+  "manufacturers": {
+    "primary": [
+      "Tokasha Mechworks"
+    ],
+    "primaryFactory": [
+      "Tokasha"
+    ],
+    "systems": {
+      "chassis": "Star League Monster (Standard)",
+      "engine": "General Systems 300 XL",
+      "armor": "Compound 12A1 Standard with CASE",
+      "jumpjet": "Grandthrust Mk. 5",
+      "communications": "Garret L15",
+      "targeting": "RCA Instatrac Version 8a"
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "name": "Fire Scorpion",
+  "chassis": "Fire Scorpion",
+  "model": "3",
+  "mulId": 1073,
+  "config": "Quad",
+  "techBase": "Clan",
+  "era": 3071,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "260 Fusion (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightLeg": 29,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 224
+  },
+  "quirks": [
+    "cowl"
+  ],
+  "weapons": [
+    {
+      "type": "Ultra AC/20",
+      "location": "LT"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "AP Gauss Rifle",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "CLUltraAC20",
+      "Clan Ultra AC/20 Ammo",
+      "Clan Ultra AC/20 Ammo",
+      "Clan Ultra AC/20 Ammo",
+      "Clan Ultra AC/20 Ammo",
+      "Ultra AC/20"
+    ],
+    "rightTorso": [
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle",
+      "CLAPGaussRifle Ammo",
+      "CLAPGaussRifle Ammo",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "Clan Endo Steel",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle",
+      "AP Gauss Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLActiveProbe",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

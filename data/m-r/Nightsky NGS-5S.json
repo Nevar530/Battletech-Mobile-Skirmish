@@ -1,0 +1,150 @@
+{
+  "name": "Nightsky",
+  "chassis": "Nightsky",
+  "model": "NGS-5S",
+  "mulId": 2281,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3056,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 50,
+  "engine": "300 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 23,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 20,
+    "leftLeg": 20,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 152
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "Large Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISLargePulseLaser",
+      "ISLargePulseLaser",
+      "Large Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet",
+      "Hatchet"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMediumPulseLaser",
+      "Medium Pulse Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMediumPulseLaser",
+      "Medium Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISSmallPulseLaser",
+      "Sensors",
+      "Life Support",
+      "Small Pulse Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Nightsky was a mid-range continuation of the Federated Commonwealth's successful Hatchetman-Axman series, which established melee combat weapons as a powerful and heat-efficient close-combat option for the experienced MechWarrior. Intended to provide both speed and firepower.",
+    "capabilities": "The Nightsky is built around a massive Vlar 300 XL extralight engine that propels the 'Mech up to speeds of 97.2 km/h. Superb ground speed and the added maneuverability provided by six HildCo Model 13 jump jets that allow the Nightsky to jump up to 180 meters make the Nightsky a capable heavy recon 'Mech. It is also protected with nine and a half tons of armor, providing the Nightsky with good armor protection for its size.",
+    "deployment": "A simple upgrade of the Nightsky, the 5S looks to make the 'Mech more heat efficient. This is achieved by removing the jump jets and replacing them with three additional double heat sinks.",
+    "history": "After their introduction in 3053, Nightskys quickly proliferated throughout the Federated Commonwealth, with many replacing Hatchetmen or Axmen lost in the early years of the Clan invasion. The distribution of this design had become fairly even between the two once-allied states by the time of the Lyran secession from the Commonwealth, resulting in Nightskys appearing among as many pro-Victor Davion troops as pro-Katherine Steiner forces during the FedCom Civil War."
+  },
+  "manufacturers": {
+    "primary": [
+      "Defiance Industries"
+    ],
+    "primaryFactory": [
+      "Hesperus II"
+    ],
+    "systems": {
+      "chassis": "Dorwinion Standard",
+      "engine": "Vlar 300 XL",
+      "armor": "Kallon Royalstar",
+      "communications": "TharHes Calliope Hm10",
+      "targeting": "TharHes Ares-8a"
+    }
+  }
+}

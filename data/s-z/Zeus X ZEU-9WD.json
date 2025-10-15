@@ -1,0 +1,168 @@
+{
+  "name": "Zeus-X",
+  "chassis": "Zeus-X",
+  "model": "ZEU-9WD",
+  "mulId": 3646,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3067,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 80,
+  "engine": "320 Light Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "LightFerro-Fibrous",
+    "head": 9,
+    "centerTorso": 28,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 27,
+    "leftLeg": 27,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 195
+  },
+  "quirks": [
+    "command_mech",
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISHeavyPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "Light Ferro-Fibrous",
+      "Light Ferro-Fibrous",
+      "1 ISHeavyPPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISMediumPulseLaser",
+      "Light Ferro-Fibrous",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMediumPulseLaser",
+      "ISLBXAC20 Ammo",
+      "ISLBXAC20 CL Ammo",
+      "ISLBXAC20 CL Ammo",
+      "ISCASE",
+      "Light Ferro-Fibrous",
+      "1 ISMediumPulseLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Light Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Light Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Light Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The original ZEU-X was a technological milestone. It was also an unwieldy mess of patchwork armor, reactive composites, and illogical short-range weapons, the limited manufacturing of which during the Civil War functioned only as propaganda. The following model was a massive failure, as the marriage of armored components and composite structure frequently ended in a pile of intact internal components as the only remains of a defeated ZEU-X2. A 3080s model was an inefficient jumping monster informed by Solaris research on the enigmatic Sasquatch. Only the sub-variant ZEU-WD series, which combined X-series improvements with conventional Zeus chassis, was a success.",
+    "capabilities": "Manufactured on by Defiance, the Zeus X was both a poster child for excellence in production engineering and an innovative high-technology platform, while at the same time struggling with emerging technologies.",
+    "deployment": "Starting life as one of Zeus-X testbeds, ZEUX0003 was gifted by the Kell Hounds to Black Widow Company commander Stacy Church. When Church landed on Outreach in 3071 it mounted a Light Fusion Engine and eleven and half tons of Light Ferro-Fibrous armor, and was armed with a Defiance 2002 Heavy PPC in its right arm, supported by an LB-X AC/20 mounted in the left arm and torso, and a pair of Medium Pulse Lasers. Two heat sinks were dropped to carry three tons of autocannon reloads.",
+    "history": "The Zeus personifies Steiner's \"wall of steel.\" The LCAF's indigenous pride and joy was reportedly the ultimate demonstration that superior production quality could compensate for weak battlefield prowess. It was picked for a facelift after three centuries of steadfast service to demonstrate Defiance's reputation as one of the Inner Sphere's major manufacturers. The Zeus X is equal parts celebrity and cutting-edge high-tech platform. Its modifications bring the ancient BattleMech up to date, even by thirty-second-century standards. The Zeus X-series is characterised structurally by a massive engine and a light yet brittle structure coated in layers of experimental armor. These qualities were carefully integrated with appropriate equipment when the ZEU-X4 was ready for manufacturing in the late 3110. The thick reactive plating is now production quality and completely covers the 'Mech. The LCAF received a command 'Mech when a roomy rumble seat was upgraded to a full console. Armed with modest but effective weapons, the ZEU-X4 attacks foes who are nothing more than approaching blots on the horizon. end of the Third Succession War, with the resulting ZEU-6T variant being the standard during the Fourth Succession War and later the War of 3039. The design was also well received by mercenary units, particularly the Zeta Battalion of Wolf's Dragoons."
+  },
+  "manufacturers": {
+    "primary": [
+      "Defiance Industries",
+      "Defiance Manufacturing Annex"
+    ],
+    "primaryFactory": [
+      "Hesperus II",
+      "Kwangjong-ni"
+    ],
+    "systems": {
+      "chassis": "Chariot Type III",
+      "engine": "Pitban 320 Light",
+      "armor": "Kallon Light Ferro-Fibrous with CASE",
+      "communications": "TharHes Calliope ZE-2",
+      "targeting": "TharHes Ares-7"
+    }
+  }
+}

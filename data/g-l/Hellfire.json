@@ -1,0 +1,181 @@
+{
+  "name": "Hellfire",
+  "chassis": "Hellfire",
+  "mulId": 4300,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3058,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 60,
+  "engine": "240 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "MASC",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 23,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 19,
+    "leftArm": 19,
+    "rightLeg": 19,
+    "leftLeg": 19,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 172
+  },
+  "quirks": [
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLHeavyMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLHeavySmallLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLHeavyMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLHeavySmallLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLLRM10",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLHeavyLargeLaser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLERMediumLaser",
+      "CLHeavySmallLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLHeavyMediumLaser",
+      "1 CLERMediumLaser",
+      "1 CLHeavySmallLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLHeavyMediumLaser",
+      "CLHeavyMediumLaser",
+      "CLERMediumLaser",
+      "CLHeavySmallLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLHeavyMediumLaser",
+      "1 CLERMediumLaser",
+      "1 CLHeavySmallLaser"
+    ],
+    "leftTorso": [
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLLRM10",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "CLHeavyLargeLaser",
+      "1 CLLRM10",
+      "1 CLHeavyLargeLaser"
+    ],
+    "rightTorso": [
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLLRM10",
+      "CLLRM10",
+      "CLLRM10 Ammo",
+      "CLLRM10 Ammo"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMASC",
+      "CLMASC"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

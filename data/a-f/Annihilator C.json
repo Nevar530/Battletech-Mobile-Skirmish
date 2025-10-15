@@ -1,0 +1,174 @@
+{
+  "name": "Annihilator",
+  "chassis": "Annihilator",
+  "model": "C",
+  "mulId": 43,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 2848,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 100,
+  "engine": "300 Fusion Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 41,
+    "rightTorso": 26,
+    "leftTorso": 26,
+    "rightArm": 28,
+    "leftArm": 28,
+    "rightLeg": 35,
+    "leftLeg": 35,
+    "rearCenterTorso": 14,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 256
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLUltraAC10",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLUltraAC10",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLUltraAC10",
+      "location": "LT"
+    },
+    {
+      "type": "2 CLERMediumLaser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLERMediumLaser",
+      "Endo Steel",
+      "1 CLUltraAC10",
+      "1 CLERMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLERMediumLaser",
+      "Endo Steel",
+      "1 CLERMediumLaser"
+    ],
+    "leftTorso": [
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10 Ammo",
+      "CLUltraAC10 Ammo",
+      "CLUltraAC10 Ammo",
+      "CLUltraAC10 Ammo",
+      "1 CLUltraAC10"
+    ],
+    "rightTorso": [
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10",
+      "CLUltraAC10 Ammo",
+      "CLUltraAC10 Ammo",
+      "CLUltraAC10 Ammo",
+      "CLUltraAC10 Ammo",
+      "1 CLUltraAC10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "2 CLERMediumLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "Originally developed in the final year of the Amaris Civil War as the ultimate fixed position city defense BattleMech.",
+    "capabilities": "The Annihilator is armed with an arsenal that is built to instill fear in an enemy as much as damage them. The 100-ton 'Mech has a maximum speed of 32.4 km/h, making it one of the slowest 'Mechs ever designed together with the UrbanMech. It is by no means intended to use speed to outmaneuver an enemy, instead depending on its twelve and a half tons of armor to weather any fire that is directed at the 'Mech.",
+    "deployment": "A variant of the Annihilator that was built using only Clan technology and used exclusively by the Wolf's Dragoons, the Annihilator C increased its maximum speed to 54 km/h. The 'Mech was armed with four Ultra Autocannon/10s and four ER Medium Lasers. The Ultra Autocannon/10s allowed the 'Mech to fire at twice the rate of a normal autocannon, allowing it to put as much fire out as if it was carrying eight regular autocannons",
+    "history": "The Annihilator was built as a sign of the military strength of both the Star League in Exile and the newly created Clans. Discontinued before the Clans' Golden Century, in one of their few missteps, the Wolf's Dragoons brought a number of unknown designs with them in 3009, raising more questions to their origins while at the same time adding to their mystique. It was exclusive to the Dragoons until the Jihad disseminated the design to Arc-Royal due to the strengthening of the relationship that Wolf's Dragoons forged with the Kell Hounds and Clan Wolf-in-Exile following their flight from Outreach."
+  },
+  "manufacturers": {
+    "primary": [
+      "Refit"
+    ],
+    "primaryFactory": [
+      "Various"
+    ],
+    "systems": {
+      "chassis": "Star League MN-01",
+      "engine": "Vlar 300",
+      "armor": "Starshield Special-b",
+      "communications": "Garret T19-G",
+      "targeting": "Wasat Aggressor Type 5"
+    }
+  }
+}

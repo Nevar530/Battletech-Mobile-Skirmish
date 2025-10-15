@@ -1,0 +1,161 @@
+{
+  "name": "JagerMech",
+  "chassis": "JagerMech",
+  "model": "JM6-H",
+  "mulId": 1669,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3064,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 65,
+  "engine": "260 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 29,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 22,
+    "leftLeg": 22,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 179
+  },
+  "quirks": [
+    "anti_air"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISLargeLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISLBXAC2",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISLargeLaser",
+      "location": "LA"
+    },
+    {
+      "type": "3 ISRocketLauncher15",
+      "location": "RT"
+    },
+    {
+      "type": "3 ISRocketLauncher15",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLargeLaser",
+      "ISLargeLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISLBXAC2",
+      "1 ISLargeLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLBXAC2",
+      "ISLargeLaser",
+      "ISLargeLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 ISLargeLaser"
+    ],
+    "leftTorso": [
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISLBXAC2 CL Ammo",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "3 ISRocketLauncher15"
+    ],
+    "rightTorso": [
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "ISRocketLauncher15",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "3 ISRocketLauncher15"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

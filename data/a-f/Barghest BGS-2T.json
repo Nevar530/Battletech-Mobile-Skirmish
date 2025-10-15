@@ -1,0 +1,113 @@
+{
+  "name": "Barghest",
+  "chassis": "Barghest",
+  "model": "BGS-2T",
+  "mulId": 253,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 3060,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "350 XL Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightLeg": 28,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 224
+  },
+  "quirks": [
+    "directional_torso_mount"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LT"
+    },
+    {
+      "type": "Ultra AC/20",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "ER PPC"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20",
+      "ISUltraAC20"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISUltraAC20",
+      "Ultra AC/20"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ]
+  },
+  "text": {
+    "overview": "During her reign over the Lyran Alliance, Katherine Steiner-Davion decided she wanted a four-legged BattleMech that would frighten its adversaries in the same way that the classic Atlas and Banshee designs did.",
+    "capabilities": "The Earthwerk GRF Quad chassis accommodates a Magna 350 XL engine, which saves weight and lets the 'Mech to carry a hefty weapons payload. The Barghest is shielded by thirteen tons of Durallex Heavy armor, which shields it from all but the most powerful enemy fire. The Barghest features ten double heat sinks to handle the 'Mech's heat buildup from its weaponry.",
+    "deployment": "The 2T removes the weapons of the 1T model and replaces them with a single ER PPC and an Ultra Autocannon/20. The ultra autocannon is capable of firing at twice the rate as a standard autocannon, giving the 2T an incredible amount of short range firepower. The Barghest has also gained an additional ton of armor protection, making the 'Mech even harder to take down on the battlefield.",
+    "history": "Katrina Steiner, Archon of the Lyran Alliance, created this novel and distinctive design. The Archon notified Tharkad's TharHes Industries that she desired to build a new design with a horrific appearance, similar to that of the Atlas or the Banshee. She also desired a four-legged design. TharHes executives tried unsuccessfully to persuade her to abandon the quad design, which has been heavily criticized for decades. TharHes Industries only realized the political and military consequences of a new quad design in the Lyran Alliance Armed Forces during the final testing of the new 'Mech, when new four-legged designs debuted in the Draconis Combine and Free Worlds League militaries. The Archon dubbed the finished 'Mech Barghest after the fierce, wolf-like monsters of folklore, after seeing its animalistic elegance and power."
+  },
+  "manufacturers": {
+    "primary": [
+      "TharHes Industries"
+    ],
+    "primaryFactory": [
+      "Tharkad"
+    ],
+    "systems": {
+      "chassis": "Earthwerk BGS Quad",
+      "engine": "Magna 350 XL",
+      "armor": "Durallex Heavy",
+      "communications": "TharHes Euterpe HM-14",
+      "targeting": "TharHes Ares-8a"
+    }
+  }
+}

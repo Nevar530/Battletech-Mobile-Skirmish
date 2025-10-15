@@ -1,0 +1,178 @@
+{
+  "name": "Hauptmann",
+  "chassis": "Hauptmann",
+  "model": "HA1-OC",
+  "mulId": 1423,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3061,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 95,
+  "engine": "285 Fusion Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 45,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 40,
+    "leftLeg": 40,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 293
+  },
+  "quirks": [
+    "easy_maintain",
+    "ext_twist"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "LRM 20",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Gauss Rifle",
+      "location": "CT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISMediumPulseLaser (omnipod)",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ISERMediumLaser (omnipod)",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "LRM 20 (omnipod)",
+      "LRM 20 (omnipod)",
+      "LRM 20 (omnipod)",
+      "LRM 20 (omnipod)",
+      "LRM 20 (omnipod)",
+      "ISArtemisIV (omnipod)",
+      "ISGuardianECMSuite (omnipod)",
+      "ISGuardianECMSuite (omnipod)",
+      "ISHeavyGauss Ammo (omnipod)",
+      "ISHeavyGauss Ammo (omnipod)",
+      "ISHeavyGauss Ammo (omnipod)",
+      "ISHeavyGauss Ammo (omnipod)",
+      "LRM 20"
+    ],
+    "rightTorso": [
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "IS Ammo LRM-20 Artemis-capable (omnipod)",
+      "IS Ammo LRM-20 Artemis-capable (omnipod)",
+      "ISCASE"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISHeavyGaussRifle (omnipod)",
+      "ISHeavyGaussRifle (omnipod)",
+      "Heavy Gauss Rifle"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERSmallLaser (omnipod)",
+      "Sensors",
+      "Life Support",
+      "ER Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The first OmniMech both designed and built by the Lyran Alliance. The OmniMech is named after the rank held by officers in the LAAF.",
+    "capabilities": "The Hauptmann is built on a standard chassis and powered by a 285 fusion engine, adding to the 'Mech's durability as it cannot be killed by a side torso loss. The Hauptmann has eleven double heat sinks fixed on the chassis and can add more if needed in its various configurations. For protection, the Hauptmann carries eighteen and a half tons of armor and has CASE fixed in the right torso to protect against an ammunition explosion.",
+    "deployment": "The C configuration of the Hauptmann is intended to close with its enemies and wear them down as it approaches, delivering the killing blow at short range. For long range combat, the Hauptmann C carries an LRM-20 launcher linked to an Artemis IV fire control system to increase the accuracy of its missiles. For close combat, the Hauptmann C has a massive Heavy Gauss Rifle. This is supported by two ER Medium Lasers, an ER Small Laser, and a Medium Pulse Laser. This configuration of the Hauptmann has an additional two double heat sinks and a Guardian ECM Suite to protect itself from enemy electronic warfare systems.",
+    "history": "The inspiration for the Hauptmann is drawn from the Daishi OmniMech used by the Clans. Using information from captured Daishis and data gleaned from the construction of the Firestarter OmniMech, which was shared by the Draconis Combine, the end result is a powerful OmniMech capable of defending itself in most combat situations."
+  },
+  "manufacturers": {
+    "primary": [
+      "Coventry Metal Works"
+    ],
+    "primaryFactory": [
+      "Coventry"
+    ],
+    "systems": {
+      "chassis": "Coventry HAI III",
+      "engine": "Pitban 285",
+      "armor": "Glasgow Limited with CASE",
+      "communications": "TharHes Muse 54-58S",
+      "targeting": "Cyclops 9c"
+    }
+  }
+}

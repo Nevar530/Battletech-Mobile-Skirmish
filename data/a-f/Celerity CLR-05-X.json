@@ -1,0 +1,95 @@
+{
+  "name": "Celerity",
+  "chassis": "Celerity",
+  "model": "CLR-05-X",
+  "mulId": 6710,
+  "config": "Quad",
+  "techBase": "Inner Sphere",
+  "era": 3138,
+  "source": "TRO: 3145 Republic of the Sphere",
+  "rulesLevel": 4,
+  "role": "Scout",
+  "mass": 15,
+  "engine": "240 XXL Engine(IS)",
+  "structure": "IS Composite",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 16,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Impact-Resistant (InnerSphere)",
+    "head": 4,
+    "centerTorso": 5,
+    "rightTorso": 4,
+    "leftTorso": 4,
+    "rightLeg": 2,
+    "rearCenterTorso": 1,
+    "rearRightTorso": 1,
+    "rearLeftTorso": 1,
+    "total": 28
+  },
+  "quirks": [
+    "exp_actuator"
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISMASC",
+      "Spikes"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDroneOperatingSystem",
+      "Supercharger",
+      "Spikes",
+      "IS Impact-Resistant",
+      "IS Impact-Resistant"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

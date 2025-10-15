@@ -1,0 +1,187 @@
+{
+  "name": "Akuma",
+  "chassis": "Akuma",
+  "model": "AKU-1XJ",
+  "mulId": 3692,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3064,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 90,
+  "engine": "270 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 43,
+    "rightTorso": 28,
+    "leftTorso": 28,
+    "rightArm": 30,
+    "leftArm": 30,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 279
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "MRM 40",
+      "location": "LT"
+    },
+    {
+      "type": "LB 20-X AC",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Large Laser",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "IS LB 20-X Cluster Ammo",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "leftTorso": [
+      "MRM 40",
+      "MRM 40",
+      "MRM 40",
+      "MRM 40",
+      "MRM 40",
+      "MRM 40",
+      "MRM 40",
+      "IS MRM 40 Ammo",
+      "IS MRM 40 Ammo",
+      "IS MRM 40 Ammo",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "MRM 40"
+    ],
+    "rightTorso": [
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "ISLBXAC20",
+      "IS LB 20-X Cluster Ammo",
+      "LB 20-X AC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISERSmallLaser",
+      "Jump Jet",
+      "ER Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS LB 20-X AC Ammo",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "A low-cost alternative to the Atlas-K: the AKU-1X Akuma.",
+    "capabilities": "Akuma was smaller and lighter than an Atlas to minimize costs. The lighter fusion engine saved money. Despite its tiny size, the Akuma has comparable armor protection and ground speed. The 'Mech's enormous mask makes it look like the monster it's named after. The Combine MechWarrior fires first after the Akuma scares the adversary. Advanced weaponry function best at short and medium ranges on the 'Mech. The 'Mech's poor speed doesn't matter because it's designed for defense or slow advances against static or dug-in opponents.",
+    "deployment": "A jump-capable variant of the Akuma, the 1XJ can jump up to ninety meters by sacrificing heat dissipation capacity and firepower. The 'Mech has only ten double heat sinks and completely changes its weapons array. The only long-range weapon it carries is an ER Large Laser. The MRM-30 has been upgraded to an MRM-40 launcher. For overwhelming close-range firepower, the 1XJ carries an LB-X Autocannon/20 in place of the class-10 version and has two Medium Pulse Lasers and an ER Small Laser.",
+    "history": "During the Clan invasion, Theodore Kurita issued a broad plea to manufacturers to develop more cost-effective BattleMechs, both in terms of original investment and ongoing maintenance. Independence Weaponry, known for their heavy and assault 'Mechs, reacted with the AKU-1X Akuma, a low-cost counterpart to their own Atlas-K. The Akuma shares several components with the original Atlas-D and has a price tag comparable to it. Independence Weaponry decreased the overall cost of both units by increasing demand for the same set of parts. The Ryuken-go have always been the most vocal supporters of the Akuma, fielding it in a variety of attack lances. Other front-line units were slow to embrace the Akuma until it demonstrated its worth during the assault on Clan Smoke Jaguar, and demand has since outstripped supply. The Akuma 1XJ recently made its debut in the counterassaults that eventually took the Davion worlds of Breed and Kesai IV in Duke Robinson's ill-fated onslaught against the Combine."
+  },
+  "manufacturers": {
+    "primary": [
+      "Independence Weaponry"
+    ],
+    "primaryFactory": [
+      "Quentin"
+    ],
+    "systems": {
+      "chassis": "Foundation AKU Endo Steel",
+      "engine": "GM 270",
+      "armor": "Durallex Special Heavy",
+      "jumpjet": "HildCo Model 12",
+      "communications": "Sipher Security Plus",
+      "targeting": "Matabushi Sentinel"
+    }
+  }
+}

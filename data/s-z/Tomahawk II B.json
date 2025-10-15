@@ -1,0 +1,199 @@
+{
+  "name": "Tomahawk II",
+  "chassis": "Tomahawk II",
+  "model": "B",
+  "mulId": 6305,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3088,
+  "source": "TRO: 3145 The Clans",
+  "rulesLevel": 4,
+  "role": "Sniper",
+  "mass": 100,
+  "engine": "300 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "22 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 46,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 34,
+    "leftArm": 34,
+    "rightLeg": 41,
+    "leftLeg": 41,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 304
+  },
+  "quirks": [
+    "difficult_eject"
+  ],
+  "weapons": [
+    {
+      "type": "Streak LRM 15",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Streak LRM 15",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Laser AMS",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLStreakLRM15 (omnipod)",
+      "CLStreakLRM15 (omnipod)",
+      "CLStreakLRM15 (omnipod)",
+      "CLERLargePulseLaser (omnipod)",
+      "CLERLargePulseLaser (omnipod)",
+      "CLERLargePulseLaser (omnipod)",
+      "Clan Streak LRM 15 Ammo (omnipod)",
+      "Clan Streak LRM 15 Ammo (omnipod)",
+      "Streak LRM 15",
+      "ER Large Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLStreakLRM15 (omnipod)",
+      "CLStreakLRM15 (omnipod)",
+      "CLStreakLRM15 (omnipod)",
+      "CLERLargePulseLaser (omnipod)",
+      "CLERLargePulseLaser (omnipod)",
+      "CLERLargePulseLaser (omnipod)",
+      "Clan Streak LRM 15 Ammo (omnipod)",
+      "Clan Streak LRM 15 Ammo (omnipod)",
+      "Streak LRM 15",
+      "ER Large Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Jump Jet (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "ER Large Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Jump Jet (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "ER Large Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLLaserAntiMissileSystem (omnipod)",
+      "Sensors",
+      "Life Support",
+      "Laser AMS"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo-Composite",
+      "Clan Endo-Composite"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo-Composite",
+      "Clan Endo-Composite"
+    ]
+  },
+  "text": {
+    "overview": "The Tomahawk II is an Assault OmniMech first produced by Clan Wolf in 3088. The ‘Mech is considered to be, for its time, the superior 'Mech when compared to other contemporaries within the ranks of the Inner Sphere and Inner Sphere Clans.",
+    "capabilities": "The Tomahawk II is designed around the use of a DSAM Endo 10-Composite internal structure, which gives the design its cavernous pod capacity of 56 tons. The 'Mech is powered by a 300-Rated Starfire Extra-Light Fusion Engine, giving it a maximum speed of 54 kph. Protecting the engine and the Tomahawk II's other vitals is 19 tons of Advanced/3 standard armor, providing nearly maximum protection against enemy fire.",
+    "deployment": "Suggested for use in urban combat, the B Configuration comes with a large array of energy and missile weapon systems. This configuration's long-range firepower comes from a pair of arm-mounted Streak LRM-15 launchers and a pair of long-range, torso-mounted ER Large Lasers. For closer ranges, the 'Mech makes use of an ER Large Pulse Laser in each of the arms, and a single ER Medium Laser in the torso. To help this configuration of the Tomahawk II cope with urban settings, the 'Mech sports three Jump Jets, while ten additional Double Heat Sinks try to help with the heat management. A single head-mounted Laser Anti-Missile System is fitted in the head to fight off enemy missiles.",
+    "history": "The Tomahawk II was based on early prototypes developed during the Clan Invasion era, which were produced in limited numbers. The Tomahawk II was originally produced at the Wolves' W-7 Facilities on Weingarten until the late 3130s when the Clan undertook its migration to then exFree Worlds League space. Production of the 'Mech would resume on Keystone at Earthwerks-FWL, Incorporated. One of the Tomahawk II's most notable uses was during Clan Wolf's invasion of Tharkad in 3143. Beta Galaxy's Galaxy Commander Alaric Ward utilized a binary of Tomahawk IIs in order to demoralize Tharkard's Lyran defenders. He deployed this elite Binary of Tomahawk IIs to defeat elements of the 2nd Royals at Nagelring in July."
+  },
+  "manufacturers": {
+    "primary": [
+      "Earthwerks-FWL",
+      "Inc."
+    ],
+    "primaryFactory": [
+      "Keystone"
+    ],
+    "systems": {
+      "chassis": "DSAM Endo 10-Composite",
+      "engine": "Starfire 300 XL",
+      "armor": "Advanced/3",
+      "communications": "Khan Series (Type 3a)",
+      "targeting": "Build 4 MadCat TTS"
+    }
+  }
+}

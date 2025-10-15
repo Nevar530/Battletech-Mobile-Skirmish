@@ -1,0 +1,198 @@
+{
+  "name": "No-Dachi",
+  "chassis": "No-Dachi",
+  "model": "NDA-2K",
+  "mulId": 4732,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3059,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 70,
+  "engine": "350 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Triple Strength Myomer",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 29,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 21,
+    "leftArm": 21,
+    "rightLeg": 29,
+    "leftLeg": 29,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 208
+  },
+  "quirks": [
+    "hyper_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERLargeLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISSmallLaser",
+      "location": "H"
+    },
+    {
+      "type": "1 ISMRM10",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISGuardianECM",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 Sword",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERLargeLaser",
+      "1 ISMediumPulseLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 Sword"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISMRM10",
+      "ISMRM10",
+      "ISMRM10 Ammo",
+      "ISMRM10 Ammo",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "1 ISMediumPulseLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISMRM10",
+      "ISMRM10",
+      "ISMRM10 Ammo",
+      "ISMRM10 Ammo",
+      "ISMediumPulseLaser",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Triple Strength Myomer",
+      "Endo-Steel",
+      "1 ISMRM10",
+      "1 ISMediumPulseLaser"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "1 ISGuardianECM"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISSmallLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISSmallLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

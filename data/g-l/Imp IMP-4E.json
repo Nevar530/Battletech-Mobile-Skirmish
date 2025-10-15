@@ -1,0 +1,192 @@
+{
+  "name": "Imp",
+  "chassis": "Imp",
+  "model": "IMP-4E",
+  "mulId": 1611,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3060,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 100,
+  "engine": "300 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "21 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 42,
+    "rightTorso": 31,
+    "leftTorso": 31,
+    "rightArm": 33,
+    "leftArm": 33,
+    "rightLeg": 41,
+    "leftLeg": 41,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 296
+  },
+  "quirks": [
+    "command_mech",
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERPPC",
+      "location": "RT"
+    },
+    {
+      "type": "1 ISERPPC",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "H"
+    },
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "RL"
+    },
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "LL"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERMediumLaser",
+      "1 ISERMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISLRM20",
+      "ISLRM20",
+      "ISLRM20",
+      "ISLRM20",
+      "ISLRM20",
+      "ISArtemisIV",
+      "ISERMediumLaser",
+      "1 ISERMediumLaser"
+    ],
+    "leftTorso": [
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "ISLRM20 Ammo Artemis-capable",
+      "ISLRM20 Ammo Artemis-capable",
+      "ISCASE",
+      "1 ISERPPC"
+    ],
+    "rightTorso": [
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "1 ISERPPC"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISMediumPulseLaser",
+      "ISMediumPulseLaser",
+      "1 ISMediumPulseLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERMediumLaser",
+      "Sensors",
+      "Life Support",
+      "1 ISERMediumLaser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISERSmallLaser",
+      "1 ISERSmallLaser"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISERSmallLaser",
+      "1 ISERSmallLaser"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "name": "Gunslinger",
+  "chassis": "Gunslinger",
+  "model": "GUN-1ERD",
+  "mulId": 1347,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3053,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 85,
+  "engine": "255 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 3,
+    "jump": 2
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 34,
+    "rightTorso": 25,
+    "leftTorso": 25,
+    "rightArm": 25,
+    "leftArm": 25,
+    "rightLeg": 32,
+    "leftLeg": 32,
+    "rearCenterTorso": 19,
+    "rearRightTorso": 11,
+    "rearLeftTorso": 11,
+    "total": 248
+  },
+  "quirks": [
+    "cowl"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LL"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RL"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "LA"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "Gauss Rifle"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "Gauss Rifle"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "Medium Laser",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "BeagleActiveProbe",
+      "BeagleActiveProbe"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Small Laser",
+      "Sensors",
+      "Life Support",
+      "Small Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "ISMediumPulseLaser (R)",
+      "Medium Pulse Laser"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "ISMediumPulseLaser (R)",
+      "Medium Pulse Laser"
+    ]
+  },
+  "text": {
+    "overview": "The Clan invasion produced some strange bedfellows, the most unlikely of which was the Federated Commonwealth-Draconis Combine quasi-alliance. Though that relationship has deteriorated over the years, the Gunslinger stands as a testament to what can happen when two bitter enemies put aside their mutual hatred and work together to achieve a common goal.",
+    "capabilities": "To power the Gunslinger, a VOX 255 XL engine is used to give the 'Mech a top speed of 54 km/h. This is augmented by a pair of HildCo Model 12 jump jets that allow the Gunslinger to traverse rough terrain and provide extra mobility at close ranges. The 'Mech is also equipped with a Guardian ECM Suite and a Beagle Active Probe, giving the Gunslinger superior detection capabilities and protection from advanced enemy electronic warfare equipment. Finally, the Gunslinger is protected by fifteen and a half tons of armor, giving the 'Mech excellent armor protection.",
+    "deployment": "The Gunslinger carries as its primary weapons two arm-mounted Poland Main Model A Gauss rifles that can each strip off a ton of armor at ranges of over six hundred meters. As the Gunslinger closes with the enemy it is able to bring to bear its four Defiance B3M medium lasers and a Defiance A5L Small Laser that help to make up for the ineffectiveness of the Gauss rifles at extremely short ranges. Finally, to protect against attacks on its weak rear armor, the Gunslinger carries two rear-mounted Defiance P5M Medium Pulse Lasers.",
+    "history": "On December 5, 3053, the first FedCom Gunslinger rolled off the assembly line at Defiance Industries. Because of issues with the Gauss weapons, it took nearly two years for the first Combine Gunslinger to leave the Quentin plant. Since then, both plants have built as many Gunslingers as they possibly can each year, severely taxing their resources while breaking production records year after year. Beginning with Operation Guerrero in 3057 and the Lyran Alliance's Jade Falcon invasion in 3058, the Gunslinger demonstrated its capabilities, as it has in every other significant military operation in the Inner Sphere since. As a result, the Gunslinger is still in high demand."
+  },
+  "manufacturers": {
+    "primary": [
+      "Defiance Industries",
+      "Independence Weaponry"
+    ],
+    "primaryFactory": [
+      "Hesperus II",
+      "Quentin"
+    ],
+    "systems": {
+      "chassis": "Star League XT",
+      "engine": "VOX 255 XL",
+      "armor": "Kevlar 5000",
+      "jumpjet": "HildCo Model 12",
+      "communications": "Nashan Quartet ComSy with Guardian ECM",
+      "targeting": "Nashan Diana Mark II Targeting Computer"
+    }
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "name": "Scarecrow",
+  "chassis": "Scarecrow",
+  "model": "UCU-F4r 'Hobbled Scarecrow'",
+  "mulId": 6337,
+  "config": "Biped",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3122,
+  "source": "TRO: 3145 Federated Suns",
+  "rulesLevel": 4,
+  "role": "Brawler",
+  "mass": 40,
+  "engine": "200 XL Engine(IS)",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (IS/Clan)",
+    "head": 9,
+    "centerTorso": 18,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 18,
+    "leftLeg": 18,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 128
+  },
+  "quirks": [
+    "bad_rep_is",
+    "difficult_maintain",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "ER Flamer",
+      "location": "CT"
+    },
+    {
+      "type": "ER Flamer",
+      "location": "H"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "B-Pod",
+      "location": "RL"
+    },
+    {
+      "type": "B-Pod",
+      "location": "LL"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERMediumLaser",
+      "ISMediumPulseLaser",
+      "Medium Laser",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "ER Medium Laser",
+      "Medium Pulse Laser",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLERMediumLaser",
+      "ISMediumPulseLaser",
+      "Medium Laser",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "ER Medium Laser",
+      "Medium Pulse Laser",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "BloodhoundActiveProbe",
+      "BloodhoundActiveProbe",
+      "BloodhoundActiveProbe",
+      "IS Endo-Composite"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Medium Laser",
+      "ISCASEII",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "CLERMediumLaser",
+      "ER Flamer",
+      "ER Flamer",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ER Flamer",
+      "Sensors",
+      "Life Support",
+      "ER Flamer"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISBPod",
+      "B-Pod"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISBPod",
+      "B-Pod"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

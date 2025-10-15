@@ -1,0 +1,169 @@
+{
+  "name": "Helepolis",
+  "chassis": "Helepolis",
+  "model": "HEP-2H",
+  "mulId": 1461,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2567,
+  "source": "TRO: 3075",
+  "rulesLevel": 3,
+  "role": "Missile Boat",
+  "mass": 75,
+  "engine": "225 Fusion Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 21,
+    "leftTorso": 21,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 25,
+    "leftLeg": 25,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 208
+  },
+  "quirks": [
+    "reinforced_legs",
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Sniper",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "CT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper"
+    ],
+    "leftTorso": [
+      "LRM 10",
+      "LRM 10",
+      "IS Ammo LRM-10",
+      "IS Ammo SRM-6",
+      "ISSniperAmmo",
+      "ISSniperAmmo",
+      "ISCASE",
+      "LRM 10"
+    ],
+    "rightTorso": [
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "ISSniper",
+      "Sniper"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "SRM 6",
+      "SRM 6",
+      "SRM 6"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Medium Laser",
+      "Sensors",
+      "Life Support",
+      "Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "First unleashed by the Terran Hegemony in 2460, the Helepolis is a ponderous BattleMech designed to deliver artillery fire.",
+    "capabilities": "The Helepolis is built around an Armstrong Industries Sniper Artillery Piece. The accurate, long-range fire makes it effective against static defenses.",
+    "deployment": "The 'Mech does carry some backup weapons to augment its screening forces. It can defend itself with a Coventry Starfire LRM-10 and Nova Large Laser. If an enemy gets close, the MechWarrior can call upon a Thunderstroke SRM-6 and a Starflash medium laser.",
+    "history": "The 'Mech was proven ineffective on multiple occasions and, following the destruction of the production facilities in 2775, the design was lost during the Succession Wars. The HEP-2H dates to 2567, replacing the 2X. The Helepolis is a slow heavy 'Mech with a maximum speed of 54 km/h. It has a respectable thirteen tons of armor, however. When rebels within the Hegemony military launched the September Revolt, the new Director-General, Ian Cameron deployed batteries of Helepolis 'Mechs to keep them pinned down within the capital city of Geneva on Terra."
+  },
+  "manufacturers": {
+    "primary": [
+      "Mitchell Vehicles"
+    ],
+    "primaryFactory": [
+      "Graham IV"
+    ],
+    "systems": {
+      "chassis": "Mitchell Heavy HEP",
+      "engine": "VOX 225",
+      "armor": "Armorscale with CASE",
+      "communications": "Exeter Longscan 100",
+      "targeting": "Tacticon Tracer 150b"
+    }
+  }
+}

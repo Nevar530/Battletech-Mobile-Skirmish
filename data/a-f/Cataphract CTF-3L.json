@@ -1,0 +1,172 @@
+{
+  "name": "Cataphract",
+  "chassis": "Cataphract",
+  "model": "CTF-3L",
+  "mulId": 470,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3050,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 70,
+  "engine": "280 XL Engine",
+  "structure": "Standard",
+  "myomer": "MASC",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 16,
+    "leftTorso": 16,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 19,
+    "leftLeg": 19,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 176
+  },
+  "quirks": [
+    "pro_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "Left Torso (R)"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "Right Torso (R)"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMediumPulseLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISERPPC",
+      "ISERPPC",
+      "ISERPPC",
+      "ISMediumPulseLaser",
+      "1 ISERPPC",
+      "1 ISMediumPulseLaser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "ISMASC",
+      "ISMediumPulseLaser (R)"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISMediumPulseLaser (R)",
+      "ISLBXAC10 CL Ammo",
+      "ISLBXAC10 Ammo"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Cataphract is a heavy BattleMech and one of the first original designs since the start of the Succession Wars.",
+    "capabilities": "The Cataphract, with its armor layers, can easily absorb damage, but it can also deal it. The CeresArms Smasher PPC (taken from the Vindicator) and the SarLon MaxiCannon combine to deliver a brutal punch at greater ranges. A quartet of CeresArms medium lasers close in to give short-range firepower to both the front and rear.",
+    "deployment": "Produced by the Capellans based on stolen Davion designs, the 3L is an upgraded version of the Cataphract that follows more in line with the prototype 1X model. It is propelled by an XL engine with MASC instead of jump jets allowing it to reach speeds of 86.4 km/h in short bursts. While it is also armed with an LB-X autocannon/10 as its primary weapon this is instead matched with a Ceres Arms Warrior ER PPC for powerful striking capabilities at long range. Other differences include the use of four Ceres Arms Model W medium pulse lasers and double heat sinks in place of the standard models. This design was produced by the Confederation at Grand Base following the ascension of Chancellor Romano Liao.",
+    "history": "Desperate for a heavy 'Mech design that could be produced and maintained sustainably by their deteriorating infrastructure, the Capellan Confederation built the Cataphract in 3025 to be assembled from pieces they could still manufacture. The Cataphract, dubbed a FrankenMech for its appearance and built with parts from the Marauder, Shadow Hawk, and Phoenix Hawk, was destined to become the Confederation's new standard heavy 'Mech. It entered service just before the Fourth Succession War, when the Tikonov production line was taken over by the Federated Suns. This humiliating defeat was exacerbated when numerous Davion troops, especially the Crucis Lancers, adopted the Cataphract as their own. Tikonov's product quality, on the other hand, left the Federated Suns wanting (at least in part due to deliberate obstruction by workers still loyal to the Confederation). The Confederation finally restored the lost plant with one on Betelgeuse in 3032, building their own Cataphracts in time for the Andurien Crisis. Shortly after seizing Tikonov, the Federated Commonwealth began development of the CTF-3D, which was designed to compete with an attack 'Mech while being as adaptable as feasible. Despite the modifications, the CTF-3D was only used sparingly by the Armed Forces of the Federated Commonwealth before being consigned to the Crucis March Militia as an affront to the Capellans. When the Clan Invasion began, everything that was still in production, including the Cataphract, was rushed to the front lines. The Capellans, for their part, were able to manufacture the CTF-3D from stolen schematics and went on to create their own variant, the CTF-3L, which would go on to account for 25% of all newly acquired heavy 'Mechs during the 3050s. The design's popularity would decrease in the years that followed, while a few new varieties would continue to be created as new technologies and demands arose."
+  },
+  "manufacturers": {
+    "primary": [
+      "Earthwerks Ltd."
+    ],
+    "primaryFactory": [
+      "Grand Base"
+    ],
+    "systems": {
+      "chassis": "Earthwerks CTF",
+      "engine": "280 GM XL",
+      "armor": "Kallon Royalstar with CASE",
+      "communications": "CommuTech Multi-Channel 10",
+      "targeting": "BlazeFire Sightlock"
+    }
+  }
+}

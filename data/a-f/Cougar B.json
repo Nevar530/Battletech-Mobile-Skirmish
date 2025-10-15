@@ -1,0 +1,163 @@
+{
+  "name": "Cougar",
+  "chassis": "Cougar",
+  "model": "B",
+  "mulId": 705,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3058,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 35,
+  "engine": "175 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 8,
+    "centerTorso": 14,
+    "rightTorso": 12,
+    "leftTorso": 12,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 5,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 105
+  },
+  "quirks": [
+    "ubiquitous_clan"
+  ],
+  "weapons": [
+    {
+      "type": "ER PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ER PPC",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERPPC (omnipod)",
+      "CLERPPC (omnipod)",
+      "ER PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERPPC (omnipod)",
+      "CLERPPC (omnipod)",
+      "ER PPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLERMediumLaser (omnipod)",
+      "Sensors",
+      "Life Support",
+      "ER Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "Based on the Adder, the Cougar is a powerful Clan Jade Falcon light OmniMech.",
+    "capabilities": "Though the two 'Mechs are visually similar and share the same weight, the Cougar is slower and better armed than the Adder, replacing its progenitor's 210 XL Engine with a lighter 175 XL model and mounting just five and a half tons of Ferro-Fibrous armor on an Endo Steel frame to boost the available pod-space to 19 tons. Though some Clan MechWarriors complained that the loss of speed was damning for a light 'Mech, the overall consensus was the increased firepower made up for this lack.",
+    "deployment": "Similar to the Adder Prime, the Cougar B uses a pair of ER PPCs for direct fire support. It has an ER Medium Laser for close range. Six additional double heat sinks help to dissipate the heat these weapons generate.",
+    "history": "After the Refusal War with Clan Wolf, the Falcon's newly-vested Khan Marthe Pryde strove to rebuild her shattered touman, reaping the benefits of efforts by her predecessor Elias Crichell to step up the pace of the Falcon breeding program and to bring new and deadly OmniMechs into service. With regards the latter, the successful introduction of the Fire Falcon, Black Lanner, Night Gyr and Turkina pleased her, but Pryde desired the symbolic goal of a complete Star of new 'Mechs. Recognizing that she'd stretched her Clan's scientists to the limit to produce those four designs already, Khan Pryde directed her scientists to modify an existing design into an even more deadly machine for the fifth member. The design selected was the Adder, and in using an existing design the Falcon scientists were able to field a virtually new 'Mech in roughly half the time normally required to construct and test a new OmniMech. First seeing service during the fighting on Coventry in 3058, the Cougar quickly spread to other Clans, most notably Clan Smoke Jaguar's defenders during Operation BULLDOG. The visual similarity to the Adder caught the Inner Sphere forces who faced it on Coventry and Port Arthur off-guard, incorrectly assuming it was the older design and being shocked by the greater firepower the Cougar was capable of unleashing. Remaining popular with the Falcons, the Ironhold facility that produced the Cougar was destroyed by Clan Steel Viper in 3071 during the Wars of Reaving."
+  },
+  "manufacturers": {
+    "primary": [
+      "Ironhold Alpha Complex"
+    ],
+    "primaryFactory": [
+      "Ironhold"
+    ],
+    "systems": {
+      "chassis": "JF 3 Light Endo Steel",
+      "engine": "175 JF Extralight",
+      "armor": "Compound JF Ferro-Fibrous",
+      "communications": "JF Integrated",
+      "targeting": "Series JFVIII KITT"
+    }
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "name": "Perseus",
+  "chassis": "Perseus",
+  "model": "P1P",
+  "mulId": 5698,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3078,
+  "source": "TRO: Jihad",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 75,
+  "engine": "300 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 36,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 21,
+    "leftArm": 21,
+    "rightLeg": 32,
+    "leftLeg": 32,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 224
+  },
+  "quirks": [
+    "anti_air",
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "ER Small Laser",
+      "location": "LL"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LL"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RL"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RL"
+    },
+    {
+      "type": "MRM 20",
+      "location": "LA"
+    },
+    {
+      "type": "PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Rotary AC/5",
+      "location": "RA"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "CT"
+    },
+    {
+      "type": "TAG",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "MRM 20 (omnipod)",
+      "MRM 20 (omnipod)",
+      "MRM 20 (omnipod)",
+      "PPC (omnipod)",
+      "PPC (omnipod)",
+      "PPC (omnipod)",
+      "Medium Laser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "MRM 20",
+      "PPC",
+      "Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "ISRotaryAC5 (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Rotary AC/5"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS MRM 20 Ammo (omnipod)",
+      "IS MRM 20 Ammo (omnipod)",
+      "ISGuardianECMSuite (omnipod)",
+      "ISGuardianECMSuite (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ISCASE (omnipod)"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "ISRotaryAC5 Ammo (omnipod)",
+      "IS Streak SRM 4 Ammo (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ISCASE (omnipod)"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISStreakSRM4 (omnipod)",
+      "Streak SRM 4"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISTAG (omnipod)",
+      "Sensors",
+      "Life Support",
+      "TAG"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISERSmallLaser (omnipod)",
+      "ISERSmallLaser (omnipod)",
+      "ER Small Laser",
+      "ER Small Laser"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISERSmallLaser (omnipod)",
+      "ISERSmallLaser (omnipod)",
+      "ER Small Laser",
+      "ER Small Laser"
+    ]
+  },
+  "text": {
+    "overview": "The Perseus is the product of a program begun by the League Central Coordination and Command to create an OmniMech completely indigenous to the Free Worlds League from concept to production.",
+    "capabilities": "While on paper the Perseus is a capable 'Mech with forty-tons of available pod space, the design has earned something of a lackluster reputation when compared to other modern OmniMechs such as the Templar or Hauptmann. This is largely due to the small size of it's weapon bays which limit the type of weaponry of the Perseus can mount, only the arms can carry larger autocannons and the hand and lower-arm actuators must be removed to be able do so, with a number of configurations also forced to mount weaponry in the 'Mech's legs. More critically the small size of the bays hampers the volume of extra double heat sinks that can be carried, consequently most of the Perseus's configurations utilize ballistic and missile weaponry over more heat-intensive energy loadouts. Built on a lightweight Endo Steel chassis, the Perseus is powered by a Hermes 300 XL engine helping save even more weight and giving the 'Mech a top speed of 64.8 km/h. The advanced structure and engine save a great deal of weight for weapons and equipment. The Perseus is protected by fourteen tons of Valiant Lamellor armor, giving it around average armor protection for a 'Mech of its size. It also has twelve double heat sinks that are fixed on the chassis.",
+    "deployment": "This Perseus configuration has a Rotary AC/5, MRM-20, PPC, and Streak SRM-4. Each leg carries a Small Laser. A Guardian ECM Suite disrupts enemy networks, while a head mounted TAG system allows the Perseus-P to designate artillery targets.",
+    "history": "The Perseus shares much with the venerable Orion, a staple of Free Worlds League Military, both broadly resembling the older design visually and using a number of the same components. This similarity prompted more than a few FWLM technicians to nickname the new design the \"Omni-Orion\" and the deployment of Perseus has largely been to front-line units that fielded large concentrations of its progenitor, replacing older Orions on a one-for-one basis."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kali Yama Weapons Industries"
+    ],
+    "primaryFactory": [
+      "Kalidasa"
+    ],
+    "systems": {
+      "chassis": "Kali Yama Endo Steel",
+      "engine": "Hermes 300 XL",
+      "armor": "Valiant Lamellor",
+      "communications": "Irian Orator-5K",
+      "targeting": "Wasat Aggressor Type 5 with OmniLink"
+    }
+  }
+}

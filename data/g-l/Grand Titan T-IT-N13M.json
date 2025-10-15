@@ -1,0 +1,194 @@
+{
+  "name": "Grand Titan",
+  "chassis": "Grand Titan",
+  "model": "T-IT-N13M",
+  "mulId": 6830,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3091,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 4,
+  "role": "Sniper",
+  "mass": 100,
+  "engine": "300 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Triple-Strength",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 42,
+    "rightTorso": 31,
+    "leftTorso": 31,
+    "rightArm": 29,
+    "leftArm": 29,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 19,
+    "rearRightTorso": 11,
+    "rearLeftTorso": 11,
+    "total": 288
+  },
+  "quirks": [
+    "multi_trac",
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "Heavy PPC",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder (armored)",
+      "Upper Arm Actuator (armored)",
+      "Lower Arm Actuator (armored)",
+      "Hand Actuator (armored)",
+      "Heavy PPC",
+      "Heavy PPC",
+      "Heavy PPC",
+      "Heavy PPC",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISERMediumLaser",
+      "IS Endo Steel",
+      "Heavy PPC",
+      "ER Large Laser",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder (armored)",
+      "Upper Arm Actuator (armored)",
+      "Lower Arm Actuator (armored)",
+      "Hand Actuator (armored)",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "Sword",
+      "ISERMediumLaser",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Medium Laser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "TSM",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Jump Jet",
+      "Medium Laser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "TSM",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine (armored)",
+      "Fusion Engine (armored)",
+      "Fusion Engine (armored)",
+      "Gyro (armored)",
+      "Gyro (armored)",
+      "Gyro (armored)",
+      "Gyro (armored)",
+      "Fusion Engine (armored)",
+      "Fusion Engine (armored)",
+      "Fusion Engine (armored)",
+      "Jump Jet",
+      "IS Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit (armored)",
+      "ISSmallPulseLaser",
+      "Sensors",
+      "Life Support",
+      "Small Pulse Laser"
+    ],
+    "leftLeg": [
+      "Hip (armored)",
+      "Upper Leg Actuator (armored)",
+      "Lower Leg Actuator (armored)",
+      "Foot Actuator (armored)",
+      "TSM",
+      "TSM"
+    ],
+    "rightLeg": [
+      "Hip (armored)",
+      "Upper Leg Actuator (armored)",
+      "Lower Leg Actuator (armored)",
+      "Foot Actuator (armored)",
+      "TSM",
+      "TSM"
+    ]
+  },
+  "text": {
+    "overview": "The Grand Titan was designed by Vining Engineering and Salvage Team to take on the best 'Mechs that the Inner Sphere or the Clans had to offer.",
+    "capabilities": "The 'Mech is built on an Endo Steel chassis and with a LTV 400 XL Engine, which propels the Grand Titan to a top speed of 64.8 kph, to save as much weight as possible. The Grand Titan also carries eighteen tons of armor.",
+    "deployment": "This Grand Titan is based on a field refit. It carries a Heavy PPC, two ER Medium Lasers, a single ER Large Laser, two Medium Lasers, and a Small Pulse Laser for anti-infantry work. For close combat it carries a Sword. It also has a 90 meter jump radius. A Heavy Duty Gyro has been Armored, as has the cockpit and all the arm and leg actuators. At the same time, this Grand Titan is equipped with Triple Strength Myomer which allows it to inflict twice as much damage in a physical brawl, as well as reach speeds of 64km/h.",
+    "history": "The design of the Grand Titan was sold to Earthwerks Incorporated in the Free Worlds League and has become a 'Mech commonly seen in the FWLM and the Word of Blake militia."
+  },
+  "manufacturers": {
+    "primary": [
+      "Earthwerks Ltd."
+    ],
+    "primaryFactory": [
+      "Keystone Plant #3"
+    ],
+    "systems": {
+      "chassis": "Corean Model 101BLP Endo Steel",
+      "engine": "LTV 400 XL",
+      "armor": "Durallex Heavy",
+      "communications": "Hartford JEA-1",
+      "targeting": "O/P FiberFeed 201 with Artemis IV FCS Interface"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "name": "Sarath",
+  "chassis": "Sarath",
+  "model": "SRTH-1OA",
+  "mulId": 6507,
+  "config": "Quad Omnimech",
+  "techBase": "Mixed (IS Chassis)",
+  "era": 3122,
+  "source": "TRO: 3145 Free Worlds League",
+  "rulesLevel": 4,
+  "role": "Missile Boat",
+  "mass": 50,
+  "engine": "250 XL Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Triple-Strength",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 8,
+    "centerTorso": 25,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightLeg": 24,
+    "rearCenterTorso": 7,
+    "rearRightTorso": 4,
+    "rearLeftTorso": 4,
+    "total": 184
+  },
+  "quirks": [
+    "distracting",
+    "compact_mech",
+    "low_profile",
+    "bad_rep_is"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 15",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 15",
+      "location": "RT"
+    },
+    {
+      "type": "MML 3",
+      "location": "RT"
+    },
+    {
+      "type": "MML 3",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Ammo LRM-15 (omnipod)",
+      "Clan Ammo LRM-15 (omnipod)",
+      "TSM",
+      "TSM",
+      "TSM",
+      "TSM",
+      "TSM",
+      "TSM"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLRM15 (T) (omnipod)",
+      "CLLRM15 (T) (omnipod)",
+      "CLLRM15 (T) (omnipod)",
+      "CLLRM15 (T) (omnipod)",
+      "ISMML3 (T) (omnipod)",
+      "ISMML3 (T) (omnipod)",
+      "ISMML3 (T) (omnipod)",
+      "ISMML3 (T) (omnipod)",
+      "ISQuadTurret",
+      "LRM 15",
+      "LRM 15",
+      "MML 3",
+      "MML 3"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "CLERSmallLaser (omnipod)",
+      "ER Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISERSmallLaser",
+      "Sensors",
+      "Life Support",
+      "ER Small Laser"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "name": "Turkina",
+  "chassis": "Turkina",
+  "model": "D",
+  "mulId": 3329,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3061,
+  "source": "TRO: Clan Invasion",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 95,
+  "engine": "285 XL (Clan) Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "17 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 45,
+    "rightTorso": 30,
+    "leftTorso": 30,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 40,
+    "leftLeg": 40,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 288
+  },
+  "quirks": [
+    "easy_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "ATM 12",
+      "location": "LA"
+    },
+    {
+      "type": "ATM 12",
+      "location": "LA"
+    },
+    {
+      "type": "ATM 12",
+      "location": "RA"
+    },
+    {
+      "type": "ATM 12",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "ATM 12",
+      "ATM 12"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "CLATM12 (omnipod)",
+      "ATM 12",
+      "ATM 12"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Jump Jet",
+      "Clan Ammo ATM-12 (omnipod)",
+      "Clan Ammo ATM-12 (omnipod)",
+      "Clan Ammo ATM-12 ER (omnipod)",
+      "Clan Ammo ATM-12 ER (omnipod)",
+      "Clan Ammo ATM-12 HE (omnipod)"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Jump Jet",
+      "Clan Ammo ATM-12 (omnipod)",
+      "Clan Ammo ATM-12 (omnipod)",
+      "Clan Ammo ATM-12 ER (omnipod)",
+      "Clan Ammo ATM-12 HE (omnipod)",
+      "Clan Ammo ATM-12 HE (omnipod)"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "CLERMediumLaser (omnipod)",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLERMediumLaser (omnipod)",
+      "Sensors",
+      "Life Support",
+      "ER Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ]
+  },
+  "text": {
+    "overview": "The Turkina is a powerful OmniMech that was first seen in the Turkina Keshik at the Battle of Tukayyid, and entered general service with Clan Jade Falcon following the end of the Refusal War. In a design oddity, the Turkina mounts enough jump jets to vault 90 meters hardwired onto the frame, rather than using them in modular pods. While this simplified repair, it also uses tonnage that could be devoted to other systems when a mission does not call for jumping. Designers also included fifteen double heat sinks, four more than could be fit into the engine, so they are fixed in the torso. The Turkina has 42 tons available for modular pods.",
+    "capabilities": "This variant uses two pairs of ATM 12s. Ten tons of ammunition allow it to make use of the flexibility of Advanced Tactical Missile technology. A pair of ER Medium Lasers provide backup.",
+    "deployment": "",
+    "history": "The Turkina is named after Turkina, the first Jade Falcon to be tamed, who inspired the leaders of Clan Jade Falcon in its early days. The name of the Turkina Keshik is also derived from this bird."
+  },
+  "manufacturers": {
+    "primary": [
+      "Complex Beta",
+      "Olivetti Weapons"
+    ],
+    "primaryFactory": [
+      "Ironhold",
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "JF Standard",
+      "engine": "285 JF Extralight",
+      "armor": "JF Standard",
+      "communications": "JF Integrated",
+      "targeting": "Series JFIX/Olivetti Pinpoint Advanced"
+    }
+  }
+}

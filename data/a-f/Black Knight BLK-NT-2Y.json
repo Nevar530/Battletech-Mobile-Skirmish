@@ -1,0 +1,195 @@
+{
+  "name": "Black Knight",
+  "chassis": "Black Knight",
+  "model": "BLK-NT-2Y",
+  "mulId": 6347,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3091,
+  "source": "TRO: 3145 Federated Suns",
+  "rulesLevel": 3,
+  "role": "Juggernaut",
+  "mass": 75,
+  "engine": "300 XL Engine(IS)",
+  "structure": "IS Endo-Composite",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (IS/Clan)",
+    "head": 9,
+    "centerTorso": 35,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 25,
+    "leftLeg": 25,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 216
+  },
+  "quirks": [
+    "command_mech"
+  ],
+  "weapons": [
+    {
+      "type": "Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "PPC",
+      "location": "LA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "PPC",
+      "PPC",
+      "PPC",
+      "Large Laser",
+      "Large Laser",
+      "Medium Laser",
+      "Medium Laser",
+      "Large Laser",
+      "PPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Large Laser",
+      "Large Laser",
+      "Medium Laser",
+      "ISMediumShield",
+      "ISMediumShield",
+      "ISMediumShield",
+      "ISMediumShield",
+      "ISMediumShield",
+      "IS Endo-Composite",
+      "Medium Laser",
+      "Large Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Medium Laser",
+      "BeagleActiveProbe",
+      "BeagleActiveProbe",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Medium Laser",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "ISTargeting Computer",
+      "IS Endo-Composite",
+      "IS Endo-Composite",
+      "Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Endo-Composite"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo-Composite",
+      "IS Endo-Composite"
+    ]
+  },
+  "text": {
+    "overview": "The Black Knight was introduced in 2578 both as a front-line combatant and as a command BattleMech at the company and battalion level for the Star League Defense Force.",
+    "capabilities": "Thirteen tons of armor protection on an Endo Steel frame allows the Black Knight to withstand significant punishment. The biggest disadvantage of the design is its challenging heat curve, though the fact that it mounts twenty heat sinks ensures that the Black Knight can still disperse a significant amount of heat produced by its weapons. However, if the 'Mech is involved in a prolonged combat situation, a less experienced MechWarrior who is not competent at heat management may be in trouble. The Black Knight's superior communications equipment allowed it to readily coordinate a whole company of 'Mechs at the same time, as well as link together the command frequencies of an entire parent regiment and connect with orbital support satellites. Improved construction materials provided the Black Knight with a light but sturdy chassis capable of carrying more weaponry and armor for less weight. With the type and amount of weapons carried by the 'Mech, the only challenge the Black Knight faces is heat management.",
+    "deployment": "Another Dark Age version of the Black Knight, the -2Y is equipped with an XL engine that drives it to 54 km/h. The weight freed by the XL engine is used to add a Beagle Active Probe, Guardian ECM Suite, and C3 slave unit. It has thirteen and a half tons of armor to protect an Endo-Composite skeleton. It is also equipped with a Targeting Computer, and a Medium Shield is carried on the right arm. Offensively, it mounts a PPC, two large lasers, and three medium lasers. All equipment is of Inner Sphere quality.",
+    "history": "The Black Knight first debuted in the Reunification War when they were fielded by the 3rd Heavy Assault Regiment in combat with the Taurian Concordat; following its success it was soon adopted by I Corps and the rest of the SLDF. When the Star League collapsed, Kong Interstellar continued producing Black Knights until their Connaught orbital factory was destroyed in 2802. In 2809, Kong was able to restart their production line, but was no longer capable of producing many of the more advanced components found in the Black Knight. As a result, Kong was forced to design a downgraded version, the BL-7-KNT. Finally the Black Knight production line was permanently destroyed in a raid by the Capellan Confederation in 2820, reducing the company to producing low-grade spare parts and performing maintenance. During the Succession Wars many Black Knights fell into the hands of the Great Houses, although as the years progressed they were increasingly forced to repair them with inferior components and their numbers slowly decreased. Some were modified with a number of nonstandard components such as jump jets but few if any survived into the thirty-first century. ComStar's stockpiles of Star League 'Mechs included the Black Knight, which they found to be an excellent command unit for Level II and Level III units when the Com Guards were formed, but the very few Black Knights gifted to the Draconis Combine during Operation ROSEBUD was apparently the result of a clerical error. For their part the Clans maintained the Black Knight, although by the time of the Clan Invasion it was reserved for solahma units. The Black Knight was one of several Clanbusters put together by ComStar leading up to the Battle of Tukayyid, and in 3063 Robinson Standard BattleWorks secured a license from Kong Interstellar to build a new variant, the BL-12-KNT. Two years later KIC finished rebuilding their plant and began producing Black Knights of their own."
+  },
+  "manufacturers": {
+    "primary": [
+      "Kong Interstellar Corporation",
+      "Robinson Standard BattleWorks"
+    ],
+    "primaryFactory": [
+      "Connaught",
+      "Robinson"
+    ],
+    "systems": {
+      "chassis": "Technicron Revised NT Endo-Composite",
+      "engine": "Vlar 300 XL",
+      "armor": "Valiant Lamellor",
+      "communications": "TransComm Alpha with ECM",
+      "targeting": "TransComm Beta"
+    }
+  }
+}

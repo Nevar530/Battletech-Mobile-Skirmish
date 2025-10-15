@@ -1,0 +1,194 @@
+{
+  "name": "Prey Seeker",
+  "chassis": "Prey Seeker",
+  "model": "PY-SR30",
+  "mulId": 8069,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3141,
+  "source": "TRO: 3150",
+  "rulesLevel": 3,
+  "mass": 15,
+  "engine": "180 XXL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 IS Double",
+  "movement": {
+    "walk": 12,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 9,
+    "rightTorso": 7,
+    "leftTorso": 7,
+    "rightArm": 4,
+    "leftArm": 4,
+    "rightLeg": 6,
+    "leftLeg": 6,
+    "rearCenterTorso": 1,
+    "rearRightTorso": 1,
+    "rearLeftTorso": 1,
+    "total": 55
+  },
+  "quirks": [],
+  "weapons": [
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun",
+      "location": "LA"
+    },
+    {
+      "type": "Machine Gun Array",
+      "location": "LA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun",
+      "location": "RA"
+    },
+    {
+      "type": "Light Machine Gun Array",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "ISMGA",
+      "IS Machine Gun Ammo - Half",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun",
+      "Machine Gun Array"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "ISLMGA",
+      "IS Light Machine Gun Ammo - Half",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun",
+      "Light Machine Gun Array"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "IS Endo Steel"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "Achernar BattleMechs' Prey Seeker evolved from a variety of sources. Its off-putting arm construction, as well as its phenomenal speed, harkens back to the Clan Dasher's distinctive profile, but its role—old-fashioned BattleMech scouting—speaks to a quiet dissatisfaction among the AFFS' MechWarriors who feel increasingly marginalized by the rise of combined-arms warfare.",
+    "capabilities": "Capable of running at a staggering 194 km/h thanks to the extralight, but frighteningly expensive, Magna 180 XXL engine, the Prey Seeker takes a minimalist approach to equipment to pay for that high rate of speed. Mounting a small cockpit and an XL gyro, the Prey Seeker features three and a half tons of armor and lacks jump jets. The minimal armor present over the rear of the Prey Seeker means that if hit from behind by any but the lightest of weapons, the Prey Seeker runs the risk of taking internal damage.",
+    "deployment": "Mounting a pair of ChisComp 73 medium re-engineered lasers for defense, the Prey Seeker isn't a brawler, but the uncommon weapons do offer an advantage against opponents that make use advanced armor types such as hardened armor, ferro-lamellor, and reflective armor.",
+    "history": "Soon after Fortress Republic, Prey Seekers were pressed into combat deployments.Without appropriate time for testing and doctrine formation, many MechWarriors were forced to discover and define what successful—and failing—tactics would be. The extended raid is one role that the Prey Seekers have proved to excel in. Many AFFS commanders have deployed small bands of Prey Seekers on long paths around enemy concentrations, despite their uncomfortable cockpits."
+  },
+  "manufacturers": {
+    "primary": [
+      "Achernar BattleMechs"
+    ],
+    "primaryFactory": [
+      "Cahokia"
+    ],
+    "systems": {
+      "chassis": "A1 Type 22 Ultralight Endo Steel",
+      "engine": "Magna 180 XXL",
+      "armor": "StarGuard CIV",
+      "communications": "PCE-4X “Blaster“",
+      "targeting": "Federated Hunter Mk.VII"
+    }
+  }
+}

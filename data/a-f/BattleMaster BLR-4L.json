@@ -1,0 +1,183 @@
+{
+  "name": "BattleMaster",
+  "chassis": "BattleMaster",
+  "model": "BLR-4L",
+  "mulId": 293,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3081,
+  "source": "TRO: 3085",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 85,
+  "engine": "340 Light Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "12 IS Double",
+  "movement": {
+    "walk": 4,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Stealth (InnerSphere)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 25,
+    "leftTorso": 25,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 24,
+    "leftLeg": 24,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 208
+  },
+  "quirks": [
+    "command_mech",
+    "weak_head_1"
+  ],
+  "weapons": [
+    {
+      "type": "Light Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "MML 7",
+      "location": "LT"
+    },
+    {
+      "type": "Light PPC",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Light PPC",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISGuardianECMSuite",
+      "ISGuardianECMSuite",
+      "IS Stealth",
+      "IS Stealth"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISLightGaussRifle",
+      "ISLightGaussRifle",
+      "ISLightGaussRifle",
+      "ISLightGaussRifle",
+      "ISLightGaussRifle",
+      "IS Light Gauss Ammo",
+      "IS Light Gauss Ammo",
+      "IS Stealth",
+      "IS Stealth",
+      "Light Gauss Rifle"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "ISMML7",
+      "Light PPC",
+      "Light PPC",
+      "ISERMediumLaser",
+      "IS Stealth",
+      "IS Stealth",
+      "MML 7",
+      "Light PPC",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "Light PPC",
+      "Light PPC",
+      "ISERMediumLaser",
+      "IS Ammo MML-7 LRM",
+      "IS Ammo MML-7 LRM",
+      "IS Ammo MML-7 SRM",
+      "IS Stealth",
+      "IS Stealth",
+      "Light PPC",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Stealth",
+      "IS Stealth"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Stealth",
+      "IS Stealth"
+    ]
+  },
+  "text": {
+    "overview": "Versatile and powerful, the BattleMaster was one of the best known BattleMechs in existence. Hollis Industries began production in 2633, originally designing it to be the largest and most powerful 'Mech for the Star League armies at that time.",
+    "capabilities": "Indeed the sheer size of the BattleMaster, combined with the costs and resources needed to build one, meant the 'Mech could only be manufactured on a few planets. Still, those lucky enough to pilot a BattleMaster can attest to some of the stories surrounding the 'Mech. With good reliability, firepower and armoring, the BattleMaster is equally adept anchoring an assault lance or serving as a command vehicle.",
+    "deployment": "This BattleMaster variant first seen in 3081 is unique to the Capellan Confederation. Equipped with Stealth Armor and a Guardian ECM Suite to power it, the traditional weaponry has been replaced with a Light Gauss Rifle and MML-7, supported by a Light PPC and ER Medium Laser in each torso. It also carries three jump jets, allowing it to cover 90 meters at a time. A Light Fusion Engine provides power and increases survivability.",
+    "history": "Although only produced in modest numbers, examples of the BattleMaster could be found in the arsenals of all the Great Houses and technicians have gone to great lengths in order to repair one. During the First Succession War Hollis' BattleMaster factories on Corey were attacked, their production lines destroyed and any finished BattleMasters purloined by the various House forces. While production of new BattleMasters was taken up by Earthwerks Incorporated on Keystone, Trellshire Heavy Industries on Twycross, and Red Devil Industries on Pandora, they could build only a handful of new 'Mechs every year. This was enough though to make House Steiner and House Marik the largest users of BattleMasters during the Succession Wars. House Liao also fielded a large number of BattleMasters, at least until the devastation of the Fourth Succession War when many fell into the hands of the Federated Suns, themselves lacking any BattleMaster factories. By fortuitous accident the Draconis Combine also came into possession of a large number of BattleMasters when a hapless ComStar Precentor, intending to ship unmodified versions of advanced BattleMasters to Com Guard units, sent them to the Combine instead. These BattleMasters served as excellent command vehicles during the War of 3039. New models of the BattleMaster would be introduced in time to take part in the Clan Invasion. Although the manufacture of new BattleMasters was disrupted when Twycross fell to Clan Jade Falcon, the recapture of that world allowed for a brief resumption of production. While Pandora did not fall during the Invasion an effort was made to relocate its BattleMaster factory, but the haphazard nature of the factory and feet-dragging by the planet's corrupt nobility delayed this effort. It wasn't until 3061 that the Red Devil factory was finally ready to be closed when the nobility's lobbying paid off and instead funds were allocated by Archon Katherine Steiner-Davion to refurbish the factory. As part of the arrangement a deal was struck with J.B. BattleMechs Incorporated to produce a new variant, the BLR-4S. Initial units were built starting in 3062 but the FedCom Civil War would delay full-scale production until 3064, by which time the second Jade Falcon Incursion captured the planet and put these new BattleMasters to work in their second-line units. This left the hard-pressed J.B. BattleMechs' factory on Storfors to build the BLR-4S for the Lyran Alliance, while the Free Worlds League and Combine would come out with their own variants."
+  },
+  "manufacturers": {
+    "primary": [
+      "Hollis Incorporated"
+    ],
+    "primaryFactory": [
+      "Corey"
+    ],
+    "systems": {
+      "chassis": "Hollis Mark X",
+      "engine": "VOX 340 Light",
+      "armor": "Ceres Durralex Heavy Stealth",
+      "jumpjet": "Unknown",
+      "communications": "HarfordCo COM 4000",
+      "targeting": "HarfordCo XKZ 1"
+    }
+  }
+}

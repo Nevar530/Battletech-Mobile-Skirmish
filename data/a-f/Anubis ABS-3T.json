@@ -1,0 +1,183 @@
+{
+  "name": "Anubis",
+  "chassis": "Anubis",
+  "model": "ABS-3T",
+  "mulId": 3704,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3067,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 30,
+  "engine": "240 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StealthArmor",
+    "head": 9,
+    "centerTorso": 11,
+    "rightTorso": 9,
+    "leftTorso": 9,
+    "rightArm": 8,
+    "leftArm": 8,
+    "rightLeg": 12,
+    "leftLeg": 12,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 88
+  },
+  "quirks": [
+    "ext_twist",
+    "difficult_maintain",
+    "exp_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISERLargeLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERSmallLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISGuardianECM",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISERMediumLaser",
+      "ISERSmallLaser",
+      "Stealth Armor",
+      "Stealth Armor",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERMediumLaser",
+      "1 ISERSmallLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISERLargeLaser",
+      "ISERLargeLaser",
+      "ISERMediumLaser",
+      "Stealth Armor",
+      "Stealth Armor",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERLargeLaser",
+      "1 ISERMediumLaser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Stealth Armor",
+      "Stealth Armor",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "Stealth Armor",
+      "Stealth Armor",
+      "Endo-Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "1 ISGuardianECM"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo-Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth Armor",
+      "Stealth Armor"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Stealth Armor",
+      "Stealth Armor"
+    ]
+  },
+  "text": {
+    "overview": "<p>The Anubis, designed by Gittleman and Abzug within the Fredonian Industrial Technologies consortium, was envisioned to complement the Osiris BattleMech. Despite initial rejections by manufacturers, the Anubis found a home with Detroit Consolidated MechWorks in the New Colony Region. This nimble Mech, named after the Egyptian god of the dead, showcases the Capellan Confederation's commitment to advanced technology through its incorporation of revolutionary stealth armor and specialized missile weaponry. Designed to operate in a supporting role, the Anubis signifies a blend of tactical innovation and technological advancement.</p>",
+    "capabilities": "<p>The Anubis is a testament to the Trinity Alliance's technological collaboration. Featuring the Confederation's stealth armor and designed for a support role, it excels in laying down suppressing fire with its array of long-range missile launchers. This strategy allows allied units to engage the enemy directly while the Anubis remains concealed. Though equipped with minimal armor protection, the incorporation of stealth armor provides a significant tactical advantage. The Anubis, however, does have a higher susceptibility to equipment malfunctions compared to other Mechs, a trade-off for its advanced capabilities. Its arsenal and design focus on maintaining distance from the enemy, leveraging its stealth and missile capabilities to control the battlefield.</p>",
+    "deployment": "Introduced to reduce ammunition dependence, the 3T variant replaces missile systems with an ER large laser and two ER medium lasers, though it suffers from overheating issues.",
+    "history": "<p>The Anubis, emerging from the inventive minds of Gittleman and Abzug, journeyed from a challenging start to becoming a key asset in several military forces. Initially overlooked by Achernar BattleMechs and other manufacturers, its fortunes turned when the duo joined Detroit Consolidated MechWorks in the New Colony Region. This transition marked the beginning of the Anubis's significant role within the Magistracy of Canopus and the Taurian Concordat, symbolizing the technological strength and commitment of the Capellan Confederation to the Trinity Alliance.</p><p>Deployed first in late 3063, the Anubis quickly integrated into various units across the Magistracy and the Concordat. The Colonial Marshals became its most prominent users, employing the Anubis in a variety of tactical scenarios. However, political changes in the Colony Region led to a halt in further shipments to the Colonial Marshals, reflecting the complex interplay of politics and military strategy in the region. The Magestrix's consideration towards recognizing the new government in the Colony Region, despite President Shraplen's reported displeasure, further indicates the nuanced role the Anubis plays in regional dynamics.</p><p>The Anubis's history is also marked by its service as a fast scout, particularly favored for long-range search-and-destroy missions. Its stealth capabilities and sensor upgrades have made it a reliable choice for reconnaissance and support roles. Notably, during a reconnaissance mission on Ruschegg in 3145, Anubis units of the Fourth Andurien Cavalry played a pivotal role, demonstrating both the strengths and limitations of the Mech in complex combat scenarios.</p><p>As a product of technological innovation and strategic necessity, the Anubis has seen several variants over the years, each addressing different tactical needs and technological advancements. These variants, from the ABS-3R to the ABS-5Z, illustrate the ongoing evolution of the Anubis, adapting to the ever-changing landscape of warfare in the Inner Sphere.</p>"
+  },
+  "manufacturers": {
+    "primary": [
+      "Detroit Consolidated Mechworks"
+    ],
+    "primaryFactory": [
+      "Detroit"
+    ],
+    "systems": {
+      "chassis": "Detroit Type III Endo",
+      "engine": "Ceres Motors 240 Extralight",
+      "armor": "Hellespont Lite Stealth",
+      "communications": "Ceres Metals Model 666 with Guardian ECM Suite",
+      "targeting": "Dynatec 990"
+    }
+  }
+}

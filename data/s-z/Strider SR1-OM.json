@@ -1,0 +1,136 @@
+{
+  "name": "Strider",
+  "chassis": "Strider",
+  "model": "SR1-OM",
+  "mulId": 6916,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3135,
+  "source": "Record Sheets: 3145 New Tech New Upgrades",
+  "rulesLevel": 3,
+  "role": "Scout",
+  "mass": 40,
+  "engine": "240 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 15,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 12,
+    "leftArm": 12,
+    "rightLeg": 14,
+    "leftLeg": 14,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 120
+  },
+  "quirks": [
+    "easy_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "C3 Master Boosted with TAG",
+      "location": "LA"
+    },
+    {
+      "type": "C3 Master Boosted with TAG",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "C3 Master Boosted with TAG"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "ISC3MasterBoostedSystemUnit (omnipod)",
+      "C3 Master Boosted with TAG"
+    ],
+    "leftTorso": [
+      "ISCASE",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightTorso": [
+      "ISCASE",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

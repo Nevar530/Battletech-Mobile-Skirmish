@@ -1,0 +1,160 @@
+{
+  "name": "Arcas",
+  "chassis": "Arcas",
+  "mulId": 3717,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3061,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "325 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 32,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 211
+  },
+  "quirks": [
+    "pro_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLERLargeLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLERLargeLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLMediumPulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLMediumPulseLaser",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLStreakSRM4",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLStreakSRM4",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLERLargeLaser",
+      "1 CLERLargeLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLERLargeLaser",
+      "1 CLERLargeLaser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMediumPulseLaser",
+      "CLStreakSRM4",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 CLMediumPulseLaser",
+      "1 CLStreakSRM4"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMediumPulseLaser",
+      "CLStreakSRM4",
+      "CLStreakSRM4 Ammo",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 CLMediumPulseLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet",
+      "CLStreakSRM4",
+      "1 CLStreakSRM4"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "Bergan Industries"
+    ],
+    "primaryFactory": [
+      "Alshain"
+    ],
+    "systems": {}
+  }
+}

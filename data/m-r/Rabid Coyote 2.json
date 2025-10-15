@@ -1,0 +1,200 @@
+{
+  "name": "Rabid Coyote",
+  "chassis": "Rabid Coyote",
+  "model": "2",
+  "mulId": 5682,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3071,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 55,
+  "engine": "275 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "15 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 27,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 18,
+    "leftArm": 18,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 185
+  },
+  "quirks": [
+    "imp_target_short",
+    "bad_rep_clan"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLECMSuite",
+      "location": "H"
+    },
+    {
+      "type": "1 CLActiveProbe",
+      "location": "CT"
+    },
+    {
+      "type": "1 CLATM3",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLATM3",
+      "location": "LT"
+    },
+    {
+      "type": "1 CLATM3",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLATM3",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLATM3",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 CLERMediumLaser",
+      "1 CLERMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 CLERMediumLaser",
+      "1 CLERMediumLaser"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3 Ammo",
+      "CLATM3 ER Ammo",
+      "CLATM3 HE Ammo",
+      "Endo-Steel",
+      "1 CLATM3",
+      "1 CLATM3"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3",
+      "CLATM3 Ammo",
+      "CLATM3 ER Ammo",
+      "CLATM3 HE Ammo",
+      "Endo-Steel",
+      "1 CLATM3",
+      "1 CLATM3",
+      "1 CLATM3"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "CLActiveProbe",
+      "Endo-Steel",
+      "1 CLActiveProbe"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLECMSuite",
+      "Sensors",
+      "Life Support",
+      "1 CLECMSuite"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

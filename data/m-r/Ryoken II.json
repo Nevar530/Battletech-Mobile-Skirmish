@@ -1,0 +1,171 @@
+{
+  "name": "Ryoken II",
+  "chassis": "Ryoken II",
+  "mulId": 2758,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3075,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 75,
+  "engine": "375 XL (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 32,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 216
+  },
+  "quirks": [
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 15",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 15",
+      "location": "RT"
+    },
+    {
+      "type": "LB 2-X AC",
+      "location": "LT"
+    },
+    {
+      "type": "LB 2-X AC",
+      "location": "LT"
+    },
+    {
+      "type": "LB 2-X AC",
+      "location": "RT"
+    },
+    {
+      "type": "LB 2-X AC",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLRM15",
+      "CLLRM15",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "Clan Ammo LRM-15",
+      "Clan LB 2-X AC Ammo",
+      "LRM 15",
+      "LB 2-X AC",
+      "LB 2-X AC"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLRM15",
+      "CLLRM15",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "CLLBXAC2",
+      "Clan Ammo LRM-15",
+      "Clan LB 2-X Cluster Ammo",
+      "LRM 15",
+      "LB 2-X AC",
+      "LB 2-X AC"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "After the success of the Mad Cat Mk II design, which increased the tonnage and weaponry of the Mad Cat, Clan Ghost Bear applied these same changes to the medium Ryoken.",
+    "capabilities": "The Ryoken II is slower than its antecedent, only capable of 87 km/h, though it has more weight available for equipment and weapons. It is built on an Endo Steel chassis and is protected by thirteen and a half tons of armor.",
+    "deployment": "A long-range combatant, the Ryoken II carries four Type OVR-X LB-X Autocannon/2s that make excellent anti-aircraft guns. Two Type XVI LRM-15s allow the use of indirect support as well as direct. Limited ammunition forces any MechWarrior to make quick work of his or her enemies. The standard complement of double heat sinks keep the 'Mech chilly.",
+    "history": "The Ryoken II, first walked off the assembly line in 3075 during the Word of Blake Jihad. When the Ghost Bears later decided to sell some to the Republic of the Sphere, it caused a ruckus among some of the Clans, including a few Trials of Grievance from Clan Hell's Horses."
+  },
+  "manufacturers": {
+    "primary": [
+      "Bergan Industries"
+    ],
+    "primaryFactory": [
+      "Alshain"
+    ],
+    "systems": {
+      "chassis": "DSAM ENDO 5",
+      "engine": "GM 375 Fusion Extralight",
+      "armor": "Forging ZK20",
+      "communications": "Garret GBX-2 Amalgamated Targeting and Tracking",
+      "targeting": "Alshain B4 Series 2 T&T"
+    }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "name": "Fwltur",
+  "chassis": "Fwltur",
+  "model": "FWL-3R SalvageMech",
+  "mulId": 1162,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3081,
+  "source": "TRO: 3085",
+  "rulesLevel": 4,
+  "role": "None",
+  "mass": 35,
+  "engine": "105 Fusion Engine(IS)",
+  "structure": "Industrial",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Commercial (InnerSphere)",
+    "head": 8,
+    "centerTorso": 10,
+    "rightTorso": 8,
+    "leftTorso": 8,
+    "rightArm": 6,
+    "leftArm": 6,
+    "rightLeg": 10,
+    "leftLeg": 10,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 84
+  },
+  "quirks": [],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Heat Sink",
+      "Salvage Arm",
+      "Salvage Arm",
+      "Environmental Sealing"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Heat Sink",
+      "Salvage Arm",
+      "Salvage Arm",
+      "Environmental Sealing"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Lift Hoist (R)",
+      "Lift Hoist (R)",
+      "Lift Hoist (R)",
+      "Environmental Sealing"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "BeagleActiveProbe",
+      "BeagleActiveProbe",
+      "Searchlight",
+      "Environmental Sealing"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISUMU",
+      "Environmental Sealing"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Environmental Sealing",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISUMU",
+      "Environmental Sealing"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISUMU",
+      "Environmental Sealing"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

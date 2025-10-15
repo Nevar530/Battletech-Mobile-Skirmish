@@ -1,0 +1,94 @@
+{
+  "name": "Snow Fox",
+  "chassis": "Snow Fox",
+  "model": "2",
+  "mulId": 2980,
+  "config": "Quad",
+  "techBase": "Clan",
+  "era": 3015,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 20,
+  "engine": "160 Fusion (Clan) Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 8,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 7,
+    "centerTorso": 6,
+    "rightTorso": 6,
+    "leftTorso": 6,
+    "rightLeg": 5,
+    "rearCenterTorso": 1,
+    "rearRightTorso": 1,
+    "rearLeftTorso": 1,
+    "total": 48
+  },
+  "quirks": [
+    "low_profile",
+    "hard_pilot"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 10",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Clan Ammo LRM-10",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLMASC",
+      "Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLLRM10",
+      "Sensors",
+      "Life Support",
+      "LRM 10"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

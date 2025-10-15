@@ -1,0 +1,123 @@
+{
+  "name": "Hermes II",
+  "chassis": "Hermes II",
+  "model": "HER-4K 'Hermes III'",
+  "mulId": 1498,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3025,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Scout",
+  "mass": 40,
+  "engine": "240 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "11 Single",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 17,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 14,
+    "leftLeg": 14,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 5,
+    "rearLeftTorso": 5,
+    "total": 120
+  },
+  "quirks": [
+    "easy_maintain",
+    "imp_com"
+  ],
+  "weapons": [
+    {
+      "type": "Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Large Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "rightTorso": [
+      "Large Laser",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The original Hermes scout 'Mech rapidly developed a poor reputation. Plagued by electronic glitches and oft-criticized for its lack of firepower or armor, manufacturing for the 'Mech ceased, and Irian's lines fell silent. The start of the Succession Wars, however, would create a massive demand for BattleMechs of any sort; Irian, instead of restarting their Hermes line as-is, would rework the chassis into the heavier, slower, and tougher Hermes II. Though early tests involving an advanced torso-mounted autocannon failed, Irian quickly redesigned the Hermes II to use a more reliable Oriente autocannon placed in one of the arms. The reliable 'Mech would rapidly become one of the main heavy scouts of the FWLM, serving in numbers that few other designs could match.",
+    "capabilities": "With enough speed to stay ahead of most Free Worlds formations, the Hermes II carries decent firepower for its role. Seven and a half tons of armor keep the Hermes II well-protected, and it can outlast many other scouts on the field. The Hermes II uses many reliable and well-made systems; its E.A.R communications system is extremely advanced, able to connect to communications satellites and hard to track by enemy monitoring systems. The autocannon is durable and rarely malfunctions, and the flamer serves well as a utility weapon and as a means for the Hermes II to break visual contact with enemy forces.",
+    "deployment": "As an Irian design, the Hermes II mostly serves within FWLM forces. It has served there for centuries, and massive production lines ensure large numbers of the 'Mech enter service every year. Created as an export variant, the HER-4K \"Hermes III\" (not to be confused with the lighter Hermes of the same name) mounts twin large lasers instead of its standard firepower. The formation of the Free Rasalhague Republic spread the design to this new state, though deployment would not spread farther and would instead solely remain within these two factions.",
+    "history": "Also sometimes referred to as the Hermes III, this is a variant of the Hermes II. It solely appeared in the Draconis Combine, suggesting that it was an export-only version. (The HER-4K Hermes III should not be confused with the HER-4K variant of the Hermes, which was an export version for the Draconis Combine of the Hermes II's predecessor.)"
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Irian Chassis",
+      "engine": "Hermes",
+      "armor": "Riese",
+      "communications": "Irian",
+      "targeting": "Wasat"
+    }
+  }
+}

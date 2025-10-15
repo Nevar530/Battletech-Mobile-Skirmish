@@ -1,0 +1,192 @@
+{
+  "name": "Piranha",
+  "chassis": "Piranha",
+  "model": "3",
+  "mulId": 2537,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3068,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 20,
+  "engine": "180 XL (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 9,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 8,
+    "centerTorso": 9,
+    "rightTorso": 8,
+    "leftTorso": 8,
+    "rightArm": 6,
+    "leftArm": 6,
+    "rightLeg": 6,
+    "leftLeg": 6,
+    "rearCenterTorso": 3,
+    "rearRightTorso": 2,
+    "rearLeftTorso": 2,
+    "total": 64
+  },
+  "quirks": [
+    "imp_target_short"
+  ],
+  "weapons": [
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Micro Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Micro Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Micro Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLERMediumLaser",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLERMediumLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLMicroPulseLaser",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Micro Pulse Laser",
+      "ER Micro Laser",
+      "ER Micro Laser",
+      "ER Micro Laser",
+      "ER Micro Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLMicroPulseLaser",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "CLERMicroLaser",
+      "Micro Pulse Laser",
+      "ER Micro Laser",
+      "ER Micro Laser",
+      "ER Micro Laser",
+      "ER Micro Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLightActiveProbe",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLTargeting Computer",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

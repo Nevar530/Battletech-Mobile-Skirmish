@@ -1,0 +1,180 @@
+{
+  "name": "Bowman",
+  "chassis": "Bowman",
+  "model": "3",
+  "mulId": 5690,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3076,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 70,
+  "engine": "350 XL Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous",
+    "head": 9,
+    "centerTorso": 33,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 217
+  },
+  "quirks": [
+    "fast_reload",
+    "stable",
+    "bad_rep_clan"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLECMSuite",
+      "location": "H"
+    },
+    {
+      "type": "1 CLBPod",
+      "location": "RL"
+    },
+    {
+      "type": "1 CLBPod",
+      "location": "LL"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLERMediumLaser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLERMediumLaser",
+      "1 CLERMediumLaser",
+      "1 CLERMediumLaser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20",
+      "CLHAG20 Ammo",
+      "CLHAG20 Ammo",
+      "CLHAG20 Ammo"
+    ],
+    "leftTorso": [
+      "Engine",
+      "Engine",
+      "CLATM9",
+      "CLATM9",
+      "CLATM9",
+      "CLATM9",
+      "CLATM9 Ammo",
+      "CLATM9 ER Ammo",
+      "CLATM9 HE Ammo",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightTorso": [
+      "Engine",
+      "Engine",
+      "CLERMediumLaser",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "CLTargeting Computer",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Ferro-Fibrous",
+      "Ferro-Fibrous",
+      "1 CLERMediumLaser"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "Endo-Steel",
+      "Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLECMSuite",
+      "Sensors",
+      "Life Support",
+      "1 CLECMSuite"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLBPod",
+      "Ferro-Fibrous",
+      "1 CLBPod"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLBPod",
+      "Ferro-Fibrous",
+      "1 CLBPod"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "name": "Hunchback IIC",
+  "chassis": "Hunchback IIC",
+  "model": "4",
+  "mulId": 1571,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3075,
+  "source": "TRO: 3085",
+  "rulesLevel": 4,
+  "role": "Brawler",
+  "mass": 50,
+  "engine": "200 XL (Clan) Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 8,
+    "centerTorso": 18,
+    "rightTorso": 13,
+    "leftTorso": 13,
+    "rightArm": 9,
+    "leftArm": 9,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 4,
+    "rearRightTorso": 3,
+    "rearLeftTorso": 3,
+    "total": 112
+  },
+  "quirks": [
+    "bad_rep_clan"
+  ],
+  "weapons": [
+    {
+      "type": "Rotary AC/5",
+      "location": "RT"
+    },
+    {
+      "type": "Rotary AC/5",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "CLDoubleHeatSink",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5 Ammo",
+      "CLRotaryAC5 Ammo",
+      "Rotary AC/5"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5 Ammo",
+      "CLRotaryAC5 Ammo",
+      "Rotary AC/5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERMediumLaser",
+      "ER Medium Laser",
+      "ER Medium Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLECMSuite",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

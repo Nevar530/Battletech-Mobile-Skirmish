@@ -1,0 +1,125 @@
+{
+  "name": "Fwltur",
+  "chassis": "Fwltur",
+  "model": "FWL-3V SalvageMech",
+  "mulId": 1163,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3085,
+  "source": "TRO: 3085",
+  "rulesLevel": 4,
+  "role": "None",
+  "mass": 35,
+  "engine": "105 Fusion Engine(IS)",
+  "structure": "IS Industrial",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 3,
+    "jump": 2
+  },
+  "armor": {
+    "type": "Commercial (InnerSphere)",
+    "head": 8,
+    "centerTorso": 16,
+    "rightTorso": 10,
+    "leftTorso": 10,
+    "rightArm": 7,
+    "leftArm": 7,
+    "rightLeg": 10,
+    "leftLeg": 10,
+    "rearCenterTorso": 6,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 96
+  },
+  "quirks": [],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Heat Sink",
+      "Salvage Arm",
+      "Salvage Arm"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Heat Sink",
+      "Salvage Arm",
+      "Salvage Arm"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Lift Hoist/Arresting Hoist (R)",
+      "Lift Hoist/Arresting Hoist (R)",
+      "Lift Hoist/Arresting Hoist (R)"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "Lift Hoist/Arresting Hoist (R)",
+      "Lift Hoist/Arresting Hoist (R)",
+      "Lift Hoist/Arresting Hoist (R)"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "MechanicalJumpBooster",
+      "MechanicalJumpBooster"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "MechanicalJumpBooster",
+      "MechanicalJumpBooster"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [
+      "New Earth Trading Company"
+    ],
+    "primaryFactory": [
+      "New Earth"
+    ],
+    "systems": {
+      "chassis": "FWL Industrial",
+      "engine": "Victory",
+      "armor": "Type 7 IndiPlate Commercial",
+      "communications": "NETC COMSET 3.2",
+      "targeting": "TargiTrack 717 with Beagle Active Probe"
+    }
+  }
+}

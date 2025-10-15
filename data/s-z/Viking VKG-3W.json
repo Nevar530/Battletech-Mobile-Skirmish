@@ -1,0 +1,190 @@
+{
+  "name": "Viking",
+  "chassis": "Viking",
+  "model": "VKG-3W",
+  "mulId": 3420,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3072,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 90,
+  "engine": "270 Fusion Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "10 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 44,
+    "rightTorso": 28,
+    "leftTorso": 28,
+    "rightArm": 30,
+    "leftArm": 30,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 14,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 279
+  },
+  "quirks": [
+    "easy_maintain",
+    "multi_trac",
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "Streak SRM 2",
+      "location": "LL"
+    },
+    {
+      "type": "Streak SRM 2",
+      "location": "RL"
+    },
+    {
+      "type": "MML 9",
+      "location": "LA"
+    },
+    {
+      "type": "MML 9",
+      "location": "LA"
+    },
+    {
+      "type": "MML 9",
+      "location": "RA"
+    },
+    {
+      "type": "MML 9",
+      "location": "RA"
+    },
+    {
+      "type": "Light Auto Cannon/2",
+      "location": "LT"
+    },
+    {
+      "type": "Light Auto Cannon/2",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "MML 9",
+      "MML 9"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "MML 9",
+      "MML 9"
+    ],
+    "leftTorso": [
+      "Light Auto Cannon/2",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 SRM",
+      "IS Ammo MML-9 SRM",
+      "IS Streak SRM 2 Ammo",
+      "ISCASE",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Light Auto Cannon/2"
+    ],
+    "rightTorso": [
+      "Light Auto Cannon/2",
+      "IS Ammo LAC/2",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 LRM",
+      "IS Ammo MML-9 SRM",
+      "ISCASE",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Light Auto Cannon/2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISC3iUnit",
+      "ISC3iUnit"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISStreakSRM2",
+      "Endo Steel",
+      "Streak SRM 2"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "ISStreakSRM2",
+      "Endo Steel",
+      "Streak SRM 2"
+    ]
+  },
+  "text": {
+    "overview": "",
+    "capabilities": "",
+    "deployment": "",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {}
+  }
+}

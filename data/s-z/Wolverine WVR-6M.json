@@ -1,0 +1,155 @@
+{
+  "name": "Wolverine",
+  "chassis": "Wolverine",
+  "model": "WVR-6M",
+  "mulId": 3572,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2816,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Skirmisher",
+  "mass": 55,
+  "engine": "275 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "14 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 25,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 18,
+    "leftArm": 18,
+    "rightLeg": 19,
+    "leftLeg": 19,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 168
+  },
+  "quirks": [
+    "command_mech",
+    "ext_twist",
+    "imp_com",
+    "pro_actuator",
+    "ubiquitous_clan",
+    "ubiquitous_is",
+    "cramped_cockpit"
+  ],
+  "weapons": [
+    {
+      "type": "Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "H"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "Large Laser",
+      "Large Laser",
+      "Medium Laser",
+      "Large Laser",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Jump Jet",
+      "Jump Jet",
+      "SRM 6",
+      "SRM 6",
+      "SRM 6"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Jump Jet",
+      "Jump Jet",
+      "IS Ammo SRM-6"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Medium Laser",
+      "Sensors",
+      "Life Support",
+      "Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "The Wolverine commonly served as a heavy scout unit. Often deployed in situations where heavy opposition could easily destroy lighter BattleMechs, it has had a reliable service record ever since its initial deployment within the Star League Defense Force. With respectable armor, speed, and firepower, it can easily outfight lighter enemy scouts and defend itself capably if ambushed.",
+    "capabilities": "The autocannon, missile system and laser found on most Wolverines are all reliable and well-storied systems. Unfortunately, the jump jets suffer from an opposing reputation; the Northrup 12000's are underpowered and prone to breakdowns. The one defining system to be found on the Wolverine, however, are its superb Tek BattleCom and Garret T11-b communications systems. The comgear, regardless of the manufacturer, is well-shielded and features a multi-channel transmitter and receiver, making the Wolverine a powerful Command BattleMech for scouting formations.",
+    "deployment": "Eventually becoming the sole variant manufactured by Kallon's Thermopolis plant, the 6M was introduced in 2816 after Lyran raiders destroyed the plant's stockpiles of GM Whirlwind autocannons in the later years of the First Succession War. Boasting increased firepower and endurance as a strike raider, Kallon fitted a Magna Mk III large laser into the GM's semi-detachable mount. The weight saved also allowed the Marik designers to add a second Medium Laser to the right arm, as well as two additional Heat Sinks to help with the extra heat load, and one more ton of armor for added protection. Unlike the similar 6K, the 6M still retains the five jump jets of the 6R, though this causes it to run hot in heavy combat.",
+    "history": "A widespread part of every major military, the Wolverine has manufacturing plants scattered throughout the entire Inner Sphere. While certain states-notably the Free Worlds League-have larger numbers of the design, only the Capellans began facing a shortage of the Wolverine after the loss of their Nanking facilities."
+  },
+  "manufacturers": {
+    "primary": [
+      "Gibson Federated BattleMechs (A Division of Free Worlds Defense Industries)",
+      "Kallon Weapon Industries"
+    ],
+    "primaryFactory": [
+      "Gibson",
+      "Thermopolis"
+    ],
+    "systems": {
+      "chassis": "Crucis-A",
+      "engine": "Core Tek 275",
+      "armor": "Maximillian 60",
+      "jumpjet": "Northrup 12000",
+      "communications": "Garret T11-b",
+      "targeting": "Sync Tracker(39-42071)"
+    }
+  }
+}

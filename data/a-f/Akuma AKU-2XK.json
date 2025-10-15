@@ -1,0 +1,192 @@
+{
+  "name": "Akuma",
+  "chassis": "Akuma",
+  "model": "AKU-2XK",
+  "mulId": 5714,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3083,
+  "source": "Record Sheets: 3067 Unabridged",
+  "rulesLevel": 2,
+  "role": "Juggernaut",
+  "mass": 90,
+  "engine": "270 Fusion Engine",
+  "structure": "Endo-Steel",
+  "myomer": "Standard",
+  "heatSinks": "11 Double",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 43,
+    "rightTorso": 28,
+    "leftTorso": 28,
+    "rightArm": 30,
+    "leftArm": 30,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 279
+  },
+  "quirks": [
+    "easy_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "1 ISC3SlaveUnit",
+      "location": "H"
+    },
+    {
+      "type": "1 ISGuardianECM",
+      "location": "LT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "CT"
+    },
+    {
+      "type": "1 ISMediumPulseLaser",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISERMediumLaser",
+      "location": "RA"
+    },
+    {
+      "type": "1 ISHeavyPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 ISMML9",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISHeavyPPC",
+      "ISMediumPulseLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISMediumPulseLaser",
+      "1 ISHeavyPPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERMediumLaser",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "Endo-Steel",
+      "1 ISERMediumLaser"
+    ],
+    "leftTorso": [
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISMML9",
+      "ISGuardianECM",
+      "ISGuardianECM",
+      "1 ISGuardianECM",
+      "1 ISMML9"
+    ],
+    "rightTorso": [
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "ISRotaryAC5",
+      "IS Rotary AC/5 Ammo",
+      "IS Rotary AC/5 Ammo",
+      "ISMML9 LRM Ammo",
+      "ISMML9 LRM Ammo",
+      "ISMML9 SRM Ammo",
+      "ISCASE"
+    ],
+    "centerTorso": [
+      "Engine",
+      "Engine",
+      "Engine",
+      "Gyro",
+      "Gyro",
+      "Engine",
+      "Engine",
+      "Engine",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISDouble Heat Sink",
+      "ISMediumPulseLaser",
+      "1 ISMediumPulseLaser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISC3SlaveUnit",
+      "Sensors",
+      "Life Support",
+      "1 ISC3SlaveUnit"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo-Steel",
+      "Endo-Steel"
+    ]
+  },
+  "text": {
+    "overview": "A low-cost alternative to the Atlas-K: the AKU-1X Akuma.",
+    "capabilities": "Akuma was smaller and lighter than an Atlas to minimize costs. The lighter fusion engine saved money. Despite its tiny size, the Akuma has comparable armor protection and ground speed. The 'Mech's enormous mask makes it look like the monster it's named after. The Combine MechWarrior fires first after the Akuma scares the adversary. Advanced weaponry function best at short and medium ranges on the 'Mech. The 'Mech's poor speed doesn't matter because it's designed for defense or slow advances against static or dug-in opponents.",
+    "deployment": "This variant, also introduced during the Jihad, replaces all the existing weaponry for a C3 slave, Heavy PPC, Rotary AC/5, two Medium Pulse Lasers, an ER medium laser, and a pair of MML-9 launchers. It also carries a Guardian ECM Suite to disrupt electronic warfare systems. Like the AKU-2XC, it uses a Compact Gyro. The protection is further enhanced through the use of CASE.",
+    "history": "During the Clan invasion, Theodore Kurita issued a broad plea to manufacturers to develop more cost-effective BattleMechs, both in terms of original investment and ongoing maintenance. Independence Weaponry, known for their heavy and assault 'Mechs, reacted with the AKU-1X Akuma, a low-cost counterpart to their own Atlas-K. The Akuma shares several components with the original Atlas-D and has a price tag comparable to it. Independence Weaponry decreased the overall cost of both units by increasing demand for the same set of parts. The Ryuken-go have always been the most vocal supporters of the Akuma, fielding it in a variety of attack lances. Other front-line units were slow to embrace the Akuma until it demonstrated its worth during the assault on Clan Smoke Jaguar, and demand has since outstripped supply. The Akuma 1XJ recently made its debut in the counterassaults that eventually took the Davion worlds of Breed and Kesai IV in Duke Robinson's ill-fated onslaught against the Combine."
+  },
+  "manufacturers": {
+    "primary": [
+      "Independence Weaponry"
+    ],
+    "primaryFactory": [
+      "New Samarkand"
+    ],
+    "systems": {
+      "chassis": "Foundation AKU Endo Steel",
+      "engine": "GM 270",
+      "armor": "Durallex Special Heavy with CASE",
+      "communications": "Sipher Security Plus ECM",
+      "targeting": "Matabushi Sentinel"
+    }
+  }
+}

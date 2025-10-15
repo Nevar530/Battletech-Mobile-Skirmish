@@ -1,0 +1,181 @@
+{
+  "name": "Thor",
+  "chassis": "Thor",
+  "model": "B",
+  "mulId": 3175,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 2872,
+  "source": "TRO: Clan Invasion",
+  "rulesLevel": 2,
+  "role": "Missile Boat",
+  "mass": 70,
+  "engine": "350 XL (Clan) Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "14 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 27,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 17,
+    "leftArm": 17,
+    "rightLeg": 23,
+    "leftLeg": 23,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 182
+  },
+  "quirks": [
+    "imp_com",
+    "ubiquitous_clan"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 20",
+      "location": "LA"
+    },
+    {
+      "type": "SRM 4",
+      "location": "LA"
+    },
+    {
+      "type": "LRM 20",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 4",
+      "location": "RA"
+    },
+    {
+      "type": "AMS",
+      "location": "LT"
+    },
+    {
+      "type": "Narc",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLSRM4 (omnipod)",
+      "Clan Ammo LRM-20 (Clan) Narc-capable (omnipod)",
+      "Clan Ammo LRM-20 (Clan) Narc-capable (omnipod)",
+      "Clan Ammo SRM-4 (Clan) Narc-capable (omnipod)",
+      "Clan Ferro-Fibrous",
+      "LRM 20",
+      "SRM 4"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLLRM20 (omnipod)",
+      "CLSRM4 (omnipod)",
+      "Clan Ammo LRM-20 (Clan) Narc-capable (omnipod)",
+      "Clan Ammo LRM-20 (Clan) Narc-capable (omnipod)",
+      "Clan Ammo SRM-4 (Clan) Narc-capable (omnipod)",
+      "Clan Ferro-Fibrous",
+      "LRM 20",
+      "SRM 4"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLAntiMissileSystem (omnipod)",
+      "CLNarcBeacon (omnipod)",
+      "CLAMS Ammo (omnipod)",
+      "CLNarc Pods (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "AMS",
+      "Narc"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Ferro-Fibrous",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "The Summoner is a highly mobile heavy OmniMech with a mix of speed, mobility, armor, and firepower. Making it a highly effective and reliable mech commonly used by Clan Jade Falcon in a wide variety of roles.",
+    "capabilities": "The Summoner is powered by a lightweight 350 XL engine that gives the 'Mech a top speed of 86.4 km/h. The mobility of the Summoner is enhanced with five jump jets that allow it to jump up to one hundred and fifty meters. The Summoner has fourteen double heat sinks which are capable of handling the heat produced in most of the 'Mechs configurations with ease. To protect it from damage, the Summoner carries nine and a half tons of Ferro-Fibrous armor.",
+    "deployment": "A missile bombardment configuration, the B configuration carries a pair of LRM-20 launchers for long range engagements. For close combat, the Summoner B has two SRM-4 launchers. A Narc Missile Beacon allows the Summoner to designate targets for missile fire from other friendly units. The Summoner B has further protection through the use of an Anti-Missile System which gives it increased protection from missile attacks.",
+    "history": "Barely a second generation OmniMech, the Jade Falcons introduced the Summoner just after becoming the first Clan to win OmniMech technology from Clan Coyote in 2863. The Summoner was dubbed Thor, its Inner Sphere reporting name, by Victor Steiner-Davion himself after fighting one on Trellwan. The name was supposedly inspired by the weapons loadout (in Prime configuration): a PPC and an AC, lightning and thunder, which are associated with the Norse god Thor. Largely supplanted within the Jade Falcons by its successor the Grand Summoner during the Dark Age era, Clan Hell's Horses maintained production of the original on Svarstaad, ensuring by 3150 the Summoner was the oldest continuously produced OmniMech."
+  },
+  "manufacturers": {
+    "primary": [
+      "Eagle Craft Group",
+      "St. Louis MechWorks",
+      "Svarstaad Industriplex Gamma"
+    ],
+    "primaryFactory": [
+      "Ironhold",
+      "Niles",
+      "Svarstaad"
+    ],
+    "systems": {
+      "chassis": "JFS-703",
+      "engine": "Redline 350 XL",
+      "armor": "J63-3E Ferro Fibrous",
+      "jumpjet": "JF Standard",
+      "communications": "Model J-D 067",
+      "targeting": "Hawkeye 58"
+    }
+  }
+}

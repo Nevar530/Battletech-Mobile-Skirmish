@@ -1,0 +1,185 @@
+{
+  "name": "Star Adder",
+  "chassis": "Star Adder",
+  "model": "D",
+  "mulId": 402,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3060,
+  "source": "TRO: 3060",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 90,
+  "engine": "360 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 40,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 28,
+    "leftArm": 28,
+    "rightLeg": 34,
+    "leftLeg": 34,
+    "rearCenterTorso": 13,
+    "rearRightTorso": 11,
+    "rearLeftTorso": 11,
+    "total": 256
+  },
+  "quirks": [
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Heavy Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "LT"
+    },
+    {
+      "type": "Ultra AC/2",
+      "location": "RT"
+    },
+    {
+      "type": "Ultra AC/2",
+      "location": "RT"
+    },
+    {
+      "type": "Ultra AC/2",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLERLargeLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "ER Large Laser",
+      "Heavy Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLERLargeLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "CLHeavyMediumLaser (omnipod)",
+      "Clan Endo Steel",
+      "ER Large Laser",
+      "Heavy Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "CLGaussRifle (omnipod)",
+      "Clan Gauss Ammo (omnipod)",
+      "Clan Gauss Ammo (omnipod)",
+      "Clan Endo Steel",
+      "Gauss Rifle"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLUltraAC2 (omnipod)",
+      "CLUltraAC2 (omnipod)",
+      "CLUltraAC2 (omnipod)",
+      "CLUltraAC2 (omnipod)",
+      "CLUltraAC2 (omnipod)",
+      "CLUltraAC2 (omnipod)",
+      "Clan Ultra AC/2 Ammo (omnipod)",
+      "Clan Endo Steel",
+      "Ultra AC/2",
+      "Ultra AC/2",
+      "Ultra AC/2"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "One of the first 'Mechs to field the breakthrough Heavy Laser technology, the Blood Asp proves to be an offensive powerhouse. Delivering incredible damage at all ranges, the Blood Asp makes short work of any enemy regardless of size.",
+    "capabilities": "Based on the Kingfisher, the Blood Asp adds an XL engine, but space constraints forced the replacement of the Kingfisher's ferro-fibrous armor with standard plate. The Blood Asp incorporates sixteen tons of this armor and fourteen double heat sinks in the base chassis.",
+    "deployment": "The fifth configuration is similar to the primary, though it is more geared to long-range support. It uses a Gauss Rifle, two ER Large Lasers, and three Ultra Autocannon/2s. A pair of Heavy Medium Lasers enable the 'Mech to remain useful after it has run out of ammo.",
+    "history": "Created by Clan Star Adder as an insult to their enemies, Clan Blood Spirit, the Blood Asp has a large amount of available pod space for its size."
+  },
+  "manufacturers": {
+    "primary": [
+      "Sheridan LM-TA 8-10"
+    ],
+    "primaryFactory": [
+      "Sheridan"
+    ],
+    "systems": {
+      "chassis": "Type MAES-90 Light",
+      "engine": "Consolidated Fusion 360 XL",
+      "armor": "Forging ZZ7 Ceramic Plate",
+      "communications": "Series D8 CC-25X",
+      "targeting": "“Hermes” CT-42 Mk. II"
+    }
+  }
+}

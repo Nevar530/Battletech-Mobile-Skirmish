@@ -1,0 +1,194 @@
+{
+  "name": "Warhammer IIC",
+  "chassis": "Warhammer IIC",
+  "model": "9",
+  "mulId": 3508,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3086,
+  "source": "Record Sheets: 3085 Unabridged - Project Phoenix",
+  "rulesLevel": 4,
+  "role": "Skirmisher",
+  "mass": 80,
+  "engine": "400 XXL (Clan) Engine(IS)",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 24,
+    "leftTorso": 24,
+    "rightArm": 24,
+    "leftArm": 24,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 15,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 230
+  },
+  "quirks": [
+    "searchlight",
+    "stable"
+  ],
+  "weapons": [
+    {
+      "type": "Rotary AC/5",
+      "location": "LA"
+    },
+    {
+      "type": "Rotary AC/5",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "LRM 10",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Rotary AC/5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "CLRotaryAC5",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "Rotary AC/5"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERSmallLaser",
+      "CLRotaryAC5 Ammo",
+      "CLRotaryAC5 Ammo",
+      "CLRotaryAC5 Ammo",
+      "CLRotaryAC5 Ammo",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "ER Medium Laser",
+      "ER Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser",
+      "CLERSmallLaser",
+      "CLLRM10",
+      "Clan Ammo LRM-10",
+      "CLRotaryAC5 Ammo",
+      "CLRotaryAC5 Ammo",
+      "Endo Steel",
+      "Ferro-Fibrous",
+      "ER Medium Laser",
+      "ER Small Laser",
+      "LRM 10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLECMSuite",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Ferro-Fibrous"
+    ]
+  },
+  "text": {
+    "overview": "The Clan's interpretation on the classic Warhammer has never been subtle. The BattleMech's hyper-advanced technology only emphasized and improved its duty as a frontline brawler; boosting its mass by 10 tons (with equivalent increases in armor protection) made it even more powerful.",
+    "capabilities": "Thanks to their technological expertise, they were able to add ten tons with the same speed and firepower and nearly double the armor of the original. The Warhammer IIC is built on an Endo Steel frame and is protected by tons of ferro-fibrous armor. The result is a dangerous 'Mech, able to hold its own in any battle against the Inner Sphere. Also note that the armor was the primary concern when designing the IIC version rivaling even 100 ton assault 'Mechs in durability and protection.",
+    "deployment": "This version drops the ER PPCs and replaces them with experimental Rotary AC/5s. An XXL fusion engine provides enough power for a top speed of 86 km/h. The RACs are backed up by a pair of ER Medium Lasers and ER Small Lasers, and the missile launcher is now an LRM-10. In addition to the ferro-fibrous armor, an ECM Suite in the head disrupts enemy electronics.",
+    "history": "The Warhammer IIC is now the most common Clan BattleMech in the Inner Sphere. These remarkable machines are fielded by every major Inner Sphere force, Clan, and many large mercenary groups. It is only found on the periphery, where its equally outstanding price tag is simply too high for these countries to justify."
+  },
+  "manufacturers": {
+    "primary": [
+      "Trellshire Heavy Industries"
+    ],
+    "primaryFactory": [
+      "Twycross"
+    ],
+    "systems": {
+      "chassis": "SFX-80 Endo",
+      "engine": "Type 79 400 XL",
+      "armor": "Forging ZM15 Ferro-Fibrous",
+      "communications": "TDWS-37 Mk 2.2",
+      "targeting": "“Hephaestus” CT-44"
+    }
+  }
+}

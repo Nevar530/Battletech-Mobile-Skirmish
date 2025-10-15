@@ -1,0 +1,166 @@
+{
+  "name": "Loki",
+  "chassis": "Loki",
+  "model": "F",
+  "mulId": 5489,
+  "config": "Biped Omnimech",
+  "techBase": "Clan",
+  "era": 3054,
+  "source": "TRO: Clan Invasion",
+  "rulesLevel": 2,
+  "role": "Striker",
+  "mass": 65,
+  "engine": "325 XL (Clan) Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 17,
+    "rightTorso": 14,
+    "leftTorso": 14,
+    "rightArm": 11,
+    "leftArm": 11,
+    "rightLeg": 15,
+    "leftLeg": 15,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 128
+  },
+  "quirks": [
+    "searchlight"
+  ],
+  "weapons": [
+    {
+      "type": "LB 10-X AC",
+      "location": "LA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "LB 10-X AC",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RT"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLLBXAC10 (omnipod)",
+      "CLLBXAC10 (omnipod)",
+      "CLLBXAC10 (omnipod)",
+      "CLLBXAC10 (omnipod)",
+      "CLLBXAC10 (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "Clan LB 10-X AC Ammo (omnipod)",
+      "LB 10-X AC",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLLBXAC10 (omnipod)",
+      "CLLBXAC10 (omnipod)",
+      "CLLBXAC10 (omnipod)",
+      "CLLBXAC10 (omnipod)",
+      "CLLBXAC10 (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "Clan LB 10-X Cluster Ammo (omnipod)",
+      "LB 10-X AC",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERMediumLaser (omnipod)",
+      "ER Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLSRM6 (omnipod)",
+      "CLERMediumLaser (omnipod)",
+      "Clan Ammo SRM-6 (omnipod)",
+      "SRM 6",
+      "ER Medium Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Hellbringer is a very widespread design developed by Clan Hell's Horses. However, due to its poor armor, the Hellbringer is often passed over for more robust OmniMechs.",
+    "capabilities": "This variant carries a pair of LB 10-X's, one in each arm, supported by an ER Medium Laser. Another pair of ER Medium Lasers and a single SRM-6 launcher round out the weapons.",
+    "deployment": "",
+    "history": "The Inner Sphere first encountered the Hellbringer facing Clan Jade Falcon, which favors the design for its immense offensive potential. Earning the codename Loki by Galen Cox, an AFFC officer who declared each of the Hellbringer's various versions as an \"utterly mad configuration,\" the 'Mech does at first glance appear to be highly unusual, mounting a spread of weapons, anti-personnel equipment and electronics. The Hellbringer utilizes a standard internal structure, and has decent mobility, with a top speed of 86.4 km/h. Though it has vast firepower at its disposal, the design is not particularly durable, mounting a mere eight tons of Standard armor, and the Hellbringer is not particularly suitable for defensive situations or extended engagements. In the aftermath of the Battle of Tokasha and the loss of Tokasha Mechworks, the Hell's Horses began developing several OmniMechs. Only the Hellbringer met with success. Development time for the Hellbringer was reduced through the use of modules used in the Summoner. Despite the poor armor, the Hellbringer devotes almost 43% of its mass to pods, allowing for great offensive potential. The design spread quickly after its introduction for two reasons: the Horses promptly lost the primary production facility, and used their remaining production to curry favor with other Clans through trade and gifts. After The Wars of Reaving in Clan Space, the Hellbringer would fall out of favor with the surviving Home Clans due in part to its association with the Inner Sphere based Clans. The design would be replaced by the Ebon Jaguar in military service of those in Clan Space, with the exception of Clan Coyote which still fields the 'Mech. Even after the introduction of the updated and upgraded Loki II successor design in 3121, Clan Jade Falcon would continue to produce the cheap and easy to manufacture original version on Sudeten during the Dark Age era, with disgraced, solahma or even just overly aggressive warriors still finding its offense over defense focus desirable."
+  },
+  "manufacturers": {
+    "primary": [
+      "Various",
+      "Olivetti Weaponry"
+    ],
+    "primaryFactory": [
+      "Various",
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "T-E H65 Standard",
+      "engine": "Fusion 325 XL",
+      "armor": "Forging Omni-H24",
+      "communications": "CH2B Alpha-Com",
+      "targeting": "Version Delta-II TTS(A)"
+    }
+  }
+}

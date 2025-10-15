@@ -1,0 +1,162 @@
+{
+  "name": "Arcas",
+  "chassis": "Arcas",
+  "model": "2",
+  "mulId": 3718,
+  "config": "Biped",
+  "techBase": "Clan",
+  "era": 3061,
+  "source": "TRO: 3067",
+  "rulesLevel": 2,
+  "role": "Skirmisher",
+  "mass": 65,
+  "engine": "325 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "18 Double",
+  "movement": {
+    "walk": 5,
+    "jump": 5
+  },
+  "armor": {
+    "type": "StandardArmor",
+    "head": 9,
+    "centerTorso": 32,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 20,
+    "leftArm": 20,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 211
+  },
+  "quirks": [
+    "pro_actuator"
+  ],
+  "weapons": [
+    {
+      "type": "1 CLERPPC",
+      "location": "RA"
+    },
+    {
+      "type": "1 CLERPPC",
+      "location": "LA"
+    },
+    {
+      "type": "1 CLMediumPulseLaser",
+      "location": "RT"
+    },
+    {
+      "type": "1 CLMediumPulseLaser",
+      "location": "LT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLERPPC",
+      "CLERPPC",
+      "1 CLERPPC"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLERPPC",
+      "CLERPPC",
+      "1 CLERPPC"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLMediumPulseLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 CLMediumPulseLaser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLDouble Heat Sink",
+      "CLMediumPulseLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "1 CLMediumPulseLaser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "First produced in 3061, the Arcas is expensive for a second-line 'Mech.",
+    "capabilities": "It utilizes an XL Engine that enables it to move up to 86 km/h and jump jets for a maximum jump capacity of one hundred fifty meters at a time. The Arcas mounts thirteen and a half tons of standard armor, the most a 'Mech of its size can carry. This variant is used primarily when far from supply lines. It removes the missiles and ER Large Lasers for a pair of ER PPCs and additional double heat sinks.",
+    "deployment": "",
+    "history": "Following the move of Clan Ghost Bear to the Inner Sphere, Khan Bjorn Jorgensson ordered the creation of a new BattleMech. The Arcas was designed as a symbol to mark the beginning of a new era, so Loremaster Laurie Tseng named it after a character in the mythology of the Greeks who eventually became the constellation known as Ursa Minor."
+  },
+  "manufacturers": {
+    "primary": [
+      "Bergan Industries"
+    ],
+    "primaryFactory": [
+      "Alshain"
+    ],
+    "systems": {
+      "chassis": "Bergan Version 6.3 Endo Steel",
+      "engine": "325 XL",
+      "armor": "Compound 12A1 Standard",
+      "jumpjet": "Clan Standard Type A3",
+      "communications": "Garret L15",
+      "targeting": "RCA Instatrac Version 8"
+    }
+  }
+}

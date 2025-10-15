@@ -1,0 +1,135 @@
+{
+  "name": "Hoplite",
+  "chassis": "Hoplite",
+  "model": "HOP-4D",
+  "mulId": 1543,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3050,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 55,
+  "engine": "220 Fusion Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "16 Single",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 26,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 18,
+    "leftArm": 18,
+    "rightLeg": 26,
+    "leftLeg": 26,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 8,
+    "rearLeftTorso": 8,
+    "total": 184
+  },
+  "quirks": [
+    "no_arms"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 5",
+      "location": "LA"
+    },
+    {
+      "type": "LB 10-X AC",
+      "location": "RA"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "LRM 5",
+      "LRM 5"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "ISLBXAC10",
+      "LB 10-X AC"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Heat Sink",
+      "IS LB 10-X AC Ammo",
+      "IS LB 10-X Cluster Ammo"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Ammo LRM-5"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "Martinson Armaments designed the Hoplite as a support 'Mech for deployment alongside the infantry divisions of the newly formed Star League Defense Force.",
+    "capabilities": "The Hoplite is slow for a medium 'Mech, with a top speed of only 64.8 km/h. However its 11.5 tons of armor and heavy arsenal, both impressive for a 'Mech of its size, makes the Hoplite a rugged machine able to fight its way out of most situations using superior firepower.",
+    "deployment": "Refitted by the Dragoons after the Inner Sphere's recovery of the Helm Memory Core, the HOP-4D Hoplite is armed with an impressive Mydron Excel LB-X AC/10, which allows it to fire either standard rounds or cluster rounds, which are similar to the blast from a shotgun, only on a 'Mech scale. As a secondary weapon, the Hoplite carries a Conan/5 LRM-5 launcher, which also allows it to keep the enemy at long ranges. Carrying two tons of autocannon ammunition, one more than the 4C, and one ton of missiles reloads forces the design to remain close to supply lines.",
+    "history": "The Hoplite first saw service with the newly formed Star League Defense Force during the Reunification War before being relegated to Terran Hegemony militia units in the twenty-seventh century. While every Hoplite in the Inner Sphere was destroyed during the Amaris Crisis and the early Succession Wars, Aleksandr Kerensky's SLDF exiles found the simple and rugged design ideal for bolstering their forces in the months prior to the Exodus Civil War. Selected by Wolf's Dragoons in the belief that the ancient design wouldn't arouse undue attention, it had the complete opposite effect, and only raised more questions as to the Dragoons' origins when they arrived in 3005. After the mercenaries cut ties with the Clan Homeworlds in 3020, they also lost access to replacement Hoplites, with attrition bringing the design close to extinction by the Jihad. During the Jihad, when the surviving Dragoons relocated to Arc-Royal, experimental refits were performed on the remaining Hoplites, which continued after the conflict's end."
+  },
+  "manufacturers": {
+    "primary": [
+      "Blackwell Corporation (Refit)"
+    ],
+    "primaryFactory": [
+      "Outreach"
+    ],
+    "systems": {
+      "chassis": "Star League HO-01a",
+      "engine": "DAV 220",
+      "armor": "DuraShield 12-b.1",
+      "communications": "MultiGab 2000",
+      "targeting": "Dalban HiRez II"
+    }
+  }
+}

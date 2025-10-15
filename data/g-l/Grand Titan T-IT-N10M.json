@@ -1,0 +1,206 @@
+{
+  "name": "Grand Titan",
+  "chassis": "Grand Titan",
+  "model": "T-IT-N10M",
+  "mulId": 1265,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3054,
+  "source": "TRO: 3055",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 100,
+  "engine": "400 XL Engine",
+  "structure": "Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 42,
+    "rightTorso": 31,
+    "leftTorso": 31,
+    "rightArm": 29,
+    "leftArm": 29,
+    "rightLeg": 38,
+    "leftLeg": 38,
+    "rearCenterTorso": 19,
+    "rearRightTorso": 11,
+    "rearLeftTorso": 11,
+    "total": 288
+  },
+  "quirks": [
+    "multi_trac",
+    "difficult_maintain"
+  ],
+  "weapons": [
+    {
+      "type": "LRM 15",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Large Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "LT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RT"
+    },
+    {
+      "type": "Small Pulse Laser",
+      "location": "RT"
+    },
+    {
+      "type": "AMS",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "LRM 15",
+      "LRM 15",
+      "LRM 15",
+      "ISArtemisIV",
+      "ISMediumPulseLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "LRM 15",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISLargePulseLaser",
+      "ISLargePulseLaser",
+      "ISLargePulseLaser",
+      "ISLargePulseLaser",
+      "ISMediumPulseLaser",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Large Pulse Laser",
+      "Large Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "SRM 6",
+      "SRM 6",
+      "ISArtemisIV",
+      "ISSmallPulseLaser (R)",
+      "IS Ammo SRM-6 Artemis-capable",
+      "IS Ammo LRM-15 Artemis-capable",
+      "IS Ammo LRM-15 Artemis-capable",
+      "Endo Steel",
+      "SRM 6",
+      "Small Pulse Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "SRM 6",
+      "SRM 6",
+      "ISArtemisIV",
+      "ISSmallPulseLaser (R)",
+      "IS Ammo SRM-6 Artemis-capable",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "Endo Steel",
+      "SRM 6",
+      "Small Pulse Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISAMS Ammo",
+      "Endo Steel"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "ISAntiMissileSystem",
+      "Sensors",
+      "Life Support",
+      "AMS"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Endo Steel",
+      "Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "The Grand Titan was designed by Vining Engineering and Salvage Team to take on the best 'Mechs that the Inner Sphere or the Clans had to offer.",
+    "capabilities": "The 'Mech is built on an Endo Steel chassis and with a LTV 400 XL Engine, which propels the Grand Titan to a top speed of 64.8 kph, to save as much weight as possible. The Grand Titan also carries eighteen tons of armor.",
+    "deployment": "The Grand Titan carries a large arsenal of weapons that allow it to work best at short to medium range. The longest-range weapon carried is a Holly LRM-15 launcher linked to an Artemis IV fire control system for greater accuracy. The 'Mech also carries two Diverse Optics Type 20 Large Pulse Lasers which it brings to bear on an enemy as it closes ranges. Once at close range, the 'Mech carries two Diverse Optics Medium Pulse Lasers, two Diverse Optics Small Pulse Lasers, and a pair of Holly SRM-6 launchers with Artemis IV fire control systems. For protection from missile attacks, the 'Mech has a McArthur Anti-Missile System.",
+    "history": "The design of the Grand Titan was sold to Earthwerks Incorporated in the Free Worlds League and has become a 'Mech commonly seen in the FWLM and the Word of Blake militia."
+  },
+  "manufacturers": {
+    "primary": [
+      "Earthwerks Ltd."
+    ],
+    "primaryFactory": [
+      "Keystone Plant #3"
+    ],
+    "systems": {
+      "chassis": "Corean Model 101BLP Endo Steel",
+      "engine": "LTV 400 XL",
+      "armor": "Durallex Heavy",
+      "communications": "Hartford JEA-1",
+      "targeting": "O/P FiberFeed 201 with Artemis IV FCS Interface"
+    }
+  }
+}

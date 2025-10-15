@@ -1,0 +1,173 @@
+{
+  "name": "Balius",
+  "chassis": "Balius",
+  "model": "B",
+  "mulId": 212,
+  "config": "Quad Omnimech",
+  "techBase": "Clan",
+  "era": 3075,
+  "source": "TRO: 3075",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 65,
+  "engine": "390 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 6,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Ferro-Fibrous (Clan)",
+    "head": 9,
+    "centerTorso": 30,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightLeg": 27,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 211
+  },
+  "quirks": [
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "ER Large Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Large Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Heavy Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "Large Pulse Laser",
+      "location": "CT"
+    },
+    {
+      "type": "Flamer",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "ER Large Laser",
+      "Heavy Small Laser",
+      "Heavy Small Laser",
+      "Heavy Small Laser",
+      "Heavy Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLERLargeLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "CLHeavySmallLaser (omnipod)",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "Clan Ferro-Fibrous",
+      "ER Large Laser",
+      "Heavy Small Laser",
+      "Heavy Small Laser",
+      "Heavy Small Laser",
+      "Heavy Small Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLLargePulseLaser (R) (omnipod)",
+      "CLLargePulseLaser (R) (omnipod)",
+      "Large Pulse Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "CLFlamer",
+      "Sensors",
+      "Life Support",
+      "Flamer"
+    ]
+  },
+  "text": {
+    "overview": "The Balius is a quadrupedal, front-line OmniMech produced by Clan Hell's Horses.",
+    "capabilities": "The Balius, a true frontline Omni, employs weight-saving technologies such as an Endo Steel chassis, eleven tons of ferro-fibrous armor, and an XL engine. In a quad, though, this leaves limited room for other components. The Balius, on the other hand, has a top speed of 97 km/h, which is fairly fast for a 'Mech of its size. The Balius is equipped with a Creosote Special-H Flamer that can be used against troops as well as as a psychological weapon.",
+    "deployment": "Bearing some resemblance to the primary configuration, the Balius B also carries twin ER Larges. Those are supplemented, however, by eight Heavy Small Lasers. A Large Pulse Laser threatens any who would seek to exploit its rear armor. Two additional heat sinks provide some added dissipation.",
+    "history": "As of 3075, few details were available about the 'Mech. It is a totem 'Mech, resembling a horse, that is meant to improve morale as much as to be an effective combat unit. There is apparently no factory producing this design. Instead, it is hand-crafted by a crew of technicians specifically selected for the task by the Khan. This has led to few Balius' being produced, so the 'Mech is only in the hands of select Bloodnamed warriors."
+  },
+  "manufacturers": {
+    "primary": [
+      "Manufacturing Site #3",
+      "Transitional Facility HH-Beta"
+    ],
+    "primaryFactory": [
+      "New Oslo",
+      "Nouveaux Paris"
+    ],
+    "systems": {
+      "chassis": "Type BMHQ-5 Endo Steel",
+      "engine": "390 XL",
+      "armor": "Forged Type HH35 Ferro-Fibrous",
+      "communications": "Unknown",
+      "targeting": "Unknown"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "name": "Thunder Hawk",
+  "chassis": "Thunder Hawk",
+  "model": "TDK-7S",
+  "mulId": 3221,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3065,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Sniper",
+  "mass": 100,
+  "engine": "300 Light Engine(IS)",
+  "structure": "IS Standard",
+  "myomer": "Standard",
+  "heatSinks": "10 Single",
+  "movement": {
+    "walk": 3,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 49,
+    "rightTorso": 32,
+    "leftTorso": 32,
+    "rightArm": 32,
+    "leftArm": 32,
+    "rightLeg": 40,
+    "leftLeg": 40,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 296
+  },
+  "quirks": [
+    "variable_range_long",
+    "good_rep_1",
+    "difficult_maintain",
+    "command_mech"
+  ],
+  "weapons": [
+    {
+      "type": "Gauss Rifle",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "LT"
+    },
+    {
+      "type": "Gauss Rifle",
+      "location": "RT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "H"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "Medium Laser",
+      "Gauss Rifle",
+      "Medium Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "IS Gauss Ammo",
+      "Gauss Rifle"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "ISGaussRifle",
+      "IS Gauss Ammo",
+      "Gauss Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "IS Gauss Ammo",
+      "IS Gauss Ammo"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Medium Laser",
+      "Sensors",
+      "Life Support",
+      "Medium Laser"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator"
+    ]
+  },
+  "text": {
+    "overview": "The Thunder Hawk, developed by Norse Technologies for the Amaris-Terran Hegemony invasion, became a staple in General Aleksandr Kerensky's forces. Surviving 'Mechs were taken into Exodus, symbolizing their significance. In the 3050s, Norse-Storm BattleMechs revived the Thunder Hawk among other Star League-era designs.",
+    "capabilities": "Dominating the Thunder Hawk's arsenal are three Norse Gauss rifles, accounting for over half its weight. These long-range weapons can incapacitate most foes with a single barrage. Ammunition is distributed throughout the torso to mitigate critical damage risks. However, its Achilles' heel lies in the extra-light Vlar fusion engine. While heavily armored, any breach in the torso significantly compromises the BattleMech’s structural integrity, rendering it inoperable.",
+    "deployment": "The Thunder Hawk TDK-7S variant emerged towards the end of the FedCom Civil War, marking Norse-Storm's innovative approach to modernizing the venerable design. This variant was developed to enhance survivability in close combat situations while retaining the Thunder Hawk's signature firepower and speed.<p>In the TDK-7S, Norse designers made a significant modification by replacing the extra-light engine with a more robust 300 Light Engine. This change aimed to increase the 'Mech's longevity in the heat of battle without compromising its main armaments or mobility. To accommodate this heavier engine, the 7S sacrifices two medium lasers, two tons of ammunition for the Gauss Rifles, and a ton of armor.</p><p>Armed with three Gauss Rifles, one each in the right arm, left torso, and right torso, the TDK-7S maintains the Thunder Hawk's capability for delivering devastating long-range strikes. Complementing this are two Medium Lasers, one in the right arm and one in the head, providing effective secondary weaponry for closer engagements.</p><p>As of now, only a dozen TDK-7S models have been produced. Norse-Storm is cautiously monitoring the reception of this variant before committing to full-scale production. This caution stems from the variant's experimental nature and the significant changes made to the original design.</p><p>Despite these alterations, the TDK-7S retains the Thunder Hawk's iconic status as a command 'Mech with a good reputation. It presents a unique blend of traditional firepower with an experimental approach to durability, making it a potential game-changer on the battlefield for units that can adapt to its strengths and limitations.</p>",
+    "history": "The Thunder Hawk became a hallmark of the Lyran Alliance, extensively utilized during the FedCom Civil War. Contrary to its design as a support 'Mech, Loyalists deployed it in direct combat, leveraging its heavy armor. Post-war, Archon Peter Steiner Davion allocated new Thunder Hawks to units loyal to Allied forces. Plans for export are pending until the completion of military restructuring."
+  },
+  "manufacturers": {
+    "primary": [
+      "Norse-Storm Technologies",
+      "Inc"
+    ],
+    "primaryFactory": [
+      "Loxley"
+    ],
+    "systems": {
+      "chassis": "Norse Heavy XTI-4C",
+      "engine": "Vlar 300 Light",
+      "armor": "ArcShield Heavy Type K",
+      "communications": "Tek BattleCom",
+      "targeting": "DLK Type Phased Array Sensor System"
+    }
+  }
+}

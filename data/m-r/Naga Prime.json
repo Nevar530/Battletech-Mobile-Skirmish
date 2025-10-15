@@ -1,0 +1,178 @@
+{
+  "name": "Naga",
+  "chassis": "Naga",
+  "model": "Prime",
+  "mulId": 2251,
+  "config": "Biped OmniMek",
+  "techBase": "Clan",
+  "era": 2869,
+  "source": "TRO: 3055",
+  "rulesLevel": 3,
+  "role": "Missile Boat",
+  "mass": 80,
+  "engine": "400 XL (Clan) Engine(IS)",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Clan Double",
+  "movement": {
+    "walk": 5,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 17,
+    "rightTorso": 15,
+    "leftTorso": 15,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 10,
+    "rearRightTorso": 9,
+    "rearLeftTorso": 9,
+    "total": 144
+  },
+  "quirks": [
+    "ext_twist",
+    "no_arms",
+    "bad_rep_clan"
+  ],
+  "weapons": [
+    {
+      "type": "Arrow IV",
+      "location": "LT"
+    },
+    {
+      "type": "Arrow IV",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "LT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "RT"
+    },
+    {
+      "type": "ER Small Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIV"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIVAmmo (OMNIPOD)",
+      "CLArrowIVAmmo (OMNIPOD)",
+      "CLArrowIVAmmo (OMNIPOD)",
+      "Clan Endo Steel",
+      "Arrow IV",
+      "ER Small Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERSmallLaser (OMNIPOD)",
+      "CLArrowIV",
+      "CLArrowIV",
+      "CLArrowIVAmmo (OMNIPOD)",
+      "CLArrowIVAmmo (OMNIPOD)",
+      "CLArrowIVAmmo (OMNIPOD)",
+      "Clan Endo Steel",
+      "Arrow IV",
+      "ER Small Laser"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLERSmallLaser (OMNIPOD)",
+      "Clan Endo Steel",
+      "ER Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Clan Endo Steel",
+      "Clan Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "The Naga BattleMech, named for its resemblance to a mythological cobra, stands as an unusual design in a culture that values personal glory and ritual combat. Originating from Clan Wolf, the Naga was developed from a modified Woodsman chassis, equipped to carry a pair of Arrow IV launchers. Despite initial skepticism due to its focus on indirect fire support rather than direct combat, the Naga quickly demonstrated its strategic value on the battlefield.",
+    "capabilities": "The primary role of the Naga is to provide sustained artillery support while maintaining a degree of mobility. Its standard configuration emphasizes this role, equipped with six tons of missile ammunition but minimal short-range defense.",
+    "deployment": "The Naga Prime, an 80-ton Clan OmniMech, is a distinct design within the arsenal of Clan warfare, primarily serving as a missile boat. Introduced around 2945 and noted for its specialized role, this variant is built on a Clan Endo Steel structure and powered by a 400 XL (Clan) Engine, allowing a respectable speed for its class.<p>Its primary armament consists of dual Arrow IV launchers located in the left and right torsos, making it a formidable force in long-range artillery engagements. For close-range defense, the Naga Prime is equipped with three ER Small Lasers, one each in the left and right torsos, and one in the center torso. This configuration allows for some defensive capability against units that manage to close the distance.</p><p>Despite its firepower, the Naga Prime has certain drawbacks. It lacks arm-mounted weaponry, limiting its versatility in certain combat scenarios. Additionally, its reputation within the Clans is somewhat tarnished, potentially affecting the morale or perception of its pilots. The Mech's ability to twist its torso extensively compensates to some extent for the lack of armaments, providing a broader arc of fire. The Prime variant is well-suited for commanders who require a steady platform for long-range bombardment while maintaining a degree of mobility on the battlefield.</p>",
+    "history": "First deployed in the mid-2900s, the Naga's adoption across various Clans was gradual. Its effectiveness was convincingly demonstrated during the battle for Tukayyid, where Clan Wolf's Naga-equipped artillery Stars played a pivotal role. Notably, the Nagas were instrumental in Wolf’s victory at Brzo and Skupo, significantly weakening ComStar’s Tenth Army. This success led to its wider acceptance and deployment among several other Clans, including the Hell’s Horses, Snow Ravens, Star Adders, Cloud Cobras, and in limited numbers, the Jade Falcons."
+  },
+  "manufacturers": {
+    "primary": [
+      "Manufacturing Plant WA3"
+    ],
+    "primaryFactory": [
+      "Arcadia"
+    ],
+    "systems": {
+      "chassis": "Type BMH-7 Endo Steel",
+      "engine": "Fusion 400 XL",
+      "armor": "Forged Type 34 Standard",
+      "communications": "Type G3, Mk. XII",
+      "targeting": "ArTrack 2 TTS"
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "name": "Cyclops",
+  "chassis": "Cyclops",
+  "model": "CP-12-K",
+  "mulId": 780,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 3059,
+  "source": "TRO: 3050",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 90,
+  "engine": "360 Fusion Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "12 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 0
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 34,
+    "rightTorso": 22,
+    "leftTorso": 22,
+    "rightArm": 23,
+    "leftArm": 23,
+    "rightLeg": 29,
+    "leftLeg": 29,
+    "rearCenterTorso": 11,
+    "rearRightTorso": 7,
+    "rearLeftTorso": 7,
+    "total": 216
+  },
+  "quirks": [
+    "battle_computer",
+    "cowl",
+    "difficult_eject",
+    "weak_head_2"
+  ],
+  "weapons": [
+    {
+      "type": "ER Medium Laser",
+      "location": "RA"
+    },
+    {
+      "type": "ER Medium Laser",
+      "location": "LA"
+    },
+    {
+      "type": "MRM 20",
+      "location": "LT"
+    },
+    {
+      "type": "Ultra AC/10",
+      "location": "RT"
+    },
+    {
+      "type": "Streak SRM 4",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERMediumLaser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "ISERMediumLaser",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "ER Medium Laser"
+    ],
+    "leftTorso": [
+      "MRM 20",
+      "MRM 20",
+      "MRM 20",
+      "IS MRM 20 Ammo",
+      "IS Streak SRM 4 Ammo",
+      "ISCASE",
+      "MRM 20"
+    ],
+    "rightTorso": [
+      "ISUltraAC10",
+      "ISUltraAC10",
+      "ISUltraAC10",
+      "ISUltraAC10",
+      "ISUltraAC10",
+      "ISUltraAC10",
+      "ISUltraAC10",
+      "IS Ultra AC/10 Ammo",
+      "IS Ultra AC/10 Ammo",
+      "ISCASE",
+      "Ultra AC/10"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISStreakSRM4",
+      "Streak SRM 4"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ]
+  },
+  "text": {
+    "overview": "The Cyclops began production in 2710 as an assault BattleMech and headquarters unit for Star League Defense Force field commanders.",
+    "capabilities": "A decent mix of weapons provided the Cyclops with both long- and short-range firepower and a sizable engine to keep up with mobile operations. But the centerpiece of the Cyclops is its sophisticated holographic battle computer, the Tacticon B-2000. When combined with the Olmstead 840 tight beam comm suite with SatNav module, the Cyclops can effectively command a brigade across the surface of an entire world. Unfortunately the Cyclops is poorly protected relative to other assault 'Mechs with only ten tons of armor, and while its normal load of twelve heat sinks allows it to stay cool in most cases, they can prove to be inadequate in especially heavy situations.",
+    "deployment": "The 12-K variant of the Cyclops takes the 'Mech to the logical conclusion based on equipment available to the DCMS. Also built by Grumium and introduced in 3059, the 'Mech is armed with an Ultra Autocannon/10 for close to intermediate range combat. In place of the LRM launcher it carries an MRM-20 launcher, which compliments the Autocannon's range profile, while retaining two ER medium lasers and a Streak SRM-4 for for close ranges. The 'Mech is also armored with fourteen and a half tons of armor.",
+    "history": "Unfortunately the Cyclops did not fare so well with the onset of the Amaris Civil War when the Rim Worlds Republic Military destroyed its primary factory on Caph in 2774. Spare parts for the machine quickly began to dry up, until by the end of the Succession Wars less than ten percent still had a working B-2000 computer. Lacking the critical part of being a command vehicle many Cyclopses were pressed into an assault role. Acting as the bodyguard or decoy for the real commanding officer, they proved to be swift if mediocre combat machines. As most enemies know about the vulnerable head and automatically target it in combat, many Cyclops pilots also began adding false head protectors to defend against impacts. A study by the NAIS after the Fourth Succession War would eventually find that these caused more harm than good by restricting vision and increasing shrapnel, ending the practice altogether. The rediscovery of the Helm Memory Core kick-started a number of attempts to replicate the B-2000 computer, however there were no successful attempts prior to the Clan Invasion. Also, the invention of the C3 Computer with its emphasis on small-scale networking, and a switch in doctrine to using DropShips as command posts, saw the Cyclops' command role decline. However Grumium Creations was eventually able to restart production of new variants of the 'Mech, and where it has participated a Cyclops with a working B-2000 has had noticeable effects. For this reason Cyclops 'Mechs with a working battle computer were reserved for high-ranking officers."
+  },
+  "manufacturers": {
+    "primary": [
+      "Grumium Creations"
+    ],
+    "primaryFactory": [
+      "Grumium"
+    ],
+    "systems": {
+      "chassis": "Stormvanger HV-7",
+      "engine": "Hermes 360",
+      "armor": "Starshield Special",
+      "communications": "Olmstead 840",
+      "targeting": "Tacticon Tracer 280"
+    }
+  }
+}

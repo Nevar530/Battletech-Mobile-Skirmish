@@ -1,0 +1,209 @@
+{
+  "name": "Blackjack",
+  "chassis": "Blackjack",
+  "model": "BJ2-OD",
+  "mulId": 382,
+  "config": "Biped Omnimech",
+  "techBase": "Inner Sphere",
+  "era": 3057,
+  "source": "TRO: 3058",
+  "rulesLevel": 2,
+  "role": "Brawler",
+  "mass": 50,
+  "engine": "200 XL Engine(IS)",
+  "structure": "IS Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "13 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 22,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 14,
+    "leftArm": 14,
+    "rightLeg": 18,
+    "leftLeg": 18,
+    "rearCenterTorso": 9,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 152
+  },
+  "quirks": [
+    "non_standard"
+  ],
+  "weapons": [
+    {
+      "type": "PPC",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Large Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Medium Laser",
+      "location": "LT"
+    },
+    {
+      "type": "Small Laser",
+      "location": "CT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "PPC (omnipod)",
+      "PPC (omnipod)",
+      "PPC (omnipod)",
+      "ISMediumPulseLaser (omnipod)",
+      "PPC",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "Large Laser (omnipod)",
+      "Large Laser (omnipod)",
+      "Large Laser (omnipod)",
+      "Large Laser (omnipod)",
+      "Large Laser",
+      "Large Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISMediumPulseLaser (omnipod)",
+      "Medium Laser (omnipod)",
+      "Medium Laser (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "Medium Pulse Laser",
+      "Medium Laser",
+      "Medium Laser"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "ISDoubleHeatSink (omnipod)",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel",
+      "IS Endo Steel"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Small Laser (omnipod)",
+      "IS Endo Steel",
+      "Small Laser"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "IS Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Jump Jet",
+      "Jump Jet"
+    ]
+  },
+  "text": {
+    "overview": "An upgrade of the Blackjack BattleMech, the Blackjack OmniMech is a powerful and adaptable medium weight workhorse.",
+    "capabilities": "Weighing five tons heavier than its parent design, the use of advanced construction materials gives the OmniMech Blackjack 26.5 tons of pod space, allowing it to carry an impressive weapons payload. A maneuverable and enduring design for its size, four permanently mounted Icarus jump jets that allow the Blackjack to jump up to one hundred and twenty meters, the 'Mech protected by nine-and-a-half tons of armor. The Blackjack is also built with a weight saving Alshain 50 Endo Steel chassis and a Nissan 200 XL Engine giving it a top speed of 64.8 kph.",
+    "deployment": "The D configuration is capable of operating without constant ammunition supplies, as it is configured to use only energy weapons. The primary weapon is a PPC backed up by two large lasers for long-range firepower. For short-range combat, the D configuration has two medium lasers, two medium pulse lasers, and a single small laser; three extra double heat sinks allow more flexibility at close range.",
+    "history": "Much like the Firestarter OmniMech, the genesis of the omni-Blackjack stems from the Combine's technology exchange program during the initial Clan Invasion with Ceres Metals Industries ' St. Ives Compact branch offering Luthien Armor Works specifications and licences to manufacturer the ill-regarded Blackjack. Even though it received the upgraded and more effective BJ-2 version, LAW manufactured only a few examples before reworking and retooling the line to manufacture an OmniMech version. As well as returning the updated Omni version to Ceres, LAW also exported the BJ2-0 Blackjack to the Free Worlds League's Irian BattleMechs Unlimited, making it the first OmniMech exported for manufacturing. Any goodwill LAW earned from this decision was short-lived when both IBMU and CMI discovered the first production runs of their Blackjacks could only mount Inner Sphere OmniPods, accusing the Combine of only exporting so-called \"monkey\" versions, the Combine company's claims of not having perfected the complex software interfaces to support Clan weapons when the plans were exported ringing hollow when Draconis Combine Mustered Soldiery Blackjacks did not suffer from this lack. LAW eventually offered up the required details allowing both companies to resolve the issue in future production runs with earlier versions being upgraded during their first major overhaul."
+  },
+  "manufacturers": {
+    "primary": [
+      "Irian BattleMechs Unlimited",
+      "Luthien Armor Works",
+      "General Motors/Blackwell Corporation",
+      "Irian BattleMechs Unlimited",
+      "Ceres Metals Industries",
+      "Ceres Metals Industries"
+    ],
+    "primaryFactory": [
+      "Irian",
+      "Luthien",
+      "New Valencia",
+      "Shiro III",
+      "St. Ives",
+      "Warlock"
+    ],
+    "systems": {
+      "chassis": "Alshain 50 Endo Steel",
+      "engine": "Nissan 200 XL",
+      "armor": "Mitchell Argon",
+      "jumpjet": "Icarus Standard",
+      "communications": "Sipher Security Plus",
+      "targeting": "Matabushi Sentinel"
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "name": "Shadow Hawk",
+  "chassis": "Shadow Hawk",
+  "model": "SHD-2K",
+  "mulId": 2903,
+  "config": "Biped",
+  "techBase": "Inner Sphere",
+  "era": 2803,
+  "source": "TRO: 3039",
+  "rulesLevel": 1,
+  "role": "Sniper",
+  "mass": 55,
+  "engine": "275 Fusion Engine",
+  "structure": "Standard",
+  "myomer": "Standard",
+  "heatSinks": "17 Single",
+  "movement": {
+    "walk": 5,
+    "jump": 3
+  },
+  "armor": {
+    "type": "Standard (InnerSphere)",
+    "head": 9,
+    "centerTorso": 23,
+    "rightTorso": 18,
+    "leftTorso": 18,
+    "rightArm": 16,
+    "leftArm": 16,
+    "rightLeg": 16,
+    "leftLeg": 16,
+    "rearCenterTorso": 8,
+    "rearRightTorso": 6,
+    "rearLeftTorso": 6,
+    "total": 152
+  },
+  "quirks": [
+    "battle_fists_la",
+    "battle_fists_ra",
+    "imp_life_support",
+    "ubiquitous_clan",
+    "ubiquitous_is",
+    "rugged_1"
+  ],
+  "weapons": [
+    {
+      "type": "PPC",
+      "location": "LT"
+    },
+    {
+      "type": "LRM 5",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator"
+    ],
+    "leftTorso": [
+      "Heat Sink",
+      "Jump Jet",
+      "PPC",
+      "PPC",
+      "PPC",
+      "PPC"
+    ],
+    "rightTorso": [
+      "Heat Sink",
+      "Jump Jet",
+      "LRM 5",
+      "IS Ammo LRM-5",
+      "LRM 5"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "Heat Sink",
+      "Heat Sink"
+    ]
+  },
+  "text": {
+    "overview": "The Shadow Hawk, from its inception, was designed to be a multi-purpose generalist. One of the fabled \"trio\" of 55-ton 'Mechs, its comrades are much more specialized designs. The Griffin is a long-ranged support platform, the Wolverine a heavy scout and skirmisher. The Shadow Hawk, however, can accomplish both roles—albeit, not as well as the two other designs. This has not hampered its popularity, and it has offered sterling service from the first days it entered battle.",
+    "capabilities": "Most Shadow Hawks carry a varied array of weaponry. With both short and long-ranged weapons, missiles, lasers, and autocannons, the Shadow Hawk is never on a battlefield where it cannot contribute at least some firepower. Its speed is average for a design of its size, while the jump jets give it some maneuverability even on broken terrain. If the Shadow Hawk has one limitation, it is that it has difficulty bringing forward overwhelming firepower in any specific situation, causing some to disparage it as badly designed and flawed.",
+    "deployment": "The Shadow Hawk is a widespread design. Every Successor State makes good use of the BattleMech, while the factories on Dunianshire ensure that a steady number enter periphery forces every year. As such a flexible design, it has a home in nearly every type of command, and few are the commanders who cannot find a use for their Shadow Hawk. Though some lambast it as a Griffin knockoff, the -2K variant is a more than capable design. With a PPC-based armament familiar to many Kuritan MechWarriors, it has served well in Combine and Rasalhague forces.",
+    "history": ""
+  },
+  "manufacturers": {
+    "primary": [],
+    "primaryFactory": [],
+    "systems": {
+      "chassis": "Earthwerks",
+      "engine": "CoreTek",
+      "armor": "Maximilian",
+      "communications": "O/P",
+      "targeting": "O/P"
+    }
+  }
+}

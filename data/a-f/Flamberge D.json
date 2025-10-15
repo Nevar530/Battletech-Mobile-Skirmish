@@ -1,0 +1,192 @@
+{
+  "name": "Flamberge",
+  "chassis": "Flamberge",
+  "model": "D",
+  "mulId": 6873,
+  "config": "Biped Omnimech",
+  "techBase": "Mixed (Clan Chassis)",
+  "era": 3115,
+  "source": "TRO: 3145",
+  "rulesLevel": 4,
+  "role": "Juggernaut",
+  "mass": 70,
+  "engine": "280 XL (Clan) Engine",
+  "structure": "Clan Endo Steel",
+  "myomer": "Standard",
+  "heatSinks": "16 Double",
+  "movement": {
+    "walk": 4,
+    "jump": 4
+  },
+  "armor": {
+    "type": "Standard (Clan)",
+    "head": 9,
+    "centerTorso": 31,
+    "rightTorso": 20,
+    "leftTorso": 20,
+    "rightArm": 22,
+    "leftArm": 22,
+    "rightLeg": 30,
+    "leftLeg": 30,
+    "rearCenterTorso": 12,
+    "rearRightTorso": 10,
+    "rearLeftTorso": 10,
+    "total": 216
+  },
+  "quirks": [
+    "imp_target_med"
+  ],
+  "weapons": [
+    {
+      "type": "SRM 6",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "LA"
+    },
+    {
+      "type": "SRM 6",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Medium Pulse Laser",
+      "location": "RA"
+    },
+    {
+      "type": "Plasma Rifle",
+      "location": "LT"
+    },
+    {
+      "type": "Plasma Rifle",
+      "location": "RT"
+    }
+  ],
+  "locations": {
+    "leftArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLSRM6",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "SRM 6",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "rightArm": [
+      "Shoulder",
+      "Upper Arm Actuator",
+      "Lower Arm Actuator",
+      "Hand Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "CLSRM6",
+      "CLMediumPulseLaser (omnipod)",
+      "CLMediumPulseLaser (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "SRM 6",
+      "Medium Pulse Laser",
+      "Medium Pulse Laser"
+    ],
+    "leftTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)",
+      "ISPlasmaRifle (omnipod)",
+      "ISPlasmaRifle (omnipod)",
+      "ISPlasmaRifleAmmo (omnipod)",
+      "Clan Ammo SRM-6 (omnipod)",
+      "Plasma Rifle"
+    ],
+    "rightTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Jump Jet (omnipod)",
+      "Jump Jet (omnipod)",
+      "ISPlasmaRifle (omnipod)",
+      "ISPlasmaRifle (omnipod)",
+      "ISPlasmaRifleAmmo (omnipod)",
+      "Clan Ammo SRM-6 (omnipod)",
+      "Clan Endo Steel",
+      "Clan Endo Steel",
+      "Plasma Rifle"
+    ],
+    "centerTorso": [
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Gyro",
+      "Fusion Engine",
+      "Fusion Engine",
+      "Fusion Engine",
+      "ISPlasmaRifleAmmo (omnipod)",
+      "ISPlasmaRifleAmmo (omnipod)"
+    ],
+    "head": [
+      "Life Support",
+      "Sensors",
+      "Cockpit",
+      "Clan Endo Steel",
+      "Sensors",
+      "Life Support"
+    ],
+    "leftLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ],
+    "rightLeg": [
+      "Hip",
+      "Upper Leg Actuator",
+      "Lower Leg Actuator",
+      "Foot Actuator",
+      "CLDoubleHeatSink (omnipod)",
+      "CLDoubleHeatSink (omnipod)"
+    ]
+  },
+  "text": {
+    "overview": "Initially a Partial Wing test-bed, the Flamberge became a prominent Clan Jade Falcon OmniMech, helping to inspire the Falcon's Dark Age era design style aesthetic.",
+    "capabilities": "Built on an Endo Steel chassis, powered by a 280 rated XL Engine, and clad in thirteen and a half tons of armor, while slower than other front-line OmniMechs of similar weight, the bulk of the Flamberge's variants feature Jump Jets and the design was built with them in mind. Mounting eleven double heat sinks on its base frame, the design had thirty-five tons of available pod space.",
+    "deployment": "This version of the Flamberge developed in 3115 carries two Plasma Rifles from Inner Sphere sources. These are supplemented by four Medium Pulse Lasers and the fixed SRM-6 launchers. To counter the heat, sixteen double heat sinks are fitted.",
+    "history": "Developing the experimental Partial Wing technology in the 3060s, attempts by the Falcon scientists to develop a new production design using it were unsuccessful and the project was ultimately shelved. Cut-off from the Clan Homeworlds as losses mounted in the Jihad, in 3074 then Khan Marthe Pryde tasked Merchant Daniel and the Falcon design teams to use whatever was available to rebuild her forces. After removing much of the internal components of the wings, retaining the inbuilt Pattern J7 SRM-6 launchers in the shoulders to avoid further delays, the reborn test-bed featured an imposing bird-like cosmetic appearance that helped the Flamberge secure a prominent position in the Clan Jade Falcon Touman."
+  },
+  "manufacturers": {
+    "primary": [
+      "Olivetti Weaponry"
+    ],
+    "primaryFactory": [
+      "Sudeten"
+    ],
+    "systems": {
+      "chassis": "JF 7 Light Endo Steel",
+      "engine": "280 XL Fusion",
+      "armor": "JF Standard",
+      "communications": "JF Integrated",
+      "targeting": "JFIX/Olivetti Pinpoint Advanced"
+    }
+  }
+}
