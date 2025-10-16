@@ -1,16 +1,43 @@
+
 // modules/sheet.js
-// MSS:84 — Sheet Panel (Standalone ES Module)
-// Usage (somewhere in your app boot):
-//   import { Sheet } from './modules/sheet.js';
-//   const api = Sheet.mount(document.body);  // returns control API
-//   // api.open(), api.close(), api.setIds(mapId, tokenId), etc.
-
+// MSS:84 — Sheet Panel (Original UI + Compiler statics)
+// - Keeps the original layout, tabs, bars, crit boards, and styles.
+// - Pulls *stable* mech data (chassis/variant/tonnage/BV, move, armor max, internals,
+//   heat sinks, weapons, equipment) from window.MSS84_COMPILER by Map/Token ID.
+// - Saves only *non-stable* user fields per Map/Token in localStorage:
+//   pilot name/callsign/faction/gunnery/piloting, heat.current, armor current values,
+//   crit "hit" markers, notes, current ammo for each weapon.
+// - Hides the "Add Equipment" and "Add Weapon" blocks from the original so loadouts
+//   come only from compiler/mech JSON.
+//
+// Public API (also on window.MSS84_SHEET):
+//   Sheet.mount(host?)
+//   api.open(), api.close(), api.toggle()
+//   api.setIds(mapId, tokenId), api.getIds()
+//   api.refresh()  // re-pull compiler statics and re-hydrate
+//
+// Requirements:
+//   - window.MSS84_COMPILER with: resolveForToken(mapId, tokenId) -> vm
+//     Normalized vm shape expected:
+//       {
+//         name, variant, techBase, tonnage, bv,
+//         movement: { walk, run, jump },
+//         armorMax: { HD:{f}, CT:{f,r}, ... }, internals: { HD:Number, ... },
+//         heatSinks: Number|String,
+//         melee: [{name,type,damage,heat}],  // Punch/Kick/Charge/DFA (ammoMax: '∞')
+//         weapons: [{
+//           name,type,damage,heat,
+//           range:{min,short,medium,long},
+//           ammoMax:Number|null,
+//           enabledDefault:Boolean
+//         }],
+//         equipmentByLocation: { LA:[...], LL:[...], LT:[...], CT:[...], HD:[...], RT:[...], RL:[...], RA:[...] }
+//       }
+//
+// Fallback: If compiler resolution fails, you can still click "Load from JSON"
+//           to resolve statics from /data/manifest.json + mech JSON (legacy path).
+//
 export const Sheet = (() => {
-    // bridge for out-of-closure helpers
-let __SHEET_BRIDGE = null;
-      let __RENDER_BRIDGE = null;
-
-  /* -------------------------- One-time CSS injection -------------------------- */
   const CSS_ID = 'mss84-sheet-styles';
   const CSS = `
 :root{
@@ -93,15 +120,7 @@ let __SHEET_BRIDGE = null;
 .mss84-armor-card{ border:1px solid var(--line); border-radius:12px; padding:10px; background:#0e0e0e; }
 .mss84-armor-card h5{ margin:0 0 8px; font-size:13px; color:#eee; }
 
-.mss84-equip{ border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-bottom:10px; }
-.mss84-equip__hdr{ display:flex; align-items:center; justify-content:space-between; padding:10px; background:#121212; cursor:pointer; }
-.mss84-equip__body{ display:block; padding:10px; background:#0e0e0e; border-top:1px solid var(--line); }
-.mss84-equip.closed .mss84-equip__body{ display:none; }
-.mss84-row{ display:grid; grid-template-columns:1fr 90px 70px 1fr; gap:8px; margin:2px 0; }
-.mss84-row__actions{ display:flex; gap:6px; align-items:center; }
-.mss84-chip{ font-size:11px; padding:2px 6px; border-radius:10px; background:#191919; border:1px solid #2a2a2a; color:#ccc; }
-
-/* Crit boards */
+/* Equipment boards */
 .crit-wrap{ border:1px dashed #2a2a2a; border-radius:10px; padding:10px; background:#101010; }
 .crit-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin:6px 0 8px; }
 .crit-grid{ display:grid; grid-template-columns: repeat(6, 1fr); gap:6px; }
@@ -119,37 +138,13 @@ let __SHEET_BRIDGE = null;
 .crit-slot.occ{ cursor:pointer; }
 .crit-slot.hit{ border-color:#5a1a1a; background:#2a1111; box-shadow: inset 0 0 0 1px #5a1a1a; }
 .crit-legend{ font-size:11px; color:#aaa; margin-top:6px; }
-
-/* keep room for ✕ & ellipsis */
 .crit-slot{ padding-right:18px; }
 .crit-slot .stag{ display:block; width:100%; }
-
-/* tiny per-slot delete */
 .crit-del{
-  position:absolute; top:2px; right:4px;
-  width:16px; height:16px; line-height:16px;
-  border:0; border-radius:3px; background:transparent;
-  color:#aaa; font-size:12px; cursor:pointer; opacity:.7;
+  display:none; /* disabled: we don't support removing compiler-driven items */
 }
-.crit-del:hover{ background:#222; color:#fff; opacity:1; }
-
-/* lock slot size */
 .crit-grid{ grid-auto-rows:36px; }
-.crit-slot{ overflow:hidden; padding-right:18px; }
-.crit-slot .stag{ display:block; flex:1; min-width:0; width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center; }
 
-/* Demo harness */
-.demo-harness{ padding:8px 12px; border-bottom:1px solid var(--line); background:#101010; display:grid; gap:6px; }
-.demo-harness .mss84-two{ align-items:center; }
-.demo-harness label{ font-size:12px; color:#ccc; }
-.demo-harness .tiny{ font-size:11px; color:#888; }
-.mss84-savepulse{ font-size:11px; color:#9fe29f; opacity:0; transition:opacity .2s ease; margin-left:6px; }
-.mss84-savepulse.show{ opacity:1; }
-
-/* Scrollbars */
-.mss84-sheet__body::-webkit-scrollbar{ width:10px; }
-.mss84-sheet__body::-webkit-scrollbar-thumb{ background:#292929; border-radius:10px; }
-  
 /* Heat */
 .mss84-heat{ width:100%; }
 .mss84-heat__hdr{ display:flex; align-items:center; justify-content:space-between; font-size:12px; color:#ddd; margin-bottom:6px; }
@@ -167,127 +162,44 @@ let __SHEET_BRIDGE = null;
 .mss84-seven{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; gap:0px; }
 .mss84-heatf{ display:grid; grid-template-columns: 2.7fr .9fr .9fr; gap:2px; }
 
-/* ===== WEAPONS TAB ===== */
-.mss84-weap {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-.mss84-weap__hdr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  background: #121212;
-  cursor: pointer;
-}
-.mss84-weap__body {
-  display: block;
-  padding: 10px;
-  background: #0e0e0e;
-  border-top: 1px solid var(--line);
-}
-.mss84-weap.closed .mss84-weap__body { display: none; }
-
-/* ==== Add / Head / Row — unified 2-row layout ==== */
-.weap-add-grid,
-.weap-head,
-.weap-row {
-  display: grid;
-  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr 60px;
-  grid-template-rows: auto auto; /* two rows */
-  gap: 6px;
-  align-items: center;
-  width: 100%;
-}
-
-/* Row 1 → name through long */
-.weap-add-grid > *:nth-child(-n+5),
-.weap-head > *:nth-child(-n+5),
-.weap-row  > *:nth-child(-n+5) {
-  grid-row: 1;
-}
-
-/* Row 2 → ammo/current + ammo/max + delete/add */
-.weap-add-grid > *:nth-child(n+6),
-.weap-head > *:nth-child(n+6),
-.weap-row  > *:nth-child(n+6) {
-  grid-row: 2;
-}
-
-/* narrow numeric columns */
-.weap-add-grid input[type="number"],
-.weap-row input[type="number"] {
-  width: 100%;
-  text-align: center;
-}
-
-/* list rows look like cards */
-.weap-row {
-  background: #141414;
-  border: 1px solid #1f1f1f;
-  border-radius: 8px;
-  padding: 8px 10px;
-  margin-bottom: 6px;
-}
-.weap-head {
-  color: #aaa;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
-
-/* delete / add buttons */
-.weap-del,
-.weap-add-grid button#wnAdd {
-  justify-self: end;
-  align-self: end;
-  width: 30px;
-  height: 30px;
-  border: 0;
-  border-radius: 6px;
-  background: #1f1f1f;
-  color: #bbb;
-  cursor: pointer;
-}
-.weap-del:hover,
-.weap-add-grid button#wnAdd:hover {
-  background: #2a2a2a;
-  color: #fff;
-}
-
-/* spacing for list container */
+/* Weapons (read-only stat row w/ ammo current editable) */
 .weap-list {
   border: 1px dashed #2a2a2a;
   border-radius: 10px;
   padding: 10px;
   background: #101010;
 }
-/* MSS84: lock weapons/equipment add UI */
-.mss84-equip__hdr, .mss84-equip__body, .weap-add-grid, .weap-del { display: none !important; }
+.weap-head, .weap-row {
+  display: grid;
+  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr .6fr .6fr .6fr .8fr .5fr;
+  gap: 6px;
+  align-items: center;
+  width: 100%;
+}
+.weap-head { color:#aaa; font-size:12px; margin-bottom:6px; }
+.weap-row {
+  background:#141414; border:1px solid #1f1f1f; border-radius:8px; padding:8px 10px; margin-bottom:6px;
+}
+.weap-row.readonly input[type="text"],
+.weap-row.readonly input[type="number"][data-k="ammo.max"],
+.weap-row.readonly input[type="number"][data-k="heat"],
+.weap-row.readonly input[type="number"][data-k="min"],
+.weap-row.readonly input[type="number"][data-k="s"],
+.weap-row.readonly input[type="number"][data-k="m"],
+.weap-row.readonly input[type="number"][data-k="l"]{
+  pointer-events:none; opacity:.85;
+}
+.weap-del{ display:none; } /* no deletes for compiler weapons */
+.weap-enabled{ justify-self:center; }
+`;
 
-`
-  
-  function ensureStyles() {
-    if (!document.getElementById(CSS_ID)) {
-      const style = document.createElement('style');
-      style.id = CSS_ID;
-      style.textContent = CSS;
-      document.head.appendChild(style);
-    }
-  }
-
-  /* ----------------------------- Panel HTML ----------------------------- */
   const PANEL_HTML = `
 <div class="mss84-sheet">
-
- 
-
   <aside class="mss84-sheet__wrap" id="sheetWrap" aria-hidden="true">
     <header class="mss84-sheet__hdr">
       <div class="mss84-sheet__title">Mech Sheet <span id="savePulse" class="mss84-savepulse">Saved</span></div>
       <div class="mss84-sheet__spacer"></div>
-      <button class="mss84-sheet__x" id="loadFromJsonBtn" title="Pull static data from local /data JSON">Load from JSON</button>
+      <button class="mss84-sheet__x" id="loadFromJsonBtn" title="Legacy: resolve from /data JSON">Load from JSON</button>
       <button class="mss84-sheet__x" id="sheetCloseBtn">Close</button>
     </header>
 
@@ -309,45 +221,29 @@ let __SHEET_BRIDGE = null;
           </div>
           <div class="mss84-three">
             <div class="mss84-sheet__field"><label for="pilotFaction">Team</label><input id="pilotFaction" type="text" placeholder="House / Clan"></div>
-            <div class="mss84-sheet__field"><label for="pilotG">Gunnery</label><input id="pilotG" type="number" min="1" max="6" value="4"></div>
-            <div class="mss84-sheet__field"><label for="pilotP">Piloting</label><input id="pilotP" type="number" min="1" max="6" value="5"></div>
+            <div class="mss84-sheet__field"><label for="pilotG">Gunnery</label><input id="pilotG" type="number" min="0" max="12" value="4"></div>
+            <div class="mss84-sheet__field"><label for="pilotP">Piloting</label><input id="pilotP" type="number" min="0" max="12" value="5"></div>
           </div>
 
           <div class="mss84-three" style="margin-top:6px;">
-            <div class="mss84-sheet__field"><label for="mechChassis">Chassis</label><input id="mechChassis" type="text" placeholder="Marauder"></div>
-            <div class="mss84-sheet__field"><label for="mechVariant">Variant</label><input id="mechVariant" type="text" placeholder="MAD-3R"></div>
-            <div class="mss84-sheet__field"><label for="mechTons">Tonnage</label><input id="mechTons" type="number" min="10" max="200" step="5" placeholder="—"></div>
+            <div class="mss84-sheet__field"><label for="mechChassis">Chassis</label><input id="mechChassis" type="text" placeholder="Marauder" readonly></div>
+            <div class="mss84-sheet__field"><label for="mechVariant">Variant</label><input id="mechVariant" type="text" placeholder="MAD-3R" readonly></div>
+            <div class="mss84-sheet__field"><label for="mechTons">Tonnage</label><input id="mechTons" type="number" min="10" max="200" step="5" placeholder="—" readonly></div>
           </div>
 
-          <div class="mss84-seven" style="margin-top:6px;">
-            <div class="mss84-sheet__field"><label>Hits Taken</label><div></div></div>
-            ${[1,2,3,4,5,6].map(n=>`<div class="mss84-sheet__fieldt"><label for="H${String(n).padStart(2,'0')}">[${String(n).padStart(2,'0')}]</label><input id="H${String(n).padStart(2,'0')}" type="checkbox"></div>`).join('')}
-          </div>
-          <div class="mss84-seven">
-            <div class="mss84-sheet__field"><label>K.O.#</label><div></div></div>
-            <div class="mss84-sheet__fieldt"><label for="K03">[03]</label><input id="K03" type="checkbox"></div>
-            <div class="mss84-sheet__fieldt"><label for="K05">[05]</label><input id="K05" type="checkbox"></div>
-            <div class="mss84-sheet__fieldt"><label for="K07">[07]</label><input id="K07" type="checkbox"></div>
-            <div class="mss84-sheet__fieldt"><label for="K10">[10]</label><input id="K10" type="checkbox"></div>
-            <div class="mss84-sheet__fieldt"><label for="K11">[11]</label><input id="K11" type="checkbox"></div>
-            <div class="mss84-sheet__fieldt"><label for="KKIA">[KIA]</label><input id="KKIA" type="checkbox"></div>
-          </div>
-        </div>
-
-        <div class="mss84-sheet__group">
-          <div class="mss84-four">
-            <div class="mss84-sheet__field"><label>Stand</label><input id="mvStand" type="number" min="0" max="6" value="0"></div>
-            <div class="mss84-sheet__field"><label>Walk +1</label><input id="mvWalk" type="number" min="0" max="12" value="4"></div>
-            <div class="mss84-sheet__field"><label>Run +2</label><input id="mvRun" type="number" min="0" max="12" value="6"></div>
-            <div class="mss84-sheet__field"><label>Jump +3</label><input id="mvJump" type="number" min="0" max="12" value="0"></div>
+          <div class="mss84-four" style="margin-top:6px;">
+            <div class="mss84-sheet__field"><label>Stand</label><input id="mvStand" type="number" min="0" max="12" value="0" readonly></div>
+            <div class="mss84-sheet__field"><label>Walk +1</label><input id="mvWalk" type="number" min="0" max="24" value="4" readonly></div>
+            <div class="mss84-sheet__field"><label>Run +2</label><input id="mvRun" type="number" min="0" max="24" value="6" readonly></div>
+            <div class="mss84-sheet__field"><label>Jump +3</label><input id="mvJump" type="number" min="0" max="24" value="0" readonly></div>
           </div>
         </div>
 
         <div class="mss84-sheet__group">
           <div class="mss84-heatf">
             <div class="mss84-sheet__field"><label>Effect</label><input id="heatEffect" type="text" placeholder="Heat Systems Stable" readonly></div>
-            <div class="mss84-sheet__field"><label>Current</label><input id="heatCur" type="number" min="0" max="99" value="0"></div>
-            <div class="mss84-sheet__field"><label>Sinks</label><input id="heatSinks" type="number" min="0" max="99" value="10"></div>
+            <div class="mss84-sheet__field"><label>Current</label><input id="heatCur" type="number" min="-10" max="99" value="0"></div>
+            <div class="mss84-sheet__field"><label>Sinks</label><input id="heatSinks" type="number" min="0" max="99" value="10" readonly></div>
           </div>
           <div class="mss84-sheet__field"><label>Heat Meter</label>
             <div id="heatBar" class="mss84-heat">
@@ -367,80 +263,34 @@ let __SHEET_BRIDGE = null;
       </section>
 
       <section class="mss84-sheet__panel" data-panel="armor">
-        <div class="hint" style="margin:8px 0;">Enter Current and Max values. Rear applies to LT/CT/RT only.</div>
+        <div class="hint" style="margin:8px 0;">Enter <b>Current</b>. Max values are locked from compiler. Rear applies to LT/CT/RT only.</div>
         <div class="mss84-armor-grid" id="armorGrid"></div>
       </section>
 
       <section class="mss84-sheet__panel" data-panel="equip">
-        <div class="mss84-equip closed" id="equipBlock">
-          <div class="mss84-equip__hdr">
-            <div><strong>Add Equipment</strong> <span class="hint">fills slots by name</span></div>
-            <button type="button" id="equipToggle" class="mss84-sheet__x" style="padding:4px 8px;">Toggle</button>
-          </div>
-          <div class="mss84-equip__body">
-            <div class="mss84-row">
-              <input type="text" id="eqName" placeholder="Item name (e.g., SRM6)">
-              <select id="eqLoc">
-                <option value="HD">HD</option><option value="LA">LA</option><option value="RA">RA</option>
-                <option value="LT">LT</option><option value="CT">CT</option><option value="RT">RT</option>
-                <option value="LL">LL</option><option value="RL">RL</option>
-              </select>
-              <input type="number" id="eqSlots" min="1" max="18" value="1" title="Slots">
-              <div class="mss84-row__actions">
-                <button class="mss84-sheet__x" id="eqAdd" style="background:#163016;border:1px solid #234423;">Add</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="crit-wrap">
           <div class="crit-head"></div>
-          <div class="crit-head" style="justify-content:flex-end; gap:8px;">
-            <button class="mss84-chip" id="eqAddDefaults" title="Clears and loads the default core kit">Add Default Equipment</button>
-            <button class="mss84-chip" id="eqClearAll" title="Clears all equipment in all locations">Clear All Equipment</button>
-          </div>
           <div id="critBoards"></div>
+          <div class="crit-legend">Tap a filled slot to toggle a <b>crit hit mark</b>. Loadout comes from compiler; no adds/removes here.</div>
         </div>
       </section>
 
       <section class="mss84-sheet__panel" data-panel="weapons">
-        <div class="mss84-weap closed" id="weapBlock">
-          <div class="mss84-weap__hdr">
-            <div><strong>Add Weapon</strong> <span class="hint">user-filled; melee is pre-seeded</span></div>
-            <button type="button" id="weapToggle" class="mss84-sheet__x" style="padding:4px 8px;">Toggle</button>
-          </div>
-          <div class="mss84-weap__body">
-            <div class="weap-add-grid">
-              <input type="text"   id="wnName"  placeholder="NAME">
-              <input type="text"   id="wnType"  placeholder="TYPE">
-              <input type="number" id="wnDmg"   placeholder="DAMAGE"  min="0">
-              <input type="number" id="wnHeat"  placeholder="HEAT" min="0">
-              <input type="number" id="wnAmmoC" placeholder="AMMO CUR" min="0">
-              <input type="number" id="wnMin"   placeholder="MINIMUN"  min="0">
-              <input type="number" id="wnS"     placeholder="SHORT" min="0">
-              <input type="number" id="wnM"     placeholder="MEDIUM"   min="0">
-              <input type="number" id="wnL"     placeholder="LONG"  min="0">
-              <input type="number" id="wnAmmoX" placeholder="AMMO MAX" min="0">
-              <button class="mss84-sheet__x" id="wnAdd" style="background:#163016;border:1px solid #234423;">Add</button>
-            </div>
-          </div>
-        </div>
-
         <div class="weap-list">
           <div class="weap-head">
             <div class="hint">NAME</div>
             <div class="hint">TYPE</div>
-            <div class="hint">DAMAGE</div>
+            <div class="hint">DMG</div>
             <div class="hint">HEAT</div>
-            <div class="hint">AMMO CUR</div>
-            <div class="hint">MINIMUM</div>
+            <div class="hint">MIN</div>
             <div class="hint">SHORT</div>
-            <div class="hint">MEDIUM</div>
+            <div class="hint">MED</div>
             <div class="hint">LONG</div>
-            <div class="hint">AMMO MAX</div>
-            <div></div>
+            <div class="hint">AMMO CUR</div>
+            <div class="hint">ON</div>
           </div>
           <div id="weapRows"></div>
+          <div class="hint">Weapons & ranges are compiler-driven. Change only current ammo and toggle On/Off.</div>
         </div>
       </section>
 
@@ -451,16 +301,7 @@ let __SHEET_BRIDGE = null;
         </div>
         <div class="mss84-two">
           <button class="mss84-sheet__x" id="clearThisToken" style="background:#2a1414;border:1px solid #3a1c1c;">Clear This Token</button>
-          <div class="hint">Removes saved sheet for the current Map/Token only.</div>
-        </div>
-
-        <!-- Demo harness (optional; leave visible for now) -->
-        <div class="demo-harness">
-          <div class="mss84-two">
-            <div><label>Map ID</label><input type="text" id="demoMapId" value="demo-map-1" /></div>
-            <div><label>Token ID</label><input type="text" id="demoTokenId" value="token-A" /></div>
-          </div>
-          <div class="tiny">These IDs define where your sheet data saves in <code>localStorage</code>. Change them to simulate switching mechs.</div>
+          <div class="hint">Removes saved sheet for the current Map/Token only (user-state data).</div>
         </div>
       </section>
 
@@ -469,280 +310,14 @@ let __SHEET_BRIDGE = null;
 </div>
 `;
 
-  /* ------------------------------- Module state ------------------------------- */
+  // ---------- Constants & Helpers ----------
   const LOCS = ['HD','LA','RA','LT','CT','RT','LL','RL'];
   const HAS_REAR = new Set(['LT','CT','RT']);
-
-  /* ---------------------- JSON manifest + mech loader ---------------------- */
-  function __getTokenLabelById(tokenId){
-    try{
-      const g = document.querySelector(`svg .token[data-id="${tokenId}"]`);
-      const t = g?.querySelector('.label, text.label, text')?.textContent || '';
-      return (t||'').trim();
-    }catch{return '';}
-  }
-
-  let __WEAP_DB = null;
-  async function __getWeaponsDb(){
-    if (__WEAP_DB) return __WEAP_DB;
-    try{
-      const r = await fetch('data/weapons.json', { cache: 'no-store' });
-      if (!r.ok) throw new Error('weapons.json missing');
-      const arr = await r.json();
-      const byKey = new Map();
-      arr.forEach(w=>{
-        const name = String(w.name || w.id || '').trim();
-        if (!name) return;
-        const entry = {
-          id: w.id || name,
-          name,
-          type: w.type || '',
-          damage: Number(w.damage || 0) || 0,
-          heat: Number(w.heat || 0) || 0,
-          ammo: (typeof w.ammo === 'number') ? Number(w.ammo) : null,
-          range: Object.assign({ pointblank: 0, short: 0, medium: 0, long: 0 }, w.range || {}),
-          aliases: Array.isArray(w.aliases) ? w.aliases : []
-        };
-        const keys = new Set([name.toLowerCase()]);
-        entry.aliases.forEach(a=>{
-          const s = String(a||'').trim(); if (!s) return;
-          keys.add(s.toLowerCase());
-          if (s.includes('{k}')) {
-            [2,3,4,5,6,7,8,9,10,12,15,20,30,40].forEach(n => {
-              keys.add(s.replaceAll('{k}', String(n)).toLowerCase());
-            });
-          }
-        });
-        keys.forEach(k => byKey.set(k, entry));
-      });
-      __WEAP_DB = { list: arr, byKey };
-      return __WEAP_DB;
-    }catch(e){
-      console.warn('weapons db load failed', e);
-      __WEAP_DB = { list: [], byKey: new Map() };
-      return __WEAP_DB;
-    }
-  }
-  function __matchWeaponStats(db, nameLike){
-    if (!db) return null;
-    const base = String(nameLike||'').trim();
-    if (!base) return null;
-    const keys = [base, base.replace(/\s+/g,' '), base.replace(/\s+/g,''), base.replaceAll('-', ' ')];
-    for (const k of keys){
-      const hit = db.byKey.get(k.toLowerCase());
-      if (hit) return hit;
-    }
-    return null;
-  }
-  function __armorBlockFromFlat(flat, L){
-    if (!flat) return null;
-    const m = {
-      HD: { Front: flat.head },
-      CT: { Front: flat.centerTorso, Rear: flat.rearCenterTorso },
-      LT: { Front: flat.leftTorso,   Rear: flat.rearLeftTorso   },
-      RT: { Front: flat.rightTorso,  Rear: flat.rearRightTorso  },
-      LA: { Front: flat.leftArm },
-      RA: { Front: flat.rightArm },
-      LL: { Front: flat.leftLeg },
-      RL: { Front: flat.rightLeg },
-    };
-    const blk = m[L];
-    return (blk && (blk.Front != null || blk.Rear != null)) ? blk : null;
-  }
-  async function loadStaticFromJson(fillMode='fill'){
-      const sheet = __SHEET_BRIDGE;
-  if (!sheet){ console.warn('Load from JSON: sheet not ready'); return; }
-    // ---- resolve IDs safely (works offline) ----
-let currentMapId = (typeof mapId !== 'undefined' && mapId) ? mapId : 'local';
-let currentTokId = (typeof tokenId !== 'undefined' && tokenId) ? tokenId : null;
-      // Prefer the IDs stamped on the open sheet panel
-const __wrapEl = document.getElementById('sheetWrap');
-if (__wrapEl){
-  const mapAttr = __wrapEl.getAttribute('data-map-id');
-  const tokAttr = __wrapEl.getAttribute('data-token-id');
-  if (mapAttr) currentMapId = mapAttr;
-  if (tokAttr) currentTokId = tokAttr;
-}
-
-
-// try the open sheet wrapper first
-if (!currentTokId) {
-  const open = document.querySelector('.mss84-sheet[data-token-id], #sheetWrap[data-token-id]');
-  if (open) currentTokId = open.getAttribute('data-token-id');
-}
-// else a selected/visible token in the SVG, else any token
-if (!currentTokId) {
-  const g = document.querySelector('svg .token.is-selected, svg .token.is-open, svg .token');
-  if (g) currentTokId = g.getAttribute('data-id');
-}
-
-if (!currentTokId) {
-  console.warn('Load from JSON: no token id'); 
-  return;
-}
-
-    // 1) label -> model code
-    const lab = __getTokenLabelById(currentTokId);
-    let modelHint = '';
-    if (lab){
-      const parts = lab.trim().split(/\s+/);
-      modelHint = (parts.length===1 ? parts[0] : parts[parts.length-1]).toUpperCase();
-    } else if (typeof fMech !== 'undefined' && fMech?.variant?.value){
-      modelHint = String(fMech.variant.value||'').toUpperCase();
-    }
-    if (!modelHint){ console.warn('Load from JSON: no model code from token label or variant'); return; }
-
-    // 2) manifest lookup
-    let manifest=null;
-    try{ const r = await fetch('data/manifest.json', { cache:'no-store' }); manifest = await r.json(); }catch{}
-    const items = Array.isArray(manifest) ? manifest
-                : Array.isArray(manifest?.items) ? manifest.items
-                : Array.isArray(manifest?.entries) ? manifest.entries : [];
-    if (!items.length){ console.warn('Load from JSON: empty manifest'); return; }
-
-    const row = items.find(e => String(e?.model||'').toUpperCase() === modelHint);
-    if (!row){ console.warn('Load from JSON: model not found in manifest', modelHint); return; }
-
-    // 3) resolve path
-    let path = row.path || row.file || row.url || '';
-    if (!path){ console.warn('Load from JSON: manifest row missing path'); return; }
-    if (!path.startsWith('data/')) path = `data/${path}`;
-
-    // 4) fetch mech json
-    let mech=null;
-    try{ const r = await fetch(path, { cache:'no-store' }); mech = await r.json(); }catch{}
-    if (!mech){ console.warn('Load from JSON: mech json not found', path); return; }
-
-    const overwriteStatic = (fillMode==='static' || fillMode==='all');
-    const overwriteAll    = (fillMode==='all');
-
-    // Identity
-    const mChassis = mech.Chassis || mech.chassis || '';
-    const mVariant = mech.Variant || mech.variant || mech.model || '';
-    const mTons    = Number(mech.Tons || mech.Tonnage || mech.tonnage || mech.mass || 0) || 0;
-    if (overwriteAll || overwriteStatic || !sheet.mech.chassis) sheet.mech.chassis = mChassis;
-    if (overwriteAll || overwriteStatic || !sheet.mech.variant) sheet.mech.variant = mVariant;
-    if (overwriteAll || overwriteStatic || !sheet.mech.tonnage) sheet.mech.tonnage = mTons;
-
-    // Movement
-    const mv = mech.Movement || mech.movement || {};
-    const w  = Number(mv.Walk || mv.walk || 0) || 0;
-    const r  = Number(mv.Run  || mv.run  || (w ? (w+2) : 0)) || 0;
-    const j  = Number(mv.Jump || mv.jump || 0) || 0;
-    if (overwriteAll || overwriteStatic || !sheet.move.walk) sheet.move.walk = w || sheet.move.walk;
-    if (overwriteAll || overwriteStatic || !sheet.move.run ) sheet.move.run  = r || sheet.move.run;
-    if (overwriteAll || overwriteStatic || !sheet.move.jump) sheet.move.jump = j || sheet.move.jump;
-
-    // Heat sinks
-    const sinksRaw = (mech.HeatSinks ?? mech.heatSinks ?? (mech.heat && mech.heat.sinks) ?? sheet.heat.sinks) || 0;
-    const sinks = (typeof sinksRaw === 'string') ? (parseInt(sinksRaw,10) || 0) : (Number(sinksRaw)||0);
-    if (overwriteAll || overwriteStatic || !sheet.heat.sinks) sheet.heat.sinks = sinks || sheet.heat.sinks;
-
-    // Armor
-    const armorMax = mech.Armor || mech.armor || {};
-    if (armorMax && typeof armorMax === 'object'){
-      const get = v => Number(v||0) || 0;
-      for (const L of LOCS){
-        const blk = __armorBlockFromFlat(armorMax, L) || {};
-        const extMax  = get(blk.ext || blk.Front || blk.Armor || blk.Max);
-        const rearMax = get(blk.rear || blk.Rear);
-        const strMax  = get(blk.str  || blk.Structure);
-        if (overwriteAll || overwriteStatic){
-          sheet.armor[L].ext.max = extMax;
-          if (sheet.armor[L].rear) sheet.armor[L].rear.max = rearMax;
-          sheet.armor[L].str.max = strMax;
-        } else {
-          if (!sheet.armor[L].ext.max)  sheet.armor[L].ext.max  = extMax;
-          if (sheet.armor[L].rear && !sheet.armor[L].rear.max) sheet.armor[L].rear.max = rearMax;
-          if (!sheet.armor[L].str.max)  sheet.armor[L].str.max  = strMax;
-        }
-        if (!(sheet.armor[L].ext.cur > 0))  sheet.armor[L].ext.cur  = sheet.armor[L].ext.max;
-        if (sheet.armor[L].rear && !(sheet.armor[L].rear.cur > 0)) sheet.armor[L].rear.cur = sheet.armor[L].rear.max;
-        if (!(sheet.armor[L].str.cur > 0))  sheet.armor[L].str.cur  = sheet.armor[L].str.max;
-      }
-    }
-
-    // Weapons
-    const srcWeaps = Array.isArray(mech.Weapons) ? mech.Weapons
-                    : Array.isArray(mech.weapons) ? mech.weapons : null;
-    if (srcWeaps && (overwriteAll || overwriteStatic || (sheet.weapons||[]).length===0)){
-      const db = await __getWeaponsDb();
-      sheet.weapons = [];
-      sheet.nextWid = 1;
-      for (const wi of srcWeaps){
-        const nameLike = (wi.Name || wi.name || wi.Type || wi.type || '').trim();
-        const stats = __matchWeaponStats(db, nameLike);
-        const isEnergy = stats ? (String(stats.type||'').toLowerCase()==='energy')
-                               : /laser|ppc|plasma|flamer/i.test(nameLike);
-        const ammoFromStats = (stats && typeof stats.ammo === 'number') ? Number(stats.ammo) : 0;
-        const ammoMax = ammoFromStats || Number(wi?.AmmoMax || wi?.Ammo || wi?.ammo?.max || 0) || 0;
-        sheet.weapons.push({
-          wid: sheet.nextWid++,
-          name: nameLike,
-          type: stats ? stats.type : (wi.Type || wi.type || ''),
-          dmg:  stats ? Number(stats.damage || 0) : Number(wi.Damage || wi.damage || 0) || 0,
-          heat: stats ? Number(stats.heat   || 0) : Number(wi.Heat   || wi.heat   || 0) || 0,
-          min:  stats ? Number((stats.range && stats.range.pointblank) || 0) : Number(wi.Min    || wi.min    || 0) || 0,
-          s:    stats ? Number((stats.range && stats.range.short)      || 0) : Number(wi.Short  || wi.s      || 0) || 0,
-          m:    stats ? Number((stats.range && stats.range.medium)     || 0) : Number(wi.Medium || wi.m      || 0) || 0,
-          l:    stats ? Number((stats.range && stats.range.long)       || 0) : Number(wi.Long   || wi.l      || 0) || 0,
-          ammo: { max: ammoMax, cur: isEnergy ? 0 : ammoMax }
-        });
-      }
-    }
-
-// Save + render
-save(currentMapId, currentTokId, sheet);
-if (typeof __RENDER_BRIDGE === 'function') {
-  __RENDER_BRIDGE();
-} else {
-  // fallback if bridge isn’t set yet
-  try {
-    hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
-  } catch {}
-}
-console.log('Load from JSON: OK', { path, modelHint });
-
-  }
   const SLOTS_PER_LOC = 18;
   const STORAGE_NS = 'mss84:sheet';
   const HEAT_MAX_DEFAULT = 30;
   const HEAT_TICKS = [5,10,15,20,25,30];
 
-  const DEFAULT_KIT = [
-    { name: 'Cockpit',        loc: 'HD', slots: 1 },
-    { name: 'Sensors',        loc: 'HD', slots: 1 },
-    { name: 'Life Support',   loc: 'HD', slots: 1 },
-    { name: 'Gyro',           loc: 'CT', slots: 4 },
-    { name: 'Engine Core',    loc: 'CT', slots: 3 },
-    { name: 'Engine (L)',     loc: 'LT', slots: 2 },
-    { name: 'Engine (R)',     loc: 'RT', slots: 2 },
-    { name: 'Shoulder Actuator',  loc: 'LA', slots: 1 },
-    { name: 'Upper Arm Actuator', loc: 'LA', slots: 1 },
-    { name: 'Lower Arm Actuator', loc: 'LA', slots: 1 },
-    { name: 'Hand Actuator',      loc: 'LA', slots: 1 },
-    { name: 'Shoulder Actuator',  loc: 'RA', slots: 1 },
-    { name: 'Upper Arm Actuator', loc: 'RA', slots: 1 },
-    { name: 'Lower Arm Actuator', loc: 'RA', slots: 1 },
-    { name: 'Hand Actuator',      loc: 'RA', slots: 1 },
-    { name: 'Hip Actuator',       loc: 'LL', slots: 1 },
-    { name: 'Upper Leg Actuator', loc: 'LL', slots: 1 },
-    { name: 'Lower Leg Actuator', loc: 'LL', slots: 1 },
-    { name: 'Foot Actuator',      loc: 'LL', slots: 1 },
-    { name: 'Hip Actuator',       loc: 'RL', slots: 1 },
-    { name: 'Upper Leg Actuator', loc: 'RL', slots: 1 },
-    { name: 'Lower Leg Actuator', loc: 'RL', slots: 1 },
-    { name: 'Foot Actuator',      loc: 'RL', slots: 1 },
-  ];
-
-  const DEFAULT_MELEE = [
-    { name:'Punch',  type:'Melee',   dmg:3,  heat:0, min:0, s:1, m:1, l:0, ammo:{cur:0,max:0} },
-    { name:'Kick',   type:'Melee',   dmg:3,  heat:0, min:0, s:1, m:1, l:0, ammo:{cur:0,max:0} },
-    { name:'Charge', type:'Melee',   dmg:'—',heat:0, min:0, s:1, m:1, l:0, ammo:{cur:0,max:0} },
-    { name:'DFA',    type:'Melee',   dmg:'—',heat:0, min:0, s:1, m:1, l:0, ammo:{cur:0,max:0} },
-  ];
-
-  /* --------------------------- Utilities (scoped) ---------------------------- */
   const clampInt = (v, lo, hi) => {
     let n = parseInt(v,10);
     if (!Number.isFinite(n)) n = 0;
@@ -756,116 +331,50 @@ console.log('Load from JSON: OK', { path, modelHint });
     return n;
   };
   const escapeHtml = s => (''+s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
-  const escapeAttr = v => (''+v).replace(/"/g,'&quot;');
+  const key = (map, tok) => `${STORAGE_NS}:${map}:${tok}`;
 
-  const ceilDiv = (a,b) => Math.ceil(a/b);
-
-  /* -------------------------- Persistence / Versions ------------------------- */
+  // ---------- Core state ----------
   function blankSheet(){
     const armor = {};
     for(const L of LOCS){
-      armor[L] = {
-        ext:{cur:0,max:0},
-        rear: HAS_REAR.has(L) ? {cur:0,max:0} : null,
-        str:{cur:0,max:0}
-      };
+      armor[L] = { ext:{cur:0,max:0}, rear: HAS_REAR.has(L) ? {cur:0,max:0} : null, str:{cur:0,max:0} };
     }
     const crits = {};
     for(const L of LOCS){
       crits[L] = Array.from({length:SLOTS_PER_LOC}, ()=>({occ:false, hit:false, label:'', itemId:null}));
     }
     return {
-      version:7,
+      version:8,
       pilot:{name:'',callsign:'',faction:'',gunnery:4,piloting:5},
-      move:{stand:0,walk:4,run:6,jump:0},
+      move:{stand:0,walk:0,run:0,jump:0},
       heat:{current:0,sinks:10,effect:''},
       armor,
-      equipment:[],
-      nextId:1,
       crits,
       notes:'',
-      weapons:[],
+      weapons:[],     // compiler seeded
       nextWid:1,
-      mech:{ chassis:'', variant:'', tonnage:0, bv:0 }
+      mech:{ chassis:'', variant:'', tonnage:0, bv:0 },
+      _seededFromCompiler:false
     };
   }
-  const key = (map, tok) => `${STORAGE_NS}:${map}:${tok}`;
-  
-function packAllEquipment(){} // placeholder; replaced later
-  
+
   function migrate(d){
-    if (d.version < 7){
-      d.mech = d.mech || { chassis:'', variant:'', tonnage:0, bv:0 };
-      d.mech.chassis = String(d.mech.chassis || '');
-      d.mech.variant = String(d.mech.variant || '');
-      d.mech.tonnage = Number.isFinite(d.mech.tonnage) ? d.mech.tonnage : 0;
-      d.mech.bv      = Number.isFinite(d.mech.bv)      ? d.mech.bv      : 0;
-      d.version = 7;
-    }
-    if (d.version < 5){
-      const crits = {};
-      for(const L of LOCS){
-        const prev = (d.crits && d.crits[L]) || [];
-        const arr = [];
-        for(let i=0;i<SLOTS_PER_LOC;i++){
-          const p = prev[i];
-          if (p && typeof p==='object' && ('occ' in p || 'hit' in p)){
-            arr.push({occ:!!p.occ, hit:!!p.hit, label:p.label||'', itemId: Number.isFinite(p.itemId)?p.itemId:null});
-          }else{
-            const hit = !!p && typeof p==='boolean' ? p : false;
-            arr.push({occ:false, hit, label:'', itemId:null});
-          }
-        }
-        crits[L] = arr;
-      }
-      d.crits = crits;
-      d.equipment = (d.equipment||[]).map(x=>({
-        id: Number.isFinite(x.id)?x.id:Math.floor(Math.random()*1e9),
-        name: String(x.name||''),
-        loc: LOCS.includes(x.loc)?x.loc:'CT',
-        slots: clampInt(x.slots ?? 1, 1, 18)
-      }));
-      d.nextId = (d.nextId && Number.isFinite(d.nextId)) ? d.nextId : 1;
-      d.version = 5;
-    }
-    if (d.version < 6){
-      d.weapons = Array.isArray(d.weapons) ? d.weapons : [];
-      d.nextWid = Number.isFinite(d.nextWid) ? d.nextWid : 1;
-      d.version = 6;
-    }
-
+    // simple forward-safe migration
+    if (!d.version) d.version = 1;
+    if (!d.mech) d.mech = { chassis:'', variant:'', tonnage:0, bv:0 };
+    if (!Array.isArray(d.weapons)) d.weapons = [];
+    if (!Number.isFinite(d.nextWid)) d.nextWid = 1;
     for(const L of LOCS){
-      if(!Array.isArray(d.crits[L])) d.crits[L] = [];
-      d.crits[L] = d.crits[L].slice(0, SLOTS_PER_LOC);
-      while(d.crits[L].length < SLOTS_PER_LOC) d.crits[L].push({occ:false, hit:false, label:'', itemId:null});
-      d.crits[L] = d.crits[L].map(s=>({occ:!!s.occ, hit:!!s.hit, label: String(s.label||''), itemId: Number.isFinite(s.itemId)?s.itemId:null}));
+      if(!d.armor[L]) d.armor[L] = { ext:{cur:0,max:0}, rear: HAS_REAR.has(L) ? {cur:0,max:0} : null, str:{cur:0,max:0} };
+      if(!Array.isArray(d.crits?.[L])){
+        if(!d.crits) d.crits={};
+        d.crits[L] = Array.from({length:SLOTS_PER_LOC}, ()=>({occ:false, hit:false, label:'', itemId:null}));
+      }
     }
-    d.equipment = (d.equipment||[]).map(x=>({
-      id: Number.isFinite(x.id)?x.id:(d.nextId++),
-      name: String(x.name||''),
-      loc: LOCS.includes(x.loc)?x.loc:'CT',
-      slots: clampInt(x.slots ?? 1, 1, 18)
-    }));
-
-    clearAllOccupancy(d);
-    packAllEquipment(d);
-
-    d.weapons = (d.weapons||[]).map(w=>({
-      wid: Number.isFinite(w.wid)?w.wid:(d.nextWid++),
-      name: String(w.name||''),
-      type: String(w.type||''),
-      dmg:  (w.dmg===0 || w.dmg) ? w.dmg : '',
-      heat: clampNum(w.heat ?? 0, 0, 999),
-      min:  clampNum(w.min  ?? 0, 0, 999),
-      s:    clampNum(w.s    ?? 0, 0, 999),
-      m:    clampNum(w.m    ?? 0, 0, 999),
-      l:    clampNum(w.l    ?? 0, 0, 999),
-      ammo: { cur: clampNum(w?.ammo?.cur ?? 0, 0, 999), max: clampNum(w?.ammo?.max ?? 0, 0, 999) }
-    }));
-
+    if (d.version < 8) d.version = 8;
     return d;
   }
-function pulseSaved(){}        // placeholder; replaced later
+
   function save(map, tok, data){
     try{ localStorage.setItem(key(map,tok), JSON.stringify(data)); pulseSaved(); }
     catch(e){ console.warn('save fail', e); }
@@ -879,7 +388,16 @@ function pulseSaved(){}        // placeholder; replaced later
   }
   function remove(map, tok){ try{ localStorage.removeItem(key(map,tok)); }catch{} }
 
-  /* ------------------------------ Mount / API ------------------------------ */
+  // ---------- Mount ----------
+  function ensureStyles(){
+    if (!document.getElementById(CSS_ID)) {
+      const style = document.createElement('style');
+      style.id = CSS_ID;
+      style.textContent = CSS;
+      document.head.appendChild(style);
+    }
+  }
+
   function mount(host = document.body){
     ensureStyles();
     const root = document.createElement('div');
@@ -889,87 +407,39 @@ function pulseSaved(){}        // placeholder; replaced later
     const QS  = (s, r=root) => r.querySelector(s);
     const QSA = (s, r=root) => Array.from(r.querySelectorAll(s));
 
-    // state
-    let mapId = 'demo-map-1';
+    let mapId = 'local';
     let tokenId = 'token-A';
     let sheet = load(mapId, tokenId);
-    __SHEET_BRIDGE = sheet;
 
-    // elements
+    // Elements
     const wrap      = QS('#sheetWrap');
-    const btn = document.querySelector('#sheetToggleBtn');
     const btnClose  = QS('#sheetCloseBtn');
-function __syncWrapIds(){
-  if (!wrap) return;
-  wrap.setAttribute('data-map-id', mapId);
-  wrap.setAttribute('data-token-id', tokenId);
-}
-__syncWrapIds();
-const btnLoad  = QS('#loadFromJsonBtn');
-
-
-if (btnLoad && !btnLoad.__wired) {
-  btnLoad.__wired = true;
-  btnLoad.addEventListener('click', () => loadStaticFromJson('fill'));
-}
-
+    const btnLoad   = QS('#loadFromJsonBtn');
     const tabs      = QS('#sheetTabs');
     const savePulse = QS('#savePulse');
 
-    const demoMap   = QS('#demoMapId');
-    const demoTok   = QS('#demoTokenId');
-
     const fPilot = {
-      name:QS('#pilotName'),
-      call:QS('#pilotCall'),
-      faction:QS('#pilotFaction'),
+      name:QS('#pilotName'), call:QS('#pilotCall'), faction:QS('#pilotFaction'),
       g:QS('#pilotG'), p:QS('#pilotP')
     };
-    const fMech = {
-      chassis: QS('#mechChassis'),
-      variant: QS('#mechVariant'),
-      tons:    QS('#mechTons'),
-      bv:      null // no BV input in template; keep for future
-    };
-    const fMove = {
-      stand:QS('#mvStand'), walk:QS('#mvWalk'), run:QS('#mvRun'), jump:QS('#mvJump')
-    };
-    const fHeat = {
-      cur:QS('#heatCur'), sinks:QS('#heatSinks'), eff:QS('#heatEffect')
-    };
+    const fMech = { chassis:QS('#mechChassis'), variant:QS('#mechVariant'), tons:QS('#mechTons') };
+    const fMove = { stand:QS('#mvStand'), walk:QS('#mvWalk'), run:QS('#mvRun'), jump:QS('#mvJump') };
+    const fHeat = { cur:QS('#heatCur'), sinks:QS('#heatSinks'), eff:QS('#heatEffect') };
+    const heatBarEl   = QS('#heatBar'), heatFillEl  = QS('#heatFill'),
+          heatTicksEl = QS('#heatTicks'), heatLegend  = QS('#heatLegend');
 
     const barsGrid  = QS('#barsGrid');
     const armorGrid = QS('#armorGrid');
+    const critBoards= QS('#critBoards');
 
-    const equipBlock  = QS('#equipBlock');
-    const equipToggle = QS('#equipToggle');
-    const eqName      = QS('#eqName');
-    const eqLoc       = QS('#eqLoc');
-    const eqSlots     = QS('#eqSlots');
-    const eqAdd       = QS('#eqAdd');
-    const eqAddDefaults = QS('#eqAddDefaults');
-    const eqClearAll    = QS('#eqClearAll');
-
-    const critBoards = QS('#critBoards');
-
-    const weapBlock  = QS('#weapBlock');
-    const weapToggle = QS('#weapToggle');
-    const wn = {
-      name:QS('#wnName'), type:QS('#wnType'), dmg:QS('#wnDmg'), heat:QS('#wnHeat'),
-      min:QS('#wnMin'), s:QS('#wnS'), m:QS('#wnM'), l:QS('#wnL'),
-      ac:QS('#wnAmmoC'), ax:QS('#wnAmmoX')
-    };
-    const wnAddBtn = QS('#wnAdd');
-    const weapRows = QS('#weapRows');
-
-    const notes = QS('#notes');
+    const weapRows  = QS('#weapRows');
+    const notes     = QS('#notes');
     const clearThis = QS('#clearThisToken');
 
     // open/close
     const open   = ()=>{ wrap.classList.add('open'); wrap.setAttribute('aria-hidden','false'); };
     const close  = ()=>{ wrap.classList.remove('open'); wrap.setAttribute('aria-hidden','true'); };
     const toggle = ()=> (wrap.classList.contains('open')? close() : open());
-    if (btn) btn.addEventListener('click', toggle);
     btnClose.addEventListener('click', close);
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
 
@@ -987,18 +457,29 @@ if (btnLoad && !btnLoad.__wired) {
     // save debounce
     let tSave=null;
     const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(mapId, tokenId, sheet), 200); };
-    const pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
+    window.pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
 
-    /* ------------------------------- Heat Bar ------------------------------- */
-    const heatBarEl   = QS('#heatBar');
-    const heatFillEl  = QS('#heatFill');
-    const heatTicksEl = QS('#heatTicks');
-    const heatLegend  = QS('#heatLegend');
-
-    const heatSeverity = (cur, sinks)=>{
-      if(cur <= sinks) return 'ok';
-      if(cur <= sinks + 10) return 'crit';
-      return 'low';
+    // ---- Heat ----
+    const HEAT_TBL = [
+      [30, "Shutdown"],
+      [28, "Ammo explosion: avoid on 8+"],
+      [26, "Shutdown: avoid on 10+"],
+      [25, "-5 MP"],
+      [24, "+4 to fire"],
+      [23, "Ammo explosion: avoid on 6+"],
+      [22, "Shutdown: avoid on 8+"],
+      [20, "-4 MP"],
+      [19, "Ammo explosion: avoid on 4+"],
+      [18, "Shutdown: avoid on 6+"],
+      [15, "+3 to fire"],
+      [14, "-3 MP"],
+      [12, "+2 to fire"],
+      [10, "-2 MP"],
+      [8,  "+1 to fire"],
+    ];
+    const heatEffectText = (cur)=>{
+      const row = HEAT_TBL.find(([th])=> cur >= th);
+      return row ? row[1] : "";
     };
     const renderHeatTicks = (max)=>{
       if (!heatTicksEl) return;
@@ -1012,44 +493,25 @@ if (btnLoad && !btnLoad.__wired) {
       });
     };
     const renderHeatBar = ()=>{
-      const cur   = clampInt(fHeat.cur.value,   0, 999);
+      const cur   = clampInt(fHeat.cur.value,   -10, 999);
       const sinks = clampInt(fHeat.sinks.value, 0, 999);
       const max   = Math.max(HEAT_MAX_DEFAULT, sinks, cur);
-      const pct   = max > 0 ? Math.min(1, cur / max) : 0;
-      const sev   = heatSeverity(cur, sinks);
+      const pct   = max > 0 ? Math.min(1, Math.max(0, cur / max)) : 0;
+      const sev   = (cur <= sinks) ? 'ok' : (cur <= sinks + 10 ? 'crit' : 'low');
       if (heatLegend)  heatLegend.textContent  = `${cur} / ${max} (sinks ${sinks})`;
       if (heatFillEl)  heatFillEl.style.width = (pct * 100).toFixed(1) + '%';
       if (heatBarEl){
         heatBarEl.classList.remove('ok','crit','low');
         heatBarEl.classList.add(sev);
       }
+      fHeat.eff.value = heatEffectText(cur);
+      sheet.heat.effect = fHeat.eff.value;
+      scheduleSave();
       renderHeatTicks(max);
     };
+    fHeat.cur.addEventListener('input', ()=>{ sheet.heat.current = clampInt(fHeat.cur.value, -10, 999); renderHeatBar(); });
 
-    const HEAT_EFFECTS_TABLE = [
-      [30, "Shutdown"], [28, "|Ammo Exp. 8+| |-5 MV| |+4 TN|"], [26, "|Shutdown 10+| |-5 MV| |+4 TN|"],
-      [25, "|-5 MV| |+4 TN|"], [24, "|+4 TN| |-4 MV|"], [23, "|Ammo Exp. 6+| |-4 MV| |+3 TN|"],
-      [22, "|Shutdown 8+| |-4 MV| |+3 TN|"], [20, "|-4 MV| |+3 TN|"], [19, "|Ammo Exp. 4+| |+3 TN| |-3 MV|"],
-      [18, "|Shutdown 6+| |+3 TN| |-3 MV|"], [15, "|+3 TN| |-3 MV|"], [14, "|-3 MV| |+2 TN|"],
-      [12, "|+2 TN|"], [10, "|-2 MV| |+1 TN|"], [8,  "|+1 TN|"],
-    ];
-    const computeHeatEffectText = (cur)=>{
-      const row = HEAT_EFFECTS_TABLE.find(([th])=> cur >= th);
-      return row ? row[1] : "";
-    };
-    const syncHeatEffectField = ()=>{
-      const cur = clampInt(fHeat.cur.value, 0, 999);
-      const text = computeHeatEffectText(cur);
-      fHeat.eff.value = text;
-      sheet.heat.effect = text;
-      scheduleSave();
-    };
-    fHeat.eff.readOnly = true;
-    [fHeat.cur, fHeat.sinks].forEach(inp=>{
-      inp.addEventListener('input', ()=>{ renderHeatBar(); syncHeatEffectField(); });
-    });
-
-    /* ------------------------------- Bars / Armor ------------------------------ */
+    // ---- Bars / Armor ----
     const computeTotals = (L)=>{
       const a = sheet.armor[L];
       const ext = a.ext||{cur:0,max:0};
@@ -1100,22 +562,22 @@ if (btnLoad && !btnLoad.__wired) {
           <h5>${L}</h5>
           <div class="mss84-two">
             <div class="mss84-sheet__field"><label>Ext Cur</label><input type="number" data-k="ext.cur" value="${a.ext.cur||0}"></div>
-            <div class="mss84-sheet__field"><label>Ext Max</label><input type="number" data-k="ext.max" value="${a.ext.max||0}"></div>
+            <div class="mss84-sheet__field"><label>Ext Max</label><input type="number" value="${a.ext.max||0}" readonly></div>
           </div>
           ${hasRear?`
           <div class="mss84-two">
             <div class="mss84-sheet__field"><label>Rear Cur</label><input type="number" data-k="rear.cur" value="${a.rear.cur||0}"></div>
-            <div class="mss84-sheet__field"><label>Rear Max</label><input type="number" data-k="rear.max" value="${a.rear.max||0}"></div>
+            <div class="mss84-sheet__field"><label>Rear Max</label><input type="number" value="${a.rear.max||0}" readonly></div>
           </div>`:''}
           <div class="mss84-two">
             <div class="mss84-sheet__field"><label>Struct Cur</label><input type="number" data-k="str.cur" value="${a.str.cur||0}"></div>
-            <div class="mss84-sheet__field"><label>Struct Max</label><input type="number" data-k="str.max" value="${a.str.max||0}"></div>
+            <div class="mss84-sheet__field"><label>Struct Max</label><input type="number" value="${a.str.max||0}" readonly></div>
           </div>
         `;
-        Array.from(card.querySelectorAll('input[type="number"]')).forEach(inp=>{
+        Array.from(card.querySelectorAll('input[data-k]')).forEach(inp=>{
           inp.addEventListener('input', ()=>{
             const [p1,p2] = inp.getAttribute('data-k').split('.');
-            const v = clampInt(inp.value, 0, 999);
+            const v = clampInt(inp.value, -99, 999);
             sheet.armor[L][p1][p2] = v;
             scheduleSave();
             renderBars();
@@ -1125,42 +587,28 @@ if (btnLoad && !btnLoad.__wired) {
       }
     };
 
-    /* ---------------------------- Equipment boards ---------------------------- */
-    function addEquipment(name, loc, need){
-      const id = sheet.nextId++;
-      sheet.equipment.push({id, name, loc, slots:need});
-      const slots = sheet.crits[loc];
-      let placed = 0;
-      for(let i=0;i<slots.length && placed<need;i++){
-        if(!slots[i].occ){
-          slots[i].occ = true;
-          slots[i].label = name;
-          slots[i].itemId = id;
-          placed++;
-        }
-      }
-      scheduleSave();
-      renderCritBoards();
-    }
+    // ---- Equipment (read-only occupancy, toggle hit marks) ----
     function clearAllOccupancy(state=sheet){
       for(const L of LOCS){
-        state.crits[L].forEach(s=>{ s.occ=false; s.hit=false; s.label=''; s.itemId=null; });
+        state.crits[L].forEach(s=>{ s.occ=false; s.label=''; s.itemId=null; /* keep s.hit */ });
       }
     }
-    function packAllEquipment(state=sheet){
-      const itemsByLoc = {}; for(const L of LOCS) itemsByLoc[L]=[];
-      (state.equipment||[]).forEach(it=> itemsByLoc[it.loc].push(it));
+    function packEquipmentFromCompiler(vm, state=sheet){
+      // Fill by location order, assign labels into crit grid. No deletes; no adds.
+      const byLoc = vm?.equipmentByLocation || {};
       for(const L of LOCS){
+        const list = Array.isArray(byLoc[L]) ? byLoc[L] : [];
         const slots = state.crits[L];
         let ptr = 0;
-        const put = (lbl,id)=>{
+        for(const label of list){
+          // each item consumes 1 slot visually (we don't know exact slot counts from compiler here)
+          // If you later provide slot counts, adjust here.
           while(ptr<slots.length && slots[ptr].occ) ptr++;
-          if(ptr>=slots.length) return false;
-          slots[ptr].occ = true; slots[ptr].label = lbl; slots[ptr].itemId = id; slots[ptr].hit = false; ptr++; return true;
-        };
-        itemsByLoc[L].forEach(it=>{
-          for(let k=0;k<it.slots;k++){ if(!put(it.name, it.id)) break; }
-        });
+          if(ptr>=slots.length) break;
+          const id = state.mech.variant ? (state.mech.variant + ':' + label) : label;
+          slots[ptr].occ = true; slots[ptr].label = String(label||''); slots[ptr].itemId = id;
+          ptr++;
+        }
       }
     }
 
@@ -1175,10 +623,9 @@ if (btnLoad && !btnLoad.__wired) {
         const occ = sheet.crits[L].filter(s=>s.occ).length;
         const hits = sheet.crits[L].filter(s=>s.hit).length;
         head.innerHTML = `
-          <div><strong>${L}</strong> <span class="mss84-chip">${occ}/${SLOTS_PER_LOC} occupied • ${hits} hit</span></div>
+          <div><strong>${L}</strong> <span class="mss84-badge">${occ}/${SLOTS_PER_LOC} occupied • ${hits} hit</span></div>
           <div style="display:flex; gap:6px;">
-            <button class="mss84-chip" data-act="clearhits" data-loc="${L}">Clear Marks</button>
-            <button class="mss84-chip" data-act="clearalloc" data-loc="${L}">Clear Alloc</button>
+            <span class="hint">Compiler loadout (read-only)</span>
           </div>
         `;
         wrapDiv.appendChild(head);
@@ -1193,12 +640,10 @@ if (btnLoad && !btnLoad.__wired) {
           div.title = label || `Empty (${L} ${i+1})`;
           div.innerHTML = `
             <span class="snum">${i+1}</span>
-            ${slot.occ ? `<button class="crit-del" data-loc="${L}" data-idx="${i}" title="Remove this slot">✕</button>` : ``}
             <span class="stag">${escapeHtml(label)}</span>
           `;
           if (slot.occ){
-            div.addEventListener('click', (ev)=>{
-              if (ev.target && ev.target.classList.contains('crit-del')) return;
+            div.addEventListener('click', ()=>{
               slot.hit = !slot.hit;
               scheduleSave(); renderCritBoards();
             });
@@ -1206,282 +651,47 @@ if (btnLoad && !btnLoad.__wired) {
           grid.appendChild(div);
         });
         wrapDiv.appendChild(grid);
-
-        head.querySelector('[data-act="clearhits"]').addEventListener('click', ()=>{
-          sheet.crits[L].forEach(s=>{ if(s.occ) s.hit=false; });
-          scheduleSave(); renderCritBoards();
-        });
-        head.querySelector('[data-act="clearalloc"]').addEventListener('click', ()=>{
-          if(!confirm(`Clear all allocations in ${L}?`)) return;
-          sheet.crits[L].forEach(s=>{ s.occ=false; s.hit=false; s.label=''; s.itemId=null; });
-          sheet.equipment = sheet.equipment.filter(it=> it.loc!==L);
-          scheduleSave(); renderCritBoards();
-        });
-
         critBoards.appendChild(wrapDiv);
       }
+    }
 
-      Array.from(critBoards.querySelectorAll('.crit-del')).forEach(btn=>{
-        btn.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          const loc = btn.getAttribute('data-loc');
-          const idx = parseInt(btn.getAttribute('data-idx'), 10);
-          const slot = sheet.crits[loc][idx];
-          if (!slot || !slot.occ) return;
-          const id = slot.itemId;
-          slot.occ=false; slot.hit=false; slot.label=''; slot.itemId=null;
-          const it = sheet.equipment.find(x=> x.id===id);
-          if (it){
-            it.slots = Math.max(0, (it.slots||0)-1);
-            if (it.slots===0) sheet.equipment = sheet.equipment.filter(x=> x.id!==id);
-          }
-          clearAllOccupancy(sheet);
-          packAllEquipment(sheet);
+    // ---- Weapons (read-only except ammo cur + on/off) ----
+    function renderWeapons(){
+      if (!weapRows) return;
+      weapRows.innerHTML='';
+      (sheet.weapons||[]).forEach((w, idx)=>{
+        const row = document.createElement('div');
+        row.className = 'weap-row readonly';
+        const on = (w._on !== false); // default ON
+        row.innerHTML = `
+          <input type="text"   data-k="name" value="${escapeHtml(w.name||'')}"  title="Name" readonly>
+          <input type="text"   data-k="type" value="${escapeHtml(w.type||'')}"  title="Type" readonly>
+          <input type="text"   data-k="dmg"  value="${escapeHtml(w.dmg ?? '')}" title="Damage" readonly>
+          <input type="number" data-k="heat" value="${Number(w.heat||0)}" min="0" title="Heat" readonly>
+          <input type="number" data-k="min"  value="${Number(w.min||0)}"  min="0" title="Min" readonly>
+          <input type="number" data-k="s"    value="${Number(w.s||0)}"    min="0" title="Short" readonly>
+          <input type="number" data-k="m"    value="${Number(w.m||0)}"    min="0" title="Med" readonly>
+          <input type="number" data-k="l"    value="${Number(w.l||0)}"    min="0" title="Long" readonly>
+          <input type="number" data-k="ammo.cur" value="${Number(w?.ammo?.cur ?? 0)}" min="0" title="Ammo Current">
+          <input type="checkbox" class="weap-enabled" data-idx="${idx}" ${on?'checked':''} title="Enabled">
+        `;
+        // only current ammo is editable
+        const ammoCur = row.querySelector('input[data-k="ammo.cur"]');
+        ammoCur?.addEventListener('input', ()=>{
+          if (!w.ammo) w.ammo = {cur:0, max: Number(w?.ammo?.max ?? 0)};
+          w.ammo.cur = clampNum(ammoCur.value, 0, 999);
           scheduleSave();
-          renderCritBoards();
         });
-      });
-    }
-
-    // Equip add & toggles
-    if (eqAdd && eqName && eqLoc && eqSlots){
-      eqAdd.addEventListener('click', ()=>{
-        const name = (eqName.value||'').trim();
-        if(!name) return;
-        const loc = eqLoc.value;
-        const slots = clampInt(eqSlots.value, 1, 18);
-        addEquipment(name, loc, slots);
-        eqName.value=''; eqSlots.value='1';
-      });
-      [eqName, eqSlots].forEach(inp=>{
-        inp.addEventListener('keydown', (e)=>{
-          if(e.key==='Enter'){ e.preventDefault(); eqAdd.click(); }
+        const en = row.querySelector('.weap-enabled');
+        en?.addEventListener('input', ()=>{
+          w._on = !!en.checked;
+          scheduleSave();
         });
-      });
-    }
-    if (equipToggle && equipBlock){
-      equipToggle.addEventListener('click', (e)=>{ e.preventDefault(); e.stopPropagation(); equipBlock.classList.toggle('closed'); });
-      equipBlock.querySelector('.mss84-equip__hdr').addEventListener('click', (e)=>{
-        if (e.target===equipToggle || e.target.closest('#equipToggle')) return;
-        equipBlock.classList.toggle('closed');
-      });
-    }
-    if (eqAddDefaults){
-      eqAddDefaults.addEventListener('click', ()=>{
-        if(!confirm('Clear existing equipment and add the default core kit?')) return;
-        clearAllOccupancy(sheet);
-        sheet.equipment = [];
-        DEFAULT_KIT.forEach(it => addEquipment(it.name, it.loc, it.slots));
-        sheet._defaultSeeded = true;
-        scheduleSave();
-        renderCritBoards();
-      });
-    }
-    if (eqClearAll){
-      eqClearAll.addEventListener('click', ()=>{
-        if(!confirm('Clear ALL equipment from ALL locations?')) return;
-        clearAllOccupancy(sheet);
-        sheet.equipment = [];
-        scheduleSave();
-        renderCritBoards();
+        weapRows.appendChild(row);
       });
     }
 
-/* -------------------------------- Weapons -------------------------------- */
-
-// Adds a weapon object to state, saves, and re-renders
-function addWeaponObj(w){
-  const wid = sheet.nextWid++;
-  sheet.weapons.push({
-    wid,
-    name: String(w.name||''),
-    type: String(w.type||''),
-    dmg:  (w.dmg===0||w.dmg)? w.dmg : '',
-    heat: clampNum(w.heat ?? 0, 0, 999),
-    min:  clampNum(w.min  ?? 0, 0, 999),
-    s:    clampNum(w.s    ?? 0, 0, 999),
-    m:    clampNum(w.m    ?? 0, 0, 999),
-    l:    clampNum(w.l    ?? 0, 0, 999),
-    ammo: { cur: clampNum(w?.ammo?.cur ?? 0, 0, 999), max: clampNum(w?.ammo?.max ?? 0, 0, 999) }
-  });
-  scheduleSave();
-  renderWeapons();
-}
-
-// Builds a weapon from the "Add Weapon" inputs
-function addWeaponFromFields(){ return; }
-
-// Apply edits to a weapon row, with clamping
-function applyWeaponEdit(w, path, val){
-  if(path==='name'||path==='type'){ w[path] = String(val||''); return; }
-  if(path==='dmg'){ w.dmg = (val==='' ? '' : (isNaN(+val) ? val : +val)); return; }
-  if(path==='heat'||path==='min'||path==='s'||path==='m'||path==='l'){ w[path] = clampNum(+val||0, 0, 999); return; }
-  if(path.startsWith('ammo.')){ const p = path.split('.')[1]; w.ammo[p] = clampNum(+val||0, 0, 999); return; }
-}
-
-// Render the list of weapon rows and bind events
-
-function renderWeapons(){
-  if (!weapRows) return;
-  weapRows.innerHTML='';
-  const addRow = (w, idx, isMelee=false)=>{
-    const row = document.createElement('div');
-    row.className = 'weap-row';
-    const ammoEditable = !isMelee && w.ammo && Number.isFinite(+w.ammo.max) && +w.ammo.max>0;
-    const on = (w.on!==false);
-    const ammoCur = (sheet.weapState && sheet.weapState[idx] && sheet.weapState[idx].ammoCur!=null)
-      ? sheet.weapState[idx].ammoCur
-      : (ammoEditable ? (+w.ammo.cur||0) : null);
-    // Build cells as static spans
-    row.innerHTML = `
-      <div class="cell">${escapeHtml(String(w.name||''))}</div>
-      <div class="cell">${escapeHtml(String(w.type||''))}</div>
-      <div class="cell">${escapeAttr(w.dmg===''? '' : String(w.dmg))}</div>
-      <div class="cell">${escapeAttr(String(w.heat||0))}</div>
-      <div class="cell">${escapeAttr(String(w.min||''))}</div>
-      <div class="cell">${escapeAttr(String(w.s||''))}</div>
-      <div class="cell">${escapeAttr(String(w.m||''))}</div>
-      <div class="cell">${escapeAttr(String(w.l||''))}</div>
-      <div class="cell">${ammoEditable ? `<input class="weapAmmo" data-idx="${idx}" type="number" min="0" value="${ammoCur ?? ''}"> / ${w.ammo.max}` : (isMelee ? '∞' : '—')}</div>
-      <div class="cell"><input class="weapEnabled" data-idx="${idx}" type="checkbox" ${on ? 'checked' : ''}></div>
-    `;
-    // Persist ammo/on edits
-    const ammoInp = row.querySelector('.weapAmmo');
-    if (ammoInp){
-      ammoInp.addEventListener('input', ()=>{
-        const i = +ammoInp.dataset.idx;
-        sheet.weapState = sheet.weapState || {};
-        sheet.weapState[i] = sheet.weapState[i] || {};
-        sheet.weapState[i].ammoCur = (ammoInp.value===''? null : Math.max(0, +ammoInp.value||0));
-        scheduleSave();
-      });
-    }
-    const onChk = row.querySelector('.weapEnabled');
-    if (onChk){
-      onChk.addEventListener('input', ()=>{
-        const i = +onChk.dataset.idx;
-        sheet.weapState = sheet.weapState || {};
-        sheet.weapState[i] = sheet.weapState[i] || {};
-        sheet.weapState[i].on = !!onChk.checked;
-        row.classList.toggle('tr-dim', !onChk.checked);
-        scheduleSave();
-      });
-      row.classList.toggle('tr-dim', !on);
-    }
-    weapRows.appendChild(row);
-  };
-
-  // Melee first
-  (sheet.weapons || []).filter(w => (w.type||'').toLowerCase()==='melee').forEach((m,i)=> addRow(m, i, true));
-  const base = (sheet.weapons || []).filter(w => (w.type||'').toLowerCase()==='melee').length;
-  (sheet.weapons || []).filter(w => (w.type||'').toLowerCase()!=='melee').forEach((w, i)=> addRow(w, base+i, false));
-}
-
-
-/* ---- Wiring: Add + Toggle (call once after querying elements) ---- */
-
-// Add button + Enter-to-add on any add-field
-if (wnAddBtn){
-  wnAddBtn.addEventListener('click', addWeaponFromFields);
-}
-if (wn){
-  Object.values(wn).forEach(inp=>{
-    if (!inp) return;
-    inp.addEventListener('keydown', (e)=>{
-      if(e.key==='Enter'){ e.preventDefault(); addWeaponFromFields(); }
-    });
-  });
-}
-
-// Toggle open/closed for the Add Weapon block
-if (weapToggle && weapBlock) {
-  weapToggle.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    weapBlock.classList.toggle('closed');
-  });
-
-  // Also allow clicking the header area to toggle
-  const hdr = weapBlock.querySelector('.mss84-weap__hdr');
-  if (hdr) {
-    hdr.addEventListener('click', (e) => {
-      if (e.target === weapToggle || e.target.closest('#weapToggle')) return;
-      weapBlock.classList.toggle('closed');
-    });
-  }
-}
-
-
-    /* -------------------------- Melee damage auto-calc ------------------------- */
-    
-const updateMeleeDamage = ()=>{
-  const tons  = sheet?.mech?.tonnage || 0;
-  (sheet.weapons || []).forEach(w=>{
-    if ((w.type||'').toLowerCase() !== 'melee') return;
-    const n = (w.name||'').toLowerCase();
-    if (n === 'punch'){
-      w.dmg = ceilDiv(tons, 10);
-    } else if (n === 'kick'){
-      w.dmg = ceilDiv(tons, 5);
-    } else if (n === 'charge'){
-      w.dmg = ceilDiv(tons, 10); // no run/tiles math inside sheet
-    } else if (n === 'dfa' || n === 'death from above'){
-      w.dmg = ceilDiv(tons, 5); // base from tonnage only
-    }
-  });
-  scheduleSave();
-  renderWeapons();
-};
-;
-
-    /* ------------------------------ Bindings ------------------------------ */
-    const bindField = (inp, obj, key)=>{
-      inp.addEventListener('input', ()=>{
-        obj[key] = inp.type==='number' ? clampInt(inp.value, -99, 999) : inp.value;
-        scheduleSave();
-      });
-    };
-    bindField(fPilot.name, sheet.pilot, 'name');
-    bindField(fPilot.call, sheet.pilot, 'callsign');
-    bindField(fPilot.faction, sheet.pilot, 'faction');
-    bindField(fPilot.g, sheet.pilot, 'gunnery');
-    bindField(fPilot.p, sheet.pilot, 'piloting');
-
-    bindField(fMove.stand, sheet.move, 'stand');
-    bindField(fMove.walk,  sheet.move, 'walk');
-    bindField(fMove.run,   sheet.move, 'run');
-    fMove.run.addEventListener('input', updateMeleeDamage);
-    bindField(fMove.jump,  sheet.move, 'jump');
-
-    bindField(fHeat.cur,   sheet.heat, 'current');
-    bindField(fHeat.sinks, sheet.heat, 'sinks');
-    bindField(fHeat.eff,   sheet.heat, 'effect');
-
-    if (fMech.chassis) bindField(fMech.chassis, sheet.mech, 'chassis');
-    if (fMech.variant) bindField(fMech.variant, sheet.mech, 'variant');
-    if (fMech.tons){
-      fMech.tons.addEventListener('input', ()=>{
-        let n = parseInt(fMech.tons.value,10);
-        if (!Number.isFinite(n)) n = 0;
-        n = Math.max(0, Math.min(200, n));
-        sheet.mech.tonnage = n;
-        scheduleSave();
-        updateMeleeDamage();
-      });
-    }
-
-    if (notes) notes.addEventListener('input', ()=>{ sheet.notes = notes.value; scheduleSave(); });
-    if (clearThis) clearThis.addEventListener('click', ()=>{
-      if(confirm('Clear saved sheet for this Map/Token?')){
-        remove(mapId, tokenId); sheet = blankSheet(); hydrateAll(); scheduleSave();
-        renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
-        seedDefaultKitIfNeeded();
-        seedMeleeIfNeeded();
-        updateMeleeDamage();
-      }
-    });
-
-    // hydration
+    // ---- Hydration ----
     function hydrateAll(){
       fPilot.name.value = sheet.pilot.name||'';
       fPilot.call.value = sheet.pilot.callsign||'';
@@ -1490,94 +700,158 @@ const updateMeleeDamage = ()=>{
       fPilot.p.value = sheet.pilot.piloting??5;
 
       fMove.stand.value = sheet.move.stand??0;
-      fMove.walk.value  = sheet.move.walk??4;
-      fMove.run.value   = sheet.move.run ??6;
+      fMove.walk.value  = sheet.move.walk??0;
+      fMove.run.value   = sheet.move.run ??0;
       fMove.jump.value  = sheet.move.jump??0;
 
       fHeat.cur.value   = sheet.heat.current??0;
       fHeat.sinks.value = sheet.heat.sinks??10;
       fHeat.eff.value   = sheet.heat.effect||'';
-
-      if (notes) notes.value = sheet.notes||'';
+      renderHeatBar();
 
       if (fMech.chassis) fMech.chassis.value = sheet.mech?.chassis || '';
       if (fMech.variant) fMech.variant.value = sheet.mech?.variant || '';
       if (fMech.tons)    fMech.tons.value    = sheet.mech?.tonnage ?? '';
+
+      renderBars(); renderArmor(); renderCritBoards(); renderWeapons();
     }
 
-    // demo harness
-    function changeIds(newMap, newTok){
-      mapId = newMap; tokenId = newTok;
-      sheet = load(mapId, tokenId);
-      __SHEET_BRIDGE = sheet;
-        __syncWrapIds();
-
-      hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField(); renderCritBoards(); renderWeapons();
-      seedDefaultKitIfNeeded();
-      seedMeleeIfNeeded();
-      updateMeleeDamage();
-    }
-    if (demoMap) demoMap.addEventListener('change', ()=> changeIds(demoMap.value || 'demo-map-1', tokenId));
-    if (demoTok)  demoTok.addEventListener('change', ()=> changeIds(mapId, demoTok.value || 'token-A'));
-
-// expose a rerender hook for helpers outside this closure
-function __rerenderAll(){
-  hydrateAll();
-  renderBars();
-  renderArmor();
-  renderHeatBar();
-  syncHeatEffectField();
-  renderCritBoards();
-  renderWeapons();
-}
-__RENDER_BRIDGE = __rerenderAll;
-
-
-      
-    /* -------------------------- Seeding defaults -------------------------- */
-    const seedDefaultKitIfNeeded = ()=>{
-      if (sheet && !sheet._defaultSeeded) {
-        clearAllOccupancy(sheet);
-        sheet.equipment = [];
-        DEFAULT_KIT.forEach(it => addEquipment(it.name, it.loc, it.slots));
-        sheet._defaultSeeded = true;
+    // ---- Bind user fields (non-stable) ----
+    function bindField(inp, obj, key){
+      inp.addEventListener('input', ()=>{
+        obj[key] = (inp.type==='number') ? clampInt(inp.value, -99, 999) : inp.value;
         scheduleSave();
+      });
+    }
+    bindField(fPilot.name, sheet.pilot, 'name');
+    bindField(fPilot.call, sheet.pilot, 'callsign');
+    bindField(fPilot.faction, sheet.pilot, 'faction');
+    bindField(fPilot.g, sheet.pilot, 'gunnery');
+    bindField(fPilot.p, sheet.pilot, 'piloting');
+    notes?.addEventListener('input', ()=>{ sheet.notes = notes.value; scheduleSave(); });
+
+    clearThis?.addEventListener('click', ()=>{
+      if(confirm('Clear saved sheet (user data) for this Map/Token?')){
+        remove(mapId, tokenId);
+        sheet = blankSheet();
+        hydrateAll(); scheduleSave();
       }
-    };
-    const seedMeleeIfNeeded = ()=>{
-      if (sheet && !sheet._meleeSeeded) {
-        sheet.weapons = sheet.weapons || [];
-        if (sheet.weapons.length === 0){
-          DEFAULT_MELEE.forEach(addWeaponObj);
+    });
+
+    // ---- Compiler integration ----
+    async function hydrateFromCompiler(){
+      if (!window.MSS84_COMPILER?.resolveForToken) return false;
+      try{
+        const vm = await window.MSS84_COMPILER.resolveForToken(mapId, tokenId);
+        if (!vm) return false;
+
+        // Identity
+        sheet.mech.chassis = vm.name || sheet.mech.chassis;
+        sheet.mech.variant = vm.variant || sheet.mech.variant;
+        sheet.mech.tonnage = Number(vm.tonnage||0) || sheet.mech.tonnage;
+        sheet.mech.bv      = Number(vm.bv||0)      || sheet.mech.bv;
+
+        // Movement
+        sheet.move.walk = Number(vm?.movement?.walk || 0);
+        sheet.move.run  = Number(vm?.movement?.run  || 0);
+        sheet.move.jump = Number(vm?.movement?.jump || 0);
+
+        // Heat sinks
+        const sinksRaw = (vm.heatSinks ?? 0);
+        const sinks = (typeof sinksRaw === 'string') ? (parseInt(sinksRaw,10) || 0) : (Number(sinksRaw)||0);
+        sheet.heat.sinks = sinks || sheet.heat.sinks;
+
+        // Armor max + internals (structure)
+        for(const L of LOCS){
+          const max = vm.armorMax?.[L] || { f:0, r:0 };
+          const str = Number(vm.internals?.[L] ?? 0) || 0;
+          sheet.armor[L].ext.max = Number(max.f||0);
+          if (sheet.armor[L].rear) sheet.armor[L].rear.max = Number(max.r||0);
+          sheet.armor[L].str.max = str;
+          // Initialize currents if zero
+          if (!(sheet.armor[L].ext.cur > 0))  sheet.armor[L].ext.cur  = sheet.armor[L].ext.max;
+          if (sheet.armor[L].rear && !(sheet.armor[L].rear.cur > 0)) sheet.armor[L].rear.cur = sheet.armor[L].rear.max;
+          if (!(sheet.armor[L].str.cur > 0))  sheet.armor[L].str.cur  = sheet.armor[L].str.max;
         }
-        sheet._meleeSeeded = true;
-        scheduleSave();
-      }
-    };
 
-    /* --------------------------------- init --------------------------------- */
-    hydrateAll(); renderBars(); renderArmor(); renderHeatBar(); syncHeatEffectField();
-    seedDefaultKitIfNeeded();
-    seedMeleeIfNeeded();
-    updateMeleeDamage();
-    renderCritBoards();
-    renderWeapons();
+        // Weapons (overwrite list; keep ammo.cur from existing where names match)
+        const oldByName = new Map((sheet.weapons||[]).map(w=>[String(w.name||'').toLowerCase(), w]));
+        sheet.weapons = [];
+        sheet.nextWid = 1;
+        const pushW = (src, isMelee=false)=>{
+          const name = String(src.name||'').trim();
+          const key  = name.toLowerCase();
+          const prev = oldByName.get(key);
+          const ammoMax = (isMelee ? 0 : (Number(src.ammoMax??0)||0));
+          const w = {
+            wid: sheet.nextWid++,
+            name,
+            type: src.type || (isMelee?'Melee':''),
+            dmg:  (src.damage===0 || src.damage) ? src.damage : '',
+            heat: Number(src.heat||0) || 0,
+            min:  Number(src?.range?.min    || 0) || 0,
+            s:    Number(src?.range?.short  || 0) || 0,
+            m:    Number(src?.range?.medium || 0) || 0,
+            l:    Number(src?.range?.long   || 0) || 0,
+            ammo: { cur: prev?.ammo?.cur ?? (isMelee?0:ammoMax), max: ammoMax },
+            _on:  prev?._on ?? (src.enabledDefault!==false)
+          };
+          sheet.weapons.push(w);
+        };
+        (Array.isArray(vm.melee)?vm.melee:[]).forEach(m=> pushW(m, true));
+        (Array.isArray(vm.weapons)?vm.weapons:[]).forEach(w=> pushW(w, false));
+
+        // Equipment (read-only; pack labels to crit boards)
+        clearAllOccupancy(sheet);
+        packEquipmentFromCompiler(vm, sheet);
+
+        sheet._seededFromCompiler = true;
+        save(mapId, tokenId, sheet);
+        hydrateAll();
+        return true;
+      }catch(e){
+        console.warn('[SHEET] Compiler resolve failed:', e);
+        return false;
+      }
+    }
+
+    // Legacy loader button (optional fallback)
+    btnLoad?.addEventListener('click', async ()=>{
+      try{
+        if (window.__SHEET_LEGACY_LOAD) {
+          await window.__SHEET_LEGACY_LOAD(mapId, tokenId, sheet, (d)=>{ sheet=d; });
+          hydrateAll();
+        } else {
+          alert('Legacy loader not wired in this build.');
+        }
+      }catch(e){
+        console.warn('Legacy load failed', e);
+      }
+    });
+
+    // initial hydrate
+    hydrateAll();
 
     // API
     const api = {
       open, close, toggle,
-      setIds: (map, tok)=> changeIds(map, tok),
+      setIds: (map, tok)=>{ mapId = map; tokenId = tok; sheet = load(mapId, tokenId); hydrateAll(); },
       getIds: ()=>({ mapId, tokenId }),
-      load: ()=> load(mapId, tokenId),
-      saveNow: ()=> save(mapId, tokenId, sheet),
-      clearToken: ()=> remove(mapId, tokenId)
+      refresh: async ()=>{ await hydrateFromCompiler(); },
+      _debug_getSheet: ()=>sheet
     };
 
-    // Also expose legacy global for convenience
+    // expose global convenience
     window.MSS84_SHEET = api;
+
+    // Try immediate compiler hydrate on first mount
+    (async ()=>{ await hydrateFromCompiler(); })();
 
     return api;
   }
 
   return { mount };
 })();
+
+// Optional legacy loader bridge (wired by apps that keep the old JSON path).
+// Set window.__SHEET_LEGACY_LOAD = async (mapId, tokenId, sheet, replaceSheetCb) => { ... }
