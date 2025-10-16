@@ -458,11 +458,13 @@
     <textarea id="io" rows="8" style="display:none" aria-hidden="true"></textarea>
   </div>
 
-  <!-- ==== Load order ==== -->
-  <script src="script.js"></script>
-  <script type="module" src="compiler.js"></script>
-  <script type="module" src="sheet.js"></script>
-  <script type="module" src="network.js"></script>
+<!-- Core runtime first (non-module) -->
+<script src="script.js"></script>
+
+<!-- Modules (with exports) -->
+<script type="module" src="compiler.js"></script>
+<script type="module" src="sheet.js"></script>
+<script type="module" src="network.js"></script>
   
   
 
