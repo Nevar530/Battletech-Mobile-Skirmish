@@ -596,15 +596,16 @@ function attachReceiver() {
      Source on GitHub
   </a>
 </footer>
+  
 <!-- === Sheet Module Mount === -->
-<script type="module">
-  import { Sheet } from './modules/sheet.js';
-  // wait until DOM is ready
+<script src="./modules/sheet.js"></script>
+<script>
   document.addEventListener('DOMContentLoaded', () => {
-    const sheet = Sheet.mount(document.body);   // mounts CLOSED
-    window.sheet = sheet;                       // optional for debugging
-    window.MSS84_SHEET = sheet;                 // <— expose under the name script.js expects
-
+    const sheet = window.Sheet.mount(document.body);   // mounts CLOSED
+    window.sheet = sheet;                              // optional debug
+    window.MSS84_SHEET = sheet;                        // what script.js expects
   });
+</script>
+
 </body>
 </html>
