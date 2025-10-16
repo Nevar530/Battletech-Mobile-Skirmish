@@ -128,10 +128,17 @@ window.Sheet = (() => {
   position:relative; padding:8px 6px; text-align:center; font-size:12px; border:1px solid #2a2a2a;
   background:#151515; border-radius:8px; user-select:none; min-height:36px; color:#cfcfcf;
   display:flex; align-items:center; justify-content:center;
+  overflow:hidden;           /* NEW: allow inner text to clip */
+  min-width:0;               /* NEW: enable flex shrink for ellipsis */
 }
 .crit-slot .snum{ position:absolute; top:2px; left:6px; font-size:10px; color:#888; }
 .crit-slot .stag{
-  max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  flex:1;                    /* NEW: take available space */
+  min-width:0;               /* NEW: allow shrink */
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
   opacity:.95;
 }
 .crit-slot.unocc{ opacity:.35; filter:saturate(.7); }
@@ -144,6 +151,7 @@ window.Sheet = (() => {
   display:none; /* disabled: we don't support removing compiler-driven items */
 }
 .crit-grid{ grid-auto-rows:36px; }
+.crit-grid > *{ min-width:0; }  /* NEW */
 
 /* Heat */
 .mss84-heat{ width:100%; }
@@ -162,35 +170,70 @@ window.Sheet = (() => {
 .mss84-seven{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; gap:0px; }
 .mss84-heatf{ display:grid; grid-template-columns: 2.7fr .9fr .9fr; gap:2px; }
 
-/* Weapons (read-only stat row w/ ammo current editable) */
-.weap-list {
-  border: 1px dashed #2a2a2a;
-  border-radius: 10px;
-  padding: 10px;
-  background: #101010;
+/* ===== WEAPONS TAB (5 cols x 2 rows per weapon, read-only except Ammo Current) ===== */
+.weap-list{
+  border:1px dashed #2a2a2a;
+  border-radius:10px;
+  padding:10px;
+  background:#101010;
 }
-.weap-head, .weap-row {
-  display: grid;
-  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr .6fr .6fr .6fr .8fr .5fr;
-  gap: 6px;
-  align-items: center;
-  width: 100%;
+
+/* Header + rows use 5 columns (Name | Type | Dmg | Heat | Min) on row 1,
+   then 5 more on row 2 (Short | Med | Long | Ammo Max | Ammo Current) */
+.weap-head,
+.weap-row{
+  display:grid;
+  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr; /* 5 columns */
+  grid-auto-rows:auto;
+  gap:6px 8px;
+  align-items:center;
+  width:100%;
 }
-.weap-head { color:#aaa; font-size:12px; margin-bottom:6px; }
-.weap-row {
+
+/* Two-row placement: first 5 items = row 1, next 5 items = row 2 */
+.weap-head > *:nth-child(-n+5),
+.weap-row  > *:nth-child(-n+5){ grid-row:1; }
+.weap-head > *:nth-child(n+6),
+.weap-row  > *:nth-child(n+6){ grid-row:2; }
+
+.weap-head{ color:#aaa; font-size:12px; margin-bottom:6px; }
+.weap-row{
   background:#141414; border:1px solid #1f1f1f; border-radius:8px; padding:8px 10px; margin-bottom:6px;
 }
+
+/* Let grid children shrink so ellipsis works */
+.weap-head > *, .weap-row > *{ min-width:0; }
+
+/* Truncate long names in the first cell */
+.weap-row .w-name,
+.weap-head .w-name,
+.weap-row > :nth-child(1),
+.weap-head > :nth-child(1){
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+
+/* Center numeric fields and make them fill their cell */
+.weap-row input[type="number"],
+.weap-row input[type="text"][data-num],
+.weap-head input[type="number"]{
+  width:100%; text-align:center;
+}
+
+/* Read-only: everything except Ammo Current (assumed 10th cell / data-k="ammo.cur") */
 .weap-row.readonly input[type="text"],
-.weap-row.readonly input[type="number"][data-k="ammo.max"],
 .weap-row.readonly input[type="number"][data-k="heat"],
 .weap-row.readonly input[type="number"][data-k="min"],
 .weap-row.readonly input[type="number"][data-k="s"],
 .weap-row.readonly input[type="number"][data-k="m"],
-.weap-row.readonly input[type="number"][data-k="l"]{
+.weap-row.readonly input[type="number"][data-k="l"],
+.weap-row.readonly input[type="number"][data-k="ammo.max"]{
   pointer-events:none; opacity:.85;
 }
-.weap-del{ display:none; } /* no deletes for compiler weapons */
-.weap-enabled{ justify-self:center; }
+
+/* Keep these behaviors */
+.weap-del{ display:none; }          /* no deletes for compiler weapons */
+.weap-enabled{ justify-self:center; } /* if you show an enabled checkbox */
+
 `;
 
   const PANEL_HTML = `
