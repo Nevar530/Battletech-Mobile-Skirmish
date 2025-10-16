@@ -37,7 +37,7 @@
 // Fallback: If compiler resolution fails, you can still click "Load from JSON"
 //           to resolve statics from /data/manifest.json + mech JSON (legacy path).
 //
-export const Sheet = (() => {
+window.Sheet = (() => {
   const CSS_ID = 'mss84-sheet-styles';
   const CSS = `
 :root{
