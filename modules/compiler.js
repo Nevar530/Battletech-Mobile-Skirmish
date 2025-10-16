@@ -117,7 +117,7 @@
     if (entry.url)  return String(entry.url);
     if (entry.path) return String(entry.path);
     // Some manifests may store folder + filename parts
-    if (entry.folder && entry.file) return `${entry.folder.replace(/\\/$/,"")}/${entry.file}`;
+    if (entry.folder && entry.file) return `${entry.folder.replace(/\/$/,"")}/${entry.file}`;
     return null;
   }
 
