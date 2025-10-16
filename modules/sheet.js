@@ -407,9 +407,10 @@ window.Sheet = (() => {
     const QS  = (s, r=root) => r.querySelector(s);
     const QSA = (s, r=root) => Array.from(r.querySelectorAll(s));
 
-    let md = 'local';
+    let mapId = 'local';
     let tokenId = 'token-A';
-    let sheet = load(md, tokenId);
+    let sheet = load(mapId, tokenId);
+
 
     // Elements
     const wrap      = QS('#sheetWrap');
@@ -456,7 +457,7 @@ window.Sheet = (() => {
 
     // save debounce
     let tSave=null;
-    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(md, tokenId, sheet), 200); };
+    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(mapId, tokenId, sheet), 200); };
     window.pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
 
     // ---- Heat ----
