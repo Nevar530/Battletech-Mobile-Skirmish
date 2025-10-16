@@ -2179,7 +2179,13 @@ async function addMechFromForm(){
 
   const id = addTokenAtViewCenter(tokenLabel, colorIndex);   // token shows short code
   mechMeta.set(id, { name: displayName, model, pilot, team });
-
+// Map this token to a mech reference for the compiler (per map & token)
+try {
+  const mechRef = model || displayName || tokenLabel || '';
+  if (mechRef) {
+    localStorage.setItem(`mss84:token:${CURRENT_MAP_ID}:${id}:mechRef`, mechRef);
+  }
+} catch {}
   renderMechList();
   renderInit();
   // NEW: pre-seed this token's sheet from mech JSON (static fields)
@@ -2250,6 +2256,19 @@ if (mechList) mechList.addEventListener('click', (e)=>{
   // Open the MSS:84 Sheet module for this mech’s token
   // (MSS84_SHEET is set by the module on mount)
   if (window.MSS84_SHEET) {
+    // Ensure the compiler has a mechRef for this token before opening the sheet
+try {
+  const meta = mechMeta.get(id) || {};
+  const mechRef = meta.model || meta.name || tok.label || '';
+  if (mechRef) {
+    localStorage.setItem(`mss84:token:${CURRENT_MAP_ID}:${id}:mechRef`, mechRef);
+  }
+} catch {}
+
+MSS84_SHEET.setIds(CURRENT_MAP_ID, id);
+MSS84_SHEET.refresh();    // force the compiler hydrate now that mechRef exists
+MSS84_SHEET.open();
+
     MSS84_SHEET.setIds(CURRENT_MAP_ID, id);
     MSS84_SHEET.open();
   }
@@ -3039,6 +3058,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
