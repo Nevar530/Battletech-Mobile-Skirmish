@@ -84,32 +84,91 @@
     return BVDB;
   }
 
-  function manifestFind(mechRef, manifest) {
-    if (!mechRef) return null;
-    const key = normKey(mechRef);
+function manifestFind(mechRef, manifest) {
+  if (!mechRef) return null;
 
-    // Case 1: object with "mechs" array
-    if (manifest && Array.isArray(manifest.mechs)) {
+  // Normalize incoming ref (e.g., "AWS-8R", "Archer AWS-8R", id, key, url-like, etc.)
+  const refKey = normKey(mechRef);                    // "aws 8r"
+  const looksLikeVariantOnly = /^[A-Za-z]{2,4}\s?\-?\s?\d+[A-Za-z]?$/.test(mechRef);
+
+  // ---- helper to produce candidate keys for a manifest entry
+  const entryKeys = (m) => {
+    const name    = normKey(m.name    || m.chassis || "");
+    const variant = normKey(m.variant || m.model   || "");
+    const idk     = normKey(m.id || m.key || "");
+    const simple  = new Set();
+
+    // Common ids
+    if (idk)     simple.add(idk);
+    if (name)    simple.add(name);
+    if (variant) simple.add(variant);           // <-- enables matching "AWS-8R" directly
+    if (name && variant) {
+      simple.add(`${name} ${variant}`);         // "archer aws 8r"
+      simple.add(`${variant} ${name}`);         // tolerate flipped inputs
+    }
+    // Some manifests store path-y keys; include raw if present
+    if (m.path) simple.add(normKey(String(m.path)));
+    if (m.url)  simple.add(normKey(String(m.url)));
+
+    return simple;
+  };
+
+  // ---- Case 1: object with "mechs" array
+  if (manifest && Array.isArray(manifest.mechs)) {
+    // Exact key match first
+    for (const m of manifest.mechs) {
+      const keys = entryKeys(m);
+      if (keys.has(refKey)) return m;
+    }
+    // If the ref "looks like" a variant (e.g., "AWS-8R"), match by variant alone
+    if (looksLikeVariantOnly) {
       for (const m of manifest.mechs) {
-        const id  = normKey(m.id || m.key || m.name || "");
-        if (id && id === key) return m;
+        const v = normKey(m.variant || m.model || "");
+        if (v && v === refKey) return m;
       }
     }
-    // Case 2: flat object map { key: path }
-    if (manifest && !Array.isArray(manifest)) {
-      for (const k of Object.keys(manifest)) {
-        if (normKey(k) === key) return { id: k, path: manifest[k], ...((typeof manifest[k] === "object") ? manifest[k] : {}) };
-      }
-    }
-    // Case 3: array of entries
-    if (Array.isArray(manifest)) {
-      for (const m of manifest) {
-        const id = normKey(m.id || m.key || m.name || "");
-        if (id && id === key) return m;
-      }
-    }
-    return null;
   }
+
+  // ---- Case 2: flat object map { key: pathOrEntry }
+  if (manifest && !Array.isArray(manifest) && !Array.isArray(manifest.mechs)) {
+    // direct key hit
+    for (const k of Object.keys(manifest)) {
+      if (normKey(k) === refKey) {
+        const v = manifest[k];
+        // Normalize to an entry with id + path/url
+        if (v && typeof v === "object") return { id: k, ...v };
+        return { id: k, path: v };
+      }
+    }
+    // if values are entry-like objects, scan them for variant-only match
+    if (looksLikeVariantOnly) {
+      for (const k of Object.keys(manifest)) {
+        const v = manifest[k];
+        if (v && typeof v === "object") {
+          const vkey = normKey(v.variant || v.model || "");
+          if (vkey && vkey === refKey) return { id: k, ...v };
+        }
+      }
+    }
+  }
+
+  // ---- Case 3: array of entries
+  if (Array.isArray(manifest)) {
+    for (const m of manifest) {
+      const keys = entryKeys(m || {});
+      if (keys.has(refKey)) return m;
+    }
+    if (looksLikeVariantOnly) {
+      for (const m of manifest) {
+        const v = normKey(m?.variant || m?.model || "");
+        if (v && v === refKey) return m;
+      }
+    }
+  }
+
+  return null;
+}
+
 
   function mechPathFromManifestEntry(entry) {
     if (!entry) return null;
