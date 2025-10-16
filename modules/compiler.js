@@ -33,7 +33,12 @@
   // Helpers
   const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   const asNum = (v, d=0) => (Number.isFinite(+v) ? +v : d);
-  const normKey = (s) => String(s || "").toLowerCase().replace(/[\s._\\-\\/]+/g, " ").trim();
+  const normKey = (s) =>
+  String(s || "")
+    .toLowerCase()
+    .replace(/[\s._\-\/]+/g, " ")  // spaces, dot, underscore, hyphen, slash
+    .trim();
+
 
   async function fetchJSON(url) {
     const res = await fetch(url, { cache: "no-store" });
