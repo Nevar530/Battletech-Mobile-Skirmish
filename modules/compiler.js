@@ -295,10 +295,55 @@ if (/^(?:https?:\/\/|\/\/)/i.test(mechRef) || /\.json$/i.test(mechRef)) {
 
   // ===== Public API =====
   API.resolveForToken = async (mapId, tokenId) => {
-    const mechRef = getStoredMechRef(mapId, tokenId);
-    if (!mechRef) throw new Error("No mech reference for token");
-    const raw = await loadMechByRef(mechRef);
-    return compile(raw);
+    // Accept richer shapes from the host app
+    const ref = getStoredMechRef(mapId, tokenId);
+
+    // 1) If the host gave us the mech JSON directly
+    if (ref && typeof ref === 'object' && !Array.isArray(ref) && ref.json) {
+      const raw = ref.json;
+      return compile(raw);
+    }
+
+    // 2) If the host gave us a direct url/path
+    if (ref && typeof ref === 'object' && (ref.url || ref.mechPath)) {
+      try {
+        const url = new URL(ref.url || ref.mechPath, BASE).href;
+        const raw = await fetchJSON(url);
+        return compile(raw);
+      } catch (e) {
+        console.warn('[MSS84_COMPILER] direct url/path resolve failed', e);
+        return null;
+      }
+    }
+
+    // 3) If the host gave us a key-ish field (mechRef/mechKey/mechId/name)
+    if (ref && typeof ref === 'object') {
+      const keyish =
+        ref.mechRef || ref.mechKey || ref.mechId || ref.key || ref.id || ref.name || null;
+      if (keyish) {
+        try {
+          const raw = await loadMechByRef(String(keyish));
+          return compile(raw);
+        } catch (e) {
+          console.warn('[MSS84_COMPILER] key resolve failed', e);
+          return null;
+        }
+      }
+    }
+
+    // 4) If the host returned a plain string (key or url)
+    if (typeof ref === 'string' && ref.trim()) {
+      try {
+        const raw = await loadMechByRef(ref.trim());
+        return compile(raw);
+      } catch (e) {
+        console.warn('[MSS84_COMPILER] string resolve failed', e);
+        return null;
+      }
+    }
+
+    // Nothing we can use — DO NOT THROW. Let the sheet stay up.
+    return null;
   };
 
   API.resolveFromRef = async (mechRef) => {
