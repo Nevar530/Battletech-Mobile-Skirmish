@@ -407,9 +407,9 @@ window.Sheet = (() => {
     const QS  = (s, r=root) => r.querySelector(s);
     const QSA = (s, r=root) => Array.from(r.querySelectorAll(s));
 
-    let mapId = 'local';
+    let md = 'local';
     let tokenId = 'token-A';
-    let sheet = load(mapId, tokenId);
+    let sheet = load(md, tokenId);
 
     // Elements
     const wrap      = QS('#sheetWrap');
@@ -456,7 +456,7 @@ window.Sheet = (() => {
 
     // save debounce
     let tSave=null;
-    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(mapId, tokenId, sheet), 200); };
+    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(md, tokenId, sheet), 200); };
     window.pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
 
     // ---- Heat ----
@@ -841,6 +841,54 @@ window.Sheet = (() => {
       _debug_getSheet: ()=>sheet
     };
 
+// --- NEW: ensureTokenMechRef ------------------------------
+async function ensureTokenMechRef(mapId, tokenId, tokenMeta = {}) {
+  // Your internal caches – adjust names if different:
+  // mechsByToken: Map<string /*mapId*/ , Map<string /*tokenId*/, MechObject>>
+  // tokensByMap:  Map<string /*mapId*/, Map<string /*tokenId*/, TokenObject>>
+  const byMap = mechsByToken.get(mapId) || new Map();
+  if (byMap.has(tokenId)) return byMap.get(tokenId);
+
+  // Try to infer a mech source
+  const t = (tokensByMap.get(mapId) || new Map()).get(tokenId) || {};
+  const meta = { ...(t.meta || {}), ...(tokenMeta || {}) };
+
+  // Priority 1: explicit mech JSON path saved earlier for this token
+  let mechPath = meta.mechPath || localStorage.getItem(`mss84:mechPath:${tokenId}`);
+
+  // Priority 2: a mech id we can resolve via your manifest/lookup
+  const mechId = meta.mechId || meta.id || meta.variant || meta.chassis;
+
+  // If we still don't have a path, try recover via "last loaded" path
+  if (!mechPath) mechPath = localStorage.getItem('trs80:lastMechPath');
+
+  if (!mechPath && !mechId) return null; // nothing to bind yet
+
+  let mech = null;
+
+  // Resolve by path
+  if (mechPath) {
+    const res = await fetch(mechPath, { cache: 'no-store' });
+    if (res.ok) mech = await res.json();
+  }
+
+  // (Optional) Resolve by id if you have a manifest/lookup function:
+  if (!mech && mechId && typeof lookupMechById === 'function') {
+    mech = await lookupMechById(mechId); // must return mech JSON or null
+  }
+
+  if (!mech) return null;
+
+  byMap.set(tokenId, mech);
+  mechsByToken.set(mapId, byMap);
+
+  // Remember the path for next time if present
+  if (mechPath) localStorage.setItem(`mss84:mechPath:${tokenId}`, mechPath);
+
+  return mech;
+}
+
+    
     // expose global convenience
     window.MSS84_SHEET = api;
 
