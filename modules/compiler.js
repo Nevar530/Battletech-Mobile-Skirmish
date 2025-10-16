@@ -124,10 +124,10 @@
   async function loadMechByRef(mechRef) {
     if (!mechRef) throw new Error("No mechRef");
     // If mechRef looks like a URL or ends with .json, load directly
-    if (/^https?:\\/\\//i.test(mechRef) || /\\.json$/i.test(mechRef)) {
-      const url = new URL(mechRef, BASE).href;
-      return fetchJSON(url);
-    }
+if (/^(?:https?:\/\/|\/\/)/i.test(mechRef) || /\.json$/i.test(mechRef)) {
+  const url = new URL(mechRef, BASE).href;
+  return fetchJSON(url);
+}
     const manifest = await ensureManifest();
     const entry = manifestFind(mechRef, manifest);
     if (!entry) throw new Error(`Manifest could not resolve "${mechRef}"`);
