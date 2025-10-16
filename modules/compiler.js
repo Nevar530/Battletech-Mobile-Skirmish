@@ -180,21 +180,121 @@ function manifestFind(mechRef, manifest) {
     return null;
   }
 
-  async function loadMechByRef(mechRef) {
-    if (!mechRef) throw new Error("No mechRef");
-    // If mechRef looks like a URL or ends with .json, load directly
-if (/^(?:https?:\/\/|\/\/)/i.test(mechRef) || /\.json$/i.test(mechRef)) {
-  const url = new URL(mechRef, BASE).href;
-  return fetchJSON(url);
+// --- NEW: flatten any manifest shape into a simple entries array -------------
+function flattenManifestEntries(manifest) {
+  const out = [];
+
+  const pushEntry = (maybe, idKey) => {
+    if (!maybe) return;
+    // normalize common shapes into a single entry object
+    if (typeof maybe === 'string') {
+      out.push({ id: idKey || null, path: maybe });
+      return;
+    }
+    if (typeof maybe === 'object') {
+      const e = { ...maybe };
+      if (idKey && !e.id && !e.key) e.id = idKey;
+      out.push(e);
+    }
+  };
+
+  const walk = (node, keyHint) => {
+    if (!node) return;
+    if (Array.isArray(node)) {
+      node.forEach(it => walk(it, null));
+      return;
+    }
+    if (typeof node === 'object') {
+      // entry-like (has any of name/variant/path/url/chassis/model)
+      const looksEntry =
+        ('name' in node) || ('variant' in node) || ('path' in node) ||
+        ('url' in node)  || ('chassis' in node) || ('model' in node) ||
+        ('file' in node) || ('folder' in node);
+      if (looksEntry) {
+        pushEntry(node, keyHint);
+        return;
+      }
+      // container/object map – walk children
+      for (const k of Object.keys(node)) {
+        const v = node[k];
+        // if value is a string or entry-like object, push immediately
+        if (typeof v === 'string') {
+          pushEntry(v, k);
+        } else if (v && typeof v === 'object' && (
+          'name' in v || 'variant' in v || 'path' in v || 'url' in v ||
+          'chassis' in v || 'model' in v || 'file' in v || 'folder' in v
+        )) {
+          pushEntry(v, k);
+        } else {
+          walk(v, k);
+        }
+      }
+      return;
+    }
+    // primitives ignored
+  };
+
+  // top-level common keys
+  if (manifest && typeof manifest === 'object' && Array.isArray(manifest.mechs)) {
+    manifest.mechs.forEach(m => pushEntry(m, null));
+  } else {
+    walk(manifest, null);
+  }
+
+  return out;
 }
-    const manifest = await ensureManifest();
-    const entry = manifestFind(mechRef, manifest);
-    if (!entry) throw new Error(`Manifest could not resolve "${mechRef}"`);
-    const rel = mechPathFromManifestEntry(entry);
-    if (!rel) throw new Error(`Manifest entry for "${mechRef}" missing path/url`);
-    const url = new URL(rel, BASE).href;
+
+   
+async function loadMechByRef(mechRef) {
+  if (!mechRef) throw new Error("No mechRef");
+
+  // Direct URL or explicit JSON file path → fetch immediately
+  if (/^(?:https?:\/\/|\/\/)/i.test(mechRef) || /\.json$/i.test(mechRef)) {
+    const url = new URL(mechRef, BASE).href;
     return fetchJSON(url);
   }
+
+  const manifest = await ensureManifest();
+  // First, try the fast path (existing matcher).
+  let entry = manifestFind(mechRef, manifest);
+
+  if (!entry) {
+    // Fallback: flatten ANY manifest shape (bucketed/nested maps/arrays)
+    const flat = flattenManifestEntries(manifest);
+    const want = normKey(mechRef);                 // e.g. "aws 8r"
+    const isVariantLike =
+      /^[a-z]{2,4}\s?\d{1,3}[a-z]?$/i.test(want) || /^[a-z]{2,4}\s?\-\s?\d{1,3}[a-z]?$/i.test(mechRef);
+
+    // Try strict key hits across common fields
+    entry = flat.find(e => {
+      const name    = normKey(e.name    || e.chassis || "");
+      const variant = normKey(e.variant || e.model   || "");
+      const idk     = normKey(e.id || e.key || "");
+      const path    = normKey(String(e.path || e.url || ""));
+      return (
+        idk === want ||
+        path === want ||
+        name === want ||
+        variant === want ||
+        (name && variant && (`${name} ${variant}` === want || `${variant} ${name}` === want))
+      );
+    });
+
+    // If the ref is variant-only like "AWS-8R", allow variant-only match as a last resort
+    if (!entry && isVariantLike) {
+      entry = flat.find(e => normKey(e.variant || e.model || "") === want);
+    }
+  }
+
+  if (!entry) throw new Error(`Manifest could not resolve "${mechRef}"`);
+
+  const rel = mechPathFromManifestEntry(entry);
+  if (!rel) throw new Error(`Manifest entry for "${mechRef}" missing path/url`);
+
+  const url = new URL(rel, BASE).href;
+  return fetchJSON(url);
+}
+
 
   function enrichWeapons(mechWeaps, catalog) {
     const byKey = new Map();
