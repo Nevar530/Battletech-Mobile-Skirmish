@@ -170,15 +170,33 @@ function manifestFind(mechRef, manifest) {
 }
 
 
-  function mechPathFromManifestEntry(entry) {
-    if (!entry) return null;
-    // Prefer explicit url, then path; both may be relative to /data/
-    if (entry.url)  return String(entry.url);
-    if (entry.path) return String(entry.path);
-    // Some manifests may store folder + filename parts
-    if (entry.folder && entry.file) return `${entry.folder.replace(/\/$/,"")}/${entry.file}`;
-    return null;
-  }
+function mechPathFromManifestEntry(entry) {
+  if (!entry) return null;
+
+  // Prefer explicit url
+  if (entry.url) return String(entry.url);
+
+  // Next, any 'path' or 'folder'+'file'
+  let rel = entry.path
+    ? String(entry.path)
+    : (entry.folder && entry.file)
+      ? `${String(entry.folder).replace(/\/$/,"")}/${String(entry.file)}`
+      : null;
+
+  if (!rel) return null;
+
+  // If already absolute, keep as-is
+  if (/^(?:https?:)?\/\//i.test(rel)) return rel;
+
+  // Normalize: strip leading ./ or /
+  rel = rel.replace(/^\.?\/*/, "");
+
+  // Our site keeps mech JSONs under /data/** — ensure the prefix
+  if (!rel.startsWith("data/")) rel = `data/${rel}`;
+
+  return rel;
+}
+
 
 // --- NEW: flatten any manifest shape into a simple entries array -------------
 function flattenManifestEntries(manifest) {
@@ -248,11 +266,17 @@ function flattenManifestEntries(manifest) {
 async function loadMechByRef(mechRef) {
   if (!mechRef) throw new Error("No mechRef");
 
-  // Direct URL or explicit JSON file path → fetch immediately
-  if (/^(?:https?:\/\/|\/\/)/i.test(mechRef) || /\.json$/i.test(mechRef)) {
-    const url = new URL(mechRef, BASE).href;
-    return fetchJSON(url);
-  }
+// Direct URL or JSON-ish relative file
+if (/^(?:https?:\/\/|\/\/)/i.test(mechRef)) {
+  const url = new URL(mechRef, BASE).href;
+  return fetchJSON(url);
+}
+if (/\.json$/i.test(mechRef)) {
+  let rel = String(mechRef).replace(/^\.?\/*/, "");
+  if (!rel.startsWith("data/")) rel = `data/${rel}`;
+  return fetchJSON(dataURL(rel));
+}
+
 
   const manifest = await ensureManifest();
   // First, try the fast path (existing matcher).
@@ -291,8 +315,8 @@ async function loadMechByRef(mechRef) {
   const rel = mechPathFromManifestEntry(entry);
   if (!rel) throw new Error(`Manifest entry for "${mechRef}" missing path/url`);
 
-  const url = new URL(rel, BASE).href;
-  return fetchJSON(url);
+return fetchJSON(dataURL(rel));
+
 }
 
 
