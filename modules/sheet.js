@@ -510,4 +510,6 @@
   API.resetUserState = () => { USER = defaultUserState(); applyUserState(); saveUserStateSoon(); };
 
   window.MSS84_SHEET = API;
+export const Sheet = window.MSS84_SHEET;
+export default window.MSS84_SHEET;
 })();
