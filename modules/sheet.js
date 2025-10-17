@@ -170,57 +170,39 @@ window.Sheet = (() => {
 .mss84-seven{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; gap:0px; }
 .mss84-heatf{ display:grid; grid-template-columns: 2.7fr .9fr .9fr; gap:2px; }
 
-/* ===== WEAPONS TAB (5 cols x 2 rows per weapon, read-only except Ammo Current) ===== */
+/* ===== WEAPONS TAB (5×2 per weapon; top-right Ammo Cur, bottom-right Disabled) ===== */
 .weap-list{
-  border:1px dashed #2a2a2a;
-  border-radius:10px;
-  padding:10px;
-  background:#101010;
+  border:1px dashed #2a2a2a; border-radius:10px; padding:10px; background:#101010;
 }
-
-/* Header + rows use 5 columns (Name | Type | Dmg | Heat | Min) on row 1,
-   then 5 more on row 2 (Short | Med | Long | Ammo Max | Ammo Current) */
-.weap-head,
-.weap-row{
+.weap-head, .weap-row{
   display:grid;
-  grid-template-columns: 1.2fr .9fr .6fr .6fr .6fr; /* 5 columns */
+  grid-template-columns: 1.2fr .9fr .6fr .6fr .8fr; /* Name | Type | DMG | HEAT | (Ammo Cur / Ammo Max+Disabled) */
   grid-auto-rows:auto;
-  gap:6px 8px;
-  align-items:center;
-  width:100%;
+  gap:6px 8px; align-items:center; width:100%;
 }
+/* two-row placement: first 5 cells → row 1, next 5 cells → row 2 */
+.weap-head > *:nth-child(-n+5), .weap-row > *:nth-child(-n+5){ grid-row:1; }
+.weap-head > *:nth-child(n+6),  .weap-row > *:nth-child(n+6){  grid-row:2; }
 
-/* Two-row placement: first 5 items = row 1, next 5 items = row 2 */
-.weap-head > *:nth-child(-n+5),
-.weap-row  > *:nth-child(-n+5){ grid-row:1; }
-.weap-head > *:nth-child(n+6),
-.weap-row  > *:nth-child(n+6){ grid-row:2; }
+/* Position the 11th child (Disabled toggle) at row 2, col 5, right-aligned */
+.weap-row  > *:nth-child(11){ grid-row:2; grid-column:5; justify-self:end; }
+.weap-head > *:nth-child(11){ grid-row:2; grid-column:5; justify-self:end; }
 
 .weap-head{ color:#aaa; font-size:12px; margin-bottom:6px; }
 .weap-row{
   background:#141414; border:1px solid #1f1f1f; border-radius:8px; padding:8px 10px; margin-bottom:6px;
 }
-
-/* Let grid children shrink so ellipsis works */
+/* shrink children so ellipsis works */
 .weap-head > *, .weap-row > *{ min-width:0; }
+.weap-row > :nth-child(1), .weap-head > :nth-child(1){ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
-/* Truncate long names in the first cell */
-.weap-row .w-name,
-.weap-head .w-name,
-.weap-row > :nth-child(1),
-.weap-head > :nth-child(1){
-  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-}
+/* center numeric inputs */
+.weap-row input[type="number"], .weap-row input[type="text"][data-num]{ width:100%; text-align:center; }
 
-/* Center numeric fields and make them fill their cell */
-.weap-row input[type="number"],
-.weap-row input[type="text"][data-num],
-.weap-head input[type="number"]{
-  width:100%; text-align:center;
-}
-
-/* Read-only: everything except Ammo Current (assumed 10th cell / data-k="ammo.cur") */
-.weap-row.readonly input[type="text"],
+/* read-only (everything except Ammo Cur and Disabled) */
+.weap-row.readonly input[type="text"][data-k="name"],
+.weap-row.readonly input[type="text"][data-k="type"],
+.weap-row.readonly input[type="text"][data-k="dmg"],
 .weap-row.readonly input[type="number"][data-k="heat"],
 .weap-row.readonly input[type="number"][data-k="min"],
 .weap-row.readonly input[type="number"][data-k="s"],
@@ -230,9 +212,8 @@ window.Sheet = (() => {
   pointer-events:none; opacity:.85;
 }
 
-/* Keep these behaviors */
-.weap-del{ display:none; }          /* no deletes for compiler weapons */
-.weap-enabled{ justify-self:center; } /* if you show an enabled checkbox */
+.weap-del{ display:none; } /* still no deletes */
+
 
 `;
 
@@ -321,17 +302,19 @@ window.Sheet = (() => {
       <section class="mss84-sheet__panel" data-panel="weapons">
         <div class="weap-list">
           <div class="weap-head">
-            <div class="hint">NAME</div>
-            <div class="hint">TYPE</div>
-            <div class="hint">DMG</div>
-            <div class="hint">HEAT</div>
-            <div class="hint">MIN</div>
-            <div class="hint">SHORT</div>
-            <div class="hint">MED</div>
-            <div class="hint">LONG</div>
-            <div class="hint">AMMO CUR</div>
-            <div class="hint">ON</div>
-          </div>
+  <div class="hint">NAME</div>
+  <div class="hint">TYPE</div>
+  <div class="hint">DMG</div>
+  <div class="hint">HEAT</div>
+  <div class="hint">AMMO CUR</div>
+  <div class="hint">MIN</div>
+  <div class="hint">SHORT</div>
+  <div class="hint">MED</div>
+  <div class="hint">LONG</div>
+  <div class="hint">AMMO MAX</div>
+  <div class="hint">DISABLED</div>
+</div>
+
           <div id="weapRows"></div>
           <div class="hint">Weapons & ranges are compiler-driven. Change only current ammo and toggle On/Off.</div>
         </div>
@@ -754,30 +737,35 @@ const scheduleSave = () => {
         const row = document.createElement('div');
         row.className = 'weap-row readonly';
         const on = (w._on !== false); // default ON
-        row.innerHTML = `
-          <input type="text"   data-k="name" value="${escapeHtml(w.name||'')}"  title="Name" readonly>
-          <input type="text"   data-k="type" value="${escapeHtml(w.type||'')}"  title="Type" readonly>
-          <input type="text"   data-k="dmg"  value="${escapeHtml(w.dmg ?? '')}" title="Damage" readonly>
-          <input type="number" data-k="heat" value="${Number(w.heat||0)}" min="0" title="Heat" readonly>
-          <input type="number" data-k="min"  value="${Number(w.min||0)}"  min="0" title="Min" readonly>
-          <input type="number" data-k="s"    value="${Number(w.s||0)}"    min="0" title="Short" readonly>
-          <input type="number" data-k="m"    value="${Number(w.m||0)}"    min="0" title="Med" readonly>
-          <input type="number" data-k="l"    value="${Number(w.l||0)}"    min="0" title="Long" readonly>
-          <input type="number" data-k="ammo.cur" value="${Number(w?.ammo?.cur ?? 0)}" min="0" title="Ammo Current">
-          <input type="checkbox" class="weap-enabled" data-idx="${idx}" ${on?'checked':''} title="Enabled">
-        `;
-        // only current ammo is editable
-        const ammoCur = row.querySelector('input[data-k="ammo.cur"]');
-        ammoCur?.addEventListener('input', ()=>{
-          if (!w.ammo) w.ammo = {cur:0, max: Number(w?.ammo?.max ?? 0)};
-          w.ammo.cur = clampNum(ammoCur.value, 0, 999);
-          scheduleSave();
-        });
-        const en = row.querySelector('.weap-enabled');
-        en?.addEventListener('input', ()=>{
-          w._on = !!en.checked;
-          scheduleSave();
-        });
+row.innerHTML = `
+  <input type="text"   data-k="name" value="${escapeHtml(w.name||'')}"  title="Name" readonly>
+  <input type="text"   data-k="type" value="${escapeHtml(w.type||'')}"  title="Type" readonly>
+  <input type="text"   data-k="dmg"  value="${escapeHtml(w.dmg ?? '')}" title="Damage" readonly>
+  <input type="number" data-k="heat" value="${Number(w.heat||0)}" min="0" title="Heat" readonly>
+  <input type="number" data-k="ammo.cur" value="${Number(w?.ammo?.cur ?? 0)}" min="0" title="Ammo Current">
+  <input type="number" data-k="min"  value="${Number(w.min||0)}"  min="0" title="Min" readonly>
+  <input type="number" data-k="s"    value="${Number(w.s||0)}"    min="0" title="Short" readonly>
+  <input type="number" data-k="m"    value="${Number(w.m||0)}"    min="0" title="Med" readonly>
+  <input type="number" data-k="l"    value="${Number(w.l||0)}"    min="0" title="Long" readonly>
+  <input type="number" data-k="ammo.max" value="${Number(w?.ammo?.max ?? 0)}" min="0" title="Ammo Max" readonly>
+  <input type="checkbox" class="weap-disabled" data-idx="${idx}" ${w._on===false?'checked':''} title="Disabled">
+`;
+
+// current ammo editable
+const ammoCur = row.querySelector('input[data-k="ammo.cur"]');
+ammoCur?.addEventListener('input', ()=>{
+  if (!w.ammo) w.ammo = {cur:0, max: Number(w?.ammo?.max ?? 0)};
+  w.ammo.cur = clampNum(ammoCur.value, 0, 999);
+  scheduleSave();
+});
+
+// disabled toggle (invert to _on flag)
+const dis = row.querySelector('.weap-disabled');
+dis?.addEventListener('input', ()=>{
+  w._on = !dis.checked;   // unchecked = ON, checked = DISABLED
+  scheduleSave();
+});
+
         weapRows.appendChild(row);
       });
     }
