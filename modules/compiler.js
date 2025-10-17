@@ -366,6 +366,25 @@ return fetchJSON(dataURL(rel));
     ];
   }
 
+// Fallback internal structure by tonnage (standard structure)
+// Head is always 3. If source JSON lacks internals, we derive them.
+function deriveInternalsFromTonnage(tonnage) {
+  const t = Math.max(10, Math.min(100, Math.round(Number(tonnage) || 0)));
+  const ct  = Math.ceil(t / 5);   // Center Torso
+  const limb = Math.ceil(t / 10); // Side Torsos, Arms, Legs
+  return {
+    HD: 3,
+    CT: ct,
+    RT: limb,
+    LT: limb,
+    RA: limb,
+    LA: limb,
+    RL: limb,
+    LL: limb,
+  };
+}
+
+   
   function normalizeLocations(mech) {
     // Accept different source shapes; produce predictable armor/internals/equipment maps.
     const ABL = mech.armorByLocation || mech.armor || {};
@@ -435,6 +454,15 @@ return fetchJSON(dataURL(rel));
     const weapons = enrichWeapons(mech.weapons || mech.Arms || mech.armament || [], wep);
     const melee = deriveMelee(mech.tonnage ?? mech.Tonnage ?? mech.mass ?? 0);
     const locs = normalizeLocations(mech);
+
+// Ensure internals exist; if source didn’t provide them, derive from tonnage
+const ints = { ...(locs.internals || {}) };
+const sumInts = Object.values(ints).reduce((a, v) => a + (Number(v) || 0), 0);
+if (!sumInts) {
+  const derived = deriveInternalsFromTonnage(mech.tonnage ?? mech.Tonnage ?? mech.mass ?? 0);
+  Object.assign(ints, derived);
+}
+locs.internals = ints;
     const mv = mech.movement || mech.move || mech._mv || {};
     const walk = mv.walk ?? mv.Walk ?? mv.w ?? null;
     const run  = mv.run  ?? mv.Run  ?? mv.r ?? (walk!=null ? Math.ceil(Number(walk)*1.5) : null);
