@@ -214,8 +214,7 @@ window.Sheet = (() => {
 .weap-row.readonly input[type="number"][data-k="min"],
 .weap-row.readonly input[type="number"][data-k="s"],
 .weap-row.readonly input[type="number"][data-k="m"],
-.weap-row.readonly input[type="number"][data-k="l"],
-.weap-row.readonly input[type="number"][data-k="ammo.max"]{
+.weap-row.readonly input[type="number"][data-k="l"]{
   pointer-events:none; opacity:.85;
 }
 .weap-del{ display:none; }
@@ -744,6 +743,12 @@ const scheduleSave = () => {
         const row = document.createElement('div');
         row.className = 'weap-row readonly';
         const on = (w._on !== false); // default ON
+        if ((w.type === 'Melee') &&
+    (w.meta?.fromEquipment || w._scaleMelee || /(hatchet|sword|mace|axe|claw|club|punch|kick|dfa|charge)/i.test(w.name||''))) {
+  const ton = Number(sheet?.mech?.tonnage ?? sheet?.tonnage ?? 0);
+  const dmg = calcMeleeDamage(w.name, ton);
+  w.dmg = String(dmg);
+}
 row.innerHTML = `
   <!-- row 1 -->
   <input type="text"   data-k="name"  value="${escapeHtml(w.name||'')}"  title="Name"  readonly>
@@ -757,7 +762,7 @@ row.innerHTML = `
   <input type="number" data-k="s"    value="${Number(w.s||0)}"   min="0" title="Short" readonly>
   <input type="number" data-k="m"    value="${Number(w.m||0)}"   min="0" title="Med" readonly>
   <input type="number" data-k="l"    value="${Number(w.l||0)}"   min="0" title="Long" readonly>
-  <input type="number" data-k="ammo.max" value="${Number(w?.ammo?.max ?? 0)}" min="0" title="Ammo Max" readonly>
+  <input type="number" data-k="ammo.max" value="${Number(w?.ammo?.max ?? 0)}" min="0" title="Ammo Max">
   <input type="checkbox" class="weap-disabled" data-idx="${idx}" ${w._on===false?'checked':''} title="Disabled">
 `;
 
@@ -769,6 +774,38 @@ ammoCur?.addEventListener('input', ()=>{
   scheduleSave();
 });
 
+// AMMO MAX editable + clamp CUR if it exceeds MAX
+const ammoMaxEl = row.querySelector('input[data-k="ammo.max"]');
+ammoMaxEl?.addEventListener('input', ()=>{
+  if (!w.ammo) w.ammo = { cur: 0, max: 0 };
+  w.ammo.max = clampNum(ammoMaxEl.value, 0, 999);
+  // clamp current to new max
+  if (w.ammo.cur > w.ammo.max) {
+    w.ammo.cur = w.ammo.max;
+    const curEl = row.querySelector('input[data-k="ammo.cur"]');
+    if (curEl) curEl.value = w.ammo.cur;
+  }
+  scheduleSave();
+});
+
+function calcMeleeDamage(name, tonnage){
+  const t = Math.max(10, Math.min(100, Math.round(Number(tonnage)||0)));
+  const n = (name||'').toLowerCase();
+
+  // Core BT melee
+  if (n.includes('punch')) return Math.ceil(t/10);
+  if (n.includes('kick'))  return Math.ceil(t/5);
+  if (n.includes('dfa'))   return Math.ceil(t/5);
+  if (n.includes('charge'))return Math.ceil(t/10);
+
+  // Equipment melee (treat like hatchet/sword class)
+  if (/(hatchet|sword|mace|axe|claw|club)/i.test(n)) return Math.ceil(t/5);
+
+  // Default: treat unknown melee like punch
+  return Math.ceil(t/10);
+}
+        
+        
 // disabled toggle (invert to _on flag)
 const dis = row.querySelector('.weap-disabled');
 dis?.addEventListener('input', ()=>{
