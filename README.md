@@ -132,6 +132,20 @@ Open an issue or fork this repo and submit a pull request. Suggestions are welco
 
 ## 📜 License & IP Notice
 
+MSS:84 is an unofficial, fan-made web application for use with the BattleTech tabletop universe.
+
+Portions of the underlying unit data were derived from the open-source MegaMek project 
+(https://megamek.org), a fan-created engine released under GPL. Data was adapted under fair use 
+for non-commercial, personal play. No proprietary code or assets were copied. All MSS:84 code is 
+original and licensed under MIT.
+
+BattleTech®, BattleMech®, and related terms are trademarks of The Topps Company, Inc., 
+used without permission. Catalyst Game Labs is the current license holder.
+
+This tool is not affiliated with or endorsed by Topps, Catalyst Game Labs, Microsoft, or MegaMek.
+
+Flechs Sheets is a separate fan-made project by BisonAIs and is embedded here for convenience.
+
 This tool is released under the MIT License.  
 
 BattleTech and all related marks, logos, and characters are trademarks of Catalyst Game Labs.  
