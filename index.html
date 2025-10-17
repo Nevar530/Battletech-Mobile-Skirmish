@@ -338,11 +338,18 @@
             <ul id="initList" class="list init-list" aria-live="polite"></ul>
           </section>
 
-          <section class="group">
-            <h3>Dice Roller</h3>
-            <div class="row gap"><button class="btn" data-dice="2d6">2d6</button></div>
-            <output id="diceOut" class="dice-out">—</output>
-          </section>
+<!-- RIGHT DRAWER ... Dice Roller section -->
+<section class="group">
+  <h3>Dice Roller</h3>
+  <div class="row gap"><button class="btn" data-dice="2d6">2d6</button></div>
+  <output id="diceOut" class="dice-out">—</output>
+</section>
+
+<!-- NEW: GATOR quick-open button -->
+<div class="row" style="margin-top:6px;">
+  <button id="btnOpenGator" class="btn">Open GATOR</button>
+</div>
+
         </div>
 
         <!-- Flechs Sheets helper -->
@@ -460,6 +467,7 @@
 
 <!-- Core runtime first -->
 <script src="script.js"></script>
+<script src="modules/gator.js"></script>
 <script src="modules/compiler.js"></script>
 <script src="modules/sheet.js"></script>
 <script type="module" src="network.js"></script>
