@@ -170,36 +170,43 @@ window.Sheet = (() => {
 .mss84-seven{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; gap:0px; }
 .mss84-heatf{ display:grid; grid-template-columns: 2.7fr .9fr .9fr; gap:2px; }
 
-/* ===== WEAPONS TAB (5×2 per weapon; top-right Ammo Cur, bottom-right Disabled) ===== */
+/* ===== WEAPONS TAB (5×2 + Disabled at bottom-right) ===== */
 .weap-list{
   border:1px dashed #2a2a2a; border-radius:10px; padding:10px; background:#101010;
 }
+
+/* 6 columns so bottom row can have AMMO MAX (col5) + DISABLED (col6) */
 .weap-head, .weap-row{
   display:grid;
-  grid-template-columns: 1.2fr .9fr .6fr .6fr .8fr; /* Name | Type | DMG | HEAT | (Ammo Cur / Ammo Max+Disabled) */
+  grid-template-columns: 1.2fr .9fr .6fr .6fr .8fr .6fr; /* Name | Type | DMG | HEAT | Ammo Cur | Disabled col */
   grid-auto-rows:auto;
   gap:6px 8px; align-items:center; width:100%;
 }
-/* two-row placement: first 5 cells → row 1, next 5 cells → row 2 */
-.weap-head > *:nth-child(-n+5), .weap-row > *:nth-child(-n+5){ grid-row:1; }
-.weap-head > *:nth-child(n+6),  .weap-row > *:nth-child(n+6){  grid-row:2; }
 
-/* Position the 11th child (Disabled toggle) at row 2, col 5, right-aligned */
-.weap-row  > *:nth-child(11){ grid-row:2; grid-column:5; justify-self:end; }
-.weap-head > *:nth-child(11){ grid-row:2; grid-column:5; justify-self:end; }
+/* row assignment: first 5 → row 1; 6..11 → row 2 */
+.weap-head > *:nth-child(-n+5),
+.weap-row  > *:nth-child(-n+5){ grid-row:1; }
+.weap-head > *:nth-child(n+6),
+.weap-row  > *:nth-child(n+6){ grid-row:2; }
 
+/* put AMMO MAX (10th) in col 5; DISABLED (11th) in col 6 */
+.weap-head > *:nth-child(10),
+.weap-row  > *:nth-child(10){ grid-column:5; }
+.weap-head > *:nth-child(11),
+.weap-row  > *:nth-child(11){ grid-column:6; justify-self:end; }
+
+/* visuals */
 .weap-head{ color:#aaa; font-size:12px; margin-bottom:6px; }
 .weap-row{
   background:#141414; border:1px solid #1f1f1f; border-radius:8px; padding:8px 10px; margin-bottom:6px;
 }
-/* shrink children so ellipsis works */
 .weap-head > *, .weap-row > *{ min-width:0; }
 .weap-row > :nth-child(1), .weap-head > :nth-child(1){ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 
 /* center numeric inputs */
 .weap-row input[type="number"], .weap-row input[type="text"][data-num]{ width:100%; text-align:center; }
 
-/* read-only (everything except Ammo Cur and Disabled) */
+/* read-only (everything except Ammo Cur + Disabled) */
 .weap-row.readonly input[type="text"][data-k="name"],
 .weap-row.readonly input[type="text"][data-k="type"],
 .weap-row.readonly input[type="text"][data-k="dmg"],
@@ -211,8 +218,8 @@ window.Sheet = (() => {
 .weap-row.readonly input[type="number"][data-k="ammo.max"]{
   pointer-events:none; opacity:.85;
 }
+.weap-del{ display:none; }
 
-.weap-del{ display:none; } /* still no deletes */
 
 
 `;
@@ -312,7 +319,7 @@ window.Sheet = (() => {
   <div class="hint">MED</div>
   <div class="hint">LONG</div>
   <div class="hint">AMMO MAX</div>
-  <div class="hint">DISABLED</div>
+  <div class="hint">X</div>
 </div>
 
           <div id="weapRows"></div>
