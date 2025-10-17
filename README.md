@@ -1,169 +1,169 @@
-# BATTLETECH // Mobile Skirmish
+# BATTLETECH // Mobile Skirmish: MSS:84
 
 [![Play on GitHub Pages](https://img.shields.io/badge/Play%20Now-GitHub%20Pages-brightgreen?style=for-the-badge)](https://nevar530.github.io/Battletech-Mobile-Skirmish/)
 
 Take **BattleTech** anywhere.  
-This is a browser-based **hex map skirmish tool** designed for quick games on tablets, laptops, or desktops — no maps, dice, or minis required. Just open the link and play.
+This is a browser-based **hex map skirmish terminal** built for tablets, laptops, and desktops — no maps, no dice, no login required. Just open and deploy.
 
 ---
 
-## 🔄 Cross-App Crossover  
+## 🔗 Cross-App Integration  
 
-Mobile Skirmish now links directly with **[TRS:80 // Technical Readout System:80](https://nevar530.github.io/TRS80/)**.  
+Mobile Skirmish now links with **[TRS:80 // Technical Readout System:80](https://nevar530.github.io/TRS80/)**.
 
-- **Export from TRS:80 Lance Builder** → produces a `"Lance Name".json` file  
-- **Import into Mobile Skirmish** → instantly places those ’Mechs on the tactical map  
-- Pilot info, call signs, and skills carry over  
-- Team colors sync (Alpha, Bravo, Clan, Merc)  
-👉 Together, the two tools form a complete digital pipeline: **Build your forces in TRS:80, then battle them in Mobile Skirmish.**  
+- Export Lance JSON from TRS:80  
+- Import into MSS:84 to instantly spawn mechs with names, pilots, skills, and team colors  
+- Team colors sync: Alpha, Bravo, Clan, Merc  
+- Tokens spawn on grid with pre-filled record data  
 
----
+🛰 *TRS:80 + MSS:84 = one complete digital force pipeline.*
 
-## ✨ Features
-
-- 🎲 **Hex Grid Engine**
-  - Adjustable grid size, hex dimensions, and map presets.
-  - Quick tools for painting **terrain**, **height**, and **cover**.
-  - Supports both positive and negative height levels (hills, craters, water, etc.).
-
-- ⚔️ **Skirmish Ready**
-  - Add Mechs with names, pilots, and team colors.
-  - Rotate, resize, and move tokens directly on the board.
-  - Built-in initiative tracker and **2d6 dice roller**.
-
-- 🔭 **LOS & Measurement**
-  - Toggle Line-of-Sight rays and visible hex shading.
-  - Manual range measurement tool or quick right-click measure between tokens.
-
-- 🗺 **Map Tools**
-  - Preset battlegrounds: grasslands, river valley, craters, ridges, cities, lakes, and more.
-  - Full undo/redo history.
-  - Export/import map state as JSON.
-  - Export current view as PNG image.
-
-- 📊 **Flechs Sheets Integration**
-  - Open [Flechs Sheets](https://sheets.flechs.net) directly in side docks (P1/P2).
-  - Track mech sheets, armor, and heat without leaving the app.
-
-- 🎛 **UI & Accessibility**
-  - Collapsible left/right panels for Terrain & Mech tools.
-  - Floating token controls for quick turns.
-  - Keyboard shortcuts for every major action.
-  - Touch support for pinch-to-zoom and pan (tablet friendly).
+And now, MSS:84 is fully standalone — no external builder required.
 
 ---
 
-## 🌐 Online Play (Beta)
+## ⚙️ Core Systems
 
-You can now play remotely with a friend — no accounts or installs needed.  
-The app uses free Firebase snapshots to sync the game state.
+- 🧭 **Hex Grid Engine**
+  - Adjustable grid size, hex width, and unit scale
+  - Paintable terrain, elevation, and cover layers
+  - Preset battlemaps: river valleys, cities, ridgelines, craters
 
-1. Both players open the [Live App](https://nevar530.github.io/Battletech-Mobile-Skirmish/).  
-2. **Host clicks “Uplink”** and enters any three words (e.g., `ember orbit fox`).  
-3. **Guest clicks “Uplink”** and types the exact same three words.  
-   - This links you into the same room.  
-4. Use the **Transmit** button to broadcast your map and moves.  
-   - Each press syncs the full game state to your opponent.  
-5. Play as if you’re at the same table — map edits, mechs, and initiative all carry across.  
-6. Recommend using Discord or another voice chat option during play.  
+- 🤖 **Mech Token Engine**
+  - Drop-in ’Mechs with names, pilots, teams, and BV auto-calculation
+  - Rotate, resize, and drag tokens across the grid
+  - Initiative tracker with turn order management
 
----
+- 🔭 **LOS & Tactical Tools**
+  - Toggle line-of-sight rays, fire arcs, and range overlays
+  - Right-click rangefinder between any two tokens
+  - Keyboard or touch-friendly controls
 
-## 🚀 How to Play
+- 🛰 **Firebase Sync Uplink**
+  - Remote sync mode with room code uplink
+  - "Transmit" sends the full battle state to opponent like a walkie-talkie
+  - No login or setup required — free tier, secure snapshot sync
 
-1. Open the [Live App](https://nevar530.github.io/Battletech-Mobile-Skirmish/) in your browser.  
-   Works best on **desktop or tablet** (phones are too small for serious play).
+- 📡 **Offline-Capable**
+  - Runs entirely in-browser, even without internet
+  - LocalStorage caching for map state, sheets, and last played data
+  - Export/import battles as JSON, or snapshot board as PNG
 
-2. Use the **Terrain Tools** (left panel) to build your map:
-   - Paint or fill terrain types.
-   - Adjust height levels.
-   - Add cover.
+- 📄 **Integrated Mech Sheets**
+  - In-app dynamic record sheets per ’Mech
+  - Track armor, internals, heat, pilot skills, ammo, and crits
+  - Persistent and synced across turns or networked sessions
 
-3. Use the **Mechs & Utilities** panel (right) to add Mechs:
-   - Assign a name, pilot, and team.
-   - Manage the roster, turn order, and initiative.
+- 🎯 **GATOR Console (Gunnery, Attacker, Target, Obsticals, Result)**
+  - Calculates 2d6 hit modifiers and target numbers
+  - Simulates hit locations, crit confirmations, and missile cluster rolls
+  - Perfect for remote play or fast digital resolution
+  - Works offline and syncs cleanly between players
 
-4. Toggle **LOS** or **Measure** in the top bar to check lines of sight or ranges.
-
-5. Play your skirmish with all the tools built in:
-   - Move, rotate, and resize mechs.
-   - Roll initiative and dice.
-   - Track [Flechs Sheets](https://sheets.flechs.net) in the side docks, or traditional pen and paper.
-
----
-
-## 🖥 Screenshots
-
-### Fullscreen Map
-![Fullscreen Map](images/fullscreen.png)  
-*The main hex map in action with mechs and terrain height visible.*
-
-### Menus & Utilities
-![Menus](images/menus.png)  
-*Terrain: Paint, load presets, and play. Mechs: Name and Add Tokens, Initiative tracker, dice roller, and mech management panel.*
-
-### Terrain Tools
-![Terrain Tools](images/tools.png)  
-*Line of Sight, Fire Arcs, Mech Controls, Measurement*
-
-### Flechs Sheets Integration
-![Flechs Sheets](images/flechsheet.png)  
-*Side-by-side dock with [Flechs Sheets](https://sheets.flechs.net) to track armor, heat, and criticals.*
+- 📊 **Flechs Sheets Dock (Optional)**
+  - Embed external [Flechs Sheets](https://sheets.flechs.net) in side panels
+  - P1/P2 dock layout for analog-style record keeping
+  - Use instead of or alongside the in-app sheet system
 
 ---
 
-## 🔧 Development
+## 🕹 How to Play
 
-This project is **pure HTML, CSS, and JavaScript** — no frameworks required.  
-Everything runs client-side, which means:
+1. **Open the Live App**:  
+   → [https://nevar530.github.io/Battletech-Mobile-Skirmish/](https://nevar530.github.io/Battletech-Mobile-Skirmish/)  
+   *Runs best on desktop or tablet. Phones are not recommended.*
 
-- No server or install needed.
-- Works offline once loaded.
-- Easy to extend with your own map presets, terrain types, or house rules.
+2. **Build your Map** (Left Panel)
+   - Paint terrain types (grass, water, rough, etc.)
+   - Add cover (woods, buildings)
+   - Adjust height levels (hills, craters, water depth)
+   - Load a preset battlefield or start blank
 
----
+3. **Deploy your Mechs** (Right Panel)
+   - Enter name, pilot, and team
+   - Click “Add Mech” to place on the board
+   - Use the roster to manage turn order, rotate, or remove
 
-## 🤝 Contributing
+4. **Track Initiative & Turns**
+   - Roll initiative, set custom order, and step through using “Next”
 
-Have an idea? Found a bug?  
-Open an issue or fork this repo and submit a pull request. Suggestions are welcome — especially new map presets, UI improvements, or integration ideas.
+5. **Engage Combat**
+   - Move, rotate, and attack using the built-in tools
+   - Use the GATOR console for fast, fair resolution
+   - Open in-app Mech Sheets to track damage, heat, and status
 
----
-
-## 📜 License & IP Notice
-
-MSS:84 is an unofficial, fan-made web application for use with the BattleTech tabletop universe.
-
-Portions of the underlying unit data were derived from the open-source MegaMek project 
-(https://megamek.org), a fan-created engine released under GPL. Data was adapted under fair use 
-for non-commercial, personal play. No proprietary code or assets were copied. All MSS:84 code is 
-original and licensed under MIT.
-
-BattleTech®, BattleMech®, and related terms are trademarks of The Topps Company, Inc., 
-used without permission. Catalyst Game Labs is the current license holder.
-
-This tool is not affiliated with or endorsed by Topps, Catalyst Game Labs, Microsoft, or MegaMek.
-
-Flechs Sheets is a separate fan-made project by BisonAIs and is embedded here for convenience.
-
-This tool is released under the MIT License.  
-
-BattleTech and all related marks, logos, and characters are trademarks of Catalyst Game Labs.  
-This project is a **fan-made, non-commercial utility** and is not affiliated with, endorsed by, or sponsored by Catalyst.  
-
-All rights to the BattleTech universe remain with their respective owners. This project exists to support the tabletop community.
+6. **Play Remote (Optional)**
+   - Open **Uplink**, enter a shared room name (e.g. `tiger-ember-fox`)
+   - Opponent joins with same phrase
+   - Each player presses **Transmit** after their turn to sync the field
+   - Use voice chat for best experience
 
 ---
 
-## 💬 Credits
+## 🖼 Screenshots
 
-- **Created by:** [nevar530](https://github.com/nevar530)  
-- Special thanks to [Flechs Sheets](https://sheets.flechs.net) for integration support.  
-- Inspired by decades of BattleTech tabletop battles and the need for a **portable skirmish solution**.  
+### Main Map with Mechs & Terrain  
+![Fullscreen Map](images/fullscreen.png)
+
+### Side Panels: Mechs, Tools, GATOR  
+![Menus](images/menus.png)
+
+### Terrain Paint & Presets  
+![Terrain Tools](images/tools.png)
+
+### Flechs Sheets (Optional Dock)  
+![Flechs Sheets](images/flechsheet.png)
+
+> 📌 Add screenshots of:  
+> - GATOR console (open + roll results)  
+> - In-app Mech Sheet panel (with armor pips)  
+> - Firebase sync status banner  
+> - Large map with city terrain  
 
 ---
 
-## 🤖 Note on Code Assistance
+## 🧰 Developer Notes
 
-Portions of the JavaScript, HTML, and CSS were written with the assistance of **ChatGPT (OpenAI)** under the direct design and direction of the project creator.  
-The vision, structure, and final decisions were human-directed. AI assistance served only as a coding tool.  
+- Written in: **HTML5 / CSS3 / Vanilla JavaScript**
+- No dependencies, no build tools
+- Modular `/modules/` structure
+- JSON-driven mech database
+- All rendering via SVG and canvas overlays
+
+Runs on GitHub Pages or local. Forkable and extendable.
+
+---
+
+## 🛡 License & Attribution
+
+**MSS:84** is a fan-made web application built to support the BattleTech community.
+
+- Portions of data (unit stats, naming schema) were derived from the open-source [MegaMek](https://megamek.org) project.
+- No proprietary art, audio, or Catalyst material is used.
+- All code is MIT licensed.
+- All gameplay data is CC-BY-NC-SA unless otherwise noted.
+- Flechs Sheets by BisonAIs is embedded for convenience only.
+
+> BattleTech®, BattleMech®, and related terms are trademarks of The Topps Company, Inc.  
+> Catalyst Game Labs is the current license holder.  
+> This tool is not affiliated with or endorsed by Topps, Catalyst, Microsoft, or MegaMek.
+
+---
+
+## 🙏 Credits
+
+- **Lead Design & Direction**: [nevar530](https://github.com/nevar530)  
+- **Code Engine Assistance**: ChatGPT (OpenAI), under direct instruction  
+- **Sheet Dock Integration**: [Flechs Sheets](https://sheets.flechs.net) by BisonAIs  
+- **Playtesting & UX Iteration**: Battle-hardened volunteers
+
+> Inspired by paper maps, coffee-stained record sheets, and 30 years of scorched hexes.
+
+---
+
+## 📚 Documentation & Wiki
+
+→ [Visit the Wiki →](https://github.com/Nevar530/Battletech-Mobile-Skirmish/wiki)  
+Includes guides, hotkeys, sync setup, and advanced tools.
+
+---
