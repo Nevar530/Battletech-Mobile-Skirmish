@@ -295,10 +295,15 @@ window.Sheet = (() => {
         </div>
       </section>
 
-      <section class="mss84-sheet__panel" data-panel="armor">
-        <div class="hint" style="margin:8px 0;">Enter <b>Current</b>. Max values are locked from compiler. Rear applies to LT/CT/RT only.</div>
-        <div class="mss84-armor-grid" id="armorGrid"></div>
-      </section>
+<section class="mss84-sheet__panel" data-panel="armor">
+  <div class="hint" style="margin:8px 0;">Enter <b>Current</b>. Max values are locked from compiler. Rear applies to LT/CT/RT only.</div>
+  <div style="margin:8px 0 10px;">
+    <button class="mss84-sheet__x" id="armorFillBtn" title="Set all Current values equal to Max"
+      style="background:#142a14;border:1px solid #1c3a1c;">Set Current = Max</button>
+  </div>
+  <div class="mss84-armor-grid" id="armorGrid"></div>
+</section>
+
 
       <section class="mss84-sheet__panel" data-panel="equip">
         <div class="crit-wrap">
@@ -485,6 +490,8 @@ function markDirty(map, tok){
 
     const barsGrid  = QS('#barsGrid');
     const armorGrid = QS('#armorGrid');
+    const armorFillBtn = QS('#armorFillBtn');
+
     const critBoards= QS('#critBoards');
 
     const weapRows  = QS('#weapRows');
@@ -670,6 +677,20 @@ const scheduleSave = () => {
       }
     };
 
+// ---- Armor Fill Button (Set Current = Max) ----
+armorFillBtn?.addEventListener('click', () => {
+  for (const L of LOCS) {
+    const a = sheet.armor[L];
+    a.ext.cur = a.ext.max;
+    if (a.rear) a.rear.cur = a.rear.max;
+    a.str.cur = a.str.max;
+  }
+  scheduleSave();
+  renderBars();
+  renderArmor();
+});
+
+    
     // ---- Equipment (read-only occupancy, toggle hit marks) ----
     function clearAllOccupancy(state=sheet){
       for(const L of LOCS){
