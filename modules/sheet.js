@@ -751,7 +751,18 @@ const scheduleSave = () => {
 }
 row.innerHTML = `
   <!-- row 1 -->
-  <input type="text"   data-k="name"  value="${escapeHtml(w.name||'')}"  title="Name"  readonly>
+  <input type="text"   data-k="name"
+    value="${escapeHtml(w.name||'')}"
+    title="${escapeHtml([
+      `Name: ${w.name||'—'}`,
+      w.loc ? `Location: ${w.loc}` : null,
+      w.desc ? `Desc: ${w.desc}` : null,
+      (w.type ? `Type: ${w.type}` : null),
+      (w.dmg ? `DMG: ${w.dmg}` : null),
+      (w.heat ? `Heat: ${w.heat}` : null),
+      (w.ammo?.max ? `Ammo: ${w.ammo.cur||0}/${w.ammo.max}` : null)
+    ].filter(Boolean).join('\n'))}"
+    readonly>
   <input type="text"   data-k="type"  value="${escapeHtml(w.type||'')}"  title="Type"  readonly>
   <input type="text"   data-k="dmg"   value="${escapeHtml(w.dmg ?? '')}" title="DMG"   readonly>
   <input type="number" data-k="heat"  value="${Number(w.heat||0)}" min="0" title="Heat" readonly>
