@@ -906,18 +906,30 @@ fPilot.p.value       = clampInt(sheet.pilot.piloting, 1, 6);
         const sinks = (typeof sinksRaw === 'string') ? (parseInt(sinksRaw,10) || 0) : (Number(sinksRaw)||0);
         sheet.heat.sinks = sinks || sheet.heat.sinks;
 
-        // Armor max + internals (structure)
-        for(const L of LOCS){
-          const max = vm.armorMax?.[L] || { f:0, r:0 };
-          const str = Number(vm.internals?.[L] ?? 0) || 0;
-          sheet.armor[L].ext.max = Number(max.f||0);
-          if (sheet.armor[L].rear) sheet.armor[L].rear.max = Number(max.r||0);
-          sheet.armor[L].str.max = str;
-          // Initialize currents if zero
-          if (!(sheet.armor[L].ext.cur > 0))  sheet.armor[L].ext.cur  = sheet.armor[L].ext.max;
-          if (sheet.armor[L].rear && !(sheet.armor[L].rear.cur > 0)) sheet.armor[L].rear.cur = sheet.armor[L].rear.max;
-          if (!(sheet.armor[L].str.cur > 0))  sheet.armor[L].str.cur  = sheet.armor[L].str.max;
-        }
+// Armor max + internals (structure)
+const firstSeed = sheet._seededFromCompiler !== true; // only seed currents once
+for (const L of LOCS) {
+  const max = vm.armorMax?.[L] || { f: 0, r: 0 };
+  const str = Number(vm.internals?.[L] ?? 0) || 0;
+
+  // set max values from compiler
+  sheet.armor[L].ext.max = Number(max.f || 0);
+  if (sheet.armor[L].rear) sheet.armor[L].rear.max = Number(max.r || 0);
+  sheet.armor[L].str.max = str;
+
+  // only on FIRST seed, initialize currents from max if they were 0/empty
+  if (firstSeed) {
+    if (sheet.armor[L].ext.cur === 0)  sheet.armor[L].ext.cur  = sheet.armor[L].ext.max;
+    if (sheet.armor[L].rear && sheet.armor[L].rear.cur === 0) sheet.armor[L].rear.cur = sheet.armor[L].rear.max;
+    if (sheet.armor[L].str.cur === 0)  sheet.armor[L].str.cur  = sheet.armor[L].str.max;
+  }
+
+  // always clamp currents to [0, max] so damage is preserved and not overfilled
+  sheet.armor[L].ext.cur  = Math.max(0, Math.min(sheet.armor[L].ext.cur,  sheet.armor[L].ext.max));
+  if (sheet.armor[L].rear) sheet.armor[L].rear.cur = Math.max(0, Math.min(sheet.armor[L].rear.cur, sheet.armor[L].rear.max));
+  sheet.armor[L].str.cur  = Math.max(0, Math.min(sheet.armor[L].str.cur,  sheet.armor[L].str.max));
+}
+
 
         // Weapons (overwrite list; keep ammo.cur from existing where names match)
         const oldByName = new Map((sheet.weapons||[]).map(w=>[String(w.name||'').toLowerCase(), w]));
