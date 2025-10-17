@@ -435,6 +435,14 @@ window.Sheet = (() => {
   }
   function remove(map, tok){ try{ localStorage.removeItem(key(map,tok)); }catch{} }
 
+function markDirty(map, tok){
+  const dirtyKey = `mss84:sheets:dirty:${map}`;
+  let m = {};
+  try { m = JSON.parse(localStorage.getItem(dirtyKey) || '{}'); } catch {}
+  m[tok] = 1;
+  try { localStorage.setItem(dirtyKey, JSON.stringify(m)); } catch {}
+}
+  
   function rememberIds(map, tok){
     try{ localStorage.setItem(LAST_IDS_KEY, JSON.stringify({ mapId:map, tokenId:tok })); }catch{}
   }
@@ -491,6 +499,14 @@ window.Sheet = (() => {
     const notes     = QS('#notes');
     const clearThis = QS('#clearThisToken');
 
+// --- Pilot / team / skills → sheet + save
+fPilot.name.addEventListener('input',   () => { sheet.pilot.name     = fPilot.name.value.trim(); scheduleSave(); });
+fPilot.call.addEventListener('input',   () => { sheet.pilot.callsign = fPilot.call.value.trim(); scheduleSave(); });
+fPilot.faction.addEventListener('input',() => { sheet.pilot.faction  = fPilot.faction.value.trim(); scheduleSave(); });
+fPilot.g.addEventListener('input',      () => { sheet.pilot.gunnery  = clampInt(fPilot.g.value, 1, 6); scheduleSave(); });
+fPilot.p.addEventListener('input',      () => { sheet.pilot.piloting = clampInt(fPilot.p.value, 1, 6); scheduleSave(); });
+notes.addEventListener('input', () => { sheet.notes = notes.value; scheduleSave(); });
+    
     // open/close
     const open = (ids)=>{                      // NEW: optional ids
       if (ids && ids.mapId && ids.tokenId) {
@@ -523,14 +539,15 @@ window.Sheet = (() => {
     });
 
     // save debounce
-    let tSave=null;
-        const scheduleSave = ()=>{ 
-      clearTimeout(tSave); 
-      tSave = setTimeout(()=> { 
-        save(mapId, tokenId, sheet); 
-        rememberIds(mapId, tokenId);   // NEW
-      }, 200); 
-    };
+let tSave = null;
+const scheduleSave = () => {
+  clearTimeout(tSave);
+  tSave = setTimeout(() => {
+    save(mapId, tokenId, sheet);
+    rememberIds(mapId, tokenId);
+    markDirty(mapId, tokenId);           // <— NEW
+  }, 200);
+};
     window.pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
 
     // ---- Heat ----
@@ -770,8 +787,8 @@ window.Sheet = (() => {
       fPilot.name.value = sheet.pilot.name||'';
       fPilot.call.value = sheet.pilot.callsign||'';
       fPilot.faction.value = sheet.pilot.faction||'';
-      fPilot.g.value = sheet.pilot.gunnery??4;
-      fPilot.p.value = sheet.pilot.piloting??5;
+fPilot.g.value       = clampInt(sheet.pilot.gunnery,  1, 6);
+fPilot.p.value       = clampInt(sheet.pilot.piloting, 1, 6);
 
       fMove.stand.value = sheet.move.stand??0;
       fMove.walk.value  = sheet.move.walk??0;
