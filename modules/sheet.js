@@ -738,15 +738,18 @@ const scheduleSave = () => {
         row.className = 'weap-row readonly';
         const on = (w._on !== false); // default ON
 row.innerHTML = `
-  <input type="text"   data-k="name" value="${escapeHtml(w.name||'')}"  title="Name" readonly>
-  <input type="text"   data-k="type" value="${escapeHtml(w.type||'')}"  title="Type" readonly>
-  <input type="text"   data-k="dmg"  value="${escapeHtml(w.dmg ?? '')}" title="Damage" readonly>
-  <input type="number" data-k="heat" value="${Number(w.heat||0)}" min="0" title="Heat" readonly>
+  <!-- row 1 -->
+  <input type="text"   data-k="name"  value="${escapeHtml(w.name||'')}"  title="Name"  readonly>
+  <input type="text"   data-k="type"  value="${escapeHtml(w.type||'')}"  title="Type"  readonly>
+  <input type="text"   data-k="dmg"   value="${escapeHtml(w.dmg ?? '')}" title="DMG"   readonly>
+  <input type="number" data-k="heat"  value="${Number(w.heat||0)}" min="0" title="Heat" readonly>
   <input type="number" data-k="ammo.cur" value="${Number(w?.ammo?.cur ?? 0)}" min="0" title="Ammo Current">
-  <input type="number" data-k="min"  value="${Number(w.min||0)}"  min="0" title="Min" readonly>
-  <input type="number" data-k="s"    value="${Number(w.s||0)}"    min="0" title="Short" readonly>
-  <input type="number" data-k="m"    value="${Number(w.m||0)}"    min="0" title="Med" readonly>
-  <input type="number" data-k="l"    value="${Number(w.l||0)}"    min="0" title="Long" readonly>
+
+  <!-- row 2 -->
+  <input type="number" data-k="min"  value="${Number(w.min||0)}" min="0" title="Min" readonly>
+  <input type="number" data-k="s"    value="${Number(w.s||0)}"   min="0" title="Short" readonly>
+  <input type="number" data-k="m"    value="${Number(w.m||0)}"   min="0" title="Med" readonly>
+  <input type="number" data-k="l"    value="${Number(w.l||0)}"   min="0" title="Long" readonly>
   <input type="number" data-k="ammo.max" value="${Number(w?.ammo?.max ?? 0)}" min="0" title="Ammo Max" readonly>
   <input type="checkbox" class="weap-disabled" data-idx="${idx}" ${w._on===false?'checked':''} title="Disabled">
 `;
