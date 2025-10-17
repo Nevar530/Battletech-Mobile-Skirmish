@@ -376,9 +376,8 @@ window.Sheet = (() => {
   const escapeHtml = s => (''+s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
   const key = (map, tok) => `${STORAGE_NS}:${map}:${tok}`;
 
-    const STORAGE_NS = 'mss84:sheet';
   const LAST_IDS_KEY = 'mss84:sheet:lastIds';   // NEW
-  const HEAT_MAX_DEFAULT = 30;
+
 
   
   // ---------- Core state ----------
