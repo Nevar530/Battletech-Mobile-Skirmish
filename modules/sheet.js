@@ -376,6 +376,11 @@ window.Sheet = (() => {
   const escapeHtml = s => (''+s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
   const key = (map, tok) => `${STORAGE_NS}:${map}:${tok}`;
 
+    const STORAGE_NS = 'mss84:sheet';
+  const LAST_IDS_KEY = 'mss84:sheet:lastIds';   // NEW
+  const HEAT_MAX_DEFAULT = 30;
+
+  
   // ---------- Core state ----------
   function blankSheet(){
     const armor = {};
@@ -431,6 +436,11 @@ window.Sheet = (() => {
   }
   function remove(map, tok){ try{ localStorage.removeItem(key(map,tok)); }catch{} }
 
+  function rememberIds(map, tok){
+    try{ localStorage.setItem(LAST_IDS_KEY, JSON.stringify({ mapId:map, tokenId:tok })); }catch{}
+  }
+
+  
   // ---------- Mount ----------
   function ensureStyles(){
     if (!document.getElementById(CSS_ID)) {
@@ -450,9 +460,11 @@ window.Sheet = (() => {
     const QS  = (s, r=root) => r.querySelector(s);
     const QSA = (s, r=root) => Array.from(r.querySelectorAll(s));
 
-    let mapId = 'local';
-    let tokenId = 'token-A';
-    let sheet = load(mapId, tokenId);
+    // Try last used ids; fall back to host globals; then defaults
+    const lastIds = (()=>{ try{ return JSON.parse(localStorage.getItem(LAST_IDS_KEY)||'null'); }catch{ return null; } })();
+    let mapId   = lastIds?.mapId   || (window.CURRENT_MAP_ID || 'local');
+    let tokenId = lastIds?.tokenId || (window.selectedTokenId || 'token-A');
+    let sheet   = load(mapId, tokenId);
 
 
     // Elements
@@ -481,9 +493,22 @@ window.Sheet = (() => {
     const clearThis = QS('#clearThisToken');
 
     // open/close
-    const open   = ()=>{ wrap.classList.add('open'); wrap.setAttribute('aria-hidden','false'); };
+    const open = (ids)=>{                      // NEW: optional ids
+      if (ids && ids.mapId && ids.tokenId) {
+        mapId = ids.mapId; tokenId = ids.tokenId; sheet = load(mapId, tokenId); hydrateAll();
+      } else {
+        // If host globals exist and differ, adopt them on open
+        const hostMap = window.CURRENT_MAP_ID;
+        const hostTok = window.selectedTokenId;
+        if (hostMap && hostTok && (hostMap !== mapId || hostTok !== tokenId)) {
+          mapId = hostMap; tokenId = hostTok; sheet = load(mapId, tokenId); hydrateAll();
+        }
+      }
+      wrap.classList.add('open'); wrap.setAttribute('aria-hidden','false');
+    };
     const close  = ()=>{ wrap.classList.remove('open'); wrap.setAttribute('aria-hidden','true'); };
     const toggle = ()=> (wrap.classList.contains('open')? close() : open());
+
     btnClose.addEventListener('click', close);
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
 
@@ -500,7 +525,13 @@ window.Sheet = (() => {
 
     // save debounce
     let tSave=null;
-    const scheduleSave = ()=>{ clearTimeout(tSave); tSave = setTimeout(()=> save(mapId, tokenId, sheet), 200); };
+        const scheduleSave = ()=>{ 
+      clearTimeout(tSave); 
+      tSave = setTimeout(()=> { 
+        save(mapId, tokenId, sheet); 
+        rememberIds(mapId, tokenId);   // NEW
+      }, 200); 
+    };
     window.pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
 
     // ---- Heat ----
@@ -762,11 +793,14 @@ window.Sheet = (() => {
 
     // ---- Bind user fields (non-stable) ----
     function bindField(inp, obj, key){
-      inp.addEventListener('input', ()=>{
+      const handler = ()=>{ 
         obj[key] = (inp.type==='number') ? clampInt(inp.value, -99, 999) : inp.value;
-        scheduleSave();
-      });
+        scheduleSave(); 
+      };
+      inp.addEventListener('input', handler);
+      inp.addEventListener('change', handler);    // NEW (mobile/autofill safety)
     }
+
     bindField(fPilot.name, sheet.pilot, 'name');
     bindField(fPilot.call, sheet.pilot, 'callsign');
     bindField(fPilot.faction, sheet.pilot, 'faction');
@@ -849,8 +883,9 @@ window.Sheet = (() => {
         clearAllOccupancy(sheet);
         packEquipmentFromCompiler(vm, sheet);
 
-        sheet._seededFromCompiler = true;
+sheet._seededFromCompiler = true;
         save(mapId, tokenId, sheet);
+        try{ localStorage.setItem(LAST_IDS_KEY, JSON.stringify({ mapId, tokenId })); }catch{}  // NEW
         hydrateAll();
         return true;
       }catch(e){
@@ -879,7 +914,12 @@ window.Sheet = (() => {
     // API
     const api = {
       open, close, toggle,
-      setIds: (map, tok)=>{ mapId = map; tokenId = tok; sheet = load(mapId, tokenId); hydrateAll(); },
+            setIds: (map, tok)=>{ 
+        mapId = map; tokenId = tok; 
+        try{ localStorage.setItem(LAST_IDS_KEY, JSON.stringify({ mapId, tokenId })); }catch{}
+        sheet = load(mapId, tokenId); 
+        hydrateAll(); 
+      },
       getIds: ()=>({ mapId, tokenId }),
       refresh: async ()=>{ await hydrateFromCompiler(); },
       _debug_getSheet: ()=>sheet
