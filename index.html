@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f0b000">
+<meta name="mobile-web-app-capable" content="yes">
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -31,6 +35,7 @@
   </script>
   <!-- ==== /Firebase ==== -->
 </head>
+  
 <body>
   <div id="wrap" class="wrap">
 
@@ -618,6 +623,11 @@ Flechs Sheets is a separate fan-made project by BisonAIs and is embedded here fo
     window.sheet = sheet;                              // optional debug
     window.MSS84_SHEET = sheet;                        // what script.js expects
   });
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(console.error);
+  }
 </script>
 
 </body>
