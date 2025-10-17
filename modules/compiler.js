@@ -391,15 +391,48 @@ function deriveInternalsFromTonnage(tonnage) {
     const IBL = mech.internalByLocation || mech.internals || mech.internal || {};
     const EQL = mech.equipmentByLocation || mech.locations || {};
 
-    function pullArmor(code, fallback) {
-      const obj = ABL[code] ?? fallback ?? null;
-      if (obj && typeof obj === "object") {
-        return { f: +obj.a ?? +obj.front ?? +obj.value ?? 0, r: +obj.r ?? +obj.rear ?? 0 };
-      }
-      // allow single number for front
-      const n = asNum(obj, 0);
-      return { f: n, r: 0 };
+function pullArmor(code, fallback) {
+  // ABL is the source (armorByLocation || armor)
+  // Support 3 shapes:
+  //  1) object: { a|front, r|rear }
+  //  2) single number (front only)
+  //  3) flat rear keys: rearCenterTorso / rearRightTorso / rearLeftTorso
+  const obj = ABL[code] ?? fallback ?? null;
+
+  // Map location code → flat rear key name
+  const REAR_KEYS = {
+    CT: "rearCenterTorso",
+    RT: "rearRightTorso",
+    LT: "rearLeftTorso",
+  };
+
+  // 1) Object form
+  if (obj && typeof obj === "object") {
+    const f = +obj.a ?? +obj.front ?? +obj.value ?? 0;
+    // prefer embedded rear, else check flat key
+    let r = +obj.r ?? +obj.rear ?? 0;
+    if (!r && REAR_KEYS[code] && Number.isFinite(+ABL[REAR_KEYS[code]])) {
+      r = +ABL[REAR_KEYS[code]];
     }
+    return { f, r };
+  }
+
+  // 2) Numeric front
+  const f = asNum(obj, asNum(
+    // also allow named fronts on fallback object (e.g., ABL.centerTorso = 60)
+    (typeof fallback === "number" ? fallback : (fallback && (fallback.a ?? fallback.front ?? fallback.value))), 0
+  ));
+
+  // 3) Flat rear keys
+  let r = 0;
+  const rearKey = REAR_KEYS[code];
+  if (rearKey && Number.isFinite(+ABL[rearKey])) {
+    r = +ABL[rearKey];
+  }
+
+  return { f, r };
+}
+
     function pullInternals(code, fallback) {
       const obj = IBL[code] ?? fallback ?? null;
       if (obj && typeof obj === "object") return +obj.s ?? +obj.value ?? 0;
