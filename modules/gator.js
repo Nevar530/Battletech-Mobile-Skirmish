@@ -1,5 +1,3 @@
-<!-- Save as: modules/gator.js -->
-<script>
 (() => {
   // ===== GATOR: compact to-hit calculator for BattleTech (MSS:84) =====
   const el = {
@@ -276,4 +274,3 @@
     buildPanel(); wireButton();
   }
 })();
-</script>
