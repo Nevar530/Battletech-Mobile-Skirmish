@@ -324,28 +324,27 @@
           </div>
         </section>
 
-        <!-- Initiative + Dice -->
-        <div class="group-grid-2">
-          <section class="group">
-            <div class="row between">
-              <h3>Initiative</h3>
-              <div class="mini-actions">
-                <button class="btn sm" id="btnRollInitAll">Roll All</button>
-                <button class="btn sm" id="btnClearInit">Clear</button>
-                <button class="btn sm" id="btnNextTurn">Next ▶</button>
-              </div>
-            </div>
-            <ul id="initList" class="list init-list" aria-live="polite"></ul>
-          </section>
+<!-- Initiative (stacked) -->
+<section class="group">
+  <div class="row between">
+    <h3>Initiative</h3>
+    <div class="mini-actions">
+      <button class="btn sm" id="btnRollInitAll">Roll All</button>
+      <button class="btn sm" id="btnClearInit">Clear</button>
+      <button class="btn sm" id="btnNextTurn">Next ▶</button>
+    </div>
+  </div>
+  <ul id="initList" class="list init-list" aria-live="polite"></ul>
+</section>
 
-<!-- RIGHT DRAWER ... Dice Roller section -->
+<!-- Dice Roller (stacked under Initiative) -->
 <section class="group">
   <h3>Dice Roller</h3>
   <div class="row gap"><button class="btn" data-dice="2d6">2d6</button></div>
   <output id="diceOut" class="dice-out">—</output>
 </section>
 
-<!-- NEW: GATOR quick-open button -->
+<!-- Open GATOR below Dice -->
 <div class="row" style="margin-top:6px;">
   <button id="btnOpenGator" class="btn">Open GATOR</button>
 </div>
