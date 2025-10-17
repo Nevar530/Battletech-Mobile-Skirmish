@@ -206,8 +206,7 @@ window.Sheet = (() => {
 /* center numeric inputs */
 .weap-row input[type="number"], .weap-row input[type="text"][data-num]{ width:100%; text-align:center; }
 
-/* read-only (everything except Ammo Cur + Disabled) */
-.weap-row.readonly input[type="text"][data-k="name"],
+/* read-only (everything except Ammo Cur + Disabled + allow name hover) */
 .weap-row.readonly input[type="text"][data-k="type"],
 .weap-row.readonly input[type="text"][data-k="dmg"],
 .weap-row.readonly input[type="number"][data-k="heat"],
@@ -217,6 +216,10 @@ window.Sheet = (() => {
 .weap-row.readonly input[type="number"][data-k="l"]{
   pointer-events:none; opacity:.85;
 }
+
+/* keep name hoverable + show help cursor */
+.weap-row input[data-k="name"]{ pointer-events:auto; cursor:help; }
+
 .weap-del{ display:none; }
 
 
@@ -751,18 +754,20 @@ const scheduleSave = () => {
 }
 row.innerHTML = `
   <!-- row 1 -->
-  <input type="text"   data-k="name"
-    value="${escapeHtml(w.name||'')}"
-    title="${escapeHtml([
-      `Name: ${w.name||'—'}`,
-      w.loc ? `Location: ${w.loc}` : null,
-      w.desc ? `Desc: ${w.desc}` : null,
-      (w.type ? `Type: ${w.type}` : null),
-      (w.dmg ? `DMG: ${w.dmg}` : null),
-      (w.heat ? `Heat: ${w.heat}` : null),
-      (w.ammo?.max ? `Ammo: ${w.ammo.cur||0}/${w.ammo.max}` : null)
-    ].filter(Boolean).join('\n'))}"
-    readonly>
+<input type="text" data-k="name" readonly
+  value="${escapeHtml(w.name||'')}"
+  title="${escapeHtml([
+    `Name: ${w.name||'—'}`,
+    w.type ? `Type: ${w.type}` : null,
+    (w.dmg ?? w.dmg === 0) ? `DMG: ${w.dmg}` : null,
+    (w.heat ?? w.heat === 0) ? `Heat: ${w.heat}` : null,
+    (w.min ?? w.min === 0) ? `Min: ${w.min}` : null,
+    (w.s   ?? w.s   === 0) ? `Short: ${w.s}` : null,
+    (w.m   ?? w.m   === 0) ? `Med: ${w.m}` : null,
+    (w.l   ?? w.l   === 0) ? `Long: ${w.l}` : null,
+    (w.ammo?.max ? `Ammo: ${w.ammo.cur||0}/${w.ammo.max}` : null)
+  ].filter(Boolean).join('\n'))}">
+
   <input type="text"   data-k="type"  value="${escapeHtml(w.type||'')}"  title="Type"  readonly>
   <input type="text"   data-k="dmg"   value="${escapeHtml(w.dmg ?? '')}" title="DMG"   readonly>
   <input type="number" data-k="heat"  value="${Number(w.heat||0)}" min="0" title="Heat" readonly>
