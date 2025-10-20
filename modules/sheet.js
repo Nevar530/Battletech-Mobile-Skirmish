@@ -600,12 +600,29 @@
       setHeatSinks(v){ sheet.heat.sinks = Math.max(0,Number(v)||0); fMove.sinks.value=String(sheet.heat.sinks); scheduleSave(); },
     };
 
-    // initialize UI from state
+// initialize UI from state
+hydrateAll();
+
+// export
+window.MSS84_SHEET = api;
+
+// legacy adapter: let external callers invoke MSS84_SHEET.refresh()
+if (!api.refresh) {
+  api.refresh = function(next){
+    // re-read any saved state, optionally switch ids, then re-hydrate
+    if (next && next.mapId && next.tokenId) {
+      mapId = next.mapId; 
+      tokenId = next.tokenId; 
+      sheet = load(mapId, tokenId);
+    }
     hydrateAll();
-    // export
-    window.MSS84_SHEET = api;
+    updateSheetScale();
     return api;
-  }
+  };
+}
+
+return api;
+}
 
   // auto-mount if requested
   window.Sheet = { mount };
