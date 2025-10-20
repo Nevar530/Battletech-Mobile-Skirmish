@@ -79,7 +79,7 @@ html,body{
   background:transparent; border:none; border-right:1px solid var(--border);
 }
 .seg-btn:last-child{ border-right:none; }
-.seg-btn .label{ font-size:13px; letter-spacing:.02em; color:var(--ink); opacity:.95; }
+.seg-btn .label{ font-size:11px; letter-spacing:.02em; color:var(--ink); opacity:.95; }
 .seg-btn:hover{ filter:brightness(1.08); }
 .seg-btn:active{ transform:translateY(1px); }
 
