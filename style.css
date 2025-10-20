@@ -75,7 +75,7 @@ html,body{
   border-radius:10px; overflow:hidden; background:#0f1722; flex:0 0 auto;
 }
 .seg-btn{
-  display:flex; align-items:center; gap:8px; padding:6px 10px; height:36px;
+  display:flex; align-items:center; gap:4px; padding:6px 10px; height:36px;
   background:transparent; border:none; border-right:1px solid var(--border);
 }
 .seg-btn:last-child{ border-right:none; }
