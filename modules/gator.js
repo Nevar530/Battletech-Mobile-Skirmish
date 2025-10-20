@@ -154,7 +154,15 @@
         #gatorPanel h3{margin:.25rem 0 .5rem;}
         #gatorPanel .sub{font-weight:700; font-size:12.5px; letter-spacing:.3px; opacity:.9;}
         #gatorPanel .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;}
-      </style>
+      
+
+#gatorPanel .panel-body{ 
+  display:block; 
+  max-height: calc(100vh - 140px); 
+  overflow:auto; 
+}
+#gatorPanel .panel-head{ position:sticky; top:0; background:rgba(0,0,0,.6); backdrop-filter:saturate(140%) blur(6px); }
+</style>
 
       <div class="panel-head">
         <h2>GATOR Console</h2>
