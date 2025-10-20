@@ -37,7 +37,6 @@
 // Fallback: If compiler resolution fails, you can still click "Load from JSON"
 //           to resolve statics from /data/manifest.json + mech JSON (legacy path).
 //
-// ========== MSS:84 Sheet Panel (Original UI + Zoom Scaling) ==========
 window.Sheet = (() => {
   const CSS_ID = 'mss84-sheet-styles';
   const CSS = `
@@ -48,8 +47,7 @@ window.Sheet = (() => {
   --bar-h:10px;
   --sheet-scale: 1;
 }
-
-/* ===== Zoom Wrappers ===== */
+/* Zoomable outer/inner wrappers */
 .mss84-sheet__outer{
   position:fixed; top:0; left:0; height:100vh; z-index:999;
   width: calc(var(--panel-w) * var(--sheet-scale));
@@ -63,8 +61,6 @@ window.Sheet = (() => {
   transform-origin: top left;
   transform: scale(var(--sheet-scale));
 }
-
-/* ===== Original Styling (unchanged) ===== */
 .mss84-sheet{ font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:var(--sheet-fg); }
 .mss84-sheet *{ box-sizing:border-box; }
 
@@ -76,24 +72,175 @@ window.Sheet = (() => {
 }
 .mss84-sheet__btn:active{ transform:translateY(1px); }
 
-.mss84-sheet__wrap{
-  position:relative;
-  display:flex; flex-direction:column;
-  width:var(--panel-w);
-  height:100vh;
-  background:var(--sheet-bg);
-  border-right:1px solid var(--line);
+.mss84-sheet__wrap{position:relative; display:flex; flex-direction:column; width:var(--panel-w);height:100vh; background:var(--sheet-bg); border-right:1px solid var(--line);}
+.mss84-sheet__wrap.open{}
+
+.mss84-sheet__hdr{
+  display:flex; align-items:center; gap:10px; padding:12px;
+  border-bottom:1px solid var(--line);
+}
+.mss84-sheet__title{ font-weight:700; letter-spacing:.5px; }
+.mss84-sheet__spacer{ flex:1; }
+.mss84-sheet__x{ border:0; background:#1a1a1a; color:#fff; padding:6px 10px; border-radius:10px; cursor:pointer; }
+
+.mss84-sheet__body{ overflow:auto; padding:0 12px 18px; }
+
+.mss84-sheet .hint{ color:var(--muted); font-size:12px; }
+.mss84-sheet input[type="text"],
+.mss84-sheet input[type="number"],
+.mss84-sheet input[type="radio"],
+.mss84-sheet textarea,
+.mss84-sheet select{
+  width:100%; background:#141414; color:#fff; border:1px solid var(--line);
+  border-radius:10px; padding:8px 10px; outline:none;
+}
+.mss84-sheet input[type="number"]{ -moz-appearance:textfield; }
+.mss84-sheet input::-webkit-outer-spin-button,
+.mss84-sheet input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+
+.mss84-sheet__field{ display:grid; grid-template-columns:50px 1fr; gap:0px; align-items:center; margin:2px 0; font-size:12px;}
+.mss84-sheet__fieldt{ display:grid; grid-template-columns:15px 1fr; gap:0px; align-items:center; margin:2px 0; font-size:14px;}
+.mss84-sheet__group{ border:1px solid var(--line); border-radius:var(--radius); padding:12px; margin:12px 0; background:#111; }
+.mss84-sheet__group h4{ margin:0 0 8px; font-size:14px; color:#ddd; }
+
+.mss84-sheet__tabs{ display:flex; gap:8px; padding:8px 8px 0; }
+.mss84-sheet__tab{
+  flex:1; text-align:center; padding:8px; cursor:pointer; border-bottom:2px solid transparent;
+  color:#ccc; user-select:none;
+}
+.mss84-sheet__tab.active{ color:#fff; border-color:var(--accent); }
+.mss84-sheet__panel{ display:none; }
+.mss84-sheet__panel.active{ display:block; }
+
+.mss84-bars{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.mss84-bar{
+  display:flex; flex-direction:column; gap:6px; padding:8px; border:1px solid var(--line);
+  border-radius:12px; background:#0e0e0e; cursor:pointer;
+}
+.mss84-bar__hdr{ display:flex; align-items:center; justify-content:space-between; font-size:12px; color:#ddd; }
+.mss84-bar__meter{ position:relative; height:var(--bar-h); background:#1b1b1b; border-radius:100px; overflow:hidden; border:1px solid #222; }
+.mss84-bar__fill{ position:absolute; top:0; left:0; height:100%; width:0%; background:linear-gradient(90deg, #2bd93f, #a3ff00); }
+.mss84-bar.crit .mss84-bar__fill{ background:linear-gradient(90deg, #ff8c00, #ffd000); }
+.mss84-bar.low .mss84-bar__fill{ background:linear-gradient(90deg, #ff4d4d, #ff1a1a); }
+.mss84-bar.dead{ opacity:.6; }
+.mss84-badge{ font-size:10px; padding:2px 6px; border-radius:100px; background:#222; color:#ddd; }
+.mss84-badge--dead{ background:#333; color:#ff8b8b; border:1px solid #444; }
+
+.mss84-armor-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+.mss84-armor-card{ border:1px solid var(--line); border-radius:12px; padding:10px; background:#0e0e0e; }
+.mss84-armor-card h5{ margin:0 0 8px; font-size:13px; color:#eee; }
+
+/* Equipment boards */
+.crit-wrap{ border:1px dashed #2a2a2a; border-radius:10px; padding:10px; background:#101010; }
+.crit-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin:6px 0 8px; }
+.crit-grid{ display:grid; grid-template-columns: repeat(6, 1fr); gap:6px; }
+.crit-slot{
+  position:relative; padding:8px 6px; text-align:center; font-size:12px; border:1px solid #2a2a2a;
+  background:#151515; border-radius:8px; user-select:none; min-height:36px; color:#cfcfcf;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;           /* NEW: allow inner text to clip */
+  min-width:0;               /* NEW: enable flex shrink for ellipsis */
+}
+.crit-slot .snum{ position:absolute; top:2px; left:6px; font-size:10px; color:#888; }
+.crit-slot .stag{
+  flex:1;                    /* NEW: take available space */
+  min-width:0;               /* NEW: allow shrink */
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  opacity:.95;
+}
+.crit-slot.unocc{ opacity:.35; filter:saturate(.7); }
+.crit-slot.occ{ cursor:pointer; }
+.crit-slot.hit{ border-color:#5a1a1a; background:#2a1111; box-shadow: inset 0 0 0 1px #5a1a1a; }
+.crit-legend{ font-size:11px; color:#aaa; margin-top:6px; }
+.crit-slot{ padding-right:18px; }
+.crit-slot .stag{ display:block; width:100%; }
+.crit-del{
+  display:none; /* disabled: we don't support removing compiler-driven items */
+}
+.crit-grid{ grid-auto-rows:36px; }
+.crit-grid > *{ min-width:0; }  /* NEW */
+
+/* Heat */
+.mss84-heat{ width:100%; }
+.mss84-heat__hdr{ display:flex; align-items:center; justify-content:space-between; font-size:12px; color:#ddd; margin-bottom:6px; }
+.mss84-heat__meter{ position:relative; height:12px; background:#1b1b1b; border-radius:100px; overflow:hidden; border:1px solid #222; }
+.mss84-heat__fill{ position:absolute; top:0; left:0; height:100%; width:0%; }
+.mss84-heat.ok   .mss84-heat__fill{ background:linear-gradient(90deg,#2bd93f,#a3ff00); }
+.mss84-heat.crit .mss84-heat__fill{ background:linear-gradient(90deg,#ff8c00,#ffd000); }
+.mss84-heat.low  .mss84-heat__fill{ background:linear-gradient(90deg,#ff4d4d,#ff1a1a); }
+.mss84-heat__ticks{ position:absolute; inset:0; pointer-events:none; }
+.mss84-heat__tick{ position:absolute; top:0; bottom:0; width:1px; background:#333; opacity:.8; }
+.mss84-heat__legend{ margin-top:6px; display:flex; justify-content:flex-end; }
+.mss84-two{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.mss84-three{ display:grid; grid-template-columns: 2fr 1fr 1fr; gap:8px; }
+.mss84-four{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap:8px; }
+.mss84-seven{ display:grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; gap:0px; }
+.mss84-heatf{ display:grid; grid-template-columns: 2.7fr .9fr .9fr; gap:2px; }
+
+/* ===== WEAPONS TAB (5×2 + Disabled at bottom-right) ===== */
+.weap-list{
+  border:1px dashed #2a2a2a; border-radius:10px; padding:10px; background:#101010;
 }
 
-/* keep all other CSS from your original here... (cut for brevity) */
+/* 6 columns so bottom row can have AMMO MAX (col5) + DISABLED (col6) */
+.weap-head, .weap-row{
+  display:grid;
+  grid-template-columns: 1.2fr .9fr .6fr .6fr .8fr .6fr; /* Name | Type | DMG | HEAT | Ammo Cur | Disabled col */
+  grid-auto-rows:auto;
+  gap:6px 8px; align-items:center; width:100%;
+}
+
+/* row assignment: first 5 → row 1; 6..11 → row 2 */
+.weap-head > *:nth-child(-n+5),
+.weap-row  > *:nth-child(-n+5){ grid-row:1; }
+.weap-head > *:nth-child(n+6),
+.weap-row  > *:nth-child(n+6){ grid-row:2; }
+
+/* put AMMO MAX (10th) in col 5; DISABLED (11th) in col 6 */
+.weap-head > *:nth-child(10),
+.weap-row  > *:nth-child(10){ grid-column:5; }
+.weap-head > *:nth-child(11),
+.weap-row  > *:nth-child(11){ grid-column:6; justify-self:end; }
+
+/* visuals */
+.weap-head{ color:#aaa; font-size:12px; margin-bottom:6px; }
+.weap-row{
+  background:#141414; border:1px solid #1f1f1f; border-radius:8px; padding:8px 10px; margin-bottom:6px;
+}
+.weap-head > *, .weap-row > *{ min-width:0; }
+.weap-row > :nth-child(1), .weap-head > :nth-child(1){ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+/* center numeric inputs */
+.weap-row input[type="number"], .weap-row input[type="text"][data-num]{ width:100%; text-align:center; }
+
+/* read-only (everything except Ammo Cur + Disabled + allow name hover) */
+.weap-row.readonly input[type="text"][data-k="type"],
+.weap-row.readonly input[type="text"][data-k="dmg"],
+.weap-row.readonly input[type="number"][data-k="heat"],
+.weap-row.readonly input[type="number"][data-k="min"],
+.weap-row.readonly input[type="number"][data-k="s"],
+.weap-row.readonly input[type="number"][data-k="m"],
+.weap-row.readonly input[type="number"][data-k="l"]{
+  pointer-events:none; opacity:.85;
+}
+
+/* keep name hoverable + show help cursor */
+.weap-row input[data-k="name"]{ pointer-events:auto; cursor:help; }
+
+.weap-del{ display:none; }
+
+
+
 `;
 
-  // --- keep your entire PANEL_HTML intact ---
   const PANEL_HTML = `
 <div class="mss84-sheet">
   <div class="mss84-sheet__outer" id="sheetOuter" aria-hidden="true">
     <div class="mss84-sheet__inner" id="sheetInner">
-      <aside class="mss84-sheet__wrap" id="sheetWrap" aria-hidden="false">
+      <aside class="mss84-sheet__wrap" id="sheetWrap" aria-hidden="true">
     <header class="mss84-sheet__hdr">
       <div class="mss84-sheet__title">Mech Sheet <span id="savePulse" class="mss84-savepulse">Saved</span></div>
       <div class="mss84-sheet__spacer"></div>
@@ -211,65 +358,9 @@ window.Sheet = (() => {
       </section>
 
     </div>
- </aside>
-    </div>
-  </div>
+  </aside>
 </div>
 `;
-
-  // ---------- Core ----------
-  const LAST_IDS_KEY = 'mss84:sheet:lastIds';
-  const STORAGE_NS = 'mss84:sheet';
-  const key = (m,t)=>`${STORAGE_NS}:${m}:${t}`;
-
-  function ensureStyles(){
-    if (!document.getElementById(CSS_ID)) {
-      const s=document.createElement('style');
-      s.id=CSS_ID; s.textContent=CSS;
-      document.head.appendChild(s);
-    }
-  }
-
-  // ---------- Zoom Helpers ----------
-  function readCssPx(varName, fallback){
-    const s = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-    if (!s.endsWith('px')) return fallback;
-    const n = parseFloat(s.slice(0,-2));
-    return Number.isFinite(n)?n:fallback;
-  }
-  function updateSheetScale(){
-    const panelW = readCssPx('--panel-w', 500);
-    const vw = Math.max(320, window.innerWidth || panelW);
-    const scale = Math.min(1, vw / panelW);
-    document.documentElement.style.setProperty('--sheet-scale', String(scale));
-  }
-  window.addEventListener('resize', updateSheetScale);
-
-  // ---------- Mount ----------
-  function mount(host=document.body){
-    ensureStyles();
-    const root=document.createElement('div');
-    root.innerHTML=PANEL_HTML;
-    host.appendChild(root);
-
-    const outer=root.querySelector('#sheetOuter');
-    const wrap=root.querySelector('#sheetWrap');
-
-    updateSheetScale();
-
-    // existing open/close logic preserved
-    const open=(ids)=>{
-      updateSheetScale();
-      outer.classList.add('open');
-      outer.setAttribute('aria-hidden','false');
-    };
-    const close=()=>{
-      outer.classList.remove('open');
-      outer.setAttribute('aria-hidden','true');
-    };
-    const toggle=()=>(
-      outer.classList.contains('open')?close():open()
-    );
 
   // ---------- Constants & Helpers ----------
   const LOCS = ['HD','LA','RA','LT','CT','RT','LL','RL'];
@@ -393,7 +484,25 @@ function markDirty(map, tok){
 
 
     // Elements
-    const wrap      = QS('#sheetWrap');
+    const wrap = QS('#sheetWrap');
+const outer = QS('#sheetOuter');
+const inner = QS('#sheetInner');
+
+// Zoom scale logic
+function readCssPx(varName, fallback){
+  const s = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+  if (!s.endsWith('px')) return fallback;
+  const n = parseFloat(s.slice(0,-2));
+  return Number.isFinite(n) ? n : fallback;
+}
+function updateSheetScale(){
+  const panelW = readCssPx('--panel-w', 500);
+  const vw = Math.max(320, window.innerWidth || panelW);
+  const scale = Math.min(1, vw / panelW); // clamp to [min,1]
+  document.documentElement.style.setProperty('--sheet-scale', String(scale));
+}
+updateSheetScale();
+window.addEventListener('resize', updateSheetScale);
     const btnClose  = QS('#sheetCloseBtn');
     const btnLoad   = QS('#loadFromJsonBtn');
     const tabs      = QS('#sheetTabs');
@@ -428,21 +537,23 @@ fPilot.p.addEventListener('input',      () => { sheet.pilot.piloting = clampInt(
 notes.addEventListener('input', () => { sheet.notes = notes.value; scheduleSave(); });
     
     // open/close
-    const open = (ids)=>{                      // NEW: optional ids
-      if (ids && ids.mapId && ids.tokenId) {
-        mapId = ids.mapId; tokenId = ids.tokenId; sheet = load(mapId, tokenId); hydrateAll();
-      } else {
-        // If host globals exist and differ, adopt them on open
-        const hostMap = window.CURRENT_MAP_ID;
-        const hostTok = window.selectedTokenId;
-        if (hostMap && hostTok && (hostMap !== mapId || hostTok !== tokenId)) {
-          mapId = hostMap; tokenId = hostTok; sheet = load(mapId, tokenId); hydrateAll();
-        }
-      }
-      wrap.classList.add('open'); wrap.setAttribute('aria-hidden','false');
-    };
-    const close  = ()=>{ wrap.classList.remove('open'); wrap.setAttribute('aria-hidden','true'); };
-    const toggle = ()=> (wrap.classList.contains('open')? close() : open());
+    
+const open = (ids)=>{                      // optional ids
+  if (ids && ids.mapId && ids.tokenId) {
+    mapId = ids.mapId; tokenId = ids.tokenId; sheet = load(mapId, tokenId); hydrateAll();
+  } else {
+    const hostMap = window.CURRENT_MAP_ID;
+    const hostTok = window.selectedTokenId;
+    if (hostMap && hostTok && (hostMap !== mapId || hostTok !== tokenId)) {
+      mapId = hostMap; tokenId = hostTok; sheet = load(mapId, tokenId); hydrateAll();
+    }
+  }
+  updateSheetScale();
+  outer.classList.add('open'); outer.setAttribute('aria-hidden','false');
+};
+const close  = ()=>{ outer.classList.remove('open'); outer.setAttribute('aria-hidden','true'); };
+const toggle = ()=> (outer.classList.contains('open')? close() : open());
+
 
     btnClose.addEventListener('click', close);
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
@@ -995,12 +1106,15 @@ async function ensureTokenMechRef(mapId, tokenId, tokenMeta = {}) {
 
     
     // expose global convenience
-    const api={open,close,toggle,refresh:updateSheetScale};
-    window.MSS84_SHEET=api;
+    window.MSS84_SHEET = api;
+
+    // Try immediate compiler hydrate on first mount
+    (async ()=>{ await hydrateFromCompiler(); })();
+
     return api;
   }
 
-  return{mount};
+  return { mount };
 })();
 
 // Optional legacy loader bridge (wired by apps that keep the old JSON path).
