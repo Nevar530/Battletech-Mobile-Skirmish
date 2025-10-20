@@ -558,22 +558,17 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   dominant-baseline: central;
 }
 
-/* --- Final spacing tune for Map / Mech segmented buttons --- */
+/* --- Emoji Map 🛰️ / Mech 🛠️ button spacing tweak --- */
 .seg-group .seg-btn {
-  gap: 8px !important;          /* widen space between icon and label */
-  padding: 6px 14px !important; /* add a touch of horizontal breathing room */
-}
-
-.seg-group .seg-btn .ico {
-  width: 18px !important;
-  height: 18px !important;
-  flex: 0 0 18px !important;
+  gap: 8px;                /* space between icon and text */
+  padding: 6px 14px;       /* horizontal breathing room */
+  font-size: 15px;         /* slightly larger for emoji clarity */
 }
 
 .seg-group .seg-btn .label {
-  font-size: 12px !important;
-  line-height: 1 !important;
-  font-weight: 600 !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 /* Hide footer on mobile screens */
