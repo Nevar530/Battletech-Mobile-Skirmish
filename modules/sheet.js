@@ -244,7 +244,7 @@ window.Sheet = (() => {
     <header class="mss84-sheet__hdr">
       <div class="mss84-sheet__title">Mech Sheet <span id="savePulse" class="mss84-savepulse">Saved</span></div>
       <div class="mss84-sheet__spacer"></div>
-      <button class="mss84-sheet__x" id="loadFromJsonBtn" title="Legacy: resolve from /data JSON">Load from JSON</button>
+
       <button class="mss84-sheet__x" id="sheetCloseBtn">Close</button>
     </header>
 
