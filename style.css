@@ -558,36 +558,38 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   dominant-baseline: central;
 }
 
-/* --- TOPBAR SEGMENTED BUTTONS: force-tighten icon+label --- */
-.ui-topbar .seg-group .seg-btn{
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 6px !important;              /* tighten space between icon + text */
-  padding: 6px 10px !important;     /* remove extra “air” */
-  line-height: 1 !important;
-  letter-spacing: 0 !important;
-  text-align: center !important;
+/* --- SEGMENTED BUTTONS: icon + label as one clickable pill --- */
+.seg-group { display: inline-flex; gap: 0; border:1px solid var(--border); border-radius:10px; overflow:hidden; background:#0f1722; }
+
+/* each segment is the button itself */
+.seg-group .seg-btn{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:6px !important;                 /* tight icon-text gap */
+  padding:6px 12px !important;        /* remove extra air */
+  height:36px !important;
+  background:transparent !important;
+  border:none !important;
+  border-right:1px solid var(--border) !important;
+  line-height:1 !important;
+}
+.seg-group .seg-btn:last-child{ border-right:none !important; }
+
+/* icon box */
+.seg-group .seg-btn .ico{
+  width:18px !important; height:18px !important;
+  display:block !important; flex:0 0 18px !important;
 }
 
-/* make the SVG icon not reserve baseline space */
-.ui-topbar .seg-group .seg-btn .ico{
-  width: 18px !important;
-  height: 18px !important;
-  display: block !important;        /* kills inline baseline gap */
-  flex: 0 0 18px !important;        /* consistent icon box */
+/* label */
+.seg-group .seg-btn .label{
+  white-space:nowrap !important;
+  font-size:12px !important; letter-spacing:.04em !important; color:var(--ink) !important; font-weight:500 !important;
 }
 
-/* label: keep tight, never wrap */
-.ui-topbar .seg-group .seg-btn .label{
-  white-space: nowrap !important;
-  margin-left: 0 !important;        /* no accidental left bias */
-}
-
-/* just in case any first-child has stray margin */
-.ui-topbar .seg-group .seg-btn:first-child{
-  margin-left: 0 !important;
-}
+/* retire the old wrapper styles (label outside button) */
+.seg-item, .seg-label { display:contents !important; }
 
 /* Hide footer on mobile screens */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
