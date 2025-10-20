@@ -295,7 +295,7 @@ svg{
 @media (max-width: 960px){ .panel{width:86vw} }
 
 .seg-item { display:flex; align-items:center; gap:6px; }
-.seg-label { font-size:14px; letter-spacing:.04em; color:var(--ink); font-weight:500; }
+.seg-label { font-size:12px; align-items:center; letter-spacing:.04em; color:var(--ink); font-weight:500; }
 
 /* ---------- Token floating buttons ---------- */
 #tokenControls button{
