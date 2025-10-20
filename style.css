@@ -558,42 +558,49 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   dominant-baseline: central;
 }
 
-/* --- NEW! Top bar segmented buttons: tighten icon + label --- */
+/* --- FORCE ALIGNMENT FIX: topbar segmented buttons --- */
 .topbar .seg .btn,
 .topbar .seg button {
-  display: inline-flex;          /* use flex so icon+text align cleanly */
-  align-items: center;
-  justify-content: center;       /* centers the whole cluster inside the pill */
-  gap: 6px;                      /* distance between icon and text (tighter) */
-  padding: 8px 12px;             /* trim excess interior space */
-  letter-spacing: 0;             /* avoid weird visual left bias */
-  line-height: 1;                /* remove extra vertical air around text */
+  display: inline-flex !important;        /* align icon + text cleanly */
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;                    /* tighter icon/text gap */
+  padding: 8px 12px !important;           /* reduce extra space */
+  letter-spacing: 0 !important;
+  line-height: 1 !important;
 }
 
-/* normalize icon box so every button reserves the same width */
+/* uniform icon box */
 .topbar .seg .btn .icon,
 .topbar .seg button .icon,
 .topbar .seg .btn svg,
 .topbar .seg button svg {
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;                /* prevents the icon from collapsing */
-  display: block;                /* removes inline SVG baseline gap */
+  width: 18px !important;
+  height: 18px !important;
+  flex: 0 0 18px !important;
+  display: block !important;
 }
 
-/* if your icons are applied via background images on the button itself */
+/* background-image icons (if used) */
 .topbar .seg .btn[data-icon],
 .topbar .seg button[data-icon] {
-  background-position: 10px 50%; /* consistent left offset & vertical center */
-  background-repeat: no-repeat;
-  padding-left: 32px;            /* space for the bg icon; matches above gap */
+  background-position: 10px 50% !important;
+  background-repeat: no-repeat !important;
+  padding-left: 32px !important;          /* keeps icon/text spacing */
 }
 
-/* optional: ensure the label never wraps in tiny widths */
+/* prevent wrapping and uneven left bias */
 .topbar .seg .btn .label,
 .topbar .seg button .label {
-  white-space: nowrap;
+  white-space: nowrap !important;
 }
+
+/* remove stray left margin on first segmented button */
+.topbar .seg .btn:first-child,
+.topbar .seg button:first-child {
+  margin-left: 0 !important;
+}
+
 
 
 /* Hide footer on mobile screens */
