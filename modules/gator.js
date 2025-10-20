@@ -83,12 +83,15 @@
 // === Uniform self-scaling (no wrappers) ===
 panel.dataset.baseWidth = (panel.dataset.baseWidth || '560');
 panel.style.transformOrigin = 'top center';
+
 function __gtrUpdateScale(){
   var baseW = parseInt(panel.dataset.baseWidth, 10) || 560;
   var vw = Math.max(320, window.innerWidth || baseW);
   var scale = Math.min(1, vw / baseW);
   panel.style.transform = 'translateX(-50%) scale(' + scale + ')';
   document.documentElement.style.setProperty('--sheet-scale', String(scale));
+}
+
 // expose to outer scope via `el`
 el.__gtrUpdateScale = __gtrUpdateScale;
 
@@ -97,6 +100,7 @@ if (!window.__gtrScaleBound){
   window.addEventListener('resize', () => el.__gtrUpdateScale && el.__gtrUpdateScale());
   window.__gtrScaleBound = true;
 }
+
 
     panel.innerHTML = `
       <style>
