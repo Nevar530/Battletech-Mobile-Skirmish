@@ -558,6 +558,43 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   dominant-baseline: central;
 }
 
+/* --- NEW! Top bar segmented buttons: tighten icon + label --- */
+.topbar .seg .btn,
+.topbar .seg button {
+  display: inline-flex;          /* use flex so icon+text align cleanly */
+  align-items: center;
+  justify-content: center;       /* centers the whole cluster inside the pill */
+  gap: 6px;                      /* distance between icon and text (tighter) */
+  padding: 8px 12px;             /* trim excess interior space */
+  letter-spacing: 0;             /* avoid weird visual left bias */
+  line-height: 1;                /* remove extra vertical air around text */
+}
+
+/* normalize icon box so every button reserves the same width */
+.topbar .seg .btn .icon,
+.topbar .seg button .icon,
+.topbar .seg .btn svg,
+.topbar .seg button svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;                /* prevents the icon from collapsing */
+  display: block;                /* removes inline SVG baseline gap */
+}
+
+/* if your icons are applied via background images on the button itself */
+.topbar .seg .btn[data-icon],
+.topbar .seg button[data-icon] {
+  background-position: 10px 50%; /* consistent left offset & vertical center */
+  background-repeat: no-repeat;
+  padding-left: 32px;            /* space for the bg icon; matches above gap */
+}
+
+/* optional: ensure the label never wraps in tiny widths */
+.topbar .seg .btn .label,
+.topbar .seg button .label {
+  white-space: nowrap;
+}
+
 
 /* Hide footer on mobile screens */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
