@@ -89,12 +89,14 @@ function __gtrUpdateScale(){
   var scale = Math.min(1, vw / baseW);
   panel.style.transform = 'translateX(-50%) scale(' + scale + ')';
   document.documentElement.style.setProperty('--sheet-scale', String(scale));
-}
+// expose to outer scope via `el`
+el.__gtrUpdateScale = __gtrUpdateScale;
+
+// wire once
 if (!window.__gtrScaleBound){
-  window.addEventListener('resize', __gtrUpdateScale);
+  window.addEventListener('resize', () => el.__gtrUpdateScale && el.__gtrUpdateScale());
   window.__gtrScaleBound = true;
 }
-
 
     panel.innerHTML = `
       <style>
@@ -409,7 +411,7 @@ if (!window.__gtrScaleBound){
     });
 
     document.body.appendChild(panel);
-    __gtrUpdateScale();
+    el.__gtrUpdateScale && el.__gtrUpdateScale();    // <— call after in-DOM
     compute(); // initial
   }
 
@@ -438,12 +440,12 @@ if (!window.__gtrScaleBound){
   }
 
   // ==== Open/Close & button wiring ====
-  function open(){
-    buildPanel();
-    __gtrUpdateScale();
-    el.panel.hidden = false;
-    el.panel.classList.remove('collapsed');
-  }
+function open(){
+  buildPanel();
+  if (el.__gtrUpdateScale) el.__gtrUpdateScale();   // <— use the exposed ref
+  el.panel.hidden = false;
+  el.panel.classList.remove('collapsed');
+}
   function close(){
     if (!el.panel) return;
     el.panel.classList.add('collapsed');
