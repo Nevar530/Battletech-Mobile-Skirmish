@@ -6,48 +6,6 @@
     outTN:null, outProb:null, outRoll:null
   };
 
-  // === Zoom scaling (uniform) ===
-  function ensureZoomStyles(){
-    const ZID = 'gtr-zoom-styles';
-    if (document.getElementById(ZID)) return;
-    const s = document.createElement('style');
-    s.id = ZID;
-    s.textContent = `
-:root{
-  --sheet-scale: 1;
-  --gtr-w: 560px;
-}
-/* Outer positions the panel; Inner applies uniform zoom */
-.gtr-outer{
-  position: fixed;
-  top: 60px;
-  left: 50%;
-  width: calc(var(--gtr-w) * var(--sheet-scale));
-  transform: translateX(-50%);
-  z-index: 44;
-}
-.gtr-inner{
-  width: var(--gtr-w);
-  transform-origin: top left;
-  transform: scale(var(--sheet-scale));
-}
-`;
-    document.head.appendChild(s);
-  }
-  function readCssPx(varName, fallback){
-    const v = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-    if (!v.endsWith('px')) return fallback;
-    const n = parseFloat(v.slice(0,-2));
-    return Number.isFinite(n) ? n : fallback;
-  }
-  function updateGatorScale(){
-    const panelW = readCssPx('--gtr-w', 560);
-    const vw = Math.max(320, window.innerWidth || panelW);
-    const scale = Math.min(1, vw / panelW);
-    document.documentElement.style.setProperty('--sheet-scale', String(scale));
-  }
-  let __gtrScaleWired = false;
-
   // ==== Prob for 2d6 ====
   const P2D6 = { 2:2.78,3:5.56,4:8.33,5:11.11,6:13.89,7:16.67,8:13.89,9:11.11,10:8.33,11:5.56,12:2.78 };
   const chanceAtOrAbove = (tn) => {
@@ -115,22 +73,28 @@
   function buildPanel(){
     if (el.panel) return;
 
-    ensureZoomStyles();
-
-    const outer = document.createElement('div');
-    outer.id = 'gtrOuter';
-    outer.className = 'gtr-outer';
-    outer.hidden = true;
-
-    const inner = document.createElement('div');
-    inner.className = 'gtr-inner';
-
     const panel = document.createElement('div');
     panel.id = 'gatorPanel';
     panel.className = 'panel right collapsed';
-    panel.style.cssText = 'width: var(--gtr-w);';
+    panel.style.cssText = 'right:auto; left:50%; transform:translateX(-50%); width:560px; top:60px; z-index:44;';
     panel.hidden = true;
     panel.setAttribute('aria-label','GATOR Console');
+
+// === Uniform self-scaling (no wrappers) ===
+panel.dataset.baseWidth = (panel.dataset.baseWidth || '560');
+panel.style.transformOrigin = 'top center';
+function __gtrUpdateScale(){
+  var baseW = parseInt(panel.dataset.baseWidth, 10) || 560;
+  var vw = Math.max(320, window.innerWidth || baseW);
+  var scale = Math.min(1, vw / baseW);
+  panel.style.transform = 'translateX(-50%) scale(' + scale + ')';
+  document.documentElement.style.setProperty('--sheet-scale', String(scale));
+}
+if (!window.__gtrScaleBound){
+  window.addEventListener('resize', __gtrUpdateScale);
+  window.__gtrScaleBound = true;
+}
+
 
     panel.innerHTML = `
       <style>
@@ -154,31 +118,7 @@
         #gatorPanel h3{margin:.25rem 0 .5rem;}
         #gatorPanel .sub{font-weight:700; font-size:12.5px; letter-spacing:.3px; opacity:.9;}
         #gatorPanel .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;}
-      
-/* Zoom-safe container/scroll + background */
-#gatorPanel{
-  background: rgba(16,16,16,.88);
-  border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  box-shadow: 0 16px 40px rgba(0,0,0,.45);
-  overflow: hidden;
-}
-#gatorPanel .panel-head{
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.35));
-  backdrop-filter: saturate(140%) blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,.06);
-}
-#gatorPanel .panel-body{
-  display: block;
-  padding: 12px;
-  max-height: calc(100vh - 160px);
-  overflow: auto;
-}
-
-</style>
+      </style>
 
       <div class="panel-head">
         <h2>GATOR Console</h2>
@@ -468,17 +408,8 @@
       ].join(' • ');
     });
 
-    inner.appendChild(panel);
-    outer.appendChild(inner);
-    document.body.appendChild(outer);
-    el.outer = outer;
-
-    // wire zoom once
-    if (!__gtrScaleWired){
-      updateGatorScale();
-      window.addEventListener('resize', updateGatorScale);
-      __gtrScaleWired = true;
-    }
+    document.body.appendChild(panel);
+    __gtrUpdateScale();
     compute(); // initial
   }
 
@@ -509,8 +440,7 @@
   // ==== Open/Close & button wiring ====
   function open(){
     buildPanel();
-    updateGatorScale();
-    if (el.outer) el.outer.hidden = false;
+    __gtrUpdateScale();
     el.panel.hidden = false;
     el.panel.classList.remove('collapsed');
   }
@@ -518,7 +448,6 @@
     if (!el.panel) return;
     el.panel.classList.add('collapsed');
     el.panel.hidden = true;
-    if (el.outer) el.outer.hidden = true;
   }
   function wireButton(){
     const btn = document.getElementById('btnOpenGator');
