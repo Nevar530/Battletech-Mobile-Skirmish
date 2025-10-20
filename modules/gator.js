@@ -155,12 +155,13 @@
         #gatorPanel .sub{font-weight:700; font-size:12.5px; letter-spacing:.3px; opacity:.9;}
         #gatorPanel .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;}
       
-/* Enforce body visibility + panel background */
+/* Zoom-safe container/scroll + background */
 #gatorPanel{
-  background: rgba(16,16,16,.86);
+  background: rgba(16,16,16,.88);
   border: 1px solid #2a2a2a;
   border-radius: 12px;
-  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+  box-shadow: 0 16px 40px rgba(0,0,0,.45);
+  overflow: hidden;
 }
 #gatorPanel .panel-head{
   position: sticky;
