@@ -155,13 +155,28 @@
         #gatorPanel .sub{font-weight:700; font-size:12.5px; letter-spacing:.3px; opacity:.9;}
         #gatorPanel .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;}
       
-
-#gatorPanel .panel-body{ 
-  display:block; 
-  max-height: calc(100vh - 140px); 
-  overflow:auto; 
+/* Enforce body visibility + panel background */
+#gatorPanel{
+  background: rgba(16,16,16,.86);
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
 }
-#gatorPanel .panel-head{ position:sticky; top:0; background:rgba(0,0,0,.6); backdrop-filter:saturate(140%) blur(6px); }
+#gatorPanel .panel-head{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(0,0,0,.65), rgba(0,0,0,.35));
+  backdrop-filter: saturate(140%) blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+#gatorPanel .panel-body{
+  display: block;
+  padding: 12px;
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+}
+
 </style>
 
       <div class="panel-head">
