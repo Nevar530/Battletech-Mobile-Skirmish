@@ -558,50 +558,36 @@ html, body, #wrap { height:100%; background:#0b0f14; }
   dominant-baseline: central;
 }
 
-/* --- FORCE ALIGNMENT FIX: topbar segmented buttons --- */
-.topbar .seg .btn,
-.topbar .seg button {
-  display: inline-flex !important;        /* align icon + text cleanly */
+/* --- TOPBAR SEGMENTED BUTTONS: force-tighten icon+label --- */
+.ui-topbar .seg-group .seg-btn{
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 6px !important;                    /* tighter icon/text gap */
-  padding: 8px 12px !important;           /* reduce extra space */
-  letter-spacing: 0 !important;
+  gap: 6px !important;              /* tighten space between icon + text */
+  padding: 6px 10px !important;     /* remove extra “air” */
   line-height: 1 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
 }
 
-/* uniform icon box */
-.topbar .seg .btn .icon,
-.topbar .seg button .icon,
-.topbar .seg .btn svg,
-.topbar .seg button svg {
+/* make the SVG icon not reserve baseline space */
+.ui-topbar .seg-group .seg-btn .ico{
   width: 18px !important;
   height: 18px !important;
-  flex: 0 0 18px !important;
-  display: block !important;
+  display: block !important;        /* kills inline baseline gap */
+  flex: 0 0 18px !important;        /* consistent icon box */
 }
 
-/* background-image icons (if used) */
-.topbar .seg .btn[data-icon],
-.topbar .seg button[data-icon] {
-  background-position: 10px 50% !important;
-  background-repeat: no-repeat !important;
-  padding-left: 32px !important;          /* keeps icon/text spacing */
-}
-
-/* prevent wrapping and uneven left bias */
-.topbar .seg .btn .label,
-.topbar .seg button .label {
+/* label: keep tight, never wrap */
+.ui-topbar .seg-group .seg-btn .label{
   white-space: nowrap !important;
+  margin-left: 0 !important;        /* no accidental left bias */
 }
 
-/* remove stray left margin on first segmented button */
-.topbar .seg .btn:first-child,
-.topbar .seg button:first-child {
+/* just in case any first-child has stray margin */
+.ui-topbar .seg-group .seg-btn:first-child{
   margin-left: 0 !important;
 }
-
-
 
 /* Hide footer on mobile screens */
 @media (max-width: 768px), (hover: none) and (pointer: coarse) {
