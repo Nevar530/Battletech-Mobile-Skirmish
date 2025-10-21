@@ -2,14 +2,6 @@
  * MSS:84 — Structures Module (Buildings / Walls / Gates)
  * Single-file drop-in: /modules/structures.js
  * 
- * Goals:
- * - Top-down, multi-hex vector structures (no images).
- * - Snap to hex grid; rotate in 60° steps.
- * - Mechs stay above structures (z-index); tokens can "stand on roofs".
- * - Simple LOS surface heights: fixed | per-cell | tile inherit.
- * - Only interactive when the tool is enabled; otherwise inert.
- * - Minimal UI that can mount inside your left terrain menu.
- *
  * Public API (window.MSS_Structures):
  *   init(opts)                -> initialize with engine helpers and options
  *   mountUI(containerSel)     -> build UI controls in given container element
@@ -18,8 +10,6 @@
  *   serialize()               -> array for save
  *   hydrate(structuresArray)  -> restore from save
  *   getSurfaceHeight(q,r)     -> surface/roof height at hex (for movement/LOS)
- *
- * Wiring tips are at the bottom of this file.
  */
 (function(){
   const API = {};
@@ -41,13 +31,14 @@
     publish:null,
     subscribe:null,
     // DOM
-    root:null,           // svg layer
-    defsNode:null,       // <defs> for patterns etc
+    root:null,           // svg layer (g within main #svg)
+    defsNode:null,       // <defs> for patterns etc within #svg
     ui:null,             // mounted UI root
     zBelowTokens: 20,
     zTokens:      30,
     // keys
     hotkeysAttached:false,
+    _unitScale:null,
   };
 
   /* ------------------------- Utility: DOM ------------------------- */
@@ -64,49 +55,27 @@
     }
     return n;
   }
-function ensureLayer(){
-  const mapSvg = document.getElementById('svg');
-  if (!mapSvg) return;
-  let layer = document.getElementById('world-structures');
-  if (!layer){
-    const tokens = document.getElementById('world-tokens');
-    layer = document.createElementNS('http://www.w3.org/2000/svg','g');
-    layer.setAttribute('id','world-structures');
-    layer.classList.add('layer-structures');
-    if (tokens && tokens.parentNode){
-      tokens.parentNode.insertBefore(layer, tokens); // below tokens
-    } else {
-      mapSvg.appendChild(layer);
-    }
-  }
-  layer.style.pointerEvents = 'none';
-  STATE.root = layer;
-
-  const defs = mapSvg.querySelector('defs');
-  STATE.defsNode = defs || mapSvg.insertBefore(
-    document.createElementNS('http://www.w3.org/2000/svg','defs'),
-    mapSvg.firstChild
-  );
-}
-
-      // Attempt to place just under tokens layer if present
-      const tokens = document.getElementById('layer-tokens') || document.getElementById('tokens');
+  function ensureLayer(){
+    // Use the main map SVG and create a group under world-tokens
+    const mapSvg = document.getElementById('svg');
+    if (!mapSvg) return;
+    let layer = document.getElementById('world-structures');
+    if (!layer){
+      const tokens = document.getElementById('world-tokens');
+      layer = elNS('g', { id:'world-structures' });
+      layer.classList.add('layer-structures');
       if (tokens && tokens.parentNode){
         tokens.parentNode.insertBefore(layer, tokens); // below tokens
       } else {
-        document.body.appendChild(layer);
+        mapSvg.appendChild(layer);
       }
     }
-    // basic style defaults
-    layer.style.position = 'absolute';
-    layer.style.inset = '0';
-    layer.style.zIndex = String(STATE.zBelowTokens);
-    layer.style.pointerEvents = 'none'; // inert by default
+    layer.style.pointerEvents = 'none'; // inert unless tool enabled
     STATE.root = layer;
 
-    // defs node for patterns if needed later
-    const existingDefs = layer.querySelector('defs');
-    STATE.defsNode = existingDefs || layer.insertBefore(elNS('defs'), layer.firstChild);
+    // defs should be in the main svg <defs>
+    const defs = mapSvg.querySelector('defs');
+    STATE.defsNode = defs || mapSvg.insertBefore(elNS('defs'), mapSvg.firstChild);
   }
 
   /* ------------------------- Utility: Math ------------------------ */
@@ -126,24 +95,6 @@ function ensureLayer(){
   }
   function key(q,r){ return q+'|'+r; }
 
-  /* ---------------------- Catalog management ---------------------- */
-  function clearCatalog(){
-    STATE.catalog = {version:1, types:[], defs:[]};
-    STATE.defsById.clear();
-  }
-  function ingestCatalog(json){
-    clearCatalog();
-    if (!json || !Array.isArray(json.defs)) throw new Error('Invalid catalog.json');
-    STATE.catalog = json;
-    for (const def of json.defs){
-      STATE.defsById.set(def.id, def);
-    }
-    buildUILists();
-  }
-
-  /* ------------------------- Rendering ---------------------------- */
-  function worldToScreen(q,r){
-
   function unitScale(){
     if (STATE._unitScale) return STATE._unitScale;
     try{
@@ -152,7 +103,11 @@ function ensureLayer(){
       STATE._unitScale = Math.hypot((b.x-a.x),(b.y-a.y)) || 100;
     }catch(e){ STATE._unitScale = 100; }
     return STATE._unitScale;
-  }    const p = STATE.hexToPx(q,r);
+  }
+
+  /* ------------------------- Rendering ---------------------------- */
+  function worldToScreen(q,r){
+    const p = STATE.hexToPx(q,r);
     return { x:p.x, y:p.y };
   }
 
@@ -171,7 +126,6 @@ function ensureLayer(){
     const deg = (rot||0);
     const sc = unitScale();
     g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${deg}) scale(${sc})`);
-  },${p.y}) rotate(${deg})`);
   }
 
   function drawShape(container, shape){
@@ -211,7 +165,6 @@ function ensureLayer(){
   function removeChildren(n){ while(n.firstChild) n.removeChild(n.firstChild); }
 
   function renderAll(){
-    // rebuild all groups
     if (!STATE.root) ensureLayer();
     for (let i=0;i<STATE.list.length;i++){
       renderOne(i);
@@ -219,34 +172,7 @@ function ensureLayer(){
     renderGhost();
   }
 
-  function renderOne(i){
-    const item = STATE.list[i];
-    const def = STATE.defsById.get(item.defId);
-    if (!def) return;
-    const g = ensureGroupFor(i);
-    g.setAttribute('data-index', i);
-    g.setAttribute('data-def', def.id);
-    // selection classes
-    g.setAttribute('class', 'structure'+(STATE.selectedId===i?' selected':''));
-    // clear and draw
-    removeChildren(g);
-    // optional state visuals (e.g., gates)
-    const shapes = pickShapes(def, item.state);
-    for (const s of shapes) drawShape(g, s);
-    // transform
-    applyTransform(g, item.anchor, item.rot||0);
-    // hit target (outline) only when tool enabled
-    let hit = g.querySelector('.hit');
-    if (!hit){
-      hit = elNS('rect', { class:'hit', x:-0.52, y:-0.52, width:1.04, height:1.04, fill:'transparent', stroke:'transparent' });
-      g.appendChild(hit);
-    }
-    // pointer-events only in tool mode
-    g.style.pointerEvents = STATE.tool ? 'auto' : 'none';
-  }
-
   function pickShapes(def, stateKey){
-    // Handles def.shapes (default) or def.states[].shapes
     if (def.states && Array.isArray(def.states)){
       const chosen = def.states.find(s=>s.key=== (stateKey || def.defaultState));
       if (chosen && Array.isArray(chosen.shapes)){
@@ -256,11 +182,30 @@ function ensureLayer(){
     return def.shapes || [];
   }
 
+  function renderOne(i){
+    const item = STATE.list[i];
+    const def = STATE.defsById.get(item.defId);
+    if (!def) return;
+    const g = ensureGroupFor(i);
+    g.setAttribute('data-index', i);
+    g.setAttribute('data-def', def.id);
+    g.setAttribute('class', 'structure'+(STATE.selectedId===i?' selected':''));
+    removeChildren(g);
+    const shapes = pickShapes(def, item.state);
+    for (const s of shapes) drawShape(g, s);
+    applyTransform(g, item.anchor, item.rot||0);
+    let hit = g.querySelector('.hit');
+    if (!hit){
+      hit = elNS('rect', { class:'hit', x:-0.52, y:-0.52, width:1.04, height:1.04, fill:'transparent', stroke:'transparent' });
+      g.appendChild(hit);
+    }
+    g.style.pointerEvents = STATE.tool ? 'auto' : 'none';
+  }
+
   function renderGhost(){
-    // Remove old ghost
-    const old = STATE.root.querySelector('#ghost-structure');
+    const old = STATE.root && STATE.root.querySelector('#ghost-structure');
     if (old) old.remove();
-    if (!STATE.tool || !STATE.ghost) return;
+    if (!STATE.tool || !STATE.ghost || !STATE.root) return;
     const def = STATE.defsById.get(STATE.ghost.defId);
     if (!def) return;
     const g = elNS('g', { id:'ghost-structure', class:'structure ghost' });
@@ -274,10 +219,11 @@ function ensureLayer(){
   /* ------------------------ Interaction -------------------------- */
   function enableTool(on){
     STATE.tool = !!on;
-    // pointer-events on structures when tool is active
-    const all = STATE.root.querySelectorAll('.structure');
-    all.forEach(g=> g.style.pointerEvents = STATE.tool ? 'auto' : 'none');
-    STATE.root.classList.toggle('tool-on', STATE.tool);
+    if (STATE.root){
+      const all = STATE.root.querySelectorAll('.structure');
+      all.forEach(g=> g.style.pointerEvents = STATE.tool ? 'auto' : 'none');
+      STATE.root.classList.toggle('tool-on', STATE.tool);
+    }
     if (!STATE.tool){
       STATE.ghost = null;
       STATE.selectedId = null;
@@ -313,7 +259,6 @@ function ensureLayer(){
 
   function rotateSelected(deltaSteps){
     if (STATE.selectedId==null) {
-      // rotate ghost if placing
       if (STATE.ghost){
         STATE.ghost.rot = ((STATE.ghost.rot||0) + deltaSteps*60 + 360) % 360;
         renderGhost();
@@ -358,7 +303,6 @@ function ensureLayer(){
       evt.stopPropagation();
       return;
     }
-    // if in "add" mode (ghost active), clicking board commits
     if (STATE.ghost){
       commitGhost();
       evt.stopPropagation();
@@ -371,9 +315,11 @@ function ensureLayer(){
     if (!mapSvg) return;
     const pt = mapSvg.createSVGPoint();
     pt.x = evt.clientX; pt.y = evt.clientY;
-    const svgPt = pt.matrixTransform(mapSvg.getScreenCTM().inverse());
+    const ctm = mapSvg.getScreenCTM();
+    if (!ctm) return;
+    const svgPt = pt.matrixTransform(ctm.inverse());
     const hex = STATE.pxToHex(svgPt.x, svgPt.y);
-    placeGhostAt(hex.q, hex.r);
+    placeGhostAt(hex.q|0, hex.r|0);
   }
 
   function attachPointerHandlers(){
@@ -386,9 +332,7 @@ function ensureLayer(){
 
   /* ------------------------ Heights / LOS ------------------------- */
   function getSurfaceHeight(q,r){
-    // Return the structure surface height at (q,r) if any; else underlying tile height.
-    // If multiple structures stack (rare), take max.
-    let maxH = STATE.getTileHeight(q,r) || 0;
+    let maxH = (typeof STATE.getTileHeight==='function' ? STATE.getTileHeight(q,r) : 0) || 0;
     for (let i=0;i<STATE.list.length;i++){
       const item = STATE.list[i];
       const def  = STATE.defsById.get(item.defId);
@@ -406,12 +350,11 @@ function ensureLayer(){
   API.getSurfaceHeight = getSurfaceHeight;
 
   function heightAt(def, cellIdx, stateKey, q, r){
-    // fixed | cells | tile (with optional minHeight)
     if (def.states && Array.isArray(def.states)){
       const chosen = def.states.find(s=>s.key=== (stateKey || def.defaultState));
       if (chosen){
         if (chosen.heightMode==='fixed') return chosen.height||0;
-        if (chosen.heightMode==='tile')  return Math.max(STATE.getTileHeight(q,r) || 0, chosen.minHeight||0);
+        if (chosen.heightMode==='tile')  return Math.max((typeof STATE.getTileHeight==='function'? STATE.getTileHeight(q,r):0) || 0, chosen.minHeight||0);
       }
     }
     const mode = def.heightMode || 'fixed';
@@ -421,9 +364,9 @@ function ensureLayer(){
       return arr[cellIdx] ?? 0;
     }
     if (mode==='tile'){
-      const h = STATE.getTileHeight;
       const minH = def.minHeight||0;
-      return Math.max(typeof h==='function'? h(0,0):0, minH); // fallback-safe
+      const base = (typeof STATE.getTileHeight==='function' ? STATE.getTileHeight(q,r) : 0) || 0;
+      return Math.max(base, minH);
     }
     return 0;
   }
@@ -443,7 +386,7 @@ function ensureLayer(){
   function hydrate(arr){
     STATE.list = Array.isArray(arr)? arr.map(x => ({
       defId: x.defId,
-      anchor: { q:x.anchor.q|0, r:x.anchor.r|0 },
+      anchor: { q:(x.anchor?.q|0), r:(x.anchor?.r|0) },
       rot: x.rot|0,
       state: x.state,
       skin: x.skin
@@ -511,13 +454,11 @@ function ensureLayer(){
     tEl.innerHTML = '';
     dEl.innerHTML = '';
 
-    // Types list (collapsible)
     for (const t of STATE.catalog.types || []){
       const btn = el('button', { class:'chip', type:'button', textContent: t.name });
       btn.addEventListener('click', ()=> filterDefsByType(t.id));
       tEl.appendChild(btn);
     }
-    // Default: show all defs
     renderDefsList(STATE.catalog.defs || []);
   }
 
@@ -547,64 +488,26 @@ function ensureLayer(){
     window.addEventListener('keydown', (e)=>{
       if (!STATE.tool) return;
       if (e.repeat) return;
-      // Piggyback the same rotate keys as mechs, commonly Q/E (left/right)
       if (e.key==='q' || e.key==='Q'){ rotateSelected(-1); e.preventDefault(); }
       if (e.key==='e' || e.key==='E'){ rotateSelected(+1); e.preventDefault(); }
-      // Delete
       if (e.key==='Delete'){ deleteSelected(); e.preventDefault(); }
-      // Enter to place ghost
       if (e.key==='Enter' && STATE.ghost){ commitGhost(); e.preventDefault(); }
     });
   }
 
   /* ----------------------- Change broadcast ----------------------- */
   function pulseChanged(){
-    // publish if provided, else noop
     if (typeof STATE.publish === 'function'){
       STATE.publish('structures:changed', serialize());
     }
   }
 
   /* --------------------------- Init ------------------------------- */
-  function init(opts){
-    if (STATE.inited) return;
-    STATE.hexToPx = opts.hexToPx;
-    STATE.pxToHex = opts.pxToHex;
-    STATE.getTileHeight = opts.getTileHeight || STATE.getTileHeight;
-    STATE.registerLosProvider = opts.registerLosProvider || null;
-    STATE.onMapTransform = opts.onMapTransform || null;
-    STATE.publish = opts.publish || null;
-    STATE.subscribe = opts.subscribe || null;
-
-    ensureLayer();
-    attachPointerHandlers();
-    attachHotkeys();
-
-    // If your LOS system supports providers, let us register a surface hook
-    if (typeof STATE.registerLosProvider === 'function'){
-      STATE.registerLosProvider((q,r)=> getSurfaceHeight(q,r));
-    }
-
-    // Re-render when map pans/zooms
-    if (typeof STATE.onMapTransform === 'function'){
-      STATE.onMapTransform(()=> renderAll());
-    }
-
-    injectDefaultCSS();
-    STATE.inited = true;
-    console.info('[Structures] ready');
-  }
-  API.init = init;
-
   function injectDefaultCSS(){
     if (document.getElementById('structures-css')) return;
     const css = document.createElement('style');
     css.id = 'structures-css';
     css.textContent = `
-      svg#layer-structures { position:absolute; inset:0; pointer-events:none; }
-      svg#layer-structures .structure { vector-effect: non-scaling-stroke; }
-      svg#layer-structures .structure .hit { stroke-width:0; }
-      svg#layer-structures .structure.selected { outline: none; }
       /* Themeable classes (match your app palette) */
       .bldg-body { fill: var(--panel, #1b1b1b); stroke: var(--ink, #888); stroke-width: 0.02; }
       .bldg-seam { stroke: var(--ink-weak, #666); stroke-width: 0.02; fill: none; }
@@ -630,59 +533,69 @@ function ensureLayer(){
     document.head.appendChild(css);
   }
 
+  function init(opts){
+    if (STATE.inited) return;
+    STATE.hexToPx = opts.hexToPx;
+    STATE.pxToHex = opts.pxToHex;
+    STATE.getTileHeight = opts.getTileHeight || STATE.getTileHeight;
+    STATE.registerLosProvider = opts.registerLosProvider || null;
+    STATE.onMapTransform = opts.onMapTransform || null;
+    STATE.publish = opts.publish || null;
+    STATE.subscribe = opts.subscribe || null;
+
+    ensureLayer();
+    attachPointerHandlers();
+    attachHotkeys();
+
+    if (typeof STATE.registerLosProvider === 'function'){
+      STATE.registerLosProvider((q,r)=> getSurfaceHeight(q,r));
+    }
+    if (typeof STATE.onMapTransform === 'function'){
+      STATE.onMapTransform(()=> renderAll());
+    }
+
+    injectDefaultCSS();
+    STATE.inited = true;
+    console.info('[Structures] ready');
+  }
+  API.init = init;
+
   /* ----------------------- Catalog Loading ------------------------ */
   async function loadCatalog(url){
     const res = await fetch(url, { cache:'no-store' });
+    if (!res.ok) throw new Error('Failed to load catalog: '+res.status);
     const json = await res.json();
     ingestCatalog(json);
     console.info('[Structures] catalog loaded:', url, json);
   }
   API.loadCatalog = loadCatalog;
 
+  /* ------------------- Catalog management ---------------------- */
+  function clearCatalog(){
+    STATE.catalog = {version:1, types:[], defs:[]};
+    STATE.defsById.clear();
+  }
+  function ingestCatalog(json){
+    clearCatalog();
+    if (!json || !Array.isArray(json.defs)) throw new Error('Invalid catalog.json');
+    STATE.catalog = json;
+    for (const def of json.defs){
+      STATE.defsById.set(def.id, def);
+    }
+    buildUILists();
+  }
+
   /* ------------------- Expose global namespace -------------------- */
   window.MSS_Structures = API;
 
   /* ------------------- Wiring instructions ------------------------
-
-  1) Place these files:
+  1) Place files:
      /modules/structures.js
      /modules/catalog.json
-
-  2) Add an SVG layer (below tokens) in your map container. If you already have
-     a #layer-tokens element, the module will insert #layer-structures just below it
-     automatically on init(). Otherwise, it appends to body.
-
-  3) Boot-time wiring (e.g., in app init after your map is ready):
-
-     MSS_Structures.init({
-       hexToPx: (q,r)=> MAP.hexToPx(q,r),        // your existing helper
-       pxToHex: (x,y)=> MAP.pxToHex(x,y),        // your existing helper
-       getTileHeight: (q,r)=> TERRAIN.heightAt(q,r), // optional
-       registerLosProvider: (fn)=> LOS.addSurfaceProvider(fn), // optional
-       onMapTransform: (fn)=> MAP.onTransform(fn),            // optional
-       publish: (evt,payload)=> BUS.publish(evt,payload),     // optional
-       subscribe: (evt,cb)=> BUS.subscribe(evt,cb)            // optional
-     });
+  2) Module injects <g id="world-structures"> under #world-tokens when present.
+  3) Boot:
+     MSS_Structures.init({...helpers...});
      MSS_Structures.loadCatalog('/modules/catalog.json');
-
-  4) Left menu placement:
-     Add a container DIV between "Quick Paint" and "Fill Terrain":
-       <div id="structuresPanel"></div>
-     Then mount the UI:
-       MSS_Structures.mountUI('#structuresPanel');
-
-  5) Save / Load:
-     // when saving
-     state.structures = MSS_Structures.serialize();
-     // when loading
-     MSS_Structures.hydrate(state.structures || []);
-
-  6) Z-order & input:
-     Mechs/tokens stay on top because the structures layer z-index is set lower
-     and pointer-events are disabled unless the tool is enabled.
-
-  7) Hotkeys:
-     With the tool enabled: Q/E rotate, Delete removes, Enter commits ghost.
-
+     MSS_Structures.mountUI('#structuresPanel');
   ----------------------------------------------------------------- */
 })();
