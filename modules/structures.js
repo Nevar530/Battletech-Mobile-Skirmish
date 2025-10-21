@@ -65,10 +65,28 @@
     return n;
   }
   function ensureLayer(){
-    // Create or reuse SVG layer
-    let layer = document.getElementById('layer-structures');
-    if (!layer){
-      layer = elNS('svg', { id:'layer-structures', class:'layer-structures' });
+  // Use the main map SVG and create a group under world-tokens
+  const mapSvg = document.getElementById('svg');
+  if (!mapSvg) return;
+  let layer = document.getElementById('world-structures');
+  if (!layer){
+    const tokens = document.getElementById('world-tokens');
+    layer = document.createElementNS('http://www.w3.org/2000/svg','g');
+    layer.setAttribute('id','world-structures');
+    layer.classList.add('layer-structures');
+    if (tokens && tokens.parentNode){
+      tokens.parentNode.insertBefore(layer, tokens); // below tokens
+    } else {
+      mapSvg.appendChild(layer);
+    }
+  }
+  layer.style.pointerEvents = 'none'; // inert unless tool enabled
+  STATE.root = layer;
+
+  // defs should be in the main svg <defs>
+  const defs = mapSvg.querySelector('defs');
+  STATE.defsNode = defs || mapSvg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg','defs'), mapSvg.firstChild);
+});
       // Attempt to place just under tokens layer if present
       const tokens = document.getElementById('layer-tokens') || document.getElementById('tokens');
       if (tokens && tokens.parentNode){
@@ -123,7 +141,16 @@
 
   /* ------------------------- Rendering ---------------------------- */
   function worldToScreen(q,r){
-    const p = STATE.hexToPx(q,r);
+
+  function unitScale(){
+    if (STATE._unitScale) return STATE._unitScale;
+    try{
+      const a = STATE.hexToPx(0,0) || {x:0,y:0};
+      const b = STATE.hexToPx(1,0) || {x:1,y:0};
+      STATE._unitScale = Math.hypot((b.x-a.x),(b.y-a.y)) || 100;
+    }catch(e){ STATE._unitScale = 100; }
+    return STATE._unitScale;
+  }    const p = STATE.hexToPx(q,r);
     return { x:p.x, y:p.y };
   }
 
@@ -140,7 +167,9 @@
   function applyTransform(g, anchor, rot){
     const p = worldToScreen(anchor.q, anchor.r);
     const deg = (rot||0);
-    g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${deg})`);
+    const sc = unitScale();
+    g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${deg}) scale(${sc})`);
+  },${p.y}) rotate(${deg})`);
   }
 
   function drawShape(container, shape){
@@ -336,16 +365,20 @@
 
   function onPointerMove(evt){
     if (!STATE.tool || !STATE.ghost) return;
-    const rect = STATE.root.getBoundingClientRect();
-    const x = evt.clientX - rect.left;
-    const y = evt.clientY - rect.top;
-    const h = STATE.pxToHex(x,y);
-    placeGhostAt(h.q, h.r);
+    const mapSvg = document.getElementById('svg');
+    if (!mapSvg) return;
+    const pt = mapSvg.createSVGPoint();
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    const svgPt = pt.matrixTransform(mapSvg.getScreenCTM().inverse());
+    const hex = STATE.pxToHex(svgPt.x, svgPt.y);
+    placeGhostAt(hex.q, hex.r);
   }
 
   function attachPointerHandlers(){
-    // attach to top svg pane so we get consistent coords
-    STATE.root.addEventListener('pointerdown', onPointerDown);
+    const mapSvg = document.getElementById('svg');
+    if (mapSvg){
+      mapSvg.addEventListener('pointerdown', onPointerDown);
+    }
     window.addEventListener('pointermove', onPointerMove);
   }
 
@@ -361,7 +394,7 @@
       const cells = footprintCells(def, item.anchor, item.rot||0);
       for (const c of cells){
         if (c.q===q && c.r===r){
-          const h = heightAt(def, c.idx, item.state);
+          const h = heightAt(def, c.idx, item.state, c.q, c.r);
           if (h!=null) maxH = Math.max(maxH, h);
         }
       }
@@ -370,13 +403,13 @@
   }
   API.getSurfaceHeight = getSurfaceHeight;
 
-  function heightAt(def, cellIdx, stateKey){
+  function heightAt(def, cellIdx, stateKey, q, r){
     // fixed | cells | tile (with optional minHeight)
     if (def.states && Array.isArray(def.states)){
       const chosen = def.states.find(s=>s.key=== (stateKey || def.defaultState));
       if (chosen){
         if (chosen.heightMode==='fixed') return chosen.height||0;
-        if (chosen.heightMode==='tile')  return Math.max(STATE.getTileHeight, chosen.minHeight||0);
+        if (chosen.heightMode==='tile')  return Math.max(STATE.getTileHeight(q,r) || 0, chosen.minHeight||0);
       }
     }
     const mode = def.heightMode || 'fixed';
