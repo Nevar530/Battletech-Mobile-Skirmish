@@ -1,17 +1,23 @@
 /*!
  * MSS:84 — Structures Module (Buildings / Walls / Gates)
  * Single-file drop-in: /modules/structures.js
- * 
+ *
  * Public API (window.MSS_Structures):
- *   init(opts)                -> initialize with engine helpers and options
- *   mountUI(containerSel)     -> build UI controls in given container element
- *   loadCatalog(url)          -> load /modules/catalog.json (or another URL)
- *   enableTool(on:boolean)    -> toggle interactivity
- *   serialize()               -> array for save
- *   hydrate(structuresArray)  -> restore from save
- *   clear()                   -> remove all placed structures, re-render
- *   bindLocalStorage(fn)      -> (optional) auto-save/restore to localStorage key from fn()
- *   getSurfaceHeight(q,r)     -> surface/roof height at hex (for movement/LOS)
+ *   init(opts)                 -> initialize with engine helpers and options
+ *   mountUI(containerSel)      -> build UI controls in given container element
+ *   loadCatalog(url)           -> load /modules/catalog.json (or another URL)
+ *   enableTool(on:boolean)     -> toggle interactivity
+ *   serialize()                -> array for save
+ *   hydrate(structuresArray)   -> restore from save
+ *   clear()                    -> remove all placed structures, re-render
+ *   bindLocalStorage(fn)       -> (optional) auto-save/restore to localStorage key from fn()
+ *   onMapChanged()             -> call when current map changes; re-hydrates from new LS key
+ *   getSurfaceHeight(q,r)      -> surface/roof height at hex (for movement/LOS)
+ *
+ * Notes:
+ * - Shapes accept inline styling: { fill:"#20262c", stroke:"#9aa4ae", sw:0.05 }.
+ * - Class-based styles still work; inline attrs override CSS.
+ * - “Toggle” button only shows if any catalog def contains `states`.
  */
 (function(){
   const API = {};
@@ -44,10 +50,13 @@
     // keys
     hotkeysAttached:false,
     _unitScale:null,
+    // storage
+    _getLocalKey:null,   // fn -> string key for localStorage
+    _hasStates:false
   };
 
   /* ------------------------- Utility: DOM ------------------------- */
-  function elNS(name, attrs){ 
+  function elNS(name, attrs){
     const n = document.createElementNS('http://www.w3.org/2000/svg', name);
     if (attrs) for (const k in attrs) n.setAttribute(k, attrs[k]);
     return n;
@@ -83,28 +92,27 @@
     STATE.defsNode = defs || mapSvg.insertBefore(elNS('defs'), mapSvg.firstChild);
   }
 
-function pruneOrphans(){
-  if (!STATE.root) return;
-  const max = STATE.list.length;
-  STATE.root.querySelectorAll('.structure').forEach(n=>{
-    const idx = Number(n.getAttribute('data-index'));
-    if (!Number.isFinite(idx) || idx >= max) n.remove();
-  });
-}
-  
+  function removeChildren(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+
+  function pruneOrphans(){
+    if (!STATE.root) return;
+    const max = STATE.list.length;
+    STATE.root.querySelectorAll('.structure').forEach(n=>{
+      const idx = Number(n.getAttribute('data-index'));
+      if (!Number.isFinite(idx) || idx >= max) n.remove();
+    });
+  }
+
   /* ------------------------- Utility: Math ------------------------ */
   // axial rotation of (dq,dr) around (0,0) in 60° steps.
   function rotateAxial(dq, dr, steps){
     const s = ((steps % 6)+6)%6;
     let q = dq, r = dr, x, z, y;
-    // Convert axial (q,r) to cube (x,y,z): x=q, z=r, y=-x-z
     x = q; z = r; y = -x - z;
     for (let i=0;i<s;i++){
-      // 60° rotation: (x,y,z) -> (-z,-x,-y)
       const nx = -z, ny = -x, nz = -y;
       x = nx; y = ny; z = nz;
     }
-    // back to axial: q=x, r=z
     return {dq:x, dr:z};
   }
   function unitScale(){
@@ -128,6 +136,7 @@ function pruneOrphans(){
     let g = STATE.root.querySelector('#'+CSS.escape(id));
     if (!g){
       g = elNS('g', { id, class:'structure' });
+      g.style.pointerEvents = STATE.tool ? 'auto' : 'none';
       STATE.root.appendChild(g);
     }
     return g;
@@ -140,24 +149,37 @@ function pruneOrphans(){
     g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${deg}) scale(${sc})`);
   }
 
+  // NEW: draw shape with inline style support
   function drawShape(container, shape){
+    const base = {};
+    if (shape.fill)   base.fill = shape.fill;
+    if (shape.stroke) base.stroke = shape.stroke;
+    if (shape.sw!=null) base['stroke-width'] = shape.sw;
+
     switch(shape.kind){
       case 'path': {
-        const n = elNS('path', { d: shape.d, class: shape.class||'' });
+        const n = elNS('path', { d: shape.d, class: shape.class||'', ...base });
+        n.setAttribute('vector-effect','non-scaling-stroke');
         container.appendChild(n); break;
       }
       case 'rect': {
-        const n = elNS('rect', { x:shape.x, y:shape.y, width:shape.w, height:shape.h, rx:shape.rx||0, class: shape.class||'' });
+        const n = elNS('rect', {
+          x:shape.x, y:shape.y, width:shape.w, height:shape.h, rx:shape.rx||0,
+          class: shape.class||'', ...base
+        });
+        n.setAttribute('vector-effect','non-scaling-stroke');
         container.appendChild(n); break;
       }
       case 'polyline': {
         const pts = (shape.points||[]).map(p=>p.join(',')).join(' ');
-        const n = elNS('polyline', { points: pts, class: shape.class||'' });
+        const n = elNS('polyline', { points: pts, class: shape.class||'', ...base });
+        n.setAttribute('vector-effect','non-scaling-stroke');
         container.appendChild(n); break;
       }
       case 'polygon': {
         const pts2 = (shape.points||[]).map(p=>p.join(',')).join(' ');
-        const n = elNS('polygon', { points: pts2, class: shape.class||'' });
+        const n = elNS('polygon', { points: pts2, class: shape.class||'', ...base });
+        n.setAttribute('vector-effect','non-scaling-stroke');
         container.appendChild(n); break;
       }
     }
@@ -173,18 +195,6 @@ function pruneOrphans(){
     }
     return out;
   }
-
-  function removeChildren(n){ while(n.firstChild) n.removeChild(n.firstChild); }
-
-function renderAll(){
-  if (!STATE.root) ensureLayer();
-  pruneOrphans();                 // <<< add this line
-  for (let i=0;i<STATE.list.length;i++){
-    renderOne(i);
-  }
-  renderGhost();
-}
-
 
   function pickShapes(def, stateKey){
     if (def.states && Array.isArray(def.states)){
@@ -208,6 +218,7 @@ function renderAll(){
     const shapes = pickShapes(def, item.state);
     for (const s of shapes) drawShape(g, s);
     applyTransform(g, item.anchor, item.rot||0);
+    // invisible 1×1 hit rect centered at origin for selection
     let hit = g.querySelector('.hit');
     if (!hit){
       hit = elNS('rect', { class:'hit', x:-0.52, y:-0.52, width:1.04, height:1.04, fill:'transparent', stroke:'transparent' });
@@ -228,6 +239,15 @@ function renderAll(){
     applyTransform(g, STATE.ghost.anchor, STATE.ghost.rot||0);
     g.style.pointerEvents = 'none';
     STATE.root.appendChild(g);
+  }
+
+  function renderAll(){
+    if (!STATE.root) ensureLayer();
+    pruneOrphans();
+    for (let i=0;i<STATE.list.length;i++){
+      renderOne(i);
+    }
+    renderGhost();
   }
 
   /* ------------------------ Interaction -------------------------- */
@@ -285,17 +305,17 @@ function renderAll(){
     pulseChanged();
   }
 
-function deleteSelected(){
-  if (STATE.selectedId==null) return;
-  STATE.list.splice(STATE.selectedId,1);
-  STATE.selectedId = null;
-  pruneOrphans();                 // <<< add this line
-  renderAll();
-  pulseChanged();
-}
-
+  function deleteSelected(){
+    if (STATE.selectedId==null) return;
+    STATE.list.splice(STATE.selectedId,1);
+    STATE.selectedId = null;
+    pruneOrphans();
+    renderAll();
+    pulseChanged();
+  }
 
   function toggleSelectedState(){
+    if (!STATE._hasStates) return; // inert when no states in catalog
     if (STATE.selectedId==null) return;
     const item = STATE.list[STATE.selectedId];
     const def  = STATE.defsById.get(item.defId);
@@ -484,7 +504,7 @@ function deleteSelected(){
         <button class="btn sm" id="btnStructMove">Select/Move</button>
         <button class="btn sm" id="btnStructRotL">◀ Rotate</button>
         <button class="btn sm" id="btnStructRotR">Rotate ▶</button>
-        <button class="btn sm" id="btnStructToggleState">Toggle</button>
+        <button class="btn sm" id="btnStructToggleState" style="display:none">Toggle</button>
         <button class="btn sm danger" id="btnStructDelete">Delete</button>
       </div>
     `;
@@ -529,6 +549,11 @@ function deleteSelected(){
       tEl.appendChild(btn);
     }
     renderDefsList(STATE.catalog.defs || []);
+
+    // show/hide the Toggle button depending on presence of any def.states
+    STATE._hasStates = !!(STATE.catalog.defs||[]).some(d=>Array.isArray(d.states) && d.states.length);
+    const toggleBtn = STATE.ui.querySelector('#btnStructToggleState');
+    if (toggleBtn) toggleBtn.style.display = STATE._hasStates ? '' : 'none';
   }
 
   function filterDefsByType(typeId){
@@ -641,6 +666,7 @@ function deleteSelected(){
   function clearCatalog(){
     STATE.catalog = {version:1, types:[], defs:[]};
     STATE.defsById.clear();
+    STATE._hasStates = false;
   }
   function ingestCatalog(json){
     clearCatalog();
@@ -655,22 +681,37 @@ function deleteSelected(){
   /* --------------------- Optional Local Storage ------------------- */
   API.bindLocalStorage = function(getKey){
     if (typeof getKey !== 'function') return;
+    STATE._getLocalKey = getKey;
     // Attempt initial restore
     try{
       const key = getKey();
       const raw = localStorage.getItem(key);
       if (raw) hydrate(JSON.parse(raw));
     }catch(e){ /* ignore */ }
-    // Wrap pulseChanged to auto-save
+    // Wrap pulseChanged to auto-save + publish
     _pulseChanged = function(){
       if (typeof STATE.publish === 'function'){
         STATE.publish('structures:changed', serialize());
       }
       try{
-        const key = getKey();
+        const key = getKey(); // evaluated each change so map switches update key
         localStorage.setItem(key, JSON.stringify(serialize()));
       }catch(e){ /* ignore */ }
     };
+  };
+
+  // Re-hydrate from new map key when maps change
+  API.onMapChanged = function(){
+    if (typeof STATE._getLocalKey !== 'function') return;
+    try{
+      const key = STATE._getLocalKey();
+      const raw = localStorage.getItem(key);
+      if (raw){
+        hydrate(JSON.parse(raw));
+      } else {
+        hydrate([]); // no data for this map; clear visuals
+      }
+    }catch(e){ /* ignore */ }
   };
 
   /* ------------------- Expose global namespace -------------------- */
@@ -685,10 +726,12 @@ function deleteSelected(){
      MSS_Structures.init({...helpers...});
      MSS_Structures.loadCatalog('/modules/catalog.json');
      MSS_Structures.mountUI('#structuresPanel');
+     MSS_Structures.bindLocalStorage(()=> 'mss84.structures.'+(window.currentMapId||'default'));
   4) Save/load/reset in your app:
      saveObj.structures = MSS_Structures.serialize();
      MSS_Structures.clear(); MSS_Structures.hydrate(saveObj.structures||[]);
-     // or enable auto-localStorage per-map:
-     MSS_Structures.bindLocalStorage(()=> 'mss84.structures.'+(window.currentMapId||'default'));
+  5) Map change:
+     window.currentMapId = 'new-map-id';
+     MSS_Structures.onMapChanged(); // re-hydrates from new LS key
   ----------------------------------------------------------------- */
 })();
