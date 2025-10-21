@@ -3012,7 +3012,7 @@ window.addEventListener('load', () => {
 
       // Keep the structures layer’s viewBox in sync with the main SVG camera
       function syncStructsViewBox() {
-        const layer = document.getElementById('layer-structures');
+        const layer = document.getElementById('world-structures');
         if (!layer || !svg || !svg.viewBox) return;
         const vb = svg.viewBox.baseVal;
         layer.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.width} ${vb.height}`);
@@ -3116,6 +3116,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
