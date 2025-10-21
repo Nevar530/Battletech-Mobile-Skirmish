@@ -83,6 +83,15 @@
     STATE.defsNode = defs || mapSvg.insertBefore(elNS('defs'), mapSvg.firstChild);
   }
 
+function pruneOrphans(){
+  if (!STATE.root) return;
+  const max = STATE.list.length;
+  STATE.root.querySelectorAll('.structure').forEach(n=>{
+    const idx = Number(n.getAttribute('data-index'));
+    if (!Number.isFinite(idx) || idx >= max) n.remove();
+  });
+}
+  
   /* ------------------------- Utility: Math ------------------------ */
   // axial rotation of (dq,dr) around (0,0) in 60° steps.
   function rotateAxial(dq, dr, steps){
@@ -167,13 +176,15 @@
 
   function removeChildren(n){ while(n.firstChild) n.removeChild(n.firstChild); }
 
-  function renderAll(){
-    if (!STATE.root) ensureLayer();
-    for (let i=0;i<STATE.list.length;i++){
-      renderOne(i);
-    }
-    renderGhost();
+function renderAll(){
+  if (!STATE.root) ensureLayer();
+  pruneOrphans();                 // <<< add this line
+  for (let i=0;i<STATE.list.length;i++){
+    renderOne(i);
   }
+  renderGhost();
+}
+
 
   function pickShapes(def, stateKey){
     if (def.states && Array.isArray(def.states)){
@@ -274,13 +285,15 @@
     pulseChanged();
   }
 
-  function deleteSelected(){
-    if (STATE.selectedId==null) return;
-    STATE.list.splice(STATE.selectedId,1);
-    STATE.selectedId = null;
-    renderAll();
-    pulseChanged();
-  }
+function deleteSelected(){
+  if (STATE.selectedId==null) return;
+  STATE.list.splice(STATE.selectedId,1);
+  STATE.selectedId = null;
+  pruneOrphans();                 // <<< add this line
+  renderAll();
+  pulseChanged();
+}
+
 
   function toggleSelectedState(){
     if (STATE.selectedId==null) return;
