@@ -13,17 +13,28 @@
       "name": "Warehouse (2×3, stepped)",
       "units": "hex",
       "rotateStep": 60,
-      "edgeStyle": "border",
       "footprint": [
-        { "dq":0, "dr":0 }, { "dq":1, "dr":0 },
-        { "dq":0, "dr":1 }, { "dq":1, "dr":1 },
-        { "dq":0, "dr":2 }, { "dq":1, "dr":2 }
+        { "dq": 0, "dr": 0 }, { "dq": 1, "dr": 0 },
+        { "dq": 0, "dr": 1 }, { "dq": 1, "dr": 1 },
+        { "dq": 0, "dr": 2 }, { "dq": 1, "dr": 2 }
       ],
       "heightMode": "cells",
       "cellHeights": [ 2, 2, 2, 3, 2, 2 ],
       "shapes": [
-        { "kind":"path", "d":"M -0.5 -0.5 h 2 v 3 h -2 Z", "class":"bldg-body" },
-        { "kind":"path", "d":"M -0.5 -0.5 L 1.5 2.5", "class":"bldg-seam" }
+        {
+          "kind": "path",
+          "d": "M -0.5 -0.5 h 2 v 3 h -2 Z",
+          "fill": "#20262c",
+          "stroke": "#9aa4ae",
+          "sw": 0.02
+        },
+        {
+          "kind": "path",
+          "d": "M -0.5 -0.5 L 1.5 2.5",
+          "fill": "none",
+          "stroke": "#6c7782",
+          "sw": 0.02
+        }
       ]
     },
     {
@@ -33,43 +44,72 @@
       "units": "hex",
       "rotateStep": 60,
       "footprint": [
-        { "dq":0, "dr":0 }, { "dq":1, "dr":0 }, { "dq":2, "dr":0 }
+        { "dq": 0, "dr": 0 },
+        { "dq": 1, "dr": 0 },
+        { "dq": 2, "dr": 0 }
       ],
       "heightMode": "fixed",
       "height": 2,
       "shapes": [
-        { "kind":"path", "d":"M -0.5 -0.2 h 3 v 0.4 h -3 Z", "class":"wall-body" }
+        {
+          "kind": "path",
+          "d": "M -0.5 -0.2 h 3 v 0.4 h -3 Z",
+          "fill": "#9aa4ae",
+          "stroke": "#6c7782",
+          "sw": 0.02
+        }
       ]
     },
     {
-      "id": "gate_2",
+      "id": "gate_2_closed",
       "type": "gate",
-      "name": "Gate (2-wide)",
+      "name": "Gate (2-wide, closed)",
       "units": "hex",
       "rotateStep": 60,
       "footprint": [
-        { "dq":0, "dr":0 }, { "dq":1, "dr":0 }
+        { "dq": 0, "dr": 0 },
+        { "dq": 1, "dr": 0 }
       ],
-      "states": [
+      "heightMode": "fixed",
+      "height": 2,
+      "shapes": [
         {
-          "key":"closed",
-          "heightMode":"fixed",
-          "height": 2,
-          "shapes":[
-            { "kind":"path", "d":"M -0.5 -0.25 h 2 v 0.5 h -2 Z", "class":"gate-closed" }
-          ]
+          "kind": "path",
+          "d": "M -0.5 -0.25 h 2 v 0.5 h -2 Z",
+          "fill": "#9aa4ae",
+          "stroke": "#6c7782",
+          "sw": 0.02
+        }
+      ]
+    },
+    {
+      "id": "gate_2_open",
+      "type": "gate",
+      "name": "Gate (2-wide, open)",
+      "units": "hex",
+      "rotateStep": 60,
+      "footprint": [
+        { "dq": 0, "dr": 0 },
+        { "dq": 1, "dr": 0 }
+      ],
+      "heightMode": "fixed",
+      "height": 0,
+      "shapes": [
+        {
+          "kind": "polyline",
+          "points": [[-0.5,-0.25],[-0.15,-0.45]],
+          "fill": "none",
+          "stroke": "#9aa4ae",
+          "sw": 0.02
         },
         {
-          "key":"open",
-          "heightMode":"fixed",
-          "height": 0,
-          "shapes":[
-            { "kind":"polyline", "points":[[-0.5,-0.25],[-0.15,-0.45]], "class":"gate-wing" },
-            { "kind":"polyline", "points":[[ 1.5,-0.25],[ 1.85,-0.45]], "class":"gate-wing" }
-          ]
+          "kind": "polyline",
+          "points": [[1.5,-0.25],[1.85,-0.45]],
+          "fill": "none",
+          "stroke": "#9aa4ae",
+          "sw": 0.02
         }
-      ],
-      "defaultState": "closed"
+      ]
     }
   ]
 }
