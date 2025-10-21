@@ -64,8 +64,7 @@
     }
     return n;
   }
-  function ensureLayer(){
-  // Use the main map SVG and create a group under world-tokens
+function ensureLayer(){
   const mapSvg = document.getElementById('svg');
   if (!mapSvg) return;
   let layer = document.getElementById('world-structures');
@@ -80,13 +79,16 @@
       mapSvg.appendChild(layer);
     }
   }
-  layer.style.pointerEvents = 'none'; // inert unless tool enabled
+  layer.style.pointerEvents = 'none';
   STATE.root = layer;
 
-  // defs should be in the main svg <defs>
   const defs = mapSvg.querySelector('defs');
-  STATE.defsNode = defs || mapSvg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg','defs'), mapSvg.firstChild);
-});
+  STATE.defsNode = defs || mapSvg.insertBefore(
+    document.createElementNS('http://www.w3.org/2000/svg','defs'),
+    mapSvg.firstChild
+  );
+}
+
       // Attempt to place just under tokens layer if present
       const tokens = document.getElementById('layer-tokens') || document.getElementById('tokens');
       if (tokens && tokens.parentNode){
