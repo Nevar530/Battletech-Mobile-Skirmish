@@ -1,106 +1,112 @@
 /*!
- * MSS Structures — placement + rotation + local save + inline color
- * Public API on window.MSS_Structures:
- *   init({ hexToPx, pxToHex, getTileHeight?, onMapTransform?, publish?, subscribe? })
- *   loadCatalog(url)
- *   mountUI(selector)
- *   enableTool(on:boolean)
- *   serialize() -> placed array
- *   hydrate(arr) -> restore placed
- *   clear()
- *   bindLocalStorage(fnKey) -> autosave/restore per-map
- *   onMapChanged() -> call after CURRENT_MAP_ID changes
+ * MSS Structures — Simple Placement Tool
+ * UI: Structures | [Type Tabs] | [Dropdown] | [Place] [Select/Move] [◀ Rotate] [Rotate ▶] [Delete]
+ *
+ * Public API:
+ *   MSS_Structures.init({ hexToPx, pxToHex, getTileHeight?, onMapTransform?, publish?, subscribe? })
+ *   MSS_Structures.loadCatalog(url)
+ *   MSS_Structures.mountUI(selector)
+ *   MSS_Structures.serialize() -> placed array
+ *   MSS_Structures.hydrate(arr)
+ *   MSS_Structures.clear()
+ *   MSS_Structures.bindLocalStorage(fnKey)   // fn returns key per-map
+ *   MSS_Structures.onMapChanged()            // rehydrate for new map key
  */
 (function(){
   const NS = 'http://www.w3.org/2000/svg';
 
-  const S = {
-    inited:false,
-    // catalog
-    defs:[],              // normalized defs
-    types:[],             // [{id,name}]
-    byId:new Map(),
-    // placed
-    list:[],              // [{id,defId,anchor:{q,r},rot}]
-    selected:null,        // index
-    ghost:null,           // {defId,anchor:{q,r},rot}
-    // tool modes
-    tool:false,
-    moveMode:false,
-    eraseMode:false,
-    // helpers
+  const ST = {
+    // engine hooks
     hexToPx:(q,r)=>({x:0,y:0}),
     pxToHex:(x,y)=>({q:0,r:0}),
     getTileHeight:(q,r)=>0,
     onMapTransform:null,
     publish:null, subscribe:null,
+
+    // catalog
+    defs:[],
+    types:[],
+    byId:new Map(),
+
+    // runtime
+    list:[],                 // [{defId, anchor:{q,r}, rot}]
+    selected:null,           // index into list
+    mode:null,               // 'place' | 'move' | null
+    ghost:null,              // {defId, anchor:{q,r}, rot}
+    dragging:false,
+    dragIdx:null,
+
     // dom
-    svg:null, layer:null, defsNode:null, ui:null,
+    svg:null,
+    layer:null,
+    ui:null,
+
     // storage
     getLocalKey:null,
-    // state flags
-    hasStates:false,
-    hotkeys:false
+
+    // flags
+    hotkeys:false,
+    inited:false
   };
 
-  /* --------------------- DOM helpers --------------------- */
-  function el(name, attrs){ const n=document.createElementNS(NS,name); if(attrs) for(const k in attrs) n.setAttribute(k,attrs[k]); return n; }
+  /* ------------------ DOM helpers ------------------ */
+  function el(name, attrs){ const n=document.createElementNS(NS,name); if(attrs) for(const k in attrs) n.setAttribute(k, attrs[k]); return n; }
+  function $(sel,root=document){ return root.querySelector(sel); }
+
   function ensureSvg(){
-    if (S.svg && S.svg.isConnected) return;
-    S.svg = document.getElementById('svg');
+    if (ST.svg && ST.svg.isConnected) return;
+    ST.svg = document.getElementById('svg');
   }
   function ensureLayer(){
-    ensureSvg(); if (!S.svg) return;
+    ensureSvg(); if (!ST.svg) return;
     let layer = document.getElementById('world-structures');
     if (!layer){
-      layer = el('g', { id:'world-structures' });
-      // Prefer inserting just beneath tokens so buildings sit under tokens/labels
+      layer = el('g',{id:'world-structures'});
       const tokens = document.getElementById('world-tokens');
       if (tokens && tokens.parentNode) tokens.parentNode.insertBefore(layer, tokens);
-      else S.svg.appendChild(layer);
+      else ST.svg.appendChild(layer);
     }
-    S.layer = layer;
-    // ensure <defs>
-    S.defsNode = S.svg.querySelector('defs') || S.svg.insertBefore(el('defs'), S.svg.firstChild);
+    ST.layer = layer;
   }
-  function removeAll(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+  function clearChildren(n){ while(n.firstChild) n.removeChild(n.firstChild); }
 
-  /* -------------------- Catalog loading ------------------ */
+  /* ------------------ Catalog ------------------ */
   async function loadCatalog(url){
     const res = await fetch(url, { cache:'no-store' });
-    if (!res.ok) throw new Error('catalog load '+res.status);
+    if (!res.ok) throw new Error('catalog '+res.status);
     const data = await res.json();
-    let defs = [], types = [];
-    if (Array.isArray(data)) defs = data;
-    else if (Array.isArray(data.items)) defs = data.items;
-    else if (Array.isArray(data.defs)) { defs = data.defs; if (Array.isArray(data.types)) types = data.types; }
+    let defs=[], types=[];
+    if (Array.isArray(data)) defs=data;
+    else if (Array.isArray(data.items)) defs=data.items;
+    else if (Array.isArray(data.defs)) { defs=data.defs; if (Array.isArray(data.types)) types=data.types; }
     else throw new Error('invalid catalog format');
 
-    S.defs = defs;
-    S.types = types;
-    S.byId.clear(); defs.forEach(d=> S.byId.set(d.id, d));
-    S.hasStates = defs.some(d => Array.isArray(d.states) && d.states.length);
-    buildUILists();
-    renderPreview();
+    ST.defs = defs;
+    ST.types = types;
+    ST.byId.clear();
+    defs.forEach(d=> ST.byId.set(d.id, d));
+
+    buildTypeTabs();
+    rebuildDropdown();
     renderAll();
   }
 
-  /* -------------------- Geometry helpers ----------------- */
-  // axial rotation around (0,0) in 60° steps
+  /* ------------------ Geometry ------------------ */
+  // axial rotation (dq,dr) around origin in 60° increments
   function rotAx(dq, dr, steps){
     const s = ((steps%6)+6)%6;
     let x=dq, z=dr, y=-x-z;
     for (let i=0;i<s;i++){ const nx=-z, ny=-x, nz=-y; x=nx; y=ny; z=nz; }
     return {dq:x, dr:z};
   }
-  function worldToScreen(q,r){ return S.hexToPx(q,r); }
+  function worldToScreen(q,r){ return ST.hexToPx(q,r); }
 
-  /* -------------------- Draw shapes ---------------------- */
+  /* ------------------ Drawing ------------------ */
   function drawShape(s){
     const kind = s.kind || 'rect';
-    const fill   = s.fill   ?? (s.class? undefined : '#20262c');
-    const stroke = s.stroke ?? (s.class? undefined : '#9aa4ae');
-    const sw     = s.sw != null ? String(s.sw) : undefined;
+    const fill   = (s.fill   != null)? s.fill   : undefined;
+    const stroke = (s.stroke != null)? s.stroke : undefined;
+    const sw     = (s.sw     != null)? String(s.sw) : undefined;
 
     function apply(n){
       if (s.class) n.setAttribute('class', s.class);
@@ -113,8 +119,8 @@
 
     if (kind==='rect'){
       const w=+s.w||1, h=+s.h||1;
-      const x = (s.x!=null)? +s.x : -(w/2);
-      const y = (s.y!=null)? +s.y : -(h/2);
+      const x=(s.x!=null)? +s.x : -(w/2);
+      const y=(s.y!=null)? +s.y : -(h/2);
       const n = apply(el('rect',{x,y,width:w,height:h}));
       if (s.rx!=null) n.setAttribute('rx', +s.rx);
       return n;
@@ -127,380 +133,394 @@
       const pts=(s.points||[]).map(p=>p.join(',')).join(' ');
       return apply(el('polyline',{points:pts}));
     }
-    // path default
     return apply(el('path',{d:s.d||''}));
   }
 
-  function pickShapes(def, stateKey){
-    if (def.states && Array.isArray(def.states)){
-      const chosen = def.states.find(s=> s.key === (stateKey || def.defaultState));
-      if (chosen && Array.isArray(chosen.shapes)) return chosen.shapes;
-    }
-    return def.shapes||[];
-  }
+  function pickShapes(def){ return def.shapes || []; }
 
-  /* -------------------- Rendering placed ----------------- */
   function ensureGroupFor(i){
-    ensureLayer(); if (!S.layer) return null;
+    ensureLayer(); if (!ST.layer) return null;
     const id='struct-'+i;
-    let g = S.layer.querySelector('#'+CSS.escape(id));
-    if (!g){ g = el('g',{id, class:'structure'}); S.layer.appendChild(g); }
+    let g = ST.layer.querySelector('#'+CSS.escape(id));
+    if (!g){ g=el('g',{id, class:'structure'}); ST.layer.appendChild(g); }
     return g;
   }
   function applyTransform(g, anchor, rot){
     const p = worldToScreen(anchor.q, anchor.r);
     g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${rot||0})`);
-    g.style.pointerEvents = S.tool ? 'auto' : 'none';
+    g.style.pointerEvents = (ST.mode==='move') ? 'auto' : 'auto'; // keep clickable
   }
   function renderOne(i){
-    const item = S.list[i]; const def = S.byId.get(item.defId); if (!def) return;
+    const it = ST.list[i]; const def=ST.byId.get(it.defId); if (!def) return;
     const g = ensureGroupFor(i); if (!g) return;
-    g.setAttribute('data-index', i); g.setAttribute('data-def', def.id);
-    g.setAttribute('class', 'structure'+(S.selected===i?' selected':''));
-    removeAll(g);
-    const shapes = pickShapes(def, item.state);
-    shapes.forEach(s=> g.appendChild(drawShape(s)));
-    // hit rect
-    const hit = el('rect',{x:-0.52,y:-0.52,width:1.04,height:1.04,fill:'transparent',stroke:'transparent'});
+    g.setAttribute('data-index', i);
+    g.setAttribute('data-def', def.id);
+    g.setAttribute('class', 'structure'+(ST.selected===i?' selected':''));
+    clearChildren(g);
+    pickShapes(def).forEach(s=> g.appendChild(drawShape(s)));
+    // enlarge hit area (in local hex units)
+    const hit = el('rect',{x:-0.6,y:-0.6,width:1.2,height:1.2,fill:'transparent',stroke:'transparent'});
     g.appendChild(hit);
-    applyTransform(g, item.anchor, item.rot||0);
+    applyTransform(g, it.anchor, it.rot||0);
   }
   function renderGhost(){
-    if (!S.layer) ensureLayer();
-    const old = S.layer && S.layer.querySelector('#ghost-structure');
+    if (!ST.layer) ensureLayer();
+    const old = ST.layer && ST.layer.querySelector('#ghost-structure');
     if (old) old.remove();
-    if (!S.tool || !S.ghost || !S.layer) return;
-    const def = S.byId.get(S.ghost.defId); if (!def) return;
+    if (ST.mode!=='place' || !ST.ghost || !ST.layer) return;
+    const def = ST.byId.get(ST.ghost.defId); if (!def) return;
     const g = el('g',{id:'ghost-structure', class:'structure ghost'});
-    pickShapes(def, def.defaultState).forEach(s=> g.appendChild(drawShape(s)));
-    applyTransform(g, S.ghost.anchor, S.ghost.rot||0);
-    g.style.opacity = .55;
-    g.style.pointerEvents='none';
-    S.layer.appendChild(g);
+    pickShapes(def).forEach(s=> g.appendChild(drawShape(s)));
+    applyTransform(g, ST.ghost.anchor, ST.ghost.rot||0);
+    g.style.opacity = .55; g.style.pointerEvents='none';
+    ST.layer.appendChild(g);
   }
   function renderAll(){
-    ensureLayer(); if (!S.layer) return;
-    // prune excess dom
-    const max = S.list.length;
-    S.layer.querySelectorAll('.structure').forEach(n=>{
+    ensureLayer(); if (!ST.layer) return;
+    // prune
+    const max = ST.list.length;
+    ST.layer.querySelectorAll('.structure').forEach(n=>{
+      if (n.id==='ghost-structure') return;
       const idx = Number(n.getAttribute('data-index'));
-      if (!Number.isFinite(idx) || idx >= max) n.remove();
+      if (!Number.isFinite(idx) || idx>=max) n.remove();
     });
-    for (let i=0;i<S.list.length;i++) renderOne(i);
+    for (let i=0;i<ST.list.length;i++) renderOne(i);
     renderGhost();
   }
 
-  /* ----------------------- Persistence ------------------- */
+  /* ------------------ Persistence ------------------ */
   function serialize(){
-    return S.list.map(it => ({
-      defId: it.defId,
-      anchor: { q: it.anchor.q, r: it.anchor.r },
-      rot: it.rot||0,
-      state: it.state
-    }));
+    return ST.list.map(it => ({ defId:it.defId, anchor:{q:it.anchor.q,r:it.anchor.r}, rot:it.rot||0 }));
   }
   function hydrate(arr){
-    S.list = Array.isArray(arr)? arr.map(x=>({
-      defId:x.defId,
-      anchor:{ q:+(x.anchor?.q||0), r:+(x.anchor?.r||0) },
-      rot: (+x.rot||0)%360,
-      state: x.state
+    ST.list = Array.isArray(arr)? arr.map(x=>({
+      defId: x.defId,
+      anchor: { q:+(x.anchor?.q||0), r:+(x.anchor?.r||0) },
+      rot: (+x.rot||0)%360
     })) : [];
-    S.selected = null;
+    ST.selected = null;
     renderAll();
-    pulse(); // save & publish
+    pulse();
   }
   function clear(){
-    S.list = [];
-    S.selected = null;
+    ST.list = [];
+    ST.selected = null;
     renderAll();
-    clearLocalIfBound();
-    pulse(); // publish "empty" to peers if needed
+    // wipe local slot
+    try{ const key = ST.getLocalKey?.(); if (key) localStorage.setItem(key, JSON.stringify([])); }catch{}
+    pulse();
   }
-
   function bindLocalStorage(fnKey){
-    S.getLocalKey = (typeof fnKey==='function') ? fnKey : null;
-    // initial restore if present
+    ST.getLocalKey = (typeof fnKey==='function')? fnKey : null;
+    // initial restore
     try{
-      const key = S.getLocalKey?.();
+      const key = ST.getLocalKey?.();
       if (key){
         const raw = localStorage.getItem(key);
         if (raw) hydrate(JSON.parse(raw));
       }
     }catch{}
   }
-  function saveLocalIfBound(){
-    try{
-      const key = S.getLocalKey?.();
-      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
-    }catch{}
-  }
-  function clearLocalIfBound(){
-    try{
-      const key = S.getLocalKey?.();
-      if (key) localStorage.removeItem(key);
-    }catch{}
-  }
   function onMapChanged(){
     try{
-      const key = S.getLocalKey?.();
-      if (key){
-        const raw = localStorage.getItem(key);
-        hydrate(raw? JSON.parse(raw): []);
-      }
+      const key = ST.getLocalKey?.();
+      const raw = key ? localStorage.getItem(key) : null;
+      hydrate(raw? JSON.parse(raw) : []);
     }catch{ hydrate([]); }
   }
 
-  /* ----------------------- Interaction ------------------- */
-  function enableTool(on){
-    S.tool = !!on;
-    if (!on){ S.ghost=null; S.selected=null; }
-    renderAll();
-  }
-  function setGhost(defId){ S.ghost = { defId, rot:0, anchor:{q:0,r:0} }; renderGhost(); }
-  function placeGhostAt(q,r){ if (S.ghost){ S.ghost.anchor={q,r}; renderGhost(); } }
-  function commitGhost(){
-    if (!S.ghost) return;
-    S.list.push({ defId:S.ghost.defId, anchor:{...S.ghost.anchor}, rot:S.ghost.rot||0, state:undefined });
-    S.selected = S.list.length-1;
-    S.ghost = null; renderAll(); pulse();
-  }
-  function rotateSelected(steps){
-    if (S.ghost && S.tool && S.selected==null){
-      S.ghost.rot = ((S.ghost.rot||0) + steps*60 + 360) % 360;
-      renderGhost(); return;
+  function pulse(){
+    // local autosave
+    try{
+      const key = ST.getLocalKey?.();
+      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
+    }catch{}
+    // publish online event (optional)
+    if (typeof ST.publish === 'function'){
+      try{ ST.publish('structures:changed', serialize()); }catch{}
     }
-    if (S.selected==null) return;
-    const it = S.list[S.selected]; if (!it) return;
-    it.rot = ((it.rot||0) + steps*60 + 360) % 360;
-    renderOne(S.selected); pulse();
-  }
-  function deleteSelected(){
-    if (S.selected==null) return;
-    S.list.splice(S.selected,1);
-    S.selected=null; renderAll(); pulse();
   }
 
-  function toSvgPoint(evt){
-    ensureSvg(); if (!S.svg) return null;
-    const pt = S.svg.createSVGPoint(); pt.x = evt.clientX; pt.y = evt.clientY;
-    const m = S.svg.getScreenCTM(); if (!m) return null;
+  /* ------------------ Interaction ------------------ */
+  function setMode(m){ ST.mode = m; if (m!=='place') ST.ghost=null; renderAll(); }
+  function setGhost(defId){ ST.ghost = { defId, anchor:{q:0,r:0}, rot:0 }; renderGhost(); }
+  function rotateSelected(steps){
+    if (ST.mode==='place' && ST.ghost){
+      ST.ghost.rot = ((ST.ghost.rot||0) + steps*60 + 360) % 360;
+      renderGhost(); return;
+    }
+    if (ST.selected==null) return;
+    const it = ST.list[ST.selected]; if (!it) return;
+    it.rot = ((it.rot||0) + steps*60 + 360) % 360;
+    renderOne(ST.selected); pulse();
+  }
+  function deleteSelected(){
+    if (ST.selected==null) return;
+    ST.list.splice(ST.selected,1);
+    ST.selected=null; renderAll(); pulse();
+  }
+  function commitGhost(){
+    if (!ST.ghost) return;
+    ST.list.push({ defId: ST.ghost.defId, anchor: {...ST.ghost.anchor}, rot: ST.ghost.rot||0 });
+    ST.selected = ST.list.length-1;
+    renderAll(); pulse();
+  }
+
+  // pointer helpers
+  function toSvgPoint(cx,cy){
+    ensureSvg(); if (!ST.svg) return null;
+    const pt = ST.svg.createSVGPoint(); pt.x=cx; pt.y=cy;
+    const m = ST.svg.getScreenCTM(); if (!m) return null;
     return pt.matrixTransform(m.inverse());
   }
 
   function onPointerDown(e){
-    if (!S.tool) return;
-    const t = e.target;
-    const g = t.closest && t.closest('#world-structures > g.structure');
-    // erase mode
-    if (S.eraseMode && g){
-      const idx = Number(g.getAttribute('data-index'));
-      if (Number.isFinite(idx)){ S.list.splice(idx,1); S.selected=null; renderAll(); pulse(); }
-      e.stopPropagation(); return;
-    }
-    // select & maybe start move
+    // clicking on a structure?
+    const g = e.target.closest && e.target.closest('#world-structures > g.structure:not(#ghost-structure)');
     if (g){
-      S.selected = Number(g.getAttribute('data-index'));
-      renderAll();
+      const idx = Number(g.getAttribute('data-index'));
+      if (Number.isFinite(idx)){
+        ST.selected = idx; renderAll();
+        if (ST.mode==='move'){ ST.dragging=true; ST.dragIdx=idx; }
+      }
       e.stopPropagation(); return;
     }
-    // place ghost
-    if (S.ghost){
-      commitGhost();
+    // placing
+    if (ST.mode==='place' && ST.ghost){
+      const p = toSvgPoint(e.clientX, e.clientY); if (!p) return;
+      const h = ST.pxToHex(p.x,p.y);
+      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
+      commitGhost(); // place then stay in place mode with the same def
       e.stopPropagation(); return;
     }
   }
   function onPointerMove(e){
-    if (!S.tool) return;
-    if (S.ghost){
-      const p = toSvgPoint(e); if (!p) return;
-      const hex = S.pxToHex(p.x,p.y);
-      placeGhostAt(hex.q|0, hex.r|0);
+    if (ST.mode==='place' && ST.ghost){
+      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
+      const h = ST.pxToHex(p.x,p.y);
+      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
+      renderGhost();
+      return;
+    }
+    if (ST.mode==='move' && ST.dragging && ST.dragIdx!=null){
+      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
+      const h = ST.pxToHex(p.x,p.y);
+      const it = ST.list[ST.dragIdx]; if (!it) return;
+      it.anchor = { q:h.q|0, r:h.r|0 };
+      renderOne(ST.dragIdx);
+      return;
     }
   }
-  function onPointerUp(){ /* no-op; simple click-to-place */ }
-
+  function onPointerUp(){
+    if (ST.dragging){
+      ST.dragging=false;
+      const idx = ST.dragIdx; ST.dragIdx=null;
+      if (idx!=null) pulse();
+    }
+  }
   function attachPointer(){
-    ensureSvg(); if (!S.svg) return;
-    S.svg.addEventListener('pointerdown', onPointerDown);
+    ensureSvg(); if (!ST.svg) return;
+    ST.svg.addEventListener('pointerdown', onPointerDown);
     window.addEventListener('pointermove', onPointerMove);
     window.addEventListener('pointerup', onPointerUp);
   }
-  function attachHotkeys(){
-    if (S.hotkeys) return;
-    S.hotkeys = true;
-    window.addEventListener('keydown', (e)=>{
-      if (!S.tool) return;
-      if (e.repeat) return;
-      if (e.key==='q' || e.key==='Q'){ rotateSelected(-1); e.preventDefault(); }
-      if (e.key==='e' || e.key==='E'){ rotateSelected(+1); e.preventDefault(); }
-      if (e.key==='Delete'){ deleteSelected(); e.preventDefault(); }
-      if (e.key==='Enter' && S.ghost){ commitGhost(); e.preventDefault(); }
-    });
-  }
 
-  /* ------------------------- UI -------------------------- */
+  /* ------------------ UI ------------------ */
   function mountUI(sel){
-    const host = typeof sel==='string'? document.querySelector(sel) : sel;
+    const host = (typeof sel==='string')? document.querySelector(sel) : sel;
     if (!host) return;
+
     host.innerHTML = `
       <div class="structures-ui">
-        <div class="row between">
-          <strong>Structures</strong>
-          <label class="sw"><input type="checkbox" id="structsEnable"> Enable</label>
+        <div class="row" id="typeTabs"></div>
+        <div class="row" style="margin:6px 0;">
+          <select id="defDropdown" class="input" style="min-width:220px"></select>
         </div>
-
-        <div class="group">
-          <details open>
-            <summary>Catalog</summary>
-            <div class="types" id="structuresTypeList"></div>
-            <div class="defs" id="structuresDefList"></div>
-            <button class="btn sm" id="btnStructAdd">Place Mode</button>
-          </details>
-        </div>
-
-        <div class="group row gap">
-          <button class="btn sm" id="btnStructMove">Select/Move</button>
-          <button class="btn sm" id="btnStructRotL">◀ Rotate</button>
-          <button class="btn sm" id="btnStructRotR">Rotate ▶</button>
-          <button class="btn sm ghost" id="btnStructErase">Erase</button>
-          <button class="btn sm danger" id="btnStructDelete">Delete</button>
+        <div class="row" style="flex-wrap:wrap; gap:8px;">
+          <button class="btn sm" id="btnPlace">Place</button>
+          <button class="btn sm" id="btnMove">Select/Move</button>
+          <span style="flex:1 1 auto"></span>
+          <button class="btn sm" id="btnRotL">◀ Rotate</button>
+          <button class="btn sm" id="btnRotR">Rotate ▶</button>
+          <button class="btn sm danger" id="btnDelete">Delete</button>
         </div>
       </div>
     `;
-    S.ui = host;
+    ST.ui = host;
 
-    // enable toggle
-    host.querySelector('#structsEnable').addEventListener('change', e=> enableTool(e.target.checked));
-    // catalog handlers
-    host.querySelector('#btnStructAdd').addEventListener('click', ()=>{
-      const sel = host.querySelector('.def-item.selected'); if (!sel){ alert('Pick a definition first'); return; }
-      setGhost(sel.getAttribute('data-id'));
+    $('#btnPlace',host).addEventListener('click', ()=>{
+      setMode('place');
+      const defId = $('#defDropdown',host).value;
+      if (defId) setGhost(defId);
+      syncButtons();
     });
-    const btnMove = host.querySelector('#btnStructMove');
-    btnMove.addEventListener('click', ()=>{
-      S.moveMode = !S.moveMode;
-      S.eraseMode = false;
-      S.ghost = null; renderGhost();
-      btnMove.classList.toggle('active', S.moveMode);
-      host.querySelector('#btnStructErase').classList.remove('active');
-    });
-    const btnErase = host.querySelector('#btnStructErase');
-    btnErase.addEventListener('click', ()=>{
-      S.eraseMode = !S.eraseMode;
-      S.moveMode = false;
-      S.ghost = null; renderGhost();
-      btnErase.classList.toggle('active', S.eraseMode);
-      btnMove.classList.remove('active');
+    $('#btnMove',host).addEventListener('click', ()=>{ setMode('move'); syncButtons(); });
+    $('#btnRotL',host).addEventListener('click', ()=> rotateSelected(-1));
+    $('#btnRotR',host).addEventListener('click', ()=> rotateSelected(+1));
+    $('#btnDelete',host).addEventListener('click', ()=> deleteSelected());
+    $('#defDropdown',host).addEventListener('change', ()=>{
+      if (ST.mode==='place'){
+        const id = $('#defDropdown',host).value;
+        if (id) setGhost(id);
+      }
     });
 
-    host.querySelector('#btnStructRotL').addEventListener('click', ()=> rotateSelected(-1));
-    host.querySelector('#btnStructRotR').addEventListener('click', ()=> rotateSelected(+1));
-    host.querySelector('#btnStructDelete').addEventListener('click', deleteSelected);
-
-    buildUILists();
     injectCSS();
+    buildTypeTabs();
+    rebuildDropdown();
+    syncButtons();
   }
 
-  function buildUILists(){
-    if (!S.ui) return;
-    const tEl = S.ui.querySelector('#structuresTypeList');
-    const dEl = S.ui.querySelector('#structuresDefList');
-    if (tEl) tEl.innerHTML = '';
-    if (dEl) dEl.innerHTML = '';
-
-    // types (optional)
-    if (tEl && (S.types||[]).length){
-      const all = document.createElement('button');
-      all.className='chip'; all.textContent='All';
-      all.onclick = ()=> renderDefsList(S.defs);
-      tEl.appendChild(all);
-      (S.types||[]).forEach(t=>{
-        const b=document.createElement('button'); b.className='chip'; b.textContent=t.name||t.id;
-        b.onclick=()=> renderDefsList(S.defs.filter(d=>d.type===t.id));
-        tEl.appendChild(b);
+  function buildTypeTabs(){
+    if (!ST.ui) return;
+    const bar = $('#typeTabs', ST.ui); if (!bar) return;
+    bar.innerHTML = '';
+    const mk = (lbl, filterId=null)=>{
+      const b=document.createElement('button');
+      b.className='chip'; b.textContent=lbl;
+      b.addEventListener('click', ()=>{
+        rebuildDropdown(filterId);
+        // keep current mode/ghost if in place
+        if (ST.mode==='place'){
+          const id = $('#defDropdown',ST.ui).value;
+          if (id) setGhost(id); else { ST.ghost=null; renderGhost(); }
+        }
       });
-    }
-    renderDefsList(S.defs);
+      bar.appendChild(b);
+    };
+    mk('All', null);
+    (ST.types||[]).forEach(t=> mk(t.name||t.id, t.id));
   }
-  function renderDefsList(defs){
-    if (!S.ui) return;
-    const dEl = S.ui.querySelector('#structuresDefList'); if (!dEl) return;
-    dEl.innerHTML='';
-    defs.forEach(d=>{
-      const n=document.createElement('div'); n.className='def-item'; n.setAttribute('data-id', d.id);
-      n.textContent = d.name||d.id;
-      n.onclick = ()=>{ dEl.querySelectorAll('.def-item').forEach(m=>m.classList.remove('selected')); n.classList.add('selected'); };
-      dEl.appendChild(n);
+
+  function rebuildDropdown(typeId=null){
+    if (!ST.ui) return;
+    const sel = $('#defDropdown', ST.ui); if (!sel) return;
+    sel.innerHTML='';
+    const opt0=document.createElement('option');
+    opt0.value=''; opt0.textContent='— choose structure —';
+    sel.appendChild(opt0);
+    (ST.defs||[]).filter(d=> !typeId || d.type===typeId).forEach(d=>{
+      const o=document.createElement('option');
+      o.value=d.id; o.textContent=d.name||d.id;
+      sel.appendChild(o);
     });
   }
 
-  function renderPreview(){
-    // (optional) hook a small preview elsewhere if desired; keeping light here
+  function syncButtons(){
+    if (!ST.ui) return;
+    const place=$('#btnPlace',ST.ui), move=$('#btnMove',ST.ui);
+    [place,move].forEach(b=> b.classList.remove('active'));
+    if (ST.mode==='place') place.classList.add('active');
+    if (ST.mode==='move') move.classList.add('active');
   }
 
   function injectCSS(){
     if (document.getElementById('structures-css')) return;
     const css=document.createElement('style'); css.id='structures-css';
-    css.textContent=`
+    css.textContent = `
       .structures-ui{ font:12px system-ui,sans-serif; color:var(--ink,#ddd); }
       .structures-ui .row{ display:flex; gap:8px; align-items:center; }
-      .structures-ui .between{ justify-content:space-between; }
-      .structures-ui .group{ margin:8px 0; }
-      .structures-ui .chip{ margin:2px 4px 6px 0; padding:2px 8px; border:1px solid var(--line,#333); background:transparent; color:inherit; border-radius:12px; cursor:pointer; }
-      .structures-ui .def-item{ padding:4px 6px; border:1px solid var(--line,#333); border-radius:6px; margin:3px 0; cursor:pointer; }
-      .structures-ui .def-item.selected{ border-color: var(--bt-amber,#f0b000); }
       .structures-ui .btn{ padding:4px 8px; border:1px solid var(--line,#333); background:transparent; color:inherit; border-radius:6px; cursor:pointer; }
       .structures-ui .btn.sm{ font-size:12px; }
       .structures-ui .btn.danger{ border-color:#844; color:#f88; }
       .structures-ui .btn.active{ outline:1px solid var(--bt-amber,#f0b000); }
-      .structure.selected :where(.bldg-body,.wall-body){ filter: drop-shadow(0 0 2px var(--bt-amber,#f0b000)); }
-      .ghost :where(*){ opacity:.55 }
+      .structures-ui .chip{ margin:2px 6px 6px 0; padding:2px 8px; border:1px solid var(--line,#333); background:transparent; color:inherit; border-radius:12px; cursor:pointer; }
+      #world-structures .structure.selected :where(.bldg-body,.wall-body){ filter: drop-shadow(0 0 2px var(--bt-amber,#f0b000)); }
+      #world-structures .ghost *{ opacity:.55 }
     `;
     document.head.appendChild(css);
   }
 
-  /* ---------------------- Change pulse ------------------- */
-  function pulse(){
-    saveLocalIfBound();
-    if (typeof S.publish === 'function'){
-      try{ S.publish('structures:changed', serialize()); }catch{}
-    }
+  /* ------------------ Hotkeys ------------------ */
+  function attachHotkeys(){
+    if (ST.hotkeys) return; ST.hotkeys=true;
+    window.addEventListener('keydown', (e)=>{
+      if (e.repeat) return;
+      if (e.key==='q' || e.key==='Q'){ rotateSelected(-1); e.preventDefault(); }
+      if (e.key==='e' || e.key==='E'){ rotateSelected(+1); e.preventDefault(); }
+      if (e.key==='Delete'){ deleteSelected(); e.preventDefault(); }
+      if (e.key==='Enter' && ST.mode==='place' && ST.ghost){ commitGhost(); e.preventDefault(); }
+    });
   }
 
-  /* ------------------------ INIT ------------------------- */
+  /* ------------------ INIT ------------------ */
   function init(opts){
-    if (S.inited) return;
-    S.hexToPx = opts.hexToPx || S.hexToPx;
-    S.pxToHex = opts.pxToHex || S.pxToHex;
-    S.getTileHeight = opts.getTileHeight || S.getTileHeight;
-    S.onMapTransform = opts.onMapTransform || null;
-    S.publish = opts.publish || null;
-    S.subscribe = opts.subscribe || null;
-
+    if (ST.inited) return;
+    ST.hexToPx = opts.hexToPx || ST.hexToPx;
+    ST.pxToHex = opts.pxToHex || ST.pxToHex;
+    ST.getTileHeight = opts.getTileHeight || ST.getTileHeight;
+    ST.onMapTransform = opts.onMapTransform || null;
+    ST.publish = opts.publish || null;
+    ST.subscribe = opts.subscribe || null;
     ensureLayer();
     attachPointer();
     attachHotkeys();
-
-    if (typeof S.onMapTransform === 'function'){
-      S.onMapTransform(()=> renderAll());
+    if (typeof ST.onMapTransform === 'function'){
+      ST.onMapTransform(()=> renderAll());
     }
-
-    S.inited = true;
+    ST.inited = true;
     console.info('[Structures] ready');
   }
 
-  /* -------------------- Expose API ----------------------- */
-  const API = {
-    init,
-    loadCatalog,
-    mountUI,
-    enableTool,
-    serialize,
-    hydrate,
-    clear,
-    bindLocalStorage,
-    onMapChanged
+  function attachPointer(){
+    ensureSvg(); if (!ST.svg) return;
+    ST.svg.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+  }
+
+  // Expose API
+  window.MSS_Structures = {
+    init, loadCatalog, mountUI,
+    serialize, hydrate, clear,
+    bindLocalStorage, onMapChanged
   };
-  window.MSS_Structures = API;
+
+  // expose functions used above in scope
+  function onPointerDown(e){
+    const g = e.target.closest && e.target.closest('#world-structures > g.structure:not(#ghost-structure)');
+    if (g){
+      const idx = Number(g.getAttribute('data-index'));
+      if (Number.isFinite(idx)){
+        ST.selected = idx; renderAll();
+        if (ST.mode==='move'){ ST.dragging=true; ST.dragIdx=idx; }
+      }
+      e.stopPropagation(); return;
+    }
+    if (ST.mode==='place' && ST.ghost){
+      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
+      const h = ST.pxToHex(p.x,p.y);
+      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
+      commitGhost();
+      e.stopPropagation(); return;
+    }
+  }
+  function onPointerMove(e){
+    if (ST.mode==='place' && ST.ghost){
+      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
+      const h = ST.pxToHex(p.x,p.y);
+      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
+      renderGhost(); return;
+    }
+    if (ST.mode==='move' && ST.dragging && ST.dragIdx!=null){
+      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
+      const h = ST.pxToHex(p.x,p.y);
+      const it = ST.list[ST.dragIdx]; if (!it) return;
+      it.anchor = { q:h.q|0, r:h.r|0 };
+      renderOne(ST.dragIdx);
+    }
+  }
+  function onPointerUp(){
+    if (ST.dragging){
+      ST.dragging=false;
+      const idx = ST.dragIdx; ST.dragIdx=null;
+      if (idx!=null) pulse();
+    }
+  }
+  function toSvgPoint(cx,cy){
+    ensureSvg(); if (!ST.svg) return null;
+    const pt = ST.svg.createSVGPoint(); pt.x=cx; pt.y=cy;
+    const m = ST.svg.getScreenCTM(); if (!m) return null;
+    return pt.matrixTransform(m.inverse());
+  }
 })();
