@@ -1846,6 +1846,50 @@ function cycleTeam(dir){ const t = getSelected(); if (!t) return; const len = TE
 function renameToken(){ const t = getSelected(); if (!t) return; const name = prompt('Token label:', t.label || ''); if (name !== null) { t.label = name.trim().slice(0,24) || 'MECH'; requestRender(); saveLocal(); } }
 function deleteToken(){ const t = getSelected(); if (!t) return; tokens = tokens.filter(x => x.id !== t.id); mechMeta.delete(t.id); selectedTokenId = null; renderMechList(); renderInit(); requestRender(); saveLocal(); }
 
+// === Structures: init + catalog + UI ===
+(function(){
+  if (!window.MSS_Structures) return;
+
+  // pixel center of hex
+  const hexToPx = (q, r) => tileCenter(q, r);          // uses your tileCenter()
+  const pxToHex = (x, y) => pixelToCell(x, y);         // uses your pixelToCell()
+
+  // Let structures raise surface height for LOS (buildings/walls)
+  const baseGetHexHeight = window.getHexHeight;        // your current function
+  const registerLosProvider = (provider) => {
+    window.getHexHeight = (q, r) => Math.max(baseGetHexHeight(q, r), provider(q, r));
+  };
+
+  // Notify on map transforms (zoom/pan) so structures can re-render if needed
+  const mapTransformListeners = [];
+  const onMapTransform = (cb) => { mapTransformListeners.push(cb); };
+  const _setViewBox = camera.setViewBox.bind(camera);
+  camera.setViewBox = function(){
+    _setViewBox();
+    mapTransformListeners.forEach(fn => { try{ fn(); }catch{} });
+  };
+
+  MSS_Structures.init({
+    hexToPx,
+    pxToHex,
+    getTileHeight: (q,r) => window.getHexHeight(q,r),
+    registerLosProvider,
+    onMapTransform,
+    publish: null,
+    subscribe: null
+  });
+
+  // Load catalog + mount UI into the left panel region you provided
+  MSS_Structures.loadCatalog('./modules/catalog.json');
+  MSS_Structures.mountUI('#structuresPanel');
+
+  // OPTIONAL: autosave per map id (uses your CURRENT_MAP_ID)
+  if (typeof CURRENT_MAP_ID !== 'undefined') {
+    MSS_Structures.bindLocalStorage(() => `mss84.structures.${CURRENT_MAP_ID || 'local'}`);
+  }
+})();
+
+
 /* ---------- Presets ----------
 const TER = { GRASS:0, ROCK:1, WATER:2, SAND:3, ASPHALT:4, URBAN:5 };
 const COV = { NONE:0, LIGHT:1, MED:2, HEAVY:3 };
@@ -3116,6 +3160,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
