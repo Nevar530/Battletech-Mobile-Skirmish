@@ -9,6 +9,8 @@
  *   enableTool(on:boolean)    -> toggle interactivity
  *   serialize()               -> array for save
  *   hydrate(structuresArray)  -> restore from save
+ *   clear()                   -> remove all placed structures, re-render
+ *   bindLocalStorage(fn)      -> (optional) auto-save/restore to localStorage key from fn()
  *   getSurfaceHeight(q,r)     -> surface/roof height at hex (for movement/LOS)
  */
 (function(){
@@ -22,6 +24,9 @@
     list:[],             // {defId, anchor:{q,r}, rot, state?, skin?}
     selectedId:null,     // index into STATE.list
     ghost:null,          // {defId, rot, anchor:{q,r}} while placing
+    // move/drag
+    moveMode:false,
+    drag:{ on:false, idx:null },
     // helpers injected by init()
     hexToPx:null,
     pxToHex:null,
@@ -93,8 +98,6 @@
     // back to axial: q=x, r=z
     return {dq:x, dr:z};
   }
-  function key(q,r){ return q+'|'+r; }
-
   function unitScale(){
     if (STATE._unitScale) return STATE._unitScale;
     try{
@@ -293,16 +296,34 @@
     pulseChanged();
   }
 
+  function pickSvgPoint(evt){
+    const mapSvg = document.getElementById('svg');
+    if (!mapSvg) return null;
+    const pt = mapSvg.createSVGPoint();
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    const ctm = mapSvg.getScreenCTM();
+    if (!ctm) return null;
+    return pt.matrixTransform(ctm.inverse());
+  }
+
   function onPointerDown(evt){
     if (!STATE.tool) return;
     const target = evt.target;
     const g = target.closest && target.closest('.structure');
+
+    // Click a structure
     if (g){
       STATE.selectedId = Number(g.getAttribute('data-index'));
       renderAll();
+      if (STATE.moveMode){
+        STATE.drag.on  = true;
+        STATE.drag.idx = STATE.selectedId;
+      }
       evt.stopPropagation();
       return;
     }
+
+    // Click board while adding -> commit
     if (STATE.ghost){
       commitGhost();
       evt.stopPropagation();
@@ -310,16 +331,36 @@
   }
 
   function onPointerMove(evt){
-    if (!STATE.tool || !STATE.ghost) return;
-    const mapSvg = document.getElementById('svg');
-    if (!mapSvg) return;
-    const pt = mapSvg.createSVGPoint();
-    pt.x = evt.clientX; pt.y = evt.clientY;
-    const ctm = mapSvg.getScreenCTM();
-    if (!ctm) return;
-    const svgPt = pt.matrixTransform(ctm.inverse());
-    const hex = STATE.pxToHex(svgPt.x, svgPt.y);
-    placeGhostAt(hex.q|0, hex.r|0);
+    if (!STATE.tool) return;
+
+    // Move ghost
+    if (STATE.ghost){
+      const svgPt = pickSvgPoint(evt);
+      if (!svgPt) return;
+      const hex = STATE.pxToHex(svgPt.x, svgPt.y);
+      placeGhostAt(hex.q|0, hex.r|0);
+      return;
+    }
+
+    // Dragging a selected item
+    if (STATE.drag.on && STATE.drag.idx!=null){
+      const svgPt = pickSvgPoint(evt);
+      if (!svgPt) return;
+      const hex = STATE.pxToHex(svgPt.x, svgPt.y);
+      const item = STATE.list[STATE.drag.idx];
+      if (item){
+        item.anchor = { q: hex.q|0, r: hex.r|0 };
+        renderOne(STATE.drag.idx);
+      }
+    }
+  }
+
+  function onPointerUp(){
+    if (STATE.drag.on){
+      STATE.drag.on = false;
+      const idx = STATE.drag.idx; STATE.drag.idx = null;
+      if (idx!=null) { pulseChanged(); }
+    }
   }
 
   function attachPointerHandlers(){
@@ -328,6 +369,7 @@
       mapSvg.addEventListener('pointerdown', onPointerDown);
     }
     window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
   }
 
   /* ------------------------ Heights / LOS ------------------------- */
@@ -396,6 +438,14 @@
   }
   API.hydrate = hydrate;
 
+  function clear(){
+    STATE.list = [];
+    STATE.selectedId = null;
+    renderAll();
+    pulseChanged();
+  }
+  API.clear = clear;
+
   /* --------------------------- UI -------------------------------- */
   function mountUI(sel){
     const host = document.querySelector(sel);
@@ -435,7 +485,13 @@
       if (!sel) { alert('Pick a definition first'); return; }
       setGhost(sel.getAttribute('data-id'));
     });
-    root.querySelector('#btnStructMove').addEventListener('click', ()=>{ STATE.ghost=null; renderGhost(); });
+    const btnMove = root.querySelector('#btnStructMove');
+    btnMove.addEventListener('click', ()=>{
+      STATE.moveMode = !STATE.moveMode;
+      STATE.ghost = null;
+      renderGhost();
+      btnMove.classList.toggle('active', STATE.moveMode);
+    });
     root.querySelector('#btnStructRotL').addEventListener('click', ()=> rotateSelected(-1));
     root.querySelector('#btnStructRotR').addEventListener('click', ()=> rotateSelected(+1));
     root.querySelector('#btnStructDelete').addEventListener('click', deleteSelected);
@@ -496,10 +552,13 @@
   }
 
   /* ----------------------- Change broadcast ----------------------- */
-  function pulseChanged(){
+  let _pulseChanged = function(){
     if (typeof STATE.publish === 'function'){
       STATE.publish('structures:changed', serialize());
     }
+  };
+  function pulseChanged(){
+    _pulseChanged();
   }
 
   /* --------------------------- Init ------------------------------- */
@@ -508,12 +567,6 @@
     const css = document.createElement('style');
     css.id = 'structures-css';
     css.textContent = `
-      /* Themeable classes (match your app palette) */
-      .bldg-body { fill: var(--panel, #1b1b1b); stroke: var(--ink, #888); stroke-width: 0.02; }
-      .bldg-seam { stroke: var(--ink-weak, #666); stroke-width: 0.02; fill: none; }
-      .wall-body { fill: var(--ink, #888); opacity: .9; }
-      .gate-closed { fill: var(--ink, #888); }
-      .gate-wing { stroke: var(--ink, #888); stroke-width: 0.03; }
       .structure.selected :where(.bldg-body,.wall-body,.gate-closed,.gate-wing) { filter: drop-shadow(0 0 2px var(--bt-amber, #f0b000)); }
       .ghost :where(.bldg-body,.wall-body,.gate-closed,.gate-wing){ opacity: .5; }
       /* UI */
@@ -529,6 +582,7 @@
       .structures-ui .btn.danger { border-color:#844; color:#f88; }
       .structures-ui details summary { cursor:pointer; }
       .structures-ui .sw { display:flex; align-items:center; gap:6px; }
+      .structures-ui .btn.active { outline:1px solid var(--bt-amber, #f0b000); }
     `;
     document.head.appendChild(css);
   }
@@ -585,6 +639,27 @@
     buildUILists();
   }
 
+  /* --------------------- Optional Local Storage ------------------- */
+  API.bindLocalStorage = function(getKey){
+    if (typeof getKey !== 'function') return;
+    // Attempt initial restore
+    try{
+      const key = getKey();
+      const raw = localStorage.getItem(key);
+      if (raw) hydrate(JSON.parse(raw));
+    }catch(e){ /* ignore */ }
+    // Wrap pulseChanged to auto-save
+    _pulseChanged = function(){
+      if (typeof STATE.publish === 'function'){
+        STATE.publish('structures:changed', serialize());
+      }
+      try{
+        const key = getKey();
+        localStorage.setItem(key, JSON.stringify(serialize()));
+      }catch(e){ /* ignore */ }
+    };
+  };
+
   /* ------------------- Expose global namespace -------------------- */
   window.MSS_Structures = API;
 
@@ -597,5 +672,10 @@
      MSS_Structures.init({...helpers...});
      MSS_Structures.loadCatalog('/modules/catalog.json');
      MSS_Structures.mountUI('#structuresPanel');
+  4) Save/load/reset in your app:
+     saveObj.structures = MSS_Structures.serialize();
+     MSS_Structures.clear(); MSS_Structures.hydrate(saveObj.structures||[]);
+     // or enable auto-localStorage per-map:
+     MSS_Structures.bindLocalStorage(()=> 'mss84.structures.'+(window.currentMapId||'default'));
   ----------------------------------------------------------------- */
 })();
