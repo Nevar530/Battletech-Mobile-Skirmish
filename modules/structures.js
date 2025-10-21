@@ -163,6 +163,7 @@
       n.setAttribute('fill', fill);
       n.setAttribute('stroke', stroke);
       n.setAttribute('stroke-width', sw);
+      n.setAttribute('vector-effect', 'non-scaling-stroke'); // ← add this
       return n;
     } else if (kind === 'polygon'){
       const pts = Array.isArray(s.points) ? s.points : [];
@@ -171,6 +172,7 @@
       n.setAttribute('fill', fill);
       n.setAttribute('stroke', stroke);
       n.setAttribute('stroke-width', sw);
+      n.setAttribute('vector-effect', 'non-scaling-stroke'); // ← add this
       return n;
     } else { // path
       const n = el('path');
@@ -178,6 +180,7 @@
       n.setAttribute('fill', fill);
       n.setAttribute('stroke', stroke);
       n.setAttribute('stroke-width', sw);
+      n.setAttribute('vector-effect', 'non-scaling-stroke'); // ← add this
       return n;
     }
   }
@@ -254,7 +257,8 @@
       if (eraseMode && targetStruct){
         const id = targetStruct.dataset.id;
         PLACED = PLACED.filter(p => p.id !== id);
-        draw(); saveLocalIfBound(); LOS?.refresh?.();
+        draw(); LOS?.refresh?.(); pulse();
+
         return;
       }
       if (!placeMode) return;
@@ -308,6 +312,15 @@
     preview(def);
   }
 
+  function pulse(){
+  // local autosave
+  saveLocalIfBound();
+  // live publish (optional; harmless if not provided)
+  if (typeof publish === 'function'){
+    publish('structures:changed', API.serialize());
+  }
+}
+
   function preview(def, override){ // override = {fill,stroke,sw}
     if (!UI || !UI.pv) return;
     const pv = UI.pv;
@@ -335,7 +348,8 @@
   function place(defId, q, r){
     const inst = { id: newId(), defId, q: clamp(q,0,1e6), r: clamp(r,0,1e6), angle: 0, scale: 1 };
     PLACED.push(inst);
-    draw(); saveLocalIfBound(); LOS?.refresh?.();
+    draw(); LOS?.refresh?.(); pulse();
+
   }
 
   // --- Public API ---
@@ -358,6 +372,18 @@
     }
   };
 
+API.onMapChanged = function(){
+  // If a new map id is in effect, the caller will also update LOCAL_KEY_FN via bindLocalStorage or reuse the same function.
+  if (!LOCAL_KEY_FN) return;
+  try{
+    const raw = localStorage.getItem(LOCAL_KEY_FN());
+    const arr = raw ? JSON.parse(raw) : [];
+    API.hydrate(Array.isArray(arr) ? arr : []);
+  }catch{
+    API.hydrate([]);
+  }
+};
+  
   API.loadCatalog = async function(url){
     try{
       const res = await fetch(url, { cache:'no-store' });
