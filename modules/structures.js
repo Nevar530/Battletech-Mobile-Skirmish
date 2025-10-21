@@ -321,6 +321,29 @@
   }
 }
 
+function buildUILists(){
+  if (!UI || !UI.host) return;
+  const typesBar = UI.host.querySelector('#structuresTypeBar'); // make sure you have this in HTML
+  if (!typesBar) return;
+
+  typesBar.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'chip'; allBtn.textContent = 'All';
+  allBtn.onclick = () => renderDefsList(CATALOG);
+  typesBar.appendChild(allBtn);
+
+  (API._types || []).forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.textContent = t.name || t.id;
+    b.onclick = () => renderDefsList(CATALOG.filter(d => d.type === t.id));
+    typesBar.appendChild(b);
+  });
+
+  // Show all by default
+  renderDefsList(CATALOG);
+}
+
+  
   function preview(def, override){ // override = {fill,stroke,sw}
     if (!UI || !UI.pv) return;
     const pv = UI.pv;
@@ -384,20 +407,48 @@ API.onMapChanged = function(){
   }
 };
   
-  API.loadCatalog = async function(url){
-    try{
-      const res = await fetch(url, { cache:'no-store' });
-      const data = await res.json();
-      const arr = Array.isArray(data) ? data : (Array.isArray(data?.items) ? data.items : []);
-      CATALOG = arr;
-      BY_ID.clear(); arr.forEach(d => BY_ID.set(d.id, d));
-      rebuildCatalogSelect();
-      updatePreviewFromCurrentDef();
-      draw(); LOS?.refresh?.();
-    }catch(e){
-      console.warn('[structures] catalog load failed', e);
+// Replace your existing API.loadCatalog with this:
+API.loadCatalog = async function(url){
+  try{
+    const res = await fetch(url, { cache:'no-store' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    // Normalize: support array, {items:[]}, or {defs:[], types:[]}
+    let defs = [];
+    let types = [];
+    if (Array.isArray(data)) {
+      defs = data;
+    } else if (Array.isArray(data?.items)) {
+      defs = data.items;
+    } else if (Array.isArray(data?.defs)) {
+      defs = data.defs;
+      if (Array.isArray(data.types)) types = data.types;
+    } else {
+      throw new Error('Invalid catalog format: expected array or {defs:[...]}');
     }
-  };
+
+    // keep a copy for UI and an index by id
+    CATALOG = defs;
+    BY_ID.clear();
+    defs.forEach(d => BY_ID.set(d.id, d));
+
+    // optional: stash types if your UI uses them
+    API._types = types;
+
+    // rebuild UI and preview
+    rebuildCatalogSelect();           // your existing function
+    if (typeof buildUILists === 'function') buildUILists(); // if you have types UI
+    updatePreviewFromCurrentDef();    // your existing function
+    draw(); LOS?.refresh?.();
+
+    console.info('[structures] catalog loaded:', url, { defs: defs.length, types: types.length || 0 });
+  }catch(e){
+    console.warn('[structures] catalog load failed', e);
+    // keep going with whatever is already in memory; UI will show empty list
+  }
+};
+
 
   API.mountUI = mountUI;
 
