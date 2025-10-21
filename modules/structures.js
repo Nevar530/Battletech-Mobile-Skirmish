@@ -1,526 +1,532 @@
 /*!
- * MSS Structures — Simple Placement Tool
- * UI: Structures | [Type Tabs] | [Dropdown] | [Place] [Select/Move] [◀ Rotate] [Rotate ▶] [Delete]
+ * MSS:84 — Structures (Buildings / Walls / Gates)
+ * Drop-in module: /modules/structures.js
  *
- * Public API:
- *   MSS_Structures.init({ hexToPx, pxToHex, getTileHeight?, onMapTransform?, publish?, subscribe? })
- *   MSS_Structures.loadCatalog(url)
- *   MSS_Structures.mountUI(selector)
- *   MSS_Structures.serialize() -> placed array
- *   MSS_Structures.hydrate(arr)
- *   MSS_Structures.clear()
- *   MSS_Structures.bindLocalStorage(fnKey)   // fn returns key per-map
- *   MSS_Structures.onMapChanged()            // rehydrate for new map key
+ * Public API (window.MSS_Structures):
+ *   init(opts)                -> initialize with helpers { hexToPx, pxToHex, getTileHeight, registerLosProvider, onMapTransform, publish, subscribe }
+ *   mountUI(containerSel)     -> build UI controls in given container element
+ *   loadCatalog(url)          -> load /modules/catalog.json (or another URL)
+ *   serialize()               -> array for save
+ *   hydrate(structuresArray)  -> restore from save
+ *   clear()                   -> remove all placed structures, re-render
+ *   bindLocalStorage(fn)      -> auto-save/restore to localStorage key from fn()
+ *   getSurfaceHeight(q,r)     -> surface/roof height at hex (for LOS)
  */
 (function(){
-  const NS = 'http://www.w3.org/2000/svg';
+  const API = {};
+  const STATE = {
+    inited:false,
+    tool:true,                  // always ON (no enable checkbox)
+    catalog:{version:1, types:[], defs:[]},
+    defsById:new Map(),
+    list:[],                    // {defId, anchor:{q,r}, rot}
+    selectedId:null,
+    ghost:null,                 // {defId, rot, anchor:{q,r}}
+    moveMode:false,
+    drag:{ on:false, idx:null },
 
-  const ST = {
-    // engine hooks
-    hexToPx:(q,r)=>({x:0,y:0}),
-    pxToHex:(x,y)=>({q:0,r:0}),
+    // helpers injected by init()
+    hexToPx:null,
+    pxToHex:null,
     getTileHeight:(q,r)=>0,
+    registerLosProvider:null,
     onMapTransform:null,
-    publish:null, subscribe:null,
+    publish:null,
+    subscribe:null,
 
-    // catalog
-    defs:[],
-    types:[],
-    byId:new Map(),
-
-    // runtime
-    list:[],                 // [{defId, anchor:{q,r}, rot}]
-    selected:null,           // index into list
-    mode:null,               // 'place' | 'move' | null
-    ghost:null,              // {defId, anchor:{q,r}, rot}
-    dragging:false,
-    dragIdx:null,
-
-    // dom
-    svg:null,
-    layer:null,
+    // DOM
+    root:null,           // <g id="world-structures">
+    defsNode:null,       // <defs> in main #svg
     ui:null,
 
-    // storage
-    getLocalKey:null,
-
-    // flags
-    hotkeys:false,
-    inited:false
+    _unitScale:null
   };
 
-  /* ------------------ DOM helpers ------------------ */
-  function el(name, attrs){ const n=document.createElementNS(NS,name); if(attrs) for(const k in attrs) n.setAttribute(k, attrs[k]); return n; }
-  function $(sel,root=document){ return root.querySelector(sel); }
-
-  function ensureSvg(){
-    if (ST.svg && ST.svg.isConnected) return;
-    ST.svg = document.getElementById('svg');
-  }
+  /* --------------------- DOM util --------------------- */
+  const NS = 'http://www.w3.org/2000/svg';
+  const elNS = (n,attrs)=>{ const x=document.createElementNS(NS,n); if(attrs) for(const k in attrs) x.setAttribute(k,attrs[k]); return x; };
+  const el   = (n,attrs)=>{ const x=document.createElement(n); if(attrs) for(const k in attrs){ if(k==='textContent') x.textContent=attrs[k]; else x.setAttribute(k,attrs[k]); } return x; };
   function ensureLayer(){
-    ensureSvg(); if (!ST.svg) return;
+    const mapSvg = document.getElementById('svg');
+    if (!mapSvg) return;
     let layer = document.getElementById('world-structures');
     if (!layer){
-      layer = el('g',{id:'world-structures'});
       const tokens = document.getElementById('world-tokens');
+      layer = elNS('g', { id:'world-structures' });
+      layer.classList.add('layer-structures');
       if (tokens && tokens.parentNode) tokens.parentNode.insertBefore(layer, tokens);
-      else ST.svg.appendChild(layer);
+      else mapSvg.appendChild(layer);
     }
-    ST.layer = layer;
+    STATE.root = layer;
+    const defs = mapSvg.querySelector('defs');
+    STATE.defsNode = defs || mapSvg.insertBefore(elNS('defs'), mapSvg.firstChild);
   }
-  function clearChildren(n){ while(n.firstChild) n.removeChild(n.firstChild); }
-
-  /* ------------------ Catalog ------------------ */
-  async function loadCatalog(url){
-    const res = await fetch(url, { cache:'no-store' });
-    if (!res.ok) throw new Error('catalog '+res.status);
-    const data = await res.json();
-    let defs=[], types=[];
-    if (Array.isArray(data)) defs=data;
-    else if (Array.isArray(data.items)) defs=data.items;
-    else if (Array.isArray(data.defs)) { defs=data.defs; if (Array.isArray(data.types)) types=data.types; }
-    else throw new Error('invalid catalog format');
-
-    ST.defs = defs;
-    ST.types = types;
-    ST.byId.clear();
-    defs.forEach(d=> ST.byId.set(d.id, d));
-
-    buildTypeTabs();
-    rebuildDropdown();
-    renderAll();
+  const removeKids = n => { while(n.firstChild) n.removeChild(n.firstChild); };
+  function pruneOrphans(){
+    if (!STATE.root) return;
+    const max = STATE.list.length;
+    STATE.root.querySelectorAll('.structure').forEach(n=>{
+      const idx = Number(n.getAttribute('data-index'));
+      if (!Number.isFinite(idx) || idx >= max) n.remove();
+    });
   }
 
-  /* ------------------ Geometry ------------------ */
-  // axial rotation (dq,dr) around origin in 60° increments
-  function rotAx(dq, dr, steps){
-    const s = ((steps%6)+6)%6;
-    let x=dq, z=dr, y=-x-z;
-    for (let i=0;i<s;i++){ const nx=-z, ny=-x, nz=-y; x=nx; y=ny; z=nz; }
-    return {dq:x, dr:z};
-  }
-  function worldToScreen(q,r){ return ST.hexToPx(q,r); }
-
-  /* ------------------ Drawing ------------------ */
-  function drawShape(s){
-    const kind = s.kind || 'rect';
-    const fill   = (s.fill   != null)? s.fill   : undefined;
-    const stroke = (s.stroke != null)? s.stroke : undefined;
-    const sw     = (s.sw     != null)? String(s.sw) : undefined;
-
-    function apply(n){
-      if (s.class) n.setAttribute('class', s.class);
-      if (fill   !== undefined) n.setAttribute('fill', fill);
-      if (stroke !== undefined) n.setAttribute('stroke', stroke);
-      if (sw     !== undefined) n.setAttribute('stroke-width', sw);
-      n.setAttribute('vector-effect','non-scaling-stroke');
-      return n;
-    }
-
-    if (kind==='rect'){
-      const w=+s.w||1, h=+s.h||1;
-      const x=(s.x!=null)? +s.x : -(w/2);
-      const y=(s.y!=null)? +s.y : -(h/2);
-      const n = apply(el('rect',{x,y,width:w,height:h}));
-      if (s.rx!=null) n.setAttribute('rx', +s.rx);
-      return n;
-    }
-    if (kind==='polygon'){
-      const pts=(s.points||[]).map(p=>p.join(',')).join(' ');
-      return apply(el('polygon',{points:pts}));
-    }
-    if (kind==='polyline'){
-      const pts=(s.points||[]).map(p=>p.join(',')).join(' ');
-      return apply(el('polyline',{points:pts}));
-    }
-    return apply(el('path',{d:s.d||''}));
+  /* --------------------- Math ------------------------- */
+  function unitScale(){
+    if (STATE._unitScale) return STATE._unitScale;
+    try{
+      const a = STATE.hexToPx(0,0) || {x:0,y:0};
+      const b = STATE.hexToPx(1,0) || {x:1,y:0};
+      STATE._unitScale = Math.hypot(b.x-a.x, b.y-a.y) || 100;
+    }catch{ STATE._unitScale = 100; }
+    return STATE._unitScale;
   }
 
-  function pickShapes(def){ return def.shapes || []; }
-
+  /* --------------------- Render ----------------------- */
+  function worldToScreen(q,r){ const p = STATE.hexToPx(q,r); return {x:p.x,y:p.y}; }
   function ensureGroupFor(i){
-    ensureLayer(); if (!ST.layer) return null;
     const id='struct-'+i;
-    let g = ST.layer.querySelector('#'+CSS.escape(id));
-    if (!g){ g=el('g',{id, class:'structure'}); ST.layer.appendChild(g); }
+    let g = STATE.root.querySelector('#'+CSS.escape(id));
+    if (!g){ g = elNS('g', { id, class:'structure' }); STATE.root.appendChild(g); }
     return g;
   }
   function applyTransform(g, anchor, rot){
     const p = worldToScreen(anchor.q, anchor.r);
-    g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${rot||0})`);
-    g.style.pointerEvents = (ST.mode==='move') ? 'auto' : 'auto'; // keep clickable
+    const sc = unitScale();
+    g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${rot||0}) scale(${sc})`);
   }
+
+  // draw a single shape; honor fill, stroke, sw if present
+  function drawShape(container, s){
+    let n=null;
+    if (s.kind==='rect') {
+      n = elNS('rect', { x:(s.x!=null?s.x:-(s.w||1)/2), y:(s.y!=null?s.y:-(s.h||1)/2), width:s.w||1, height:s.h||1 });
+      if (s.rx!=null) n.setAttribute('rx', s.rx);
+    } else if (s.kind==='polygon') {
+      const pts=(s.points||[]).map(p=>p.join(',')).join(' ');
+      n = elNS('polygon', { points: pts });
+    } else if (s.kind==='polyline') {
+      const pts=(s.points||[]).map(p=>p.join(',')).join(' ');
+      n = elNS('polyline', { points: pts });
+    } else { // path
+      n = elNS('path', { d: s.d||'' });
+    }
+
+    // style: class OR explicit fill/stroke/sw
+    if (s.class) n.setAttribute('class', s.class);
+    if (s.fill)  n.setAttribute('fill', s.fill);
+    if (s.stroke) n.setAttribute('stroke', s.stroke);
+    if (s.sw != null) n.setAttribute('stroke-width', s.sw);
+
+    container.appendChild(n);
+  }
+
   function renderOne(i){
-    const it = ST.list[i]; const def=ST.byId.get(it.defId); if (!def) return;
-    const g = ensureGroupFor(i); if (!g) return;
+    const item = STATE.list[i];
+    const def  = STATE.defsById.get(item.defId);
+    if (!def) return;
+    const g = ensureGroupFor(i);
     g.setAttribute('data-index', i);
     g.setAttribute('data-def', def.id);
-    g.setAttribute('class', 'structure'+(ST.selected===i?' selected':''));
-    clearChildren(g);
-    pickShapes(def).forEach(s=> g.appendChild(drawShape(s)));
-    // enlarge hit area (in local hex units)
-    const hit = el('rect',{x:-0.6,y:-0.6,width:1.2,height:1.2,fill:'transparent',stroke:'transparent'});
+    g.setAttribute('class', 'structure'+(STATE.selectedId===i?' selected':''));
+    removeKids(g);
+    const shapes = def.shapes || [];
+    for (const s of shapes) drawShape(g, s);
+    // small hit rect for easy picking
+    const hit = elNS('rect', { class:'hit', x:-0.52, y:-0.52, width:1.04, height:1.04, fill:'transparent', stroke:'transparent' });
     g.appendChild(hit);
-    applyTransform(g, it.anchor, it.rot||0);
+    applyTransform(g, item.anchor, item.rot||0);
+    g.style.pointerEvents = 'auto';
   }
+
   function renderGhost(){
-    if (!ST.layer) ensureLayer();
-    const old = ST.layer && ST.layer.querySelector('#ghost-structure');
+    const old = STATE.root && STATE.root.querySelector('#ghost-structure');
     if (old) old.remove();
-    if (ST.mode!=='place' || !ST.ghost || !ST.layer) return;
-    const def = ST.byId.get(ST.ghost.defId); if (!def) return;
-    const g = el('g',{id:'ghost-structure', class:'structure ghost'});
-    pickShapes(def).forEach(s=> g.appendChild(drawShape(s)));
-    applyTransform(g, ST.ghost.anchor, ST.ghost.rot||0);
-    g.style.opacity = .55; g.style.pointerEvents='none';
-    ST.layer.appendChild(g);
+    if (!STATE.ghost || !STATE.root) return;
+    const def = STATE.defsById.get(STATE.ghost.defId);
+    if (!def) return;
+    const g = elNS('g', { id:'ghost-structure', class:'structure ghost' });
+    for (const s of (def.shapes||[])) drawShape(g, s);
+    applyTransform(g, STATE.ghost.anchor, STATE.ghost.rot||0);
+    g.style.pointerEvents = 'none';
+    STATE.root.appendChild(g);
   }
+
   function renderAll(){
-    ensureLayer(); if (!ST.layer) return;
-    // prune
-    const max = ST.list.length;
-    ST.layer.querySelectorAll('.structure').forEach(n=>{
-      if (n.id==='ghost-structure') return;
-      const idx = Number(n.getAttribute('data-index'));
-      if (!Number.isFinite(idx) || idx>=max) n.remove();
-    });
-    for (let i=0;i<ST.list.length;i++) renderOne(i);
+    if (!STATE.root) ensureLayer();
+    pruneOrphans();
+    for (let i=0;i<STATE.list.length;i++) renderOne(i);
     renderGhost();
   }
 
-  /* ------------------ Persistence ------------------ */
-  function serialize(){
-    return ST.list.map(it => ({ defId:it.defId, anchor:{q:it.anchor.q,r:it.anchor.r}, rot:it.rot||0 }));
+  /* ----------------- Interaction ---------------------- */
+  function setGhost(defId){ STATE.ghost = { defId, rot:0, anchor:{q:0,r:0} }; renderGhost(); }
+  function placeGhostAt(q,r){ if (!STATE.ghost) return; STATE.ghost.anchor={q,r}; renderGhost(); }
+  function commitGhost(){
+    if (!STATE.ghost) return;
+    STATE.list.push({ defId: STATE.ghost.defId, anchor: {...STATE.ghost.anchor}, rot: STATE.ghost.rot||0 });
+    STATE.selectedId = STATE.list.length-1;
+    STATE.ghost = null; renderAll(); pulseChanged();
   }
-  function hydrate(arr){
-    ST.list = Array.isArray(arr)? arr.map(x=>({
-      defId: x.defId,
-      anchor: { q:+(x.anchor?.q||0), r:+(x.anchor?.r||0) },
-      rot: (+x.rot||0)%360
-    })) : [];
-    ST.selected = null;
-    renderAll();
-    pulse();
-  }
-  function clear(){
-    ST.list = [];
-    ST.selected = null;
-    renderAll();
-    // wipe local slot
-    try{ const key = ST.getLocalKey?.(); if (key) localStorage.setItem(key, JSON.stringify([])); }catch{}
-    pulse();
-  }
-  function bindLocalStorage(fnKey){
-    ST.getLocalKey = (typeof fnKey==='function')? fnKey : null;
-    // initial restore
-    try{
-      const key = ST.getLocalKey?.();
-      if (key){
-        const raw = localStorage.getItem(key);
-        if (raw) hydrate(JSON.parse(raw));
-      }
-    }catch{}
-  }
-  function onMapChanged(){
-    try{
-      const key = ST.getLocalKey?.();
-      const raw = key ? localStorage.getItem(key) : null;
-      hydrate(raw? JSON.parse(raw) : []);
-    }catch{ hydrate([]); }
-  }
-
-  function pulse(){
-    // local autosave
-    try{
-      const key = ST.getLocalKey?.();
-      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
-    }catch{}
-    // publish online event (optional)
-    if (typeof ST.publish === 'function'){
-      try{ ST.publish('structures:changed', serialize()); }catch{}
+  function rotateSelected(deltaSteps){
+    if (STATE.selectedId==null){
+      if (STATE.ghost){ STATE.ghost.rot = ((STATE.ghost.rot||0)+deltaSteps*60+360)%360; renderGhost(); }
+      return;
     }
-  }
-
-  /* ------------------ Interaction ------------------ */
-  function setMode(m){ ST.mode = m; if (m!=='place') ST.ghost=null; renderAll(); }
-  function setGhost(defId){ ST.ghost = { defId, anchor:{q:0,r:0}, rot:0 }; renderGhost(); }
-  function rotateSelected(steps){
-    if (ST.mode==='place' && ST.ghost){
-      ST.ghost.rot = ((ST.ghost.rot||0) + steps*60 + 360) % 360;
-      renderGhost(); return;
-    }
-    if (ST.selected==null) return;
-    const it = ST.list[ST.selected]; if (!it) return;
-    it.rot = ((it.rot||0) + steps*60 + 360) % 360;
-    renderOne(ST.selected); pulse();
+    const it = STATE.list[STATE.selectedId];
+    it.rot = ((it.rot||0)+deltaSteps*60+360)%360;
+    renderOne(STATE.selectedId); pulseChanged();
   }
   function deleteSelected(){
-    if (ST.selected==null) return;
-    ST.list.splice(ST.selected,1);
-    ST.selected=null; renderAll(); pulse();
-  }
-  function commitGhost(){
-    if (!ST.ghost) return;
-    ST.list.push({ defId: ST.ghost.defId, anchor: {...ST.ghost.anchor}, rot: ST.ghost.rot||0 });
-    ST.selected = ST.list.length-1;
-    renderAll(); pulse();
+    if (STATE.selectedId==null) return;
+    STATE.list.splice(STATE.selectedId,1);
+    STATE.selectedId = null;
+    pruneOrphans();
+    renderAll(); pulseChanged();
   }
 
-  // pointer helpers
-  function toSvgPoint(cx,cy){
-    ensureSvg(); if (!ST.svg) return null;
-    const pt = ST.svg.createSVGPoint(); pt.x=cx; pt.y=cy;
-    const m = ST.svg.getScreenCTM(); if (!m) return null;
-    return pt.matrixTransform(m.inverse());
+  function pickSvgPoint(evt){
+    const svg = document.getElementById('svg'); if (!svg) return null;
+    const pt = svg.createSVGPoint(); pt.x=evt.clientX; pt.y=evt.clientY;
+    const ctm = svg.getScreenCTM(); if (!ctm) return null;
+    return pt.matrixTransform(ctm.inverse());
   }
 
-  function onPointerDown(e){
-    // clicking on a structure?
-    const g = e.target.closest && e.target.closest('#world-structures > g.structure:not(#ghost-structure)');
+  function onPointerDown(evt){
+    const target = evt.target;
+    const g = target.closest && target.closest('.structure');
+
+    // Click a structure to select / maybe start drag (when Select/Move active)
     if (g){
-      const idx = Number(g.getAttribute('data-index'));
-      if (Number.isFinite(idx)){
-        ST.selected = idx; renderAll();
-        if (ST.mode==='move'){ ST.dragging=true; ST.dragIdx=idx; }
-      }
-      e.stopPropagation(); return;
+      STATE.selectedId = Number(g.getAttribute('data-index'));
+      renderAll();
+      if (STATE.moveMode){ STATE.drag.on=true; STATE.drag.idx=STATE.selectedId; }
+      evt.stopPropagation(); return;
     }
-    // placing
-    if (ST.mode==='place' && ST.ghost){
-      const p = toSvgPoint(e.clientX, e.clientY); if (!p) return;
-      const h = ST.pxToHex(p.x,p.y);
-      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
-      commitGhost(); // place then stay in place mode with the same def
-      e.stopPropagation(); return;
-    }
+    // Click board while placing → commit
+    if (STATE.ghost){ commitGhost(); evt.stopPropagation(); return; }
   }
-  function onPointerMove(e){
-    if (ST.mode==='place' && ST.ghost){
-      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
-      const h = ST.pxToHex(p.x,p.y);
-      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
-      renderGhost();
-      return;
+  function onPointerMove(evt){
+    // Move ghost
+    if (STATE.ghost){
+      const p = pickSvgPoint(evt); if (!p) return;
+      const hex = STATE.pxToHex(p.x,p.y); placeGhostAt(hex.q|0, hex.r|0); return;
     }
-    if (ST.mode==='move' && ST.dragging && ST.dragIdx!=null){
-      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
-      const h = ST.pxToHex(p.x,p.y);
-      const it = ST.list[ST.dragIdx]; if (!it) return;
-      it.anchor = { q:h.q|0, r:h.r|0 };
-      renderOne(ST.dragIdx);
-      return;
+    // Dragging a selected item
+    if (STATE.drag.on && STATE.drag.idx!=null){
+      const p = pickSvgPoint(evt); if (!p) return;
+      const hex = STATE.pxToHex(p.x,p.y);
+      const it = STATE.list[STATE.drag.idx]; if (it){ it.anchor = { q:hex.q|0, r:hex.r|0 }; renderOne(STATE.drag.idx); }
     }
   }
   function onPointerUp(){
-    if (ST.dragging){
-      ST.dragging=false;
-      const idx = ST.dragIdx; ST.dragIdx=null;
-      if (idx!=null) pulse();
-    }
+    if (STATE.drag.on){ STATE.drag.on=false; const i=STATE.drag.idx; STATE.drag.idx=null; if (i!=null) pulseChanged(); }
   }
-  function attachPointer(){
-    ensureSvg(); if (!ST.svg) return;
-    ST.svg.addEventListener('pointerdown', onPointerDown);
+  function attachPointerHandlers(){
+    const svg = document.getElementById('svg'); if (!svg) return;
+    svg.addEventListener('pointerdown', onPointerDown);
     window.addEventListener('pointermove', onPointerMove);
     window.addEventListener('pointerup', onPointerUp);
   }
 
-  /* ------------------ UI ------------------ */
-  function mountUI(sel){
-    const host = (typeof sel==='string')? document.querySelector(sel) : sel;
-    if (!host) return;
+  /* --------------- Heights / LOS ---------------------- */
+  function getSurfaceHeight(q,r){
+    // Simple version: max tile height vs. any structure footprint cell height
+    let maxH = (typeof STATE.getTileHeight==='function' ? STATE.getTileHeight(q,r) : 0) || 0;
+    for (let i=0;i<STATE.list.length;i++){
+      const it = STATE.list[i];
+      const def = STATE.defsById.get(it.defId);
+      if (!def || !Array.isArray(def.footprint)) continue;
+      // rotate footprint cells based on rot (60° steps)
+      const steps = ((it.rot||0)/60)|0;
+      for (let idx=0; idx<def.footprint.length; idx++){
+        const rot = rotateAxial(def.footprint[idx].dq, def.footprint[idx].dr, steps);
+        const cq = it.anchor.q + rot.dq, cr = it.anchor.r + rot.dr;
+        if (cq===q && cr===r){
+          const h = heightAt(def, idx, q, r);
+          if (h!=null) maxH = Math.max(maxH, h);
+        }
+      }
+    }
+    return maxH;
+  }
+  API.getSurfaceHeight = getSurfaceHeight;
 
-    host.innerHTML = `
-      <div class="structures-ui">
-        <div class="row" id="typeTabs"></div>
-        <div class="row" style="margin:6px 0;">
-          <select id="defDropdown" class="input" style="min-width:220px"></select>
-        </div>
-        <div class="row" style="flex-wrap:wrap; gap:8px;">
-          <button class="btn sm" id="btnPlace">Place</button>
-          <button class="btn sm" id="btnMove">Select/Move</button>
-          <span style="flex:1 1 auto"></span>
-          <button class="btn sm" id="btnRotL">◀ Rotate</button>
-          <button class="btn sm" id="btnRotR">Rotate ▶</button>
-          <button class="btn sm danger" id="btnDelete">Delete</button>
+  // axial (dq,dr) rotation around origin by 60° * steps
+  function rotateAxial(dq,dr,steps){
+    const s=((steps%6)+6)%6;
+    let x=dq, z=dr, y=-x-z;
+    for (let i=0;i<s;i++){ const nx=-z, ny=-x, nz=-y; x=nx; y=ny; z=nz; }
+    return { dq:x, dr:z };
+  }
+  function heightAt(def, cellIdx, q, r){
+    const mode = def.heightMode || 'fixed';
+    if (mode==='fixed') return def.height||0;
+    if (mode==='cells') return (def.cellHeights||[])[cellIdx] ?? 0;
+    if (mode==='tile'){  // at least minHeight over terrain at (q,r)
+      const base = (typeof STATE.getTileHeight==='function'? STATE.getTileHeight(q,r):0) || 0;
+      return Math.max(base, def.minHeight||0);
+    }
+    return 0;
+  }
+
+  /* ---------------- Save / Load ----------------------- */
+  function serialize(){
+    return STATE.list.map(it => ({
+      defId: it.defId,
+      anchor: { q: it.anchor.q, r: it.anchor.r },
+      rot: it.rot||0
+    }));
+  }
+  API.serialize = serialize;
+
+  function hydrate(arr){
+    STATE.list = Array.isArray(arr)? arr.map(x => ({
+      defId: x.defId,
+      anchor: { q:(x.anchor?.q|0), r:(x.anchor?.r|0) },
+      rot: x.rot|0
+    })) : [];
+    STATE.selectedId = null;
+    renderAll();
+  }
+  API.hydrate = hydrate;
+
+  function clear(){ STATE.list=[]; STATE.selectedId=null; renderAll(); pulseChanged(); }
+  API.clear = clear;
+
+  /* -------------------- UI --------------------------- */
+  function mountUI(sel){
+    const host = document.querySelector(sel);
+    if (!host){ console.warn('[Structures] UI container not found:', sel); return; }
+
+    const root = el('div', { class:'structures-ui' });
+    root.innerHTML = `
+      <div class="group">
+        <div class="types" id="structuresTypeList"></div>
+        <div class="row">
+          <select id="structuresDefSelect" class="def-select"></select>
         </div>
       </div>
-    `;
-    ST.ui = host;
 
-    $('#btnPlace',host).addEventListener('click', ()=>{
-      setMode('place');
-      const defId = $('#defDropdown',host).value;
-      if (defId) setGhost(defId);
-      syncButtons();
-    });
-    $('#btnMove',host).addEventListener('click', ()=>{ setMode('move'); syncButtons(); });
-    $('#btnRotL',host).addEventListener('click', ()=> rotateSelected(-1));
-    $('#btnRotR',host).addEventListener('click', ()=> rotateSelected(+1));
-    $('#btnDelete',host).addEventListener('click', ()=> deleteSelected());
-    $('#defDropdown',host).addEventListener('change', ()=>{
-      if (ST.mode==='place'){
-        const id = $('#defDropdown',host).value;
+      <div class="group row gap" id="structToolbar">
+        <button class="btn sm" id="btnStructPlace" title="Place structure">Place</button>
+        <button class="btn sm" id="btnStructMove"  title="Select / Move">Select/Move</button>
+        <button class="icon sm" id="btnStructRotL" title="Rotate left">⟲</button>
+        <button class="icon sm" id="btnStructRotR" title="Rotate right">⟲⟲</button>
+        <button class="icon sm danger" id="btnStructDelete" title="Delete selected">🗑</button>
+      </div>
+    `;
+    host.replaceChildren(root);
+    STATE.ui = root;
+
+    const selDef = root.querySelector('#structuresDefSelect');
+
+    // events
+    const btnPlace = root.querySelector('#btnStructPlace');
+    const btnMove  = root.querySelector('#btnStructMove');
+    const btnRotL  = root.querySelector('#btnStructRotL');
+    const btnRotR  = root.querySelector('#btnStructRotR');
+    const btnDel   = root.querySelector('#btnStructDelete');
+
+    let toolMode = 'move'; // 'place' | 'move'
+
+    function setToolMode(m){
+      toolMode = m;
+      btnPlace.classList.toggle('active', m==='place');
+      btnMove.classList.toggle('active',  m==='move');
+      if (m==='place'){
+        const id = selDef.value || '';
         if (id) setGhost(id);
+      } else {
+        STATE.ghost = null; renderGhost();
+      }
+    }
+
+    btnPlace.addEventListener('click', ()=> setToolMode(toolMode==='place'?'move':'place'));
+    btnMove .addEventListener('click', ()=> setToolMode('move'));
+    btnRotL .addEventListener('click', ()=> rotateSelected(-1));
+    btnRotR .addEventListener('click', ()=> rotateSelected(+1));
+    btnDel  .addEventListener('click', ()=> deleteSelected());
+
+    selDef.addEventListener('change', ()=>{
+      if (toolMode==='place'){
+        const id = selDef.value || '';
+        if (id) setGhost(id); else { STATE.ghost=null; renderGhost(); }
       }
     });
 
+    buildUILists();
+    setToolMode('move');
     injectCSS();
-    buildTypeTabs();
-    rebuildDropdown();
-    syncButtons();
   }
+  API.mountUI = mountUI;
 
-  function buildTypeTabs(){
-    if (!ST.ui) return;
-    const bar = $('#typeTabs', ST.ui); if (!bar) return;
-    bar.innerHTML = '';
-    const mk = (lbl, filterId=null)=>{
-      const b=document.createElement('button');
-      b.className='chip'; b.textContent=lbl;
+  function buildUILists(){
+    if (!STATE.ui) return;
+    const tEl = STATE.ui.querySelector('#structuresTypeList');
+    const sEl = STATE.ui.querySelector('#structuresDefSelect');
+    if (!tEl || !sEl) return;
+
+    tEl.innerHTML = '';
+    sEl.innerHTML = '<option value="">— pick a definition —</option>';
+
+    // type chips
+    const mkChip = (t)=> {
+      const b = el('button', { class:'chip', type:'button', textContent: t.name });
       b.addEventListener('click', ()=>{
-        rebuildDropdown(filterId);
-        // keep current mode/ghost if in place
-        if (ST.mode==='place'){
-          const id = $('#defDropdown',ST.ui).value;
-          if (id) setGhost(id); else { ST.ghost=null; renderGhost(); }
-        }
+        tEl.querySelectorAll('.chip').forEach(n=>n.classList.remove('selected'));
+        b.classList.add('selected');
+        renderDefsDropdown(t.id);
       });
-      bar.appendChild(b);
+      return b;
     };
-    mk('All', null);
-    (ST.types||[]).forEach(t=> mk(t.name||t.id, t.id));
+    if ((STATE.catalog.types||[]).length){
+      STATE.catalog.types.forEach(t => tEl.appendChild(mkChip(t)));
+      // select first type by default
+      const first = tEl.querySelector('.chip'); first && first.click();
+    } else {
+      // no types -> just dump all defs
+      renderDefsDropdown(null);
+    }
   }
 
-  function rebuildDropdown(typeId=null){
-    if (!ST.ui) return;
-    const sel = $('#defDropdown', ST.ui); if (!sel) return;
-    sel.innerHTML='';
-    const opt0=document.createElement('option');
-    opt0.value=''; opt0.textContent='— choose structure —';
-    sel.appendChild(opt0);
-    (ST.defs||[]).filter(d=> !typeId || d.type===typeId).forEach(d=>{
-      const o=document.createElement('option');
-      o.value=d.id; o.textContent=d.name||d.id;
-      sel.appendChild(o);
+  function renderDefsDropdown(typeId){
+    const sEl = STATE.ui.querySelector('#structuresDefSelect'); if (!sEl) return;
+    sEl.innerHTML = '<option value="">— pick a definition —</option>';
+    const defs = (STATE.catalog.defs||[]).filter(d => !typeId || d.type===typeId);
+    defs.forEach(d=>{
+      const opt = el('option'); opt.value=d.id; opt.textContent=d.name||d.id;
+      sEl.appendChild(opt);
     });
   }
 
-  function syncButtons(){
-    if (!ST.ui) return;
-    const place=$('#btnPlace',ST.ui), move=$('#btnMove',ST.ui);
-    [place,move].forEach(b=> b.classList.remove('active'));
-    if (ST.mode==='place') place.classList.add('active');
-    if (ST.mode==='move') move.classList.add('active');
-  }
-
-  function injectCSS(){
-    if (document.getElementById('structures-css')) return;
-    const css=document.createElement('style'); css.id='structures-css';
-    css.textContent = `
-      .structures-ui{ font:12px system-ui,sans-serif; color:var(--ink,#ddd); }
-      .structures-ui .row{ display:flex; gap:8px; align-items:center; }
-      .structures-ui .btn{ padding:4px 8px; border:1px solid var(--line,#333); background:transparent; color:inherit; border-radius:6px; cursor:pointer; }
-      .structures-ui .btn.sm{ font-size:12px; }
-      .structures-ui .btn.danger{ border-color:#844; color:#f88; }
-      .structures-ui .btn.active{ outline:1px solid var(--bt-amber,#f0b000); }
-      .structures-ui .chip{ margin:2px 6px 6px 0; padding:2px 8px; border:1px solid var(--line,#333); background:transparent; color:inherit; border-radius:12px; cursor:pointer; }
-      #world-structures .structure.selected :where(.bldg-body,.wall-body){ filter: drop-shadow(0 0 2px var(--bt-amber,#f0b000)); }
-      #world-structures .ghost *{ opacity:.55 }
-    `;
-    document.head.appendChild(css);
-  }
-
-  /* ------------------ Hotkeys ------------------ */
+  /* ----------------- Hotkeys ------------------------- */
+  let hotkeys=false;
   function attachHotkeys(){
-    if (ST.hotkeys) return; ST.hotkeys=true;
+    if (hotkeys) return; hotkeys = true;
     window.addEventListener('keydown', (e)=>{
       if (e.repeat) return;
       if (e.key==='q' || e.key==='Q'){ rotateSelected(-1); e.preventDefault(); }
       if (e.key==='e' || e.key==='E'){ rotateSelected(+1); e.preventDefault(); }
       if (e.key==='Delete'){ deleteSelected(); e.preventDefault(); }
-      if (e.key==='Enter' && ST.mode==='place' && ST.ghost){ commitGhost(); e.preventDefault(); }
+      if (e.key==='Enter' && STATE.ghost){ commitGhost(); e.preventDefault(); }
     });
   }
 
-  /* ------------------ INIT ------------------ */
-  function init(opts){
-    if (ST.inited) return;
-    ST.hexToPx = opts.hexToPx || ST.hexToPx;
-    ST.pxToHex = opts.pxToHex || ST.pxToHex;
-    ST.getTileHeight = opts.getTileHeight || ST.getTileHeight;
-    ST.onMapTransform = opts.onMapTransform || null;
-    ST.publish = opts.publish || null;
-    ST.subscribe = opts.subscribe || null;
-    ensureLayer();
-    attachPointer();
-    attachHotkeys();
-    if (typeof ST.onMapTransform === 'function'){
-      ST.onMapTransform(()=> renderAll());
+  /* ----------------- Change pulse -------------------- */
+  let _pulseChanged = function(){
+    if (typeof STATE.publish === 'function'){
+      STATE.publish('structures:changed', API.serialize());
     }
-    ST.inited = true;
+  };
+  function pulseChanged(){ _pulseChanged(); }
+
+  /* -------------------- Init ------------------------- */
+  function injectCSS(){
+    if (document.getElementById('structures-css')) return;
+    const css = document.createElement('style');
+    css.id='structures-css';
+    css.textContent = `
+      :root { --bt-amber: #f0b000; --line: #2a2d33; }
+      .structure.selected :where(.bldg-body,.wall-body,.gate-closed,.gate-wing){ filter: drop-shadow(0 0 2px var(--bt-amber)); }
+      .ghost :where(.bldg-body,.wall-body,.gate-closed,.gate-wing){ opacity:.5; }
+
+      .structures-ui { font:12px system-ui, sans-serif; color: var(--ink, #ddd); }
+      .structures-ui .row { display:flex; align-items:center; gap:8px; }
+      .structures-ui .group { margin: 8px 0; }
+      .structures-ui .chip { margin:2px 6px 6px 0; padding:3px 10px; border:1px solid var(--line); background:transparent; color:inherit; border-radius:14px; cursor:pointer; }
+      .structures-ui .chip.selected { border-color: var(--bt-amber); }
+      .structures-ui .def-select { width:100%; padding:6px 8px; border:1px solid var(--line); border-radius:8px; background:#0f1115; color: inherit; }
+      .structures-ui .btn, .structures-ui .icon { padding:4px 8px; border:1px solid var(--line); background:transparent; color:inherit; border-radius:6px; cursor:pointer; }
+      .structures-ui .btn.sm, .structures-ui .icon.sm { font-size:12px; }
+      .structures-ui .icon { width:28px; text-align:center; }
+      .structures-ui .danger { border-color:#844; color:#f88; }
+      .structures-ui .active { outline:1px solid var(--bt-amber); }
+    `;
+    document.head.appendChild(css);
+  }
+
+  function init(opts){
+    if (STATE.inited) return;
+    STATE.hexToPx = opts.hexToPx;
+    STATE.pxToHex = opts.pxToHex;
+    STATE.getTileHeight = opts.getTileHeight || STATE.getTileHeight;
+    STATE.registerLosProvider = opts.registerLosProvider || null;
+    STATE.onMapTransform = opts.onMapTransform || null;
+    STATE.publish = opts.publish || null;
+    STATE.subscribe = opts.subscribe || null;
+
+    ensureLayer();
+    attachPointerHandlers();
+    attachHotkeys();
+
+    if (typeof STATE.registerLosProvider === 'function'){
+      STATE.registerLosProvider((q,r)=> getSurfaceHeight(q,r));
+    }
+    if (typeof STATE.onMapTransform === 'function'){
+      STATE.onMapTransform(()=> renderAll());
+    }
+    injectCSS();
+    STATE.inited = true;
     console.info('[Structures] ready');
   }
+  API.init = init;
 
-  function attachPointer(){
-    ensureSvg(); if (!ST.svg) return;
-    ST.svg.addEventListener('pointerdown', onPointerDown);
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', onPointerUp);
+  /* ---------------- Catalog -------------------------- */
+  async function loadCatalog(url){
+    const res = await fetch(url, { cache:'no-store' });
+    if (!res.ok) throw new Error('Failed to load catalog: '+res.status);
+    ingestCatalog(await res.json());
+    console.info('[Structures] catalog loaded:', url);
+  }
+  API.loadCatalog = loadCatalog;
+
+  function clearCatalog(){
+    STATE.catalog = {version:1, types:[], defs:[]};
+    STATE.defsById.clear();
+  }
+  function ingestCatalog(json){
+    clearCatalog();
+    if (!json || !Array.isArray(json.defs)) throw new Error('Invalid catalog.json');
+    STATE.catalog = json;
+    for (const def of json.defs) STATE.defsById.set(def.id, def);
+    // refresh UI if mounted
+    if (STATE.ui) buildUILists();
   }
 
-  // Expose API
-  window.MSS_Structures = {
-    init, loadCatalog, mountUI,
-    serialize, hydrate, clear,
-    bindLocalStorage, onMapChanged
+  /* -------------- Local Storage bind ----------------- */
+  API.bindLocalStorage = function(getKey){
+    if (typeof getKey !== 'function') return;
+    // initial restore
+    try{
+      const key = getKey();
+      const raw = localStorage.getItem(key);
+      if (raw) API.hydrate(JSON.parse(raw));
+    }catch{}
+    // wrap change pulse
+    _pulseChanged = function(){
+      if (typeof STATE.publish === 'function'){
+        STATE.publish('structures:changed', API.serialize());
+      }
+      try{
+        const key = getKey();
+        localStorage.setItem(key, JSON.stringify(API.serialize()));
+      }catch{}
+    };
   };
 
-  // expose functions used above in scope
-  function onPointerDown(e){
-    const g = e.target.closest && e.target.closest('#world-structures > g.structure:not(#ghost-structure)');
-    if (g){
-      const idx = Number(g.getAttribute('data-index'));
-      if (Number.isFinite(idx)){
-        ST.selected = idx; renderAll();
-        if (ST.mode==='move'){ ST.dragging=true; ST.dragIdx=idx; }
-      }
-      e.stopPropagation(); return;
-    }
-    if (ST.mode==='place' && ST.ghost){
-      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
-      const h = ST.pxToHex(p.x,p.y);
-      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
-      commitGhost();
-      e.stopPropagation(); return;
-    }
-  }
-  function onPointerMove(e){
-    if (ST.mode==='place' && ST.ghost){
-      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
-      const h = ST.pxToHex(p.x,p.y);
-      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
-      renderGhost(); return;
-    }
-    if (ST.mode==='move' && ST.dragging && ST.dragIdx!=null){
-      const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
-      const h = ST.pxToHex(p.x,p.y);
-      const it = ST.list[ST.dragIdx]; if (!it) return;
-      it.anchor = { q:h.q|0, r:h.r|0 };
-      renderOne(ST.dragIdx);
-    }
-  }
-  function onPointerUp(){
-    if (ST.dragging){
-      ST.dragging=false;
-      const idx = ST.dragIdx; ST.dragIdx=null;
-      if (idx!=null) pulse();
-    }
-  }
-  function toSvgPoint(cx,cy){
-    ensureSvg(); if (!ST.svg) return null;
-    const pt = ST.svg.createSVGPoint(); pt.x=cx; pt.y=cy;
-    const m = ST.svg.getScreenCTM(); if (!m) return null;
-    return pt.matrixTransform(m.inverse());
-  }
+  /* --------------- Expose global --------------------- */
+  window.MSS_Structures = API;
+
+  /* ---------------- Wiring Notes ---------------------
+     1) Include:
+          /modules/structures.js
+          /modules/catalog.json
+     2) Module injects <g id="world-structures"> under #world-tokens.
+     3) In your app (already done in script.js):
+          MSS_Structures.init({...});
+          MSS_Structures.loadCatalog('./modules/catalog.json');
+          MSS_Structures.mountUI('#structuresPanel');
+          MSS_Structures.bindLocalStorage(()=> `mss84.structures.${window.CURRENT_MAP_ID||'local'}`);
+  ---------------------------------------------------- */
 })();
