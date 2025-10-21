@@ -338,13 +338,15 @@ function serializeState(){
   const safeInitIndex = Number.isFinite(initIndex) ? initIndex : -1;
 
   return JSON.stringify({
-    meta,
-    data,
-    tokens: tok,
-    mechMeta: metaMap,
-    initOrder: safeInitOrder,
-    initIndex: safeInitIndex
-  });
+  meta,
+  data,
+  tokens: tok,
+  mechMeta: metaMap,
+  structures: (window.MSS_Structures?.serialize?.() || []), // <— NEW
+  initOrder: safeInitOrder,
+  initIndex: safeInitIndex
+});
+
 }
 
 // Gather unsent per-token sheets (marked by sheet.js) for this map, then clear flags
@@ -1766,6 +1768,7 @@ function showImportModal() {
       const obj = JSON.parse(raw);
       applyState(obj);                // your existing unified importer
       // return focus to stage for immediate input
+      try { MSS_Structures.hydrate(obj.structures || []); } catch {}
       const svg = document.getElementById('svg');
       if (svg && typeof svg.focus === 'function') svg.focus();
       close();
@@ -2985,6 +2988,50 @@ function applyPreset(preset) {
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
 
+// === Structures boot wiring (init + UI + viewBox sync) ===
+window.addEventListener('load', () => {
+  // 1) Init the module with your existing helpers
+  MSS_Structures.init({
+    hexToPx: (q, r) => offsetToPixel(q, r, hexSize),   // world → px
+    pxToHex: (x, y) => pixelToCell(x, y),              // px → grid
+    getTileHeight: (q, r) => {
+      // read current height/elevation for LOS “tile inherit”
+      const k = (typeof key === 'function') ? key(q, r) : `${q},${r}`;
+      const t = (window.tiles?.get?.(k)) || window.grid?.[r]?.[q];
+      return Number(t?.height ?? t?.h ?? t?.z ?? 0);
+    }
+  });
+
+  // 2) Load the catalog and mount the simple UI
+  MSS_Structures.loadCatalog('./modules/catalog.json');
+  MSS_Structures.mountUI('#structuresPanel');
+
+  // 3) Keep the structures layer locked to the camera by mirroring SVG viewBox
+  function syncStructsViewBox() {
+    const layer = document.getElementById('layer-structures');
+    if (!layer || !svg || !svg.viewBox) return;
+    const vb = svg.viewBox.baseVal;
+    layer.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.width} ${vb.height}`);
+    // ensure below tokens
+    layer.style.zIndex = '20';
+  }
+  // Run once now and on resize
+  syncStructsViewBox();
+  window.addEventListener('resize', syncStructsViewBox);
+
+  // Wrap requestRender (if present) so panning/zooming or edits keep structures in sync
+  if (typeof window.requestRender === 'function') {
+    const _rr = window.requestRender;
+    window.requestRender = function (...args) {
+      const out = _rr.apply(this, args);
+      try { syncStructsViewBox(); } catch {}
+      return out;
+    };
+  }
+});
+// === /Structures boot wiring ===
+
+
 // Safe helper used by sheet.js to get a token's current label
 window.getTokenLabelById = function(mapId, tokenId){
   try{
@@ -3001,6 +3048,8 @@ window.getTokenLabelById = function(mapId, tokenId){
     Net.onSnapshot = (stateObj) => {
       try {
         applyState(stateObj);
+        try { MSS_Structures.hydrate(stateObj.structures || []); } catch {}
+
         if (typeof requestRender === 'function') requestRender();
       } catch (e) { console.warn(e); }
     };
@@ -3058,6 +3107,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
