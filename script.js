@@ -2990,45 +2990,54 @@ window.addEventListener('load', loadPresetList);
 
 // === Structures boot wiring (init + UI + viewBox sync) ===
 window.addEventListener('load', () => {
-  // 1) Init the module with your existing helpers
-  MSS_Structures.init({
-    hexToPx: (q, r) => offsetToPixel(q, r, hexSize),   // world → px
-    pxToHex: (x, y) => pixelToCell(x, y),              // px → grid
-    getTileHeight: (q, r) => {
-      // read current height/elevation for LOS “tile inherit”
-      const k = (typeof key === 'function') ? key(q, r) : `${q},${r}`;
-      const t = (window.tiles?.get?.(k)) || window.grid?.[r]?.[q];
-      return Number(t?.height ?? t?.h ?? t?.z ?? 0);
+  // Only wire the module if it actually exists; never let it break the rest of the app.
+  if (window.MSS_Structures && typeof MSS_Structures.init === 'function') {
+    try {
+      MSS_Structures.init({
+        hexToPx: (q, r) => offsetToPixel(q, r, hexSize),
+        pxToHex: (x, y) => pixelToCell(x, y),
+        getTileHeight: (q, r) => {
+          // safe lookup (doesn't rely on an external `key` symbol)
+          const k = `${q},${r}`;
+          const t = (window.tiles?.get?.(k)) || window.grid?.[r]?.[q];
+          return Number(t?.height ?? t?.h ?? t?.z ?? 0);
+        }
+      });
+
+      // Load the structure definitions (adjust path if your catalog moved)
+      MSS_Structures.loadCatalog('./modules/catalog.json');
+
+      // Mount the mini UI inside the left menu
+      MSS_Structures.mountUI('#structuresPanel');
+
+      // Keep the structures layer’s viewBox in sync with the main SVG camera
+      function syncStructsViewBox() {
+        const layer = document.getElementById('layer-structures');
+        if (!layer || !svg || !svg.viewBox) return;
+        const vb = svg.viewBox.baseVal;
+        layer.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.width} ${vb.height}`);
+        layer.style.zIndex = '20'; // ensure below tokens
+      }
+      syncStructsViewBox();
+      window.addEventListener('resize', syncStructsViewBox);
+
+      // If you wrap requestRender for camera moves, keep structures in sync
+      if (typeof window.requestRender === 'function') {
+        const _rr = window.requestRender;
+        window.requestRender = function (...args) {
+          const out = _rr.apply(this, args);
+          try { syncStructsViewBox(); } catch {}
+          return out;
+        };
+      }
+    } catch (err) {
+      console.warn('[Structures] init failed — module skipped:', err);
     }
-  });
-
-  // 2) Load the catalog and mount the simple UI
-  MSS_Structures.loadCatalog('./modules/catalog.json');
-  MSS_Structures.mountUI('#structuresPanel');
-
-  // 3) Keep the structures layer locked to the camera by mirroring SVG viewBox
-  function syncStructsViewBox() {
-    const layer = document.getElementById('layer-structures');
-    if (!layer || !svg || !svg.viewBox) return;
-    const vb = svg.viewBox.baseVal;
-    layer.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.width} ${vb.height}`);
-    // ensure below tokens
-    layer.style.zIndex = '20';
-  }
-  // Run once now and on resize
-  syncStructsViewBox();
-  window.addEventListener('resize', syncStructsViewBox);
-
-  // Wrap requestRender (if present) so panning/zooming or edits keep structures in sync
-  if (typeof window.requestRender === 'function') {
-    const _rr = window.requestRender;
-    window.requestRender = function (...args) {
-      const out = _rr.apply(this, args);
-      try { syncStructsViewBox(); } catch {}
-      return out;
-    };
+  } else {
+    console.info('[Structures] module not present — skipping.');
   }
 });
+
 // === /Structures boot wiring ===
 
 
@@ -3107,6 +3116,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
