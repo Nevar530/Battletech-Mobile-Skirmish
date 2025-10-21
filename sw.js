@@ -1,7 +1,7 @@
 // ===== MSS:84 PWA Service Worker =====
 // Safe for GitHub Pages subpath. Does not touch non-GET or cross-origin requests.
 
-const CACHE_NAME = "mss84-shell-v1"; // bump when you change the shell list
+const CACHE_NAME = "mss84-shell-v2"; // bump when you change the shell list
 
 // Compute base path dynamically (e.g., "/Battletech-Mobile-Skirmish/")
 const BASE = new URL('./', self.location).pathname;
@@ -12,7 +12,10 @@ const PRECACHE_URLS = [
   "./index.html",
   "./style.css",
   "./script.js",
-  "./manifest.webmanifest"
+  "./manifest.webmanifest",
+  // structures module & catalog for offline + soft-resets
+  "./modules/structures.js",
+  "./modules/catalog.json"
 ];
 
 // ---- Install: precache shell (best-effort; ignore missing files) ----
@@ -22,7 +25,7 @@ self.addEventListener("install", (event) => {
     for (const url of PRECACHE_URLS) {
       try { await cache.add(url); } catch (e) { /* ignore missing */ }
     }
-    // Optional: self.skipWaiting();
+    self.skipWaiting();
   })());
 });
 
@@ -33,7 +36,7 @@ self.addEventListener("activate", (event) => {
     await Promise.all(
       keys.map(k => (k === CACHE_NAME ? null : caches.delete(k)))
     );
-    // Optional: await self.clients.claim();
+    await self.clients.claim();
   })());
 });
 
@@ -42,6 +45,31 @@ const under = (path) => (p) => p.startsWith(BASE + path);
 const isAssets = under("assets/");
 const isData   = under("data/");
 const isPresets= under("presets/");
+const isModules= under("modules/");
+
+function isShellPath(pathname){
+  // match any of the shell entries relative to BASE
+  for (const u of PRECACHE_URLS){
+    const rel = u.replace("./","/");
+    if (pathname === (BASE.endsWith('/') ? BASE.slice(0,-1) : BASE) + rel || pathname.endsWith(rel)) return true;
+  }
+  return false;
+}
+
+async function cachePutSafe(cacheName, req, res){
+  // Only cache GET, same-origin, and OK responses
+  if (req.method !== "GET") return;
+  try {
+    const url = new URL(req.url);
+    if (url.origin !== self.location.origin) return;
+    if (!res || !res.ok) return;
+    const clone = res.clone(); // clone BEFORE putting
+    const cache = await caches.open(cacheName);
+    await cache.put(req, clone);
+  } catch (e) {
+    // swallow quota/opaque/stream errors
+  }
+}
 
 // ---- Fetch: careful guards, then per-route strategies ----
 self.addEventListener("fetch", (event) => {
@@ -58,17 +86,13 @@ self.addEventListener("fetch", (event) => {
   const path = url.pathname;
 
   // A) HTML navigations → network-first (with cached fallback to index.html)
-  //    Matches your current behavior + supports SPA-style navigation.
   if (req.mode === "navigate") {
     event.respondWith((async () => {
       try {
         const net = await fetch(req);
-        const clone = net.clone();
-        const c = await caches.open(CACHE_NAME);
-        c.put(req, clone);
+        cachePutSafe(CACHE_NAME, req, net);
         return net;
       } catch (_) {
-        // fallback to cached index.html (app shell)
         return (await caches.match("./index.html")) ||
                (await caches.match(req)) ||
                new Response("Offline", { status: 503, statusText: "Offline" });
@@ -77,15 +101,13 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // B) Preserve your current rule: network-first for HTML + preset JSON
+  // B) HTML accepts or presets JSON → network-first
   const acceptsHTML = req.headers.get('accept')?.includes('text/html');
   if (acceptsHTML || isPresets(path)) {
     event.respondWith((async () => {
       try {
         const net = await fetch(req);
-        const clone = net.clone();
-        const c = await caches.open(CACHE_NAME);
-        c.put(req, clone);
+        cachePutSafe(CACHE_NAME, req, net);
         return net;
       } catch (_) {
         return caches.match(req);
@@ -95,27 +117,25 @@ self.addEventListener("fetch", (event) => {
   }
 
   // C) App shell files (precache list) → cache-first
-  const isShell = PRECACHE_URLS.some(u => url.pathname.endsWith(u.replace("./", "/")));
-  if (isShell) {
+  if (isShellPath(path)) {
     event.respondWith(
       caches.match(req).then(hit => hit || fetch(req).then(res => {
-        const clone = res.clone();
-        caches.open(CACHE_NAME).then(c => c.put(req, clone));
+        cachePutSafe(CACHE_NAME, req, res);
         return res;
-      }))
+      }).catch(() => caches.match(req)))
     );
     return;
   }
 
-  // D) Heavy JSON (assets/ & data/) → stale-while-revalidate (fast + updates)
-  if (isAssets(path) || isData(path)) {
+  // D) JSON and heavy data (assets/, data/, modules/) → stale-while-revalidate
+  if (isAssets(path) || isData(path) || isModules(path)) {
     event.respondWith(
       caches.match(req).then(cached => {
-        const net = fetch(req).then(res => {
-          caches.open(CACHE_NAME).then(c => c.put(req, res.clone()));
+        const netPromise = fetch(req).then(res => {
+          cachePutSafe(CACHE_NAME, req, res);
           return res;
         }).catch(() => cached || Promise.reject("offline"));
-        return cached || net;
+        return cached || netPromise;
       })
     );
     return;
@@ -124,8 +144,7 @@ self.addEventListener("fetch", (event) => {
   // E) Default → network-first with cache fallback
   event.respondWith(
     fetch(req).then(res => {
-      const clone = res.clone();
-      caches.open(CACHE_NAME).then(c => c.put(req, clone));
+      cachePutSafe(CACHE_NAME, req, res);
       return res;
     }).catch(() => caches.match(req))
   );
