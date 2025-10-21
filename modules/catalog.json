@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "types": [
+    { "id": "bldg", "name": "Buildings" },
+    { "id": "wall", "name": "Walls" },
+    { "id": "gate", "name": "Gates" },
+    { "id": "ruin", "name": "Ruins" }
+  ],
+  "defs": [
+    {
+      "id": "warehouse_2x3_step",
+      "type": "bldg",
+      "name": "Warehouse (2×3, stepped)",
+      "units": "hex",
+      "rotateStep": 60,
+      "edgeStyle": "border",
+      "footprint": [
+        { "dq":0, "dr":0 }, { "dq":1, "dr":0 },
+        { "dq":0, "dr":1 }, { "dq":1, "dr":1 },
+        { "dq":0, "dr":2 }, { "dq":1, "dr":2 }
+      ],
+      "heightMode": "cells",
+      "cellHeights": [ 2, 2, 2, 3, 2, 2 ],
+      "shapes": [
+        { "kind":"path", "d":"M -0.5 -0.5 h 2 v 3 h -2 Z", "class":"bldg-body" },
+        { "kind":"path", "d":"M -0.5 -0.5 L 1.5 2.5", "class":"bldg-seam" }
+      ]
+    },
+    {
+      "id": "wall_3",
+      "type": "wall",
+      "name": "Wall (3-long)",
+      "units": "hex",
+      "rotateStep": 60,
+      "footprint": [
+        { "dq":0, "dr":0 }, { "dq":1, "dr":0 }, { "dq":2, "dr":0 }
+      ],
+      "heightMode": "fixed",
+      "height": 2,
+      "shapes": [
+        { "kind":"path", "d":"M -0.5 -0.2 h 3 v 0.4 h -3 Z", "class":"wall-body" }
+      ]
+    },
+    {
+      "id": "gate_2",
+      "type": "gate",
+      "name": "Gate (2-wide)",
+      "units": "hex",
+      "rotateStep": 60,
+      "footprint": [
+        { "dq":0, "dr":0 }, { "dq":1, "dr":0 }
+      ],
+      "states": [
+        {
+          "key":"closed",
+          "heightMode":"fixed",
+          "height": 2,
+          "shapes":[
+            { "kind":"path", "d":"M -0.5 -0.25 h 2 v 0.5 h -2 Z", "class":"gate-closed" }
+          ]
+        },
+        {
+          "key":"open",
+          "heightMode":"fixed",
+          "height": 0,
+          "shapes":[
+            { "kind":"polyline", "points":[[-0.5,-0.25],[-0.15,-0.45]], "class":"gate-wing" },
+            { "kind":"polyline", "points":[[ 1.5,-0.25],[ 1.85,-0.45]], "class":"gate-wing" }
+          ]
+        }
+      ],
+      "defaultState": "closed"
+    }
+  ]
+}
