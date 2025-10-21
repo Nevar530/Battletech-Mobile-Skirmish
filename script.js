@@ -377,9 +377,11 @@ function loadLocal(){
     const obj = JSON.parse(raw);
     if (!obj || (!obj.data && !obj.tokens)) return false;
     applyState(obj);
+    try { MSS_Structures?.clear?.(); MSS_Structures?.hydrate?.(obj.structures || []); } catch {}
     return true;
   } catch { return false; }
 }
+
 
 /* ---------- Patterns ---------- */
 function ensurePatterns() {
@@ -1608,7 +1610,14 @@ function regen() {
   hexSize = +elHex.value || 120;
   initTiles(); camera.inited=false; requestRender(); clearLOS(); clearMeasurement();
 }
-on('regen','click', regen);
+on('regen','click', () => {
+  if (mapLocked) { alert('Map is locked. Unlock to regenerate.'); return; }
+  cols = +elCols.value || 10;
+  rows = +elRows.value || 10;
+  hexSize = +elHex.value || 120;
+  initTiles(); camera.inited=false; requestRender(); clearLOS(); clearMeasurement();
+  try { MSS_Structures?.clear?.(); } catch {}
+});
 
 elHex.addEventListener('change', () => {
   hexSize = +elHex.value || 120;
@@ -1618,7 +1627,9 @@ elHex.addEventListener('change', () => {
 on('clear','click', () => {
   if (mapLocked) { alert('Map is locked. Unlock to clear.'); return; }
   beginStroke(); tiles.forEach(t => resetTile(t)); endStroke(); clearLOS(); clearMeasurement();
+  try { MSS_Structures?.clear?.(); } catch {}
 });
+
 
 /* ===== Export JSON Modal ===== */
 function showJsonModal(text){
@@ -3160,6 +3171,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
