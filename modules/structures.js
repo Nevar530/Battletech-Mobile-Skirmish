@@ -1,737 +1,410 @@
-/*!
- * MSS:84 — Structures Module (Buildings / Walls / Gates)
- * Single-file drop-in: /modules/structures.js
+/* ===== MSS Structures — drop-in module =====
+ * Exposes:
+ *   MSS_Structures.init(opts)
+ *   MSS_Structures.loadCatalog(url)
+ *   MSS_Structures.mountUI(selector)
+ *   MSS_Structures.serialize() -> array
+ *   MSS_Structures.hydrate(arr)
+ *   MSS_Structures.clear()
+ *   MSS_Structures.bindLocalStorage(getKeyFn)
  *
- * Public API (window.MSS_Structures):
- *   init(opts)                 -> initialize with engine helpers and options
- *   mountUI(containerSel)      -> build UI controls in given container element
- *   loadCatalog(url)           -> load /modules/catalog.json (or another URL)
- *   enableTool(on:boolean)     -> toggle interactivity
- *   serialize()                -> array for save
- *   hydrate(structuresArray)   -> restore from save
- *   clear()                    -> remove all placed structures, re-render
- *   bindLocalStorage(fn)       -> (optional) auto-save/restore to localStorage key from fn()
- *   onMapChanged()             -> call when current map changes; re-hydrates from new LS key
- *   getSurfaceHeight(q,r)      -> surface/roof height at hex (for movement/LOS)
- *
- * Notes:
- * - Shapes accept inline styling: { fill:"#20262c", stroke:"#9aa4ae", sw:0.05 }.
- * - Class-based styles still work; inline attrs override CSS.
- * - “Toggle” button only shows if any catalog def contains `states`.
+ * Def shape fields supported:
+ *   kind: 'rect'|'polygon'|'path'
+ *   rect:  w,h,(x,y auto-centered),rx?, fill?, stroke?, sw?
+ *   polygon: points:[[x,y]...], fill?, stroke?, sw?
+ *   path: d:'M ...', fill?, stroke?, sw?
  */
 (function(){
-  const API = {};
-  const STATE = {
-    inited:false,
-    tool:false,
-    catalog:{version:1, types:[], defs:[]},
-    defsById:new Map(),
-    // runtime structs
-    list:[],             // {defId, anchor:{q,r}, rot, state?, skin?}
-    selectedId:null,     // index into STATE.list
-    ghost:null,          // {defId, rot, anchor:{q,r}} while placing
-    // move/drag
-    moveMode:false,
-    drag:{ on:false, idx:null },
-    // helpers injected by init()
-    hexToPx:null,
-    pxToHex:null,
-    getTileHeight:(q,r)=>0,
-    registerLosProvider:null,
-    onMapTransform:null,
-    publish:null,
-    subscribe:null,
-    // DOM
-    root:null,           // svg layer (g within main #svg)
-    defsNode:null,       // <defs> for patterns etc within #svg
-    ui:null,             // mounted UI root
-    zBelowTokens: 20,
-    zTokens:      30,
-    // keys
-    hotkeysAttached:false,
-    _unitScale:null,
-    // storage
-    _getLocalKey:null,   // fn -> string key for localStorage
-    _hasStates:false
-  };
+  const svgNS = 'http://www.w3.org/2000/svg';
 
-  /* ------------------------- Utility: DOM ------------------------- */
-  function elNS(name, attrs){
-    const n = document.createElementNS('http://www.w3.org/2000/svg', name);
-    if (attrs) for (const k in attrs) n.setAttribute(k, attrs[k]);
-    return n;
+  let API = {};
+  let ROOT = null;            // <g id="world-structures">
+  let CATALOG = [];           // [{id,name,type,heightMode,height,minHeight,cellHeights,footprint,shapes}]
+  let BY_ID = new Map();
+  let PLACED = [];            // [{id, defId, q, r, angle, scale}]
+  let LOCAL_KEY_FN = null;    // () => string
+  let SAVING_ENABLED = false;
+
+  // host app bridges (provided by init())
+  let hexToPx = (q,r)=>({x:0,y:0});
+  let pxToHex = (x,y)=>({q:0,r:0});
+  let getTileHeight = (q,r)=>0;
+  let registerLosProvider = null;
+  let onMapTransform = null;
+  let publish = null, subscribe = null;
+
+  // --- Utility ---
+  const clamp = (v,min,max)=> Math.max(min, Math.min(max,v));
+  function el(tag){ return document.createElementNS(svgNS, tag); }
+  function ensureRoot(){
+    if (ROOT && ROOT.isConnected) return ROOT;
+    const svg = document.getElementById('svg');
+    if (!svg) return null;
+    ROOT = el('g');
+    ROOT.id = 'world-structures';
+    // put above textures but below labels/tokens
+    const over = document.getElementById('world-overlays');
+    if (over && over.parentNode) over.parentNode.insertBefore(ROOT, over);
+    else svg.appendChild(ROOT);
+    return ROOT;
   }
-  function el(name, attrs){
-    const n = document.createElement(name);
-    if (attrs) for (const k in attrs) {
-      if (k === 'textContent') n.textContent = attrs[k];
-      else n.setAttribute(k, attrs[k]);
+
+  function saveLocalIfBound(){
+    if (!SAVING_ENABLED || !LOCAL_KEY_FN) return;
+    try { localStorage.setItem(LOCAL_KEY_FN(), JSON.stringify(API.serialize())); } catch {}
+  }
+  function loadLocalIfBound(){
+    if (!LOCAL_KEY_FN) return;
+    try {
+      const raw = localStorage.getItem(LOCAL_KEY_FN());
+      if (!raw) return;
+      const arr = JSON.parse(raw);
+      if (Array.isArray(arr)) API.hydrate(arr);
+    }catch{}
+  }
+  function clearLocalIfBound(){
+    if (!LOCAL_KEY_FN) return;
+    try { localStorage.removeItem(LOCAL_KEY_FN()); } catch {}
+  }
+
+  // --- LOS height provider: return structure height on a cell if any ---
+  function makeLosProvider(){
+    // map tile -> max height contributed by structures that cover it
+    const tileMax = new Map(); // key "q,r" -> h
+    function k(q,r){ return `${q},${r}`; }
+    function setMax(q,r,h){
+      const kk = k(q,r); const cur = tileMax.get(kk) || 0;
+      if (h > cur) tileMax.set(kk, h);
     }
-    return n;
-  }
-  function ensureLayer(){
-    // Use the main map SVG and create a group under world-tokens
-    const mapSvg = document.getElementById('svg');
-    if (!mapSvg) return;
-    let layer = document.getElementById('world-structures');
-    if (!layer){
-      const tokens = document.getElementById('world-tokens');
-      layer = elNS('g', { id:'world-structures' });
-      layer.classList.add('layer-structures');
-      if (tokens && tokens.parentNode){
-        tokens.parentNode.insertBefore(layer, tokens); // below tokens
-      } else {
-        mapSvg.appendChild(layer);
+    function recompute(){
+      tileMax.clear();
+      for (const inst of PLACED){
+        const def = BY_ID.get(inst.defId); if (!def) continue;
+        const hmode = def.heightMode || 'fixed';
+        if (!Array.isArray(def.footprint) || !def.footprint.length){
+          // if no footprint, treat only anchor cell
+          const h = hmode==='fixed' ? (+def.height||0)
+                   : hmode==='tile' ? Math.max(+def.minHeight||0, 0)
+                   : 0;
+          setMax(inst.q, inst.r, h);
+          continue;
+        }
+        // footprint dq/dr around (q,r)
+        const cells = def.footprint.map((c, i) => ({
+          q: inst.q + (c.dq||0),
+          r: inst.r + (c.dr||0),
+          h: (hmode==='fixed') ? (+def.height||0)
+             : (hmode==='tile') ? Math.max(+def.minHeight||0, 0)
+             : (hmode==='cells') ? (+def.cellHeights?.[i]||0)
+             : 0
+        }));
+        for (const c of cells) setMax(c.q, c.r, c.h);
       }
     }
-    layer.style.pointerEvents = 'none'; // inert unless tool enabled
-    STATE.root = layer;
+    recompute();
 
-    // defs should be in the main svg <defs>
-    const defs = mapSvg.querySelector('defs');
-    STATE.defsNode = defs || mapSvg.insertBefore(elNS('defs'), mapSvg.firstChild);
+    return {
+      get(q,r){ return tileMax.get(`${q},${r}`) || 0; },
+      refresh(){ recompute(); }
+    };
   }
+  let LOS = null;
 
-  function removeChildren(n){ while(n.firstChild) n.removeChild(n.firstChild); }
-
-  function pruneOrphans(){
-    if (!STATE.root) return;
-    const max = STATE.list.length;
-    STATE.root.querySelectorAll('.structure').forEach(n=>{
-      const idx = Number(n.getAttribute('data-index'));
-      if (!Number.isFinite(idx) || idx >= max) n.remove();
-    });
+  // --- Rendering ---
+  function clearRender(){
+    const root = ensureRoot(); if (!root) return;
+    root.replaceChildren();
   }
-
-  /* ------------------------- Utility: Math ------------------------ */
-  // axial rotation of (dq,dr) around (0,0) in 60° steps.
-  function rotateAxial(dq, dr, steps){
-    const s = ((steps % 6)+6)%6;
-    let q = dq, r = dr, x, z, y;
-    x = q; z = r; y = -x - z;
-    for (let i=0;i<s;i++){
-      const nx = -z, ny = -x, nz = -y;
-      x = nx; y = ny; z = nz;
-    }
-    return {dq:x, dr:z};
+  function draw(){
+    const root = ensureRoot(); if (!root) return;
+    root.replaceChildren();
+    for (const inst of PLACED) root.appendChild(drawInstance(inst));
   }
-  function unitScale(){
-    if (STATE._unitScale) return STATE._unitScale;
-    try{
-      const a = STATE.hexToPx(0,0) || {x:0,y:0};
-      const b = STATE.hexToPx(1,0) || {x:1,y:0};
-      STATE._unitScale = Math.hypot((b.x-a.x),(b.y-a.y)) || 100;
-    }catch(e){ STATE._unitScale = 100; }
-    return STATE._unitScale;
-  }
+  function drawInstance(inst){
+    const def = BY_ID.get(inst.defId);
+    const g = el('g');
+    g.setAttribute('class', 'structure');
+    g.dataset.defId = inst.defId;
+    g.dataset.id = inst.id;
 
-  /* ------------------------- Rendering ---------------------------- */
-  function worldToScreen(q,r){
-    const p = STATE.hexToPx(q,r);
-    return { x:p.x, y:p.y };
-  }
+    const {x,y} = hexToPx(inst.q, inst.r);
+    const scale = 1 * (inst.scale || 1);
+    g.setAttribute('transform', `translate(${x},${y}) rotate(${inst.angle||0})`);
+    g.style.pointerEvents = 'auto';
 
-  function ensureGroupFor(i){
-    const id = 'struct-'+i;
-    let g = STATE.root.querySelector('#'+CSS.escape(id));
-    if (!g){
-      g = elNS('g', { id, class:'structure' });
-      g.style.pointerEvents = STATE.tool ? 'auto' : 'none';
-      STATE.root.appendChild(g);
-    }
+    const shapes = Array.isArray(def?.shapes) ? def.shapes : [];
+    shapes.forEach(s => g.appendChild(drawShape(s)));
+
+    // simple hit ring to make selection easy
+    const hit = el('circle');
+    hit.setAttribute('r', 6);
+    hit.setAttribute('fill', 'transparent');
+    hit.setAttribute('stroke', 'transparent');
+    hit.setAttribute('transform', `scale(${scale})`);
+    g.appendChild(hit);
+
     return g;
   }
 
-  function applyTransform(g, anchor, rot){
-    const p = worldToScreen(anchor.q, anchor.r);
-    const deg = (rot||0);
-    const sc = unitScale();
-    g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${deg}) scale(${sc})`);
-  }
+  function drawShape(s){
+    const kind = s.kind || 'rect';
+    const fill   = s.fill   ?? '#20262c';
+    const stroke = s.stroke ?? '#9aa4ae';
+    const sw     = s.sw != null ? +s.sw : 0.02;
 
-  // NEW: draw shape with inline style support
-  function drawShape(container, shape){
-    const base = {};
-    if (shape.fill)   base.fill = shape.fill;
-    if (shape.stroke) base.stroke = shape.stroke;
-    if (shape.sw!=null) base['stroke-width'] = shape.sw;
-
-    switch(shape.kind){
-      case 'path': {
-        const n = elNS('path', { d: shape.d, class: shape.class||'', ...base });
-        n.setAttribute('vector-effect','non-scaling-stroke');
-        container.appendChild(n); break;
-      }
-      case 'rect': {
-        const n = elNS('rect', {
-          x:shape.x, y:shape.y, width:shape.w, height:shape.h, rx:shape.rx||0,
-          class: shape.class||'', ...base
-        });
-        n.setAttribute('vector-effect','non-scaling-stroke');
-        container.appendChild(n); break;
-      }
-      case 'polyline': {
-        const pts = (shape.points||[]).map(p=>p.join(',')).join(' ');
-        const n = elNS('polyline', { points: pts, class: shape.class||'', ...base });
-        n.setAttribute('vector-effect','non-scaling-stroke');
-        container.appendChild(n); break;
-      }
-      case 'polygon': {
-        const pts2 = (shape.points||[]).map(p=>p.join(',')).join(' ');
-        const n = elNS('polygon', { points: pts2, class: shape.class||'', ...base });
-        n.setAttribute('vector-effect','non-scaling-stroke');
-        container.appendChild(n); break;
-      }
+    if (kind === 'rect'){
+      const w = +s.w || 1, h = +s.h || 1;
+      const n = el('rect');
+      n.setAttribute('x', (-w/2).toFixed(4));
+      n.setAttribute('y', (-h/2).toFixed(4));
+      n.setAttribute('width',  w.toFixed(4));
+      n.setAttribute('height', h.toFixed(4));
+      if (s.rx != null) n.setAttribute('rx', +s.rx);
+      n.setAttribute('fill', fill);
+      n.setAttribute('stroke', stroke);
+      n.setAttribute('stroke-width', sw);
+      return n;
+    } else if (kind === 'polygon'){
+      const pts = Array.isArray(s.points) ? s.points : [];
+      const n = el('polygon');
+      n.setAttribute('points', pts.map(p => p.join(',')).join(' '));
+      n.setAttribute('fill', fill);
+      n.setAttribute('stroke', stroke);
+      n.setAttribute('stroke-width', sw);
+      return n;
+    } else { // path
+      const n = el('path');
+      n.setAttribute('d', s.d || '');
+      n.setAttribute('fill', fill);
+      n.setAttribute('stroke', stroke);
+      n.setAttribute('stroke-width', sw);
+      return n;
     }
   }
 
-  function footprintCells(def, anchor, rotSteps){
-    const out = [];
-    const steps = (rotSteps/60)|0;
-    for (let idx=0; idx<def.footprint.length; idx++){
-      const {dq,dr} = def.footprint[idx];
-      const {dq:rq, dr:rr} = rotateAxial(dq,dr,steps);
-      out.push({ q: anchor.q + rq, r: anchor.r + rr, idx });
-    }
-    return out;
-  }
+  // --- UI ---
+  let UI = null;
+  let placeMode = false;
+  let eraseMode = false;
+  let selectedId = null;
 
-  function pickShapes(def, stateKey){
-    if (def.states && Array.isArray(def.states)){
-      const chosen = def.states.find(s=>s.key=== (stateKey || def.defaultState));
-      if (chosen && Array.isArray(chosen.shapes)){
-        return chosen.shapes;
-      }
-    }
-    return def.shapes || [];
-  }
+  function mountUI(selector){
+    const host = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    if (!host) return;
 
-  function renderOne(i){
-    const item = STATE.list[i];
-    const def = STATE.defsById.get(item.defId);
-    if (!def) return;
-    const g = ensureGroupFor(i);
-    g.setAttribute('data-index', i);
-    g.setAttribute('data-def', def.id);
-    g.setAttribute('class', 'structure'+(STATE.selectedId===i?' selected':''));
-    removeChildren(g);
-    const shapes = pickShapes(def, item.state);
-    for (const s of shapes) drawShape(g, s);
-    applyTransform(g, item.anchor, item.rot||0);
-    // invisible 1×1 hit rect centered at origin for selection
-    let hit = g.querySelector('.hit');
-    if (!hit){
-      hit = elNS('rect', { class:'hit', x:-0.52, y:-0.52, width:1.04, height:1.04, fill:'transparent', stroke:'transparent' });
-      g.appendChild(hit);
-    }
-    g.style.pointerEvents = STATE.tool ? 'auto' : 'none';
-  }
+    host.innerHTML = `
+      <div class="struct-ui">
+        <div class="row gap">
+          <select id="structCatalog" class="input" title="Catalog"></select>
+          <button id="structTogglePlace" class="btn">Place</button>
+          <button id="structToggleErase" class="btn ghost" title="Delete structures">Erase</button>
+        </div>
+        <div class="mini muted" style="margin-top:6px;">Click a hex to place while Place is ON. Click a structure while Erase is ON to remove.</div>
+        <div class="struct-preview card" style="margin-top:8px; padding:8px; border:1px solid #2a2d33; border-radius:10px;">
+          <div class="row" style="justify-content:space-between; align-items:center;">
+            <strong>Preview</strong>
+            <div class="row" style="gap:6px; align-items:center;">
+              <label class="small">Fill <input id="structFill" type="color" value="#20262c" style="width:28px;height:20px;border:none;background:transparent;"/></label>
+              <label class="small">Stroke <input id="structStroke" type="color" value="#9aa4ae" style="width:28px;height:20px;border:none;background:transparent;"/></label>
+              <label class="small">SW <input id="structSW" type="number" step="0.01" value="0.02" style="width:70px"/></label>
+            </div>
+          </div>
+          <svg id="structPreviewSvg" viewBox="-1.5 -1.5 3 3" style="width:100%;height:120px;display:block;background:#0c0f14;border-radius:8px"></svg>
+        </div>
+      </div>
+    `;
+    UI = {
+      host,
+      sel: host.querySelector('#structCatalog'),
+      btnPlace: host.querySelector('#structTogglePlace'),
+      btnErase: host.querySelector('#structToggleErase'),
+      fill: host.querySelector('#structFill'),
+      stroke: host.querySelector('#structStroke'),
+      sw: host.querySelector('#structSW'),
+      pv: host.querySelector('#structPreviewSvg')
+    };
 
-  function renderGhost(){
-    const old = STATE.root && STATE.root.querySelector('#ghost-structure');
-    if (old) old.remove();
-    if (!STATE.tool || !STATE.ghost || !STATE.root) return;
-    const def = STATE.defsById.get(STATE.ghost.defId);
-    if (!def) return;
-    const g = elNS('g', { id:'ghost-structure', class:'structure ghost' });
-    const shapes = pickShapes(def, def.defaultState);
-    for (const s of shapes) drawShape(g, s);
-    applyTransform(g, STATE.ghost.anchor, STATE.ghost.rot||0);
-    g.style.pointerEvents = 'none';
-    STATE.root.appendChild(g);
-  }
+    rebuildCatalogSelect();
+    UI.sel.addEventListener('change', updatePreviewFromCurrentDef);
+    UI.fill.addEventListener('input', applyPreviewOverrides);
+    UI.stroke.addEventListener('input', applyPreviewOverrides);
+    UI.sw.addEventListener('input', applyPreviewOverrides);
 
-  function renderAll(){
-    if (!STATE.root) ensureLayer();
-    pruneOrphans();
-    for (let i=0;i<STATE.list.length;i++){
-      renderOne(i);
-    }
-    renderGhost();
-  }
-
-  /* ------------------------ Interaction -------------------------- */
-  function enableTool(on){
-    STATE.tool = !!on;
-    if (STATE.root){
-      const all = STATE.root.querySelectorAll('.structure');
-      all.forEach(g=> g.style.pointerEvents = STATE.tool ? 'auto' : 'none');
-      STATE.root.classList.toggle('tool-on', STATE.tool);
-    }
-    if (!STATE.tool){
-      STATE.ghost = null;
-      STATE.selectedId = null;
-      renderAll();
-    }
-  }
-  API.enableTool = enableTool;
-
-  function setGhost(defId){
-    STATE.ghost = { defId, rot:0, anchor:{q:0,r:0} };
-    renderGhost();
-  }
-
-  function placeGhostAt(q,r){
-    if (!STATE.ghost) return;
-    STATE.ghost.anchor = {q,r};
-    renderGhost();
-  }
-
-  function commitGhost(){
-    if (!STATE.ghost) return;
-    STATE.list.push({
-      defId: STATE.ghost.defId,
-      anchor: { ...STATE.ghost.anchor },
-      rot: STATE.ghost.rot || 0,
-      state: undefined
+    UI.btnPlace.addEventListener('click', () => {
+      placeMode = !placeMode;
+      eraseMode = false;
+      UI.btnPlace.classList.toggle('active', placeMode);
+      UI.btnErase.classList.remove('active');
+      UI.btnPlace.textContent = placeMode ? 'Place (ON)' : 'Place';
+      setCursor();
     });
-    STATE.selectedId = STATE.list.length-1;
-    STATE.ghost = null;
-    renderAll();
-    pulseChanged();
-  }
+    UI.btnErase.addEventListener('click', () => {
+      eraseMode = !eraseMode;
+      placeMode = false;
+      UI.btnErase.classList.toggle('active', eraseMode);
+      UI.btnPlace.classList.remove('active');
+      UI.btnPlace.textContent = 'Place';
+      setCursor();
+    });
 
-  function rotateSelected(deltaSteps){
-    if (STATE.selectedId==null) {
-      if (STATE.ghost){
-        STATE.ghost.rot = ((STATE.ghost.rot||0) + deltaSteps*60 + 360) % 360;
-        renderGhost();
+    // hook stage events for placing/removing
+    const svg = document.getElementById('svg');
+    svg.addEventListener('click', (e) => {
+      const targetStruct = e.target.closest && e.target.closest('#world-structures > g.structure');
+      if (eraseMode && targetStruct){
+        const id = targetStruct.dataset.id;
+        PLACED = PLACED.filter(p => p.id !== id);
+        draw(); saveLocalIfBound(); LOS?.refresh?.();
+        return;
       }
-      return;
-    }
-    const item = STATE.list[STATE.selectedId];
-    item.rot = ((item.rot||0) + deltaSteps*60 + 360) % 360;
-    renderOne(STATE.selectedId);
-    pulseChanged();
+      if (!placeMode) return;
+      const pt = toSvgPoint(svg, e.clientX, e.clientY);
+      const cell = pxToHex(pt.x, pt.y);
+      const defId = UI.sel.value;
+      if (!defId) return;
+      place(defId, cell.q, cell.r);
+    });
+
+    updatePreviewFromCurrentDef();
+
+    // cursor nicety
+    function setCursor(){ svg.style.cursor = placeMode ? 'crosshair' : (eraseMode ? 'not-allowed' : 'default'); }
+    API._setCursor = setCursor; // for refresh after mount
   }
 
-  function deleteSelected(){
-    if (STATE.selectedId==null) return;
-    STATE.list.splice(STATE.selectedId,1);
-    STATE.selectedId = null;
-    pruneOrphans();
-    renderAll();
-    pulseChanged();
+  function toSvgPoint(svg, cx, cy){
+    const pt = svg.createSVGPoint(); pt.x = cx; pt.y = cy; return pt.matrixTransform(svg.getScreenCTM().inverse());
   }
 
-  function toggleSelectedState(){
-    if (!STATE._hasStates) return; // inert when no states in catalog
-    if (STATE.selectedId==null) return;
-    const item = STATE.list[STATE.selectedId];
-    const def  = STATE.defsById.get(item.defId);
-    if (!def || !def.states) return;
-    const keys = def.states.map(s=>s.key);
-    const cur  = item.state || def.defaultState || keys[0];
-    const idx  = keys.indexOf(cur);
-    const next = keys[(idx+1)%keys.length];
-    item.state = next;
-    renderOne(STATE.selectedId);
-    pulseChanged();
+  function rebuildCatalogSelect(){
+    if (!UI || !UI.sel) return;
+    UI.sel.replaceChildren();
+    const opt0 = document.createElement('option');
+    opt0.value = ''; opt0.textContent = '— choose structure —';
+    UI.sel.appendChild(opt0);
+    CATALOG.forEach(def => {
+      const o = document.createElement('option');
+      o.value = def.id; o.textContent = def.name || def.id;
+      UI.sel.appendChild(o);
+    });
   }
 
-  function pickSvgPoint(evt){
-    const mapSvg = document.getElementById('svg');
-    if (!mapSvg) return null;
-    const pt = mapSvg.createSVGPoint();
-    pt.x = evt.clientX; pt.y = evt.clientY;
-    const ctm = mapSvg.getScreenCTM();
-    if (!ctm) return null;
-    return pt.matrixTransform(ctm.inverse());
+  function applyPreviewOverrides(){
+    const def = BY_ID.get(UI.sel.value); if (!def) return;
+    const fill = UI.fill.value;
+    const stroke = UI.stroke.value;
+    const sw = parseFloat(UI.sw.value)||0.02;
+    preview(def, {fill, stroke, sw});
   }
 
-  function onPointerDown(evt){
-    if (!STATE.tool) return;
-    const target = evt.target;
-    const g = target.closest && target.closest('.structure');
-
-    // Click a structure
-    if (g){
-      STATE.selectedId = Number(g.getAttribute('data-index'));
-      renderAll();
-      if (STATE.moveMode){
-        STATE.drag.on  = true;
-        STATE.drag.idx = STATE.selectedId;
-      }
-      evt.stopPropagation();
-      return;
-    }
-
-    // Click board while adding -> commit
-    if (STATE.ghost){
-      commitGhost();
-      evt.stopPropagation();
-    }
+  function updatePreviewFromCurrentDef(){
+    const def = BY_ID.get(UI?.sel?.value || '');
+    if (!def) { if (UI?.pv) UI.pv.replaceChildren(); return; }
+    // set preview pickers using first shape (fallbacks included)
+    const s0 = (def.shapes||[])[0] || {};
+    if (UI.fill) UI.fill.value   = s0.fill   || '#20262c';
+    if (UI.stroke) UI.stroke.value = s0.stroke || '#9aa4ae';
+    if (UI.sw) UI.sw.value = (s0.sw!=null ? s0.sw : 0.02);
+    preview(def);
   }
 
-  function onPointerMove(evt){
-    if (!STATE.tool) return;
+  function preview(def, override){ // override = {fill,stroke,sw}
+    if (!UI || !UI.pv) return;
+    const pv = UI.pv;
+    pv.replaceChildren();
 
-    // Move ghost
-    if (STATE.ghost){
-      const svgPt = pickSvgPoint(evt);
-      if (!svgPt) return;
-      const hex = STATE.pxToHex(svgPt.x, svgPt.y);
-      placeGhostAt(hex.q|0, hex.r|0);
-      return;
-    }
+    const g = el('g');
+    g.setAttribute('transform','scale(1)');
+    pv.appendChild(g);
 
-    // Dragging a selected item
-    if (STATE.drag.on && STATE.drag.idx!=null){
-      const svgPt = pickSvgPoint(evt);
-      if (!svgPt) return;
-      const hex = STATE.pxToHex(svgPt.x, svgPt.y);
-      const item = STATE.list[STATE.drag.idx];
-      if (item){
-        item.anchor = { q: hex.q|0, r: hex.r|0 };
-        renderOne(STATE.drag.idx);
-      }
-    }
-  }
-
-  function onPointerUp(){
-    if (STATE.drag.on){
-      STATE.drag.on = false;
-      const idx = STATE.drag.idx; STATE.drag.idx = null;
-      if (idx!=null) { pulseChanged(); }
-    }
-  }
-
-  function attachPointerHandlers(){
-    const mapSvg = document.getElementById('svg');
-    if (mapSvg){
-      mapSvg.addEventListener('pointerdown', onPointerDown);
-    }
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', onPointerUp);
-  }
-
-  /* ------------------------ Heights / LOS ------------------------- */
-  function getSurfaceHeight(q,r){
-    let maxH = (typeof STATE.getTileHeight==='function' ? STATE.getTileHeight(q,r) : 0) || 0;
-    for (let i=0;i<STATE.list.length;i++){
-      const item = STATE.list[i];
-      const def  = STATE.defsById.get(item.defId);
-      if (!def) continue;
-      const cells = footprintCells(def, item.anchor, item.rot||0);
-      for (const c of cells){
-        if (c.q===q && c.r===r){
-          const h = heightAt(def, c.idx, item.state, c.q, c.r);
-          if (h!=null) maxH = Math.max(maxH, h);
+    (def.shapes||[]).forEach(s => {
+      const dup = Object.assign({}, s);
+      if (override){
+        if (dup.kind === 'polygon' || dup.kind === 'rect' || dup.kind === 'path'){
+          dup.fill = override.fill;
+          dup.stroke = override.stroke;
+          dup.sw = override.sw;
         }
       }
-    }
-    return maxH;
-  }
-  API.getSurfaceHeight = getSurfaceHeight;
-
-  function heightAt(def, cellIdx, stateKey, q, r){
-    if (def.states && Array.isArray(def.states)){
-      const chosen = def.states.find(s=>s.key=== (stateKey || def.defaultState));
-      if (chosen){
-        if (chosen.heightMode==='fixed') return chosen.height||0;
-        if (chosen.heightMode==='tile')  return Math.max((typeof STATE.getTileHeight==='function'? STATE.getTileHeight(q,r):0) || 0, chosen.minHeight||0);
-      }
-    }
-    const mode = def.heightMode || 'fixed';
-    if (mode==='fixed') return def.height||0;
-    if (mode==='cells'){
-      const arr = def.cellHeights||[];
-      return arr[cellIdx] ?? 0;
-    }
-    if (mode==='tile'){
-      const minH = def.minHeight||0;
-      const base = (typeof STATE.getTileHeight==='function' ? STATE.getTileHeight(q,r) : 0) || 0;
-      return Math.max(base, minH);
-    }
-    return 0;
-  }
-
-  /* ------------------------- Save / Load -------------------------- */
-  function serialize(){
-    return STATE.list.map(it => ({
-      defId: it.defId,
-      anchor: { q: it.anchor.q, r: it.anchor.r },
-      rot: it.rot||0,
-      state: it.state,
-      skin: it.skin
-    }));
-  }
-  API.serialize = serialize;
-
-  function hydrate(arr){
-    STATE.list = Array.isArray(arr)? arr.map(x => ({
-      defId: x.defId,
-      anchor: { q:(x.anchor?.q|0), r:(x.anchor?.r|0) },
-      rot: x.rot|0,
-      state: x.state,
-      skin: x.skin
-    })) : [];
-    STATE.selectedId = null;
-    renderAll();
-  }
-  API.hydrate = hydrate;
-
-  function clear(){
-    STATE.list = [];
-    STATE.selectedId = null;
-    renderAll();
-    pulseChanged();
-  }
-  API.clear = clear;
-
-  /* --------------------------- UI -------------------------------- */
-  function mountUI(sel){
-    const host = document.querySelector(sel);
-    if (!host){
-      console.warn('[Structures] UI container not found:', sel);
-      return;
-    }
-    const root = el('div', { class:'structures-ui' });
-    root.innerHTML = `
-      <div class="row between">
-        <strong>Structures</strong>
-        <label class="sw"><input type="checkbox" id="structsEnable"> Enable</label>
-      </div>
-      <div class="group">
-        <details open>
-          <summary>Catalog</summary>
-          <div class="types" id="structuresTypeList"></div>
-          <div class="defs" id="structuresDefList"></div>
-          <button class="btn sm" id="btnStructAdd">Add</button>
-        </details>
-      </div>
-      <div class="group row gap">
-        <button class="btn sm" id="btnStructMove">Select/Move</button>
-        <button class="btn sm" id="btnStructRotL">◀ Rotate</button>
-        <button class="btn sm" id="btnStructRotR">Rotate ▶</button>
-        <button class="btn sm" id="btnStructToggleState" style="display:none">Toggle</button>
-        <button class="btn sm danger" id="btnStructDelete">Delete</button>
-      </div>
-    `;
-    host.appendChild(root);
-    STATE.ui = root;
-
-    // events
-    root.querySelector('#structsEnable').addEventListener('change', (e)=> enableTool(e.target.checked));
-    root.querySelector('#btnStructAdd').addEventListener('click', ()=> {
-      const sel = root.querySelector('.def-item.selected');
-      if (!sel) { alert('Pick a definition first'); return; }
-      setGhost(sel.getAttribute('data-id'));
+      g.appendChild(drawShape(dup));
     });
-    const btnMove = root.querySelector('#btnStructMove');
-    btnMove.addEventListener('click', ()=>{
-      STATE.moveMode = !STATE.moveMode;
-      STATE.ghost = null;
-      renderGhost();
-      btnMove.classList.toggle('active', STATE.moveMode);
-    });
-    root.querySelector('#btnStructRotL').addEventListener('click', ()=> rotateSelected(-1));
-    root.querySelector('#btnStructRotR').addEventListener('click', ()=> rotateSelected(+1));
-    root.querySelector('#btnStructDelete').addEventListener('click', deleteSelected);
-    root.querySelector('#btnStructToggleState').addEventListener('click', toggleSelectedState);
-
-    buildUILists();
   }
+
+  // --- Placement / model ---
+  function newId(){ return 'st_' + Math.random().toString(36).slice(2,9); }
+  function place(defId, q, r){
+    const inst = { id: newId(), defId, q: clamp(q,0,1e6), r: clamp(r,0,1e6), angle: 0, scale: 1 };
+    PLACED.push(inst);
+    draw(); saveLocalIfBound(); LOS?.refresh?.();
+  }
+
+  // --- Public API ---
+  API.init = function(opts){
+    hexToPx = opts.hexToPx || hexToPx;
+    pxToHex = opts.pxToHex || pxToHex;
+    getTileHeight = opts.getTileHeight || getTileHeight;
+    registerLosProvider = opts.registerLosProvider || null;
+    onMapTransform = opts.onMapTransform || null;
+    publish = opts.publish || null;
+    subscribe = opts.subscribe || null;
+
+    ensureRoot();
+    if (onMapTransform) onMapTransform(() => { /* vector; no reraster step needed */ });
+
+    // provide LOS height
+    LOS = makeLosProvider();
+    if (registerLosProvider && typeof registerLosProvider === 'function'){
+      registerLosProvider((q,r) => LOS.get(q,r));
+    }
+  };
+
+  API.loadCatalog = async function(url){
+    try{
+      const res = await fetch(url, { cache:'no-store' });
+      const data = await res.json();
+      const arr = Array.isArray(data) ? data : (Array.isArray(data?.items) ? data.items : []);
+      CATALOG = arr;
+      BY_ID.clear(); arr.forEach(d => BY_ID.set(d.id, d));
+      rebuildCatalogSelect();
+      updatePreviewFromCurrentDef();
+      draw(); LOS?.refresh?.();
+    }catch(e){
+      console.warn('[structures] catalog load failed', e);
+    }
+  };
+
   API.mountUI = mountUI;
 
-  function buildUILists(){
-    if (!STATE.ui) return;
-    const tEl = STATE.ui.querySelector('#structuresTypeList');
-    const dEl = STATE.ui.querySelector('#structuresDefList');
-    if (!tEl || !dEl) return;
-
-    tEl.innerHTML = '';
-    dEl.innerHTML = '';
-
-    for (const t of STATE.catalog.types || []){
-      const btn = el('button', { class:'chip', type:'button', textContent: t.name });
-      btn.addEventListener('click', ()=> filterDefsByType(t.id));
-      tEl.appendChild(btn);
-    }
-    renderDefsList(STATE.catalog.defs || []);
-
-    // show/hide the Toggle button depending on presence of any def.states
-    STATE._hasStates = !!(STATE.catalog.defs||[]).some(d=>Array.isArray(d.states) && d.states.length);
-    const toggleBtn = STATE.ui.querySelector('#btnStructToggleState');
-    if (toggleBtn) toggleBtn.style.display = STATE._hasStates ? '' : 'none';
-  }
-
-  function filterDefsByType(typeId){
-    const defs = (STATE.catalog.defs||[]).filter(d => !typeId || d.type===typeId);
-    renderDefsList(defs);
-  }
-
-  function renderDefsList(defs){
-    const dEl = STATE.ui.querySelector('#structuresDefList');
-    dEl.innerHTML='';
-    for (const d of defs){
-      const item = el('div', { class:'def-item', 'data-id': d.id });
-      item.textContent = d.name || d.id;
-      item.addEventListener('click', ()=>{
-        dEl.querySelectorAll('.def-item').forEach(n=> n.classList.remove('selected'));
-        item.classList.add('selected');
-      });
-      dEl.appendChild(item);
-    }
-  }
-
-  /* ------------------------- Hotkeys ------------------------------ */
-  function attachHotkeys(){
-    if (STATE.hotkeysAttached) return;
-    STATE.hotkeysAttached = true;
-    window.addEventListener('keydown', (e)=>{
-      if (!STATE.tool) return;
-      if (e.repeat) return;
-      if (e.key==='q' || e.key==='Q'){ rotateSelected(-1); e.preventDefault(); }
-      if (e.key==='e' || e.key==='E'){ rotateSelected(+1); e.preventDefault(); }
-      if (e.key==='Delete'){ deleteSelected(); e.preventDefault(); }
-      if (e.key==='Enter' && STATE.ghost){ commitGhost(); e.preventDefault(); }
-    });
-  }
-
-  /* ----------------------- Change broadcast ----------------------- */
-  let _pulseChanged = function(){
-    if (typeof STATE.publish === 'function'){
-      STATE.publish('structures:changed', serialize());
-    }
-  };
-  function pulseChanged(){
-    _pulseChanged();
-  }
-
-  /* --------------------------- Init ------------------------------- */
-  function injectDefaultCSS(){
-    if (document.getElementById('structures-css')) return;
-    const css = document.createElement('style');
-    css.id = 'structures-css';
-    css.textContent = `
-      .structure.selected :where(.bldg-body,.wall-body,.gate-closed,.gate-wing) { filter: drop-shadow(0 0 2px var(--bt-amber, #f0b000)); }
-      .ghost :where(.bldg-body,.wall-body,.gate-closed,.gate-wing){ opacity: .5; }
-      /* UI */
-      .structures-ui { font: 12px system-ui, sans-serif; color: var(--ink, #ddd); }
-      .structures-ui .row { display:flex; align-items:center; gap:8px; }
-      .structures-ui .between { justify-content: space-between; }
-      .structures-ui .group { margin: 8px 0; }
-      .structures-ui .chip { margin: 2px 4px 6px 0; padding:2px 8px; border:1px solid var(--line, #333); background:transparent; color:inherit; border-radius:12px; }
-      .structures-ui .def-item { padding:4px 6px; border:1px solid var(--line,#333); border-radius:6px; margin:3px 0; cursor:pointer; }
-      .structures-ui .def-item.selected { border-color: var(--bt-amber, #f0b000); }
-      .structures-ui .btn { padding:4px 8px; border:1px solid var(--line,#333); background:transparent; color:inherit; border-radius:6px; cursor:pointer; }
-      .structures-ui .btn.sm { font-size:12px; }
-      .structures-ui .btn.danger { border-color:#844; color:#f88; }
-      .structures-ui details summary { cursor:pointer; }
-      .structures-ui .sw { display:flex; align-items:center; gap:6px; }
-      .structures-ui .btn.active { outline:1px solid var(--bt-amber, #f0b000); }
-    `;
-    document.head.appendChild(css);
-  }
-
-  function init(opts){
-    if (STATE.inited) return;
-    STATE.hexToPx = opts.hexToPx;
-    STATE.pxToHex = opts.pxToHex;
-    STATE.getTileHeight = opts.getTileHeight || STATE.getTileHeight;
-    STATE.registerLosProvider = opts.registerLosProvider || null;
-    STATE.onMapTransform = opts.onMapTransform || null;
-    STATE.publish = opts.publish || null;
-    STATE.subscribe = opts.subscribe || null;
-
-    ensureLayer();
-    attachPointerHandlers();
-    attachHotkeys();
-
-    if (typeof STATE.registerLosProvider === 'function'){
-      STATE.registerLosProvider((q,r)=> getSurfaceHeight(q,r));
-    }
-    if (typeof STATE.onMapTransform === 'function'){
-      STATE.onMapTransform(()=> renderAll());
-    }
-
-    injectDefaultCSS();
-    STATE.inited = true;
-    console.info('[Structures] ready');
-  }
-  API.init = init;
-
-  /* ----------------------- Catalog Loading ------------------------ */
-  async function loadCatalog(url){
-    const res = await fetch(url, { cache:'no-store' });
-    if (!res.ok) throw new Error('Failed to load catalog: '+res.status);
-    const json = await res.json();
-    ingestCatalog(json);
-    console.info('[Structures] catalog loaded:', url, json);
-  }
-  API.loadCatalog = loadCatalog;
-
-  /* ------------------- Catalog management ---------------------- */
-  function clearCatalog(){
-    STATE.catalog = {version:1, types:[], defs:[]};
-    STATE.defsById.clear();
-    STATE._hasStates = false;
-  }
-  function ingestCatalog(json){
-    clearCatalog();
-    if (!json || !Array.isArray(json.defs)) throw new Error('Invalid catalog.json');
-    STATE.catalog = json;
-    for (const def of json.defs){
-      STATE.defsById.set(def.id, def);
-    }
-    buildUILists();
-  }
-
-  /* --------------------- Optional Local Storage ------------------- */
-  API.bindLocalStorage = function(getKey){
-    if (typeof getKey !== 'function') return;
-    STATE._getLocalKey = getKey;
-    // Attempt initial restore
-    try{
-      const key = getKey();
-      const raw = localStorage.getItem(key);
-      if (raw) hydrate(JSON.parse(raw));
-    }catch(e){ /* ignore */ }
-    // Wrap pulseChanged to auto-save + publish
-    _pulseChanged = function(){
-      if (typeof STATE.publish === 'function'){
-        STATE.publish('structures:changed', serialize());
-      }
-      try{
-        const key = getKey(); // evaluated each change so map switches update key
-        localStorage.setItem(key, JSON.stringify(serialize()));
-      }catch(e){ /* ignore */ }
-    };
+  API.serialize = function(){
+    // Nothing fancy: just persist placed instances
+    return PLACED.map(p => ({ id:p.id, defId:p.defId, q:p.q, r:p.r, angle:p.angle||0, scale:p.scale||1 }));
   };
 
-  // Re-hydrate from new map key when maps change
-  API.onMapChanged = function(){
-    if (typeof STATE._getLocalKey !== 'function') return;
-    try{
-      const key = STATE._getLocalKey();
-      const raw = localStorage.getItem(key);
-      if (raw){
-        hydrate(JSON.parse(raw));
-      } else {
-        hydrate([]); // no data for this map; clear visuals
-      }
-    }catch(e){ /* ignore */ }
+  API.hydrate = function(arr){
+    PLACED = Array.isArray(arr) ? arr.map(x => ({
+      id: x.id || newId(),
+      defId: x.defId,
+      q: +x.q||0, r:+x.r||0,
+      angle: ((+x.angle||0)%360+360)%360,
+      scale: clamp(+x.scale||1, 0.25, 4)
+    })) : [];
+    draw(); LOS?.refresh?.();
+    saveLocalIfBound();
   };
 
-  /* ------------------- Expose global namespace -------------------- */
+  API.clear = function(){
+    PLACED.length = 0;
+    draw(); LOS?.refresh?.();
+    clearLocalIfBound();
+  };
+
+  API.bindLocalStorage = function(getKeyFn){
+    LOCAL_KEY_FN = getKeyFn;
+    SAVING_ENABLED = true;
+    // load once now
+    loadLocalIfBound();
+  };
+
+  // expose for app
   window.MSS_Structures = API;
-
-  /* ------------------- Wiring instructions ------------------------
-  1) Place files:
-     /modules/structures.js
-     /modules/catalog.json
-  2) Module injects <g id="world-structures"> under #world-tokens when present.
-  3) Boot:
-     MSS_Structures.init({...helpers...});
-     MSS_Structures.loadCatalog('/modules/catalog.json');
-     MSS_Structures.mountUI('#structuresPanel');
-     MSS_Structures.bindLocalStorage(()=> 'mss84.structures.'+(window.currentMapId||'default'));
-  4) Save/load/reset in your app:
-     saveObj.structures = MSS_Structures.serialize();
-     MSS_Structures.clear(); MSS_Structures.hydrate(saveObj.structures||[]);
-  5) Map change:
-     window.currentMapId = 'new-map-id';
-     MSS_Structures.onMapChanged(); // re-hydrates from new LS key
-  ----------------------------------------------------------------- */
 })();
