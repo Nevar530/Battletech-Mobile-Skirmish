@@ -312,7 +312,7 @@
         <button class="btn sm" id="btnStructPlace" title="Place structure">Place</button>
         <button class="btn sm" id="btnStructMove"  title="Select / Move">Select/Move</button>
         <button class="icon sm" id="btnStructRotL" title="Rotate left">⟲</button>
-        <button class="icon sm" id="btnStructRotR" title="Rotate right">⟲⟲</button>
+        <button class="icon sm" id="btnStructRotR" title="Rotate right">⟲</button>
         <button class="icon sm danger" id="btnStructDelete" title="Delete selected">🗑</button>
       </div>
     `;
@@ -331,10 +331,11 @@
     let toolMode = 'move'; // 'place' | 'move'
 
     function setToolMode(m){
-      toolMode = m;
-      btnPlace.classList.toggle('active', m==='place');
-      btnMove.classList.toggle('active',  m==='move');
-      if (m==='place'){
+      const isPlace = (m === 'place');
+      STATE.moveMode = !isPlace;
+      btnPlace.classList.toggle('active',  isPlace);
+      btnMove.classList.toggle('active',  !isPlace);
+      if (isPlace){
         const id = selDef.value || '';
         if (id) setGhost(id);
       } else {
@@ -342,7 +343,10 @@
       }
     }
 
-    btnPlace.addEventListener('click', ()=> setToolMode(toolMode==='place'?'move':'place'));
+    btnPlace.addEventListener('click', ()=> {
+      const nowPlace = btnPlace.classList.contains('active');
+      setToolMode(nowPlace ? 'move' : 'place');
+    });
     btnMove .addEventListener('click', ()=> setToolMode('move'));
     btnRotL .addEventListener('click', ()=> rotateSelected(-1));
     btnRotR .addEventListener('click', ()=> rotateSelected(+1));
@@ -428,7 +432,7 @@
     css.id='structures-css';
     css.textContent = `
       :root { --bt-amber: #f0b000; --line: #2a2d33; }
-      .structure.selected :where(.bldg-body,.wall-body,.gate-closed,.gate-wing){ filter: drop-shadow(0 0 2px var(--bt-amber)); }
+      .structure.selected * { filter: drop-shadow(0 0 2px var(--bt-amber)); }
       .ghost :where(.bldg-body,.wall-body,.gate-closed,.gate-wing){ opacity:.5; }
 
       .structures-ui { font:12px system-ui, sans-serif; color: var(--ink, #ddd); }
