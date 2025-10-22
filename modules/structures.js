@@ -1,11 +1,23 @@
 
 /*!
- * MSS:84 — Structures module (save only on place & move toggle)
- * Safe drop-in for Battletech Mobile Skirmish.
- * - Saves ONLY on: placement, and Select/Move toggle (enter/exit).
- * - Writes into single master snapshot via window.saveLocal().
- * - Per-map fallback; serialize() falls back until hydrated to avoid early-blanking.
- * - Skips saving while hydrating. Glow only when Select/Move is active.
+ * MSS:84 — Structures module (hydrate-safe, snapshot-safe)
+ * Behavior:
+ *  - Saves on placement and when exiting Select/Move (batched edits).
+ *  - Bridges to master snapshot via window.saveLocal() (single blob with tokens).
+ *  - Per-map fallback via bindLocalStorage(fn) for fast local restores.
+ *  - Prevents early-save clobber: serialize() falls back to per-map data
+ *    until master has hydrated at least once.
+ *  - Skips saving while hydrating to avoid loops.
+ *  - Glow only in move mode; selection cleared on mode exit.
+ * API:
+ *   init({ hexToPx, pxToHex, onMapTransform, publish, subscribe })
+ *   loadCatalog(url)
+ *   mountUI(selector)
+ *   serialize()
+ *   hydrate(array)
+ *   clear()
+ *   bindLocalStorage(fnKey)   // fnKey(): string
+ *   onMapChanged()
  */
 (function(){
   'use strict';
@@ -22,10 +34,10 @@
     defs:[], types:[], byId:new Map(),
 
     // runtime
-    list:[],                 // [{defId, anchor:{q,r}, rot}]
+    list:[],             // [{defId, anchor:{q,r}, rot}]
     selected:null,
-    mode:'none',             // 'none' | 'place' | 'move'
-    ghost:null,              // {defId, anchor:{q,r}, rot}
+    mode:'none',         // 'none' | 'place' | 'move'
+    ghost:null,          // {defId, anchor:{q,r}, rot}
     dragging:false, dragIdx:null,
 
     // DOM
@@ -36,16 +48,18 @@
 
     // guards & flags
     _unitScale:null,
+    dirtyWhileMove:false,
     isHydrating:false,
     hadMasterHydrate:false,
 
+    // init guard
     inited:false
   };
 
-  // ---------- utils ----------
+  // ---------- small utils ----------
   const $ = (s,root=document)=>root.querySelector(s);
-  const el = (n,attrs)=>{ const k=document.createElementNS(NS,n); if(attrs) for(const a in attrs){ if(attrs[a]!==undefined) k.setAttribute(a, attrs[a]); } return k; };
-  const toInt = v => (v==null?0:(+v||0));
+  const el = (n,attrs)=>{ const k=document.createElementNS(NS,n); if(attrs) for(const a in attrs) k.setAttribute(a, attrs[a]); return k; };
+  const toInt = v => +v||0;
 
   function ensureSvg(){
     if (ST.svg && ST.svg.isConnected) return;
@@ -57,7 +71,7 @@
     if (!g){
       g = el('g',{id:'world-structures'});
       const tokens = document.getElementById('world-tokens');
-      if (tokens && tokens.parentNode) tokens.parentNode.insertBefore(g, tokens);
+      if (tokens && tokens.parentNode) tokens.parentNode.insertBefore(g,tokens);
       else ST.svg.appendChild(g);
     }
     ST.layer = g;
@@ -65,7 +79,7 @@
   function unitScale(){
     if (ST._unitScale) return ST._unitScale;
     try{ const a=ST.hexToPx(0,0), b=ST.hexToPx(1,0); ST._unitScale=Math.hypot(b.x-a.x,b.y-a.y)||96; }
-    catch(e){ ST._unitScale=96; }
+    catch{ ST._unitScale=96; }
     return ST._unitScale;
   }
   function toSvgPoint(cx,cy){
@@ -75,20 +89,19 @@
     return pt.matrixTransform(m.inverse());
   }
 
-  // ---------- draw ----------
+  // ---------- draw helpers ----------
   function drawShape(s){
     const k = s.kind||'rect';
-    const apply=(n)=>{
-      if (s.class) n.setAttribute('class', s.class);
-      if (s.fill!=null) n.setAttribute('fill', s.fill);
-      if (s.stroke!=null) n.setAttribute('stroke', s.stroke);
-      if (s.sw!=null) n.setAttribute('stroke-width', String(s.sw));
+    const apply=(n)=>{ if(s.class) n.setAttribute('class',s.class);
+      if(s.fill!=null) n.setAttribute('fill',s.fill);
+      if(s.stroke!=null) n.setAttribute('stroke',s.stroke);
+      if(s.sw!=null) n.setAttribute('stroke-width',String(s.sw));
       n.setAttribute('vector-effect','non-scaling-stroke');
       return n;
     };
     if (k==='rect'){
       const w=+s.w||1, h=+s.h||1;
-      return apply(el('rect',{x:-(w/2), y:-(h/2), width:w, height:h, rx:s.rx!=null?String(+s.rx):undefined}));
+      return apply(el('rect',{x:-(w/2), y:-(h/2), width:w, height:h, rx:s.rx!=null?+s.rx:undefined}));
     }
     if (k==='polygon'){ const pts=(s.points||[]).map(p=>p.join(',')).join(' '); return apply(el('polygon',{points:pts})); }
     if (k==='polyline'){ const pts=(s.points||[]).map(p=>p.join(',')).join(' '); return apply(el('polyline',{points:pts})); }
@@ -112,7 +125,7 @@
     const it = ST.list[i]; if (!it) return;
     const def = ST.byId.get(it.defId); if (!def) return;
     const g = ensureGroupFor(i); if (!g) return;
-    g.setAttribute('data-index', String(i));
+    g.setAttribute('data-index', i);
     g.setAttribute('data-def', it.defId);
     g.setAttribute('class', 'structure'+((ST.selected===i && ST.mode==='move')?' selected':''));
     g.replaceChildren();
@@ -163,22 +176,23 @@
       if (!key) return null;
       const raw = localStorage.getItem(key);
       if (!raw) return null;
-      const val = JSON.parse(raw);
-      if (Array.isArray(val)) return val;
-      if (Array.isArray(val.items)) return val.items;
+      const arr = JSON.parse(raw);
+      // support both {items:[...]} and plain array
+      if (Array.isArray(arr)) return arr;
+      if (Array.isArray(arr.items)) return arr.items;
       return null;
-    }catch(e){ return null; }
+    }catch{ return null; }
   }
   function perMapWrite(items){
     try{
       const key = ST.getLocalKey?.();
       if (key) localStorage.setItem(key, JSON.stringify({version:1, items: items}));
-    }catch(e){}
+    }catch{}
   }
 
   function serialize(){
-    // Prevent early master overwrite: if not hydrated yet and list is empty,
-    // return last per-map snapshot instead of [].
+    // If we haven't hydrated from master yet and our live list is empty,
+    // fall back to last per-map snapshot so early saveLocal() can't clobber the master blob.
     if (!ST.hadMasterHydrate && ST.list.length===0){
       const cached = perMapRead();
       if (Array.isArray(cached)) return cached.map(x=>({
@@ -196,21 +210,22 @@
       ST.list = list.map(x=>({ defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:(toInt(x.rot)%360+360)%360 }));
       ST.selected=null;
       renderAll();
-      if (list.length) perMapWrite(serialize()); // mirror master into per-map
+      // mirror master into per-map for fast restores
+      if (list.length) perMapWrite(serialize());
     } finally {
       ST.isHydrating = false;
     }
   }
 
   function pulseSave(){
-    // per-map snapshot
+    // 1) per-map snapshot (fast local restore)
     perMapWrite(serialize());
-    // master snapshot (single app blob) — skip during hydrate
+    // 2) master snapshot (single app blob) — skip while hydrating
     try{
       if (!ST.isHydrating && typeof window.saveLocal === 'function') window.saveLocal();
-    }catch(e){}
-    // notify
-    try{ if (typeof ST.publish==='function') ST.publish('structures:changed', serialize()); }catch(e){}
+    }catch{}
+    // 3) notify
+    try{ if (typeof ST.publish==='function') ST.publish('structures:changed', serialize()); }catch{}
   }
 
   function bindLocalStorage(fnKey){
@@ -229,7 +244,7 @@
     hydrate(Array.isArray(cached) ? cached : []);
   }
 
-  // ---------- interaction (save only on place & move toggle) ----------
+  // ---------- interaction ----------
   function setMode(m){
     const prev = ST.mode;
     ST.mode = m;
@@ -241,22 +256,18 @@
     }
     if (m!=='place'){ ST.ghost=null; renderGhost(); }
 
-    // Save ONLY on toggles of Select/Move (both directions)
-    if (m==='move' || (prev==='move' && m!=='move')){
-      // leaving move clears selection
-      if (prev==='move' && m!=='move'){ ST.selected=null; renderAll(); }
-      pulseSave(); // save once on entering OR leaving move
-    } else {
-      renderAll();
+    if (prev==='move' && m!=='move'){
+      ST.selected=null; renderAll();
+      if (ST.dirtyWhileMove){ ST.dirtyWhileMove=false; pulseSave(); }
     }
+    if (m==='move') ST.dirtyWhileMove=false;
+    renderAll();
   }
-
   function setGhost(defId){
     ST.mode='place';
     ST.ghost = { defId, anchor:{q:0,r:0}, rot:0 };
     renderGhost();
   }
-
   function commitGhost(){
     if (!ST.ghost) return;
     ST.list.push({ defId: ST.ghost.defId, anchor:{...ST.ghost.anchor}, rot: ST.ghost.rot||0 });
@@ -264,7 +275,6 @@
     renderAll();
     pulseSave(); // save immediately on placement
   }
-
   function rotateSelected(steps){
     if (ST.mode==='place' && ST.ghost){
       ST.ghost.rot = ((ST.ghost.rot||0) + steps*60 + 360) % 360;
@@ -274,14 +284,13 @@
     const it = ST.list[ST.selected]; if (!it) return;
     it.rot = ((it.rot||0) + steps*60 + 360) % 360;
     renderOne(ST.selected);
-    // no save here
+    if (ST.mode==='move') ST.dirtyWhileMove=true; else pulseSave();
   }
-
   function deleteSelected(){
     if (ST.selected==null) return;
     ST.list.splice(ST.selected,1);
     ST.selected=null; renderAll();
-    // no save here
+    if (ST.mode==='move') ST.dirtyWhileMove=true; else pulseSave();
   }
 
   function onPointerDown(e){
@@ -308,14 +317,13 @@
       const it = ST.list[ST.dragIdx]; if (!it) return;
       it.anchor = { q:(h.q|0), r:(h.r|0) };
       renderOne(ST.dragIdx);
-      // no save here
     }
   }
   function onPointerUp(){
     if (ST.dragging){
       ST.dragging=false;
-      ST.dragIdx=null;
-      // no save here
+      const idx=ST.dragIdx; ST.dragIdx=null;
+      if (idx!=null){ if (ST.mode==='move') ST.dirtyWhileMove=true; else pulseSave(); }
     }
   }
   function attachPointer(){
@@ -325,11 +333,90 @@
     window.addEventListener('pointerup', onPointerUp);
   }
 
-  // ---------- UI (minimal stubs; non-blocking) ----------
+  // ---------- UI ----------
   function mountUI(sel){
-    // Optional UI; safe no-op if not used by host
     const host = (typeof sel==='string') ? document.querySelector(sel) : sel;
-    ST.ui = host || null;
+    if (!host) return;
+    host.innerHTML = [
+      '<div class="structures-ui">',
+      '  <div class="row" id="typeTabs"></div>',
+      '  <div class="row" style="margin:6px 0;">',
+      '    <select id="defDropdown" class="input" style="min-width:220px"></select>',
+      '  </div>',
+      '  <div class="row" style="flex-wrap:wrap; gap:8px;">',
+      '    <button class="btn sm" id="btnPlace">Place</button>',
+      '    <button class="btn sm" id="btnMove">Select/Move</button>',
+      '    <span style="flex:1 1 auto"></span>',
+      '    <button class="icon sm" id="btnRotL" title="Rotate Left">⟲</button>',
+      '    <button class="icon sm" id="btnRotR" title="Rotate Right">⟳</button>',
+      '    <button class="icon sm danger" id="btnDelete" title="Delete">🗑</button>',
+      '  </div>',
+      '</div>'
+    ].join('');
+    ST.ui = host;
+
+    const tabs = $('#typeTabs',host);
+    const dd   = $('#defDropdown',host);
+    const bP = $('#btnPlace',host);
+    const bM = $('#btnMove',host);
+    const bL = $('#btnRotL',host);
+    const bR = $('#btnRotR',host);
+    const bD = $('#btnDelete',host);
+
+    bP.onclick = ()=>{ setMode(ST.mode==='place' ? 'none' : 'place'); if (ST.mode==='place'){ const id=dd.value; if (id) setGhost(id); } };
+    bM.onclick = ()=> setMode(ST.mode==='move' ? 'none' : 'move');
+    bL.onclick = ()=> rotateSelected(-1);
+    bR.onclick = ()=> rotateSelected(+1);
+    bD.onclick = ()=> deleteSelected();
+
+    dd.onchange = ()=>{ if (ST.mode==='place'){ const id=dd.value; if (id) setGhost(id); else { ST.ghost=null; renderGhost(); } } };
+
+    buildTypeTabs(tabs, dd);
+    rebuildDropdown(dd, null);
+    setMode('none'); // default idle
+    injectCSS();
+  }
+  function buildTypeTabs(tabsEl, dd){
+    tabsEl.innerHTML='';
+    const mk=(label, typeId=null)=>{
+      const b=document.createElement('button');
+      b.className='chip'; b.textContent=label;
+      b.onclick = ()=>{
+        tabsEl.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        rebuildDropdown(dd, typeId);
+        if (ST.mode==='place'){ const id=dd.value; if (id) setGhost(id); else { ST.ghost=null; renderGhost(); } }
+      };
+      tabsEl.appendChild(b);
+    };
+    mk('All', null);
+    (ST.types||[]).forEach(t=> mk(t.name||t.id, t.id));
+    const first=tabsEl.querySelector('.chip'); if (first) first.classList.add('active');
+  }
+  function rebuildDropdown(dd, typeId){
+    dd.innerHTML='';
+    const o0=document.createElement('option'); o0.value=''; o0.textContent='— choose structure —'; dd.appendChild(o0);
+    (ST.defs||[]).filter(d=>!typeId || d.type===typeId).forEach(d=>{
+      const o=document.createElement('option'); o.value=d.id; o.textContent=d.name||d.id; dd.appendChild(o);
+    });
+  }
+  function injectCSS(){
+    if (document.getElementById('structures-css')) return;
+    const css=document.createElement('style'); css.id='structures-css';
+    css.textContent = [
+      ':root { --bt-amber:#f0b000; --line:#2a2d33; }',
+      '.structures-ui{ font:12px system-ui, sans-serif; color:var(--ink,#ddd) }',
+      '.structures-ui .row{ display:flex; gap:8px; align-items:center }',
+      '.structures-ui .chip{ margin:2px 6px 6px 0; padding:2px 8px; border:1px solid var(--line); background:transparent; color:inherit; border-radius:12px; cursor:pointer }',
+      '.structures-ui .chip.active{ border-color:var(--bt-amber); color:var(--bt-amber) }',
+      '.structures-ui .btn,.structures-ui .icon{ padding:3px 7px; border:1px solid var(--line); background:transparent; color:inherit; border-radius:6px; cursor:pointer }',
+      '.structures-ui .btn.sm,.structures-ui .icon.sm{ font-size:12px }',
+      '.structures-ui .btn.active{ outline:1px solid var(--bt-amber) }',
+      '.structures-ui .icon.danger{ border-color:#844; color:#f88 }',
+      '#world-structures .structure.selected * { filter: drop-shadow(0 0 2px var(--bt-amber)) }',
+      '#world-structures .ghost *{ opacity:.55 }'
+    ].join('\n');
+    document.head.appendChild(css);
   }
 
   // ---------- catalog ----------
@@ -343,6 +430,8 @@
     else if (Array.isArray(data.defs)) { defs=data.defs; if (Array.isArray(data.types)) types=data.types; }
     else throw new Error('invalid catalog');
     ST.defs=defs; ST.types=types; ST.byId.clear(); defs.forEach(d=>ST.byId.set(d.id,d));
+    // refresh UI dropdowns if mounted
+    if (ST.ui){ buildTypeTabs($('#typeTabs',ST.ui), $('#defDropdown',ST.ui)); rebuildDropdown($('#defDropdown',ST.ui), null); }
     renderAll();
   }
 
@@ -361,7 +450,14 @@
       ST.onMapTransform(()=>{ ST._unitScale=null; renderAll(); });
     }
     ST.inited=true;
-    console.info('[Structures] save-on-place/toggle build active');
+    console.info('[Structures] hydrate-safe build active');
+  }
+
+  function attachPointer(){
+    ensureSvg(); if (!ST.svg) return;
+    ST.svg.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
   }
 
   // ---------- expose ----------
@@ -371,9 +467,10 @@
     mountUI,
     serialize,
     hydrate,
-    clear: ()=>{ ST.list=[]; ST.selected=null; renderAll(); /* no save here by design */ },
+    clear: ()=>{ ST.list=[]; ST.selected=null; renderAll(); pulseSave(); },
     bindLocalStorage,
     onMapChanged,
+    // optional helpers for host/UI
     setMode, setGhost, commitGhost, rotateSelected, deleteSelected
   };
 
