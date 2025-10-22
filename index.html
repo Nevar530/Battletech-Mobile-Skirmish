@@ -468,7 +468,7 @@
 <script src="modules/compiler.js"></script>
 <script src="modules/sheet.js"></script>
 <!-- Structures (Buildings/Walls/Gates) -->
-<script src="./modules/structures.js"></script>
+<script src="/modules/structures.js"></script>
 <script type="module" src="network.js"></script>
   
   
@@ -546,30 +546,7 @@
       }
     });
 
- // Receive full-state snapshots (peer presses Send)
-function attachReceiver() {
-  if (!window.Net) return;
-  Net.onSnapshot = (stateObj) => {
-    try {
-      applyState(stateObj);
-      // Only touch structures if the sender *explicitly* included them
-if (stateObj && Array.isArray(stateObj.structures)) {
-  try { MSS_Structures.hydrate(stateObj.structures); } catch {}
-}
-
-      if (typeof requestRender === 'function') requestRender();
-
-      // NEW: update the pill with who sent it
-      const sender = stateObj?.meta?.sender || 'Unknown';
-      markReceived(sender);
-
-    } catch (e) { console.warn(e); }
-  };
-}
-    attachReceiver();
-    window.addEventListener('net-ready', attachReceiver);
-
-    // ===== Send current state =====
+     // ===== Send current state =====
     sendBtn?.addEventListener('click', async () => {
       try {
         if (!window.Net || typeof Net.sendSnapshot !== 'function') {
