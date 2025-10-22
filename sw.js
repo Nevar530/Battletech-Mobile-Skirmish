@@ -1,7 +1,8 @@
 // ===== MSS:84 PWA Service Worker =====
 // Safe for GitHub Pages subpath. Does not touch non-GET or cross-origin requests.
 
-const CACHE_NAME = "mss84-shell-v2"; // bump when you change the shell list
+// ★ bump this so the new worker activates
+const CACHE_NAME = "mss84-shell-v3"; // was v2
 
 // Compute base path dynamically (e.g., "/Battletech-Mobile-Skirmish/")
 const BASE = new URL('./', self.location).pathname;
@@ -40,10 +41,15 @@ self.addEventListener("activate", (event) => {
 
 // Utility: quick path helpers under the detected BASE
 const under = (path) => (p) => p.startsWith(BASE + path);
-const isAssets = under("assets/");
-const isData   = under("data/");
-const isPresets= under("presets/");
-const isModules= under("modules/");
+const isAssets   = under("assets/");
+const isData     = under("data/");
+const isPresets  = under("presets/");
+const isModules  = under("modules/");
+
+// ★ NEW: target just the structures module (handles BASE or root)
+const isStructures = (p) =>
+  p.endsWith("/modules/structures.js") ||
+  p.endsWith(BASE + "modules/structures.js");
 
 function isShellPath(pathname){
   // match any of the shell entries relative to BASE
@@ -82,6 +88,12 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
 
   const path = url.pathname;
+
+  // ★ EARLY EXIT: never cache the structures module; always fetch fresh
+  if (isStructures(path)) {
+    event.respondWith(fetch(req, { cache: "no-store" }));
+    return;
+  }
 
   // A) HTML navigations → network-first (with cached fallback to index.html)
   if (req.mode === "navigate") {
@@ -126,7 +138,8 @@ self.addEventListener("fetch", (event) => {
   }
 
   // D) JSON and heavy data (assets/, data/, modules/) → stale-while-revalidate
-  if (isAssets(path) || isData(path) || isModules(path)) {
+  // ★ EXCLUDE structures.js from this branch
+  if ((isAssets(path) || isData(path) || isModules(path)) && !isStructures(path)) {
     event.respondWith(
       caches.match(req).then(cached => {
         const netPromise = fetch(req).then(res => {
