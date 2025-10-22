@@ -1,92 +1,87 @@
 
 /*!
- * MSS:84 — Structures (Buildings / Walls / Gates)
- * UI: [Type Tabs] [Dropdown] [Place | Select/Move | ⟲ ⟳ | 🗑]
- *
- * Public API (window.MSS_Structures):
- *   init({ hexToPx, pxToHex, getTileHeight?, onMapTransform?, publish?, subscribe? })
+ * MSS:84 — Structures module (hydrate-safe, snapshot-safe)
+ * Behavior:
+ *  - Saves on placement and when exiting Select/Move (batched edits).
+ *  - Bridges to master snapshot via window.saveLocal() (single blob with tokens).
+ *  - Per-map fallback via bindLocalStorage(fn) for fast local restores.
+ *  - Prevents early-save clobber: serialize() falls back to per-map data
+ *    until master has hydrated at least once.
+ *  - Skips saving while hydrating to avoid loops.
+ *  - Glow only in move mode; selection cleared on mode exit.
+ * API:
+ *   init({ hexToPx, pxToHex, onMapTransform, publish, subscribe })
  *   loadCatalog(url)
  *   mountUI(selector)
  *   serialize()
- *   hydrate(arr)
+ *   hydrate(array)
  *   clear()
- *   bindLocalStorage(fnKey)      // fnKey(): string per-map key
- *   onMapChanged()               // rehydrate current map key
+ *   bindLocalStorage(fnKey)   // fnKey(): string
+ *   onMapChanged()
  */
 (function(){
   'use strict';
   const NS = 'http://www.w3.org/2000/svg';
 
-  // ---------- Module state ----------
   const ST = {
     // host hooks
     hexToPx:(q,r)=>({x:0,y:0}),
     pxToHex:(x,y)=>({q:0,r:0}),
-    getTileHeight:(q,r)=>0,
     onMapTransform:null,
     publish:null, subscribe:null,
 
     // catalog
-    types:[],
-    defs:[],
-    byId:new Map(),
+    defs:[], types:[], byId:new Map(),
 
     // runtime
-    list:[],                 // [{defId, anchor:{q,r}, rot}]
-    selected:null,           // index or null
-    mode:'none',             // 'none' | 'place' | 'move'
-    ghost:null,              // {defId, anchor:{q,r}, rot}
-    dragging:false,
-    dragIdx:null,
+    list:[],             // [{defId, anchor:{q,r}, rot}]
+    selected:null,
+    mode:'none',         // 'none' | 'place' | 'move'
+    ghost:null,          // {defId, anchor:{q,r}, rot}
+    dragging:false, dragIdx:null,
 
     // DOM
-    svg:null,
-    layer:null,
-    ui:null,
+    svg:null, layer:null, ui:null,
 
-    // storage
+    // storage helpers
     getLocalKey:null,
 
-    // misc
-    hotkeys:false,
-    inited:false,
+    // guards & flags
     _unitScale:null,
     dirtyWhileMove:false,
     isHydrating:false,
-    hadMasterHydrate:false
+    hadMasterHydrate:false,
+
+    // init guard
+    inited:false
   };
 
-  // ---------- DOM util ----------
-  const el = (n, attrs) => { const k=document.createElementNS(NS,n); if(attrs) for(const a in attrs) k.setAttribute(a, attrs[a]); return k; };
-  function $(sel,root=document){ return root.querySelector(sel); }
-  function clear(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+  // ---------- small utils ----------
+  const $ = (s,root=document)=>root.querySelector(s);
+  const el = (n,attrs)=>{ const k=document.createElementNS(NS,n); if(attrs) for(const a in attrs) k.setAttribute(a, attrs[a]); return k; };
+  const toInt = v => +v||0;
 
   function ensureSvg(){
     if (ST.svg && ST.svg.isConnected) return;
-    ST.svg = document.getElementById('svg') || document.querySelector('svg#svg, svg#hexmap') || document.querySelector('svg');
+    ST.svg = document.getElementById('svg') || document.querySelector('svg#hexmap') || document.querySelector('svg');
   }
   function ensureLayer(){
     ensureSvg(); if (!ST.svg) return;
-    let layer = document.getElementById('world-structures');
-    if (!layer){
-      layer = el('g',{id:'world-structures'});
+    let g = document.getElementById('world-structures');
+    if (!g){
+      g = el('g',{id:'world-structures'});
       const tokens = document.getElementById('world-tokens');
-      if (tokens && tokens.parentNode) tokens.parentNode.insertBefore(layer, tokens);
-      else ST.svg.appendChild(layer);
+      if (tokens && tokens.parentNode) tokens.parentNode.insertBefore(g,tokens);
+      else ST.svg.appendChild(g);
     }
-    ST.layer = layer;
+    ST.layer = g;
   }
-
-  // ---------- Geometry ----------
   function unitScale(){
     if (ST._unitScale) return ST._unitScale;
-    try {
-      const a = ST.hexToPx(0,0), b = ST.hexToPx(1,0);
-      ST._unitScale = Math.hypot(b.x-a.x, b.y-a.y) || 96;
-    } catch { ST._unitScale = 96; }
+    try{ const a=ST.hexToPx(0,0), b=ST.hexToPx(1,0); ST._unitScale=Math.hypot(b.x-a.x,b.y-a.y)||96; }
+    catch{ ST._unitScale=96; }
     return ST._unitScale;
   }
-  function worldToScreen(q,r){ return ST.hexToPx(q,r); }
   function toSvgPoint(cx,cy){
     ensureSvg(); if (!ST.svg) return null;
     const pt = ST.svg.createSVGPoint(); pt.x=cx; pt.y=cy;
@@ -94,38 +89,29 @@
     return pt.matrixTransform(m.inverse());
   }
 
-  // ---------- Drawing ----------
+  // ---------- draw helpers ----------
   function drawShape(s){
-    const kind = s.kind || 'rect';
-    const fill   = (s.fill   != null) ? s.fill   : undefined;
-    const stroke = (s.stroke != null) ? s.stroke : undefined;
-    const sw     = (s.sw     != null) ? String(s.sw) : undefined;
-
-    function apply(n){
-      if (s.class) n.setAttribute('class', s.class);
-      if (fill   !== undefined) n.setAttribute('fill', fill);
-      if (stroke !== undefined) n.setAttribute('stroke', stroke);
-      if (sw     !== undefined) n.setAttribute('stroke-width', sw);
+    const k = s.kind||'rect';
+    const apply=(n)=>{ if(s.class) n.setAttribute('class',s.class);
+      if(s.fill!=null) n.setAttribute('fill',s.fill);
+      if(s.stroke!=null) n.setAttribute('stroke',s.stroke);
+      if(s.sw!=null) n.setAttribute('stroke-width',String(s.sw));
       n.setAttribute('vector-effect','non-scaling-stroke');
       return n;
+    };
+    if (k==='rect'){
+      const w=+s.w||1, h=+s.h||1;
+      return apply(el('rect',{x:-(w/2), y:-(h/2), width:w, height:h, rx:s.rx!=null?+s.rx:undefined}));
     }
-
-    if (kind === 'rect'){
-      const w = +s.w || 1, h = +s.h || 1;
-      const x = -(w/2), y = -(h/2);   // centered so rotation pivots at center
-      const n = apply(el('rect',{x,y,width:w,height:h}));
-      if (s.rx != null) n.setAttribute('rx', +s.rx);
-      return n;
-    }
-    if (kind === 'polygon'){
-      const pts = (s.points||[]).map(p=>p.join(',')).join(' ');
-      return apply(el('polygon',{points:pts}));
-    }
-    if (kind === 'polyline'){
-      const pts = (s.points||[]).map(p=>p.join(',')).join(' ');
-      return apply(el('polyline',{points:pts}));
-    }
+    if (k==='polygon'){ const pts=(s.points||[]).map(p=>p.join(',')).join(' '); return apply(el('polygon',{points:pts})); }
+    if (k==='polyline'){ const pts=(s.points||[]).map(p=>p.join(',')).join(' '); return apply(el('polyline',{points:pts})); }
     return apply(el('path',{d:s.d||''}));
+  }
+  function worldToScreen(a){ const p=ST.hexToPx(a.q,a.r); return {x:p.x,y:p.y}; }
+  function applyTransform(g, anchor, rot){
+    const p = worldToScreen(anchor);
+    const k = unitScale();
+    g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${rot||0}) scale(${k})`);
   }
 
   function ensureGroupFor(i){
@@ -135,49 +121,47 @@
     if (!g){ g = el('g',{id, class:'structure'}); ST.layer.appendChild(g); }
     return g;
   }
-  function applyTransform(g, anchor, rot){
-    const p = worldToScreen(anchor.q, anchor.r);
-    const k = unitScale();
-    g.setAttribute('transform', `translate(${p.x},${p.y}) rotate(${rot||0}) scale(${k})`);
-    g.style.pointerEvents = 'auto';
-  }
-
   function renderOne(i){
-    const it = ST.list[i]; const def = ST.byId.get(it.defId); if (!def) return;
+    const it = ST.list[i]; if (!it) return;
+    const def = ST.byId.get(it.defId); if (!def) return;
     const g = ensureGroupFor(i); if (!g) return;
     g.setAttribute('data-index', i);
-    g.setAttribute('data-def', def.id);
+    g.setAttribute('data-def', it.defId);
     g.setAttribute('class', 'structure'+((ST.selected===i && ST.mode==='move')?' selected':''));
-    clear(g);
-    (def.shapes||[]).forEach(s => g.appendChild(drawShape(s)));
-    // bigger hit area in local units
+    g.replaceChildren();
+    (def.shapes||[]).forEach(s=> g.appendChild(drawShape(s)));
+    // enlarge hit area
     g.appendChild(el('rect',{x:-0.6,y:-0.6,width:1.2,height:1.2,fill:'transparent',stroke:'transparent'}));
     applyTransform(g, it.anchor, it.rot||0);
-  }
 
+    // pointer for move mode
+    g.onpointerdown = (e)=>{
+      if (ST.mode!=='move') return;
+      ST.selected=i; renderAll();
+      ST.dragging = true; ST.dragIdx = i;
+      e.stopPropagation();
+    };
+  }
   function renderGhost(){
     if (!ST.layer) ensureLayer();
-    const old = ST.layer && ST.layer.querySelector('#ghost-structure');
-    if (old) old.remove();
+    const old = ST.layer && ST.layer.querySelector('#ghost-structure'); if (old) old.remove();
     if (ST.mode!=='place' || !ST.ghost || !ST.layer) return;
     const def = ST.byId.get(ST.ghost.defId); if (!def) return;
     const g = el('g',{id:'ghost-structure', class:'structure ghost'});
     (def.shapes||[]).forEach(s=> g.appendChild(drawShape(s)));
     applyTransform(g, ST.ghost.anchor, ST.ghost.rot||0);
-    g.style.opacity = .55; g.style.pointerEvents='none';
+    g.style.opacity='.55'; g.style.pointerEvents='none';
     ST.layer.appendChild(g);
   }
-
   function pruneDom(){
     if (!ST.layer) return;
     const max = ST.list.length;
     ST.layer.querySelectorAll('#world-structures > g.structure').forEach(n=>{
       if (n.id==='ghost-structure') return;
-      const idx = Number(n.getAttribute('data-index'));
-      if (!Number.isFinite(idx) || idx >= max) n.remove();
+      const idx = toInt(n.getAttribute('data-index'));
+      if (!Number.isFinite(idx) || idx>=max) n.remove();
     });
   }
-
   function renderAll(){
     ensureLayer(); if (!ST.layer) return;
     pruneDom();
@@ -185,101 +169,108 @@
     renderGhost();
   }
 
-  // ---------- Persistence ----------
-  function serialize(){
-    return ST.list.map(it => ({ defId:it.defId, anchor:{q:it.anchor.q,r:it.anchor.r}, rot:it.rot||0 }));
-  }
-  function hydrate(arr){
-    ST.isHydrating = true;
-    ST.hadMasterHydrate = Array.isArray(arr) && arr.length>0 ? true : ST.hadMasterHydrate;
-    ST.list = Array.isArray(arr) ? arr.map(x=>({
-      defId:x.defId,
-      anchor:{ q:+(x.anchor?.q||0), r:+(x.anchor?.r||0) },
-      rot:(+x.rot||0)%360
-    })) : [];
-    ST.selected = null;
-    renderAll();
-    // mirror into per-map for fast restores
+  // ---------- persistence ----------
+  function perMapRead(){
     try{
       const key = ST.getLocalKey?.();
-      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
-    }catch{}
-    ST.isHydrating = false;
+      if (!key) return null;
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      const arr = JSON.parse(raw);
+      // support both {items:[...]} and plain array
+      if (Array.isArray(arr)) return arr;
+      if (Array.isArray(arr.items)) return arr.items;
+      return null;
+    }catch{ return null; }
   }
-  function clearAll(){
-    ST.list = [];
-    ST.selected = null;
-    renderAll();
-    pulseSave();
+  function perMapWrite(items){
+    try{
+      const key = ST.getLocalKey?.();
+      if (key) localStorage.setItem(key, JSON.stringify({version:1, items: items}));
+    }catch{}
+  }
+
+  function serialize(){
+    // If we haven't hydrated from master yet and our live list is empty,
+    // fall back to last per-map snapshot so early saveLocal() can't clobber the master blob.
+    if (!ST.hadMasterHydrate && ST.list.length===0){
+      const cached = perMapRead();
+      if (Array.isArray(cached)) return cached.map(x=>({
+        defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:toInt(x.rot)
+      }));
+    }
+    return ST.list.map(it=>({ defId:it.defId, anchor:{q:it.anchor.q, r:it.anchor.r}, rot:it.rot||0 }));
+  }
+
+  function hydrate(arr){
+    ST.isHydrating = true;
+    try{
+      const list = Array.isArray(arr) ? arr : [];
+      if (list.length) ST.hadMasterHydrate = true;
+      ST.list = list.map(x=>({ defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:(toInt(x.rot)%360+360)%360 }));
+      ST.selected=null;
+      renderAll();
+      // mirror master into per-map for fast restores
+      if (list.length) perMapWrite(serialize());
+    } finally {
+      ST.isHydrating = false;
+    }
   }
 
   function pulseSave(){
-    if (ST.isHydrating) return;
-    // per-map fallback
+    // 1) per-map snapshot (fast local restore)
+    perMapWrite(serialize());
+    // 2) master snapshot (single app blob) — skip while hydrating
     try{
-      const key = ST.getLocalKey?.();
-      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
+      if (!ST.isHydrating && typeof window.saveLocal === 'function') window.saveLocal();
     }catch{}
-    // master snapshot bridge
-    try{ if (typeof window.saveLocal === 'function') window.saveLocal(); }catch{}
-    // notify
-    try{ if (typeof ST.publish === 'function') ST.publish('structures:changed', serialize()); }catch{}
+    // 3) notify
+    try{ if (typeof ST.publish==='function') ST.publish('structures:changed', serialize()); }catch{}
   }
 
-  function bindLocalStorage(getKey){
-    ST.getLocalKey = (typeof getKey==='function') ? getKey : null;
-    // initial restore only if master hasn't hydrated us
+  function bindLocalStorage(fnKey){
+    ST.getLocalKey = (typeof fnKey==='function') ? fnKey : null;
+    // initial restore only if master hasn't hydrated us yet
     if (!ST.hadMasterHydrate){
-      try{
-        const key = ST.getLocalKey?.();
-        if (key){
-          const raw = localStorage.getItem(key);
-          if (raw) hydrate(JSON.parse(raw));
-        }
-      }catch{}
+      const cached = perMapRead();
+      if (Array.isArray(cached)){
+        ST.list = cached.map(x=>({ defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:toInt(x.rot)||0 }));
+        renderAll();
+      }
     }
   }
   function onMapChanged(){
-    try{
-      const key = ST.getLocalKey?.();
-      const raw = key ? localStorage.getItem(key) : null;
-      hydrate(raw ? JSON.parse(raw) : []);
-    }catch{ hydrate([]); }
+    const cached = perMapRead();
+    hydrate(Array.isArray(cached) ? cached : []);
   }
 
-  window.addEventListener('beforeunload', ()=>{ try{ pulseSave(); }catch{} });
-
-  // ---------- Interaction ----------
+  // ---------- interaction ----------
   function setMode(m){
     const prev = ST.mode;
-    ST.mode = m; // 'none' | 'place' | 'move'
+    ST.mode = m;
     if (ST.ui){
-      const placeBtn = $('#btnPlace', ST.ui);
-      const moveBtn  = $('#btnMove', ST.ui);
-      [placeBtn,moveBtn].forEach(b=> b && b.classList.remove('active'));
-      if (m==='place' && placeBtn) placeBtn.classList.add('active');
-      if (m==='move'  && moveBtn)  moveBtn.classList.add('active');
+      const bP = $('#btnPlace',ST.ui), bM = $('#btnMove',ST.ui);
+      [bP,bM].forEach(b=> b&&b.classList.remove('active'));
+      if (m==='place' && bP) bP.classList.add('active');
+      if (m==='move'  && bM) bM.classList.add('active');
     }
-    if (m!=='place'){ ST.ghost = null; renderGhost(); }
+    if (m!=='place'){ ST.ghost=null; renderGhost(); }
 
-    // leaving move -> commit batched changes
     if (prev==='move' && m!=='move'){
-      ST.selected = null;
+      ST.selected=null; renderAll();
       if (ST.dirtyWhileMove){ ST.dirtyWhileMove=false; pulseSave(); }
     }
-    // entering move -> start a clean batch
-    if (m==='move'){ ST.dirtyWhileMove=false; }
-
+    if (m==='move') ST.dirtyWhileMove=false;
     renderAll();
   }
   function setGhost(defId){
-    ST.mode = 'place';
+    ST.mode='place';
     ST.ghost = { defId, anchor:{q:0,r:0}, rot:0 };
     renderGhost();
   }
   function commitGhost(){
     if (!ST.ghost) return;
-    ST.list.push({ defId: ST.ghost.defId, anchor:{...ST.ghost.anchor}, rot:ST.ghost.rot||0 });
+    ST.list.push({ defId: ST.ghost.defId, anchor:{...ST.ghost.anchor}, rot: ST.ghost.rot||0 });
     ST.selected = ST.list.length-1;
     renderAll();
     pulseSave(); // save immediately on placement
@@ -303,42 +294,36 @@
   }
 
   function onPointerDown(e){
-    // select/drag only in move mode
     const g = e.target.closest && e.target.closest('#world-structures > g.structure:not(#ghost-structure)');
     if (g && ST.mode==='move'){
-      ST.selected = Number(g.getAttribute('data-index'));
-      renderAll();
+      ST.selected = toInt(g.getAttribute('data-index')); renderAll();
       ST.dragging = true; ST.dragIdx = ST.selected;
       e.stopPropagation(); return;
     }
-    // place mode: click board commits ghost
     if (ST.mode==='place' && ST.ghost){
-      commitGhost();
-      e.stopPropagation(); return;
+      commitGhost(); e.stopPropagation(); return;
     }
   }
   function onPointerMove(e){
-    // ghost follows cursor (snaps)
     if (ST.mode==='place' && ST.ghost){
       const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
       const h = ST.pxToHex(p.x,p.y);
-      ST.ghost.anchor = { q:h.q|0, r:h.r|0 };
+      ST.ghost.anchor = { q: (h.q|0), r: (h.r|0) };
       renderGhost(); return;
     }
-    // dragging a structure (snaps)
     if (ST.mode==='move' && ST.dragging && ST.dragIdx!=null){
       const p = toSvgPoint(e.clientX,e.clientY); if (!p) return;
       const h = ST.pxToHex(p.x,p.y);
       const it = ST.list[ST.dragIdx]; if (!it) return;
-      it.anchor = { q:h.q|0, r:h.r|0 };
+      it.anchor = { q:(h.q|0), r:(h.r|0) };
       renderOne(ST.dragIdx);
     }
   }
   function onPointerUp(){
     if (ST.dragging){
       ST.dragging=false;
-      const idx = ST.dragIdx; ST.dragIdx=null;
-      if (idx!=null) { if (ST.mode==='move') ST.dirtyWhileMove=true; else pulseSave(); }
+      const idx=ST.dragIdx; ST.dragIdx=null;
+      if (idx!=null){ if (ST.mode==='move') ST.dirtyWhileMove=true; else pulseSave(); }
     }
   }
   function attachPointer(){
@@ -352,7 +337,6 @@
   function mountUI(sel){
     const host = (typeof sel==='string') ? document.querySelector(sel) : sel;
     if (!host) return;
-
     host.innerHTML = [
       '<div class="structures-ui">',
       '  <div class="row" id="typeTabs"></div>',
@@ -371,79 +355,54 @@
     ].join('');
     ST.ui = host;
 
-    // wire controls
     const tabs = $('#typeTabs',host);
     const dd   = $('#defDropdown',host);
-    const bPlace = $('#btnPlace',host);
-    const bMove  = $('#btnMove',host);
+    const bP = $('#btnPlace',host);
+    const bM = $('#btnMove',host);
     const bL = $('#btnRotL',host);
     const bR = $('#btnRotR',host);
-    const bDel = $('#btnDelete',host);
+    const bD = $('#btnDelete',host);
 
-    bPlace.addEventListener('click', ()=>{
-      setMode(ST.mode==='place' ? 'none' : 'place');
-      if (ST.mode==='place'){
-        const id = dd.value; if (id) setGhost(id);
-      }
-    });
-    bMove.addEventListener('click', ()=> setMode(ST.mode==='move' ? 'none' : 'move'));
-    bL.addEventListener('click', ()=> rotateSelected(-1));
-    bR.addEventListener('click', ()=> rotateSelected(+1));
-    bDel.addEventListener('click', ()=> deleteSelected());
-    dd.addEventListener('change', ()=>{
-      if (ST.mode==='place'){
-        const id = dd.value;
-        if (id) setGhost(id); else { ST.ghost=null; renderGhost(); }
-      }
-    });
+    bP.onclick = ()=>{ setMode(ST.mode==='place' ? 'none' : 'place'); if (ST.mode==='place'){ const id=dd.value; if (id) setGhost(id); } };
+    bM.onclick = ()=> setMode(ST.mode==='move' ? 'none' : 'move');
+    bL.onclick = ()=> rotateSelected(-1);
+    bR.onclick = ()=> rotateSelected(+1);
+    bD.onclick = ()=> deleteSelected();
 
-    // build tabs & dropdown
+    dd.onchange = ()=>{ if (ST.mode==='place'){ const id=dd.value; if (id) setGhost(id); else { ST.ghost=null; renderGhost(); } } };
+
     buildTypeTabs(tabs, dd);
     rebuildDropdown(dd, null);
-
-    // default to locked (none) so users opt-in
-    setMode('none');
-
+    setMode('none'); // default idle
     injectCSS();
   }
-
   function buildTypeTabs(tabsEl, dd){
-    tabsEl.innerHTML = '';
-    const mk = (label, typeId=null)=>{
-      const b = document.createElement('button');
-      b.className = 'chip';
-      b.textContent = label;
-      b.addEventListener('click', ()=>{
+    tabsEl.innerHTML='';
+    const mk=(label, typeId=null)=>{
+      const b=document.createElement('button');
+      b.className='chip'; b.textContent=label;
+      b.onclick = ()=>{
         tabsEl.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
         b.classList.add('active');
         rebuildDropdown(dd, typeId);
-        if (ST.mode==='place'){
-          const id = dd.value;
-          if (id) setGhost(id); else { ST.ghost=null; renderGhost(); }
-        }
-      });
+        if (ST.mode==='place'){ const id=dd.value; if (id) setGhost(id); else { ST.ghost=null; renderGhost(); } }
+      };
       tabsEl.appendChild(b);
     };
     mk('All', null);
-    (ST.types||[]).forEach(t => mk(t.name||t.id, t.id));
-    const first = tabsEl.querySelector('.chip'); if (first) first.classList.add('active');
+    (ST.types||[]).forEach(t=> mk(t.name||t.id, t.id));
+    const first=tabsEl.querySelector('.chip'); if (first) first.classList.add('active');
   }
-
   function rebuildDropdown(dd, typeId){
-    dd.innerHTML = '';
-    const opt0 = document.createElement('option');
-    opt0.value=''; opt0.textContent='— choose structure —';
-    dd.appendChild(opt0);
-    (ST.defs||[]).filter(d => !typeId || d.type===typeId).forEach(d=>{
-      const o = document.createElement('option');
-      o.value=d.id; o.textContent=d.name||d.id;
-      dd.appendChild(o);
+    dd.innerHTML='';
+    const o0=document.createElement('option'); o0.value=''; o0.textContent='— choose structure —'; dd.appendChild(o0);
+    (ST.defs||[]).filter(d=>!typeId || d.type===typeId).forEach(d=>{
+      const o=document.createElement('option'); o.value=d.id; o.textContent=d.name||d.id; dd.appendChild(o);
     });
   }
-
   function injectCSS(){
     if (document.getElementById('structures-css')) return;
-    const css = document.createElement('style'); css.id='structures-css';
+    const css=document.createElement('style'); css.id='structures-css';
     css.textContent = [
       ':root { --bt-amber:#f0b000; --line:#2a2d33; }',
       '.structures-ui{ font:12px system-ui, sans-serif; color:var(--ink,#ddd) }',
@@ -460,59 +419,38 @@
     document.head.appendChild(css);
   }
 
-  // ---------- Catalog ----------
+  // ---------- catalog ----------
   async function loadCatalog(url){
     const res = await fetch(url, { cache:'no-store' });
     if (!res.ok) throw new Error('catalog '+res.status);
     const data = await res.json();
-
     let defs=[], types=[];
-    if (Array.isArray(data)) defs = data;
-    else if (Array.isArray(data.items)) defs = data.items;
-    else if (Array.isArray(data.defs)) { defs = data.defs; if (Array.isArray(data.types)) types = data.types; }
-    else throw new Error('invalid catalog format');
-
-    ST.defs = defs; ST.types = types;
-    ST.byId.clear(); defs.forEach(d=> ST.byId.set(d.id, d));
-
-    if (ST.ui){
-      buildTypeTabs($('#typeTabs',ST.ui), $('#defDropdown',ST.ui));
-      rebuildDropdown($('#defDropdown',ST.ui), null);
-    }
+    if (Array.isArray(data)) defs=data;
+    else if (Array.isArray(data.items)) defs=data.items;
+    else if (Array.isArray(data.defs)) { defs=data.defs; if (Array.isArray(data.types)) types=data.types; }
+    else throw new Error('invalid catalog');
+    ST.defs=defs; ST.types=types; ST.byId.clear(); defs.forEach(d=>ST.byId.set(d.id,d));
+    // refresh UI dropdowns if mounted
+    if (ST.ui){ buildTypeTabs($('#typeTabs',ST.ui), $('#defDropdown',ST.ui)); rebuildDropdown($('#defDropdown',ST.ui), null); }
     renderAll();
   }
 
-  // ---------- Hotkeys ----------
-  function attachHotkeys(){
-    if (ST.hotkeys) return; ST.hotkeys=true;
-    window.addEventListener('keydown', (e)=>{
-      if (e.repeat) return;
-      if (e.key==='q' || e.key==='Q'){ rotateSelected(-1); e.preventDefault(); }
-      if (e.key==='e' || e.key==='E'){ rotateSelected(+1); e.preventDefault(); }
-      if (e.key==='Delete'){ deleteSelected(); e.preventDefault(); }
-      if (e.key==='Enter' && ST.mode==='place' && ST.ghost){ commitGhost(); e.preventDefault(); }
-    });
-  }
-
-  // ---------- Init / wire ----------
+  // ---------- init ----------
   function init(opts){
     if (ST.inited) return;
-    ST.hexToPx = opts.hexToPx || ST.hexToPx;
-    ST.pxToHex = opts.pxToHex || ST.pxToHex;
-    ST.getTileHeight = opts.getTileHeight || ST.getTileHeight;
-    ST.onMapTransform = opts.onMapTransform || null;
-    ST.publish = opts.publish || null;
-    ST.subscribe = opts.subscribe || null;
+    ST.hexToPx = opts?.hexToPx || ST.hexToPx;
+    ST.pxToHex = opts?.pxToHex || ST.pxToHex;
+    ST.onMapTransform = opts?.onMapTransform || null;
+    ST.publish = opts?.publish || null;
+    ST.subscribe = opts?.subscribe || null;
 
     ensureLayer();
     attachPointer();
-    attachHotkeys();
-
     if (typeof ST.onMapTransform === 'function'){
       ST.onMapTransform(()=>{ ST._unitScale=null; renderAll(); });
     }
-    ST.inited = true;
-    console.info('[Structures] ready');
+    ST.inited=true;
+    console.info('[Structures] hydrate-safe build active');
   }
 
   function attachPointer(){
@@ -522,16 +460,18 @@
     window.addEventListener('pointerup', onPointerUp);
   }
 
-  // ---------- Expose ----------
+  // ---------- expose ----------
   window.MSS_Structures = {
     init,
     loadCatalog,
     mountUI,
     serialize,
     hydrate,
-    clear: clearAll,
+    clear: ()=>{ ST.list=[]; ST.selected=null; renderAll(); pulseSave(); },
     bindLocalStorage,
-    onMapChanged
+    onMapChanged,
+    // optional helpers for host/UI
+    setMode, setGhost, commitGhost, rotateSelected, deleteSelected
   };
 
 })();
