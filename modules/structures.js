@@ -213,26 +213,7 @@
     pulseSave();
   }
 
-  
   function pulseSave(){
-    if (ST.isHydrating) return;
-    // per-map fallback
-    try{
-      const key = ST.getLocalKey?.();
-      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
-    }catch{}
-    // master snapshot bridge (preferred)
-    try{ if (typeof window.saveLocal === 'function') window.saveLocal(); }catch{}
-    // direct master write as belt-and-suspenders if host saveLocal is unavailable
-    try{
-      if (typeof window.serializeState === 'function'){
-        localStorage.setItem('hexmap_autosave', window.serializeState());
-      }
-    }catch{}
-    // notify
-    try{ if (typeof ST.publish === 'function') ST.publish('structures:changed', serialize()); }catch{}
-  }
-
     if (ST.isHydrating) return;
     // per-map fallback
     try{
