@@ -2855,11 +2855,13 @@ on('btnFlechsP2','click', () => {
   });
 })();
 
-/* ---------- Init ---------- */
-if (!loadLocal()) { initTiles(); }
-requestRender();
-renderMechList();
-svg && svg.focus();
+/* ---------- Init (deferred to ensure modules like structures.js are loaded) ---------- */
+setTimeout(() => {
+  if (!loadLocal()) { initTiles(); }
+  requestRender();
+  renderMechList();
+  svg && svg.focus();
+}, 0);
 
 /* ---------- Preset JSON (GH Pages) ---------- */
 
@@ -3171,6 +3173,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
