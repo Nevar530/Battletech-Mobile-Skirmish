@@ -337,15 +337,24 @@ function serializeState(){
     : [];
   const safeInitIndex = Number.isFinite(initIndex) ? initIndex : -1;
 
-  return JSON.stringify({
+// Build state object without "structures" first
+const out = {
   meta,
   data,
   tokens: tok,
   mechMeta: metaMap,
-  structures: (window.MSS_Structures?.serialize?.() || []), // <— NEW
   initOrder: safeInitOrder,
   initIndex: safeInitIndex
-});
+};
+
+// Add "structures" ONLY if the module is ready and returns an array
+try {
+  const st = window.MSS_Structures?.serialize?.();
+  if (Array.isArray(st)) out.structures = st;
+} catch { /* ignore */ }
+
+return JSON.stringify(out);
+
 
 }
 
@@ -376,9 +385,14 @@ function loadLocal(){
     if (!raw) return false;
     const obj = JSON.parse(raw);
     if (!obj || (!obj.data && !obj.tokens)) return false;
-    applyState(obj);
-    try { MSS_Structures?.clear?.(); MSS_Structures?.hydrate?.(obj.structures || []); } catch {}
-    return true;
+applyState(obj);
+// Only hydrate if the blob explicitly includes structures
+try {
+  if (Array.isArray(obj.structures)) {
+    MSS_Structures?.hydrate?.(obj.structures);
+  }
+} catch {}
+return true;
   } catch { return false; }
 }
 
@@ -3113,10 +3127,13 @@ window.getTokenLabelById = function(mapId, tokenId){
     if (!window.Net) return;
     Net.onSnapshot = (stateObj) => {
       try {
-        applyState(stateObj);
-        try { MSS_Structures.hydrate(stateObj.structures || []); } catch {}
-
-        if (typeof requestRender === 'function') requestRender();
+applyState(stateObj);
+try {
+  if (Array.isArray(stateObj.structures)) {
+    MSS_Structures.hydrate(stateObj.structures);
+  }
+} catch {}
+if (typeof requestRender === 'function') requestRender();
       } catch (e) { console.warn(e); }
     };
   }
@@ -3173,6 +3190,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
