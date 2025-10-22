@@ -191,47 +191,33 @@
   }
 
   function serialize(){
-    // If we haven't hydrated from master yet and our live list is empty,
-    // fall back to last per-map snapshot so early saveLocal() can't clobber the master blob.
+  // During early app init, defend against clobber by falling back to prior stored data
+  try{
     if (!ST.hadMasterHydrate && ST.list.length===0){
-      const cached = perMapRead();
-      if (Array.isArray(cached)) return cached.map(x=>({
-        defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:toInt(x.rot)
-      }));
-    }
-    return ST.list.map
-    // Try master blob first to avoid early-clobber during app init saves
-    try{
-      if (!ST.hadMasterHydrate && ST.list.length===0){
+      // Try master blob first
+      try{
         const rawMaster = localStorage.getItem('hexmap_autosave');
         if (rawMaster){
-          try{
-            const obj = JSON.parse(rawMaster);
-            const data = (typeof obj==='string') ? JSON.parse(obj) : obj;
-            const arr = Array.isArray(data?.structures) ? data.structures : [];
-            if (arr.length){
-              return arr.map(x=>({
-                defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:toInt(x.rot)
-              }));
-            }
-          }catch{}
+          let data = null;
+          try { data = JSON.parse(rawMaster); } catch {}
+          if (typeof data === 'string'){ try { data = JSON.parse(data); } catch {} }
+          const arr = Array.isArray(data?.structures) ? data.structures : [];
+          if (arr.length){
+            return arr.map(x=>({ defId:x.defId, anchor:{q:+(x.anchor?.q||0), r:+(x.anchor?.r||0)}, rot:+(x.rot||0) }));
+          }
         }
-      }
-    }catch{}
-(it=>({ defId:it.defId, anchor:{q:it.anchor.q, r:it.anchor.r}, rot:it.rot||0 }));
-  }
-
-function hydrate(arr){
-  ST.isHydrating = true;
-  try{
-    const list = Array.isArray(arr) ? arr : [];
-    if (list.length) ST.hadMasterHydrate = true;
-    ST.list = list.map(x=>({ defId:x.defId, anchor:{ q: toInt(x.anchor?.q), r: toInt(x.anchor?.r) }, rot: ((toInt(x.rot)||0)%360+360)%360 }));
-    ST.selected = null;
-    renderAll();
-  } finally {
-    ST.isHydrating = false;
-  }
+      }catch{}
+      // Then try per-map fallback
+      try{
+        const cached = perMapRead();
+        if (Array.isArray(cached) && cached.length){
+          return cached.map(x=>({ defId:x.defId, anchor:{q:+(x.anchor?.q||0), r:+(x.anchor?.r||0)}, rot:+(x.rot||0) }));
+        }
+      }catch{}
+    }
+  }catch{}
+  // Normal case: serialize live list
+  return ST.list.map(it=>({ defId:it.defId, anchor:{q:it.anchor.q, r:it.anchor.r}, rot:it.rot||0 }));
 }
 
 function pulseSave(){
@@ -278,8 +264,8 @@ function pulseSave(){
       if (ST.dirtyWhileMove){ ST.dirtyWhileMove=false; }
     }
     if (m==='move') ST.dirtyWhileMove=false;
-    /* SAVE ONLY ON BUTTON TOGGLE */
-    if (m==='place' || m==='move') pulseSave();
+    /* SAVE ONLY ON BUTTON TOGGLE (enter OR exit place/move) */
+    if ((m==='place'||m==='move'||prev==='place'||prev==='move') && !ST.isHydrating) pulseSave();
     renderAll();
   }
   function setGhost(defId){
