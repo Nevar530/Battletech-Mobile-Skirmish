@@ -183,7 +183,10 @@
       return null;
     }catch{ return null; }
   }
-  function if (key) localStorage.setItem(key, JSON.stringify({version:1, items: items}));
+  function perMapWrite(items){
+    try{
+      const key = ST.getLocalKey && ST.getLocalKey();
+      if (key) localStorage.setItem(key, JSON.stringify({version:1, items: items}));
     }catch{}
   }
 
@@ -198,17 +201,16 @@
     }
     return ST.list.map(it=>({ defId:it.defId, anchor:{q:it.anchor.q, r:it.anchor.r}, rot:it.rot||0 }));
   }
-
   function hydrate(arr){
     ST.isHydrating = true;
     try{
       const list = Array.isArray(arr) ? arr : [];
       if (list.length) ST.hadMasterHydrate = true;
-      ST.list = list.map(x=>({ defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:(toInt(x.rot)%360+360)%360 }));
-      ST.selected=null;
+      ST.list = list.map(x=>({ defId:x.defId, anchor:{ q: toInt(x.anchor?.q), r: toInt(x.anchor?.r) }, rot: ((toInt(x.rot)||0)%360+360)%360 }));
+      ST.selected = null;
       renderAll();
-      // mirror master into per-map for fast restores
-      if (list.length) } finally {
+      // NOTE: no saving during hydrate by design
+    } finally {
       ST.isHydrating = false;
     }
   }
@@ -230,7 +232,7 @@
     if (!ST.hadMasterHydrate){
       const cached = perMapRead();
       if (Array.isArray(cached)){
-        ST.list = cached.map(x=>({ defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:toInt(x.rot)||0 }));
+        ST.list = cached.map(x=>({ defId:x.defId, anchor:{ q: toInt(x.anchor?.q), r: toInt(x.anchor?.r) }, rot: toInt(x.rot)||0 }));
         renderAll();
       }
     }
