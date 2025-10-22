@@ -552,7 +552,11 @@ function attachReceiver() {
   Net.onSnapshot = (stateObj) => {
     try {
       applyState(stateObj);
-      try { MSS_Structures.hydrate(stateObj.structures || []); } catch {}
+      // Only touch structures if the sender *explicitly* included them
+if (stateObj && Array.isArray(stateObj.structures)) {
+  try { MSS_Structures.hydrate(stateObj.structures); } catch {}
+}
+
       if (typeof requestRender === 'function') requestRender();
 
       // NEW: update the pill with who sent it
