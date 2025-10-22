@@ -107,7 +107,39 @@
           "fill": "none",
           "stroke": "#9aa4ae",
           "sw": 0.02
-        }
+        },
+        {
+  "id": "bldg_apt1",
+  "name": "Apartment",
+  "type": "bldg",
+  "heightMode": "fixed",
+  "height": 3,
+  "footprint": [],
+  "shapes": [
+    {
+      "kind": "rect",
+      "w": 5.15,
+      "h": 7,
+      "x": -2.575,
+      "y": -3.5,
+      "rx": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 4,
+      "h": 5,
+      "x": -2,
+      "y": -2.5,
+      "rx": 0,
+      "fill": "#43494c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    }
+  ]
+}
       ]
     }
   ]
