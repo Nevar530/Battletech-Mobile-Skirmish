@@ -390,7 +390,7 @@
     else ST.mapReady = true;
 
     // reflect mode
-    window.MSS_Structures.mode = ST.mode;
+    // mode is exposed as a getter; no assignment needed
 
     console.log('[Structures] init');
   }
