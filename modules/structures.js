@@ -1,4 +1,3 @@
-
 /*!
  * MSS:84 — Structures (Buildings / Walls / Gates)
  * UI: [Type Tabs] [Dropdown] [Place | Select/Move | ⟲ ⟳ | 🗑]
@@ -14,7 +13,6 @@
  *   onMapChanged()               // rehydrate current map key
  */
 (function(){
-  'use strict';
   const NS = 'http://www.w3.org/2000/svg';
 
   // ---------- Module state ----------
@@ -50,10 +48,7 @@
     // misc
     hotkeys:false,
     inited:false,
-    _unitScale:null,
-    dirtyWhileMove:false,
-    isHydrating:false,
-    hadMasterHydrate:false
+    _unitScale:null
   };
 
   // ---------- DOM util ----------
@@ -63,7 +58,7 @@
 
   function ensureSvg(){
     if (ST.svg && ST.svg.isConnected) return;
-    ST.svg = document.getElementById('svg') || document.querySelector('svg#svg, svg#hexmap') || document.querySelector('svg');
+    ST.svg = document.getElementById('svg');
   }
   function ensureLayer(){
     ensureSvg(); if (!ST.svg) return;
@@ -94,6 +89,14 @@
     return pt.matrixTransform(m.inverse());
   }
 
+  // axial rotation helper (unused for footprint height here, kept if you wire LOS)
+  function rotAx(dq, dr, steps){
+    const s = ((steps%6)+6)%6;
+    let x=dq, z=dr, y=-x-z;
+    for(let i=0;i<s;i++){ const nx=-z, ny=-x, nz=-y; x=nx; y=ny; z=nz; }
+    return {dq:x, dr:z};
+  }
+
   // ---------- Drawing ----------
   function drawShape(s){
     const kind = s.kind || 'rect';
@@ -112,7 +115,7 @@
 
     if (kind === 'rect'){
       const w = +s.w || 1, h = +s.h || 1;
-      const x = -(w/2), y = -(h/2);   // centered so rotation pivots at center
+      const x = -(w/2), y = -(h/2);   // force centered rect so rotation pivots at center
       const n = apply(el('rect',{x,y,width:w,height:h}));
       if (s.rx != null) n.setAttribute('rx', +s.rx);
       return n;
@@ -147,7 +150,7 @@
     const g = ensureGroupFor(i); if (!g) return;
     g.setAttribute('data-index', i);
     g.setAttribute('data-def', def.id);
-    g.setAttribute('class', 'structure'+((ST.selected===i && ST.mode==='move')?' selected':''));
+    g.setAttribute('class', 'structure'+(ST.selected===i?' selected':''));
     clear(g);
     (def.shapes||[]).forEach(s => g.appendChild(drawShape(s)));
     // bigger hit area in local units
@@ -190,8 +193,6 @@
     return ST.list.map(it => ({ defId:it.defId, anchor:{q:it.anchor.q,r:it.anchor.r}, rot:it.rot||0 }));
   }
   function hydrate(arr){
-    ST.isHydrating = true;
-    ST.hadMasterHydrate = Array.isArray(arr) && arr.length>0 ? true : ST.hadMasterHydrate;
     ST.list = Array.isArray(arr) ? arr.map(x=>({
       defId:x.defId,
       anchor:{ q:+(x.anchor?.q||0), r:+(x.anchor?.r||0) },
@@ -199,12 +200,7 @@
     })) : [];
     ST.selected = null;
     renderAll();
-    // mirror into per-map for fast restores
-    try{
-      const key = ST.getLocalKey?.();
-      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
-    }catch{}
-    ST.isHydrating = false;
+    pulseSave(); // keep local copy in sync even after import
   }
   function clearAll(){
     ST.list = [];
@@ -213,50 +209,17 @@
     pulseSave();
   }
 
-  
-  function pulseSave(){
-    if (ST.isHydrating) return;
-    // per-map fallback
-    try{
-      const key = ST.getLocalKey?.();
-      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
-    }catch{}
-    // master snapshot bridge (preferred)
-    try{ if (typeof window.saveLocal === 'function') window.saveLocal(); }catch{}
-    // direct master write as belt-and-suspenders if host saveLocal is unavailable
-    try{
-      if (typeof window.serializeState === 'function'){
-        localStorage.setItem('hexmap_autosave', window.serializeState());
-      }
-    }catch{}
-    // notify
-    try{ if (typeof ST.publish === 'function') ST.publish('structures:changed', serialize()); }catch{}
-  }
-
-    if (ST.isHydrating) return;
-    // per-map fallback
-    try{
-      const key = ST.getLocalKey?.();
-      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
-    }catch{}
-    // master snapshot bridge
-    try{ if (typeof window.saveLocal === 'function') window.saveLocal(); }catch{}
-    // notify
-    try{ if (typeof ST.publish === 'function') ST.publish('structures:changed', serialize()); }catch{}
-  }
-
+  // autosave plumbing
   function bindLocalStorage(getKey){
     ST.getLocalKey = (typeof getKey==='function') ? getKey : null;
-    // initial restore only if master hasn't hydrated us
-    if (!ST.hadMasterHydrate){
-      try{
-        const key = ST.getLocalKey?.();
-        if (key){
-          const raw = localStorage.getItem(key);
-          if (raw) hydrate(JSON.parse(raw));
-        }
-      }catch{}
-    }
+    // initial restore
+    try{
+      const key = ST.getLocalKey?.();
+      if (key){
+        const raw = localStorage.getItem(key);
+        if (raw) hydrate(JSON.parse(raw));
+      }
+    }catch{}
   }
   function onMapChanged(){
     try{
@@ -265,12 +228,24 @@
       hydrate(raw ? JSON.parse(raw) : []);
     }catch{ hydrate([]); }
   }
-
+  function pulseSave(){
+    if (ST.isHydrating) return;
+    try{
+      const key = ST.getLocalKey?.();
+      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
+    }catch{}
+    // Bridge into master autosave snapshot (tokens path)
+    try{
+      if (typeof window.saveLocal === 'function') window.saveLocal();
+    }catch{}
+    if (typeof ST.publish === 'function'){
+      try{ ST.publish('structures:changed', serialize()); }catch{}
+    }
+  }
   window.addEventListener('beforeunload', ()=>{ try{ pulseSave(); }catch{} });
 
   // ---------- Interaction ----------
   function setMode(m){
-    const prev = ST.mode;
     ST.mode = m; // 'none' | 'place' | 'move'
     if (ST.ui){
       const placeBtn = $('#btnPlace', ST.ui);
@@ -280,28 +255,13 @@
       if (m==='move'  && moveBtn)  moveBtn.classList.add('active');
     }
     if (m!=='place'){ ST.ghost = null; renderGhost(); }
-
-    // leaving move -> commit batched changes
-    if (prev==='move' && m!=='move'){
-      ST.selected = null;
-      if (ST.dirtyWhileMove){ ST.dirtyWhileMove=false; pulseSave(); }
-    }
-    // entering move -> start a clean batch
-    if (m==='move'){ ST.dirtyWhileMove=false; }
-
-    renderAll();
   }
-  function setGhost(defId){
-    ST.mode = 'place';
-    ST.ghost = { defId, anchor:{q:0,r:0}, rot:0 };
-    renderGhost();
-  }
+  function setGhost(defId){ ST.ghost = { defId, anchor:{q:0,r:0}, rot:0 }; renderGhost(); }
   function commitGhost(){
     if (!ST.ghost) return;
     ST.list.push({ defId: ST.ghost.defId, anchor:{...ST.ghost.anchor}, rot:ST.ghost.rot||0 });
     ST.selected = ST.list.length-1;
-    renderAll();
-    pulseSave(); // save immediately on placement
+    renderAll(); pulseSave();
   }
   function rotateSelected(steps){
     if (ST.mode==='place' && ST.ghost){
@@ -311,14 +271,12 @@
     if (ST.selected==null) return;
     const it = ST.list[ST.selected]; if (!it) return;
     it.rot = ((it.rot||0) + steps*60 + 360) % 360;
-    renderOne(ST.selected);
-    if (ST.mode==='move') ST.dirtyWhileMove=true; else pulseSave();
+    renderOne(ST.selected); pulseSave();
   }
   function deleteSelected(){
     if (ST.selected==null) return;
     ST.list.splice(ST.selected,1);
-    ST.selected=null; renderAll();
-    if (ST.mode==='move') ST.dirtyWhileMove=true; else pulseSave();
+    ST.selected=null; renderAll(); pulseSave();
   }
 
   function onPointerDown(e){
@@ -330,7 +288,7 @@
       ST.dragging = true; ST.dragIdx = ST.selected;
       e.stopPropagation(); return;
     }
-    // place mode: click board commits ghost
+    // place mode: clicking board commits current ghost position
     if (ST.mode==='place' && ST.ghost){
       commitGhost();
       e.stopPropagation(); return;
@@ -357,7 +315,7 @@
     if (ST.dragging){
       ST.dragging=false;
       const idx = ST.dragIdx; ST.dragIdx=null;
-      if (idx!=null) { if (ST.mode==='move') ST.dirtyWhileMove=true; else pulseSave(); }
+      if (idx!=null) pulseSave();
     }
   }
   function attachPointer(){
@@ -372,22 +330,22 @@
     const host = (typeof sel==='string') ? document.querySelector(sel) : sel;
     if (!host) return;
 
-    host.innerHTML = [
-      '<div class="structures-ui">',
-      '  <div class="row" id="typeTabs"></div>',
-      '  <div class="row" style="margin:6px 0;">',
-      '    <select id="defDropdown" class="input" style="min-width:220px"></select>',
-      '  </div>',
-      '  <div class="row" style="flex-wrap:wrap; gap:8px;">',
-      '    <button class="btn sm" id="btnPlace">Place</button>',
-      '    <button class="btn sm" id="btnMove">Select/Move</button>',
-      '    <span style="flex:1 1 auto"></span>',
-      '    <button class="icon sm" id="btnRotL" title="Rotate Left">⟲</button>',
-      '    <button class="icon sm" id="btnRotR" title="Rotate Right">⟳</button>',
-      '    <button class="icon sm danger" id="btnDelete" title="Delete">🗑</button>',
-      '  </div>',
-      '</div>'
-    ].join('');
+    host.innerHTML = `
+      <div class="structures-ui">
+        <div class="row" id="typeTabs"></div>
+        <div class="row" style="margin:6px 0;">
+          <select id="defDropdown" class="input" style="min-width:220px"></select>
+        </div>
+        <div class="row" style="flex-wrap:wrap; gap:8px;">
+          <button class="btn sm" id="btnPlace">Place</button>
+          <button class="btn sm" id="btnMove">Select/Move</button>
+          <span style="flex:1 1 auto"></span>
+          <button class="icon sm" id="btnRotL" title="Rotate Left">⟲</button>
+          <button class="icon sm" id="btnRotR" title="Rotate Right">⟳</button>
+          <button class="icon sm danger" id="btnDelete" title="Delete">🗑</button>
+        </div>
+      </div>
+    `;
     ST.ui = host;
 
     // wire controls
@@ -463,19 +421,19 @@
   function injectCSS(){
     if (document.getElementById('structures-css')) return;
     const css = document.createElement('style'); css.id='structures-css';
-    css.textContent = [
-      ':root { --bt-amber:#f0b000; --line:#2a2d33; }',
-      '.structures-ui{ font:12px system-ui, sans-serif; color:var(--ink,#ddd) }',
-      '.structures-ui .row{ display:flex; gap:8px; align-items:center }',
-      '.structures-ui .chip{ margin:2px 6px 6px 0; padding:2px 8px; border:1px solid var(--line); background:transparent; color:inherit; border-radius:12px; cursor:pointer }',
-      '.structures-ui .chip.active{ border-color:var(--bt-amber); color:var(--bt-amber) }',
-      '.structures-ui .btn,.structures-ui .icon{ padding:3px 7px; border:1px solid var(--line); background:transparent; color:inherit; border-radius:6px; cursor:pointer }',
-      '.structures-ui .btn.sm,.structures-ui .icon.sm{ font-size:12px }',
-      '.structures-ui .btn.active{ outline:1px solid var(--bt-amber) }',
-      '.structures-ui .icon.danger{ border-color:#844; color:#f88 }',
-      '#world-structures .structure.selected * { filter: drop-shadow(0 0 2px var(--bt-amber)) }',
-      '#world-structures .ghost *{ opacity:.55 }'
-    ].join('\n');
+    css.textContent = `
+      :root { --bt-amber:#f0b000; --line:#2a2d33; }
+      .structures-ui{ font:12px system-ui, sans-serif; color:var(--ink,#ddd) }
+      .structures-ui .row{ display:flex; gap:8px; align-items:center }
+      .structures-ui .chip{ margin:2px 6px 6px 0; padding:2px 8px; border:1px solid var(--line); background:transparent; color:inherit; border-radius:12px; cursor:pointer }
+      .structures-ui .chip.active{ border-color:var(--bt-amber); color:var(--bt-amber) }
+      .structures-ui .btn,.structures-ui .icon{ padding:3px 7px; border:1px solid var(--line); background:transparent; color:inherit; border-radius:6px; cursor:pointer }
+      .structures-ui .btn.sm,.structures-ui .icon.sm{ font-size:12px }
+      .structures-ui .btn.active{ outline:1px solid var(--bt-amber) }
+      .structures-ui .icon.danger{ border-color:#844; color:#f88 }
+      #world-structures .structure.selected * { filter: drop-shadow(0 0 2px var(--bt-amber)) }
+      #world-structures .ghost *{ opacity:.55 }
+    `;
     document.head.appendChild(css);
   }
 
@@ -528,7 +486,7 @@
     attachHotkeys();
 
     if (typeof ST.onMapTransform === 'function'){
-      ST.onMapTransform(()=>{ ST._unitScale=null; renderAll(); });
+      ST.onMapTransform(()=> renderAll());
     }
     ST.inited = true;
     console.info('[Structures] ready');
