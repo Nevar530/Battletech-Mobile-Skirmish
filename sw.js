@@ -13,8 +13,6 @@ const PRECACHE_URLS = [
   "./style.css",
   "./script.js",
   "./manifest.webmanifest",
-  // structures module & catalog for offline + soft-resets
-  "./modules/structures.js",
   "./modules/catalog.json"
 ];
 
