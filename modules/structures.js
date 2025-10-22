@@ -185,7 +185,7 @@
   }
   function perMapWrite(items){
     try{
-      const key = ST.getLocalKey && ST.getLocalKey();
+      const key = ST.getLocalKey?.();
       if (key) localStorage.setItem(key, JSON.stringify({version:1, items: items}));
     }catch{}
   }
@@ -201,21 +201,21 @@
     }
     return ST.list.map(it=>({ defId:it.defId, anchor:{q:it.anchor.q, r:it.anchor.r}, rot:it.rot||0 }));
   }
-  function hydrate(arr){
-    ST.isHydrating = true;
-    try{
-      const list = Array.isArray(arr) ? arr : [];
-      if (list.length) ST.hadMasterHydrate = true;
-      ST.list = list.map(x=>({ defId:x.defId, anchor:{ q: toInt(x.anchor?.q), r: toInt(x.anchor?.r) }, rot: ((toInt(x.rot)||0)%360+360)%360 }));
-      ST.selected = null;
-      renderAll();
-      // NOTE: no saving during hydrate by design
-    } finally {
-      ST.isHydrating = false;
-    }
-  }
 
-  function pulseSave(){
+function hydrate(arr){
+  ST.isHydrating = true;
+  try{
+    const list = Array.isArray(arr) ? arr : [];
+    if (list.length) ST.hadMasterHydrate = true;
+    ST.list = list.map(x=>({ defId:x.defId, anchor:{ q: toInt(x.anchor?.q), r: toInt(x.anchor?.r) }, rot: ((toInt(x.rot)||0)%360+360)%360 }));
+    ST.selected = null;
+    renderAll();
+  } finally {
+    ST.isHydrating = false;
+  }
+}
+
+function pulseSave(){
     // 1) per-map snapshot (fast local restore)
     perMapWrite(serialize());
     // 2) master snapshot (single app blob) — skip while hydrating
@@ -232,7 +232,7 @@
     if (!ST.hadMasterHydrate){
       const cached = perMapRead();
       if (Array.isArray(cached)){
-        ST.list = cached.map(x=>({ defId:x.defId, anchor:{ q: toInt(x.anchor?.q), r: toInt(x.anchor?.r) }, rot: toInt(x.rot)||0 }));
+        ST.list = cached.map(x=>({ defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:toInt(x.rot)||0 }));
         renderAll();
       }
     }
@@ -244,7 +244,6 @@
 
   // ---------- interaction ----------
   function setMode(m){
-
     const prev = ST.mode;
     ST.mode = m;
     if (ST.ui){
@@ -253,7 +252,6 @@
       if (m==='place' && bP) bP.classList.add('active');
       if (m==='move'  && bM) bM.classList.add('active');
     }
-
     if (m!=='place'){ ST.ghost=null; renderGhost(); }
 
     if (prev==='move' && m!=='move'){
@@ -261,6 +259,8 @@
       if (ST.dirtyWhileMove){ ST.dirtyWhileMove=false; }
     }
     if (m==='move') ST.dirtyWhileMove=false;
+    /* SAVE ONLY ON BUTTON TOGGLE */
+    if (m==='place' || m==='move') pulseSave();
     renderAll();
   }
   function setGhost(defId){
@@ -270,10 +270,10 @@
   }
   function commitGhost(){
     if (!ST.ghost) return;
-    ST.list.push({ defId: ST.ghost.defId, anchor:{...ST.ghost.anchor}, rot: ST.ghost.rot||0 });
+    ST.list.push({ defId: ST.ghost.defId, anchor:{ q: ST.ghost.anchor.q, r: ST.ghost.anchor.r }, rot: ST.ghost.rot||0 });
     ST.selected = ST.list.length-1;
     renderAll();
-    // save immediately on placement
+    // (save suppressed here by policy)
   }
   function rotateSelected(steps){
     if (ST.mode==='place' && ST.ghost){
@@ -284,12 +284,14 @@
     const it = ST.list[ST.selected]; if (!it) return;
     it.rot = ((it.rot||0) + steps*60 + 360) % 360;
     renderOne(ST.selected);
-    if (ST.mode==='move') ST.dirtyWhileMove=true; else }
+    if (ST.mode==='move') ST.dirtyWhileMove=true;
+  }
   function deleteSelected(){
     if (ST.selected==null) return;
     ST.list.splice(ST.selected,1);
     ST.selected=null; renderAll();
-    if (ST.mode==='move') ST.dirtyWhileMove=true; else }
+    if (ST.mode==='move') ST.dirtyWhileMove=true;
+  }
 
   function onPointerDown(e){
     const g = e.target.closest && e.target.closest('#world-structures > g.structure:not(#ghost-structure)');
@@ -321,7 +323,7 @@
     if (ST.dragging){
       ST.dragging=false;
       const idx=ST.dragIdx; ST.dragIdx=null;
-      if (idx!=null){ if (ST.mode==='move') ST.dirtyWhileMove=true; else }
+      if (idx!=null){ if (ST.mode==='move') ST.dirtyWhileMove=true; }
     }
   }
   function attachPointer(){
