@@ -48,7 +48,7 @@
     // misc
     hotkeys:false,
     inited:false,
-    _unitScale:null
+    _unitScale:null, dirtyWhileMove:false, isHydrating:false, hadMasterHydrate:false
   };
 
   // ---------- DOM util ----------
@@ -150,7 +150,7 @@
     const g = ensureGroupFor(i); if (!g) return;
     g.setAttribute('data-index', i);
     g.setAttribute('data-def', def.id);
-    g.setAttribute('class', 'structure'+(ST.selected===i && ST.mode==='move' ? ' selected' : ''));
+    g.setAttribute('class', 'structure'+((ST.selected===i && ST.mode==='move')?' selected':''));
     clear(g);
     (def.shapes||[]).forEach(s => g.appendChild(drawShape(s)));
     // bigger hit area in local units
@@ -193,6 +193,8 @@
     return ST.list.map(it => ({ defId:it.defId, anchor:{q:it.anchor.q,r:it.anchor.r}, rot:it.rot||0 }));
   }
   function hydrate(arr){
+    ST.isHydrating = true;
+    ST.hadMasterHydrate = Array.isArray(arr) && arr.length>0 ? true : ST.hadMasterHydrate;
     ST.list = Array.isArray(arr) ? arr.map(x=>({
       defId:x.defId,
       anchor:{ q:+(x.anchor?.q||0), r:+(x.anchor?.r||0) },
@@ -200,9 +202,14 @@
     })) : [];
     ST.selected = null;
     renderAll();
-    pulseSave(); // keep local copy in sync even after import
+    // keep per-map copy in sync even after import, but avoid master cascade
+    try{
+      const key = ST.getLocalKey?.();
+      if (key) localStorage.setItem(key, JSON.stringify(serialize()));
+    }catch{}
+    ST.isHydrating = false;
   }
-  function clearAll(){
+  function clearAll(){ function clearAll(){
     ST.list = [];
     ST.selected = null;
     renderAll();
@@ -233,15 +240,21 @@
       const key = ST.getLocalKey?.();
       if (key) localStorage.setItem(key, JSON.stringify(serialize()));
     }catch{}
+    if (ST.isHydrating) return;
+    try{ if (typeof window.saveLocal === 'function') window.saveLocal(); }catch{}
     if (typeof ST.publish === 'function'){
       try{ ST.publish('structures:changed', serialize()); }catch{}
     }
-    try{ if (typeof window.saveLocal === 'function') window.saveLocal(); }catch{}
+  }catch{}
+    if (typeof ST.publish === 'function'){
+      try{ ST.publish('structures:changed', serialize()); }catch{}
+    }
   }
   window.addEventListener('beforeunload', ()=>{ try{ pulseSave(); }catch{} });
 
   // ---------- Interaction ----------
   function setMode(m){
+    const prev = ST.mode;
     ST.mode = m; // 'none' | 'place' | 'move'
     if (ST.ui){
       const placeBtn = $('#btnPlace', ST.ui);
@@ -251,8 +264,16 @@
       if (m==='move'  && moveBtn)  moveBtn.classList.add('active');
     }
     if (m!=='place'){ ST.ghost = null; renderGhost(); }
+    // leaving move -> commit batched changes
+    if (prev==='move' && m!=='move'){
+      ST.selected = null;
+      if (ST.dirtyWhileMove){ try{ pulseSave(); }catch{} ST.dirtyWhileMove=false; }
+    }
+    // entering move -> start a clean batch
+    if (m==='move'){ ST.dirtyWhileMove=false; }
+    renderAll();
   }
-  function setGhost(defId){ ST.ghost = { defId, anchor:{q:0,r:0}, rot:0 }; renderGhost(); }
+  function setGhostfunction setGhost(defId){ ST.ghost = { defId, anchor:{q:0,r:0}, rot:0 }; renderGhost(); }
   function commitGhost(){
     if (!ST.ghost) return;
     ST.list.push({ defId: ST.ghost.defId, anchor:{...ST.ghost.anchor}, rot:ST.ghost.rot||0 });
@@ -267,12 +288,13 @@
     if (ST.selected==null) return;
     const it = ST.list[ST.selected]; if (!it) return;
     it.rot = ((it.rot||0) + steps*60 + 360) % 360;
-    renderOne(ST.selected); pulseSave();
+    renderOne(ST.selected); if (ST.mode==='move') ST.dirtyWhileMove=true; else try{ pulseSave(); }catch{};
   }
   function deleteSelected(){
     if (ST.selected==null) return;
     ST.list.splice(ST.selected,1);
-    ST.selected=null; renderAll(); pulseSave();
+    ST.selected=null; renderAll();
+    if (ST.mode==='move') ST.dirtyWhileMove=true; else try{ pulseSave(); }catch{}
   }
 
   function onPointerDown(e){
@@ -311,7 +333,7 @@
     if (ST.dragging){
       ST.dragging=false;
       const idx = ST.dragIdx; ST.dragIdx=null;
-      if (idx!=null) pulseSave();
+      if (idx!=null) { if (ST.mode==='move') ST.dirtyWhileMove=true; else try{ pulseSave(); }catch{} }
     }
   }
   function attachPointer(){
@@ -482,7 +504,7 @@
     attachHotkeys();
 
     if (typeof ST.onMapTransform === 'function'){
-      ST.onMapTransform(()=> renderAll());
+      ST.onMapTransform(()=>{ ST._unitScale=null; renderAll(); });
     }
     ST.inited = true;
     console.info('[Structures] ready');
