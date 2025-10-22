@@ -150,7 +150,7 @@
     const g = ensureGroupFor(i); if (!g) return;
     g.setAttribute('data-index', i);
     g.setAttribute('data-def', def.id);
-    g.setAttribute('class', 'structure'+(ST.selected===i?' selected':''));
+    g.setAttribute('class', 'structure'+(ST.selected===i && ST.mode==='move' ? ' selected' : ''));
     clear(g);
     (def.shapes||[]).forEach(s => g.appendChild(drawShape(s)));
     // bigger hit area in local units
@@ -236,6 +236,7 @@
     if (typeof ST.publish === 'function'){
       try{ ST.publish('structures:changed', serialize()); }catch{}
     }
+    try{ if (typeof window.saveLocal === 'function') window.saveLocal(); }catch{}
   }
   window.addEventListener('beforeunload', ()=>{ try{ pulseSave(); }catch{} });
 
