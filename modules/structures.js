@@ -199,7 +199,26 @@
         defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:toInt(x.rot)
       }));
     }
-    return ST.list.map(it=>({ defId:it.defId, anchor:{q:it.anchor.q, r:it.anchor.r}, rot:it.rot||0 }));
+    return ST.list.map
+    // Try master blob first to avoid early-clobber during app init saves
+    try{
+      if (!ST.hadMasterHydrate && ST.list.length===0){
+        const rawMaster = localStorage.getItem('hexmap_autosave');
+        if (rawMaster){
+          try{
+            const obj = JSON.parse(rawMaster);
+            const data = (typeof obj==='string') ? JSON.parse(obj) : obj;
+            const arr = Array.isArray(data?.structures) ? data.structures : [];
+            if (arr.length){
+              return arr.map(x=>({
+                defId:x.defId, anchor:{q:toInt(x.anchor?.q), r:toInt(x.anchor?.r)}, rot:toInt(x.rot)
+              }));
+            }
+          }catch{}
+        }
+      }
+    }catch{}
+(it=>({ defId:it.defId, anchor:{q:it.anchor.q, r:it.anchor.r}, rot:it.rot||0 }));
   }
 
 function hydrate(arr){
