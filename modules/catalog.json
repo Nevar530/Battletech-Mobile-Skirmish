@@ -3,13 +3,13 @@
   "types": [
     { "id": "bldg", "name": "Buildings" },
     { "id": "wall/gate", "name": "Walls & Gates" },
-    { "id": "ruin", "name": "Ruins" }
+    { "id": "objectives", "name": "Objectives" }
   ],
   "defs": [
     {
   "id": "gen_1",
   "name": "Generator 1",
-  "type": "Objective",
+  "type": "Objectives",
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
@@ -76,7 +76,7 @@
 },
     {
   "id": "plaza_1",
-  "type": "building",
+  "type": "Buildings",
   "name": "Plaza Tower",
   "units": "hex",
   "rotateStep": 60,
