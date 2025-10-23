@@ -233,6 +233,22 @@ svg{
 }
 .token.selected .ring{filter:drop-shadow(0 0 6px rgba(255,255,255,.55));}
 
+/* ---------- STRUCTURES ---------- */
+.structure { pointer-events:auto; }
+.structure .hit {
+  fill: none;
+  stroke: #ffd54a;
+  stroke-width: 2px;
+  opacity: 0.0;                 /* 0 by default; raised when selected */
+}
+.structure.selected .hit { opacity: 0.9; }
+.structure .body {
+  fill: #c9d2e0;                /* default fill; per-item color can override */
+  stroke: #00000088;
+  stroke-width: 1.5px;
+}
+
+
 /* ---------- Measure overlay ---------- */
 #measure-group{pointer-events:none;}
 .measure-line{stroke:#64ffd5;stroke-width:2.5;stroke-dasharray:6,6;opacity:.95;}
