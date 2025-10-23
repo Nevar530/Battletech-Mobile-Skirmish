@@ -1339,9 +1339,12 @@ btnStructPlace ?.addEventListener('click', ()=> setStructTool('place'));
 btnStructDelete?.addEventListener('click', () => {
   // If something is selected, delete it immediately.
   if (selectedStructureId) {
-    structures = structures.filter(s => s.id !== selectedStructureId);
-    selectedStructureId = null;
-    requestRender(); saveLocal();
+    const ok = deleteSelectedStructure();
+    // leave structure tool OFF so tokens can be moved next
+    structTool = '';
+    [btnStructSelect, btnStructPlace, btnStructDelete].forEach(b=>{
+      if (!b) return; b.setAttribute('aria-pressed','false'); b.classList.remove('active');
+    });
     return;
   }
   // Otherwise enter delete mode (tap board to delete by click)
@@ -1360,6 +1363,20 @@ function rotateSelectedStructure(dir){
 }
 btnStructRotL?.addEventListener('click', () => rotateSelectedStructure(-1));
 btnStructRotR?.addEventListener('click', () => rotateSelectedStructure(1));
+
+function deleteSelectedStructure(){
+  if (!selectedStructureId) return false;
+  const before = structures.length;
+  structures = structures.filter(s => s.id !== selectedStructureId);
+  const deleted = (structures.length !== before);
+  if (deleted) {
+    console.info('[Structures] Deleted', selectedStructureId);
+    selectedStructureId = null;
+    requestRender(); 
+    saveLocal();
+  }
+  return deleted;
+}
 
 function initStructurePickers(){
   if (!selStructType || !selStruct) return;
@@ -1525,18 +1542,30 @@ if (structTool === 'delete') {
   if (structElHit) {
     const id = structElHit.dataset.id;
     if (id) {
+      const before = structures.length;
       structures = structures.filter(s => s.id !== id);
       if (selectedStructureId === id) selectedStructureId = null;
-      requestRender(); saveLocal();
-      return;
+      if (structures.length !== before) {
+        console.info('[Structures] Deleted by click', id);
+        requestRender(); saveLocal();
+        // exit delete mode on success
+        structTool = '';
+        [btnStructSelect, btnStructPlace, btnStructDelete].forEach(b=>{
+          if (!b) return; b.setAttribute('aria-pressed','false'); b.classList.remove('active');
+        });
+        return;
+      }
     }
   }
 
   // Otherwise, delete currently selected (if any)…
   if (selectedStructureId) {
-    structures = structures.filter(s => s.id !== selectedStructureId);
-    selectedStructureId = null;
-    requestRender(); saveLocal();
+    if (deleteSelectedStructure()) {
+      structTool = '';
+      [btnStructSelect, btnStructPlace, btnStructDelete].forEach(b=>{
+        if (!b) return; b.setAttribute('aria-pressed','false'); b.classList.remove('active');
+      });
+    }
     return;
   }
 
@@ -1545,12 +1574,21 @@ if (structTool === 'delete') {
     const q = +hexElHit.dataset.q, r = +hexElHit.dataset.r;
     const ix = structures.findIndex(s => s.q === q && s.r === r);
     if (ix >= 0) {
+      const id = structures[ix].id;
       structures.splice(ix, 1);
+      if (selectedStructureId === id) selectedStructureId = null;
+      console.info('[Structures] Deleted by hex fallback', id);
       requestRender(); saveLocal();
+      // exit delete mode on success
+      structTool = '';
+      [btnStructSelect, btnStructPlace, btnStructDelete].forEach(b=>{
+        if (!b) return; b.setAttribute('aria-pressed','false'); b.classList.remove('active');
+      });
     }
   }
   return;
 }
+
 
 }
 
@@ -1912,11 +1950,11 @@ svg.addEventListener('keydown', (e) => {
 else if ((e.key === 'e' || e.key === 'E') && selectedStructureId) { const s = structures.find(x=>x.id===selectedStructureId); if (s) { s.angle = ((s.angle||0) + 60) % 360; requestRender(); saveLocal(); } }
   else if (e.key === 'Enter') { renameToken(); }
 else if ((e.key === 'Backspace' || e.key === 'Delete') && selectedStructureId) {
-  structures = structures.filter(s => s.id !== selectedStructureId);
-  selectedStructureId = null;
-  requestRender(); saveLocal();
+  deleteSelectedStructure();
 }
-else if (e.key === 'Backspace' || e.key === 'Delete') { deleteToken(); }
+else if (e.key === 'Backspace' || e.key === 'Delete') {
+  deleteToken();
+}
 });
 
 /* ---------- Controls ---------- */
@@ -3398,6 +3436,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
