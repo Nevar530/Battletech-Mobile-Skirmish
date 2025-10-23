@@ -106,7 +106,8 @@ html,body{
 .panel{
   position:fixed;
   top:calc(var(--header-h) + var(--app-top-offset));
-  bottom:var(--footer-h);           /* your new gap */
+  height: clamp(420px, 80vh, 900px);
+  bottom: auto;
   width:340px; background:var(--panel);
   border-top:1px solid var(--border);
   box-shadow:0 0 24px rgba(0,0,0,.35);
