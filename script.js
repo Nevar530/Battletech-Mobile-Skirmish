@@ -367,6 +367,7 @@ function serializeState(){
       type: s.type || '',
       name: s.name || '',
       fill: s.fill || ''
+      shapes: Array.isArray(s.shapes) ? s.shapes : []
     })),
     mechMeta: metaMap,
     initOrder: safeInitOrder,
@@ -765,7 +766,7 @@ structures.forEach(s => {
 
   const g = document.createElementNS(svgNS, 'g');
   g.setAttribute('class', 'structure' + (s.id === selectedStructureId ? ' selected' : ''));
-  g.setAttribute('transform', `translate(${ctr.x},${ctr.y}) rotate(${s.angle||0}) scale(${s.scale||1})`);
+    g.setAttribute('transform', `translate(${ctr.x},${ctr.y}) rotate(${s.angle||0}) scale(${(s.scale||1)*hexSize})`);
   g.dataset.id = s.id;
 
   // if s.shapes exists (from catalog)
@@ -786,9 +787,10 @@ structures.forEach(s => {
       if (shape.x) el.setAttribute('x', shape.x);
       if (shape.y) el.setAttribute('y', shape.y);
       if (shape.rx) el.setAttribute('rx', shape.rx);
+            if (shape.r)  el.setAttribute('r',  shape.r);
       if (shape.fill) el.setAttribute('fill', shape.fill);
       if (shape.stroke) el.setAttribute('stroke', shape.stroke);
-      if (shape.sw) el.setAttribute('stroke-width', (shape.sw * hexSize).toFixed(2));
+            if (shape.sw) el.setAttribute('stroke-width', String(shape.sw));
       g.appendChild(el);
     });
   }
@@ -1490,18 +1492,23 @@ if (structTool !== 'select' && hexElHit && e.button === 0) {
 
   if (structTool === 'place') {
     const cat = getSelectedStructCatalogItem();
+    if (!cat) return;
     const id = String(Date.now()) + Math.random().toString(16).slice(2,6);
     const angle = 0;
     const scale = clamp(+inpStructScale?.value || 1, 0.2, 3);
     const height = +inpStructH?.value || 0;
-    const type = cat?.shape || 'hex';
-    const name = cat?.name || 'Structure';
-    const fill = cat?.fill || '#c9d2e0';
-    structures.push({ id, q, r, angle, scale, height, type, name, fill });
+    const type = cat.type || '';                 // catalog typeId (e.g., 'bldg')
+    const name = cat.name || 'Structure';
+    // preferred fill is per-shape; fallback only if needed
+    const fill = (Array.isArray(cat.shapes) && cat.shapes[0]?.fill) || cat.fill || '#c9d2e0';
+    // deep copy shapes from the catalog def
+    const shapes = Array.isArray(cat.shapes) ? cat.shapes.map(x => JSON.parse(JSON.stringify(x))) : [];
+    structures.push({ id, q, r, angle, scale, height, type, name, fill, shapes });
     selectedStructureId = id;
     requestRender(); saveLocal();
     return;
   }
+
 
   if (structTool === 'rotate') {
     const sel = structures.find(s => s.id === selectedStructureId);
@@ -2393,6 +2400,7 @@ structures = Array.isArray(obj.structures) ? obj.structures.map(s => ({
   type: String(s.type || ''),
   name: String(s.name || ''),
   fill: String(s.fill || '')
+  shapes: Array.isArray(s.shapes) ? s.shapes : []
 })) : [];
 
     
@@ -3361,6 +3369,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
