@@ -219,6 +219,49 @@
           <div class="small muted">Pick values, then click/drag on the map. Alt+Click eyedrops current hex.</div>
         </section>
 
+<!-- ===== Structures (above map, below tokens) ===== -->
+<section class="group" id="structuresGroup">
+  <h3>Structures</h3>
+
+  <!-- Mode -->
+  <div class="row gap">
+    <button id="btnStructSelect" class="btn" aria-pressed="true">Select/Move</button>
+    <button id="btnStructPlace"  class="btn">Place</button>
+    <button id="btnStructRotate" class="btn">Rotate</button>
+    <button id="btnStructDelete" class="btn">Delete</button>
+  </div>
+
+  <!-- Catalog -->
+  <div class="row gap">
+    <label class="stack" style="min-width:160px;">
+      <span>Type</span>
+      <select id="structType"></select>
+    </label>
+    <label class="stack" style="min-width:220px;">
+      <span>Structure</span>
+      <select id="structSelect"></select>
+    </label>
+  </div>
+
+  <!-- Properties (height → LoS) -->
+  <div class="row gap">
+    <label class="stack" style="max-width:120px;">
+      <span>Height</span>
+      <input id="structHeight" type="number" step="1" value="1" />
+    </label>
+    <label class="stack" style="max-width:120px;">
+      <span>Scale</span>
+      <input id="structScale" type="number" step="0.1" value="1.0" />
+    </label>
+  </div>
+
+  <div class="small muted">
+    Place → click a hex to add. Select/Move → drag. Rotate turns ±60° with the “Rotate” button (or Q/E when selected).
+    Height overrides hex height for LoS (use negative for trenches).
+  </div>
+</section>
+
+        
         <section class="group">
           <h3>Fill Terrain</h3>
           <div class="row">
@@ -445,6 +488,7 @@
         <g id="world-shadows"></g>
         <g id="world-overlays"></g>
         <g id="world-labels"></g>
+        <g id="world-structures"></g>
         <g id="world-tokens"></g>
         <g id="measure-group"></g>
         <g id="los-rays"></g>
