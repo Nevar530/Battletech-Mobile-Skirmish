@@ -1295,75 +1295,94 @@ btnClearFixed?.addEventListener('click', () => {
   setToolMode('paintFixed');
 });
 
-/* ===== Load structure catalog (core, no external module) ===== */
-let STRUCTURE_CATALOG = {};
+/* ===== Load structure catalog (robust + ES5-safe) ===== */
+var STRUCTURE_CATALOG = {};
 
-(async function loadStructureCatalog() {
-  try {
-    // NOTE: adjust the path if your catalog is elsewhere (e.g. './catalog.json')
-    const res = await fetch('modules/catalog.json', { cache: 'no-store' });
-    const data = await res.json();
-
-    const defs = Array.isArray(data.defs) ? data.defs : [];
-    const namesById = new Map(
-      (Array.isArray(data.types) ? data.types : [])
-        .filter(t => t && t.id)
-        .map(t => [String(t.id), String(t.name || t.id)])
-    );
-
-    const prettyName = (id) =>
-      String(id || '')
-        .replace(/[_/-]+/g, ' ')
-        .replace(/\b\w/g, c => c.toUpperCase())
-        .trim() || 'Misc';
-
-    // Build catalog purely from defs so unknown types still appear
-    const typeMap = {};
-    for (const d of data.defs) {
-  const tid = (d && d.type) ? String(d.type) : 'misc';
-
-  // If this type wasn’t predeclared in data.types, create it now.
-  if (!typeMap[tid]) {
-    // Try to find a display name from data.types (if present)
-    let name = tid;
-    if (Array.isArray(data.types)) {
-      const hit = data.types.find(t => t && t.id === tid);
-      if (hit && hit.name) name = String(hit.name);
-    }
-    // Fallback: prettify the id (e.g., "wall/gate" -> "Wall Gate")
-    if (!name || name === tid) {
-      name = tid.replace(/[_/-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).trim();
-    }
-    typeMap[tid] = { name, defs: [] };
+(function loadStructureCatalog(){
+  // Pretty label for unknown types (e.g., "wall/gate" -> "Wall Gate")
+  function prettyName(id){
+    id = String(id || '');
+    return id.replace(/[_\/-]+/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); }).trim() || 'Misc';
   }
 
-  typeMap[tid].defs.push(d);
-}
+  // Try multiple paths so we don’t depend on one folder
+  function tryFetch(paths, i){
+    i = i || 0;
+    if (i >= paths.length) return Promise.reject(new Error('catalog.json not found'));
+    return fetch(paths[i], { cache:'no-store' }).then(function(r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).catch(function(){
+      return tryFetch(paths, i+1);
+    });
+  }
 
-    // Optional: sort groups and defs for nicer UX
-    const order = ['bldg','wall/gate','ruin','objective'];
-    const rank = new Map(order.map((t,i)=>[t,i]));
+  tryFetch(['modules/catalog.json', './catalog.json']).then(function(data){
+    // Normalize inputs
+    var typesArr = Array.isArray(data && data.types) ? data.types : [];
+    var defsArr  = Array.isArray(data && data.defs)  ? data.defs  : [];
 
-    Object.values(typeMap).forEach(g =>
-      g.defs.sort((a,b) => String(a.name||a.id).localeCompare(String(b.name||b.id)))
-    );
+    // Map of known type display names from data.types (if provided)
+    var nameByType = {};
+    for (var i=0; i<typesArr.length; i++){
+      var t = typesArr[i];
+      if (t && t.id) nameByType[String(t.id)] = String(t.name || t.id);
+    }
 
-    // Keep STRUCTURE_CATALOG as { typeId: { name, defs } }
-    STRUCTURE_CATALOG = Object.fromEntries(
-      Object.entries(typeMap).sort(([a], [b]) => {
-        const ra = rank.has(a) ? rank.get(a) : Infinity;
-        const rb = rank.has(b) ? rank.get(b) : Infinity;
-        return ra === rb ? a.localeCompare(b) : ra - rb;
-      })
-    );
+    // Build groups from defs so unknown types still show up
+    var typeMap = {}; // typeId -> { name, defs: [] }
+    for (var j=0; j<defsArr.length; j++){
+      var d = defsArr[j] || {};
+      var tid = String(d.type || 'misc');
+      if (!typeMap[tid]) {
+        typeMap[tid] = {
+          name: nameByType[tid] || prettyName(tid),
+          defs: []
+        };
+      }
+      typeMap[tid].defs.push(d);
+    }
 
-    // refresh pickers
-    if (typeof initStructurePickers === 'function') initStructurePickers();
+    // Sort defs inside each group by name/id
+    Object.keys(typeMap).forEach(function(tid){
+      typeMap[tid].defs.sort(function(a,b){
+        var an = String(a && (a.name || a.id) || '');
+        var bn = String(b && (b.name || b.id) || '');
+        return an.localeCompare(bn);
+      });
+    });
+
+    // Optional group order (unlisted types go after, alpha by id)
+    var order = ['bldg','wall/gate','ruin','objective'];
+    var rank  = {};
+    for (var r=0; r<order.length; r++) rank[order[r]] = r;
+
+    var sortedTypeIds = Object.keys(typeMap).sort(function(a,b){
+      var ra = (a in rank) ? rank[a] : 1e9;
+      var rb = (b in rank) ? rank[b] : 1e9;
+      if (ra !== rb) return ra - rb;
+      return a.localeCompare(b);
+    });
+
+    // Freeze into STRUCTURE_CATALOG
+    var out = {};
+    for (var k=0; k<sortedTypeIds.length; k++){
+      var id = sortedTypeIds[k];
+      out[id] = typeMap[id];
+    }
+    STRUCTURE_CATALOG = out;
+    if (typeof window !== 'undefined') window.STRUCTURE_CATALOG = STRUCTURE_CATALOG;
+
+    // Refresh pickers if present
+    if (typeof initStructurePickers === 'function') {
+      try { initStructurePickers(); } catch (e) { console.warn(e); }
+    }
     console.info('[Structures] catalog loaded:', STRUCTURE_CATALOG);
-  } catch (e) {
-    console.error('[Structures] failed to load catalog.json', e);
-  }
+  }).catch(function(err){
+    console.error('[Structures] failed to load catalog.json:', err && err.message || err);
+  });
 })();
+
 
 
 
@@ -3499,4 +3518,5 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
