@@ -1336,7 +1336,17 @@ function setStructTool(mode){
 
 btnStructSelect?.addEventListener('click', ()=> setStructTool('select'));
 btnStructPlace ?.addEventListener('click', ()=> setStructTool('place'));
-btnStructDelete?.addEventListener('click', ()=> setStructTool('delete'));
+btnStructDelete?.addEventListener('click', () => {
+  // If something is selected, delete it immediately.
+  if (selectedStructureId) {
+    structures = structures.filter(s => s.id !== selectedStructureId);
+    selectedStructureId = null;
+    requestRender(); saveLocal();
+    return;
+  }
+  // Otherwise enter delete mode (tap board to delete by click)
+  setStructTool('delete');
+});
 setStructTool('select');
 
 if (!STRUCTURE_CATALOG) STRUCTURE_CATALOG = {};
@@ -1901,7 +1911,12 @@ svg.addEventListener('keydown', (e) => {
   else if ((e.key === 'q' || e.key === 'Q') && selectedStructureId) { const s = structures.find(x=>x.id===selectedStructureId); if (s) { s.angle = ((s.angle||0) - 60 + 360) % 360; requestRender(); saveLocal(); } }
 else if ((e.key === 'e' || e.key === 'E') && selectedStructureId) { const s = structures.find(x=>x.id===selectedStructureId); if (s) { s.angle = ((s.angle||0) + 60) % 360; requestRender(); saveLocal(); } }
   else if (e.key === 'Enter') { renameToken(); }
-  else if (e.key === 'Backspace' || e.key === 'Delete') { deleteToken(); }
+else if ((e.key === 'Backspace' || e.key === 'Delete') && selectedStructureId) {
+  structures = structures.filter(s => s.id !== selectedStructureId);
+  selectedStructureId = null;
+  requestRender(); saveLocal();
+}
+else if (e.key === 'Backspace' || e.key === 'Delete') { deleteToken(); }
 });
 
 /* ---------- Controls ---------- */
@@ -3383,6 +3398,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
