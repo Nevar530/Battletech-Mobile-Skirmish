@@ -1072,7 +1072,7 @@ renderInitBadge(g, roll, rTok);
   saveLocal();
 
   updateTokenControls();
-
+}
 
 const tokenControls = document.getElementById('tokenControls');
 const btnTurnLeft   = document.getElementById('btnTurnLeft');
@@ -3486,50 +3486,3 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
