@@ -1297,6 +1297,29 @@ btnClearFixed?.addEventListener('click', () => {
   setToolMode('paintFixed');
 });
 
+/* ===== Load structure catalog (core, no external module) ===== */
+let STRUCTURE_CATALOG = null;
+
+async function loadStructureCatalog() {
+  try {
+    const res = await fetch('modules/catalog.json', { cache: 'no-store' });
+    const data = await res.json();
+
+    // Group defs by type id/name for picker use
+    const typeMap = {};
+    for (const t of data.types) typeMap[t.id] = { name: t.name, defs: [] };
+    for (const d of data.defs) {
+      if (typeMap[d.type]) typeMap[d.type].defs.push(d);
+    }
+    STRUCTURE_CATALOG = typeMap;
+  } catch (e) {
+    console.error('[Structures] failed to load catalog.json', e);
+    STRUCTURE_CATALOG = {};
+  }
+}
+await loadStructureCatalog();   // load before initializing pickers
+
+
 /* ===== Structures UI ===== */
 const btnStructSelect = document.getElementById('btnStructSelect');
 const btnStructPlace  = document.getElementById('btnStructPlace');
@@ -1325,18 +1348,8 @@ btnStructRotate?.addEventListener('click', ()=> setStructTool('rotate'));
 btnStructDelete?.addEventListener('click', ()=> setStructTool('delete'));
 setStructTool('select');
 
-/* Catalog bootstrap (optional: use window.STRUCTURES from structures.js if present) */
-const STRUCTURE_CATALOG = (typeof window !== 'undefined' && window.STRUCTURES) ? window.STRUCTURES : {
-  Buildings: [
-    { name:'Block (Hex)', shape:'hex',   fill:'#c9d2e0' },
-    { name:'Tower (Hex)', shape:'hex',   fill:'#b7c0d0' },
-    { name:'Square',      shape:'rect',  fill:'#cfc8b8' },
-    { name:'Circle',      shape:'circ',  fill:'#d2dce8' }
-  ],
-  Trenches: [
-    { name:'Trench (Hex)', shape:'hex',  fill:'#6d7a86' }
-  ]
-};
+if (!STRUCTURE_CATALOG) STRUCTURE_CATALOG = {};
+
 
 function initStructurePickers(){
   if (!selStructType || !selStruct) return;
@@ -3327,6 +3340,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
