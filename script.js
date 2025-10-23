@@ -1485,7 +1485,7 @@ if (structTool === 'select' && structElHit && e.button === 0) {
   if (!hexElHit) return;
 
 // Structures tool takes precedence over terrain painting
-if (structTool !== 'select' && hexElHit && e.button === 0) {
+if (structTool !== 'select' && (hexElHit || structElHit) && e.button === 0) {
   e.preventDefault();
   const q = +hexElHit.dataset.q, r = +hexElHit.dataset.r;
 
@@ -1510,18 +1510,38 @@ if (structTool === 'place') {
 
 
 
-  if (structTool === 'delete') {
-    if (selectedStructureId) {
-      structures = structures.filter(s => s.id !== selectedStructureId);
-      selectedStructureId = null;
+if (structTool === 'delete') {
+  // If user clicked directly on a structure, delete that one.
+  if (structElHit) {
+    const id = structElHit.dataset.id;
+    if (id) {
+      structures = structures.filter(s => s.id !== id);
+      if (selectedStructureId === id) selectedStructureId = null;
       requestRender(); saveLocal();
-    } else {
-      // (optional) delete any structure on this hex
-      const ix = structures.findIndex(s => s.q === q && s.r === r);
-      if (ix >= 0) { structures.splice(ix,1); requestRender(); saveLocal(); }
+      return;
     }
+  }
+
+  // Otherwise, delete currently selected (if any)…
+  if (selectedStructureId) {
+    structures = structures.filter(s => s.id !== selectedStructureId);
+    selectedStructureId = null;
+    requestRender(); saveLocal();
     return;
   }
+
+  // …or delete the first structure on this hex (fallback)
+  if (hexElHit) {
+    const q = +hexElHit.dataset.q, r = +hexElHit.dataset.r;
+    const ix = structures.findIndex(s => s.q === q && s.r === r);
+    if (ix >= 0) {
+      structures.splice(ix, 1);
+      requestRender(); saveLocal();
+    }
+  }
+  return;
+}
+
 }
 
   
@@ -3363,6 +3383,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
