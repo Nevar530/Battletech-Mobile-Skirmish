@@ -9,7 +9,7 @@
     {
   "id": "gen_1",
   "name": "Generator 1",
-  "type": "Objectives",
+  "type": "object",
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
@@ -76,7 +76,7 @@
 },
     {
   "id": "plaza_1",
-  "type": "Buildings",
+  "type": "bldg",
   "name": "Plaza Tower",
   "units": "hex",
   "rotateStep": 60,
