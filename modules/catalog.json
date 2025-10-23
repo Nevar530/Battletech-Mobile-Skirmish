@@ -8,8 +8,8 @@
   "defs": [
     {
   "id": "plaza_1",
-  "name": "Plaza Tower",
   "type": "building",
+  "name": "Plaza Tower",
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
