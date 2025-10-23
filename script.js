@@ -337,25 +337,14 @@ function serializeState(){
     : [];
   const safeInitIndex = Number.isFinite(initIndex) ? initIndex : -1;
 
-// Build state object without "structures" first
-const out = {
-  meta,
-  data,
-  tokens: tok,
-  mechMeta: metaMap,
-  initOrder: safeInitOrder,
-  initIndex: safeInitIndex
-};
-
-// Add "structures" ONLY if the module is ready and returns an array
-try {
-  const st = window.MSS_Structures?.serialize?.();
-  if (Array.isArray(st)) out.structures = st;
-} catch { /* ignore */ }
-
-return JSON.stringify(out);
-
-
+  return JSON.stringify({
+    meta,
+    data,
+    tokens: tok,
+    mechMeta: metaMap,
+    initOrder: safeInitOrder,
+    initIndex: safeInitIndex
+  });
 }
 
 // Gather unsent per-token sheets (marked by sheet.js) for this map, then clear flags
@@ -385,17 +374,10 @@ function loadLocal(){
     if (!raw) return false;
     const obj = JSON.parse(raw);
     if (!obj || (!obj.data && !obj.tokens)) return false;
-applyState(obj);
-// Only hydrate if the blob explicitly includes structures
-try {
-  if (Array.isArray(obj.structures)) {
-    MSS_Structures?.hydrate?.(obj.structures);
-  }
-} catch {}
-return true;
+    applyState(obj);
+    return true;
   } catch { return false; }
 }
-
 
 /* ---------- Patterns ---------- */
 function ensurePatterns() {
@@ -1624,14 +1606,7 @@ function regen() {
   hexSize = +elHex.value || 120;
   initTiles(); camera.inited=false; requestRender(); clearLOS(); clearMeasurement();
 }
-on('regen','click', () => {
-  if (mapLocked) { alert('Map is locked. Unlock to regenerate.'); return; }
-  cols = +elCols.value || 10;
-  rows = +elRows.value || 10;
-  hexSize = +elHex.value || 120;
-  initTiles(); camera.inited=false; requestRender(); clearLOS(); clearMeasurement();
-  try { MSS_Structures?.clear?.(); } catch {}
-});
+on('regen','click', regen);
 
 elHex.addEventListener('change', () => {
   hexSize = +elHex.value || 120;
@@ -1641,9 +1616,7 @@ elHex.addEventListener('change', () => {
 on('clear','click', () => {
   if (mapLocked) { alert('Map is locked. Unlock to clear.'); return; }
   beginStroke(); tiles.forEach(t => resetTile(t)); endStroke(); clearLOS(); clearMeasurement();
-  try { MSS_Structures?.clear?.(); } catch {}
 });
-
 
 /* ===== Export JSON Modal ===== */
 function showJsonModal(text){
@@ -1793,7 +1766,6 @@ function showImportModal() {
       const obj = JSON.parse(raw);
       applyState(obj);                // your existing unified importer
       // return focus to stage for immediate input
-      try { MSS_Structures.hydrate(obj.structures || []); } catch {}
       const svg = document.getElementById('svg');
       if (svg && typeof svg.focus === 'function') svg.focus();
       close();
@@ -1870,50 +1842,6 @@ function resizeToken(f){ const t = getSelected(); if (!t) return; t.scale = clam
 function cycleTeam(dir){ const t = getSelected(); if (!t) return; const len = TEAMS.length; t.colorIndex = ((t.colorIndex||0) + dir + len) % len; requestRender(); saveLocal(); }
 function renameToken(){ const t = getSelected(); if (!t) return; const name = prompt('Token label:', t.label || ''); if (name !== null) { t.label = name.trim().slice(0,24) || 'MECH'; requestRender(); saveLocal(); } }
 function deleteToken(){ const t = getSelected(); if (!t) return; tokens = tokens.filter(x => x.id !== t.id); mechMeta.delete(t.id); selectedTokenId = null; renderMechList(); renderInit(); requestRender(); saveLocal(); }
-
-// === Structures: init + catalog + UI ===
-(function(){
-  if (!window.MSS_Structures) return;
-
-  // pixel center of hex
-  const hexToPx = (q, r) => tileCenter(q, r);          // uses your tileCenter()
-  const pxToHex = (x, y) => pixelToCell(x, y);         // uses your pixelToCell()
-
-  // Let structures raise surface height for LOS (buildings/walls)
-  const baseGetHexHeight = window.getHexHeight;        // your current function
-  const registerLosProvider = (provider) => {
-    window.getHexHeight = (q, r) => Math.max(baseGetHexHeight(q, r), provider(q, r));
-  };
-
-  // Notify on map transforms (zoom/pan) so structures can re-render if needed
-  const mapTransformListeners = [];
-  const onMapTransform = (cb) => { mapTransformListeners.push(cb); };
-  const _setViewBox = camera.setViewBox.bind(camera);
-  camera.setViewBox = function(){
-    _setViewBox();
-    mapTransformListeners.forEach(fn => { try{ fn(); }catch{} });
-  };
-
-  MSS_Structures.init({
-    hexToPx,
-    pxToHex,
-    getTileHeight: (q,r) => window.getHexHeight(q,r),
-    registerLosProvider,
-    onMapTransform,
-    publish: null,
-    subscribe: null
-  });
-
-  // Load catalog + mount UI into the left panel region you provided
-  MSS_Structures.loadCatalog('./modules/catalog.json');
-  MSS_Structures.mountUI('#structuresPanel');
-
-  // OPTIONAL: autosave per map id (uses your CURRENT_MAP_ID)
-  if (typeof CURRENT_MAP_ID !== 'undefined') {
-    MSS_Structures.bindLocalStorage(() => `mss84.structures.${CURRENT_MAP_ID || 'local'}`);
-  }
-})();
-
 
 /* ---------- Presets ----------
 const TER = { GRASS:0, ROCK:1, WATER:2, SAND:3, ASPHALT:4, URBAN:5 };
@@ -2869,13 +2797,11 @@ on('btnFlechsP2','click', () => {
   });
 })();
 
-/* ---------- Init (deferred to ensure modules like structures.js are loaded) ---------- */
-setTimeout(() => {
-  if (!loadLocal()) { initTiles(); }
-  requestRender();
-  renderMechList();
-  svg && svg.focus();
-}, 0);
+/* ---------- Init ---------- */
+if (!loadLocal()) { initTiles(); }
+requestRender();
+renderMechList();
+svg && svg.focus();
 
 /* ---------- Preset JSON (GH Pages) ---------- */
 
@@ -3059,59 +2985,6 @@ function applyPreset(preset) {
 // Kick off after DOM ready/boot
 window.addEventListener('load', loadPresetList);
 
-// === Structures boot wiring (init + UI + viewBox sync) ===
-window.addEventListener('load', () => {
-  // Only wire the module if it actually exists; never let it break the rest of the app.
-  if (window.MSS_Structures && typeof MSS_Structures.init === 'function') {
-    try {
-      MSS_Structures.init({
-        hexToPx: (q, r) => offsetToPixel(q, r, hexSize),
-        pxToHex: (x, y) => pixelToCell(x, y),
-        getTileHeight: (q, r) => {
-          // safe lookup (doesn't rely on an external `key` symbol)
-          const k = `${q},${r}`;
-          const t = (window.tiles?.get?.(k)) || window.grid?.[r]?.[q];
-          return Number(t?.height ?? t?.h ?? t?.z ?? 0);
-        }
-      });
-
-      // Load the structure definitions (adjust path if your catalog moved)
-      MSS_Structures.loadCatalog('./modules/catalog.json');
-
-      // Mount the mini UI inside the left menu
-      MSS_Structures.mountUI('#structuresPanel');
-
-      // Keep the structures layer’s viewBox in sync with the main SVG camera
-      function syncStructsViewBox() {
-        const layer = document.getElementById('world-structures');
-        if (!layer || !svg || !svg.viewBox) return;
-        const vb = svg.viewBox.baseVal;
-        layer.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.width} ${vb.height}`);
-        layer.style.zIndex = '20'; // ensure below tokens
-      }
-      syncStructsViewBox();
-      window.addEventListener('resize', syncStructsViewBox);
-
-      // If you wrap requestRender for camera moves, keep structures in sync
-      if (typeof window.requestRender === 'function') {
-        const _rr = window.requestRender;
-        window.requestRender = function (...args) {
-          const out = _rr.apply(this, args);
-          try { syncStructsViewBox(); } catch {}
-          return out;
-        };
-      }
-    } catch (err) {
-      console.warn('[Structures] init failed — module skipped:', err);
-    }
-  } else {
-    console.info('[Structures] module not present — skipping.');
-  }
-});
-
-// === /Structures boot wiring ===
-
-
 // Safe helper used by sheet.js to get a token's current label
 window.getTokenLabelById = function(mapId, tokenId){
   try{
@@ -3127,13 +3000,8 @@ window.getTokenLabelById = function(mapId, tokenId){
     if (!window.Net) return;
     Net.onSnapshot = (stateObj) => {
       try {
-applyState(stateObj);
-try {
-  if (Array.isArray(stateObj.structures)) {
-    MSS_Structures.hydrate(stateObj.structures);
-  }
-} catch {}
-if (typeof requestRender === 'function') requestRender();
+        applyState(stateObj);
+        if (typeof requestRender === 'function') requestRender();
       } catch (e) { console.warn(e); }
     };
   }
@@ -3190,14 +3058,6 @@ if (typeof requestRender === 'function') requestRender();
 
   syncHeaderH();
 })();
-
-
-
-
-
-
-
-
 
 
 
