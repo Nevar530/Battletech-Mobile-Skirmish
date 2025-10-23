@@ -216,9 +216,6 @@
           <div class="small muted">Pick values, then click/drag on the map. Alt+Click eyedrops current hex.</div>
         </section>
 
-<!-- ✨ Structures UI mounts here -->
-<!--<div id="structuresPanel"></div> -->
-        
         <section class="group">
           <h3>Fill Terrain</h3>
           <div class="row">
@@ -467,8 +464,6 @@
 <script src="modules/gator.js"></script>
 <script src="modules/compiler.js"></script>
 <script src="modules/sheet.js"></script>
-<!-- Structures (Buildings/Walls/Gates) -->
-<script src="./modules/structures.js"></script>
 <script type="module" src="network.js"></script>
   
   
@@ -552,11 +547,6 @@ function attachReceiver() {
   Net.onSnapshot = (stateObj) => {
     try {
       applyState(stateObj);
-      // Only touch structures if the sender *explicitly* included them
-if (stateObj && Array.isArray(stateObj.structures)) {
-  try { MSS_Structures.hydrate(stateObj.structures); } catch {}
-}
-
       if (typeof requestRender === 'function') requestRender();
 
       // NEW: update the pill with who sent it
@@ -591,20 +581,11 @@ if (stateObj && Array.isArray(stateObj.structures)) {
     });
   })();
 </script>
-  
-<!-- Mount the Sheet once -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Only mount if not already mounted
-    if (!window.MSS84_SHEET && window.Sheet) {
-      const sheet = window.Sheet.mount(document.body);   // mounts CLOSED
-      window.sheet = sheet;                              // optional debug
-      window.MSS84_SHEET = sheet;                        // what script.js expects
-    }
-  });
-</script>
 
-<footer style="position:fixed; bottom:0; left:0; width:100%; 
+  
+  
+
+  <footer style="position:fixed; bottom:0; left:0; width:100%; 
                font-size:0.5em; text-align:center; color:#888; 
                padding:2px 0; border-top:1px solid #333; 
                background:#111; z-index:999;">
@@ -624,6 +605,15 @@ Flechs Sheets is a separate fan-made project by BisonAIs and is embedded here fo
   </a>
 </footer>
   
+<!-- === Sheet Module Mount === -->
+<script src="./modules/sheet.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sheet = window.Sheet.mount(document.body);   // mounts CLOSED
+    window.sheet = sheet;                              // optional debug
+    window.MSS84_SHEET = sheet;                        // what script.js expects
+  });
+</script>
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(console.error);
