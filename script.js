@@ -738,7 +738,35 @@ function render() {
   
   gStructs.replaceChildren();
 
-  // ===== Structures (single-hex footprint; scale + rotate about hex center)
+  
+
+
+    // selection ring
+    const hit = document.createElementNS(svgNS, 'polygon');
+    hit.setAttribute('points', ptsToString(hexPointsArray(0, 0, hexSize * 1.05)));
+    hit.setAttribute('class', 'hit');
+    g.appendChild(hit);
+
+    // optional name
+    if (s.name) {
+      const t = document.createElementNS(svgNS, 'text');
+      t.setAttribute('class','lbl');
+      t.setAttribute('font-size', fontStruct);
+      t.textContent = s.name;
+      g.appendChild(t);
+    }
+
+    gStructs.appendChild(g);
+  });
+
+  gTokens.replaceChildren();
+  gMeasure.replaceChildren();
+
+  const size = hexSize;
+  const geom = new Map();
+  let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+
+// ===== Structures (single-hex footprint; scale + rotate about hex center)
   const fontStruct = Math.max(10, hexSize * 0.18);
   structures.forEach(s => {
     const ctr = geom.get(key(s.q, s.r));
@@ -777,32 +805,6 @@ if (Array.isArray(s.shapes)) {
     g.appendChild(el);
   });
 }
-
-
-    // selection ring
-    const hit = document.createElementNS(svgNS, 'polygon');
-    hit.setAttribute('points', ptsToString(hexPointsArray(0, 0, hexSize * 1.05)));
-    hit.setAttribute('class', 'hit');
-    g.appendChild(hit);
-
-    // optional name
-    if (s.name) {
-      const t = document.createElementNS(svgNS, 'text');
-      t.setAttribute('class','lbl');
-      t.setAttribute('font-size', fontStruct);
-      t.textContent = s.name;
-      g.appendChild(t);
-    }
-
-    gStructs.appendChild(g);
-  });
-
-  gTokens.replaceChildren();
-  gMeasure.replaceChildren();
-
-  const size = hexSize;
-  const geom = new Map();
-  let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
 
   tiles.forEach(t => {
     const {x,y} = offsetToPixel(t.q,t.r,size);
@@ -962,20 +964,6 @@ if (!center || center.x === undefined) return;
     nose.setAttribute('stroke', team);
     nose.setAttribute('stroke-width', Math.max(2, rTok*0.12).toFixed(2));
     g.appendChild(nose);
-
-    // structures
-    structures = Array.isArray(obj.structures) ? obj.structures.map(s => ({
-      id: s.id || (String(Date.now()) + Math.random().toString(16).slice(2,6)),
-      q: clamp(s.q ?? 0, 0, cols-1),
-      r: clamp(s.r ?? 0, 0, rows-1),
-      angle: ((s.angle ?? 0) % 360 + 360) % 360,
-      scale: clamp(s.scale ?? 1, 0.2, 3),
-      height: Number.isFinite(s.height) ? s.height : 0,
-      type: String(s.type || ''),
-      name: String(s.name || ''),
-      fill: String(s.fill || '')
-    })) : [];
-
     
     // Firing arc when selected
     if (tok.id === selectedTokenId) {
@@ -2375,6 +2363,20 @@ function applyState(obj){
       label: (t.label || 'MECH').slice(0, 24)
     })) : [];
 
+// structures
+structures = Array.isArray(obj.structures) ? obj.structures.map(s => ({
+  id: s.id || (String(Date.now()) + Math.random().toString(16).slice(2,6)),
+  q: clamp(s.q ?? 0, 0, cols-1),
+  r: clamp(s.r ?? 0, 0, rows-1),
+  angle: ((s.angle ?? 0) % 360 + 360) % 360,
+  scale: clamp(s.scale ?? 1, 0.2, 3),
+  height: Number.isFinite(s.height) ? s.height : 0,
+  type: String(s.type || ''),
+  name: String(s.name || ''),
+  fill: String(s.fill || '')
+})) : [];
+
+    
     // mech meta
     mechMeta.clear();
     if (obj.mechMeta && typeof obj.mechMeta === 'object') {
@@ -3340,6 +3342,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
