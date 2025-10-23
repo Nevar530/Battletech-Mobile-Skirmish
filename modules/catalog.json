@@ -7,6 +7,40 @@
   ],
   "defs": [
     {
+  "id": "plaza_1",
+  "name": "Plaza Tower",
+  "type": "building",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 2,
+  "footprint": [],
+  "shapes": [
+    {
+      "kind": "rect",
+      "w": 3.5,
+      "h": 5,
+      "x": -1.75,
+      "y": -2.5,
+      "rx": 0.15,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 5,
+      "h": 2,
+      "x": -2.5,
+      "y": -1,
+      "rx": 1,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    }
+  ]
+},
+    {
       "id": "warehouse_2x3_step",
       "type": "bldg",
       "name": "Warehouse (2×3, stepped)",
