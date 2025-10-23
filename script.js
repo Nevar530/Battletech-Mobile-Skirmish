@@ -1308,8 +1308,9 @@ let STRUCTURE_CATALOG = {};
 /* ===== Structures UI ===== */
 const btnStructSelect = document.getElementById('btnStructSelect');
 const btnStructPlace  = document.getElementById('btnStructPlace');
-const btnStructRotate = document.getElementById('btnStructRotate');
 const btnStructDelete = document.getElementById('btnStructDelete');
+const btnStructRotL   = document.getElementById('btnStructRotL');
+const btnStructRotR   = document.getElementById('btnStructRotR');
 const selStructType   = document.getElementById('structType');
 const selStruct       = document.getElementById('structSelect');
 const inpStructH      = document.getElementById('structHeight');
@@ -1317,24 +1318,38 @@ const inpStructScale  = document.getElementById('structScale');
 
 let structTool = 'select'; // 'select' | 'place' | 'rotate' | 'delete'
 function setStructTool(mode){
-  structTool = mode;
-  [btnStructSelect, btnStructPlace, btnStructRotate, btnStructDelete].forEach(b=>{
+  // clicking the same button again clears structure mode (lets tokens work)
+  structTool = (structTool === mode) ? '' : mode;
+
+  const map = {
+    select: btnStructSelect,
+    place:  btnStructPlace,
+    delete: btnStructDelete
+  };
+  [btnStructSelect, btnStructPlace, btnStructDelete].forEach(b=>{
     if (!b) return;
-    const on = (b === ({
-      select: btnStructSelect, place: btnStructPlace, rotate: btnStructRotate, delete: btnStructDelete
-    }[mode]));
+    const on = (b === map[structTool]);
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
     b.classList.toggle('active', on);
   });
 }
+
 btnStructSelect?.addEventListener('click', ()=> setStructTool('select'));
 btnStructPlace ?.addEventListener('click', ()=> setStructTool('place'));
-btnStructRotate?.addEventListener('click', ()=> setStructTool('rotate'));
 btnStructDelete?.addEventListener('click', ()=> setStructTool('delete'));
 setStructTool('select');
 
 if (!STRUCTURE_CATALOG) STRUCTURE_CATALOG = {};
 
+function rotateSelectedStructure(dir){
+  const s = structures.find(x => x.id === selectedStructureId);
+  if (!s) return;
+  const step = s.rotateStep || 60;  // default 60° if not in catalog
+  s.angle = ((s.angle || 0) + dir * step + 360) % 360;
+  requestRender(); saveLocal();
+}
+btnStructRotL?.addEventListener('click', () => rotateSelectedStructure(-1));
+btnStructRotR?.addEventListener('click', () => rotateSelectedStructure(1));
 
 function initStructurePickers(){
   if (!selStructType || !selStruct) return;
@@ -1474,34 +1489,26 @@ if (structTool !== 'select' && hexElHit && e.button === 0) {
   e.preventDefault();
   const q = +hexElHit.dataset.q, r = +hexElHit.dataset.r;
 
-  if (structTool === 'place') {
-    const cat = getSelectedStructCatalogItem();
-    if (!cat) return;
-    const id = String(Date.now()) + Math.random().toString(16).slice(2,6);
-    const angle = 0;
-    const scale = clamp(+inpStructScale?.value || 1, 0.2, 3);
-    const height = +inpStructH?.value || 0;
-    const type = cat.type || '';                 // catalog typeId (e.g., 'bldg')
-    const name = cat.name || 'Structure';
-    // preferred fill is per-shape; fallback only if needed
-    const fill = (Array.isArray(cat.shapes) && cat.shapes[0]?.fill) || cat.fill || '#c9d2e0';
-    // deep copy shapes from the catalog def
-    const shapes = Array.isArray(cat.shapes) ? cat.shapes.map(x => JSON.parse(JSON.stringify(x))) : [];
-    structures.push({ id, q, r, angle, scale, height, type, name, fill, shapes });
-    selectedStructureId = id;
-    requestRender(); saveLocal();
-    return;
-  }
+if (structTool === 'place') {
+  const cat = getSelectedStructCatalogItem();
+  if (!cat) return;
+  const id = String(Date.now()) + Math.random().toString(16).slice(2,6);
+  const angle = 0;
+  const type = cat.type || '';
+  const name = cat.name || 'Structure';
+  const fill = (Array.isArray(cat.shapes) && cat.shapes[0]?.fill) || cat.fill || '#c9d2e0';
+  const shapes = Array.isArray(cat.shapes) ? cat.shapes.map(x => JSON.parse(JSON.stringify(x))) : [];
+  const height = Number.isFinite(cat.height) ? cat.height : 0;
+  const rotateStep = Number.isFinite(cat.rotateStep) ? cat.rotateStep : 60;
+  structures.push({ id, q, r, angle, scale: 1, height, type, name, fill, shapes, rotateStep });
+  selectedStructureId = id;
+  requestRender(); saveLocal();
+  return;
+}
 
 
-  if (structTool === 'rotate') {
-    const sel = structures.find(s => s.id === selectedStructureId);
-    if (sel) {
-      sel.angle = ((sel.angle || 0) + 60) % 360;
-      requestRender(); saveLocal();
-    }
-    return;
-  }
+
+
 
   if (structTool === 'delete') {
     if (selectedStructureId) {
@@ -1615,7 +1622,9 @@ if (selectedStructureId && (e.buttons & 1) && structTool === 'select') {
     const dy = cur.y - dragStartPt.y;
     if (Math.hypot(dx, dy) >= DRAG_THRESH) {
       structureDragId = selectedStructureId;
+      document.body.style.userSelect = 'none';
       svg.setPointerCapture?.(e.pointerId);
+
     }
   }
 }
@@ -1672,6 +1681,7 @@ function endPointer(e){
 
 if (structureDragId) {
   structureDragId = null;
+  document.body.style.userSelect = '';
   dragStartPt = null;
   try { svg.releasePointerCapture(e.pointerId); } catch {}
   saveLocal();
@@ -3353,6 +3363,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
