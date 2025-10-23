@@ -1353,22 +1353,29 @@ if (!STRUCTURE_CATALOG) STRUCTURE_CATALOG = {};
 function initStructurePickers(){
   if (!selStructType || !selStruct) return;
   selStructType.replaceChildren();
-  Object.keys(STRUCTURE_CATALOG).forEach((grp, i) => {
+
+  // STRUCTURE_CATALOG = { typeId: { name, defs: [...] }, ... }
+  Object.entries(STRUCTURE_CATALOG).forEach(([typeId, group], i) => {
     const opt = document.createElement('option');
-    opt.value = grp; opt.textContent = grp;
+    opt.value = typeId;
+    opt.textContent = (group && group.name) ? String(group.name) : String(typeId);
     selStructType.appendChild(opt);
-    if (i === 0) selStructType.value = grp;
+    if (i === 0) selStructType.value = typeId;
   });
+
   refillStructsForType(selStructType.value);
 }
 function refillStructsForType(type){
   if (!selStruct) return;
   selStruct.replaceChildren();
-  const list = STRUCTURE_CATALOG[type] || [];
+
+  const group = STRUCTURE_CATALOG[type] || {};
+  const list = Array.isArray(group.defs) ? group.defs : [];   // ← was STRUCTURE_CATALOG[type] || []
+
   list.forEach((item, i)=>{
     const opt = document.createElement('option');
     opt.value = String(i);
-    opt.textContent = item.name;
+    opt.textContent = item.name || `Item ${i+1}`;
     selStruct.appendChild(opt);
   });
   selStruct.value = list.length ? '0' : '';
@@ -1379,7 +1386,8 @@ initStructurePickers();
 function getSelectedStructCatalogItem(){
   const type = selStructType?.value || '';
   const idx  = +selStruct?.value;
-  const list = STRUCTURE_CATALOG[type] || [];
+  const group = STRUCTURE_CATALOG[type] || {};
+  const list = Array.isArray(group.defs) ? group.defs : [];
   return list[idx] || null;
 }
 
@@ -3353,6 +3361,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
