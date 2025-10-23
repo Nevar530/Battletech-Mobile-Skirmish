@@ -9,7 +9,7 @@
     {
   "id": "gen_1",
   "name": "Generator 1",
-  "type": "object",
+  "type": "objectives",
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
