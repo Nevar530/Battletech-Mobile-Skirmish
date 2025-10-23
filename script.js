@@ -1298,9 +1298,9 @@ btnClearFixed?.addEventListener('click', () => {
 });
 
 /* ===== Load structure catalog (core, no external module) ===== */
-let STRUCTURE_CATALOG = null;
+let STRUCTURE_CATALOG = {};
 
-async function loadStructureCatalog() {
+(async function loadStructureCatalog() {
   try {
     const res = await fetch('modules/catalog.json', { cache: 'no-store' });
     const data = await res.json();
@@ -1312,12 +1312,12 @@ async function loadStructureCatalog() {
       if (typeMap[d.type]) typeMap[d.type].defs.push(d);
     }
     STRUCTURE_CATALOG = typeMap;
+    console.info('[Structures] catalog loaded:', STRUCTURE_CATALOG);
   } catch (e) {
     console.error('[Structures] failed to load catalog.json', e);
-    STRUCTURE_CATALOG = {};
   }
-}
-await loadStructureCatalog();   // load before initializing pickers
+})();
+
 
 
 /* ===== Structures UI ===== */
@@ -3340,6 +3340,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
