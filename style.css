@@ -106,7 +106,7 @@ html,body{
 .panel{
   position:fixed;
   top:calc(var(--header-h) + var(--app-top-offset));
-  bottom:0; width:340px; background:var(--panel);
+  var(--footer-h); /* <-- stop above the footer */ width:340px; background:var(--panel);
   border-top:1px solid var(--border);
   box-shadow:0 0 24px rgba(0,0,0,.35);
   display:flex; flex-direction:column; z-index:20;
