@@ -7,6 +7,74 @@
   ],
   "defs": [
     {
+  "id": "gen_1",
+  "name": "Generator 1",
+  "type": "Objective",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 1,
+  "footprint": [],
+  "shapes": [
+    {
+      "kind": "rect",
+      "w": 1.5,
+      "h": 3.4,
+      "x": -0.75,
+      "y": -1.7,
+      "rx": 0.25,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 2,
+      "h": 0.5,
+      "x": -1,
+      "y": -0.25,
+      "rx": 0.2,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#2e2924",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 2,
+      "h": 0.5,
+      "x": -1,
+      "y": -0.25,
+      "rx": 0.2,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0.6,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 2,
+      "h": 0.5,
+      "x": -1,
+      "y": -0.25,
+      "rx": 0.2,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": -0.6,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    }
+  ]
+},
+    {
   "id": "plaza_1",
   "type": "building",
   "name": "Plaza Tower",
