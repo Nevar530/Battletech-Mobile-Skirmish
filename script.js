@@ -770,32 +770,50 @@ structures.forEach(s => {
   g.dataset.id = s.id;
 
   // if s.shapes exists (from catalog)
-  if (Array.isArray(s.shapes)) {
-    s.shapes.forEach(shape => {
-      const el = document.createElementNS(svgNS,
-        shape.kind === 'path' ? 'path' :
-        shape.kind === 'polyline' ? 'polyline' :
-        shape.kind === 'rect' ? 'rect' :
-        shape.kind === 'polygon' ? 'polygon' :
-        'path'
-      );
+ if (Array.isArray(s.shapes)) {
+  s.shapes.forEach(shape => {
+    const tag =
+      shape.kind === 'rect'     ? 'rect' :
+      shape.kind === 'polygon'  ? 'polygon' :
+      shape.kind === 'polyline' ? 'polyline' :
+      /* default */               'path';
 
-      if (shape.d) el.setAttribute('d', shape.d);
-      if (shape.points) el.setAttribute('points', shape.points.map(p => p.join(',')).join(' '));
-      if (shape.w) el.setAttribute('width', shape.w);
-      if (shape.h) el.setAttribute('height', shape.h);
-      if (shape.x) el.setAttribute('x', shape.x);
-      if (shape.y) el.setAttribute('y', shape.y);
-      if (shape.rx) el.setAttribute('rx', shape.rx);
-            if (shape.r)  el.setAttribute('r',  shape.r);
-      if (shape.fill) el.setAttribute('fill', shape.fill);
-      if (shape.stroke) el.setAttribute('stroke', shape.stroke);
-            if (shape.sw) el.setAttribute('stroke-width', String(shape.sw));
+    const el = document.createElementNS(svgNS, tag);
+
+    // --- attributes (allow zeros) ---
+    if ('d' in shape && tag === 'path') el.setAttribute('d', shape.d || '');
+    if ('points' in shape && (tag === 'polygon' || tag === 'polyline')) {
+      const pts = Array.isArray(shape.points)
+        ? shape.points.map(p => Array.isArray(p) ? p.join(',') : String(p)).join(' ')
+        : String(shape.points || '');
+      el.setAttribute('points', pts);
+    }
+    if ('w'  in shape) el.setAttribute('width',  shape.w);
+    if ('h'  in shape) el.setAttribute('height', shape.h);
+    if ('x'  in shape) el.setAttribute('x',      shape.x);
+    if ('y'  in shape) el.setAttribute('y',      shape.y);
+    if ('rx' in shape) el.setAttribute('rx',     shape.rx);
+    if ('r'  in shape) el.setAttribute('r',      shape.r);
+
+    if ('fill'   in shape) el.setAttribute('fill',        shape.fill);
+    if ('stroke' in shape) el.setAttribute('stroke',      shape.stroke);
+    if ('sw'     in shape) el.setAttribute('stroke-width', String(shape.sw));
+
+    // --- per-shape offset in hex units ---
+    const tx = ('tx' in shape) ? (shape.tx || 0) : 0;
+    const ty = ('ty' in shape) ? (shape.ty || 0) : 0;
+
+    if (tx !== 0 || ty !== 0) {
+      const gw = document.createElementNS(svgNS, 'g');
+      gw.setAttribute('transform', `translate(${tx},${ty})`);
+      gw.appendChild(el);
+      g.appendChild(gw);
+    } else {
       g.appendChild(el);
-    });
-  }
-  gStructs.appendChild(g);
-});
+    }
+  });
+}
+
 
 
   tiles.forEach(t => {
@@ -1282,26 +1300,58 @@ let STRUCTURE_CATALOG = {};
 
 (async function loadStructureCatalog() {
   try {
+    // NOTE: adjust the path if your catalog is elsewhere (e.g. './catalog.json')
     const res = await fetch('modules/catalog.json', { cache: 'no-store' });
     const data = await res.json();
 
-    // Group defs by type id/name for picker use
+    const defs = Array.isArray(data.defs) ? data.defs : [];
+    const namesById = new Map(
+      (Array.isArray(data.types) ? data.types : [])
+        .filter(t => t && t.id)
+        .map(t => [String(t.id), String(t.name || t.id)])
+    );
+
+    const prettyName = (id) =>
+      String(id || '')
+        .replace(/[_/-]+/g, ' ')
+        .replace(/\b\w/g, c => c.toUpperCase())
+        .trim() || 'Misc';
+
+    // Build catalog purely from defs so unknown types still appear
     const typeMap = {};
-    for (const t of data.types) typeMap[t.id] = { name: t.name, defs: [] };
-    for (const d of data.defs) {
-      if (typeMap[d.type]) typeMap[d.type].defs.push(d);
+    for (const d of defs) {
+      const tid = String(d.type || 'misc');
+      if (!typeMap[tid]) {
+        typeMap[tid] = { name: namesById.get(tid) || prettyName(tid), defs: [] };
+      }
+      typeMap[tid].defs.push(d);
     }
-        STRUCTURE_CATALOG = typeMap;
 
-    // now that the catalog is ready, refresh the dropdowns
+    // Optional: sort groups and defs for nicer UX
+    const order = ['bldg','wall/gate','ruin','objective'];
+    const rank = new Map(order.map((t,i)=>[t,i]));
+
+    Object.values(typeMap).forEach(g =>
+      g.defs.sort((a,b) => String(a.name||a.id).localeCompare(String(b.name||b.id)))
+    );
+
+    // Keep STRUCTURE_CATALOG as { typeId: { name, defs } }
+    STRUCTURE_CATALOG = Object.fromEntries(
+      Object.entries(typeMap).sort(([a], [b]) => {
+        const ra = rank.has(a) ? rank.get(a) : Infinity;
+        const rb = rank.has(b) ? rank.get(b) : Infinity;
+        return ra === rb ? a.localeCompare(b) : ra - rb;
+      })
+    );
+
+    // refresh pickers
     if (typeof initStructurePickers === 'function') initStructurePickers();
-
     console.info('[Structures] catalog loaded:', STRUCTURE_CATALOG);
-
   } catch (e) {
     console.error('[Structures] failed to load catalog.json', e);
   }
 })();
+
 
 
 
@@ -3436,6 +3486,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
