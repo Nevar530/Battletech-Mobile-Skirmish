@@ -31,7 +31,19 @@ const LOS_EPS = 1e-4;
 function getHexHeight(q, r) {
 const t = tiles.get(key(q, r));
 const h = (t && Number.isFinite(t.height)) ? t.height : 0;
-  return Number.isFinite(h) ? h : 0; // preserves negatives
+    let base = Number.isFinite(h) ? h : 0;
+
+  // Structure override: take the maximum between ground and any structure height here.
+  // (Negative heights work too, e.g., trenches.)
+  const sHere = structures.filter(s => s.q === q && s.r === r);
+  if (sHere.length) {
+    // If multiple overlap, use the max (tallest wins)
+    const maxStruct = Math.max(...sHere.map(s => Number(s.height) || 0));
+    base = (Number.isFinite(maxStruct)) ? Math.max(base, maxStruct) : base;
+  }
+
+  return base;
+
 }
 
 const TEAMS = [
@@ -113,6 +125,7 @@ const gTex     = document.getElementById('world-textures');
 const gOver    = document.getElementById('world-overlays');
 const gLabels  = document.getElementById('world-labels');
 const gTokens  = document.getElementById('world-tokens');
+const gStructs = document.getElementById('world-structures');
 const gMeasure = document.getElementById('measure-group');
 const gLosRays = document.getElementById('los-rays');
 const gLos     = document.getElementById('los-group');
@@ -244,6 +257,11 @@ const CURRENT_MAP_ID = 'local'; // used for per-map save slots in MSS:84 Sheet
 let tokens = []; // {id,q,r,scale,angle,colorIndex,label}
 let selectedTokenId = null;
 let tokenDragId = null;
+/* Structures (static objects above terrain, below tokens) */
+let structures = [];   // { id, q, r, angle, scale, height, type, name, fill? }
+let selectedStructureId = null;
+let structureDragId = null;
+
 
 /* Mech metadata (right panel) */
 const mechMeta = new Map(); // id -> {name, pilot, team}
@@ -341,6 +359,15 @@ function serializeState(){
     meta,
     data,
     tokens: tok,
+        structures: structures.map(s => ({
+      id: s.id, q: s.q, r: s.r,
+      angle: s.angle || 0,
+      scale: clamp(s.scale ?? 1, 0.2, 3),
+      height: Number.isFinite(s.height) ? s.height : 0,
+      type: s.type || '',
+      name: s.name || '',
+      fill: s.fill || ''
+    })),
     mechMeta: metaMap,
     initOrder: safeInitOrder,
     initIndex: safeInitIndex
@@ -708,6 +735,68 @@ function render() {
   gTex.replaceChildren();
   gOver.replaceChildren();
   gLabels.replaceChildren();
+  
+  gStructs.replaceChildren();
+
+  // ===== Structures (single-hex footprint; scale + rotate about hex center)
+  const fontStruct = Math.max(10, hexSize * 0.18);
+  structures.forEach(s => {
+    const ctr = geom.get(key(s.q, s.r));
+    if (!ctr) return;
+    const g = document.createElementNS(svgNS, 'g');
+    g.setAttribute('class', 'structure' + (s.id === selectedStructureId ? ' selected' : ''));
+    g.setAttribute('transform', `translate(${ctr.x},${ctr.y}) rotate(${s.angle||0}) scale(${s.scale||1})`);
+    g.dataset.id = s.id;
+
+    // geometric body (fits the hex by default)
+    const shape = (s.type && s.type.toLowerCase().includes('rect')) || (s.name && s.name.toLowerCase().includes('square')) ? 'rect'
+                 : (s.type && s.type.toLowerCase().includes('circ')) || (s.name && s.name.toLowerCase().includes('circle')) ? 'circ'
+                 : 'hex';
+
+    const fill = s.fill || '#c9d2e0';
+
+    if (shape === 'rect') {
+      const w = hexSize * 1.5, h = Math.sqrt(3) * hexSize * 0.8;
+      const r = document.createElementNS(svgNS, 'rect');
+      r.setAttribute('x', (-w/2).toFixed(2));
+      r.setAttribute('y', (-h/2).toFixed(2));
+      r.setAttribute('width',  w.toFixed(2));
+      r.setAttribute('height', h.toFixed(2));
+      r.setAttribute('class', 'body');
+      r.setAttribute('fill', fill);
+      g.appendChild(r);
+    } else if (shape === 'circ') {
+      const c = document.createElementNS(svgNS, 'circle');
+      c.setAttribute('r', (hexSize * 0.9).toFixed(2));
+      c.setAttribute('class', 'body');
+      c.setAttribute('fill', fill);
+      g.appendChild(c);
+    } else {
+      const p = document.createElementNS(svgNS, 'polygon');
+      p.setAttribute('points', ptsToString(hexPointsArray(0, 0, hexSize * 0.98)));
+      p.setAttribute('class', 'body');
+      p.setAttribute('fill', fill);
+      g.appendChild(p);
+    }
+
+    // selection ring
+    const hit = document.createElementNS(svgNS, 'polygon');
+    hit.setAttribute('points', ptsToString(hexPointsArray(0, 0, hexSize * 1.05)));
+    hit.setAttribute('class', 'hit');
+    g.appendChild(hit);
+
+    // optional name
+    if (s.name) {
+      const t = document.createElementNS(svgNS, 'text');
+      t.setAttribute('class','lbl');
+      t.setAttribute('font-size', fontStruct);
+      t.textContent = s.name;
+      g.appendChild(t);
+    }
+
+    gStructs.appendChild(g);
+  });
+
   gTokens.replaceChildren();
   gMeasure.replaceChildren();
 
@@ -874,6 +963,20 @@ if (!center || center.x === undefined) return;
     nose.setAttribute('stroke-width', Math.max(2, rTok*0.12).toFixed(2));
     g.appendChild(nose);
 
+    // structures
+    structures = Array.isArray(obj.structures) ? obj.structures.map(s => ({
+      id: s.id || (String(Date.now()) + Math.random().toString(16).slice(2,6)),
+      q: clamp(s.q ?? 0, 0, cols-1),
+      r: clamp(s.r ?? 0, 0, rows-1),
+      angle: ((s.angle ?? 0) % 360 + 360) % 360,
+      scale: clamp(s.scale ?? 1, 0.2, 3),
+      height: Number.isFinite(s.height) ? s.height : 0,
+      type: String(s.type || ''),
+      name: String(s.name || ''),
+      fill: String(s.fill || '')
+    })) : [];
+
+    
     // Firing arc when selected
     if (tok.id === selectedTokenId) {
       const arcSpread = 33 * Math.PI/180;
@@ -1194,6 +1297,81 @@ btnClearFixed?.addEventListener('click', () => {
   setToolMode('paintFixed');
 });
 
+/* ===== Structures UI ===== */
+const btnStructSelect = document.getElementById('btnStructSelect');
+const btnStructPlace  = document.getElementById('btnStructPlace');
+const btnStructRotate = document.getElementById('btnStructRotate');
+const btnStructDelete = document.getElementById('btnStructDelete');
+const selStructType   = document.getElementById('structType');
+const selStruct       = document.getElementById('structSelect');
+const inpStructH      = document.getElementById('structHeight');
+const inpStructScale  = document.getElementById('structScale');
+
+let structTool = 'select'; // 'select' | 'place' | 'rotate' | 'delete'
+function setStructTool(mode){
+  structTool = mode;
+  [btnStructSelect, btnStructPlace, btnStructRotate, btnStructDelete].forEach(b=>{
+    if (!b) return;
+    const on = (b === ({
+      select: btnStructSelect, place: btnStructPlace, rotate: btnStructRotate, delete: btnStructDelete
+    }[mode]));
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.classList.toggle('active', on);
+  });
+}
+btnStructSelect?.addEventListener('click', ()=> setStructTool('select'));
+btnStructPlace ?.addEventListener('click', ()=> setStructTool('place'));
+btnStructRotate?.addEventListener('click', ()=> setStructTool('rotate'));
+btnStructDelete?.addEventListener('click', ()=> setStructTool('delete'));
+setStructTool('select');
+
+/* Catalog bootstrap (optional: use window.STRUCTURES from structures.js if present) */
+const STRUCTURE_CATALOG = (typeof window !== 'undefined' && window.STRUCTURES) ? window.STRUCTURES : {
+  Buildings: [
+    { name:'Block (Hex)', shape:'hex',   fill:'#c9d2e0' },
+    { name:'Tower (Hex)', shape:'hex',   fill:'#b7c0d0' },
+    { name:'Square',      shape:'rect',  fill:'#cfc8b8' },
+    { name:'Circle',      shape:'circ',  fill:'#d2dce8' }
+  ],
+  Trenches: [
+    { name:'Trench (Hex)', shape:'hex',  fill:'#6d7a86' }
+  ]
+};
+
+function initStructurePickers(){
+  if (!selStructType || !selStruct) return;
+  selStructType.replaceChildren();
+  Object.keys(STRUCTURE_CATALOG).forEach((grp, i) => {
+    const opt = document.createElement('option');
+    opt.value = grp; opt.textContent = grp;
+    selStructType.appendChild(opt);
+    if (i === 0) selStructType.value = grp;
+  });
+  refillStructsForType(selStructType.value);
+}
+function refillStructsForType(type){
+  if (!selStruct) return;
+  selStruct.replaceChildren();
+  const list = STRUCTURE_CATALOG[type] || [];
+  list.forEach((item, i)=>{
+    const opt = document.createElement('option');
+    opt.value = String(i);
+    opt.textContent = item.name;
+    selStruct.appendChild(opt);
+  });
+  selStruct.value = list.length ? '0' : '';
+}
+selStructType?.addEventListener('change', ()=> refillStructsForType(selStructType.value));
+initStructurePickers();
+
+function getSelectedStructCatalogItem(){
+  const type = selStructType?.value || '';
+  const idx  = +selStruct?.value;
+  const list = STRUCTURE_CATALOG[type] || [];
+  return list[idx] || null;
+}
+
+
 /* Tile mutators + helpers used by paint */
 const cycleHeight = t => { const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; t.height=(t.height>=5)?-3:t.height+1; const next={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; recordEdit(t.q,t.r,prev,next); };
 const cycleTerrain = t => { const prev={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; t.terrainIndex=(t.terrainIndex+1)%TERRAINS.length; const next={h:t.height,ter:t.terrainIndex,cov:t.coverIndex}; recordEdit(t.q,t.r,prev,next); };
@@ -1222,6 +1400,7 @@ svg.addEventListener('pointerdown', (e) => {
 
   const tokElHit = e.target.closest && e.target.closest('.token');
   const hexElHit = e.target.closest && e.target.closest('.hex');
+  const structElHit = e.target.closest && e.target.closest('.structure');
 
   // Measure mode: hex clicks define start/end
   if (measureMode && hexElHit && e.button===0) {
@@ -1243,6 +1422,15 @@ if (toolMode==='select' && tokElHit && e.button===0) {
   selectedTokenId = tokElHit.dataset.id;
   dragStartPt = toSvgPoint(e.clientX, e.clientY); // start threshold check
   // DO NOT set tokenDragId yet; we’ll promote after threshold in pointermove
+  requestRender();
+  return;
+}
+
+  // Structure selection
+if (structTool === 'select' && structElHit && e.button === 0) {
+  e.preventDefault();
+  selectedStructureId = structElHit.dataset.id;
+  dragStartPt = toSvgPoint(e.clientX, e.clientY);
   requestRender();
   return;
 }
@@ -1275,6 +1463,50 @@ if (toolMode==='select' && tokElHit && e.button===0) {
   // Hex hit for LOS or painting
   if (!hexElHit) return;
 
+// Structures tool takes precedence over terrain painting
+if (structTool !== 'select' && hexElHit && e.button === 0) {
+  e.preventDefault();
+  const q = +hexElHit.dataset.q, r = +hexElHit.dataset.r;
+
+  if (structTool === 'place') {
+    const cat = getSelectedStructCatalogItem();
+    const id = String(Date.now()) + Math.random().toString(16).slice(2,6);
+    const angle = 0;
+    const scale = clamp(+inpStructScale?.value || 1, 0.2, 3);
+    const height = +inpStructH?.value || 0;
+    const type = cat?.shape || 'hex';
+    const name = cat?.name || 'Structure';
+    const fill = cat?.fill || '#c9d2e0';
+    structures.push({ id, q, r, angle, scale, height, type, name, fill });
+    selectedStructureId = id;
+    requestRender(); saveLocal();
+    return;
+  }
+
+  if (structTool === 'rotate') {
+    const sel = structures.find(s => s.id === selectedStructureId);
+    if (sel) {
+      sel.angle = ((sel.angle || 0) + 60) % 360;
+      requestRender(); saveLocal();
+    }
+    return;
+  }
+
+  if (structTool === 'delete') {
+    if (selectedStructureId) {
+      structures = structures.filter(s => s.id !== selectedStructureId);
+      selectedStructureId = null;
+      requestRender(); saveLocal();
+    } else {
+      // (optional) delete any structure on this hex
+      const ix = structures.findIndex(s => s.q === q && s.r === r);
+      if (ix >= 0) { structures.splice(ix,1); requestRender(); saveLocal(); }
+    }
+    return;
+  }
+}
+
+  
   // LOS click sets source (left)
   if (losActive && e.button===0 && !e.ctrlKey) {
     const q = +hexElHit.dataset.q, r = +hexElHit.dataset.r;
@@ -1365,6 +1597,30 @@ svg.addEventListener('pointermove', (e) => {
     }
   } // <— closes the outer if
 
+// Delayed drag start for structures (select mode)
+if (selectedStructureId && (e.buttons & 1) && structTool === 'select') {
+  if (!structureDragId && dragStartPt) {
+    const dx = cur.x - dragStartPt.x;
+    const dy = cur.y - dragStartPt.y;
+    if (Math.hypot(dx, dy) >= DRAG_THRESH) {
+      structureDragId = selectedStructureId;
+      svg.setPointerCapture?.(e.pointerId);
+    }
+  }
+}
+
+if (structureDragId) {
+  const sel = structures.find(s => s.id === structureDragId);
+  if (sel) {
+    const cell = pixelToCell(cur.x, cur.y);
+    sel.q = clamp(cell.q, 0, cols - 1);
+    sel.r = clamp(cell.r, 0, rows - 1);
+    requestRender();
+  }
+  return;
+}
+
+  
   if (tokenDragId) {
     const sel = tokens.find(t => t.id === tokenDragId);
     if (sel) {
@@ -1403,6 +1659,15 @@ function endPointer(e){
     return;
   }
 
+if (structureDragId) {
+  structureDragId = null;
+  dragStartPt = null;
+  try { svg.releasePointerCapture(e.pointerId); } catch {}
+  saveLocal();
+  return;
+}
+
+  
   if (brushMode) {
     brushMode = null;
     sample = null;
@@ -1592,8 +1857,8 @@ svg.addEventListener('keydown', (e) => {
   else if (e.key === ']') { cycleTeam(1); }
   else if (e.key === '+' || e.key === '=') { resizeToken(1.10); }
   else if (e.key === '-') { resizeToken(1/1.10); }
-  else if (e.key === 'q' || e.key === 'Q') { rotateToken(-60); }
-  else if (e.key === 'e' || e.key === 'E') { rotateToken(+60); }
+  else if ((e.key === 'q' || e.key === 'Q') && selectedStructureId) { const s = structures.find(x=>x.id===selectedStructureId); if (s) { s.angle = ((s.angle||0) - 60 + 360) % 360; requestRender(); saveLocal(); } }
+else if ((e.key === 'e' || e.key === 'E') && selectedStructureId) { const s = structures.find(x=>x.id===selectedStructureId); if (s) { s.angle = ((s.angle||0) + 60) % 360; requestRender(); saveLocal(); } }
   else if (e.key === 'Enter') { renameToken(); }
   else if (e.key === 'Backspace' || e.key === 'Delete') { deleteToken(); }
 });
@@ -3062,6 +3327,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
