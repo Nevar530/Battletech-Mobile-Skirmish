@@ -2252,25 +2252,29 @@ if (mechList) mechList.addEventListener('click', (e)=>{
       camera.setViewBox();
       break;
     }
-      case 'sheet': {
-  // Open the MSS:84 Sheet module for this mech’s token
-  // (MSS84_SHEET is set by the module on mount)
-  if (window.MSS84_SHEET) {
-    // Ensure the compiler has a mechRef for this token before opening the sheet
-try {
-  const meta = mechMeta.get(id) || {};
-  const mechRef = meta.model || meta.name || tok.label || '';
-  if (mechRef) {
-    localStorage.setItem(`mss84:token:${CURRENT_MAP_ID}:${id}:mechRef`, mechRef);
-  }
-} catch {}
+case 'sheet': {
+  if (!window.MSS84_SHEET) break;
 
-MSS84_SHEET.setIds(CURRENT_MAP_ID, id);
-MSS84_SHEET.refresh();    // force the compiler hydrate now that mechRef exists
-MSS84_SHEET.open();
+  // Ensure the compiler has a mechRef for this token before opening the sheet
+  try {
+    const meta = mechMeta.get(id) || {};
+    const mechRef = meta.model || meta.name || tok.label || '';
+    if (mechRef) {
+      localStorage.setItem(`mss84:token:${CURRENT_MAP_ID}:${id}:mechRef`, mechRef);
+    }
+  } catch {}
 
+  const cur = MSS84_SHEET.getIds?.() || {};
+  const isSame = (cur.mapId === CURRENT_MAP_ID && cur.tokenId === id);
+
+  if (isSame) {
+    // If we’re already viewing this token’s sheet, toggle (close if open)
+    MSS84_SHEET.toggle?.();
+  } else {
+    // Switch context to this token and open
     MSS84_SHEET.setIds(CURRENT_MAP_ID, id);
-    MSS84_SHEET.open();
+    MSS84_SHEET.refresh?.();   // hydrate in case mechRef just got set
+    MSS84_SHEET.open?.();
   }
   break;
 }
@@ -3058,6 +3062,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
