@@ -770,50 +770,32 @@ structures.forEach(s => {
   g.dataset.id = s.id;
 
   // if s.shapes exists (from catalog)
- if (Array.isArray(s.shapes)) {
-  s.shapes.forEach(shape => {
-    const tag =
-      shape.kind === 'rect'     ? 'rect' :
-      shape.kind === 'polygon'  ? 'polygon' :
-      shape.kind === 'polyline' ? 'polyline' :
-      /* default */               'path';
+  if (Array.isArray(s.shapes)) {
+    s.shapes.forEach(shape => {
+      const el = document.createElementNS(svgNS,
+        shape.kind === 'path' ? 'path' :
+        shape.kind === 'polyline' ? 'polyline' :
+        shape.kind === 'rect' ? 'rect' :
+        shape.kind === 'polygon' ? 'polygon' :
+        'path'
+      );
 
-    const el = document.createElementNS(svgNS, tag);
-
-    // --- attributes (allow zeros) ---
-    if ('d' in shape && tag === 'path') el.setAttribute('d', shape.d || '');
-    if ('points' in shape && (tag === 'polygon' || tag === 'polyline')) {
-      const pts = Array.isArray(shape.points)
-        ? shape.points.map(p => Array.isArray(p) ? p.join(',') : String(p)).join(' ')
-        : String(shape.points || '');
-      el.setAttribute('points', pts);
-    }
-    if ('w'  in shape) el.setAttribute('width',  shape.w);
-    if ('h'  in shape) el.setAttribute('height', shape.h);
-    if ('x'  in shape) el.setAttribute('x',      shape.x);
-    if ('y'  in shape) el.setAttribute('y',      shape.y);
-    if ('rx' in shape) el.setAttribute('rx',     shape.rx);
-    if ('r'  in shape) el.setAttribute('r',      shape.r);
-
-    if ('fill'   in shape) el.setAttribute('fill',        shape.fill);
-    if ('stroke' in shape) el.setAttribute('stroke',      shape.stroke);
-    if ('sw'     in shape) el.setAttribute('stroke-width', String(shape.sw));
-
-    // --- per-shape offset in hex units ---
-    const tx = ('tx' in shape) ? (shape.tx || 0) : 0;
-    const ty = ('ty' in shape) ? (shape.ty || 0) : 0;
-
-    if (tx !== 0 || ty !== 0) {
-      const gw = document.createElementNS(svgNS, 'g');
-      gw.setAttribute('transform', `translate(${tx},${ty})`);
-      gw.appendChild(el);
-      g.appendChild(gw);
-    } else {
+      if (shape.d) el.setAttribute('d', shape.d);
+      if (shape.points) el.setAttribute('points', shape.points.map(p => p.join(',')).join(' '));
+      if (shape.w) el.setAttribute('width', shape.w);
+      if (shape.h) el.setAttribute('height', shape.h);
+      if (shape.x) el.setAttribute('x', shape.x);
+      if (shape.y) el.setAttribute('y', shape.y);
+      if (shape.rx) el.setAttribute('rx', shape.rx);
+            if (shape.r)  el.setAttribute('r',  shape.r);
+      if (shape.fill) el.setAttribute('fill', shape.fill);
+      if (shape.stroke) el.setAttribute('stroke', shape.stroke);
+            if (shape.sw) el.setAttribute('stroke-width', String(shape.sw));
       g.appendChild(el);
-    }
-  });
-}
-
+    });
+  }
+  gStructs.appendChild(g);
+});
 
 
   tiles.forEach(t => {
@@ -1295,95 +1277,31 @@ btnClearFixed?.addEventListener('click', () => {
   setToolMode('paintFixed');
 });
 
-/* ===== Load structure catalog (robust + ES5-safe) ===== */
-var STRUCTURE_CATALOG = {};
+/* ===== Load structure catalog (core, no external module) ===== */
+let STRUCTURE_CATALOG = {};
 
-(function loadStructureCatalog(){
-  // Pretty label for unknown types (e.g., "wall/gate" -> "Wall Gate")
-  function prettyName(id){
-    id = String(id || '');
-    return id.replace(/[_\/-]+/g, ' ').replace(/\b\w/g, function(c){ return c.toUpperCase(); }).trim() || 'Misc';
-  }
+(async function loadStructureCatalog() {
+  try {
+    const res = await fetch('modules/catalog.json', { cache: 'no-store' });
+    const data = await res.json();
 
-  // Try multiple paths so we don’t depend on one folder
-  function tryFetch(paths, i){
-    i = i || 0;
-    if (i >= paths.length) return Promise.reject(new Error('catalog.json not found'));
-    return fetch(paths[i], { cache:'no-store' }).then(function(r){
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    }).catch(function(){
-      return tryFetch(paths, i+1);
-    });
-  }
-
-  tryFetch(['modules/catalog.json', './catalog.json']).then(function(data){
-    // Normalize inputs
-    var typesArr = Array.isArray(data && data.types) ? data.types : [];
-    var defsArr  = Array.isArray(data && data.defs)  ? data.defs  : [];
-
-    // Map of known type display names from data.types (if provided)
-    var nameByType = {};
-    for (var i=0; i<typesArr.length; i++){
-      var t = typesArr[i];
-      if (t && t.id) nameByType[String(t.id)] = String(t.name || t.id);
+    // Group defs by type id/name for picker use
+    const typeMap = {};
+    for (const t of data.types) typeMap[t.id] = { name: t.name, defs: [] };
+    for (const d of data.defs) {
+      if (typeMap[d.type]) typeMap[d.type].defs.push(d);
     }
+        STRUCTURE_CATALOG = typeMap;
 
-    // Build groups from defs so unknown types still show up
-    var typeMap = {}; // typeId -> { name, defs: [] }
-    for (var j=0; j<defsArr.length; j++){
-      var d = defsArr[j] || {};
-      var tid = String(d.type || 'misc');
-      if (!typeMap[tid]) {
-        typeMap[tid] = {
-          name: nameByType[tid] || prettyName(tid),
-          defs: []
-        };
-      }
-      typeMap[tid].defs.push(d);
-    }
+    // now that the catalog is ready, refresh the dropdowns
+    if (typeof initStructurePickers === 'function') initStructurePickers();
 
-    // Sort defs inside each group by name/id
-    Object.keys(typeMap).forEach(function(tid){
-      typeMap[tid].defs.sort(function(a,b){
-        var an = String(a && (a.name || a.id) || '');
-        var bn = String(b && (b.name || b.id) || '');
-        return an.localeCompare(bn);
-      });
-    });
-
-    // Optional group order (unlisted types go after, alpha by id)
-    var order = ['bldg','wall/gate','ruin','objective'];
-    var rank  = {};
-    for (var r=0; r<order.length; r++) rank[order[r]] = r;
-
-    var sortedTypeIds = Object.keys(typeMap).sort(function(a,b){
-      var ra = (a in rank) ? rank[a] : 1e9;
-      var rb = (b in rank) ? rank[b] : 1e9;
-      if (ra !== rb) return ra - rb;
-      return a.localeCompare(b);
-    });
-
-    // Freeze into STRUCTURE_CATALOG
-    var out = {};
-    for (var k=0; k<sortedTypeIds.length; k++){
-      var id = sortedTypeIds[k];
-      out[id] = typeMap[id];
-    }
-    STRUCTURE_CATALOG = out;
-    if (typeof window !== 'undefined') window.STRUCTURE_CATALOG = STRUCTURE_CATALOG;
-
-    // Refresh pickers if present
-    if (typeof initStructurePickers === 'function') {
-      try { initStructurePickers(); } catch (e) { console.warn(e); }
-    }
     console.info('[Structures] catalog loaded:', STRUCTURE_CATALOG);
-  }).catch(function(err){
-    console.error('[Structures] failed to load catalog.json:', err && err.message || err);
-  });
+
+  } catch (e) {
+    console.error('[Structures] failed to load catalog.json', e);
+  }
 })();
-
-
 
 
 
@@ -3518,5 +3436,3 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
-
-
