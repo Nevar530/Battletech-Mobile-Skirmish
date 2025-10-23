@@ -1319,13 +1319,26 @@ let STRUCTURE_CATALOG = {};
 
     // Build catalog purely from defs so unknown types still appear
     const typeMap = {};
-    for (const d of defs) {
-      const tid = String(d.type || 'misc');
-      if (!typeMap[tid]) {
-        typeMap[tid] = { name: namesById.get(tid) || prettyName(tid), defs: [] };
-      }
-      typeMap[tid].defs.push(d);
+    for (const d of data.defs) {
+  const tid = (d && d.type) ? String(d.type) : 'misc';
+
+  // If this type wasn’t predeclared in data.types, create it now.
+  if (!typeMap[tid]) {
+    // Try to find a display name from data.types (if present)
+    let name = tid;
+    if (Array.isArray(data.types)) {
+      const hit = data.types.find(t => t && t.id === tid);
+      if (hit && hit.name) name = String(hit.name);
     }
+    // Fallback: prettify the id (e.g., "wall/gate" -> "Wall Gate")
+    if (!name || name === tid) {
+      name = tid.replace(/[_/-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).trim();
+    }
+    typeMap[tid] = { name, defs: [] };
+  }
+
+  typeMap[tid].defs.push(d);
+}
 
     // Optional: sort groups and defs for nicer UX
     const order = ['bldg','wall/gate','ruin','objective'];
@@ -3486,3 +3499,4 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
