@@ -753,31 +753,31 @@ function render() {
                  : (s.type && s.type.toLowerCase().includes('circ')) || (s.name && s.name.toLowerCase().includes('circle')) ? 'circ'
                  : 'hex';
 
-    const fill = s.fill || '#c9d2e0';
+    // if s.shapes exists (from catalog)
+if (Array.isArray(s.shapes)) {
+  s.shapes.forEach(shape => {
+    const el = document.createElementNS(svgNS,
+      shape.kind === 'path' ? 'path' :
+      shape.kind === 'polyline' ? 'polyline' :
+      shape.kind === 'rect' ? 'rect' :
+      shape.kind === 'polygon' ? 'polygon' :
+      'path'
+    );
 
-    if (shape === 'rect') {
-      const w = hexSize * 1.5, h = Math.sqrt(3) * hexSize * 0.8;
-      const r = document.createElementNS(svgNS, 'rect');
-      r.setAttribute('x', (-w/2).toFixed(2));
-      r.setAttribute('y', (-h/2).toFixed(2));
-      r.setAttribute('width',  w.toFixed(2));
-      r.setAttribute('height', h.toFixed(2));
-      r.setAttribute('class', 'body');
-      r.setAttribute('fill', fill);
-      g.appendChild(r);
-    } else if (shape === 'circ') {
-      const c = document.createElementNS(svgNS, 'circle');
-      c.setAttribute('r', (hexSize * 0.9).toFixed(2));
-      c.setAttribute('class', 'body');
-      c.setAttribute('fill', fill);
-      g.appendChild(c);
-    } else {
-      const p = document.createElementNS(svgNS, 'polygon');
-      p.setAttribute('points', ptsToString(hexPointsArray(0, 0, hexSize * 0.98)));
-      p.setAttribute('class', 'body');
-      p.setAttribute('fill', fill);
-      g.appendChild(p);
-    }
+    if (shape.d) el.setAttribute('d', shape.d);
+    if (shape.points) el.setAttribute('points', shape.points.map(p => p.join(',')).join(' '));
+    if (shape.w) el.setAttribute('width', shape.w);
+    if (shape.h) el.setAttribute('height', shape.h);
+    if (shape.x) el.setAttribute('x', shape.x);
+    if (shape.y) el.setAttribute('y', shape.y);
+    if (shape.rx) el.setAttribute('rx', shape.rx);
+    if (shape.fill) el.setAttribute('fill', shape.fill);
+    if (shape.stroke) el.setAttribute('stroke', shape.stroke);
+    if (shape.sw) el.setAttribute('stroke-width', (shape.sw * hexSize).toFixed(2));
+    g.appendChild(el);
+  });
+}
+
 
     // selection ring
     const hit = document.createElementNS(svgNS, 'polygon');
@@ -3340,6 +3340,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
