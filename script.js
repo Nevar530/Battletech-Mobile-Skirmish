@@ -366,7 +366,7 @@ function serializeState(){
       height: Number.isFinite(s.height) ? s.height : 0,
       type: s.type || '',
       name: s.name || '',
-      fill: s.fill || ''
+      fill: s.fill || '',
       shapes: Array.isArray(s.shapes) ? s.shapes : []
     })),
     mechMeta: metaMap,
@@ -3369,6 +3369,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
