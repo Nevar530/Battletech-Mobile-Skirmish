@@ -2399,7 +2399,7 @@ structures = Array.isArray(obj.structures) ? obj.structures.map(s => ({
   height: Number.isFinite(s.height) ? s.height : 0,
   type: String(s.type || ''),
   name: String(s.name || ''),
-  fill: String(s.fill || '')
+  fill: String(s.fill || ''),
   shapes: Array.isArray(s.shapes) ? s.shapes : []
 })) : [];
 
@@ -3369,6 +3369,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
