@@ -794,22 +794,6 @@ structures.forEach(s => {
       g.appendChild(el);
     });
   }
-
-  // selection ring
-  const hit = document.createElementNS(svgNS, 'polygon');
-  hit.setAttribute('points', ptsToString(hexPointsArray(0, 0, hexSize * 1.05)));
-  hit.setAttribute('class', 'hit');
-  g.appendChild(hit);
-
-  // optional name
-  if (s.name) {
-    const t = document.createElementNS(svgNS, 'text');
-    t.setAttribute('class','lbl');
-    t.setAttribute('font-size', fontStruct);
-    t.textContent = s.name;
-    g.appendChild(t);
-  }
-
   gStructs.appendChild(g);
 });
 
@@ -3369,6 +3353,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
