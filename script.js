@@ -737,74 +737,80 @@ function render() {
   gLabels.replaceChildren();
   
   gStructs.replaceChildren();
-
-  
-
-
-    // selection ring
-    const hit = document.createElementNS(svgNS, 'polygon');
-    hit.setAttribute('points', ptsToString(hexPointsArray(0, 0, hexSize * 1.05)));
-    hit.setAttribute('class', 'hit');
-    g.appendChild(hit);
-
-    // optional name
-    if (s.name) {
-      const t = document.createElementNS(svgNS, 'text');
-      t.setAttribute('class','lbl');
-      t.setAttribute('font-size', fontStruct);
-      t.textContent = s.name;
-      g.appendChild(t);
-    }
-
-    gStructs.appendChild(g);
-  });
+ 
 
   gTokens.replaceChildren();
-  gMeasure.replaceChildren();
+gMeasure.replaceChildren();
 
-  const size = hexSize;
-  const geom = new Map();
-  let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+const size = hexSize;
+const geom = new Map();
+let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
 
-// ===== Structures (single-hex footprint; scale + rotate about hex center)
-  const fontStruct = Math.max(10, hexSize * 0.18);
-  structures.forEach(s => {
-    const ctr = geom.get(key(s.q, s.r));
-    if (!ctr) return;
-    const g = document.createElementNS(svgNS, 'g');
-    g.setAttribute('class', 'structure' + (s.id === selectedStructureId ? ' selected' : ''));
-    g.setAttribute('transform', `translate(${ctr.x},${ctr.y}) rotate(${s.angle||0}) scale(${s.scale||1})`);
-    g.dataset.id = s.id;
+// 1) Build geometry map first
+tiles.forEach(t => {
+  const {x,y} = offsetToPixel(t.q,t.r,size);
+  const ptsStr = ptsToString(hexPointsArray(x,y,size));
+  geom.set(key(t.q,t.r), {x,y,ptsStr});
+  minX = Math.min(minX, x - size);
+  minY = Math.min(minY, y - size);
+  maxX = Math.max(maxX, x + size);
+  maxY = Math.max(maxY, y + size);
+});
 
-    // geometric body (fits the hex by default)
-    const shape = (s.type && s.type.toLowerCase().includes('rect')) || (s.name && s.name.toLowerCase().includes('square')) ? 'rect'
-                 : (s.type && s.type.toLowerCase().includes('circ')) || (s.name && s.name.toLowerCase().includes('circle')) ? 'circ'
-                 : 'hex';
+// 2) Now draw structures (geom is ready)
+const fontStruct = Math.max(10, hexSize * 0.18);
+structures.forEach(s => {
+  const ctr = geom.get(key(s.q, s.r));
+  if (!ctr) return;
 
-    // if s.shapes exists (from catalog)
-if (Array.isArray(s.shapes)) {
-  s.shapes.forEach(shape => {
-    const el = document.createElementNS(svgNS,
-      shape.kind === 'path' ? 'path' :
-      shape.kind === 'polyline' ? 'polyline' :
-      shape.kind === 'rect' ? 'rect' :
-      shape.kind === 'polygon' ? 'polygon' :
-      'path'
-    );
+  const g = document.createElementNS(svgNS, 'g');
+  g.setAttribute('class', 'structure' + (s.id === selectedStructureId ? ' selected' : ''));
+  g.setAttribute('transform', `translate(${ctr.x},${ctr.y}) rotate(${s.angle||0}) scale(${s.scale||1})`);
+  g.dataset.id = s.id;
 
-    if (shape.d) el.setAttribute('d', shape.d);
-    if (shape.points) el.setAttribute('points', shape.points.map(p => p.join(',')).join(' '));
-    if (shape.w) el.setAttribute('width', shape.w);
-    if (shape.h) el.setAttribute('height', shape.h);
-    if (shape.x) el.setAttribute('x', shape.x);
-    if (shape.y) el.setAttribute('y', shape.y);
-    if (shape.rx) el.setAttribute('rx', shape.rx);
-    if (shape.fill) el.setAttribute('fill', shape.fill);
-    if (shape.stroke) el.setAttribute('stroke', shape.stroke);
-    if (shape.sw) el.setAttribute('stroke-width', (shape.sw * hexSize).toFixed(2));
-    g.appendChild(el);
-  });
-}
+  // if s.shapes exists (from catalog)
+  if (Array.isArray(s.shapes)) {
+    s.shapes.forEach(shape => {
+      const el = document.createElementNS(svgNS,
+        shape.kind === 'path' ? 'path' :
+        shape.kind === 'polyline' ? 'polyline' :
+        shape.kind === 'rect' ? 'rect' :
+        shape.kind === 'polygon' ? 'polygon' :
+        'path'
+      );
+
+      if (shape.d) el.setAttribute('d', shape.d);
+      if (shape.points) el.setAttribute('points', shape.points.map(p => p.join(',')).join(' '));
+      if (shape.w) el.setAttribute('width', shape.w);
+      if (shape.h) el.setAttribute('height', shape.h);
+      if (shape.x) el.setAttribute('x', shape.x);
+      if (shape.y) el.setAttribute('y', shape.y);
+      if (shape.rx) el.setAttribute('rx', shape.rx);
+      if (shape.fill) el.setAttribute('fill', shape.fill);
+      if (shape.stroke) el.setAttribute('stroke', shape.stroke);
+      if (shape.sw) el.setAttribute('stroke-width', (shape.sw * hexSize).toFixed(2));
+      g.appendChild(el);
+    });
+  }
+
+  // selection ring
+  const hit = document.createElementNS(svgNS, 'polygon');
+  hit.setAttribute('points', ptsToString(hexPointsArray(0, 0, hexSize * 1.05)));
+  hit.setAttribute('class', 'hit');
+  g.appendChild(hit);
+
+  // optional name
+  if (s.name) {
+    const t = document.createElementNS(svgNS, 'text');
+    t.setAttribute('class','lbl');
+    t.setAttribute('font-size', fontStruct);
+    t.textContent = s.name;
+    g.appendChild(t);
+  }
+
+  gStructs.appendChild(g);
+});
+
 
   tiles.forEach(t => {
     const {x,y} = offsetToPixel(t.q,t.r,size);
@@ -1299,8 +1305,13 @@ let STRUCTURE_CATALOG = {};
     for (const d of data.defs) {
       if (typeMap[d.type]) typeMap[d.type].defs.push(d);
     }
-    STRUCTURE_CATALOG = typeMap;
+        STRUCTURE_CATALOG = typeMap;
+
+    // now that the catalog is ready, refresh the dropdowns
+    if (typeof initStructurePickers === 'function') initStructurePickers();
+
     console.info('[Structures] catalog loaded:', STRUCTURE_CATALOG);
+
   } catch (e) {
     console.error('[Structures] failed to load catalog.json', e);
   }
@@ -3342,6 +3353,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
