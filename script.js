@@ -1209,12 +1209,12 @@ function rectToPolyHex(sh){
   const x = Number(sh.x)||0, y = Number(sh.y)||0;
   const w = Number(sh.w)||0, h = Number(sh.h)||0;
   // your rects are authored with (x,y) top-left; convert to 4 corners
-  return [
-    { x,     y     },
-    { x+w,   y     },
-    { x+w,   y+h   },
-    { x,     y+h   }
-  ];
+return [
+  { x: x,       y: y       },
+  { x: x + w,   y: y       },
+  { x: x + w,   y: y + h   },
+  { x: x,       y: y + h   }
+];
 }
 
 // apply per-shape transform (tx,ty,rot,s) and group rotation (s.angle) in HEX units
@@ -3652,6 +3652,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
