@@ -770,30 +770,77 @@ structures.forEach(s => {
   g.dataset.id = s.id;
 
   // if s.shapes exists (from catalog)
-  if (Array.isArray(s.shapes)) {
-    s.shapes.forEach(shape => {
-      const el = document.createElementNS(svgNS,
-        shape.kind === 'path' ? 'path' :
-        shape.kind === 'polyline' ? 'polyline' :
-        shape.kind === 'rect' ? 'rect' :
-        shape.kind === 'polygon' ? 'polygon' :
-        'path'
-      );
+if (Array.isArray(s.shapes)) {
+  s.shapes.forEach(shape => {
+    const tag = (
+      shape.kind === 'rect'     ? 'rect'     :
+      shape.kind === 'polygon'  ? 'polygon'  :
+      shape.kind === 'polyline' ? 'polyline' :
+      shape.kind === 'path'     ? 'path'     :
+      shape.kind === 'circle'   ? 'circle'   :
+      shape.kind === 'ellipse'  ? 'ellipse'  :
+      'path'
+    );
 
-      if (shape.d) el.setAttribute('d', shape.d);
-      if (shape.points) el.setAttribute('points', shape.points.map(p => p.join(',')).join(' '));
-      if (shape.w) el.setAttribute('width', shape.w);
-      if (shape.h) el.setAttribute('height', shape.h);
-      if (shape.x) el.setAttribute('x', shape.x);
-      if (shape.y) el.setAttribute('y', shape.y);
-      if (shape.rx) el.setAttribute('rx', shape.rx);
-            if (shape.r)  el.setAttribute('r',  shape.r);
-      if (shape.fill) el.setAttribute('fill', shape.fill);
-      if (shape.stroke) el.setAttribute('stroke', shape.stroke);
-            if (shape.sw) el.setAttribute('stroke-width', String(shape.sw));
-      g.appendChild(el);
-    });
-  }
+    const el = document.createElementNS(svgNS, tag);
+
+    // Geometry
+    if (shape.d && tag === 'path') el.setAttribute('d', shape.d);
+    if (shape.points && (tag === 'polygon' || tag === 'polyline')) {
+      el.setAttribute('points', shape.points.map(p => p.join(',')).join(' '));
+    }
+
+    // Rect
+    if (tag === 'rect') {
+      if (Number.isFinite(shape.w)) el.setAttribute('width',  String(shape.w));
+      if (Number.isFinite(shape.h)) el.setAttribute('height', String(shape.h));
+      // allow centered rects
+      let x = Number(shape.x) || 0;
+      let y = Number(shape.y) || 0;
+      if (shape.autoCenter && Number.isFinite(shape.w) && Number.isFinite(shape.h)) {
+        x -= shape.w / 2;
+        y -= shape.h / 2;
+      }
+      el.setAttribute('x', String(x));
+      el.setAttribute('y', String(y));
+      if (Number.isFinite(shape.rx)) el.setAttribute('rx', String(shape.rx));
+    }
+
+    // Circle / Ellipse
+    if (tag === 'circle') {
+      el.setAttribute('cx', String(Number(shape.cx) || 0));
+      el.setAttribute('cy', String(Number(shape.cy) || 0));
+      if (Number.isFinite(shape.r)) el.setAttribute('r', String(shape.r));
+    }
+    if (tag === 'ellipse') {
+      el.setAttribute('cx', String(Number(shape.cx) || 0));
+      el.setAttribute('cy', String(Number(shape.cy) || 0));
+      if (Number.isFinite(shape.rx)) el.setAttribute('rx', String(shape.rx));
+      if (Number.isFinite(shape.ry)) el.setAttribute('ry', String(shape.ry));
+    }
+
+    // Common styling (inline so it beats inherited rules)
+    if (shape.fill)   el.setAttribute('fill',   shape.fill);
+    if (shape.stroke) el.setAttribute('stroke', shape.stroke);
+    if (Number.isFinite(shape.sw)) el.setAttribute('stroke-width', String(shape.sw));
+
+    // Per-shape transform: tx/ty/rot/scale (in HEX units; group is already scaled by hexSize)
+    const tTX   = Number(shape.tx) || 0;
+    const tTY   = Number(shape.ty) || 0;
+    const tRot  = Number(shape.rot) || 0;   // degrees
+    const tScl  = Number(shape.s) || 1;     // multiplier
+    // Keep attribute transforms separate from the group’s translate/rotate/scale
+    // because the group already does: translate(center) rotate(angle) scale(hexSize*structureScale)
+    const parts = [];
+    if (tTX || tTY) parts.push(`translate(${tTX},${tTY})`);
+    if (tRot)       parts.push(`rotate(${tRot})`);
+    if (tScl !== 1) parts.push(`scale(${tScl})`);
+    if (parts.length) el.setAttribute('transform', parts.join(' '));
+
+    g.appendChild(el);
+  });
+}
+
   gStructs.appendChild(g);
 });
 
@@ -3436,3 +3483,4 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
