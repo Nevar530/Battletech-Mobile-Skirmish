@@ -828,10 +828,23 @@ if (Array.isArray(s.shapes)) {
       if (shape.ry) el.setAttribute('ry', shape.ry);
     }
 
-    // COLORS
-    if (shape.fill)   el.setAttribute('fill', shape.fill);
-    if (shape.stroke) el.setAttribute('stroke', shape.stroke);
-    if (shape.sw)     el.setAttribute('stroke-width', shape.sw);
+   // === COLOR & STROKE HANDLING (with non-scaling stroke fix) ===
+if (shape.fill) el.setAttribute('fill', shape.fill);
+if (shape.stroke) el.setAttribute('stroke', shape.stroke);
+
+// Only apply stroke-width if the shape defines one
+if (shape.stroke || Number.isFinite(shape.sw)) {
+  // Determine base width in hex units from catalog (e.g., 0.02)
+  const swHex = Number(shape.sw) || 0.02;
+
+  // Convert to pixels based on your current hexSize, but lock it visually
+  // so it doesn’t scale up/down with zoom or structure size
+  const pxWidth = Math.max(0.5, swHex * hexSize);
+
+  el.setAttribute('vector-effect', 'non-scaling-stroke');
+  el.setAttribute('stroke-width', pxWidth.toFixed(2));
+}
+
 
     // PER-SHAPE TRANSFORM
     const tTX  = Number(shape.tx) || 0;
@@ -3492,5 +3505,6 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
