@@ -7,6 +7,55 @@
   ],
   "defs": [
     {
+  "id": "hall_1",
+  "name": "Hall 1",
+  "type": "bldg",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 2,
+  "footprint": [],
+  "shapes": [
+    {
+      "kind": "path",
+      "d": "M -0.9305555820465088 1.3055555820465088 L -0.2907615517737753 2.4137113488581434 L 0.40322186096499213 2.4137113488581434 L 0.9983631672580804 1.3828963686756035 L -0.9311922302239939 1.3828963686756033",
+      "tx": 0,
+      "ty": 0,
+      "fill": "#858585",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 3.5,
+      "h": 3,
+      "x": -1.75,
+      "y": -1.5,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#858585",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 1,
+      "h": 3,
+      "x": -0.5,
+      "y": -1.5,
+      "rx": 1,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0.5,
+      "fill": "#bdbcbc",
+      "stroke": "#080808",
+      "sw": 0.02
+    }
+  ]
+},
+    {
   "id": "gen_1",
   "name": "Generator 1",
   "type": "objectives",
