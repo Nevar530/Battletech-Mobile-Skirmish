@@ -1178,6 +1178,137 @@ function cubeLine(a,b){ const N=Math.max(1,cubeDistance(a,b)); const out=[]; for
 function cubeToOffset(c){ const q=c.x; const r=c.z + ((c.x - (c.x&1))>>1); return {q,r}; }
 function tileCenter(q,r){ const p=offsetToPixel(q,r,hexSize); return {x:p.x, y:p.y}; }
 
+/* ===== Structures → LoS cache (hex → height) ===== */
+const StructLOS = {
+  grid: new Map(),                              // "q,r" -> height
+  key(q,r){ return `${q},${r}`; },
+  get(q,r){ return this.grid.get(this.key(q,r)) || 0; },
+  set(q,r,h){
+    const k = this.key(q,r);
+    const prev = this.grid.get(k) || 0;
+    if (h > prev) this.grid.set(k, h);
+  },
+  clear(){ this.grid.clear(); }
+};
+
+// simple point-in-polygon in world px
+function pointInPoly(pt, poly){
+  let inside = false;
+  for (let i=0, j=poly.length-1; i<poly.length; j=i++){
+    const xi = poly[i].x, yi = poly[i].y;
+    const xj = poly[j].x, yj = poly[j].y;
+    const intersect = ((yi > pt.y) !== (yj > pt.y)) &&
+      (pt.x < (xj - xi) * (pt.y - yi) / ((yj - yi) || 1e-9) + xi);
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
+
+// local-shape → polygon (hex units). Rects only (your catalog uses rects).
+function rectToPolyHex(sh){
+  const x = Number(sh.x)||0, y = Number(sh.y)||0;
+  const w = Number(sh.w)||0, h = Number(sh.h)||0;
+  // your rects are authored with (x,y) top-left; convert to 4 corners
+  return [
+    { x,     y     },
+    { x+w,   y     },
+    { x+w,   y+h   },
+    { x,     y+h   }
+  ];
+}
+
+// apply per-shape transform (tx,ty,rot,s) and group rotation (s.angle) in HEX units
+function transformPolyHex(poly, sh, s){
+  const tx  = Number(sh.tx)||0, ty = Number(sh.ty)||0;
+  const rot = (Number(sh.rot)||0) * Math.PI / 180;
+  const scl = Number(sh.s)||1;
+  const gRot = (Number(s.angle)||0) * Math.PI / 180;
+
+  const out = [];
+  for (const p of poly){
+    // local scale
+    let x = p.x * scl, y = p.y * scl;
+    // local rot
+    if (rot){
+      const xr = x*Math.cos(rot) - y*Math.sin(rot);
+      const yr = x*Math.sin(rot) + y*Math.cos(rot);
+      x = xr; y = yr;
+    }
+    // local translate
+    x += tx; y += ty;
+    // group rot about (0,0) because render translates to center later
+    if (gRot){
+      const xr = x*Math.cos(gRot) - y*Math.sin(gRot);
+      const yr = x*Math.sin(gRot) + y*Math.cos(gRot);
+      x = xr; y = yr;
+    }
+    out.push({ x, y });
+  }
+  return out;
+}
+
+// Rebuilds the hex→height cache from current structures and their SHAPES
+function rebuildStructLOSCache(){
+  StructLOS.clear();
+  const placed = structures || [];
+  if (!placed.length) return;
+
+  for (const s of placed){
+    const height = Number(s.height)||0;
+    if (height <= 0) continue;
+
+    // get world center (pixels) for the anchor hex
+    const ctr = offsetToPixel(s.q, s.r, hexSize);
+    const cx = ctr.x, cy = ctr.y;
+
+    // collect polygons in world px from rect shapes only (ignore .hit)
+    const polysWorld = [];
+    const shapes = Array.isArray(s.shapes) ? s.shapes : [];
+    for (const sh of shapes){
+      if (sh.hit) continue;
+      if (sh.kind !== 'rect') continue;         // your sample defs use rects
+      if (!Number(sh.w) || !Number(sh.h)) continue;
+
+      // polygon in hex units (around local origin), apply transforms
+      const polyHex = transformPolyHex(rectToPolyHex(sh), sh, s);
+      // convert hex-units → world px by scaling with hexSize and translating to center
+      const polyWorld = polyHex.map(p => ({ x: cx + p.x*hexSize, y: cy + p.y*hexSize }));
+      polysWorld.push(polyWorld);
+    }
+    if (!polysWorld.length) continue;
+
+    // compute world AABB to bound candidate hexes
+    let minX=Infinity, minY=Infinity, maxX=-Infinity, maxY=-Infinity;
+    for (const poly of polysWorld){
+      for (const p of poly){
+        if (p.x < minX) minX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y > maxY) maxY = p.y;
+      }
+    }
+    // expand a bit for edges
+    minX -= hexSize; minY -= hexSize; maxX += hexSize; maxY += hexSize;
+
+    // iterate hex centers overlapped by that AABB
+    for (let r=0; r<rows; r++){
+      for (let q=0; q<cols; q++){
+        const c = offsetToPixel(q, r, hexSize);           // center (px)
+        if (c.x < minX || c.x > maxX || c.y < minY || c.y > maxY) continue;
+
+        // if the hex center is inside ANY polygon, mark that hex with this structure height
+        for (const polyW of polysWorld){
+          if (pointInPoly({x:c.x, y:c.y}, polyW)){
+            StructLOS.set(q, r, height);
+            break;
+          }
+        }
+      }
+    }
+  }
+}
+
+
 /* ---------- LOS ---------- */
 function recomputeLOS(){
   gLos.replaceChildren(); gLosRays.replaceChildren();
@@ -1217,9 +1348,11 @@ function recomputeLOS(){
         const midT   = tiles.get(key(midOff.q, midOff.r));
         const ground = getHexHeight(midOff.q, midOff.r);
 
-        // cover adds to the blocking top
-        const covIdx   = midT?.coverIndex ?? 0;
-        const blockTop = ground + (COVER_BLOCK_HEIGHT[covIdx] || 0);
+// cover + structure height at this hex
+const covIdx  = midT?.coverIndex ?? 0;
+const structH = StructLOS.get(midOff.q, midOff.r);
+const blockTop = ground + (COVER_BLOCK_HEIGHT[covIdx] || 0) + structH;
+
 
         // param along segment; if cubeLine doesn't carry t, use i/(N-1)
         const tParam = i / (line.length - 1);
@@ -1427,8 +1560,10 @@ function rotateSelectedStructure(dir){
   const s = structures.find(x => x.id === selectedStructureId);
   if (!s) return;
   const step = s.rotateStep || 60;  // default 60° if not in catalog
-  s.angle = ((s.angle || 0) + dir * step + 360) % 360;
-  requestRender(); saveLocal();
+s.angle = ((s.angle || 0) + dir * step + 360) % 360;
+rebuildStructLOSCache();
+requestRender(); saveLocal();
+if (losActive && losSource) recomputeLOS();
 }
 btnStructRotL?.addEventListener('click', () => rotateSelectedStructure(-1));
 btnStructRotR?.addEventListener('click', () => rotateSelectedStructure(1));
@@ -1596,10 +1731,13 @@ if (structTool === 'place') {
   const shapes = Array.isArray(cat.shapes) ? cat.shapes.map(x => JSON.parse(JSON.stringify(x))) : [];
   const height = Number.isFinite(cat.height) ? cat.height : 0;
   const rotateStep = Number.isFinite(cat.rotateStep) ? cat.rotateStep : 60;
-  structures.push({ id, q, r, angle, scale: 1, height, type, name, fill, shapes, rotateStep });
-  selectedStructureId = id;
-  requestRender(); saveLocal();
-  return;
+structures.push({ id, q, r, angle, scale: 1, height, type, name, fill, shapes, rotateStep });
+selectedStructureId = id;
+rebuildStructLOSCache();
+requestRender(); saveLocal();
+if (losActive && losSource) recomputeLOS();
+return;
+
 }
 
 
@@ -1617,6 +1755,9 @@ if (structTool === 'delete') {
       if (structures.length !== before) {
         console.info('[Structures] Deleted by click', id);
         requestRender(); saveLocal();
+        rebuildStructLOSCache();
+if (losActive && losSource) recomputeLOS();
+
         // exit delete mode on success
         structTool = '';
         [btnStructSelect, btnStructPlace, btnStructDelete].forEach(b=>{
@@ -1648,6 +1789,9 @@ if (structTool === 'delete') {
       if (selectedStructureId === id) selectedStructureId = null;
       console.info('[Structures] Deleted by hex fallback', id);
       requestRender(); saveLocal();
+      rebuildStructLOSCache();
+if (losActive && losSource) recomputeLOS();
+
       // exit delete mode on success
       structTool = '';
       [btnStructSelect, btnStructPlace, btnStructDelete].forEach(b=>{
@@ -1821,7 +1965,9 @@ if (structureDragId) {
   document.body.style.userSelect = '';
   dragStartPt = null;
   try { svg.releasePointerCapture(e.pointerId); } catch {}
+  rebuildStructLOSCache();
   saveLocal();
+  if (losActive && losSource) recomputeLOS();
   return;
 }
 
@@ -2562,8 +2708,9 @@ structures = Array.isArray(obj.structures) ? obj.structures.map(s => ({
 
     renderMechList();
     renderInit();
-    requestRender();
-    if (losActive) recomputeLOS();
+rebuildStructLOSCache();
+requestRender();
+if (losActive) recomputeLOS();
     
     // Apply incoming per-token sheets (push-to-talk)
     if (obj && obj.sheets && typeof obj.sheets === 'object'){
@@ -3505,6 +3652,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
