@@ -818,7 +818,7 @@ if (Array.isArray(s.shapes)) {
       if (shape.rx != null) {
     el.setAttribute('rx', shape.rx);
     el.setAttribute('ry', shape.ry ?? shape.rx);
-    }
+    }}
     if (tag === 'circle') {
       el.setAttribute('cx', Number(shape.cx) || 0);
       el.setAttribute('cy', Number(shape.cy) || 0);
@@ -3655,6 +3655,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
