@@ -700,9 +700,17 @@ function setBtnToggleState(btn, on){
 }
 function updateHitMask() {
   const v = (losActive || measureMode) ? 'none' : 'auto';
-  if (gStructs) gStructs.style.pointerEvents = v;
+
+  // tokens + labels (container is enough)
   if (gTokens)  gTokens.style.pointerEvents  = v;
   if (gLabels)  gLabels.style.pointerEvents  = v;
+
+  // structures: disable on container AND all descendants (SVG does not inherit pointer-events)
+  if (gStructs) {
+    gStructs.style.pointerEvents = v;
+    const kids = gStructs.querySelectorAll('*');
+    for (const k of kids) k.style.pointerEvents = v;
+  }
 }
 if (btnLOS) {
   btnLOS.addEventListener('click', () => {
@@ -3665,6 +3673,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
