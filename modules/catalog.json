@@ -7,6 +7,98 @@
   ],
   "defs": [
     {
+  "id": "bldg_step",
+  "name": "Step Building 1",
+  "type": "bldg",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 1,
+  "footprint": [],
+  "shapes": [
+    {
+      "kind": "rect",
+      "w": 0.2,
+      "h": 0.6,
+      "x": -0.1,
+      "y": -0.3,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": -0.4,
+      "ty": -0.3,
+      "fill": "#11135f",
+      "stroke": "#7994af",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 0.4,
+      "h": 0.4,
+      "x": -0.2,
+      "y": -0.2,
+      "rx": 1,
+      "autoCenter": true,
+      "tx": 0.7,
+      "ty": 0.4,
+      "fill": "#38424c",
+      "stroke": "#cfcfcf",
+      "sw": 0.02
+    },
+    {
+      "kind": "polygon",
+      "points": [
+        [
+          -0.5,
+          -0.75
+        ],
+        [
+          0.5,
+          -0.75
+        ],
+        [
+          1.35,
+          0.75
+        ],
+        [
+          -1.35,
+          0.75
+        ]
+      ],
+      "tx": 0,
+      "ty": 0,
+      "fill": "#3f4a55",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "polygon",
+      "points": [
+        [
+          -0.5,
+          -0.85
+        ],
+        [
+          0.5,
+          -0.85
+        ],
+        [
+          1.5,
+          0.85
+        ],
+        [
+          -1.5,
+          0.85
+        ]
+      ],
+      "tx": 0,
+      "ty": 0,
+      "fill": "#9199a1",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    }
+  ]
+},
+    {
   "id": "hall_1",
   "name": "Hall 1",
   "type": "bldg",
