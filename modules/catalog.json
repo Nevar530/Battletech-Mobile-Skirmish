@@ -7,6 +7,76 @@
   ],
   "defs": [
     {
+  "id": "bldg_test",
+  "name": "test",
+  "type": "bldg",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 1,
+  "footprint": [],
+  "shapes": [
+    {
+      "kind": "polyline",
+      "points": [
+        [
+          -1.5,
+          -0.25
+        ],
+        [
+          0.5,
+          -0.25
+        ]
+      ],
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.1
+    },
+    {
+      "kind": "polygon",
+      "points": [
+        [
+          -0.5,
+          -1.5
+        ],
+        [
+          0.5,
+          -0.5
+        ],
+        [
+          0.5,
+          0.5
+        ],
+        [
+          -0.5,
+          0.5
+        ]
+      ],
+      "tx": 0,
+      "ty": 0,
+      "fill": "#0080ff",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    },
+    {
+      "kind": "rect",
+      "w": 1,
+      "h": 1,
+      "x": -0.5,
+      "y": -0.5,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02
+    }
+  ]
+},
+    {
   "id": "bldg_step",
   "name": "Step Building 1",
   "type": "bldg",
