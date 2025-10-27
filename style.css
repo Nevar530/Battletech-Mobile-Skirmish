@@ -598,3 +598,14 @@ html, body, #wrap { height:100%; background:#0b0f14; }
     display: none !important;
   }
 }
+
+/* ===== Click-through during LoS/Measure ===== */
+svg.hitmask-map #world-structures,
+svg.hitmask-map #world-structures * ,
+svg.hitmask-map #world-tokens,
+svg.hitmask-map #world-tokens * ,
+svg.hitmask-map #world-labels,
+svg.hitmask-map #world-labels * {
+  pointer-events: none !important;
+}
+
