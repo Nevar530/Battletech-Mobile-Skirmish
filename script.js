@@ -698,26 +698,28 @@ function setBtnToggleState(btn, on){
   btn.setAttribute('aria-pressed', on ? 'true' : 'false');
   if (on) btn.classList.add('active'); else btn.classList.remove('active');
 }
+
 function updateHitMask() {
-  const v = (losActive || measureMode) ? 'none' : 'auto';
-
-  // tokens + labels (container is enough)
-  if (gTokens)  gTokens.style.pointerEvents  = v;
-  if (gLabels)  gLabels.style.pointerEvents  = v;
-
-  // structures: disable on container AND all descendants (SVG does not inherit pointer-events)
-  if (gStructs) {
-    gStructs.style.pointerEvents = v;
-    const kids = gStructs.querySelectorAll('*');
-    for (const k of kids) k.style.pointerEvents = v;
-  }
+  const on = (losActive || measureMode);
+  svg.classList.toggle('hitmask-map', on);
 }
+
+function _clearInlinePointerEventsOnce() {
+  const sels = [
+    '#world-structures', '#world-structures *',
+    '#world-tokens',     '#world-tokens *',
+    '#world-labels',     '#world-labels *'
+  ];
+  const nodes = svg.querySelectorAll(sels.join(','));
+  for (const n of nodes) n.style.pointerEvents = '';
+}
+
 if (btnLOS) {
   btnLOS.addEventListener('click', () => {
     losActive = !losActive;
     setBtnToggleState(btnLOS, losActive);
     if (!losActive) clearLOS();
-        updateHitMask();  // let hex clicks pass through during LOS
+    updateHitMask();  // allow hex clicks when LoS active
   });
 }
 if (btnMeasure) {
@@ -729,7 +731,9 @@ if (btnMeasure) {
 
   });
 }
+_clearInlinePointerEventsOnce();
 updateHitMask();
+
 
 /* ---------- Build & Render ---------- */
 function initTiles() {
@@ -3673,6 +3677,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
