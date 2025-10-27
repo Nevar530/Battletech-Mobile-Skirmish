@@ -815,6 +815,9 @@ if (Array.isArray(s.shapes)) {
       el.setAttribute('y', y);
       if (shape.w) el.setAttribute('width', shape.w);
       if (shape.h) el.setAttribute('height', shape.h);
+      if (shape.rx != null) {
+    el.setAttribute('rx', shape.rx);
+    el.setAttribute('ry', shape.ry ?? shape.rx);
     }
     if (tag === 'circle') {
       el.setAttribute('cx', Number(shape.cx) || 0);
@@ -3652,6 +3655,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
