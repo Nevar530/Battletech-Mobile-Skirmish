@@ -243,10 +243,11 @@ svg{
 }
 .structure.selected .hit { opacity: 0.9; }
 .structure .body {
-  fill: #c9d2e0;                /* default fill; per-item color can override */
-  stroke: #00000088;
-  stroke-width: 1.5px;
+  fill: inherit;
+  stroke: inherit;
+  stroke-width: inherit;
 }
+
 
 
 /* ---------- Measure overlay ---------- */
