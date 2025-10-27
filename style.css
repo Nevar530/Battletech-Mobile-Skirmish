@@ -243,9 +243,6 @@ svg{
 }
 .structure.selected .hit { opacity: 0.9; }
 .structure .body {
-  fill: inherit;
-  stroke: inherit;
-  stroke-width: inherit;
 }
 
 
