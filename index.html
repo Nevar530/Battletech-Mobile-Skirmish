@@ -9,6 +9,13 @@
 
   gtag('config', 'G-4VK9JQ488B');
 </script>
+<script>
+  function track(ev, params){ try{ gtag('event', ev, params||{}); }catch(e){} }
+  gtag('set', 'user_properties', { app: 'MSS:84' });
+  gtag('config', 'G-4VK9JQ488B', { page_title: 'MSS:84 - Mobile Skirmish System' });
+</script>
+
+  
 <head>
   <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#f0b000">
@@ -676,5 +683,103 @@ Flechs Sheets is a separate fan-made project by BisonAIs and is embedded here fo
   }
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hook = (id, ev, name, extra={}) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(ev, () => track(name, extra));
+  };
+
+  // ==== Toolbar buttons ====
+  hook('btnUndo','click','undo_click');
+  hook('btnRedo','click','redo_click');
+  hook('btnZoomIn','click','zoom_in');
+  hook('btnZoomOut','click','zoom_out');
+  hook('btnRecenter','click','recenter_click');
+  hook('fsBtn','click','fullscreen_toggle');
+  hook('btnHelp','click','help_open');
+  hook('exportJson','click','export_json');
+  hook('importJsonBtn','click','import_json');
+  hook('btnToggleLOS','click','toggle_los');
+  hook('btnToggleMeasure','click','toggle_measure');
+  hook('toggleLeft','click','toggle_left_panel');
+  hook('toggleRight','click','toggle_right_panel');
+  hook('btn-online','click','online_click');
+  hook('btnSend','click','send_snapshot');
+  hook('btnOpenGator','click','open_gator');
+
+  // ==== Structures ====
+  hook('btnStructPlace','click','struct_place');
+  hook('btnStructSelect','click','struct_select');
+  hook('btnStructRotL','click','struct_rotate_left');
+  hook('btnStructRotR','click','struct_rotate_right');
+  hook('btnStructDelete','click','struct_delete');
+
+  // ==== Map editor ====
+  hook('btnSelect','click','map_mode',{mode:'select'});
+  hook('btnHeight','click','map_mode',{mode:'height'});
+  hook('btnTerrain','click','map_mode',{mode:'terrain'});
+  hook('btnCover','click','map_mode',{mode:'cover'});
+  hook('btnClearTile','click','map_mode',{mode:'clear'});
+  hook('btnPaintFixed','click','paint_fixed');
+  hook('btnClearFixed','click','paint_clear');
+  hook('regen','click','grid_regen');
+  hook('clear','click','grid_clear');
+  hook('presets','change','map_preset_change');
+
+  // ==== Right panel ====
+  hook('btnAddMech','click','add_mech');
+  hook('btnRollInitAll','click','roll_initiative_all');
+  hook('btnClearInit','click','clear_initiative');
+  hook('btnNextTurn','click','next_turn');
+  hook('btnExportMechs','click','export_mechs');
+  hook('btnImportMechs','click','import_mechs');
+  hook('btnFlechsP1','click','open_flechs',{dock:'P1'});
+  hook('btnFlechsP2','click','open_flechs',{dock:'P2'});
+
+  // ==== Dice roller ====
+  document.querySelectorAll('[data-dice]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      track('dice_roll',{dice:btn.getAttribute('data-dice')});
+    });
+  });
+
+  // ==== Panels ====
+  ['closeLeft','closeRight','closeHelp'].forEach(id=>hook(id,'click','panel_close',{id}));
+
+  // ==== Map interactions ====
+  const svg = document.getElementById('svg');
+  if (svg){
+    svg.addEventListener('click', e => {
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX; pt.y = e.clientY;
+      const hexX = Math.round(pt.x);
+      const hexY = Math.round(pt.y);
+      track('map_click',{x:hexX,y:hexY,button:e.button});
+    });
+  }
+
+  // ==== Network state ====
+  window.addEventListener('net-ready', ()=>track('net_ready'));
+  window.addEventListener('net-sent', ()=>track('net_sent'));
+  window.addEventListener('net-received', (e)=>track('net_received',{sender:e.detail?.sender||'unknown'}));
+
+  // ==== Tokens ====
+  window.addEventListener('mss:token:add',  e=>track('token_add', {id:e.detail?.id||''}));
+  window.addEventListener('mss:token:move', e=>track('token_move',{id:e.detail?.id||''}));
+  window.addEventListener('mss:token:rot',  e=>track('token_rotate',{id:e.detail?.id||'',dir:e.detail?.dir||''}));
+  window.addEventListener('mss:token:del',  e=>track('token_delete',{id:e.detail?.id||''}));
+
+  // ==== Structures ====
+  window.addEventListener('mss:struct:add',  e=>track('struct_add',{id:e.detail?.id||''}));
+  window.addEventListener('mss:struct:rot',  e=>track('struct_rot',{id:e.detail?.id||''}));
+  window.addEventListener('mss:struct:del',  e=>track('struct_del',{id:e.detail?.id||''}));
+
+  // ==== Engagement milestones ====
+  track('app_ready');
+});
+</script>
+
+  
 </body>
 </html>
