@@ -698,11 +698,18 @@ function setBtnToggleState(btn, on){
   btn.setAttribute('aria-pressed', on ? 'true' : 'false');
   if (on) btn.classList.add('active'); else btn.classList.remove('active');
 }
+function updateHitMask() {
+  const v = (losActive || measureMode) ? 'none' : 'auto';
+  if (gStructs) gStructs.style.pointerEvents = v;
+  if (gTokens)  gTokens.style.pointerEvents  = v;
+  if (gLabels)  gLabels.style.pointerEvents  = v;
+}
 if (btnLOS) {
   btnLOS.addEventListener('click', () => {
     losActive = !losActive;
     setBtnToggleState(btnLOS, losActive);
     if (!losActive) clearLOS();
+        updateHitMask();  // let hex clicks pass through during LOS
   });
 }
 if (btnMeasure) {
@@ -710,8 +717,11 @@ if (btnMeasure) {
     measureMode = !measureMode;
     setBtnToggleState(btnMeasure, measureMode);
     if (!measureMode) { measureAnchor = null; clearMeasurement(); }
+        updateHitMask();  // let hex clicks pass through during Measure
+
   });
 }
+updateHitMask();
 
 /* ---------- Build & Render ---------- */
 function initTiles() {
@@ -3655,6 +3665,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
