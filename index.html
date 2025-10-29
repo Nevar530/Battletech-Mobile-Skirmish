@@ -528,6 +528,7 @@
 <script src="modules/compiler.js"></script>
 <script src="modules/sheet.js"></script>
 <script type="module" src="network.js"></script>
+  <script src="modules/turnlock.js"></script>
   <script type="module" src="modules/chat.js"></script>
   <script type="module" src="modules/battlelog.js"></script>
 
@@ -584,6 +585,14 @@
     setInterval(refreshNetUI, 2000);
     refreshNetUI();
 
+    // ---- TurnLock init (map-only blur/lock) ----
+    try {
+      // Your map surface is <main class="stage">…</main>
+      // Pass the selector so the module wraps and overlays THAT, not the whole app.
+      if (window.MSS_TurnLock) MSS_TurnLock.init({ stageSel: 'main.stage' });
+    } catch {}
+
+    
     // ===== Online join =====
     onlineBtn?.addEventListener('click', async () => {
       try {
@@ -619,7 +628,7 @@ function attachReceiver() {
       // NEW: update the pill with who sent it
       const sender = stateObj?.meta?.sender || 'Unknown';
       markReceived(sender);
-
+try { MSS_TurnLock.onSnapshot(stateObj); } catch {}
     } catch (e) { console.warn(e); }
   };
 }
@@ -635,8 +644,11 @@ function attachReceiver() {
         }
         const obj = JSON.parse(serializeState());
 
-        // NEW: add a tiny meta block so peer can show your name
-        obj.meta = { sender: net.user, ts: Date.now() };
+        // NEW: add/merge a tiny meta block so peer can show your name
+        obj.meta = Object.assign(obj.meta || {}, { sender: net.user, ts: Date.now() });
+
+        // TurnLock: flip active player AFTER this side transmits (walkie-talkie model)
+        try { MSS_TurnLock.onBeforeSend(obj.meta); } catch {}
 
         await Net.sendSnapshot(obj);
 
