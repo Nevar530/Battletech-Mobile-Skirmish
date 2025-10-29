@@ -3625,26 +3625,41 @@ window.getTokenLabelById = function(mapId, tokenId){
     };
   }
 
-  function wireSend() {
-    const btn = document.getElementById('btnSend');
-    if (!btn) return;
-    btn.addEventListener('click', async () => {
-      try {
-        if (!window.Net || typeof Net.sendSnapshot !== 'function') {
-          alert('Not online yet. Click Online and join a room first.');
-          return;
-        }
-        const obj = JSON.parse(serializeState());
-        const sheets = collectDirtySheetsForTransmit(CURRENT_MAP_ID);
-        if (Object.keys(sheets).length) obj.sheets = sheets;
-        await Net.sendSnapshot(obj);
-        if (window.BattleLog) BattleLog.post('State transmitted');
-        alert('Sent.');
-      } catch (e) {
-        alert(e?.message || 'Send failed.');
+function wireSend() {
+  const btn = document.getElementById('btnSend');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    try {
+      if (!window.Net || typeof Net.sendSnapshot !== 'function') {
+        alert('Not online yet. Click Online and join a room first.');
+        return;
       }
-    });
-  }
+      const obj = JSON.parse(serializeState());
+      const sheets = collectDirtySheetsForTransmit(CURRENT_MAP_ID);
+      if (Object.keys(sheets).length) obj.sheets = sheets;
+
+      // === INSERT THESE LINES (BEFORE sending) ===
+      const prev = window._lastSentSnapshot || JSON.parse(sessionStorage.getItem('mss_last_tx') || 'null') || {};
+      const events = (window.BattleLog?.summarizeDiff(prev, obj)) || [];
+      // (we'll post after successful send)
+
+      await Net.sendSnapshot(obj);
+
+      // === AND THESE (AFTER send succeeds) ===
+      if (window.BattleLog) {
+        const title = events.length ? `Transmit: ${events.length} change${events.length===1?'':'s'}` : 'Transmit';
+        BattleLog.postEvents(events, title);
+      }
+      window._lastSentSnapshot = obj;
+      try { sessionStorage.setItem('mss_last_tx', JSON.stringify(obj)); } catch {}
+
+      alert('Sent.');
+    } catch (e) {
+      alert(e?.message || 'Send failed.');
+    }
+  });
+}
+
 
   // hook up now + when networking announces readiness
   wireReceive();
@@ -3678,6 +3693,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
