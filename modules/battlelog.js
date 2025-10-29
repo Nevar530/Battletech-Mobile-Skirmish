@@ -1,219 +1,263 @@
 // modules/battlelog.js
-// MSS:84 Battle Log (room-scoped, low-bandwidth, append-on-transmit only)
-// - Keeps last MAX entries (25 default; change to 50 if you want)
-// - Shared across players when in a room (Firestore single doc)
-// - Local-only buffer when offline or no room
-// - Self-injects a "Battle Log" tab into the right mech panel
+// MSS:84 Battle Log — append on TRANSMIT only; diff snapshots to create events.
+// Keeps last MAX entries (array in one Firestore document). Local buffer when offline.
 
 import { getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getFirestore, doc, runTransaction, setDoc, onSnapshot, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-const MAX = 25;           // keep last N entries. Change to 50 if preferred
+const MAX = 25;                     // set 50 if you want more
 const TAB_ID = "tab-battlelog";
 const BTN_ID = "btn-battlelog";
 
 const BattleLog = {
-  _db: null,
-  _ref: null,
-  _roomId: null,
-  _local: [],         // fallback when no room/Firestore
-  _mounted: false,
-  _els: {},
+  _db: null, _ref: null, _roomId: null,
+  _local: [], _remote: [], _mounted: false, _els: {},
 
-  // --- DOM helpers (tab + panel in right mech panel) ---
+  // ---------- Styles & UI ----------
   _injectStyles() {
     if (document.getElementById('battlelog-styles')) return;
     const css = `
-    /* ===== Battle Log (self-contained) ===== */
+    /* ===== Battle Log ===== */
     #${TAB_ID} {
-      display: none;
-      max-height: 40vh;
-      overflow: auto;
-      border: 1px solid rgba(255,191,0,0.18);
-      border-radius: 12px;
-      padding: 8px 10px;
-      backdrop-filter: blur(4px);
-      background: rgba(16,16,16,0.35);
-      box-shadow: 0 0 0 1px rgba(255,191,0,0.08) inset, 0 8px 18px rgba(0,0,0,0.30);
-      color: #eaeaea;
-      font-size: 12px;
-      line-height: 1.35;
+      display:none; max-height:40vh; overflow:auto;
+      border:1px solid rgba(255,191,0,0.18); border-radius:12px;
+      padding:8px 10px; backdrop-filter:blur(4px);
+      background:rgba(16,16,16,0.35);
+      box-shadow:0 0 0 1px rgba(255,191,0,0.08) inset, 0 8px 18px rgba(0,0,0,0.30);
+      color:#eaeaea; font-size:12px; line-height:1.35;
     }
-    #${TAB_ID}.active { display: block; }
-    .bl-row { padding: 4px 6px; border-radius: 8px; }
-    .bl-row:nth-child(odd){ background: rgba(255,191,0,0.06); }
-    .bl-time { opacity: 0.8; margin-right: 6px; font-variant-numeric: tabular-nums; }
-    .bl-who  { color: #ffd35a; margin-right: 6px; }
-    .bl-text { color: #eaeaea; }
-    /* header button looks like your amber UI */
-    .bl-tab-btn {
-      appearance: none; cursor: pointer; border: 0; border-radius: 10px;
-      padding: 6px 10px; margin-left: 6px;
-      background: linear-gradient(180deg, #f0b000, #bb8500); color: #111; font-weight: 700;
-      box-shadow: 0 2px 0 #754f00 inset, 0 4px 16px rgba(0,0,0,0.35);
+    #${TAB_ID}.active{display:block}
+    .bl-item{ border-radius:10px; padding:6px 8px; margin:6px 0; background:rgba(255,191,0,0.06); }
+    .bl-head{ display:flex; align-items:center; gap:8px; cursor:pointer; }
+    .bl-time{ opacity:.8; font-variant-numeric:tabular-nums; }
+    .bl-sender{ color:#ffd35a; }
+    .bl-summary{ flex:1; }
+    .bl-details{ display:none; margin-top:6px; padding-left:14px; }
+    .bl-details.open{ display:block; }
+    .bl-details li{ margin:2px 0; }
+    .bl-tab-btn{
+      appearance:none; cursor:pointer; border:0; border-radius:10px;
+      padding:6px 10px; margin-left:6px;
+      background:linear-gradient(180deg,#f0b000,#bb8500); color:#111; font-weight:700;
+      box-shadow:0 2px 0 #754f00 inset, 0 4px 16px rgba(0,0,0,0.35);
     }
-    .bl-tab-btn:active { transform: translateY(1px); }
+    .bl-tab-btn:active{ transform:translateY(1px); }
     `;
     const style = document.createElement('style');
     style.id = 'battlelog-styles';
     style.textContent = css;
     document.head.appendChild(style);
   },
-
-  _findRightPanelRoot() {
-    // Try common anchors in your app; fall back to '.right'
+  _findRightPanelRoot(){
     return document.querySelector('.right .panel, .right .panel-body, .right') || document.querySelector('.right');
   },
-
-  _findRightPanelHeader() {
-    // Where "Add Mech" and other buttons live; try a few likely spots
+  _findRightPanelHeader(){
     return document.querySelector('.right .panel-head, .right .header, .right .tabs, .right .bar') || this._findRightPanelRoot();
   },
-
-  _ensureUI() {
+  _ensureUI(){
     if (this._mounted) return;
-
     this._injectStyles();
 
-    // 1) Insert the tab button into the right-panel header bar
     const head = this._findRightPanelHeader();
-    if (head && !document.getElementById(BTN_ID)) {
+    if (head && !document.getElementById(BTN_ID)){
       const btn = document.createElement('button');
-      btn.id = BTN_ID;
-      btn.className = 'bl-tab-btn';
-      btn.type = 'button';
-      btn.textContent = 'Battle Log';
-      btn.title = 'Open Battle Log';
-      head.appendChild(btn);
+      btn.id = BTN_ID; btn.className='bl-tab-btn'; btn.type='button';
+      btn.textContent='Battle Log'; btn.title='Open Battle Log';
       btn.addEventListener('click', () => this.toggleTab());
+      head.appendChild(btn);
       this._els.btn = btn;
     }
 
-    // 2) Insert the panel container into the right-panel body
     const root = this._findRightPanelRoot();
-    if (root && !document.getElementById(TAB_ID)) {
+    if (root && !document.getElementById(TAB_ID)){
       const panel = document.createElement('div');
-      panel.id = TAB_ID;
-      panel.setAttribute('role', 'region');
-      panel.setAttribute('aria-label', 'Battle Log');
+      panel.id = TAB_ID; panel.setAttribute('role','region'); panel.setAttribute('aria-label','Battle Log');
       root.appendChild(panel);
       this._els.panel = panel;
     }
 
     this._mounted = true;
-    this._render(); // initial empty render
+    this._render();
   },
-
-  toggleTab(forceState) {
+  toggleTab(force){
     const panel = this._els.panel || document.getElementById(TAB_ID);
     if (!panel) return;
-    const on = (typeof forceState === 'boolean') ? forceState : !panel.classList.contains('active');
-
-    // hide any sibling tab content if your app uses single-tab display
-    // (lightweight: just collapse any other known tab panes)
-    document.querySelectorAll('.right .tab, .right .tab-pane').forEach(el => el.classList.remove('active'));
-
+    const on = (typeof force === 'boolean') ? force : !panel.classList.contains('active');
+    document.querySelectorAll('.right .tab, .right .tab-pane').forEach(el=>el.classList.remove('active'));
     panel.classList.toggle('active', on);
-    if (on && panel.scrollHeight) panel.scrollTop = panel.scrollHeight; // scroll to newest
+    if (on) panel.scrollTop = panel.scrollHeight;
   },
-
-  _render(list) {
+  _render(list){
     const panel = this._els.panel || document.getElementById(TAB_ID);
     if (!panel) return;
-    const arr = Array.isArray(list) ? list : (this._roomId ? (this._remote || []) : this._local);
-    const html = arr.map(it => {
-      const d = new Date(it.ts || Date.now());
-      const hh = String(d.getHours()).padStart(2, '0');
-      const mm = String(d.getMinutes()).padStart(2, '0');
+    const arr = Array.isArray(list) ? list : (this._roomId ? (this._remote||[]) : this._local);
+    panel.innerHTML = (arr.length ? arr : []).map(it=>{
+      const d = new Date(it.ts||Date.now());
+      const hh = String(d.getHours()).padStart(2,'0');
+      const mm = String(d.getMinutes()).padStart(2,'0');
       const time = `${hh}:${mm}`;
-      const who  = it.sender || 'System';
-      const msg  = (it.summary || '').toString();
-      return `<div class="bl-row"><span class="bl-time">${time}</span><span class="bl-who">${who}</span><span class="bl-text">${msg}</span></div>`;
-    }).join('');
-    panel.innerHTML = html || `<div class="bl-row"><span class="bl-text" style="opacity:.8">No entries yet.</span></div>`;
-    // keep scroll pinned to bottom
+      const who = it.sender || 'System';
+      const sum = (it.summary||'').toString();
+      const details = Array.isArray(it.events) ? it.events : [];
+      const id = `bl-${it.ts}-${Math.floor(Math.random()*1e6)}`;
+      return `
+        <div class="bl-item">
+          <div class="bl-head" data-target="${id}">
+            <span class="bl-time">${time}</span>
+            <span class="bl-sender">${who}</span>
+            <span class="bl-summary">${sum}</span>
+          </div>
+          <ul class="bl-details" id="${id}">
+            ${details.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}
+          </ul>
+        </div>`;
+    }).join('') || `<div class="bl-item"><div class="bl-summary" style="opacity:.8">No entries yet.</div></div>`;
+
+    // toggle expand/collapse
+    panel.querySelectorAll('.bl-head').forEach(h=>{
+      h.addEventListener('click', ()=>{
+        const tgt = panel.querySelector(`#${h.dataset.target}`);
+        if (tgt) tgt.classList.toggle('open');
+      });
+    });
+
     panel.scrollTop = panel.scrollHeight;
   },
 
-  // --- Firestore wiring (single document with an array) ---
-  async _bindFirestore(roomId) {
+  // ---------- Firestore ----------
+  async _bindFirestore(roomId){
     try {
       const app = getApp();
       this._db = getFirestore(app);
       this._ref = doc(this._db, 'rooms', roomId, 'volatile', 'log');
-
-      // Ensure doc exists without overwriting
-      await setDoc(this._ref, { entries: [], updatedAt: serverTimestamp() }, { merge: true });
-
-      // Lightweight listener so all players see the same log.
-      // This triggers only when someone presses TRANSMIT (append-once).
-      onSnapshot(this._ref, (snap) => {
-        const data = snap.data() || {};
-        const arr = Array.isArray(data.entries) ? data.entries : [];
-        this._remote = arr.slice(-MAX);
+      await setDoc(this._ref, { entries: [], updatedAt: serverTimestamp() }, { merge:true });
+      onSnapshot(this._ref, (snap)=>{
+        const data = snap.data()||{};
+        this._remote = Array.isArray(data.entries) ? data.entries.slice(-MAX) : [];
         this._render(this._remote);
       });
-    } catch (e) {
-      console.warn('[BattleLog] Firestore bind failed (local-only mode):', e);
-      this._db = null;
-      this._ref = null;
+    } catch(e){
+      console.warn('[BattleLog] Firestore bind failed; local-only mode.', e);
+      this._db = null; this._ref=null;
     }
   },
 
-  // --- Public API ---
-  async init() {
+  async init(){
     this._ensureUI();
-
-    const roomId = window.Net?.roomId || null;
-    this._roomId = roomId;
-
-    if (roomId) {
-      await this._bindFirestore(roomId);
-    }
+    this._roomId = window.Net?.roomId || null;
+    if (this._roomId) await this._bindFirestore(this._roomId);
   },
 
-  // Append a compact summary line; called on TRANSMIT only (or wherever you choose)
-  async post(summary, extra = {}) {
+  // ---------- Diff + Post ----------
+  // Build an events[] list by comparing two snapshots (objects your app already sends)
+  summarizeDiff(prev, next){
+    const ev = [];
+
+    // tokens array (best guess: state.tokens or state.data.tokens)
+    const prevTok = getTokens(prev);
+    const nextTok = getTokens(next);
+
+    const byId = (arr)=> {
+      const m = new Map();
+      arr.forEach((t,i)=>{
+        const id = t.id || t.uid || t.uuid || t.key || t.name || `#${i}`;
+        m.set(id, t);
+      });
+      return m;
+    };
+    const pMap = byId(prevTok), nMap = byId(nextTok);
+
+    // moved / rotated / unchanged
+    nMap.forEach((n, id)=>{
+      const p = pMap.get(id);
+      const label = n.label || n.name || id;
+      if (!p){
+        ev.push(`${label} deployed at (${safe(n.q)},${safe(n.r)})`);
+        return;
+      }
+      // movement
+      if ((p.q !== n.q) || (p.r !== n.r)){
+        ev.push(`${label} moved (${safe(p.q)},${safe(p.r)}) → (${safe(n.q)},${safe(n.r)})`);
+      }
+      // rotation: try .rot or .dir or .facing
+      const pr = getRot(p), nr = getRot(n);
+      if (pr !== null && nr !== null && pr !== nr){
+        const delta = (((nr - pr) % 360) + 360) % 360;
+        ev.push(`${label} rotated ${delta}°`);
+      }
+    });
+
+    // removals
+    pMap.forEach((p, id)=>{
+      if (!nMap.has(id)){
+        const label = p.label || p.name || id;
+        ev.push(`${label} removed from (${safe(p.q)},${safe(p.r)})`);
+      }
+    });
+
+    // sheet updates summary if present
+    const sheets = next?.sheets || next?.mechSheets || null;
+    if (sheets && typeof sheets === 'object'){
+      const count = Object.keys(sheets).length;
+      if (count) ev.push(`Sheet updates: ${count}`);
+    }
+
+    return ev;
+  },
+
+  // Append one entry containing a summary and its detail lines
+  async postEvents(events, summary='Transmit'){
     const entry = {
       ts: Date.now(),
-      sender: (localStorage.getItem('playerLabel') || 'Player').slice(0, 48),
-      summary: (summary || '').toString().slice(0, 256),
-      ...extra
+      sender: (localStorage.getItem('playerLabel') || 'Player').slice(0,48),
+      summary: summary.slice(0,256),
+      events: (Array.isArray(events) ? events : []).slice(0,100) // hard cap
     };
 
-    // If in a room with Firestore available → append to the doc (trim)
-    if (this._ref && this._db && this._roomId) {
-      await runTransaction(this._db, async (tx) => {
+    if (this._ref && this._db && this._roomId){
+      await runTransaction(this._db, async (tx)=>{
         const snap = await tx.get(this._ref);
         const prev = Array.isArray(snap.data()?.entries) ? snap.data().entries : [];
         const next = [...prev, entry].slice(-MAX);
-        tx.set(this._ref, { entries: next, updatedAt: serverTimestamp() }, { merge: true });
+        tx.set(this._ref, { entries: next, updatedAt: serverTimestamp() }, { merge:true });
       });
     } else {
-      // Local-only buffer (no network); trim
       this._local = [...this._local, entry].slice(-MAX);
       this._render(this._local);
     }
   }
 };
 
-// --- Auto-mount when UI & Net are ready ---
-(function boot() {
-  const tryInit = () => {
-    // Wait for right panel to exist
+// ---------- helpers ----------
+function getTokens(state){
+  if (!state || typeof state !== 'object') return [];
+  if (Array.isArray(state.tokens)) return state.tokens;
+  if (Array.isArray(state.data?.tokens)) return state.data.tokens;
+  if (Array.isArray(state.tok)) return state.tok;
+  return [];
+}
+function getRot(t){
+  if (typeof t?.rot === 'number') return t.rot;
+  if (typeof t?.dir === 'number') return t.dir;
+  if (typeof t?.facing === 'number') return t.facing;
+  return null;
+}
+function safe(v){ return (v===undefined||v===null)?'—':v; }
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ---------- boot ----------
+(function boot(){
+  const tryInit = ()=>{
     const right = document.querySelector('.right');
     if (!right) return false;
-
     BattleLog.init();
     return true;
   };
-
-  // Start if already available; else retry briefly and also hook into room join
   if (!tryInit()) setTimeout(tryInit, 200);
-  window.addEventListener('net-room', () => BattleLog.init());
-
-  // Expose globally so script.js can call BattleLog.post(...) on TRANSMIT
+  window.addEventListener('net-room', ()=>BattleLog.init());
   window.BattleLog = BattleLog;
 })();
