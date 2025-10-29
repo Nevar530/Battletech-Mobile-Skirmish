@@ -70,6 +70,8 @@ const Net = {
       .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48);
 
     currentRoom = roomId;
+    window.dispatchEvent(new CustomEvent('net-room', { detail: { roomId } }));
+
 
     // Listen for full-state updates (single doc)
     const snapRef = doc(db, "rooms", roomId, "state", "snapshot");
@@ -126,6 +128,12 @@ const Net = {
     currentRoom = null;
   },
 };
+
+// >>> ADD BELOW (after the Net object is defined, before exposing window.Net)
+Object.defineProperty(Net, 'roomId', {
+  get: () => currentRoom
+});
+
 
 // expose globally and announce readiness
 window.Net = Net;
