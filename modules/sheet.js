@@ -49,7 +49,12 @@ window.Sheet = (() => {
 }
 /* Zoomable outer/inner wrappers */
 .mss84-sheet__outer{
-  position:fixed; top:0; left:0; height:100vh; z-index:999;
+  position:fixed;
+  /* sit below the app header (edit --header-h if your header is taller/shorter) */
+  top:calc(var(--header-h, 60px));
+  left:0;
+  height:90vh;                 /* use ~90% of screen so it never hits the top bar */
+  z-index:999;
   width: calc(var(--panel-w) * var(--sheet-scale));
   transform: translateX(calc(-1 * var(--panel-w) * var(--sheet-scale)));
   transition: transform .2s ease;
@@ -57,7 +62,7 @@ window.Sheet = (() => {
 .mss84-sheet__outer.open{ transform: translateX(0); }
 .mss84-sheet__inner{
   width: var(--panel-w);
-  height: 100vh;
+  height: 90vh;                /* match the outer */
   transform-origin: top left;
   transform: scale(var(--sheet-scale));
 }
@@ -65,14 +70,27 @@ window.Sheet = (() => {
 .mss84-sheet *{ box-sizing:border-box; }
 
 .mss84-sheet__btn{
-  position:fixed; top:16px; left:500px; z-index:1000;
+  position:fixed;
+  top:calc(var(--header-h, 60px) + 8px);  /* sit just under the header */
+  left:500px;
+  z-index:1000;
   background:#141414; color:#fff; border:1px solid var(--line); border-radius:10px;
   padding:8px 10px; cursor:pointer; user-select:none;
   box-shadow:0 2px 10px rgba(0,0,0,.3);
 }
 .mss84-sheet__btn:active{ transform:translateY(1px); }
 
-.mss84-sheet__wrap{position:relative; display:flex; flex-direction:column; width:var(--panel-w);height:100vh; background:var(--sheet-bg); border-right:1px solid var(--line);}
+.mss84-sheet__wrap{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  width:var(--panel-w);
+  height:90vh;                 /* match the outer */
+  background:var(--sheet-bg);
+  border-right:1px solid var(--line);
+  border-radius:12px 12px 0 0; /* nice top corners so it looks intentional */
+  overflow:hidden;
+}
 .mss84-sheet__wrap.open{}
 
 .mss84-sheet__hdr{
