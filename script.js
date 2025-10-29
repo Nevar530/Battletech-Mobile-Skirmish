@@ -3638,6 +3638,7 @@ window.getTokenLabelById = function(mapId, tokenId){
         const sheets = collectDirtySheetsForTransmit(CURRENT_MAP_ID);
         if (Object.keys(sheets).length) obj.sheets = sheets;
         await Net.sendSnapshot(obj);
+        if (window.BattleLog) BattleLog.post('State transmitted');
         alert('Sent.');
       } catch (e) {
         alert(e?.message || 'Send failed.');
@@ -3677,6 +3678,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
