@@ -589,7 +589,10 @@
     try {
       // Your map surface is <main class="stage">…</main>
       // Pass the selector so the module wraps and overlays THAT, not the whole app.
-      if (window.MSS_TurnLock) MSS_TurnLock.init({ stageSel: 'main.stage' });
+      if (window.MSS_TurnLock) MSS_TurnLock.init({
+  stageSel: 'main.stage',
+  excludeSel: '#mss-chat-wrap'   // <-- keep chat clear & clickable
+});
     } catch {}
 
     
