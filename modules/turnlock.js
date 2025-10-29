@@ -8,8 +8,7 @@
     _stageEl: null,
     _bannerEl: null,
     _isActiveLocal: true,
-    _myRole: "host",        // "host" or "joiner" (best-effort guess if unknown)
-    _names: { host:"Host", joiner:"Joiner" },
+    _names: { me: "You", opp: "Opponent" },
 
     init(opts = {}) {
       // Stage container (map) is required
@@ -17,15 +16,10 @@
       this._stageEl = document.querySelector(stageSel);
       if (!this._stageEl) return; // fail silently if stage not present
 
-      // Best-effort role/name seeds (if your Net exposes them)
-      this._myRole = (window.Net && (Net.role || Net.isHost && "host" || "joiner")) || "host";
-      const localName  = (window.Net && (Net.localName || Net.myName)) || "You";
+      // Seed names if your Net exposes them (optional)
+      const localName  = (window.Net && (Net.localName || Net.myName || Net.user)) || "You";
       const remoteName = (window.Net && (Net.remoteName || Net.peerName)) || "Opponent";
-      if (this._myRole === "host") {
-        this._names = { host: localName, joiner: remoteName };
-      } else {
-        this._names = { host: remoteName, joiner: localName };
-      }
+      this._names = { me: localName, opp: remoteName };
 
       // Build banner overlay (injected; no index.html change needed)
       this._bannerEl = document.createElement("div");
@@ -35,29 +29,27 @@
         "position:absolute","inset:0","pointer-events:none",
         "display:none","align-items:center","justify-content:center",
         "backdrop-filter:blur(3px)","-webkit-backdrop-filter:blur(3px)",
-        "background:rgba(8,8,10,0.15)","z-index:35"
+        "background:rgba(8,8,10,0.15)","z-index:999"
       ].join(";");
 
       const msg = document.createElement("div");
       msg.className = "turnlock-msg";
       msg.style.cssText = [
-        "pointer-events:auto","padding:10px 14px","border-radius:12px",
+        "pointer-events:none","padding:10px 14px","border-radius:12px",
         "background:rgba(18,18,22,0.72)","color:#f0b000","font-family:monospace",
         "font-size:14px","box-shadow:0 0 0 1px rgba(240,176,0,0.35) inset, 0 6px 18px rgba(0,0,0,0.35)"
-      ].join(";");
+      ].join("-");
       msg.textContent = "awaiting transmission…";
       this._bannerEl.appendChild(msg);
 
-// Ensure stage itself is the positioning context and inject banner **inside** it
-const cs = getComputedStyle(this._stageEl);
-if (cs.position === "static") {
-  this._stageEl.style.position = "relative";
-}
-this._stageEl.appendChild(this._bannerEl);
-
+      // Ensure stage is positioning context and inject banner inside it
+      const cs = getComputedStyle(this._stageEl);
+      if (cs.position === "static") this._stageEl.style.position = "relative";
+      this._stageEl.appendChild(this._bannerEl);
 
       // Add a CSS class we can toggle to block input on stage only
       this._stageEl.classList.add("turnlock-target");
+
       // Minimal inline style to prevent map interactions when locked
       const style = document.createElement("style");
       style.textContent = `
@@ -73,55 +65,50 @@ this._stageEl.appendChild(this._bannerEl);
       if (!stateObj || !stateObj.meta) return;
       const meta = stateObj.meta;
 
-      // Optional names if present in meta
-      if (meta.playerNames && (meta.playerNames.host || meta.playerNames.joiner)) {
-        this._names.host   = meta.playerNames.host   || this._names.host;
-        this._names.joiner = meta.playerNames.joiner || this._names.joiner;
+      // Update names if present (optional)
+      if (meta.playerNames) {
+        const me = meta.playerNames.me || meta.playerNames.host || this._names.me;
+        const opp = meta.playerNames.opp || meta.playerNames.joiner || this._names.opp;
+        this._names = { me, opp };
       }
 
-      const active = meta.activePlayer || "host"; // default host active on first connect
-      const iAmActive = (active === this._myRole);
-      this._setActive(iAmActive, active);
+      // Determine if WE sent the snapshot
+      const localId = (localStorage.getItem("playerLabel"))
+                   || (window.Net && (Net.user || Net.uid || Net.localName))
+                   || this._names.me;
+      const sender  = meta.sender;
+      if (!sender) return;
+
+      const iAmSender = (String(sender) === String(localId));
+
+      // If we sent it, it's now their turn -> lock us.
+      // If we received it, it's now our turn -> unlock us.
+      this._setActive(!iAmSender);
     },
 
-    // Called just before sending a state in Transmit (host or joiner)
+    // Called just before sending a state in Transmit
     onBeforeSend(metaObj) {
       if (!metaObj) return;
-
-      // Ensure meta has active flag + optional names once
-      metaObj.activePlayer = metaObj.activePlayer || "host";
-      metaObj.playerNames = metaObj.playerNames || {
-        host:  this._names.host,
-        joiner:this._names.joiner
-      };
-
-      // Flip control to the *other* side when the active player transmits (end of phase)
-      // This preserves your walkie-talkie authority model.
-      if (this._amActiveLocal(metaObj.activePlayer)) {
-        metaObj.activePlayer = (metaObj.activePlayer === "host") ? "joiner" : "host";
-      }
+      // Keep names if you want them visible later (optional)
+      metaObj.playerNames = metaObj.playerNames || { me: this._names.me, opp: this._names.opp };
+      // Immediately lock locally after we transmit (walkie-talkie flow)
+      this._setActive(false);
     },
 
-    _amActiveLocal(activeStr) {
-      return (activeStr === this._myRole);
-    },
-
-    _setActive(isActive, activeStr) {
+    _setActive(isActive) {
       this._isActiveLocal = isActive;
+      if (!this._stageEl) return;
 
-      // Toggle map-only lock
-      if (this._stageEl) {
-        if (isActive) {
-          this._stageEl.classList.remove("turnlock-locked");
-          this._bannerEl && this._bannerEl.classList.remove("show");
-        } else {
-          this._stageEl.classList.add("turnlock-locked");
-          if (this._bannerEl) {
-            const oppName = (activeStr === "host") ? this._names.host : this._names.joiner;
-            this._bannerEl.querySelector(".turnlock-msg").textContent =
-              `awaiting (${oppName}) transmission.`;
-            this._bannerEl.classList.add("show");
-          }
+      if (isActive) {
+        this._stageEl.classList.remove("turnlock-locked");
+        this._bannerEl && this._bannerEl.classList.remove("show");
+      } else {
+        this._stageEl.classList.add("turnlock-locked");
+        if (this._bannerEl) {
+          const oppName = this._names.opp;
+          this._bannerEl.querySelector(".turnlock-msg").textContent =
+            `awaiting (${oppName}) transmission.`;
+          this._bannerEl.classList.add("show");
         }
       }
     }
