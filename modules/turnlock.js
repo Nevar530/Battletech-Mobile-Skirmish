@@ -74,8 +74,11 @@
       document.head.appendChild(style);
 
       // Build blocker + banner
-      this._blockerEl = document.createElement("div");
-      this._blockerEl.id = "turnlock-blocker";
+this._blockerEl = document.createElement("div");
+this._blockerEl.id = "turnlock-blocker";
+/* Ensure overlay sits BELOW side panels but ABOVE map content */
+this._blockerEl.style.zIndex = String(opts.overlayZ ?? 40);
+
 
       this._bannerEl = document.createElement("div");
       this._bannerEl.id = "turnlock-banner";
