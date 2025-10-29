@@ -1,17 +1,19 @@
 /* =========================================================
-   MSS:84 — Turn Lock (SVG-only overlay + backdrop blur)
+   MSS:84 — Turn Lock (SVG blur class + click blocker overlay)
    File: /modules/turnlock.js
    Public API: window.MSS_TurnLock
    ========================================================= */
 (function () {
   const MOD = {
     _stageEl: null,
+    _svgEl: null,
     _blockerEl: null,
     _bannerEl: null,
     _isActiveLocal: true,
     _names: { me: "You", opp: "Opponent" },
     _excludeNodes: [],
     _resizeObs: null,
+    _recalc: null,
 
     init(opts = {}) {
       const stageSel   = opts.stageSel   || "main.stage";
@@ -21,7 +23,11 @@
       this._stageEl = document.querySelector(stageSel);
       if (!this._stageEl) return;
 
-      // Capture excludes (chat/panels). If they're in the stage, we'll bump z-index.
+      // Cache the SVG map element we want to blur
+      this._svgEl = this._stageEl.querySelector("svg#svg");
+      if (!this._svgEl) return;
+
+      // Capture excludes (chat/panels/etc.)
       this._excludeNodes = excludeSel ? Array.from(document.querySelectorAll(excludeSel)) : [];
 
       // Names (best-effort)
@@ -30,20 +36,21 @@
       this._names = { me: localName, opp: remoteName };
 
       // Ensure the stage can anchor absolute children
-      const cs = getComputedStyle(this._stageEl);
-      if (cs.position === "static") this._stageEl.style.position = "relative";
+      const csStage = getComputedStyle(this._stageEl);
+      if (csStage.position === "static") this._stageEl.style.position = "relative";
 
-      // ----- Styles (note: no inset:0 to avoid fighting inline sizing) -----
+      // ----- Styles -----
       const style = document.createElement("style");
       style.textContent = `
-        /* Overlay blocks input + blurs only what's behind within its rect */
+        /* Blur ONLY the SVG when locked */
+        svg#svg.turnlock-blur { filter: blur(2px); }
+
+        /* Transparent blocker overlay placed exactly over the SVG */
         #turnlock-blocker {
           position: absolute;
-          display: none;               /* shown via .show */
-          pointer-events: none;        /* set to auto when locked */
-          background: rgba(8,8,10,0.10);
-          backdrop-filter: blur(2px);
-          -webkit-backdrop-filter: blur(2px);
+          display: none;                /* shown via .show */
+          pointer-events: none;         /* set to auto when locked */
+          background: rgba(8,8,10,0.00); /* no backdrop blur! */
         }
         /* Centered banner message */
         #turnlock-banner {
@@ -70,7 +77,7 @@
       // ----- Build blocker + banner (we’ll size it exactly over the SVG) -----
       this._blockerEl = document.createElement("div");
       this._blockerEl.id = "turnlock-blocker";
-      this._blockerEl.style.zIndex = String(overlayZ); // above map, below chat/panels
+      this._blockerEl.style.zIndex = String(overlayZ); // above map, below panels/chat
 
       this._bannerEl = document.createElement("div");
       this._bannerEl.id = "turnlock-banner";
@@ -88,7 +95,7 @@
         this._stageEl.appendChild(this._blockerEl);
       }
 
-      // Excluded nodes: ensure they float above overlay if they are inside the stage
+      // Excluded nodes: ensure they float above overlay if they are inside/over stage
       this._excludeNodes.forEach(node => {
         const cs2 = getComputedStyle(node);
         if (cs2.position === "static") node.style.position = "relative";
@@ -97,34 +104,29 @@
 
       // Sizing logic targets ONLY the SVG map
       const recalcBlocker = () => {
-        const svg = this._stageEl.querySelector("svg#svg");
+        const svg = this._svgEl;
         if (!svg) return;
         Object.assign(this._blockerEl.style, {
           position: "absolute",
-          left: svg.offsetLeft + "px",
-          top:  svg.offsetTop  + "px",
+          left:   svg.offsetLeft + "px",
+          top:    svg.offsetTop  + "px",
           width:  svg.clientWidth  + "px",
           height: svg.clientHeight + "px",
-          right: "auto",  // IMPORTANT: avoid any inherited inset:0 rules
+          right: "auto",
           bottom:"auto"
         });
       };
       this._recalc = recalcBlocker;
 
-      // Initial calc, then keep sized if the SVG/grid changes
+      // Initial calc + keep sized on resize and svg size changes
       recalcBlocker();
       window.addEventListener("resize", recalcBlocker);
-
-      // Use ResizeObserver if available (SVG size can change on regen/zoom container changes)
       try {
-        const svg = this._stageEl.querySelector("svg#svg");
-        if (svg && "ResizeObserver" in window) {
+        if ("ResizeObserver" in window && this._svgEl) {
           this._resizeObs = new ResizeObserver(() => recalcBlocker());
-          this._resizeObs.observe(svg);
+          this._resizeObs.observe(this._svgEl);
         }
       } catch {}
-
-      // If SVG gets re-mounted, re-calc after a tick when we lock
     },
 
     // Called on receive with the full state object
@@ -159,14 +161,17 @@
 
     _setActive(isActive) {
       this._isActiveLocal = isActive;
-      if (!this._blockerEl) return;
+      if (!this._blockerEl || !this._svgEl) return;
 
       if (isActive) {
+        // UNLOCK: remove blur class and hide blocker
+        this._svgEl.classList.remove("turnlock-blur");
         this._blockerEl.classList.remove("show");
         this._blockerEl.style.pointerEvents = "none";
       } else {
-        // Ensure we’re perfectly aligned to SVG right before showing
+        // LOCK: align overlay, blur SVG, show blocker
         try { this._recalc?.(); } catch {}
+        this._svgEl.classList.add("turnlock-blur");
         const oppName = this._names.opp;
         const msgEl = this._bannerEl && this._bannerEl.querySelector(".turnlock-msg");
         if (msgEl) msgEl.textContent = `awaiting (${oppName}) transmission.`;
