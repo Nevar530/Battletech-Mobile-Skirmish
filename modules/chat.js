@@ -19,7 +19,7 @@ const BOTTOM_OFFSET_PX = 48; // floats above map footer
     position: absolute;
     left: 16px; right: 16px;
     bottom: ${BOTTOM_OFFSET_PX}px;
-    z-index: 777;
+    z-index: 1200;           /* <-- sits above TurnLock overlay */
     pointer-events: none; /* map stays interactive */
     font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Arial, sans-serif;
   }
