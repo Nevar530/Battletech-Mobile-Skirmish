@@ -1,78 +1,121 @@
 /* =========================================================
-   MSS:84 — Turn Lock (Soft-Blur Stage for Inactive Player)
+   MSS:84 — Turn Lock (Overlay + Backdrop Blur, Stage-Only Block)
    File: /modules/turnlock.js
    Public API: window.MSS_TurnLock
    ========================================================= */
 (function () {
   const MOD = {
     _stageEl: null,
+    _blockerEl: null,
     _bannerEl: null,
     _isActiveLocal: true,
     _names: { me: "You", opp: "Opponent" },
+    _excludeNodes: [],
 
     init(opts = {}) {
-      // Stage container (map) is required
-      const stageSel = opts.stageSel || "#stage";
+      const stageSel   = opts.stageSel   || "#stage";
+      const excludeSel = opts.excludeSel || ""; // e.g. "#chat, .chat-panel"
       this._stageEl = document.querySelector(stageSel);
-      if (!this._stageEl) return; // fail silently if stage not present
+      if (!this._stageEl) return;
 
-      // Seed names if your Net exposes them (optional)
+      // Capture excludes (chat, etc.)
+      this._excludeNodes = excludeSel
+        ? Array.from(document.querySelectorAll(excludeSel))
+        : [];
+
+      // Names (optional; best-effort)
       const localName  = (window.Net && (Net.localName || Net.myName || Net.user)) || "You";
       const remoteName = (window.Net && (Net.remoteName || Net.peerName)) || "Opponent";
       this._names = { me: localName, opp: remoteName };
 
-      // Build banner overlay (injected; no index.html change needed)
-      this._bannerEl = document.createElement("div");
-      this._bannerEl.id = "turnlock-banner";
-      this._bannerEl.setAttribute("aria-live", "polite");
-      this._bannerEl.style.cssText = [
-        "position:absolute","inset:0","pointer-events:none",
-        "display:none","align-items:center","justify-content:center",
-        "backdrop-filter:blur(3px)","-webkit-backdrop-filter:blur(3px)",
-        "background:rgba(8,8,10,0.15)","z-index:999"
-      ].join(";");
-
-      const msg = document.createElement("div");
-      msg.className = "turnlock-msg";
-      msg.style.cssText = [
-        "pointer-events:none","padding:10px 14px","border-radius:12px",
-        "background:rgba(18,18,22,0.72)","color:#f0b000","font-family:monospace",
-        "font-size:14px","box-shadow:0 0 0 1px rgba(240,176,0,0.35) inset, 0 6px 18px rgba(0,0,0,0.35)"
-      ].join("-");
-      msg.textContent = "awaiting transmission…";
-      this._bannerEl.appendChild(msg);
-
-      // Ensure stage is positioning context and inject banner inside it
+      // Ensure the stage is a positioning context
       const cs = getComputedStyle(this._stageEl);
       if (cs.position === "static") this._stageEl.style.position = "relative";
-      this._stageEl.appendChild(this._bannerEl);
 
-      // Add a CSS class we can toggle to block input on stage only
-      this._stageEl.classList.add("turnlock-target");
-
-      // Minimal inline style to prevent map interactions when locked
+      // Style block
       const style = document.createElement("style");
       style.textContent = `
-        .turnlock-target.turnlock-locked { filter: blur(2px); pointer-events: none; }
-        #turnlock-banner.show { display:flex; animation: tlkFade .25s ease-out both; }
+        /* The overlay that blocks input & blurs what's behind it */
+        #turnlock-blocker {
+          position: absolute;
+          inset: 0;
+          display: none;
+          pointer-events: none; /* flipped to auto when locked */
+          background: rgba(8,8,10,0.10);
+          backdrop-filter: blur(2px);
+          -webkit-backdrop-filter: blur(2px);
+          z-index: 900; /* sits under chat (we'll bump chat above this) */
+        }
+        /* Message container centered within blocker */
+        #turnlock-banner {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none; /* banner itself doesn't catch clicks */
+        }
+        #turnlock-banner .turnlock-msg {
+          pointer-events: none;
+          padding: 10px 14px;
+          border-radius: 12px;
+          background: rgba(18,18,22,0.72);
+          color: #f0b000;
+          font-family: monospace;
+          font-size: 14px;
+          box-shadow:
+            0 0 0 1px rgba(240,176,0,0.35) inset,
+            0 6px 18px rgba(0,0,0,0.35);
+        }
+        /* show/hide */
+        #turnlock-blocker.show { display: block; animation: tlkFade .2s ease-out both; }
         @keyframes tlkFade { from { opacity: 0 } to { opacity: 1 } }
       `;
       document.head.appendChild(style);
+
+      // Build blocker + banner
+      this._blockerEl = document.createElement("div");
+      this._blockerEl.id = "turnlock-blocker";
+
+      this._bannerEl = document.createElement("div");
+      this._bannerEl.id = "turnlock-banner";
+
+      const msg = document.createElement("div");
+      msg.className = "turnlock-msg";
+      msg.textContent = "awaiting transmission…";
+      this._bannerEl.appendChild(msg);
+
+      this._blockerEl.appendChild(this._bannerEl);
+
+      // Insert blocker as the **first** child so higher z-index panels (chat) can sit above it.
+      if (this._stageEl.firstChild) {
+        this._stageEl.insertBefore(this._blockerEl, this._stageEl.firstChild);
+      } else {
+        this._stageEl.appendChild(this._blockerEl);
+      }
+
+      // Ensure excluded nodes sit **above** the blocker
+      this._excludeNodes.forEach(node => {
+        const cs2 = getComputedStyle(node);
+        if (cs2.position === "static") node.style.position = "relative";
+        // Make sure they are above blocker (z=900). Use 1000 by default.
+        if (!cs2.zIndex || cs2.zIndex === "auto") node.style.zIndex = 1000;
+        // Keep them clickable even when blocker is shown
+        // (blocker will use pointer-events:auto; but excludes are above it)
+      });
     },
 
-    // Called in Receive path with the full state object
+    // Called on receive with the full state object
     onSnapshot(stateObj) {
       if (!stateObj || !stateObj.meta) return;
       const meta = stateObj.meta;
 
-      // Update names if present (optional)
       if (meta.playerNames) {
-        const me = meta.playerNames.me || meta.playerNames.host || this._names.me;
+        const me  = meta.playerNames.me  || meta.playerNames.host || this._names.me;
         const opp = meta.playerNames.opp || meta.playerNames.joiner || this._names.opp;
         this._names = { me, opp };
       }
 
-      // Determine if WE sent the snapshot
       const localId = (localStorage.getItem("playerLabel"))
                    || (window.Net && (Net.user || Net.uid || Net.localName))
                    || this._names.me;
@@ -80,36 +123,32 @@
       if (!sender) return;
 
       const iAmSender = (String(sender) === String(localId));
-
-      // If we sent it, it's now their turn -> lock us.
-      // If we received it, it's now our turn -> unlock us.
+      // If we sent it, we wait -> lock. If we received it, it's our turn -> unlock.
       this._setActive(!iAmSender);
     },
 
-    // Called just before sending a state in Transmit
+    // Called right before transmit
     onBeforeSend(metaObj) {
       if (!metaObj) return;
-      // Keep names if you want them visible later (optional)
       metaObj.playerNames = metaObj.playerNames || { me: this._names.me, opp: this._names.opp };
-      // Immediately lock locally after we transmit (walkie-talkie flow)
+      // Immediately lock locally after we transmit
       this._setActive(false);
     },
 
     _setActive(isActive) {
       this._isActiveLocal = isActive;
-      if (!this._stageEl) return;
+      if (!this._blockerEl) return;
 
       if (isActive) {
-        this._stageEl.classList.remove("turnlock-locked");
-        this._bannerEl && this._bannerEl.classList.remove("show");
+        this._blockerEl.classList.remove("show");
+        this._blockerEl.style.pointerEvents = "none";
       } else {
-        this._stageEl.classList.add("turnlock-locked");
-        if (this._bannerEl) {
-          const oppName = this._names.opp;
-          this._bannerEl.querySelector(".turnlock-msg").textContent =
-            `awaiting (${oppName}) transmission.`;
-          this._bannerEl.classList.add("show");
-        }
+        const oppName = this._names.opp;
+        const msgEl = this._bannerEl && this._bannerEl.querySelector(".turnlock-msg");
+        if (msgEl) msgEl.textContent = `awaiting (${oppName}) transmission.`;
+        this._blockerEl.classList.add("show");
+        // Block the map (stage), but excludes are above this overlay and remain interactive.
+        this._blockerEl.style.pointerEvents = "auto";
       }
     }
   };
