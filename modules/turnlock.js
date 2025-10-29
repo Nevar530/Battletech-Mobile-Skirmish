@@ -1,5 +1,5 @@
 /* =========================================================
-   MSS:84 — Turn Lock (SVG blur class + click blocker overlay)
+   MSS:84 — Turn Lock (SVG blur class + low-Z click blocker)
    File: /modules/turnlock.js
    Public API: window.MSS_TurnLock
    ========================================================= */
@@ -18,28 +18,33 @@
     init(opts = {}) {
       const stageSel   = opts.stageSel   || "main.stage";
       const excludeSel = opts.excludeSel || ""; // e.g. "#mss-chat-wrap, #leftPanel, #rightPanel, header.ui-topbar"
-      const overlayZ   = (opts.overlayZ ?? 40);
+      const overlayZ   = (opts.overlayZ ?? 10); // very low so panels can sit above
+      const panelsZ    = (opts.panelsZ  ?? 3000); // very high for excluded UI
+      const stageZ     = (opts.stageZ   ?? 0);    // ensure stage sits low
 
+      // Stage + SVG
       this._stageEl = document.querySelector(stageSel);
       if (!this._stageEl) return;
-
-      // Cache the SVG map element we want to blur
       this._svgEl = this._stageEl.querySelector("svg#svg");
       if (!this._svgEl) return;
 
-      // Capture excludes (chat/panels/etc.)
-      this._excludeNodes = excludeSel ? Array.from(document.querySelectorAll(excludeSel)) : [];
-
-      // Names (best-effort)
-      const localName  = (window.Net && (Net.localName || Net.myName || Net.user)) || "You";
-      const remoteName = (window.Net && (Net.remoteName || Net.peerName)) || "Opponent";
-      this._names = { me: localName, opp: remoteName };
-
-      // Ensure the stage can anchor absolute children
+      // Make stage an anchoring context and LOW z-index
       const csStage = getComputedStyle(this._stageEl);
       if (csStage.position === "static") this._stageEl.style.position = "relative";
+      this._stageEl.style.zIndex = String(stageZ);
 
-      // ----- Styles -----
+      // Capture excludes (chat/panels/etc.)
+      this._excludeNodes = excludeSel ? Array.from(document.querySelectorAll(excludeSel)) : [];
+      // Force excluded UI ABOVE everything (so clicks go to them)
+      this._excludeNodes.forEach(node => {
+        const cs2 = getComputedStyle(node);
+        // fixed/absolute/relative are all fine; just ensure they are stacking contexts on top
+        if (cs2.position === "static") node.style.position = "relative";
+        node.style.zIndex = String(panelsZ);
+        node.style.pointerEvents = "auto";
+      });
+
+      // ----- Styles (NO backdrop-filter anywhere) -----
       const style = document.createElement("style");
       style.textContent = `
         /* Blur ONLY the SVG when locked */
@@ -49,10 +54,10 @@
         #turnlock-blocker {
           position: absolute;
           display: none;                /* shown via .show */
-          pointer-events: none;         /* set to auto when locked */
-          background: rgba(8,8,10,0.00); /* no backdrop blur! */
+          pointer-events: none;         /* switched to auto when locked */
+          background: rgba(8,8,10,0);   /* no visual dimming; banner provides UX */
         }
-        /* Centered banner message */
+        /* Centered banner */
         #turnlock-banner {
           position: absolute; inset: 0;
           display: flex; align-items: center; justify-content: center;
@@ -74,10 +79,10 @@
       `;
       document.head.appendChild(style);
 
-      // ----- Build blocker + banner (we’ll size it exactly over the SVG) -----
+      // ----- Build blocker + banner (sized to SVG) -----
       this._blockerEl = document.createElement("div");
       this._blockerEl.id = "turnlock-blocker";
-      this._blockerEl.style.zIndex = String(overlayZ); // above map, below panels/chat
+      this._blockerEl.style.zIndex = String(overlayZ); // BELOW panels/chat; ABOVE raw map content
 
       this._bannerEl = document.createElement("div");
       this._bannerEl.id = "turnlock-banner";
@@ -94,13 +99,6 @@
       } else {
         this._stageEl.appendChild(this._blockerEl);
       }
-
-      // Excluded nodes: ensure they float above overlay if they are inside/over stage
-      this._excludeNodes.forEach(node => {
-        const cs2 = getComputedStyle(node);
-        if (cs2.position === "static") node.style.position = "relative";
-        if (!cs2.zIndex || cs2.zIndex === "auto") node.style.zIndex = "1000";
-      });
 
       // Sizing logic targets ONLY the SVG map
       const recalcBlocker = () => {
@@ -127,6 +125,11 @@
           this._resizeObs.observe(this._svgEl);
         }
       } catch {}
+
+      // Names (best-effort)
+      const localName  = (window.Net && (Net.localName || Net.myName || Net.user)) || "You";
+      const remoteName = (window.Net && (Net.remoteName || Net.peerName)) || "Opponent";
+      this._names = { me: localName, opp: remoteName };
     },
 
     // Called on receive with the full state object
@@ -176,6 +179,7 @@
         const msgEl = this._bannerEl && this._bannerEl.querySelector(".turnlock-msg");
         if (msgEl) msgEl.textContent = `awaiting (${oppName}) transmission.`;
         this._blockerEl.classList.add("show");
+        // IMPORTANT: only the overlay captures clicks (SVG is blurred underneath)
         this._blockerEl.style.pointerEvents = "auto";
       }
     }
