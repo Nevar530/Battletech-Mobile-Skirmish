@@ -48,13 +48,13 @@
       msg.textContent = "awaiting transmission…";
       this._bannerEl.appendChild(msg);
 
-      // Wrap the stage with a positioning context and inject
-      const stageWrapper = document.createElement("div");
-      stageWrapper.className = "turnlock-wrap";
-      stageWrapper.style.cssText = "position:relative; width:100%; height:100%;";
-      this._stageEl.parentNode.insertBefore(stageWrapper, this._stageEl);
-      stageWrapper.appendChild(this._stageEl);
-      stageWrapper.appendChild(this._bannerEl);
+// Ensure stage itself is the positioning context and inject banner **inside** it
+const cs = getComputedStyle(this._stageEl);
+if (cs.position === "static") {
+  this._stageEl.style.position = "relative";
+}
+this._stageEl.appendChild(this._bannerEl);
+
 
       // Add a CSS class we can toggle to block input on stage only
       this._stageEl.classList.add("turnlock-target");
