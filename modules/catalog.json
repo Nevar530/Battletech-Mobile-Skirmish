@@ -16,6 +16,54 @@
   ],
   "defs": [
     {
+  "id": "bldg_new",
+  "name": "TEST",
+  "type": "bldg",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 1,
+  "footprint": [],
+  "shapes": [
+    {
+      "kind": "rect",
+      "w": 1,
+      "h": 1,
+      "x": -0.5,
+      "y": -0.5,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "rect",
+      "w": 1,
+      "h": 1,
+      "x": -0.5,
+      "y": -0.5,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 240
+    }
+  ]
+},
+    {
       "id": "bldg_block_s",
       "name": "Block Small",
       "type": "bldg",
