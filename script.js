@@ -118,111 +118,6 @@ const COVER_ABBR = { None:'', Light:'| L1', Medium:'| M2', Heavy:'| H3' };
 /* ---------- DOM ---------- */
 const svg = document.getElementById('svg');
 const defs = document.getElementById('tex-defs');
-
-// --- Structure texture pattern cache + builder (per shape) ---
-const _shapeTexCache = new Map(); // key -> patternId
-
-function _sanitizeId(s){ return String(s).replace(/[^a-z0-9_-]/gi,'_'); }
-
-function ensureShapeTexPattern(kind, fill, stroke, sw, scale, angleDeg){
-  // cache key
-  const key = `${kind}|${fill}|${stroke}|${sw}|${scale}|${angleDeg}`;
-  const hit = _shapeTexCache.get(key);
-  if (hit) return hit;
-
-  // generate stable id
-  const id = `shape-tex-${_sanitizeId(kind)}-${_sanitizeId(fill)}-${_sanitizeId(stroke)}-${Math.round(sw*1000)}-${(scale+'').replace('.','_')}-${angleDeg}`;
-  if (document.getElementById(id)){ _shapeTexCache.set(key, id); return id; }
-
-  const p = document.createElementNS('http://www.w3.org/2000/svg', 'pattern');
-  p.setAttribute('id', id);
-  p.setAttribute('patternUnits', 'userSpaceOnUse');
-  p.setAttribute('width', scale);
-  p.setAttribute('height', scale);
-  if (angleDeg) p.setAttribute('patternTransform', `rotate(${angleDeg})`);
-
-  // one cell group
-  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-
-  // helper makers
-  const mk = (name, attrs) => {
-    const n = document.createElementNS('http://www.w3.org/2000/svg', name);
-    for (const [k,v] of Object.entries(attrs)) n.setAttribute(k, v);
-    g.appendChild(n);
-  };
-
-  // normalize stroke width in pattern space (a bit thicker so it shows when scaled by your world)
-  const patSW = Math.max(0.6 * scale * sw, 0.5); // heuristic so 0.02 looks visible
-
-  switch (kind){
-    case 'line_horiz': {
-      mk('line', { x1: 0, y1: scale/2, x2: scale, y2: scale/2, stroke, 'stroke-width': patSW, 'stroke-linecap':'butt' });
-      break;
-    }
-    case 'line_vert': {
-      mk('line', { x1: scale/2, y1: 0, x2: scale/2, y2: scale, stroke, 'stroke-width': patSW, 'stroke-linecap':'butt' });
-      break;
-    }
-    case 'grid': {
-      mk('line', { x1: 0, y1: scale/2, x2: scale, y2: scale/2, stroke, 'stroke-width': patSW });
-      mk('line', { x1: scale/2, y1: 0, x2: scale/2, y2: scale, stroke, 'stroke-width': patSW });
-      break;
-    }
-    case 'dots': {
-      const r = Math.max(scale * 0.12, 0.6);
-      mk('circle', { cx: scale/2, cy: scale/2, r, fill: stroke });
-      break;
-    }
-    case 'chevron': {
-      // simple V shape across the tile
-      const y = scale/2;
-      const pad = scale*0.15;
-      mk('path', { d: `M ${pad} ${y} L ${scale/2} ${pad} L ${scale-pad} ${y}`, fill:'none', stroke, 'stroke-width': patSW, 'stroke-linejoin':'miter' });
-      break;
-    }
-    case 'hexmesh': {
-      // outline of a small hex
-      const r = scale*0.38;
-      const cx = scale/2, cy = scale/2;
-      const pts = Array.from({length:6}, (_,i)=>{
-        const a = (Math.PI/180)*(60*i);
-        return `${cx + r*Math.cos(a)},${cy + r*Math.sin(a)}`;
-      }).join(' ');
-      mk('polygon', { points: pts, fill:'none', stroke, 'stroke-width': patSW, 'stroke-linejoin':'round' });
-      break;
-    }
-    case 'radial': {
-      // concentric rings inside the cell (repeats across pattern, good for "objective pad" look)
-      const rings = 3;
-      for (let i=1;i<=rings;i++){
-        const r = (i/(rings+1))*scale*0.5;
-        mk('circle', { cx: scale/2, cy: scale/2, r, fill:'none', stroke, 'stroke-width': Math.max(patSW*0.6, 0.5) });
-      }
-      break;
-    }
-    case 'dome': {
-      // spokes
-      const cx = scale/2, cy = scale/2;
-      const arms = 6;
-      for (let i=0;i<arms;i++){
-        const a = (Math.PI*2/arms)*i;
-        mk('line', { x1: cx, y1: cy, x2: cx + (scale*0.5)*Math.cos(a), y2: cy + (scale*0.5)*Math.sin(a), stroke, 'stroke-width': Math.max(patSW*0.6, 0.5) });
-      }
-      break;
-    }
-    default: {
-      // fallback: faint noise grid
-      mk('line', { x1: 0, y1: scale/2, x2: scale, y2: scale/2, stroke, 'stroke-width': patSW*0.6, 'stroke-opacity':0.6 });
-    }
-  }
-
-  p.appendChild(g);
-  defs.appendChild(p);
-  _shapeTexCache.set(key, id);
-  return id;
-}
-
-
 const frameBorder = document.getElementById('frameBorder');
 const gShadows = document.getElementById('world-shadows');
 const gPolys   = document.getElementById('world-polys');
@@ -3798,8 +3693,6 @@ function wireSend() {
 
   syncHeaderH();
 })();
-
-
 
 
 
