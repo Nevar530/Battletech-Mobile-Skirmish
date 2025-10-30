@@ -409,11 +409,6 @@
         }
       ]
     },
-
-    // =========================
-    // Walls & Gates (connectable)
-    // =========================
-
     {
       "id": "wall_straight",
       "name": "Fortified Wall (Straight)",
