@@ -800,6 +800,133 @@ g.setAttribute(
 );
 g.dataset.id = s.id;
 
+// --- per-structure pattern defs (texture fills) ---
+const structDefs = document.createElementNS(svgNS, 'defs');
+g.appendChild(structDefs);
+
+// cache so multiple shapes reusing same style don't duplicate patterns
+const __patCache = new Map();
+
+function __patKey(sh){
+  const f   = sh.fill   || '#20262c';
+  const st  = sh.stroke || '#9aa4ae';
+  const sw  = Number(sh.sw) || 0.02;
+  const t   = sh.texture || '';
+  const sc  = Number.isFinite(+sh.texScale) ? +sh.texScale : 1;
+  const ang = Number.isFinite(+sh.texAngle) ? +sh.texAngle : 0;
+  return `${t}|${sc}|${ang}|${f}|${st}|${sw}`;
+}
+
+function __patternIdForShape(sh){
+  if (!sh.texture) return '';
+  const key = __patKey(sh);
+  if (__patCache.has(key)) return __patCache.get(key);
+
+  const id  = `pat_${s.id}_${__patCache.size}`;
+  const pat = document.createElementNS(svgNS,'pattern');
+  pat.setAttribute('id', id);
+  pat.setAttribute('patternUnits', 'userSpaceOnUse');
+  pat.setAttribute('patternContentUnits', 'userSpaceOnUse');
+
+  // Base repeat size in "shape units": 0.1 * texScale (1.0 = fairly fine)
+  const unit = Math.max(0.02, 0.1 * (Number.isFinite(+sh.texScale) ? +sh.texScale : 1));
+  pat.setAttribute('width',  String(unit));
+  pat.setAttribute('height', String(unit));
+
+  const ang = Number.isFinite(+sh.texAngle) ? +sh.texAngle : 0;
+  if (ang) pat.setAttribute('patternTransform', `rotate(${ang})`);
+
+  const fillCol   = sh.fill   || '#20262c';
+  const strokeCol = sh.stroke || '#9aa4ae';
+  const strokeW   = Math.max(0.005, (Number(sh.sw) || 0.02) * 0.6);
+
+  // background = shape fill color
+  const bg = document.createElementNS(svgNS, 'rect');
+  bg.setAttribute('x','0'); bg.setAttribute('y','0');
+  bg.setAttribute('width',  String(unit));
+  bg.setAttribute('height', String(unit));
+  bg.setAttribute('fill', fillCol);
+  pat.appendChild(bg);
+
+  // helpers
+  function line(x1,y1,x2,y2){
+    const l = document.createElementNS(svgNS,'line');
+    l.setAttribute('x1',x1); l.setAttribute('y1',y1);
+    l.setAttribute('x2',x2); l.setAttribute('y2',y2);
+    l.setAttribute('stroke', strokeCol);
+    l.setAttribute('stroke-width', String(strokeW));
+    l.setAttribute('stroke-linecap', 'square');
+    return l;
+  }
+  function circle(cx,cy,r){
+    const c = document.createElementNS(svgNS,'circle');
+    c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',r);
+    c.setAttribute('fill','none');
+    c.setAttribute('stroke', strokeCol);
+    c.setAttribute('stroke-width', String(strokeW));
+    return c;
+  }
+  function path(d){
+    const p = document.createElementNS(svgNS,'path');
+    p.setAttribute('d', d);
+    p.setAttribute('fill','none');
+    p.setAttribute('stroke', strokeCol);
+    p.setAttribute('stroke-width', String(strokeW));
+    p.setAttribute('stroke-linejoin','miter');
+    return p;
+  }
+
+  // motifs
+  switch (sh.texture){
+    case 'line_horiz': pat.appendChild(line(0,0, unit,0)); break;
+    case 'line_vert':  pat.appendChild(line(0,0, 0,unit)); break;
+    case 'grid':
+      pat.appendChild(line(0,0, unit,0));
+      pat.appendChild(line(0,0, 0,unit));
+      break;
+    case 'dots': {
+      const r = unit*0.12;
+      const c = document.createElementNS(svgNS,'circle');
+      c.setAttribute('cx', unit*0.5);
+      c.setAttribute('cy', unit*0.5);
+      c.setAttribute('r',  r);
+      c.setAttribute('fill',   strokeCol);
+      c.setAttribute('stroke', 'none');
+      pat.appendChild(c);
+    } break;
+    case 'chevron': {
+      const d = `M 0 ${unit*0.5} L ${unit*0.25} ${unit*0.25} L ${unit*0.5} ${unit*0.5} L ${unit*0.75} ${unit*0.25} L ${unit} ${unit*0.5}`;
+      pat.appendChild(path(d));
+    } break;
+    case 'hexmesh': {
+      const R = unit*0.45, cx = unit*0.5, cy = unit*0.5;
+      const pts = [];
+      for (let i=0;i<6;i++){
+        const a = (Math.PI/180)*(60*i);
+        pts.push([cx + R*Math.cos(a), cy + R*Math.sin(a)]);
+      }
+      const d = `M ${pts[0][0]} ${pts[0][1]} ` + pts.slice(1).map(p=>`L ${p[0]} ${p[1]}`).join(' ') + ' Z';
+      pat.appendChild(path(d));
+    } break;
+    case 'radial':
+      pat.appendChild(circle(unit*0.5, unit*0.5, unit*0.18));
+      pat.appendChild(circle(unit*0.5, unit*0.5, unit*0.36));
+      break;
+    case 'dome': {
+      const cx = unit*0.5, cy = unit*0.5, R = unit*0.5, spokes = 8;
+      for (let i=0;i<spokes;i++){
+        const a = (Math.PI*2)*i/spokes;
+        pat.appendChild(line(cx,cy, cx + R*Math.cos(a), cy + R*Math.sin(a)));
+      }
+    } break;
+  }
+
+  structDefs.appendChild(pat);
+  __patCache.set(key, id);
+  return id;
+}
+
+  
   // if s.shapes exists (from catalog)
 if (Array.isArray(s.shapes)) {
   s.shapes.forEach(shape => {
@@ -853,12 +980,25 @@ if (Array.isArray(s.shapes)) {
       if (shape.ry) el.setAttribute('ry', shape.ry);
     }
 
-   // === COLOR & STROKE HANDLING (with non-scaling stroke fix) ===
-if (shape.fill) el.setAttribute('fill', shape.fill);
+// === COLOR & STROKE HANDLING (with non-scaling stroke fix) ===
+// Per-shape pattern fill support (texture + scale + angle)
+if (tag === 'polyline') {
+  // polylines never get a fill
+  el.setAttribute('fill', 'none');
+} else {
+  const baseFill = shape.fill || '#20262c';
+  let fillVal = baseFill;
+  if (shape.texture) {
+    const pid = __patternIdForShape(shape);
+    if (pid) fillVal = `url(#${pid})`;
+  }
+  el.setAttribute('fill', fillVal);
+}
 if (shape.stroke) el.setAttribute('stroke', shape.stroke);
 
 // Only apply stroke-width if the shape defines one
 if (shape.stroke || Number.isFinite(shape.sw)) {
+
   // Determine base width in hex units from catalog (e.g., 0.02)
   const swHex = Number(shape.sw) || 0.02;
 
@@ -3693,6 +3833,7 @@ function wireSend() {
 
   syncHeaderH();
 })();
+
 
 
 
