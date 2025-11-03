@@ -1,1744 +1,367 @@
 {
   "version": 1,
   "types": [
-    {
-      "id": "bldg",
-      "name": "Buildings"
-    },
-    {
-      "id": "wall/gate",
-      "name": "Walls & Gates"
-    },
-    {
-      "id": "objectives",
-      "name": "Objectives"
-    }
+    { "id": "bldg", "name": "Buildings" },
+    { "id": "wall/gate", "name": "Walls & Gates" },
+    { "id": "objectives", "name": "Objectives" }
   ],
   "defs": [
     {
-  "id": "gate_h2",
-  "name": "Wall Heavy gate 2/4",
-  "type": "wall/gate",
-  "units": "hex",
-  "rotateStep": 60,
-  "heightMode": "fixed",
-  "height": 4,
-  "footprint": [
-    {
-      "dq": -1,
-      "dr": 0
-    },
-    {
-      "dq": -1,
-      "dr": 1
-    },
-    {
-      "dq": 0,
-      "dr": -1
-    },
-    {
-      "dq": 0,
-      "dr": 1
-    },
-    {
-      "dq": 1,
-      "dr": -1
-    },
-    {
-      "dq": 1,
-      "dr": 0
-    }
-  ],
-  "shapes": [
-    {
-      "kind": "rect",
-      "w": 0.8,
-      "h": 3.5,
-      "x": -0.4,
-      "y": -1.75,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0.85,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_horiz",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "rect",
-      "w": 0.5,
-      "h": 3.5,
-      "x": -0.25,
-      "y": -1.75,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0.85,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "dome",
-      "texScale": 5,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": -1.75,
-      "fill": "#4d5256",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 10,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -1
-        ],
-        [
-          0.85,
-          -0.5
-        ],
-        [
-          0.85,
-          0.5
-        ],
-        [
-          0,
-          1
-        ],
-        [
-          -0.85,
-          0.5
-        ],
-        [
-          -0.85,
-          -0.5
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": -1.75,
-      "fill": "#363d44",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.75
-        ],
-        [
-          0.65,
-          -0.35
-        ],
-        [
-          0.65,
-          0.35
-        ],
-        [
-          0,
-          0.75
-        ],
-        [
-          -0.65,
-          0.4
-        ],
-        [
-          -0.65,
-          -0.35
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": 3.45,
-      "fill": "#4d5256",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 10,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -1
-        ],
-        [
-          0.85,
-          -0.5
-        ],
-        [
-          0.85,
-          0.5
-        ],
-        [
-          0,
-          1
-        ],
-        [
-          -0.85,
-          0.5
-        ],
-        [
-          -0.85,
-          -0.5
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": 3.45,
-      "fill": "#363d44",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.75
-        ],
-        [
-          0.65,
-          -0.35
-        ],
-        [
-          0.65,
-          0.35
-        ],
-        [
-          0,
-          0.75
-        ],
-        [
-          -0.65,
-          0.4
-        ],
-        [
-          -0.65,
-          -0.35
-        ]
-      ]
-    }
-  ]
-},
-    {
-  "id": "gate_h1",
-  "name": "Wall Heavy gate 1/4",
-  "type": "wall/gate",
-  "units": "hex",
-  "rotateStep": 60,
-  "heightMode": "fixed",
-  "height": 4,
-  "footprint": [
-    {
-      "dq": -1,
-      "dr": 0
-    },
-    {
-      "dq": -1,
-      "dr": 1
-    },
-    {
-      "dq": 0,
-      "dr": -1
-    },
-    {
-      "dq": 0,
-      "dr": 1
-    },
-    {
-      "dq": 1,
-      "dr": -1
-    },
-    {
-      "dq": 1,
-      "dr": 0
-    }
-  ],
-  "shapes": [
-    {
-      "kind": "rect",
-      "w": 0.8,
-      "h": 2,
-      "x": -0.4,
-      "y": -1,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_horiz",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "rect",
-      "w": 0.5,
-      "h": 2,
-      "x": -0.25,
-      "y": -1,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "dome",
-      "texScale": 5,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": -1.75,
-      "fill": "#4d5256",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 10,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -1
-        ],
-        [
-          0.85,
-          -0.5
-        ],
-        [
-          0.85,
-          0.5
-        ],
-        [
-          0,
-          1
-        ],
-        [
-          -0.85,
-          0.5
-        ],
-        [
-          -0.85,
-          -0.5
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": -1.75,
-      "fill": "#363d44",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.75
-        ],
-        [
-          0.65,
-          -0.35
-        ],
-        [
-          0.65,
-          0.35
-        ],
-        [
-          0,
-          0.75
-        ],
-        [
-          -0.65,
-          0.4
-        ],
-        [
-          -0.65,
-          -0.35
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": 1.75,
-      "fill": "#4d5256",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 10,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -1
-        ],
-        [
-          0.85,
-          -0.5
-        ],
-        [
-          0.85,
-          0.5
-        ],
-        [
-          0,
-          1
-        ],
-        [
-          -0.85,
-          0.5
-        ],
-        [
-          -0.85,
-          -0.5
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": 1.75,
-      "fill": "#363d44",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.75
-        ],
-        [
-          0.65,
-          -0.35
-        ],
-        [
-          0.65,
-          0.35
-        ],
-        [
-          0,
-          0.75
-        ],
-        [
-          -0.65,
-          0.4
-        ],
-        [
-          -0.65,
-          -0.35
-        ]
-      ]
-    }
-  ]
-},
-    {
-  "id": "wall_h0",
-  "name": "Wall Heavy post 1/4",
-  "type": "wall/gate",
-  "units": "hex",
-  "rotateStep": 0,
-  "heightMode": "fixed",
-  "height": 4,
-  "footprint": [
-    {
-      "dq": -1,
-      "dr": 0
-    },
-    {
-      "dq": -1,
-      "dr": 1
-    },
-    {
-      "dq": 0,
-      "dr": -1
-    },
-    {
-      "dq": 0,
-      "dr": 1
-    },
-    {
-      "dq": 1,
-      "dr": -1
-    },
-    {
-      "dq": 1,
-      "dr": 0
-    }
-  ],
-  "shapes": [
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": 0,
-      "fill": "#4d5256",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 10,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -1
-        ],
-        [
-          0.85,
-          -0.5
-        ],
-        [
-          0.85,
-          0.5
-        ],
-        [
-          0,
-          1
-        ],
-        [
-          -0.85,
-          0.5
-        ],
-        [
-          -0.85,
-          -0.5
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": 0,
-      "fill": "#363d44",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.75
-        ],
-        [
-          0.65,
-          -0.35
-        ],
-        [
-          0.65,
-          0.35
-        ],
-        [
-          0,
-          0.75
-        ],
-        [
-          -0.65,
-          0.4
-        ],
-        [
-          -0.65,
-          -0.35
-        ]
-      ]
-    }
-  ]
-},
-    {
-  "id": "wall_h3",
-  "name": "Wall Heavy 3/4",
-  "type": "wall/gate",
-  "units": "hex",
-  "rotateStep": 60,
-  "heightMode": "fixed",
-  "height": 4,
-  "footprint": [
-    {
-      "dq": -1,
-      "dr": 0
-    },
-    {
-      "dq": -1,
-      "dr": 1
-    },
-    {
-      "dq": 0,
-      "dr": -1
-    },
-    {
-      "dq": 0,
-      "dr": 1
-    },
-    {
-      "dq": 1,
-      "dr": -1
-    },
-    {
-      "dq": 1,
-      "dr": 0
-    }
-  ],
-  "shapes": [
-    {
-      "kind": "rect",
-      "w": 1,
-      "h": 5.2,
-      "x": -0.5,
-      "y": -2.6,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_horiz",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "rect",
-      "w": 0.5,
-      "h": 5.2,
-      "x": -0.25,
-      "y": -2.6,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 5,
-      "texAngle": 0,
-      "rot": 0
-    }
-  ]
-},
-    {
-  "id": "wall_h1",
-  "name": "Wall Heavy 1/4",
-  "type": "wall/gate",
-  "units": "hex",
-  "rotateStep": 60,
-  "heightMode": "fixed",
-  "height": 4,
-  "footprint": [
-    {
-      "dq": -1,
-      "dr": 0
-    },
-    {
-      "dq": -1,
-      "dr": 1
-    },
-    {
-      "dq": 0,
-      "dr": -1
-    },
-    {
-      "dq": 0,
-      "dr": 1
-    },
-    {
-      "dq": 1,
-      "dr": -1
-    },
-    {
-      "dq": 1,
-      "dr": 0
-    }
-  ],
-  "shapes": [
-    {
-      "kind": "rect",
-      "w": 1,
-      "h": 1.75,
-      "x": -0.5,
-      "y": -0.85,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_horiz",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "rect",
-      "w": 0.5,
-      "h": 1.75,
-      "x": -0.25,
-      "y": -0.85,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 5,
-      "texAngle": 0,
-      "rot": 0
-    }
-  ]
-},
-    {
-  "id": "dropship_pod",
-  "name": "DropShipPod",
-  "type": "objectives",
-  "units": "hex",
-  "rotateStep": 60,
-  "heightMode": "fixed",
-  "height": 4,
-  "footprint": [
-    {
-      "dq": -2,
-      "dr": 0
-    },
-    {
-      "dq": -2,
-      "dr": 1
-    },
-    {
-      "dq": -2,
-      "dr": 2
-    },
-    {
-      "dq": -1,
-      "dr": -1
-    },
-    {
-      "dq": -1,
-      "dr": 2
-    },
-    {
-      "dq": 0,
-      "dr": -2
-    },
-    {
-      "dq": 0,
-      "dr": 2
-    },
-    {
-      "dq": 1,
-      "dr": -2
-    },
-    {
-      "dq": 1,
-      "dr": 1
-    },
-    {
-      "dq": 2,
-      "dr": -2
-    },
-    {
-      "dq": 2,
-      "dr": -1
-    },
-    {
-      "dq": 2,
-      "dr": 0
-    }
-  ],
-  "shapes": [
-    {
-      "kind": "polygon",
-      "tx": 1.55,
-      "ty": 0.9,
-      "fill": "#6b6e70",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_vert",
-      "texScale": 5,
-      "texAngle": 120,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.5
-        ],
-        [
-          0.45,
-          -0.25
-        ],
-        [
-          0.45,
-          0.25
-        ],
-        [
-          0,
-          0.5
-        ],
-        [
-          -0.45,
-          0.25
-        ],
-        [
-          -0.45,
-          -0.25
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": -1.55,
-      "ty": -0.9,
-      "fill": "#6b6e70",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_vert",
-      "texScale": 5,
-      "texAngle": 120,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.5
-        ],
-        [
-          0.45,
-          -0.25
-        ],
-        [
-          0.45,
-          0.25
-        ],
-        [
-          0,
-          0.5
-        ],
-        [
-          -0.45,
-          0.25
-        ],
-        [
-          -0.45,
-          -0.25
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": -1.55,
-      "ty": 0.9,
-      "fill": "#6b6e70",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_vert",
-      "texScale": 5,
-      "texAngle": 60,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.5
-        ],
-        [
-          0.45,
-          -0.25
-        ],
-        [
-          0.45,
-          0.25
-        ],
-        [
-          0,
-          0.5
-        ],
-        [
-          -0.45,
-          0.25
-        ],
-        [
-          -0.45,
-          -0.25
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 1.55,
-      "ty": -0.9,
-      "fill": "#6b6e70",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_vert",
-      "texScale": 5,
-      "texAngle": 60,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.5
-        ],
-        [
-          0.45,
-          -0.25
-        ],
-        [
-          0.45,
-          0.25
-        ],
-        [
-          0,
-          0.5
-        ],
-        [
-          -0.45,
-          0.25
-        ],
-        [
-          -0.45,
-          -0.25
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": -1.8,
-      "fill": "#6b6e70",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_horiz",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.8
-        ],
-        [
-          0.7,
-          -0.4
-        ],
-        [
-          0.7,
-          0.4
-        ],
-        [
-          0,
-          0.8
-        ],
-        [
-          -0.7,
-          0.4
-        ],
-        [
-          -0.7,
-          -0.4
-        ]
-      ]
-    },
-    {
-      "kind": "polygon",
-      "tx": 0,
-      "ty": 1.8,
-      "fill": "#686e73",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_horiz",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 0,
-      "points": [
-        [
-          0,
-          -0.8
-        ],
-        [
-          0.7,
-          -0.4
-        ],
-        [
-          0.7,
-          0.4
-        ],
-        [
-          0,
-          0.8
-        ],
-        [
-          -0.7,
-          0.4
-        ],
-        [
-          -0.7,
-          -0.4
-        ]
-      ]
-    },
-    {
-      "kind": "circle",
-      "r": 2,
-      "cx": 0,
-      "cy": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#5e6368",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 34,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "circle",
-      "r": 1,
-      "cx": 0,
-      "cy": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#727679",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "dome",
-      "texScale": 20,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "circle",
-      "r": 0.5,
-      "cx": 0,
-      "cy": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#8c9197",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "dome",
-      "texScale": 10,
-      "texAngle": 0,
-      "rot": 0
-    },
-    {
-      "kind": "circle",
-      "r": 0.2,
-      "cx": 0,
-      "cy": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#9da3aa",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "dome",
-      "texScale": 4,
-      "texAngle": 0,
-      "rot": 0
-    }
-  ]
-},
-    {
-  "id": "wall3_sm",
-  "name": "Wall 3 Small",
-  "type": "wall/gate",
-  "units": "hex",
-  "rotateStep": 60,
-  "heightMode": "fixed",
-  "height": 3,
-  "footprint": [],
-  "shapes": [
-    {
-      "kind": "rect",
-      "w": 0.5,
-      "h": 5.5,
-      "x": -0.25,
-      "y": -2.75,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 5,
-      "texAngle": 0,
-      "rot": 180
-    }
-  ]
-},
-    {
-  "id": "corner_sm",
-  "name": "Corner Small",
-  "type": "wall/gate",
-  "units": "hex",
-  "rotateStep": 60,
-  "heightMode": "fixed",
-  "height": 3,
-  "footprint": [],
-  "shapes": [
-    {
-      "kind": "rect",
-      "w": 0.5,
-      "h": 1,
-      "x": -0.25,
-      "y": -0.5,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0,
-      "ty": 0.5,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 5,
-      "texAngle": 0,
-      "rot": 180
-    },
-    {
-      "kind": "rect",
-      "w": 0.5,
-      "h": 1,
-      "x": -0.25,
-      "y": -0.5,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0.45,
-      "ty": -0.25,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "hexmesh",
-      "texScale": 5,
-      "texAngle": 0,
-      "rot": 240
-    },
-    {
-      "kind": "rect",
-      "w": 0.5,
-      "h": 0.75,
-      "x": -0.25,
-      "y": -0.35,
-      "rx": 0,
-      "autoCenter": true,
-      "tx": 0.1,
-      "ty": 0.1,
-      "fill": "#20262c",
-      "stroke": "#9aa4ae",
-      "sw": 0.02,
-      "texture": "line_horiz",
-      "texScale": 1,
-      "texAngle": 0,
-      "rot": 300
-    }
-  ]
-},
-    {
-      "id": "bldg_block_s",
-      "name": "Block Small",
-      "type": "bldg",
+      "id": "gate_h2",
+      "name": "Wall Heavy gate 2/4",
+      "type": "wall/gate",
       "units": "hex",
       "rotateStep": 60,
       "heightMode": "fixed",
-      "height": 2,
+      "height": 4,
       "footprint": [
-        {
-          "dq": 0,
-          "dr": 0
-        }
+        { "dq": -1, "dr": 0 }, { "dq": -1, "dr": 1 }, { "dq": 0, "dr": -1 },
+        { "dq": 0, "dr": 1 },  { "dq": 1, "dr": -1 }, { "dq": 1, "dr": 0 }
       ],
       "shapes": [
         {
-          "kind": "rect",
-          "w": 1.3,
-          "h": 0.9,
-          "x": -0.65,
-          "y": -0.45,
-          "rx": 0.06,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#2a3037",
-          "stroke": "#a8a8a8",
-          "sw": 0.02,
-          "texture": "grid",
-          "texScale": 6,
-          "texAngle": 0
+          "kind": "rect","w": 0.8,"h": 3.5,"x": -0.4,"y": -1.75,"rx": 0,
+          "autoCenter": true,"tx": 0,"ty": 0.85,"fill": "#20262c","stroke": "#9aa4ae",
+          "sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
         },
         {
-          "kind": "rect",
-          "w": 1.18,
-          "h": 0.78,
-          "x": -0.59,
-          "y": -0.39,
-          "rx": 0.04,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#3a424c",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "line_horiz",
-          "texScale": 4,
-          "texAngle": 0
+          "kind": "rect","w": 0.5,"h": 3.5,"x": -0.25,"y": -1.75,"rx": 0,
+          "autoCenter": true,"tx": 0,"ty": 0.85,"fill": "#20262c","stroke": "#9aa4ae",
+          "sw": 0.02,"texture": "dome","texScale": 5,"texAngle": 0,"rot": 0
+        },
+
+        /* top cap (rotated points) */
+        {
+          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
+          "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
+        },
+        {
+          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
+          "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
+        },
+
+        /* bottom cap (rotated points) */
+        {
+          "kind": "polygon","tx": 0,"ty": 3.45,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
+          "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
+        },
+        {
+          "kind": "polygon","tx": 0,"ty": 3.45,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
+          "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         }
       ]
     },
+
     {
-      "id": "bldg_block_l",
-      "name": "Block Large",
-      "type": "bldg",
+      "id": "gate_h1",
+      "name": "Wall Heavy gate 1/4",
+      "type": "wall/gate",
       "units": "hex",
       "rotateStep": 60,
       "heightMode": "fixed",
-      "height": 3,
+      "height": 4,
       "footprint": [
-        {
-          "dq": 0,
-          "dr": 0
-        },
-        {
-          "dq": 1,
-          "dr": 0
-        },
-        {
-          "dq": 0,
-          "dr": 1
-        }
+        { "dq": -1, "dr": 0 }, { "dq": -1, "dr": 1 }, { "dq": 0, "dr": -1 },
+        { "dq": 0, "dr": 1 },  { "dq": 1, "dr": -1 }, { "dq": 1, "dr": 0 }
       ],
       "shapes": [
         {
-          "kind": "rect",
-          "w": 2.8,
-          "h": 1.8,
-          "x": -1.4,
-          "y": -0.9,
-          "rx": 0.06,
-          "autoCenter": true,
-          "tx": 0.0,
-          "ty": 0.0,
-          "fill": "#2a3037",
-          "stroke": "#a8a8a8",
-          "sw": 0.02,
-          "texture": "grid",
-          "texScale": 8,
-          "texAngle": 0
+          "kind": "rect","w": 0.8,"h": 2,"x": -0.4,"y": -1,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
         },
         {
-          "kind": "rect",
-          "w": 2.6,
-          "h": 1.6,
-          "x": -1.3,
-          "y": -0.8,
-          "rx": 0.04,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#3a424c",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "line_horiz",
-          "texScale": 5,
-          "texAngle": 0
+          "kind": "rect","w": 0.5,"h": 2,"x": -0.25,"y": -1,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 5,"texAngle": 0,"rot": 0
+        },
+
+        /* top cap (rotated points) */
+        {
+          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
+          "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
+        },
+        {
+          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
+          "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
+        },
+
+        /* bottom cap (rotated points) */
+        {
+          "kind": "polygon","tx": 0,"ty": 1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
+          "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
+        },
+        {
+          "kind": "polygon","tx": 0,"ty": 1.75,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
+          "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         }
       ]
     },
+
     {
-      "id": "bldg_factory",
-      "name": "Factory",
-      "type": "bldg",
+      "id": "wall_h0",
+      "name": "Wall Heavy post 1/4",
+      "type": "wall/gate",
+      "units": "hex",
+      "rotateStep": 0,
+      "heightMode": "fixed",
+      "height": 4,
+      "footprint": [
+        { "dq": -1, "dr": 0 }, { "dq": -1, "dr": 1 }, { "dq": 0, "dr": -1 },
+        { "dq": 0, "dr": 1 },  { "dq": 1, "dr": -1 }, { "dq": 1, "dr": 0 }
+      ],
+      "shapes": [
+        {
+          "kind": "polygon","tx": 0,"ty": 0,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
+          "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
+        },
+        {
+          "kind": "polygon","tx": 0,"ty": 0,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
+          "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
+        }
+      ]
+    },
+
+    {
+      "id": "wall_h3",
+      "name": "Wall Heavy 3/4",
+      "type": "wall/gate",
       "units": "hex",
       "rotateStep": 60,
       "heightMode": "fixed",
-      "height": 2,
+      "height": 4,
       "footprint": [
-        {
-          "dq": 0,
-          "dr": 0
-        },
-        {
-          "dq": 1,
-          "dr": 0
-        }
+        { "dq": -1, "dr": 0 }, { "dq": -1, "dr": 1 }, { "dq": 0, "dr": -1 },
+        { "dq": 0, "dr": 1 },  { "dq": 1, "dr": -1 }, { "dq": 1, "dr": 0 }
       ],
       "shapes": [
         {
-          "kind": "rect",
-          "w": 2.6,
-          "h": 1.3,
-          "x": -1.3,
-          "y": -0.65,
-          "rx": 0.04,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#2a3037",
-          "stroke": "#a8a8a8",
-          "sw": 0.02,
-          "texture": "grid",
-          "texScale": 7,
-          "texAngle": 0
+          "kind": "rect","w": 1,"h": 5.2,"x": -0.5,"y": -2.6,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
         },
         {
-          "kind": "rect",
-          "w": 0.34,
-          "h": 1.3,
-          "x": -0.17,
-          "y": -0.65,
-          "rx": 0.04,
-          "autoCenter": true,
-          "tx": -0.9,
-          "ty": 0,
-          "fill": "#4b5561",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "line_vert",
-          "texScale": 3,
-          "texAngle": 0
-        },
-        {
-          "kind": "rect",
-          "w": 0.34,
-          "h": 1.3,
-          "x": -0.17,
-          "y": -0.65,
-          "rx": 0.04,
-          "autoCenter": true,
-          "tx": 0.0,
-          "ty": 0,
-          "fill": "#4b5561",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "line_vert",
-          "texScale": 3,
-          "texAngle": 0
-        },
-        {
-          "kind": "rect",
-          "w": 0.34,
-          "h": 1.3,
-          "x": -0.17,
-          "y": -0.65,
-          "rx": 0.04,
-          "autoCenter": true,
-          "tx": 0.9,
-          "ty": 0,
-          "fill": "#4b5561",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "line_vert",
-          "texScale": 3,
-          "texAngle": 0
+          "kind": "rect","w": 0.5,"h": 5.2,"x": -0.25,"y": -2.6,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 0
         }
       ]
     },
+
     {
-      "id": "gen_sm",
-      "name": "Generator Small",
+      "id": "wall_h1",
+      "name": "Wall Heavy 1/4",
+      "type": "wall/gate",
+      "units": "hex",
+      "rotateStep": 60,
+      "heightMode": "fixed",
+      "height": 4,
+      "footprint": [
+        { "dq": -1, "dr": 0 }, { "dq": -1, "dr": 1 }, { "dq": 0, "dr": -1 },
+        { "dq": 0, "dr": 1 },  { "dq": 1, "dr": -1 }, { "dq": 1, "dr": 0 }
+      ],
+      "shapes": [
+        {
+          "kind": "rect","w": 1,"h": 1.75,"x": -0.5,"y": -0.85,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
+        },
+        {
+          "kind": "rect","w": 0.5,"h": 1.75,"x": -0.25,"y": -0.85,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 0
+        }
+      ]
+    },
+
+    {
+      "id": "dropship_pod",
+      "name": "DropShipPod",
       "type": "objectives",
       "units": "hex",
       "rotateStep": 60,
       "heightMode": "fixed",
-      "height": 1,
-      "footprint": [],
+      "height": 4,
+      "footprint": [
+        { "dq": -2, "dr": 0 }, { "dq": -2, "dr": 1 }, { "dq": -2, "dr": 2 },
+        { "dq": -1, "dr": -1 },{ "dq": -1, "dr": 2 }, { "dq": 0, "dr": -2 },
+        { "dq": 0, "dr": 2 },  { "dq": 1, "dr": -2 }, { "dq": 1, "dr": 1 },
+        { "dq": 2, "dr": -2 }, { "dq": 2, "dr": -1 }, { "dq": 2, "dr": 0 }
+      ],
       "shapes": [
+
+        /* small pods (rotated points) */
         {
-          "kind": "rect",
-          "w": 1.75,
-          "h": 0.75,
-          "x": -0.875,
-          "y": -0.375,
-          "rx": 0.25,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#7c4213",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
+          "kind": "polygon","tx": 1.55,"ty": 0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "line_vert","texScale": 5,"texAngle": 120,"rot": 0,
+          "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
         },
         {
-          "kind": "rect",
-          "w": 1.5,
-          "h": 1,
-          "x": -0.75,
-          "y": -0.5,
-          "rx": 0.1,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#20262c",
-          "stroke": "#a8a8a8",
-          "sw": 0.02,
-          "texture": "hexmesh",
-          "texScale": 10,
-          "texAngle": 0
+          "kind": "polygon","tx": -1.55,"ty": -0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "line_vert","texScale": 5,"texAngle": 120,"rot": 0,
+          "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
         },
         {
-          "kind": "rect",
-          "w": 0.25,
-          "h": 1.5,
-          "x": -0.125,
-          "y": -0.75,
-          "rx": 0.1,
-          "autoCenter": true,
-          "tx": -0.4,
-          "ty": 0,
-          "fill": "#404d59",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "line_horiz",
-          "texScale": 2.5,
-          "texAngle": 0
+          "kind": "polygon","tx": -1.55,"ty": 0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "line_vert","texScale": 5,"texAngle": 60,"rot": 0,
+          "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
         },
         {
-          "kind": "rect",
-          "w": 0.25,
-          "h": 1.5,
-          "x": -0.125,
-          "y": -0.75,
-          "rx": 0.1,
-          "autoCenter": true,
-          "tx": 0.0,
-          "ty": 0,
-          "fill": "#404d59",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "line_horiz",
-          "texScale": 2.5,
-          "texAngle": 0
+          "kind": "polygon","tx": 1.55,"ty": -0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "line_vert","texScale": 5,"texAngle": 60,"rot": 0,
+          "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
+        },
+
+        /* long pods (rotated points) */
+        {
+          "kind": "polygon","tx": 0,"ty": -1.8,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0,
+          "points": [[0.40,-0.693],[0.81,0.00],[0.41,0.70],[-0.40,0.693],[-0.81,0.00],[-0.41,-0.70]]
         },
         {
-          "kind": "rect",
-          "w": 0.25,
-          "h": 1.5,
-          "x": -0.125,
-          "y": -0.75,
-          "rx": 0.1,
-          "autoCenter": true,
-          "tx": 0.4,
-          "ty": 0,
-          "fill": "#404d59",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "line_horiz",
-          "texScale": 2.5,
-          "texAngle": 0
-        }
+          "kind": "polygon","tx": 0,"ty": 1.8,"fill": "#686e73","stroke": "#9aa4ae","sw": 0.02,
+          "texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0,
+          "points": [[0.40,-0.693],[0.81,0.00],[0.41,0.70],[-0.40,0.693],[-0.81,0.00],[-0.41,-0.70]]
+        },
+
+        { "kind": "circle","r": 2,"cx": 0,"cy": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#5e6368","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 34,"texAngle": 0,"rot": 0 },
+        { "kind": "circle","r": 1,"cx": 0,"cy": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#727679","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 20,"texAngle": 0,"rot": 0 },
+        { "kind": "circle","r": 0.5,"cx": 0,"cy": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#8c9197","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 10,"texAngle": 0,"rot": 0 },
+        { "kind": "circle","r": 0.2,"cx": 0,"cy": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#9da3aa","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 4,"texAngle": 0,"rot": 0 }
+      ]
+    },
+
+    /* unchanged: rect-only defs below */
+    {
+      "id": "wall3_sm","name": "Wall 3 Small","type": "wall/gate","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 3,"footprint": [],
+      "shapes": [
+        { "kind": "rect","w": 0.5,"h": 5.5,"x": -0.25,"y": -2.75,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 180 }
       ]
     },
     {
-      "id": "wall_straight",
-      "name": "Wall \u2014 Straight",
-      "type": "wall/gate",
-      "units": "hex",
-      "rotateStep": 60,
-      "heightMode": "fixed",
-      "height": 1,
-      "footprint": [
-        {
-          "dq": 0,
-          "dr": 0
-        }
-      ],
+      "id": "corner_sm","name": "Corner Small","type": "wall/gate","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 3,"footprint": [],
       "shapes": [
-        {
-          "kind": "rect",
-          "w": 1.5,
-          "h": 0.18,
-          "x": -0.75,
-          "y": -0.09,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#3c424a",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        }
+        { "kind": "rect","w": 0.5,"h": 1,"x": -0.25,"y": -0.5,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0.5,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 180 },
+        { "kind": "rect","w": 0.5,"h": 1,"x": -0.25,"y": -0.5,"rx": 0,"autoCenter": true,"tx": 0.45,"ty": -0.25,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 240 },
+        { "kind": "rect","w": 0.5,"h": 0.75,"x": -0.25,"y": -0.35,"rx": 0,"autoCenter": true,"tx": 0.1,"ty": 0.1,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 300 }
+      ]
+    },
+
+    {
+      "id": "bldg_block_s","name": "Block Small","type": "bldg","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 2,"footprint": [{ "dq": 0, "dr": 0 }],
+      "shapes": [
+        { "kind": "rect","w": 1.3,"h": 0.9,"x": -0.65,"y": -0.45,"rx": 0.06,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#2a3037","stroke": "#a8a8a8","sw": 0.02,"texture": "grid","texScale": 6,"texAngle": 0 },
+        { "kind": "rect","w": 1.18,"h": 0.78,"x": -0.59,"y": -0.39,"rx": 0.04,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#3a424c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 4,"texAngle": 0 }
       ]
     },
     {
-      "id": "wall_end",
-      "name": "Wall \u2014 Endcap",
-      "type": "wall/gate",
-      "units": "hex",
-      "rotateStep": 60,
-      "heightMode": "fixed",
-      "height": 1,
-      "footprint": [
-        {
-          "dq": 0,
-          "dr": 0
-        }
-      ],
+      "id": "bldg_block_l","name": "Block Large","type": "bldg","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 3,"footprint": [{ "dq": 0, "dr": 0 },{ "dq": 1, "dr": 0 },{ "dq": 0, "dr": 1 }],
       "shapes": [
-        {
-          "kind": "rect",
-          "w": 0.6,
-          "h": 0.18,
-          "x": -0.3,
-          "y": -0.09,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": -0.45,
-          "ty": 0,
-          "fill": "#3c424a",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        },
-        {
-          "kind": "rect",
-          "w": 0.18,
-          "h": 0.6,
-          "x": -0.09,
-          "y": -0.3,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": 0.3,
-          "ty": 0,
-          "fill": "#3c424a",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        }
+        { "kind": "rect","w": 2.8,"h": 1.8,"x": -1.4,"y": -0.9,"rx": 0.06,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#2a3037","stroke": "#a8a8a8","sw": 0.02,"texture": "grid","texScale": 8,"texAngle": 0 },
+        { "kind": "rect","w": 2.6,"h": 1.6,"x": -1.3,"y": -0.8,"rx": 0.04,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#3a424c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 5,"texAngle": 0 }
       ]
     },
     {
-      "id": "wall_corner",
-      "name": "Wall \u2014 Corner",
-      "type": "wall/gate",
-      "units": "hex",
-      "rotateStep": 60,
-      "heightMode": "fixed",
-      "height": 1,
-      "footprint": [
-        {
-          "dq": 0,
-          "dr": 0
-        }
-      ],
+      "id": "bldg_factory","name": "Factory","type": "bldg","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 2,"footprint": [{ "dq": 0, "dr": 0 },{ "dq": 1, "dr": 0 }],
       "shapes": [
-        {
-          "kind": "rect",
-          "w": 0.9,
-          "h": 0.18,
-          "x": -0.45,
-          "y": -0.09,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": -0.36,
-          "ty": 0,
-          "fill": "#3c424a",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        },
-        {
-          "kind": "rect",
-          "w": 0.18,
-          "h": 0.9,
-          "x": -0.09,
-          "y": -0.45,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": 0.36,
-          "ty": 0,
-          "fill": "#3c424a",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        }
+        { "kind": "rect","w": 2.6,"h": 1.3,"x": -1.3,"y": -0.65,"rx": 0.04,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#2a3037","stroke": "#a8a8a8","sw": 0.02,"texture": "grid","texScale": 7,"texAngle": 0 },
+        { "kind": "rect","w": 0.34,"h": 1.3,"x": -0.17,"y": -0.65,"rx": 0.04,"autoCenter": true,"tx": -0.9,"ty": 0,
+          "fill": "#4b5561","stroke": "#9aa4ae","sw": 0.02,"texture": "line_vert","texScale": 3,"texAngle": 0 },
+        { "kind": "rect","w": 0.34,"h": 1.3,"x": -0.17,"y": -0.65,"rx": 0.04,"autoCenter": true,"tx": 0.0,"ty": 0,
+          "fill": "#4b5561","stroke": "#9aa4ae","sw": 0.02,"texture": "line_vert","texScale": 3,"texAngle": 0 },
+        { "kind": "rect","w": 0.34,"h": 1.3,"x": -0.17,"y": -0.65,"rx": 0.04,"autoCenter": true,"tx": 0.9,"ty": 0,
+          "fill": "#4b5561","stroke": "#9aa4ae","sw": 0.02,"texture": "line_vert","texScale": 3,"texAngle": 0 }
       ]
     },
     {
-      "id": "wall_tee",
-      "name": "Wall \u2014 T Junction",
-      "type": "wall/gate",
-      "units": "hex",
-      "rotateStep": 60,
-      "heightMode": "fixed",
-      "height": 1,
-      "footprint": [
-        {
-          "dq": 0,
-          "dr": 0
-        }
-      ],
+      "id": "gen_sm","name": "Generator Small","type": "objectives","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 1,"footprint": [],
       "shapes": [
-        {
-          "kind": "rect",
-          "w": 1.5,
-          "h": 0.18,
-          "x": -0.75,
-          "y": -0.09,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#3c424a",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        },
-        {
-          "kind": "rect",
-          "w": 0.18,
-          "h": 0.9,
-          "x": -0.09,
-          "y": -0.45,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#3c424a",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        }
+        { "kind": "rect","w": 1.75,"h": 0.75,"x": -0.875,"y": -0.375,"rx": 0.25,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#7c4213","stroke": "#9aa4ae","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
+        { "kind": "rect","w": 1.5,"h": 1,"x": -0.75,"y": -0.5,"rx": 0.1,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#a8a8a8","sw": 0.02,"texture": "hexmesh","texScale": 10,"texAngle": 0 },
+        { "kind": "rect","w": 0.25,"h": 1.5,"x": -0.125,"y": -0.75,"rx": 0.1,"autoCenter": true,"tx": -0.4,"ty": 0,
+          "fill": "#404d59","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 },
+        { "kind": "rect","w": 0.25,"h": 1.5,"x": -0.125,"y": -0.75,"rx": 0.1,"autoCenter": true,"tx": 0.0,"ty": 0,
+          "fill": "#404d59","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 },
+        { "kind": "rect","w": 0.25,"h": 1.5,"x": -0.125,"y": -0.75,"rx": 0.1,"autoCenter": true,"tx": 0.4,"ty": 0,
+          "fill": "#404d59","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 }
+      ]
+    },
+
+    {
+      "id": "wall_straight","name": "Wall — Straight","type": "wall/gate","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 1,"footprint": [{ "dq": 0, "dr": 0 }],
+      "shapes": [
+        { "kind": "rect","w": 1.5,"h": 0.18,"x": -0.75,"y": -0.09,"rx": 0.02,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#3c424a","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 }
       ]
     },
     {
-      "id": "gate",
-      "name": "Gate",
-      "type": "wall/gate",
-      "units": "hex",
-      "rotateStep": 60,
-      "heightMode": "fixed",
-      "height": 1,
-      "footprint": [
-        {
-          "dq": 0,
-          "dr": 0
-        }
-      ],
+      "id": "wall_end","name": "Wall — Endcap","type": "wall/gate","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 1,"footprint": [{ "dq": 0, "dr": 0 }],
       "shapes": [
-        {
-          "kind": "rect",
-          "w": 1.5,
-          "h": 0.22,
-          "x": -0.75,
-          "y": -0.11,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#3c424a",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        },
-        {
-          "kind": "rect",
-          "w": 0.28,
-          "h": 0.9,
-          "x": -0.14,
-          "y": -0.45,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": -0.61,
-          "ty": 0,
-          "fill": "#606a76",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        },
-        {
-          "kind": "rect",
-          "w": 0.28,
-          "h": 0.9,
-          "x": -0.14,
-          "y": -0.45,
-          "rx": 0.02,
-          "autoCenter": true,
-          "tx": 0.61,
-          "ty": 0,
-          "fill": "#606a76",
-          "stroke": "#c3c9d2",
-          "sw": 0.02,
-          "texture": "",
-          "texScale": 1,
-          "texAngle": 0
-        },
-        {
-          "kind": "rect",
-          "w": 0.86,
-          "h": 0.44,
-          "x": -0.43,
-          "y": -0.22,
-          "rx": 0.04,
-          "autoCenter": true,
-          "tx": 0,
-          "ty": 0,
-          "fill": "#20262c",
-          "stroke": "#9aa4ae",
-          "sw": 0.02,
-          "texture": "grid",
-          "texScale": 10,
-          "texAngle": 0
-        }
+        { "kind": "rect","w": 0.6,"h": 0.18,"x": -0.3,"y": -0.09,"rx": 0.02,"autoCenter": true,"tx": -0.45,"ty": 0,
+          "fill": "#3c424a","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
+        { "kind": "rect","w": 0.18,"h": 0.6,"x": -0.09,"y": -0.3,"rx": 0.02,"autoCenter": true,"tx": 0.3,"ty": 0,
+          "fill": "#3c424a","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 }
+      ]
+    },
+    {
+      "id": "wall_corner","name": "Wall — Corner","type": "wall/gate","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 1,"footprint": [{ "dq": 0, "dr": 0 }],
+      "shapes": [
+        { "kind": "rect","w": 0.9,"h": 0.18,"x": -0.45,"y": -0.09,"rx": 0.02,"autoCenter": true,"tx": -0.36,"ty": 0,
+          "fill": "#3c424a","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
+        { "kind": "rect","w": 0.18,"h": 0.9,"x": -0.09,"y": -0.45,"rx": 0.02,"autoCenter": true,"tx": 0.36,"ty": 0,
+          "fill": "#3c424a","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 }
+      ]
+    },
+    {
+      "id": "wall_tee","name": "Wall — T Junction","type": "wall/gate","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 1,"footprint": [{ "dq": 0, "dr": 0 }],
+      "shapes": [
+        { "kind": "rect","w": 1.5,"h": 0.18,"x": -0.75,"y": -0.09,"rx": 0.02,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#3c424a","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
+        { "kind": "rect","w": 0.18,"h": 0.9,"x": -0.09,"y": -0.45,"rx": 0.02,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#3c424a","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 }
+      ]
+    },
+    {
+      "id": "gate","name": "Gate","type": "wall/gate","units": "hex","rotateStep": 60,
+      "heightMode": "fixed","height": 1,"footprint": [{ "dq": 0, "dr": 0 }],
+      "shapes": [
+        { "kind": "rect","w": 1.5,"h": 0.22,"x": -0.75,"y": -0.11,"rx": 0.02,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#3c424a","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
+        { "kind": "rect","w": 0.28,"h": 0.9,"x": -0.14,"y": -0.45,"rx": 0.02,"autoCenter": true,"tx": -0.61,"ty": 0,
+          "fill": "#606a76","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
+        { "kind": "rect","w": 0.28,"h": 0.9,"x": -0.14,"y": -0.45,"rx": 0.02,"autoCenter": true,"tx": 0.61,"ty": 0,
+          "fill": "#606a76","stroke": "#c3c9d2","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
+        { "kind": "rect","w": 0.86,"h": 0.44,"x": -0.43,"y": -0.22,"rx": 0.04,"autoCenter": true,"tx": 0,"ty": 0,
+          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "grid","texScale": 10,"texAngle": 0 }
       ]
     }
   ]
