@@ -16,9 +16,459 @@
   ],
   "defs": [
     {
+  "id": "gate_h2",
+  "name": "Wall Heavy gate 2/4",
+  "type": "wall/gate",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 4,
+  "footprint": [
+    {
+      "dq": -1,
+      "dr": 0
+    },
+    {
+      "dq": -1,
+      "dr": 1
+    },
+    {
+      "dq": 0,
+      "dr": -1
+    },
+    {
+      "dq": 0,
+      "dr": 1
+    },
+    {
+      "dq": 1,
+      "dr": -1
+    },
+    {
+      "dq": 1,
+      "dr": 0
+    }
+  ],
+  "shapes": [
+    {
+      "kind": "rect",
+      "w": 0.8,
+      "h": 3.5,
+      "x": -0.4,
+      "y": -1.75,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0.85,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_horiz",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "rect",
+      "w": 0.5,
+      "h": 3.5,
+      "x": -0.25,
+      "y": -1.75,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0.85,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "dome",
+      "texScale": 5,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": -1.75,
+      "fill": "#4d5256",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "hexmesh",
+      "texScale": 10,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -1
+        ],
+        [
+          0.85,
+          -0.5
+        ],
+        [
+          0.85,
+          0.5
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          -0.85,
+          0.5
+        ],
+        [
+          -0.85,
+          -0.5
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": -1.75,
+      "fill": "#363d44",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.75
+        ],
+        [
+          0.65,
+          -0.35
+        ],
+        [
+          0.65,
+          0.35
+        ],
+        [
+          0,
+          0.75
+        ],
+        [
+          -0.65,
+          0.4
+        ],
+        [
+          -0.65,
+          -0.35
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": 3.45,
+      "fill": "#4d5256",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "hexmesh",
+      "texScale": 10,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -1
+        ],
+        [
+          0.85,
+          -0.5
+        ],
+        [
+          0.85,
+          0.5
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          -0.85,
+          0.5
+        ],
+        [
+          -0.85,
+          -0.5
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": 3.45,
+      "fill": "#363d44",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.75
+        ],
+        [
+          0.65,
+          -0.35
+        ],
+        [
+          0.65,
+          0.35
+        ],
+        [
+          0,
+          0.75
+        ],
+        [
+          -0.65,
+          0.4
+        ],
+        [
+          -0.65,
+          -0.35
+        ]
+      ]
+    }
+  ]
+},
+    {
+  "id": "gate_h1",
+  "name": "Wall Heavy gate 1/4",
+  "type": "wall/gate",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 4,
+  "footprint": [
+    {
+      "dq": -1,
+      "dr": 0
+    },
+    {
+      "dq": -1,
+      "dr": 1
+    },
+    {
+      "dq": 0,
+      "dr": -1
+    },
+    {
+      "dq": 0,
+      "dr": 1
+    },
+    {
+      "dq": 1,
+      "dr": -1
+    },
+    {
+      "dq": 1,
+      "dr": 0
+    }
+  ],
+  "shapes": [
+    {
+      "kind": "rect",
+      "w": 0.8,
+      "h": 2,
+      "x": -0.4,
+      "y": -1,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_horiz",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "rect",
+      "w": 0.5,
+      "h": 2,
+      "x": -0.25,
+      "y": -1,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "dome",
+      "texScale": 5,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": -1.75,
+      "fill": "#4d5256",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "hexmesh",
+      "texScale": 10,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -1
+        ],
+        [
+          0.85,
+          -0.5
+        ],
+        [
+          0.85,
+          0.5
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          -0.85,
+          0.5
+        ],
+        [
+          -0.85,
+          -0.5
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": -1.75,
+      "fill": "#363d44",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.75
+        ],
+        [
+          0.65,
+          -0.35
+        ],
+        [
+          0.65,
+          0.35
+        ],
+        [
+          0,
+          0.75
+        ],
+        [
+          -0.65,
+          0.4
+        ],
+        [
+          -0.65,
+          -0.35
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": 1.75,
+      "fill": "#4d5256",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "hexmesh",
+      "texScale": 10,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -1
+        ],
+        [
+          0.85,
+          -0.5
+        ],
+        [
+          0.85,
+          0.5
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          -0.85,
+          0.5
+        ],
+        [
+          -0.85,
+          -0.5
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": 1.75,
+      "fill": "#363d44",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.75
+        ],
+        [
+          0.65,
+          -0.35
+        ],
+        [
+          0.65,
+          0.35
+        ],
+        [
+          0,
+          0.75
+        ],
+        [
+          -0.65,
+          0.4
+        ],
+        [
+          -0.65,
+          -0.35
+        ]
+      ]
+    }
+  ]
+},
+    {
   "id": "wall_h0",
   "name": "Wall Heavy post 1/4",
-  "type": "objectives",
+  "type": "wall/gate",
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
@@ -131,7 +581,7 @@
     {
   "id": "wall_h3",
   "name": "Wall Heavy 3/4",
-  "type": "objectives",
+  "type": "wall/gate",
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
@@ -204,7 +654,7 @@
     {
   "id": "wall_h1",
   "name": "Wall Heavy 1/4",
-  "type": "objectives",
+  "type": "wall/gate",
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
