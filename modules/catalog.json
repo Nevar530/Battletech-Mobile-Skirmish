@@ -16,6 +16,79 @@
   ],
   "defs": [
     {
+  "id": "wall_h1",
+  "name": "Wall Heavy 1/4",
+  "type": "objectives",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 4,
+  "footprint": [
+    {
+      "dq": -1,
+      "dr": 0
+    },
+    {
+      "dq": -1,
+      "dr": 1
+    },
+    {
+      "dq": 0,
+      "dr": -1
+    },
+    {
+      "dq": 0,
+      "dr": 1
+    },
+    {
+      "dq": 1,
+      "dr": -1
+    },
+    {
+      "dq": 1,
+      "dr": 0
+    }
+  ],
+  "shapes": [
+    {
+      "kind": "rect",
+      "w": 1,
+      "h": 1.75,
+      "x": -0.5,
+      "y": -0.85,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_horiz",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "rect",
+      "w": 0.5,
+      "h": 1.75,
+      "x": -0.25,
+      "y": -0.85,
+      "rx": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#20262c",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "hexmesh",
+      "texScale": 5,
+      "texAngle": 0,
+      "rot": 0
+    }
+  ]
+},
+    {
   "id": "dropship_pod",
   "name": "DropShipPod",
   "type": "objectives",
