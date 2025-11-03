@@ -470,7 +470,7 @@
   "name": "Wall Heavy post 1/4",
   "type": "wall/gate",
   "units": "hex",
-  "rotateStep": 60,
+  "rotateStep": 0,
   "heightMode": "fixed",
   "height": 4,
   "footprint": [
