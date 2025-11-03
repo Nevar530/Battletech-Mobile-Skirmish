@@ -16,6 +16,359 @@
   ],
   "defs": [
     {
+  "id": "dropship_pod",
+  "name": "DropShipPod",
+  "type": "objectives",
+  "units": "hex",
+  "rotateStep": 60,
+  "heightMode": "fixed",
+  "height": 4,
+  "footprint": [
+    {
+      "dq": -2,
+      "dr": 0
+    },
+    {
+      "dq": -2,
+      "dr": 1
+    },
+    {
+      "dq": -2,
+      "dr": 2
+    },
+    {
+      "dq": -1,
+      "dr": -1
+    },
+    {
+      "dq": -1,
+      "dr": 2
+    },
+    {
+      "dq": 0,
+      "dr": -2
+    },
+    {
+      "dq": 0,
+      "dr": 2
+    },
+    {
+      "dq": 1,
+      "dr": -2
+    },
+    {
+      "dq": 1,
+      "dr": 1
+    },
+    {
+      "dq": 2,
+      "dr": -2
+    },
+    {
+      "dq": 2,
+      "dr": -1
+    },
+    {
+      "dq": 2,
+      "dr": 0
+    }
+  ],
+  "shapes": [
+    {
+      "kind": "polygon",
+      "tx": 1.55,
+      "ty": 0.9,
+      "fill": "#6b6e70",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_vert",
+      "texScale": 5,
+      "texAngle": 120,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.5
+        ],
+        [
+          0.45,
+          -0.25
+        ],
+        [
+          0.45,
+          0.25
+        ],
+        [
+          0,
+          0.5
+        ],
+        [
+          -0.45,
+          0.25
+        ],
+        [
+          -0.45,
+          -0.25
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": -1.55,
+      "ty": -0.9,
+      "fill": "#6b6e70",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_vert",
+      "texScale": 5,
+      "texAngle": 120,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.5
+        ],
+        [
+          0.45,
+          -0.25
+        ],
+        [
+          0.45,
+          0.25
+        ],
+        [
+          0,
+          0.5
+        ],
+        [
+          -0.45,
+          0.25
+        ],
+        [
+          -0.45,
+          -0.25
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": -1.55,
+      "ty": 0.9,
+      "fill": "#6b6e70",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_vert",
+      "texScale": 5,
+      "texAngle": 60,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.5
+        ],
+        [
+          0.45,
+          -0.25
+        ],
+        [
+          0.45,
+          0.25
+        ],
+        [
+          0,
+          0.5
+        ],
+        [
+          -0.45,
+          0.25
+        ],
+        [
+          -0.45,
+          -0.25
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 1.55,
+      "ty": -0.9,
+      "fill": "#6b6e70",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_vert",
+      "texScale": 5,
+      "texAngle": 60,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.5
+        ],
+        [
+          0.45,
+          -0.25
+        ],
+        [
+          0.45,
+          0.25
+        ],
+        [
+          0,
+          0.5
+        ],
+        [
+          -0.45,
+          0.25
+        ],
+        [
+          -0.45,
+          -0.25
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": -1.8,
+      "fill": "#6b6e70",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_horiz",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.8
+        ],
+        [
+          0.7,
+          -0.4
+        ],
+        [
+          0.7,
+          0.4
+        ],
+        [
+          0,
+          0.8
+        ],
+        [
+          -0.7,
+          0.4
+        ],
+        [
+          -0.7,
+          -0.4
+        ]
+      ]
+    },
+    {
+      "kind": "polygon",
+      "tx": 0,
+      "ty": 1.8,
+      "fill": "#686e73",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "line_horiz",
+      "texScale": 1,
+      "texAngle": 0,
+      "rot": 0,
+      "points": [
+        [
+          0,
+          -0.8
+        ],
+        [
+          0.7,
+          -0.4
+        ],
+        [
+          0.7,
+          0.4
+        ],
+        [
+          0,
+          0.8
+        ],
+        [
+          -0.7,
+          0.4
+        ],
+        [
+          -0.7,
+          -0.4
+        ]
+      ]
+    },
+    {
+      "kind": "circle",
+      "r": 2,
+      "cx": 0,
+      "cy": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#5e6368",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "hexmesh",
+      "texScale": 34,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "circle",
+      "r": 1,
+      "cx": 0,
+      "cy": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#727679",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "dome",
+      "texScale": 20,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "circle",
+      "r": 0.5,
+      "cx": 0,
+      "cy": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#8c9197",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "dome",
+      "texScale": 10,
+      "texAngle": 0,
+      "rot": 0
+    },
+    {
+      "kind": "circle",
+      "r": 0.2,
+      "cx": 0,
+      "cy": 0,
+      "autoCenter": true,
+      "tx": 0,
+      "ty": 0,
+      "fill": "#9da3aa",
+      "stroke": "#9aa4ae",
+      "sw": 0.02,
+      "texture": "dome",
+      "texScale": 4,
+      "texAngle": 0,
+      "rot": 0
+    }
+  ]
+},
+    {
   "id": "wall3_sm",
   "name": "Wall 3 Small",
   "type": "wall/gate",
