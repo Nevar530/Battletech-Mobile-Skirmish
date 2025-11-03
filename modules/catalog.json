@@ -29,8 +29,6 @@
           "autoCenter": true,"tx": 0,"ty": 0.85,"fill": "#20262c","stroke": "#9aa4ae",
           "sw": 0.02,"texture": "dome","texScale": 5,"texAngle": 0,"rot": 0
         },
-
-        /* top cap (rotated points) */
         {
           "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
@@ -41,8 +39,6 @@
           "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         },
-
-        /* bottom cap (rotated points) */
         {
           "kind": "polygon","tx": 0,"ty": 3.45,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
@@ -55,7 +51,6 @@
         }
       ]
     },
-
     {
       "id": "gate_h1",
       "name": "Wall Heavy gate 1/4",
@@ -77,9 +72,7 @@
           "kind": "rect","w": 0.5,"h": 2,"x": -0.25,"y": -1,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
           "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 5,"texAngle": 0,"rot": 0
         },
-
-        /* top cap (rotated points) */
-        {
+           {
           "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
           "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
@@ -89,8 +82,6 @@
           "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         },
-
-        /* bottom cap (rotated points) */
         {
           "kind": "polygon","tx": 0,"ty": 1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
@@ -193,8 +184,6 @@
         { "dq": 2, "dr": -2 }, { "dq": 2, "dr": -1 }, { "dq": 2, "dr": 0 }
       ],
       "shapes": [
-
-        /* small pods (rotated points) */
         {
           "kind": "polygon","tx": 1.55,"ty": 0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
           "texture": "line_vert","texScale": 5,"texAngle": 120,"rot": 0,
@@ -215,8 +204,6 @@
           "texture": "line_vert","texScale": 5,"texAngle": 60,"rot": 0,
           "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
         },
-
-        /* long pods (rotated points) */
         {
           "kind": "polygon","tx": 0,"ty": -1.8,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
           "texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0,
@@ -238,8 +225,6 @@
           "fill": "#9da3aa","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 4,"texAngle": 0,"rot": 0 }
       ]
     },
-
-    /* unchanged: rect-only defs below */
     {
       "id": "wall3_sm","name": "Wall 3 Small","type": "wall/gate","units": "hex","rotateStep": 60,
       "heightMode": "fixed","height": 3,"footprint": [],
