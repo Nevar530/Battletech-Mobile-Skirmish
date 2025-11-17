@@ -315,6 +315,11 @@ window.Sheet = (() => {
                 <div id="heatTicks" class="mss84-heat__ticks"></div>
               </div>
               <div class="mss84-heat__legend hint"><span id="heatLegend">0 / 30</span></div>
+              <div class="mss84-heat__legend hint">
+  <span class="heat-legend-icons">
+    [ TN: 🎯 | MP: 🡆 | Shutdown: 🛑 | Explosion: 💥 ]
+  </span>
+</div>
             </div>
           </div>
         </div>
