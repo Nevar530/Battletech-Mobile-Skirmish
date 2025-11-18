@@ -3800,7 +3800,80 @@ function wireSend() {
   });
 }
 
+  // === Real-time sheet sync (per-token) ===========================
+  const sheetSendTimers = Object.create(null);
 
+  function setupSheetRealtimeSync() {
+    // Local → network (debounced)
+    window.addEventListener("mss84:sheetDirty", (ev) => {
+      if (!window.Net || typeof Net.sendSheet !== "function" || !Net.roomId) return;
+      const detail = ev.detail || {};
+      const mapId   = detail.mapId || (window.CURRENT_MAP_ID || "local");
+      const tokenId = detail.tokenId;
+      if (!tokenId) return;
+
+      const storageKey = `mss84:sheet:${mapId}:${tokenId}`;
+      let sheetData = null;
+      try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return;
+        sheetData = JSON.parse(raw);
+      } catch (e) {
+        console.warn("[mss84:sheetDirty] parse failed", e);
+        return;
+      }
+
+      const k = `${mapId}:${tokenId}`;
+      clearTimeout(sheetSendTimers[k]);
+      sheetSendTimers[k] = setTimeout(() => {
+        try {
+          Net.sendSheet(mapId, tokenId, sheetData);
+        } catch (err) {
+          console.warn("[Net.sendSheet] error", err);
+        }
+      }, 1000); // 1s debounce to avoid spamming writes
+    });
+
+    // Network → local
+    window.addEventListener("mss84:sheetRemoteUpdate", (ev) => {
+      const detail = ev.detail || {};
+      const { mapId, tokenId, sheet } = detail;
+      if (!mapId || !tokenId || !sheet) return;
+
+      const storageKey = `mss84:sheet:${mapId}:${tokenId}`;
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(sheet));
+      } catch (e) {
+        console.warn("[mss84:sheetRemoteUpdate] localStorage failed", e);
+      }
+
+      // If this sheet is currently open, re-hydrate it
+      if (window.MSS84_SHEET &&
+          typeof MSS84_SHEET.getIds === "function" &&
+          typeof MSS84_SHEET.setIds === "function") {
+        const open = MSS84_SHEET.getIds();
+        if (open && open.mapId === mapId && open.tokenId === tokenId) {
+          MSS84_SHEET.setIds(mapId, tokenId);
+        }
+      }
+    });
+
+    // Whenever we join a room, start the sheet listener
+    window.addEventListener("net-room", () => {
+      if (!window.Net || typeof Net.subscribeSheets !== "function") return;
+      try { Net.subscribeSheets(); } catch (e) { console.warn(e); }
+    });
+
+    // If we're already online when this file loads, hook immediately
+    if (window.Net && typeof Net.subscribeSheets === "function" && Net.roomId) {
+      try { Net.subscribeSheets(); } catch (e) { console.warn(e); }
+    }
+  }
+
+  // Call once during init
+  setupSheetRealtimeSync();
+
+  
   // hook up now + when networking announces readiness
   wireReceive();
   window.addEventListener('net-ready', wireReceive);
@@ -3833,6 +3906,7 @@ function wireSend() {
 
   syncHeaderH();
 })();
+
 
 
 
