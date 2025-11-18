@@ -1,5 +1,5 @@
 /* ===== Hex Map Maker – Script with LOS/Measure toggles + Select + PaintFixed ===== */
-
+ 
 /* ---------- Constants & Config ---------- */
 const COVER_DARKEN = { None: 0, Light: -5, Medium: -10, Heavy: -15 };
 const SHEETS_BASE = 'https://sheets.flechs.net/';
@@ -3906,6 +3906,7 @@ function wireSend() {
 
   syncHeaderH();
 })();
+
 
 
 
