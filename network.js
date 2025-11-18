@@ -2,8 +2,9 @@
 
 import { getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
-  getFirestore, doc, setDoc, onSnapshot, serverTimestamp
+  getFirestore, doc, setDoc, onSnapshot, serverTimestamp, collection
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
 import {
   getAuth, signInAnonymously, onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
@@ -23,6 +24,7 @@ let identity = {
 
 let currentRoom = null;
 let unsubState  = null;
+let unsubSheets = null;  // NEW: for the per-sheet listener
 
 // ---- auth (anonymous) ----
 async function ensureAuth() {
@@ -48,6 +50,8 @@ async function ensureAuth() {
     });
   });
 }
+
+
 
 // ---- tiny API ----
 const Net = {
@@ -121,13 +125,85 @@ const Net = {
     Net._sendTimer = setTimeout(() => Net._write(stateObj), ms);
   },
 
+  // Send a single mech sheet for this room (mapId + tokenId)
+  async sendSheet(mapId, tokenId, sheetData) {
+    if (!currentRoom) return;
+    if (!mapId || !tokenId || !sheetData) return;
+
+    try {
+      const sheetsRef = collection(db, "rooms", currentRoom, "sheets");
+      const sheetRef  = doc(sheetsRef, `${mapId}::${tokenId}`);
+
+      const payload = {
+        mapId,
+        tokenId,
+        sheet: sheetData,
+        sender: identity.name || null,
+        senderUid: identity.uid || null,
+        updatedAt: serverTimestamp()
+      };
+
+      await setDoc(sheetRef, payload, { merge: true });
+    } catch (err) {
+      console.warn("[Net.sendSheet] failed", err);
+    }
+  },
+
+  // Start listening for sheet updates in the current room
+  subscribeSheets() {
+    if (!currentRoom) return;
+
+    // clean up any prior listener
+    if (typeof unsubSheets === "function") {
+      try { unsubSheets(); } catch {}
+      unsubSheets = null;
+    }
+
+    const roomId    = currentRoom;
+    const sheetsRef = collection(db, "rooms", roomId, "sheets");
+
+    unsubSheets = onSnapshot(
+      sheetsRef,
+      (snap) => {
+        snap.docChanges().forEach((change) => {
+          const data = change.doc.data();
+          if (!data || !data.mapId || !data.tokenId || !data.sheet) return;
+
+          // optional: ignore our own echoes
+          if (data.senderUid && data.senderUid === identity.uid) return;
+
+          window.dispatchEvent(
+            new CustomEvent("mss84:sheetRemoteUpdate", {
+              detail: {
+                mapId: data.mapId,
+                tokenId: data.tokenId,
+                sheet: data.sheet,
+                sender: data.sender || null,
+                changeType: change.type || "modified"
+              }
+            })
+          );
+        });
+      },
+      (err) => {
+        console.warn("[Net.subscribeSheets] failed", err);
+      }
+    );
+  },
+
+  
   // Leave/cleanup (safe to call multiple times)
   leave() {
     unsubState?.();
     unsubState = null;
+
+    if (typeof unsubSheets === "function") {
+      try { unsubSheets(); } catch {}
+    }
+    unsubSheets = null;
+
     currentRoom = null;
   },
-};
 
 // >>> ADD BELOW (after the Net object is defined, before exposing window.Net)
 Object.defineProperty(Net, 'roomId', {
