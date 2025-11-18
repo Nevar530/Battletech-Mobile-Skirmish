@@ -592,16 +592,26 @@ const toggle = ()=> (outer.classList.contains('open')? close() : open());
       });
     });
 
-    // save debounce
+// save debounce
 let tSave = null;
 const scheduleSave = () => {
   clearTimeout(tSave);
   tSave = setTimeout(() => {
     save(mapId, tokenId, sheet);
     rememberIds(mapId, tokenId);
-    markDirty(mapId, tokenId);           // <— NEW
+    markDirty(mapId, tokenId);
+
+    // NEW: let the app know this token's sheet changed (for online sync)
+    try {
+      window.dispatchEvent(new CustomEvent('mss84:sheetDirty', {
+        detail: { mapId, tokenId }
+      }));
+    } catch (e) {
+      console.warn('[SHEET] mss84:sheetDirty dispatch failed', e);
+    }
   }, 200);
 };
+
     window.pulseSaved = ()=>{ if(!savePulse) return; savePulse.classList.add('show'); setTimeout(()=>savePulse.classList.remove('show'), 600); };
 
     // ---- Heat ----
