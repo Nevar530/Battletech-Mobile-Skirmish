@@ -3831,7 +3831,7 @@ function wireSend() {
         } catch (err) {
           console.warn("[Net.sendSheet] error", err);
         }
-      }, 1000); // 1s debounce to avoid spamming writes
+      }, 2000); // 1s debounce to avoid spamming writes
     });
 
     // Network → local
@@ -3906,6 +3906,7 @@ function wireSend() {
 
   syncHeaderH();
 })();
+
 
 
 
