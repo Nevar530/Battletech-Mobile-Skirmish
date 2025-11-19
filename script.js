@@ -3805,35 +3805,35 @@ function wireSend() {
 
   function setupSheetRealtimeSync() {
     // Local → network (debounced)
-    window.addEventListener("mss84:sheetDirty", (ev) => {
-      if (!window.Net || typeof Net.sendSheet !== "function" || !Net.roomId) return;
-      const detail = ev.detail || {};
-      const mapId   = detail.mapId || (window.CURRENT_MAP_ID || "local");
-      const tokenId = detail.tokenId;
-      if (!tokenId) return;
+    //window.addEventListener("mss84:sheetDirty", (ev) => {
+     // if (!window.Net || typeof Net.sendSheet !== "function" || !Net.roomId) return;
+     // const detail = ev.detail || {};
+    //  const mapId   = detail.mapId || (window.CURRENT_MAP_ID || "local");
+    //  const tokenId = detail.tokenId;
+    //  if (!tokenId) return;
 
-      const storageKey = `mss84:sheet:${mapId}:${tokenId}`;
-      let sheetData = null;
-      try {
-        const raw = localStorage.getItem(storageKey);
-        if (!raw) return;
-        sheetData = JSON.parse(raw);
-      } catch (e) {
-        console.warn("[mss84:sheetDirty] parse failed", e);
-        return;
-      }
+   //   const storageKey = `mss84:sheet:${mapId}:${tokenId}`;
+   //   let sheetData = null;
+   //   try {
+   //     const raw = localStorage.getItem(storageKey);
+   //     if (!raw) return;
+   //     sheetData = JSON.parse(raw);
+   //   } catch (e) {
+   //     console.warn("[mss84:sheetDirty] parse failed", e);
+    //    return;
+    //  }
 
-      const k = `${mapId}:${tokenId}`;
-      clearTimeout(sheetSendTimers[k]);
-      sheetSendTimers[k] = setTimeout(() => {
-        try {
-          Net.sendSheet(mapId, tokenId, sheetData);
-        } catch (err) {
-          console.warn("[Net.sendSheet] error", err);
-        }
-      }, 2000); // 1s debounce to avoid spamming writes
-    });
-
+    //  const k = `${mapId}:${tokenId}`;
+    //  clearTimeout(sheetSendTimers[k]);
+    //  sheetSendTimers[k] = setTimeout(() => {
+    //    try {
+    //      Net.sendSheet(mapId, tokenId, sheetData);
+     //   } catch (err) {
+     //     console.warn("[Net.sendSheet] error", err);
+     //   }
+    //  }, 1000); // 1s debounce to avoid spamming writes
+   // });
+  }
     // Network → local
     window.addEventListener("mss84:sheetRemoteUpdate", (ev) => {
       const detail = ev.detail || {};
@@ -3906,6 +3906,7 @@ function wireSend() {
 
   syncHeaderH();
 })();
+
 
 
 
