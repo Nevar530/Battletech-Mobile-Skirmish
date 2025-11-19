@@ -263,6 +263,12 @@ window.Sheet = (() => {
       <div class="mss84-sheet__title">Mech Sheet <span id="savePulse" class="mss84-savepulse">Saved</span></div>
       <div class="mss84-sheet__spacer"></div>
 
+        <!-- NEW: Update button -->
+  <button class="mss84-sheet__x" id="sheetUpdateBtn"
+          style="margin-right:6px;background:#12301a;border:1px solid #1f5a2a;">
+    Update
+  </button>
+
       <button class="mss84-sheet__x" id="sheetCloseBtn">Close</button>
     </header>
 
@@ -527,6 +533,7 @@ function updateSheetScale(){
 updateSheetScale();
 window.addEventListener('resize', updateSheetScale);
     const btnClose  = QS('#sheetCloseBtn');
+   const btnUpdate  = QS('#sheetUpdateBtn');    // NEW
     const btnLoad   = QS('#loadFromJsonBtn');
     const tabs      = QS('#sheetTabs');
     const savePulse = QS('#savePulse');
@@ -579,6 +586,23 @@ const toggle = ()=> (outer.classList.contains('open')? close() : open());
 
 
     btnClose.addEventListener('click', close);
+
+// NEW: manual sheet sync to Firebase
+if (btnUpdate) {
+  btnUpdate.addEventListener('click', () => {
+    try {
+      if (window.Net && typeof Net.sendSheet === "function") {
+        Net.sendSheet(mapId, tokenId, sheet);
+      } else {
+        console.warn("[SHEET] Net.sendSheet not available");
+      }
+    } catch (e) {
+      console.warn("[SHEET] Update failed", e);
+    }
+  });
+}
+
+   
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
 
     // tabs
