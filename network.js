@@ -1,4 +1,4 @@
-// network.js  (must be loaded with type="module")
+// network.js  (must be loaded with type="module") 
  
 import { getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
