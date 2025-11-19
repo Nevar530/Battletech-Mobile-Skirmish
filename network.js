@@ -204,6 +204,7 @@ const Net = {
 
     currentRoom = null;
   },
+};
 
 // >>> ADD BELOW (after the Net object is defined, before exposing window.Net)
 Object.defineProperty(Net, 'roomId', {
