@@ -3755,86 +3755,70 @@ window.getTokenLabelById = function(mapId, tokenId){
 
 /* ===== ONLINE GLUE (full-state on demand) ===== */
 (function () {
+  // ----- Receive full-state snapshot from Firebase -----
   function wireReceive() {
     if (!window.Net) return;
     Net.onSnapshot = (stateObj) => {
       try {
         applyState(stateObj);
         if (typeof requestRender === 'function') requestRender();
-      } catch (e) { console.warn(e); }
+      } catch (e) {
+        console.warn(e);
+      }
     };
   }
 
-function wireSend() {
-  const btn = document.getElementById('btnSend');
-  if (!btn) return;
-  btn.addEventListener('click', async () => {
-    try {
-      if (!window.Net || typeof Net.sendSnapshot !== 'function') {
-        alert('Not online yet. Click Online and join a room first.');
-        return;
+  // ----- Send full-state snapshot to Firebase via "Transmit" button -----
+  function wireSend() {
+    const btn = document.getElementById('btnSend');
+    if (!btn) return;
+
+    btn.addEventListener('click', async () => {
+      try {
+        if (!window.Net || typeof Net.sendSnapshot !== 'function') {
+          alert('Not online yet. Click Online and join a room first.');
+          return;
+        }
+
+        const obj = JSON.parse(serializeState());
+        const sheets = collectDirtySheetsForTransmit(CURRENT_MAP_ID);
+        if (Object.keys(sheets).length) obj.sheets = sheets;
+
+        // diff vs last transmit for the battle log
+        const prev =
+          window._lastSentSnapshot ||
+          JSON.parse(sessionStorage.getItem('mss_last_tx') || 'null') ||
+          {};
+        const events = (window.BattleLog?.summarizeDiff(prev, obj)) || [];
+
+        await Net.sendSnapshot(obj);
+
+        if (window.BattleLog) {
+          const title = events.length
+            ? `Transmit: ${events.length} change${events.length === 1 ? '' : 's'}`
+            : 'Transmit';
+          BattleLog.postEvents(events, title);
+        }
+
+        window._lastSentSnapshot = obj;
+        try {
+          sessionStorage.setItem('mss_last_tx', JSON.stringify(obj));
+        } catch {}
+
+        alert('Sent.');
+      } catch (e) {
+        alert(e?.message || 'Send failed.');
       }
-      const obj = JSON.parse(serializeState());
-      const sheets = collectDirtySheetsForTransmit(CURRENT_MAP_ID);
-      if (Object.keys(sheets).length) obj.sheets = sheets;
-
-      // === INSERT THESE LINES (BEFORE sending) ===
-      const prev = window._lastSentSnapshot || JSON.parse(sessionStorage.getItem('mss_last_tx') || 'null') || {};
-      const events = (window.BattleLog?.summarizeDiff(prev, obj)) || [];
-      // (we'll post after successful send)
-
-      await Net.sendSnapshot(obj);
-
-      // === AND THESE (AFTER send succeeds) ===
-      if (window.BattleLog) {
-        const title = events.length ? `Transmit: ${events.length} change${events.length===1?'':'s'}` : 'Transmit';
-        BattleLog.postEvents(events, title);
-      }
-      window._lastSentSnapshot = obj;
-      try { sessionStorage.setItem('mss_last_tx', JSON.stringify(obj)); } catch {}
-
-      alert('Sent.');
-    } catch (e) {
-      alert(e?.message || 'Send failed.');
-    }
-  });
-}
+    });
+  }
 
   // === Real-time sheet sync (per-token) ===========================
+  // We are *not* auto-sending on every keystroke anymore (you turned that off),
+  // but we still need to LISTEN for remote sheet updates.
   const sheetSendTimers = Object.create(null);
 
   function setupSheetRealtimeSync() {
-    // Local → network (debounced)
-    //window.addEventListener("mss84:sheetDirty", (ev) => {
-     // if (!window.Net || typeof Net.sendSheet !== "function" || !Net.roomId) return;
-     // const detail = ev.detail || {};
-    //  const mapId   = detail.mapId || (window.CURRENT_MAP_ID || "local");
-    //  const tokenId = detail.tokenId;
-    //  if (!tokenId) return;
-
-   //   const storageKey = `mss84:sheet:${mapId}:${tokenId}`;
-   //   let sheetData = null;
-   //   try {
-   //     const raw = localStorage.getItem(storageKey);
-   //     if (!raw) return;
-   //     sheetData = JSON.parse(raw);
-   //   } catch (e) {
-   //     console.warn("[mss84:sheetDirty] parse failed", e);
-    //    return;
-    //  }
-
-    //  const k = `${mapId}:${tokenId}`;
-    //  clearTimeout(sheetSendTimers[k]);
-    //  sheetSendTimers[k] = setTimeout(() => {
-    //    try {
-    //      Net.sendSheet(mapId, tokenId, sheetData);
-     //   } catch (err) {
-     //     console.warn("[Net.sendSheet] error", err);
-     //   }
-    //  }, 1000); // 1s debounce to avoid spamming writes
-   // });
-  }
-    // Network → local
+    // Network → local: apply incoming sheet updates and reload if open
     window.addEventListener("mss84:sheetRemoteUpdate", (ev) => {
       const detail = ev.detail || {};
       const { mapId, tokenId, sheet } = detail;
@@ -3870,10 +3854,9 @@ function wireSend() {
     }
   }
 
-  // Call once during init
-  //setupSheetRealtimeSync();
+  // ----- Init this block -----
+  setupSheetRealtimeSync();
 
-  
   // hook up now + when networking announces readiness
   wireReceive();
   window.addEventListener('net-ready', wireReceive);
@@ -3906,6 +3889,7 @@ function wireSend() {
 
   syncHeaderH();
 })();
+
 
 
 
