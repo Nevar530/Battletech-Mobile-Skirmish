@@ -1,5 +1,5 @@
-// network.js  (must be loaded with type="module") 
- 
+// network.js  (must be loaded with type="module")
+
 import { getApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getFirestore, doc, setDoc, onSnapshot, serverTimestamp, collection
@@ -14,12 +14,17 @@ const app  = getApp();
 const db   = getFirestore(app);
 const auth = getAuth(app);
 
-// Per-tab instance id so we can ignore our own Firestore echoes
-const INSTANCE_ID =
-  (crypto && crypto.randomUUID)
-    ? crypto.randomUUID()
-    : `${Date.now().toString(36)}-${Math.random().toString(16).slice(2)}`;
-
+// Per-tab instance id so we can ignore JUST this tab's echoes
+let INSTANCE_ID;
+try {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    INSTANCE_ID = crypto.randomUUID();
+  } else {
+    INSTANCE_ID = `tab:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 8)}`;
+  }
+} catch {
+  INSTANCE_ID = `tab:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 8)}`;
+}
 
 // ---- identity ----
 let identity = {
@@ -31,7 +36,7 @@ let identity = {
 
 let currentRoom = null;
 let unsubState  = null;
-let unsubSheets = null;  // NEW: for the per-sheet listener
+let unsubSheets = null; // per-sheet listener
 
 // ---- auth (anonymous) ----
 async function ensureAuth() {
@@ -58,8 +63,6 @@ async function ensureAuth() {
   });
 }
 
-
-
 // ---- tiny API ----
 const Net = {
   // Set by your game: function(stateObj) {}
@@ -77,39 +80,54 @@ const Net = {
     if (!code) throw new Error("Room code required");
     await ensureAuth();
 
-    const roomId = String(code).toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48);
+    const roomId = String(code)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 48);
 
     currentRoom = roomId;
-    window.dispatchEvent(new CustomEvent('net-room', { detail: { roomId } }));
 
+    // let the rest of the app know
+    window.dispatchEvent(new CustomEvent("net-room", { detail: { roomId } }));
 
     // Listen for full-state updates (single doc)
     const snapRef = doc(db, "rooms", roomId, "state", "snapshot");
     unsubState?.();
-    unsubState = onSnapshot(snapRef, (docSnap) => {
-      const obj = docSnap.data()?.state;
-      if (!obj || typeof Net.onSnapshot !== "function") return;
+    unsubState = onSnapshot(
+      snapRef,
+      (docSnap) => {
+        const obj = docSnap.data()?.state;
+        if (!obj || typeof Net.onSnapshot !== "function") return;
 
-      // Ignore our own echo (saves extra work, not a behavior change)
-      if (obj?.meta?.senderUid && obj.meta.senderUid === identity.uid) return;
+        // Ignore our own echo (saves extra work for the main snapshot)
+        if (obj?.meta?.senderUid && obj.meta.senderUid === identity.uid) return;
 
-      try { Net.onSnapshot(obj); } catch {}
-    });
+        try { Net.onSnapshot(obj); } catch {}
+      },
+      (err) => {
+        console.warn("[Net.joinRoom state] onSnapshot failed", err);
+      }
+    );
 
     // Create-if-missing WITHOUT a read (saves 1 read)
-    await setDoc(snapRef, { state: null, updatedAt: serverTimestamp() }, { merge: true });
+    await setDoc(
+      snapRef,
+      { state: null, updatedAt: serverTimestamp() },
+      { merge: true }
+    );
+
+    // Make sure this tab is also listening to sheet updates
+    Net.subscribeSheets();
 
     return roomId;
   },
 
   // Send the whole game state (plain JSONable object) — debounced
-  // Backward compatible: callers can keep using sendSnapshot(stateObj)
   _sendTimer: null,
   async _write(stateObj) {
     if (!currentRoom) throw new Error("Join a room first");
 
-    // Always attach sender metadata so the peer can display who transmitted.
     const payload = {
       ...stateObj,
       meta: {
@@ -127,6 +145,7 @@ const Net = {
       { merge: true }
     );
   },
+
   sendSnapshot(stateObj, ms = 350) {
     clearTimeout(Net._sendTimer);
     Net._sendTimer = setTimeout(() => Net._write(stateObj), ms);
@@ -141,16 +160,16 @@ const Net = {
       const sheetsRef = collection(db, "rooms", currentRoom, "sheets");
       const sheetRef  = doc(sheetsRef, `${mapId}::${tokenId}`);
 
-const payload = {
-  mapId,
-  tokenId,
-  sheet: sheetData,
-  sender: identity.name || null,
-  senderUid: identity.uid || null,
-  senderInstanceId: INSTANCE_ID,   // NEW
-  updatedAt: serverTimestamp()
-};
-     
+      const payload = {
+        mapId,
+        tokenId,
+        sheet: sheetData,
+        sender: identity.name || null,
+        senderUid: identity.uid || null,
+        senderInstanceId: INSTANCE_ID,   // per-tab id for echo ignore
+        updatedAt: serverTimestamp()
+      };
+
       await setDoc(sheetRef, payload, { merge: true });
     } catch (err) {
       console.warn("[Net.sendSheet] failed", err);
@@ -177,8 +196,10 @@ const payload = {
           const data = change.doc.data();
           if (!data || !data.mapId || !data.tokenId || !data.sheet) return;
 
-  // Ignore this tab's own echoes, but still allow other tabs/devices
-  if (data.senderInstanceId && data.senderInstanceId === INSTANCE_ID) return;
+          // Ignore ONLY this tab's own echo; allow all other users/tabs
+          if (data.senderInstanceId && data.senderInstanceId === INSTANCE_ID) {
+            return;
+          }
 
           window.dispatchEvent(
             new CustomEvent("mss84:sheetRemoteUpdate", {
@@ -199,7 +220,6 @@ const payload = {
     );
   },
 
-  
   // Leave/cleanup (safe to call multiple times)
   leave() {
     unsubState?.();
@@ -211,13 +231,13 @@ const payload = {
     unsubSheets = null;
 
     currentRoom = null;
-  },
+  }
 };
 
-Object.defineProperty(Net, 'roomId', {
+// Expose a read-only roomId property
+Object.defineProperty(Net, "roomId", {
   get: () => currentRoom
 });
-
 
 // expose globally and announce readiness
 window.Net = Net;
