@@ -170,7 +170,7 @@ const Net = {
           if (!data || !data.mapId || !data.tokenId || !data.sheet) return;
 
           // optional: ignore our own echoes
-          if (data.senderUid && data.senderUid === identity.uid) return;
+          // if (data.senderUid && data.senderUid === identity.uid) return;
 
           window.dispatchEvent(
             new CustomEvent("mss84:sheetRemoteUpdate", {
