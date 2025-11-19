@@ -3871,7 +3871,7 @@ function wireSend() {
   }
 
   // Call once during init
-  setupSheetRealtimeSync();
+  //setupSheetRealtimeSync();
 
   
   // hook up now + when networking announces readiness
@@ -3906,6 +3906,7 @@ function wireSend() {
 
   syncHeaderH();
 })();
+
 
 
 
