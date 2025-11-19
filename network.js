@@ -14,6 +14,13 @@ const app  = getApp();
 const db   = getFirestore(app);
 const auth = getAuth(app);
 
+// Per-tab instance id so we can ignore our own Firestore echoes
+const INSTANCE_ID =
+  (crypto && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : `${Date.now().toString(36)}-${Math.random().toString(16).slice(2)}`;
+
+
 // ---- identity ----
 let identity = {
   uid: null,
@@ -134,15 +141,16 @@ const Net = {
       const sheetsRef = collection(db, "rooms", currentRoom, "sheets");
       const sheetRef  = doc(sheetsRef, `${mapId}::${tokenId}`);
 
-      const payload = {
-        mapId,
-        tokenId,
-        sheet: sheetData,
-        sender: identity.name || null,
-        senderUid: identity.uid || null,
-        updatedAt: serverTimestamp()
-      };
-
+const payload = {
+  mapId,
+  tokenId,
+  sheet: sheetData,
+  sender: identity.name || null,
+  senderUid: identity.uid || null,
+  senderInstanceId: INSTANCE_ID,   // NEW
+  updatedAt: serverTimestamp()
+};
+     
       await setDoc(sheetRef, payload, { merge: true });
     } catch (err) {
       console.warn("[Net.sendSheet] failed", err);
@@ -169,8 +177,8 @@ const Net = {
           const data = change.doc.data();
           if (!data || !data.mapId || !data.tokenId || !data.sheet) return;
 
-          // optional: ignore our own echoes
-          // if (data.senderUid && data.senderUid === identity.uid) return;
+  // Ignore this tab's own echoes, but still allow other tabs/devices
+  if (data.senderInstanceId && data.senderInstanceId === INSTANCE_ID) return;
 
           window.dispatchEvent(
             new CustomEvent("mss84:sheetRemoteUpdate", {
