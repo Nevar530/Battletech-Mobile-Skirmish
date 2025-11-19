@@ -1,4 +1,4 @@
- 
+  
 // modules/sheet.js
 // MSS:84 — Sheet Panel (Original UI + Compiler statics)
 // - Keeps the original layout, tabs, bars, crit boards, and styles.
