@@ -6,7 +6,7 @@
     { "id": "objectives", "name": "Objectives" },
     { "id": "roads", "name": "Roads" }
   ],
-  "defs": [{
+  "defs": [
   {
   "id": "2L_Turn",
   "name": "2L_Turn",
