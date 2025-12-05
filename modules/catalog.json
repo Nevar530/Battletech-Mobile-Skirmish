@@ -1068,7 +1068,6 @@
         }
       ]
     },
-
     {
       "id": "wall_h1",
       "name": "Wall Heavy 1/4",
@@ -1184,3 +1183,4 @@
           "fill": "#404d59","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 }
       ]
     }
+  ]}
