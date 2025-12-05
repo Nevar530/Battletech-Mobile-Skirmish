@@ -760,8 +760,7 @@ function render() {
   gLabels.replaceChildren();
   
   gStructs.replaceChildren();
-   // NEW: make every structure 50% transparent
-  gStructs.setAttribute('opacity', '0.5');
+
 
   gTokens.replaceChildren();
 gMeasure.replaceChildren();
@@ -3890,6 +3889,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
