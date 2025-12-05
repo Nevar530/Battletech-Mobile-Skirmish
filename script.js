@@ -123,9 +123,9 @@ const gShadows = document.getElementById('world-shadows');
 const gPolys   = document.getElementById('world-polys');
 const gTex     = document.getElementById('world-textures');
 const gOver    = document.getElementById('world-overlays');
-const gLabels  = document.getElementById('world-labels');
 const gTokens  = document.getElementById('world-tokens');
 const gStructs = document.getElementById('world-structures');
+const gLabels  = document.getElementById('world-labels');
 const gMeasure = document.getElementById('measure-group');
 const gLosRays = document.getElementById('los-rays');
 const gLos     = document.getElementById('los-group');
@@ -760,7 +760,8 @@ function render() {
   gLabels.replaceChildren();
   
   gStructs.replaceChildren();
- 
+   // NEW: make every structure 50% transparent
+  gStructs.setAttribute('opacity', '0.5');
 
   gTokens.replaceChildren();
 gMeasure.replaceChildren();
@@ -3889,6 +3890,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
