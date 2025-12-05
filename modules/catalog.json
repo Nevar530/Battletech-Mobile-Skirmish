@@ -23,7 +23,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -48,7 +48,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#a9c4df",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -73,7 +73,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#a0bdd9",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -98,7 +98,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#bddfff",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -123,7 +123,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -148,7 +148,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -173,7 +173,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -198,7 +198,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -223,7 +223,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -248,7 +248,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -273,7 +273,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -298,7 +298,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#20262c",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -323,7 +323,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -348,7 +348,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -373,7 +373,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -398,7 +398,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -423,7 +423,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -448,7 +448,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -473,7 +473,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -498,7 +498,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -523,7 +523,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -548,7 +548,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -573,7 +573,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -598,7 +598,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -623,7 +623,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -648,7 +648,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -673,7 +673,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -698,7 +698,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -723,7 +723,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -748,7 +748,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -773,7 +773,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -798,7 +798,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -823,7 +823,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -848,7 +848,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -873,7 +873,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -898,7 +898,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -923,7 +923,7 @@
       "tx": 0,
       "ty": 0,
       "fill": "#7d7d7d",
-      "stroke": "#9aa4ae",
+      "stroke": "#7F7F7F",
       "sw": 0.02,
       "texture": "",
       "texScale": 1,
@@ -947,31 +947,31 @@
       "shapes": [
         {
           "kind": "rect","w": 0.8,"h": 3.5,"x": -0.4,"y": -1.75,"rx": 0,
-          "autoCenter": true,"tx": 0,"ty": 0.85,"fill": "#20262c","stroke": "#9aa4ae",
+          "autoCenter": true,"tx": 0,"ty": 0.85,"fill": "#20262c","stroke": "#7F7F7F",
           "sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
         },
         {
           "kind": "rect","w": 0.5,"h": 3.5,"x": -0.25,"y": -1.75,"rx": 0,
-          "autoCenter": true,"tx": 0,"ty": 0.85,"fill": "#20262c","stroke": "#9aa4ae",
+          "autoCenter": true,"tx": 0,"ty": 0.85,"fill": "#20262c","stroke": "#7F7F7F",
           "sw": 0.02,"texture": "dome","texScale": 5,"texAngle": 0,"rot": 0
         },
         {
-          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#4d5256","stroke": "#7F7F7F","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
           "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#363d44","stroke": "#7F7F7F","sw": 0.02,
           "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": 3.45,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": 3.45,"fill": "#4d5256","stroke": "#7F7F7F","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
           "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": 3.45,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": 3.45,"fill": "#363d44","stroke": "#7F7F7F","sw": 0.02,
           "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         }
@@ -992,29 +992,29 @@
       "shapes": [
         {
           "kind": "rect","w": 0.8,"h": 2,"x": -0.4,"y": -1,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
         },
         {
           "kind": "rect","w": 0.5,"h": 2,"x": -0.25,"y": -1,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 5,"texAngle": 0,"rot": 0
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "dome","texScale": 5,"texAngle": 0,"rot": 0
         },
            {
-          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#4d5256","stroke": "#7F7F7F","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
           "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": -1.75,"fill": "#363d44","stroke": "#7F7F7F","sw": 0.02,
           "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": 1.75,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": 1.75,"fill": "#4d5256","stroke": "#7F7F7F","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
           "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": 1.75,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": 1.75,"fill": "#363d44","stroke": "#7F7F7F","sw": 0.02,
           "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         }
@@ -1034,12 +1034,12 @@
       ],
       "shapes": [
         {
-          "kind": "polygon","tx": 0,"ty": 0,"fill": "#4d5256","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": 0,"fill": "#4d5256","stroke": "#7F7F7F","sw": 0.02,
           "texture": "hexmesh","texScale": 10,"texAngle": 0,"rot": 0,
           "points": [[0.5,-0.866],[0.99,0.00],[0.49,0.86],[-0.5,0.866],[-0.99,0.00],[-0.49,-0.86]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": 0,"fill": "#363d44","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": 0,"fill": "#363d44","stroke": "#7F7F7F","sw": 0.02,
           "texture": "","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.38,-0.65],[0.74,0.02],[0.39,0.63],[-0.38,0.65],[-0.76,0.02],[-0.39,-0.63]]
         }
@@ -1060,11 +1060,11 @@
       "shapes": [
         {
           "kind": "rect","w": 1,"h": 5.2,"x": -0.5,"y": -2.6,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
         },
         {
           "kind": "rect","w": 0.5,"h": 5.2,"x": -0.25,"y": -2.6,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 0
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 0
         }
       ]
     },
@@ -1083,11 +1083,11 @@
       "shapes": [
         {
           "kind": "rect","w": 1,"h": 1.75,"x": -0.5,"y": -0.85,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0
         },
         {
           "kind": "rect","w": 0.5,"h": 1.75,"x": -0.25,"y": -0.85,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 0
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 0
         }
       ]
     },
@@ -1107,44 +1107,44 @@
       ],
       "shapes": [
         {
-          "kind": "polygon","tx": 1.55,"ty": 0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 1.55,"ty": 0.9,"fill": "#6b6e70","stroke": "#7F7F7F","sw": 0.02,
           "texture": "line_vert","texScale": 5,"texAngle": 120,"rot": 0,
           "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
         },
         {
-          "kind": "polygon","tx": -1.55,"ty": -0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": -1.55,"ty": -0.9,"fill": "#6b6e70","stroke": "#7F7F7F","sw": 0.02,
           "texture": "line_vert","texScale": 5,"texAngle": 120,"rot": 0,
           "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
         },
         {
-          "kind": "polygon","tx": -1.55,"ty": 0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": -1.55,"ty": 0.9,"fill": "#6b6e70","stroke": "#7F7F7F","sw": 0.02,
           "texture": "line_vert","texScale": 5,"texAngle": 60,"rot": 0,
           "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
         },
         {
-          "kind": "polygon","tx": 1.55,"ty": -0.9,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 1.55,"ty": -0.9,"fill": "#6b6e70","stroke": "#7F7F7F","sw": 0.02,
           "texture": "line_vert","texScale": 5,"texAngle": 60,"rot": 0,
           "points": [[0.25,-0.433],[0.515,0.01],[0.265,0.442],[-0.25,0.433],[-0.515,-0.01],[-0.265,-0.442]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": -1.8,"fill": "#6b6e70","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": -1.8,"fill": "#6b6e70","stroke": "#7F7F7F","sw": 0.02,
           "texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.40,-0.693],[0.81,0.00],[0.41,0.70],[-0.40,0.693],[-0.81,0.00],[-0.41,-0.70]]
         },
         {
-          "kind": "polygon","tx": 0,"ty": 1.8,"fill": "#686e73","stroke": "#9aa4ae","sw": 0.02,
+          "kind": "polygon","tx": 0,"ty": 1.8,"fill": "#686e73","stroke": "#7F7F7F","sw": 0.02,
           "texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 0,
           "points": [[0.40,-0.693],[0.81,0.00],[0.41,0.70],[-0.40,0.693],[-0.81,0.00],[-0.41,-0.70]]
         },
 
         { "kind": "circle","r": 2,"cx": 0,"cy": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#5e6368","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 34,"texAngle": 0,"rot": 0 },
+          "fill": "#5e6368","stroke": "#7F7F7F","sw": 0.02,"texture": "hexmesh","texScale": 34,"texAngle": 0,"rot": 0 },
         { "kind": "circle","r": 1,"cx": 0,"cy": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#727679","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 20,"texAngle": 0,"rot": 0 },
+          "fill": "#727679","stroke": "#7F7F7F","sw": 0.02,"texture": "dome","texScale": 20,"texAngle": 0,"rot": 0 },
         { "kind": "circle","r": 0.5,"cx": 0,"cy": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#8c9197","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 10,"texAngle": 0,"rot": 0 },
+          "fill": "#8c9197","stroke": "#7F7F7F","sw": 0.02,"texture": "dome","texScale": 10,"texAngle": 0,"rot": 0 },
         { "kind": "circle","r": 0.2,"cx": 0,"cy": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#9da3aa","stroke": "#9aa4ae","sw": 0.02,"texture": "dome","texScale": 4,"texAngle": 0,"rot": 0 }
+          "fill": "#9da3aa","stroke": "#7F7F7F","sw": 0.02,"texture": "dome","texScale": 4,"texAngle": 0,"rot": 0 }
       ]
     },
     {
@@ -1152,7 +1152,7 @@
       "heightMode": "fixed","height": 3,"footprint": [],
       "shapes": [
         { "kind": "rect","w": 0.5,"h": 5.5,"x": -0.25,"y": -2.75,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 180 }
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 180 }
       ]
     },
     {
@@ -1160,11 +1160,11 @@
       "heightMode": "fixed","height": 3,"footprint": [],
       "shapes": [
         { "kind": "rect","w": 0.5,"h": 1,"x": -0.25,"y": -0.5,"rx": 0,"autoCenter": true,"tx": 0,"ty": 0.5,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 180 },
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 180 },
         { "kind": "rect","w": 0.5,"h": 1,"x": -0.25,"y": -0.5,"rx": 0,"autoCenter": true,"tx": 0.45,"ty": -0.25,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 240 },
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "hexmesh","texScale": 5,"texAngle": 0,"rot": 240 },
         { "kind": "rect","w": 0.5,"h": 0.75,"x": -0.25,"y": -0.35,"rx": 0,"autoCenter": true,"tx": 0.1,"ty": 0.1,
-          "fill": "#20262c","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 300 }
+          "fill": "#20262c","stroke": "#7F7F7F","sw": 0.02,"texture": "line_horiz","texScale": 1,"texAngle": 0,"rot": 300 }
       ]
     },
     {
@@ -1172,15 +1172,15 @@
       "heightMode": "fixed","height": 1,"footprint": [],
       "shapes": [
         { "kind": "rect","w": 1.75,"h": 0.75,"x": -0.875,"y": -0.375,"rx": 0.25,"autoCenter": true,"tx": 0,"ty": 0,
-          "fill": "#7c4213","stroke": "#9aa4ae","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
+          "fill": "#7c4213","stroke": "#7F7F7F","sw": 0.02,"texture": "","texScale": 1,"texAngle": 0 },
         { "kind": "rect","w": 1.5,"h": 1,"x": -0.75,"y": -0.5,"rx": 0.1,"autoCenter": true,"tx": 0,"ty": 0,
           "fill": "#20262c","stroke": "#a8a8a8","sw": 0.02,"texture": "hexmesh","texScale": 10,"texAngle": 0 },
         { "kind": "rect","w": 0.25,"h": 1.5,"x": -0.125,"y": -0.75,"rx": 0.1,"autoCenter": true,"tx": -0.4,"ty": 0,
-          "fill": "#404d59","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 },
+          "fill": "#404d59","stroke": "#7F7F7F","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 },
         { "kind": "rect","w": 0.25,"h": 1.5,"x": -0.125,"y": -0.75,"rx": 0.1,"autoCenter": true,"tx": 0.0,"ty": 0,
-          "fill": "#404d59","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 },
+          "fill": "#404d59","stroke": "#7F7F7F","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 },
         { "kind": "rect","w": 0.25,"h": 1.5,"x": -0.125,"y": -0.75,"rx": 0.1,"autoCenter": true,"tx": 0.4,"ty": 0,
-          "fill": "#404d59","stroke": "#9aa4ae","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 }
+          "fill": "#404d59","stroke": "#7F7F7F","sw": 0.02,"texture": "line_horiz","texScale": 2.5,"texAngle": 0 }
       ]
     }
   ]}
