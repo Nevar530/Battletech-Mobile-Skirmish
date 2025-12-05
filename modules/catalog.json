@@ -39,7 +39,7 @@
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
-  "height": 2,
+  "height": 0,
   "footprint": [],
   "shapes": [
     {
@@ -64,7 +64,7 @@
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
-  "height": 3,
+  "height": 0,
   "footprint": [],
   "shapes": [
     {
@@ -89,7 +89,7 @@
   "units": "hex",
   "rotateStep": 60,
   "heightMode": "fixed",
-  "height": 4,
+  "height": 0,
   "footprint": [],
   "shapes": [
     {
