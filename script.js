@@ -760,7 +760,8 @@ function render() {
   gLabels.replaceChildren();
   
   gStructs.replaceChildren();
-
+// apply universal transparency to all structures
+gStructs.setAttribute('opacity', '0.75');
 
   gTokens.replaceChildren();
 gMeasure.replaceChildren();
@@ -3889,6 +3890,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
