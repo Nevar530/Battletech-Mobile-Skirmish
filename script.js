@@ -1707,6 +1707,12 @@ const selStruct       = document.getElementById('structSelect');
 const inpStructH      = document.getElementById('structHeight');
 const inpStructScale  = document.getElementById('structScale');
 
+// Floating radial structure controls
+const btnStructRotLFloat   = document.getElementById('btnStructRotLFloat');
+const btnStructRotRFloat   = document.getElementById('btnStructRotRFloat');
+const btnStructDeleteFloat = document.getElementById('btnStructDeleteFloat');
+
+
 let structTool = 'select'; // 'select' | 'place' | 'rotate' | 'delete'
 function setStructTool(mode){
   // clicking the same button again clears structure mode (lets tokens work)
@@ -1756,6 +1762,12 @@ if (losActive && losSource) recomputeLOS();
 }
 btnStructRotL?.addEventListener('click', () => rotateSelectedStructure(-1));
 btnStructRotR?.addEventListener('click', () => rotateSelectedStructure(1));
+
+// Wire floating radial controls to the same actions
+btnStructRotLFloat  ?.addEventListener('click', () => rotateSelectedStructure(-1));
+btnStructRotRFloat  ?.addEventListener('click', () => rotateSelectedStructure(1));
+btnStructDeleteFloat?.addEventListener('click', () => deleteSelectedStructure());
+
 
 function deleteSelectedStructure(){
   if (!selectedStructureId) return false;
@@ -3917,6 +3929,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
