@@ -681,8 +681,8 @@ svg.hitmask-map #world-labels * {
 
 .radial-controls button {
   position: absolute;
-  width: 32px;
-  height: 32px;
+  width: 16px;
+  height: 16px;
   border-radius: 8px;
   border: 1px solid var(--bt-edge);
   background: linear-gradient(180deg,#0f1520,#0b1019);
