@@ -704,38 +704,3 @@ svg.hitmask-map #world-labels * {
 .radial-controls button:nth-child(3) { /* rotate right */
   transform: translate(8px, 10px);
 }
-
-/* === Match structure radial controls to token controls === */
-.radial-controls button {
-  background: linear-gradient(180deg,#0f1520,#0b1019);
-  color: var(--ink);
-  border: 1px solid var(--bt-edge);
-  border-radius: 8px;
-  width: 32px;
-  height: 32px;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.03),
-    0 1px 0 rgba(0,0,0,.6),
-    0 0 0 1px #0005;
-}
-
-.radial-controls button:hover {
-  filter: brightness(1.1);
-}
-
-.radial-controls button:active {
-  transform: translateY(1px);
-}
-
-/* Better trashcan icon */
-.radial-controls button.trash::before {
-  content: "🗑";
-  font-size: 16px;
-  line-height: 1;
-}
