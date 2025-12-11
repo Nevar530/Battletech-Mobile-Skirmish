@@ -235,14 +235,27 @@ svg{
 
 /* ---------- STRUCTURES ---------- */
 .structure { pointer-events:auto; }
+
+/* Invisible hit outline by default */
 .structure .hit {
   fill: none;
   stroke: #ffd54a;
   stroke-width: 2px;
-  opacity: 0.0;                 /* 0 by default; raised when selected */
+  opacity: 0;
+  transition: opacity 0.15s ease, stroke-width 0.15s ease, filter 0.15s ease;
 }
-.structure.selected .hit { opacity: 0.9; }
+
+/* When selected: bright glowing outline */
+.structure.selected .hit {
+  opacity: 1;
+  stroke-width: 4px;
+  filter:
+    drop-shadow(0 0 4px #ffd54a)
+    drop-shadow(0 0 10px #ffd54a);
+}
+
 .structure .body {
+  /* keep your existing structure shapes as-is */
 }
 
 
