@@ -1711,6 +1711,8 @@ const inpStructScale  = document.getElementById('structScale');
 const btnStructRotLFloat   = document.getElementById('btnStructRotLFloat');
 const btnStructRotRFloat   = document.getElementById('btnStructRotRFloat');
 const btnStructDeleteFloat = document.getElementById('btnStructDeleteFloat');
+const btnStructCloneFloat = document.getElementById('btnStructCloneFloat');
+
 
 
 let structTool = 'select'; // 'select' | 'place' | 'rotate' | 'delete'
@@ -1767,7 +1769,7 @@ btnStructRotR?.addEventListener('click', () => rotateSelectedStructure(1));
 btnStructRotLFloat  ?.addEventListener('click', () => rotateSelectedStructure(-1));
 btnStructRotRFloat  ?.addEventListener('click', () => rotateSelectedStructure(1));
 btnStructDeleteFloat?.addEventListener('click', () => deleteSelectedStructure());
-
+btnStructCloneFloat?.addEventListener('click', () => cloneSelectedStructure());
 
 function deleteSelectedStructure(){
   if (!selectedStructureId) return false;
@@ -1782,6 +1784,29 @@ function deleteSelectedStructure(){
   }
   return deleted;
 }
+
+function cloneSelectedStructure() {
+  const s = structures.find(x => x.id === selectedStructureId);
+  if (!s) return;
+
+  // deep copy minus ID
+  const copy = JSON.parse(JSON.stringify(s));
+  copy.id = crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random());
+
+  // offset it 1 hex to the right (you can change this)
+  copy.q = s.q + 1;
+  copy.r = s.r;
+
+  structures.push(copy);
+  selectedStructureId = copy.id;
+
+  rebuildStructLOSCache();
+  requestRender();
+  saveLocal();
+
+  window.dispatchEvent(new CustomEvent('mss:struct:add', { detail: { id: copy.id }}));
+}
+
 
 function initStructurePickers(){
   if (!selStructType || !selStruct) return;
@@ -3929,6 +3954,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
