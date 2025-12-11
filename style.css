@@ -710,9 +710,9 @@ svg.hitmask-map #world-labels * {
 }
 
 .radial-controls button:nth-child(3) { /* Rotate Right */
-  transform: translate(20px, -10px);
+  transform: translate(-10px, 20px);
 }
 
 .radial-controls button:nth-child(4) { /* Delete */
-  transform: translate(-10px, 20px);
+  transform: translate(20px, -10px);
 }
