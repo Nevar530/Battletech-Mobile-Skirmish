@@ -700,13 +700,19 @@ svg.hitmask-map #world-labels * {
               0 0 0 1px #0005;
 }
 
-/* 3 buttons at 225°, 270°, 315° around the circle */
-.radial-controls button:nth-child(1) { /* rotate left */
-  transform: translate(-40px, 10px);
+/* 4-button diamond layout for struct radial */
+.radial-controls button:nth-child(1) { /* Rotate Left */
+  transform: translate(-40px, -10px);
 }
-.radial-controls button:nth-child(2) { /* delete */
-  transform: translate(-16px, 40px);
+
+.radial-controls button:nth-child(2) { /* Clone */
+  transform: translate(-10px, -40px);
 }
-.radial-controls button:nth-child(3) { /* rotate right */
-  transform: translate(8px, 10px);
+
+.radial-controls button:nth-child(3) { /* Rotate Right */
+  transform: translate(20px, -10px);
+}
+
+.radial-controls button:nth-child(4) { /* Delete */
+  transform: translate(-10px, 20px);
 }
