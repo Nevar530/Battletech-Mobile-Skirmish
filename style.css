@@ -659,3 +659,11 @@ svg.hitmask-map #world-labels * {
   left: 26px;
   bottom: 0;
 }
+
+.structure.selected path,
+.structure.selected polygon,
+.structure.selected rect {
+  filter: drop-shadow(0 0 6px rgba(255, 230, 150, 0.85));
+  stroke-width: 0.06; /* subtle outline boost */
+}
+
