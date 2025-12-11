@@ -1289,6 +1289,7 @@ renderInitBadge(g, roll, rTok);
   saveLocal();
 
   updateTokenControls();
+  updateStructControls();  // NEW – keep structure radial in sync too
 }
 
 const tokenControls = document.getElementById('tokenControls');
@@ -1313,6 +1314,28 @@ function updateTokenControls() {
   tokenControls.style.left = (screenPt.x - 30) + 'px';
   tokenControls.style.top  = (screenPt.y - 30) + 'px';
   tokenControls.style.display = 'block';
+}
+
+// --- Structure radial controls (rotate / delete) ---
+const structControls = document.getElementById('structControls');
+
+function updateStructControls() {
+  if (!structControls) return;
+  const sel = structures.find(s => s.id === selectedStructureId);
+  if (!sel) {
+    structControls.style.display = 'none';
+    return;
+  }
+
+  const center = offsetToPixel(sel.q, sel.r, hexSize);
+  const pt = svg.createSVGPoint();
+  pt.x = center.x;
+  pt.y = center.y;
+  const screenPt = pt.matrixTransform(svg.getScreenCTM());
+
+  structControls.style.left = (screenPt.x - 30) + 'px';
+  structControls.style.top  = (screenPt.y - 30) + 'px';
+  structControls.style.display = 'block';
 }
 
 /* ---------- Stroke / Undo helpers ---------- */
@@ -1854,11 +1877,14 @@ if (structTool === 'select' && structElHit && e.button === 0) {
 }
 
 
-  // Deselect if clicking empty space in select mode
-  if (toolMode==='select' && !tokElHit && e.button===0) {
+// Deselect if clicking empty space in select mode
+if (toolMode === 'select' && !tokElHit && !structElHit && e.button === 0) {
+  if (selectedTokenId || selectedStructureId) {
     selectedTokenId = null;
+    selectedStructureId = null;
     requestRender();
   }
+}
 
   // RANGE: selected token + right-click ⇒ range to target
   if (toolMode==='select' && e.button===2 && selectedTokenId) {
@@ -2291,6 +2317,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e)=>{
   if (e.key === 'Escape') {
     if (selectedTokenId) { selectedTokenId = null; requestRender(); return; }
+    if (selectedStructureId) { selectedStructureId = null; requestRender(); return; }
     if (menuPopup && menuPopup.style.display === 'block') { menuPopup.style.display='none'; return; }
     if (measurement) { clearMeasurement(); return; }
     if (losActive || losSource) { clearLOS(); return; }
@@ -3890,6 +3917,7 @@ window.getTokenLabelById = function(mapId, tokenId){
 
   syncHeaderH();
 })();
+
 
 
 
