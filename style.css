@@ -609,3 +609,40 @@ svg.hitmask-map #world-labels * {
   pointer-events: none !important;
 }
 
+/* === Floating radial controls for Structures === */
+.radial-controls {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  display: none;             /* JS will set to block when selected */
+  pointer-events: none;      /* container doesn't catch clicks */
+  z-index: 2000;
+}
+
+.radial-controls button {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #0f1520;
+  border: 1px solid var(--bt-edge);
+  color: var(--ink);
+  font-size: 14px;
+  pointer-events: auto;      /* buttons respond to clicks */
+}
+
+/* Position the 3 radial buttons */
+#btnStructRotL {
+  left: 0;
+  top: 26px;
+}
+
+#btnStructRotR {
+  right: 0;
+  top: 26px;
+}
+
+#btnStructDelete {
+  left: 26px;
+  bottom: 0;
+}
