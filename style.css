@@ -667,3 +667,41 @@ svg.hitmask-map #world-labels * {
   stroke-width: 0.06; /* subtle outline boost */
 }
 
+.radial-controls {
+  position: absolute;
+  display: none;
+  width: 120px;
+  height: 120px;
+  margin-left: -60px;
+  margin-top: -60px;
+  border-radius: 50%;
+  pointer-events: none; /* container ignores events */
+  z-index: 2000;
+}
+
+.radial-controls button {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #99e;
+  background: rgba(10, 20, 40, 0.95);
+  color: #eef;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto; /* buttons are clickable */
+}
+
+/* 3 buttons at 225°, 270°, 315° around the circle */
+.radial-controls button:nth-child(1) { /* rotate left */
+  transform: translate(-40px, 10px);
+}
+.radial-controls button:nth-child(2) { /* delete */
+  transform: translate(-16px, 40px);
+}
+.radial-controls button:nth-child(3) { /* rotate right */
+  transform: translate(8px, 10px);
+}
+
