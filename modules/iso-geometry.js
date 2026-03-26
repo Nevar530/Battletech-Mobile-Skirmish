@@ -2,14 +2,15 @@
 (() => {
   const API = {};
 
-  API.ISO_ROT_DEG = 30;
+  // Point-down visual orientation
+  API.ISO_POINT_DOWN_DEG = 90;
   API.toRad = (deg) => (deg * Math.PI) / 180;
 
-  // Point-down visual hex for ISO mode
+  // Point-down hex polygon
   API.hexPointsArrayIso = function hexPointsArrayIso(cx, cy, size, squash = 1) {
     const pts = [];
     for (let i = 0; i < 6; i++) {
-      const ang = API.toRad(API.ISO_ROT_DEG + (60 * i));
+      const ang = API.toRad(API.ISO_POINT_DOWN_DEG + (60 * i));
       const dx = size * Math.cos(ang);
       const dy = size * Math.sin(ang) * squash;
       pts.push([cx + dx, cy + dy]);
@@ -17,18 +18,30 @@
     return pts;
   };
 
-  // Board/base center projection only
+  // ISO MODE CENTER LAYOUT:
+  // This is NOT the app's flat-top spacing.
+  // This is a point-down / pointy layout spacing for visual mode only.
+  //
+  // Using odd-r style row offset:
+  // width  = sqrt(3) * size
+  // height = 2 * size
+  // x = q * width + (r odd ? width/2 : 0)
+  // y = r * (1.5 * size)
+  //
+  // Then squash Y for iso look.
   API.offsetToPixelIsoBase = function offsetToPixelIsoBase(q, r, size, squash = 1) {
-    const h = Math.sqrt(3) * size;
-    const x = q * (size * 1.5);
-    const yFlat = r * h + (q % 2 ? h / 2 : 0);
+    const width = Math.sqrt(3) * size;
+    const height = 2 * size;
+
+    const x = q * width + ((r & 1) ? width / 2 : 0);
+    const yRaw = r * (1.5 * size);
 
     return {
       x,
-      y: yFlat * squash,
-      yFlat,
-      w: size * 2,
-      h: h * squash
+      y: yRaw * squash,
+      yRaw,
+      w: width,
+      h: height * squash
     };
   };
 
@@ -37,7 +50,7 @@
     return {
       x: p.x + originX,
       y: p.y + originY,
-      yFlat: p.yFlat + originY,
+      yRaw: p.yRaw + originY,
       w: p.w,
       h: p.h
     };
@@ -51,10 +64,28 @@
     return pts.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
   };
 
-  // Inverse screen -> flat board math for ISO center picking/dragging
-  API.unsquashPoint = function unsquashPoint(px, py, squash = 1) {
-    if (!squash || squash === 1) return { x: px, y: py };
-    return { x: px, y: py / squash };
+  // For click/drag in iso mode:
+  // robust nearest-center lookup instead of pretending flat-top inverse still works
+  API.pixelToCellIsoNearest = function pixelToCellIsoNearest(px, py, cols, rows, size, squash = 1) {
+    let bestQ = 0;
+    let bestR = 0;
+    let bestD2 = Infinity;
+
+    for (let r = 0; r < rows; r++) {
+      for (let q = 0; q < cols; q++) {
+        const p = API.projectIsoBase(q, r, size, squash);
+        const dx = px - p.x;
+        const dy = py - p.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < bestD2) {
+          bestD2 = d2;
+          bestQ = q;
+          bestR = r;
+        }
+      }
+    }
+
+    return { q: bestQ, r: bestR };
   };
 
   window.IsoGeom = API;
