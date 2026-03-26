@@ -1292,9 +1292,6 @@ g.appendChild(nose);
     
     // Firing arc when selected
 if (tok.id === selectedTokenId) {
-  const FRONT_OFFSET_DEG = 30; // same as nose
-  const forward = (-90 + FRONT_OFFSET_DEG) * Math.PI / 180;
-
   const arcSpread = 33 * Math.PI / 180;
   const arcLength = rTok * 20;
   const gradId = `arcGrad-${tok.id}`;
@@ -1323,27 +1320,6 @@ if (tok.id === selectedTokenId) {
   }
 
   function makeArcLine(ang) {
-    const a = forward + ang;
-    const x = Math.cos(a) * arcLength;
-    const y = Math.sin(a) * arcLength;
-
-    const line = document.createElementNS(svgNS,'line');
-    line.setAttribute('x1', 0);
-    line.setAttribute('y1', 0);
-    line.setAttribute('x2', x.toFixed(2));
-    line.setAttribute('y2', y.toFixed(2));
-    line.setAttribute('stroke', `url(#${gradId})`);
-    line.setAttribute('stroke-width', 3);
-    line.setAttribute('opacity', 1);
-    line.setAttribute('vector-effect','non-scaling-stroke');
-    return line;
-  }
-
-  g.appendChild(makeArcLine(-arcSpread));
-  g.appendChild(makeArcLine(+arcSpread));
-}
-
-  function makeArcLine(ang) {
     const x = Math.sin(ang) * arcLength;
     const y = -Math.cos(ang) * arcLength;
 
@@ -1361,7 +1337,8 @@ if (tok.id === selectedTokenId) {
 
   g.appendChild(makeArcLine(-arcSpread));
   g.appendChild(makeArcLine(+arcSpread));
-}}
+}
+
 
 const label = document.createElementNS(svgNS,'text');
 label.setAttribute('class','tlabel');
