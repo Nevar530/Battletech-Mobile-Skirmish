@@ -1274,16 +1274,27 @@ if (!center || center.x === undefined) return;
     ring.setAttribute('stroke-width', Math.max(2, rTok*0.14).toFixed(2));
     g.appendChild(ring);
 
-    const nose = document.createElementNS(svgNS,'line');
-    nose.setAttribute('class','nose');
-    nose.setAttribute('x1', 0); nose.setAttribute('y1', 0 - (rTok*0.20));
-    nose.setAttribute('x2', 0); nose.setAttribute('y2', 0 - (rTok + Math.max(4, rTok*0.25)));
-    nose.setAttribute('stroke', team);
-    nose.setAttribute('stroke-width', Math.max(2, rTok*0.12).toFixed(2));
-    g.appendChild(nose);
+const FRONT_OFFSET_DEG = 30; // Battletech facing goes to hex side, not point
+const FRONT_ANG = (-90 + FRONT_OFFSET_DEG) * Math.PI / 180;
+
+const noseInner = rTok * 0.20;
+const noseOuter = rTok + Math.max(4, rTok * 0.25);
+
+const nose = document.createElementNS(svgNS,'line');
+nose.setAttribute('class','nose');
+nose.setAttribute('x1', (Math.cos(FRONT_ANG) * noseInner).toFixed(2));
+nose.setAttribute('y1', (Math.sin(FRONT_ANG) * noseInner).toFixed(2));
+nose.setAttribute('x2', (Math.cos(FRONT_ANG) * noseOuter).toFixed(2));
+nose.setAttribute('y2', (Math.sin(FRONT_ANG) * noseOuter).toFixed(2));
+nose.setAttribute('stroke', team);
+nose.setAttribute('stroke-width', Math.max(2, rTok*0.12).toFixed(2));
+g.appendChild(nose);
     
     // Firing arc when selected
 if (tok.id === selectedTokenId) {
+  const FRONT_OFFSET_DEG = 30; // same as nose
+  const forward = (-90 + FRONT_OFFSET_DEG) * Math.PI / 180;
+
   const arcSpread = 33 * Math.PI / 180;
   const arcLength = rTok * 20;
   const gradId = `arcGrad-${tok.id}`;
@@ -1310,6 +1321,27 @@ if (tok.id === selectedTokenId) {
     grad.appendChild(stop2);
     defs.appendChild(grad);
   }
+
+  function makeArcLine(ang) {
+    const a = forward + ang;
+    const x = Math.cos(a) * arcLength;
+    const y = Math.sin(a) * arcLength;
+
+    const line = document.createElementNS(svgNS,'line');
+    line.setAttribute('x1', 0);
+    line.setAttribute('y1', 0);
+    line.setAttribute('x2', x.toFixed(2));
+    line.setAttribute('y2', y.toFixed(2));
+    line.setAttribute('stroke', `url(#${gradId})`);
+    line.setAttribute('stroke-width', 3);
+    line.setAttribute('opacity', 1);
+    line.setAttribute('vector-effect','non-scaling-stroke');
+    return line;
+  }
+
+  g.appendChild(makeArcLine(-arcSpread));
+  g.appendChild(makeArcLine(+arcSpread));
+}
 
   function makeArcLine(ang) {
     const x = Math.sin(ang) * arcLength;
