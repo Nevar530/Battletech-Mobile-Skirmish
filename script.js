@@ -1311,7 +1311,7 @@ if (tok.id === selectedTokenId) {
     const x = Math.sin(ang) * arcLength;
     const y = -Math.cos(ang) * arcLength;
     const line = document.createElementNS(svgNS,'line');
-    line.setAttribute('x1', 0);
+    line.setAttribute('x1', -200);
     line.setAttribute('y1', 200);
     line.setAttribute('x2', x.toFixed(2));
     line.setAttribute('y2', y.toFixed(2));
