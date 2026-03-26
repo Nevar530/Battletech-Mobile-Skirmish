@@ -1292,13 +1292,13 @@ g.appendChild(nose);
     
     // Firing arc when selected
 if (tok.id === selectedTokenId) {
-  const arcSpread = 30 * Math.PI / 180;
+  const arcSpread = 33 * Math.PI / 180;
   const arcLength = rTok * 20;
   const gradId = `arcGrad-${tok.id}`;
 
   // rear-offset anchor so the arc fans off the back angles
-  const anchorX = -100;
-  const anchorY = 200;
+  const anchorX = -90;
+  const anchorY = 180;
 
   // rotate the fan direction to match the flat-facing side of the hex
   const facingOffset = 30 * Math.PI / 180;
