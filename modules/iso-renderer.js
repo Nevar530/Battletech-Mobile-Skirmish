@@ -74,7 +74,7 @@
   function renderRiseBands(gPolys, topPts, lift, fillColor) {
     if (lift <= 0) return;
 
-    // lower-right visible side only; simple and stable
+    // Draw lower/right visible faces only
     const faces = [
       [2, 3],
       [3, 4],
@@ -149,7 +149,6 @@
     const ctr = geom.get(`${s.q},${s.r}`);
     if (!ctr) return;
 
-    // ctr.y is already the visible top anchor; DO NOT lift again
     const g = el('g', {
       class: `structure${s.id === selectedStructureId ? ' selected' : ''}`,
       transform: `translate(${ctr.x},${ctr.y}) rotate(${s.angle || 0}) scale(${(s.scale || 1) * hexSize})`,
@@ -238,7 +237,6 @@
     const center = geom.get(`${tok.q},${tok.r}`);
     if (!center) return;
 
-    // center.y is already the visible top center; DO NOT subtract lift again
     const cx = center.x;
     const cy = center.y;
 
@@ -288,7 +286,6 @@
     label.textContent = tok.label || 'MECH';
     g.appendChild(label);
 
-    // Keep badge hooks if the main app provides them
     try {
       const mv = (typeof window.getMovementForToken === 'function')
         ? window.getMovementForToken(tok.id)
@@ -351,7 +348,8 @@
     gLosRays.replaceChildren();
     gLos.replaceChildren();
 
-    // Store VISIBLE TOP CENTERS ONLY
+    // IMPORTANT:
+    // geom cache stores visible top-center of each iso hex
     const geom = new Map();
     window.__isoGeomCache = geom;
 
@@ -361,13 +359,11 @@
 
     for (const t of tileList) {
       const base = IsoGeom.projectIsoBase(t.q, t.r, hexSize, iso.squash);
-      const lift = Math.max(0, Number(t.height) || 0) * iso.liftStepPx(hexSize);
 
+      const lift = Math.max(0, Number(t.height) || 0) * iso.liftStepPx(hexSize);
       const topCx = base.x;
       const topCy = base.y - lift;
 
-      // THIS is the important fix:
-      // cache the visible top center, not base center
       geom.set(`${t.q},${t.r}`, {
         x: topCx,
         y: topCy,
@@ -439,7 +435,6 @@
     const structList = structures.slice().sort((a, b) => (a.r - b.r) || (a.q - b.q));
     structList.forEach(s => drawIsoStructure(gStructs, s, geom, {
       hexSize,
-      iso,
       selectedStructureId
     }));
 
