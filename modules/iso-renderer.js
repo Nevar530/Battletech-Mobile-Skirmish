@@ -14,7 +14,7 @@
     return Math.max(min, Math.min(max, v));
   }
 
-  function adjustLightness(hex, deltaPct) {
+  function hexToHsl(hex) {
     hex = hex.replace('#', '');
     const n = parseInt(hex, 16);
     const r = (n >> 16) & 255;
@@ -37,16 +37,23 @@
       h /= 6;
     }
 
-    l = clamp(l * 100 + deltaPct, 0, 100) / 100;
+    return { h: h * 360, s: s * 100, l: l * 100 };
+  }
 
-    function f(n2) {
-      const k = (n2 + h * 12) % 12;
+  function hslToHex(h, s, l) {
+    h /= 360; s /= 100; l /= 100;
+    function f(n) {
+      const k = (n + h * 12) % 12;
       const a = s * Math.min(l, 1 - l);
       const c = l - a * Math.max(-1, Math.min(k - 3, Math.min(9 - k, 1)));
       return Math.round(255 * c);
     }
-
     return '#' + [f(0), f(8), f(4)].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+
+  function adjustLightness(hex, deltaPct) {
+    const { h, s, l } = hexToHsl(hex);
+    return hslToHex(h, s, clamp(l + deltaPct, 0, 100));
   }
 
   function relLum(hex) {
@@ -55,24 +62,26 @@
     const r = (n >> 16) & 255;
     const g = (n >> 8) & 255;
     const b = n & 255;
+
     const chan = v => {
       v /= 255;
       return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
     };
+
     return 0.2126 * chan(r) + 0.7152 * chan(g) + 0.0722 * chan(b);
   }
 
   function renderRiseBands(gPolys, topPts, lift, fillColor) {
     if (lift <= 0) return;
 
-    // lower half quads only; simple visual rise, no neighbor logic
-    const pairs = [
+    // lower-right visible side only; simple and stable
+    const faces = [
       [2, 3],
       [3, 4],
       [4, 5]
     ];
 
-    for (const [a, b] of pairs) {
+    for (const [a, b] of faces) {
       const quad = [
         topPts[a],
         topPts[b],
@@ -93,12 +102,12 @@
 
   function renderTileLabel(gLabels, x, y, tile, terrain, size, topFill) {
     const ink = relLum(topFill) < 0.42 ? '#f8f8f8' : '#0b0f14';
-    const fontMain = Math.max(8, size * 0.25);
-    const fontSub = Math.max(6, size * 0.18);
-    const fontCoord = Math.max(6, size * 0.16);
-
     const cov = ['None', 'Light', 'Medium', 'Heavy'][tile.coverIndex] || 'None';
     const covAbbr = { None:'', Light:'| L1', Medium:'| M2', Heavy:'| H3' };
+
+    const fontMain  = Math.max(8, size * 0.25);
+    const fontSub   = Math.max(6, size * 0.18);
+    const fontCoord = Math.max(6, size * 0.16);
 
     const label = el('text', {
       x,
@@ -135,75 +144,18 @@
     gLabels.appendChild(coord);
   }
 
-  function renderToken(gTokens, tok, geom, opts) {
-    const { hexSize, getHexHeight, TEAMS, iso, selectedTokenId } = opts;
-    const center = geom.get(`${tok.q},${tok.r}`);
-    if (!center) return;
-
-    const lift = getHexHeight(tok.q, tok.r) * iso.liftStepPx(hexSize);
-    const cx = center.x;
-    const cy = center.y - lift;
-
-    const rTok = Math.max(6, hexSize * 0.80 * (tok.scale || 1));
-    const team = TEAMS[(tok.colorIndex || 0) % TEAMS.length].color;
-    const tokPts = IsoGeom.ptsToString(IsoGeom.hexPointsArrayIso(0, 0, rTok, iso.tokenSquash));
-
-    const g = el('g', {
-      transform: `translate(${cx},${cy}) rotate(${(tok.angle || 0) + iso.facingOffsetDeg})`,
-      'data-id': tok.id,
-      'data-rtok': rTok
-    });
-    g.classList.add('token');
-    if (tok.id === selectedTokenId) g.classList.add('selected');
-
-    const base = el('polygon', { points: tokPts, class: 'base' });
-    g.appendChild(base);
-
-    const ring = el('polygon', {
-      points: tokPts,
-      class: 'ring',
-      stroke: team,
-      'stroke-width': Math.max(2, rTok * 0.14).toFixed(2)
-    });
-    g.appendChild(ring);
-
-    const nose = el('line', {
-      x1: 0,
-      y1: 0 - (rTok * 0.20),
-      x2: 0,
-      y2: 0 - (rTok + Math.max(4, rTok * 0.25)),
-      class: 'nose',
-      stroke: team,
-      'stroke-width': Math.max(2, rTok * 0.12).toFixed(2)
-    });
-    g.appendChild(nose);
-
-    const label = el('text', {
-      class: 'tlabel',
-      'font-size': Math.max(14, hexSize * 0.3),
-      'stroke-width': Math.max(0.8, Math.max(14, hexSize * 0.3) * 0.09).toFixed(2)
-    });
-    label.textContent = tok.label || 'MECH';
-    g.appendChild(label);
-
-    gTokens.appendChild(g);
-  }
-
-  function renderStructure(gStructs, s, geom, opts) {
-    const { hexSize, iso, selectedStructureId } = opts;
+  function drawIsoStructure(gStructs, s, geom, opts) {
+    const { hexSize, selectedStructureId } = opts;
     const ctr = geom.get(`${s.q},${s.r}`);
     if (!ctr) return;
 
-    const lift = (Number(s.height) || 0) * iso.liftStepPx(hexSize);
-    const x = ctr.x;
-    const y = ctr.y - lift;
-
+    // ctr.y is already the visible top anchor; DO NOT lift again
     const g = el('g', {
       class: `structure${s.id === selectedStructureId ? ' selected' : ''}`,
-      transform: `translate(${x},${y}) rotate(${s.angle || 0}) scale(${(s.scale || 1) * hexSize})`,
-      'data-id': s.id,
-      opacity: '0.75'
+      transform: `translate(${ctr.x},${ctr.y}) rotate(${s.angle || 0}) scale(${(s.scale || 1) * hexSize})`,
+      'data-id': s.id
     });
+    g.setAttribute('opacity', '0.75');
 
     if (Array.isArray(s.shapes)) {
       s.shapes.forEach(shape => {
@@ -239,6 +191,7 @@
         if (shape.points && (tag === 'polygon' || tag === 'polyline')) {
           node.setAttribute('points', shape.points.map(p => p.join(',')).join(' '));
         }
+
         if (tag === 'rect') {
           node.setAttribute('x', Number(shape.x) || 0);
           node.setAttribute('y', Number(shape.y) || 0);
@@ -249,11 +202,13 @@
             node.setAttribute('ry', shape.ry ?? shape.rx);
           }
         }
+
         if (tag === 'circle') {
           node.setAttribute('cx', Number(shape.cx) || 0);
           node.setAttribute('cy', Number(shape.cy) || 0);
           node.setAttribute('r', shape.r || 0);
         }
+
         if (tag === 'ellipse') {
           node.setAttribute('cx', Number(shape.cx) || 0);
           node.setAttribute('cy', Number(shape.cy) || 0);
@@ -278,6 +233,83 @@
     gStructs.appendChild(g);
   }
 
+  function drawIsoToken(gTokens, tok, geom, opts) {
+    const { hexSize, TEAMS, iso, selectedTokenId } = opts;
+    const center = geom.get(`${tok.q},${tok.r}`);
+    if (!center) return;
+
+    // center.y is already the visible top center; DO NOT subtract lift again
+    const cx = center.x;
+    const cy = center.y;
+
+    const rTok = Math.max(6, hexSize * 0.80 * (tok.scale || 1));
+    const team = TEAMS[(tok.colorIndex || 0) % TEAMS.length].color;
+    const tokPts = IsoGeom.ptsToString(
+      IsoGeom.hexPointsArrayIso(0, 0, rTok, iso.tokenSquash)
+    );
+
+    const g = el('g', {
+      transform: `translate(${cx},${cy}) rotate(${(tok.angle || 0) + iso.facingOffsetDeg})`,
+      'data-id': tok.id,
+      'data-rtok': rTok
+    });
+
+    g.classList.add('token');
+    if (tok.id === selectedTokenId) g.classList.add('selected');
+
+    const base = el('polygon', { points: tokPts, class: 'base' });
+    g.appendChild(base);
+
+    const ring = el('polygon', {
+      points: tokPts,
+      class: 'ring',
+      stroke: team,
+      'stroke-width': Math.max(2, rTok * 0.14).toFixed(2)
+    });
+    g.appendChild(ring);
+
+    const nose = el('line', {
+      x1: 0,
+      y1: 0 - (rTok * 0.20),
+      x2: 0,
+      y2: 0 - (rTok + Math.max(4, rTok * 0.25)),
+      class: 'nose',
+      stroke: team,
+      'stroke-width': Math.max(2, rTok * 0.12).toFixed(2)
+    });
+    g.appendChild(nose);
+
+    const fontTok = Math.max(14, hexSize * 0.3);
+    const label = el('text', {
+      class: 'tlabel',
+      'font-size': fontTok,
+      'stroke-width': Math.max(0.8, fontTok * 0.09).toFixed(2)
+    });
+    label.textContent = tok.label || 'MECH';
+    g.appendChild(label);
+
+    // Keep badge hooks if the main app provides them
+    try {
+      const mv = (typeof window.getMovementForToken === 'function')
+        ? window.getMovementForToken(tok.id)
+        : null;
+      if (typeof window.renderMoveBadge === 'function') {
+        window.renderMoveBadge(g, mv, rTok);
+      }
+    } catch {}
+
+    try {
+      const roll = (typeof window.getInitRollFor === 'function')
+        ? window.getInitRollFor(tok.id)
+        : undefined;
+      if (typeof window.renderInitBadge === 'function') {
+        window.renderInitBadge(g, roll, rTok);
+      }
+    } catch {}
+
+    gTokens.appendChild(g);
+  }
+
   const API = {};
 
   API.render = function render(opts) {
@@ -289,7 +321,6 @@
       structures,
       hexSize,
       iso,
-      getHexHeight,
       TERRAINS,
       TEAMS,
       selectedTokenId,
@@ -320,22 +351,32 @@
     gLosRays.replaceChildren();
     gLos.replaceChildren();
 
+    // Store VISIBLE TOP CENTERS ONLY
     const geom = new Map();
+    window.__isoGeomCache = geom;
+
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
 
     const tileList = Array.from(tiles.values()).sort((a, b) => (a.r - b.r) || (a.q - b.q));
 
     for (const t of tileList) {
       const base = IsoGeom.projectIsoBase(t.q, t.r, hexSize, iso.squash);
-      geom.set(`${t.q},${t.r}`, { x: base.x, y: base.y });
+      const lift = Math.max(0, Number(t.height) || 0) * iso.liftStepPx(hexSize);
+
+      const topCx = base.x;
+      const topCy = base.y - lift;
+
+      // THIS is the important fix:
+      // cache the visible top center, not base center
+      geom.set(`${t.q},${t.r}`, {
+        x: topCx,
+        y: topCy,
+        lift
+      });
 
       const terrain = TERRAINS[t.terrainIndex];
       const brightnessOffset = -Math.min(50, Math.abs(t.height) * 8);
       const fillColor = adjustLightness(terrain.fill, brightnessOffset);
-
-      const lift = (Number(t.height) || 0) * iso.liftStepPx(hexSize);
-      const topCx = base.x;
-      const topCy = base.y - lift;
       const topPts = IsoGeom.hexPointsArrayIso(topCx, topCy, hexSize, iso.squash);
 
       if (lift > 0) {
@@ -344,12 +385,12 @@
           iso.shadowDxPx(hexSize),
           iso.shadowDyPx(hexSize)
         );
-        const sh = el('polygon', {
+        const shadow = el('polygon', {
           points: IsoGeom.ptsToString(shadowPts),
           class: 'shadow'
         });
-        sh.style.pointerEvents = 'none';
-        gShadows.appendChild(sh);
+        shadow.style.pointerEvents = 'none';
+        gShadows.appendChild(shadow);
       }
 
       renderRiseBands(gPolys, topPts, lift, fillColor);
@@ -374,10 +415,11 @@
       gTex.appendChild(tex);
 
       if (t.coverIndex > 0) {
+        const ringColor = adjustLightness(fillColor, [0, -5, -10, -15][t.coverIndex] || 0);
         const ring = el('polygon', {
           points: IsoGeom.ptsToString(topPts),
           fill: 'none',
-          stroke: adjustLightness(fillColor, [-0, -5, -10, -15][t.coverIndex] || 0),
+          stroke: ringColor,
           'stroke-width': Math.max(2.5, hexSize * (0.12 + 0.06 * t.coverIndex)).toFixed(2),
           'stroke-linejoin': 'round',
           opacity: '0.95'
@@ -389,24 +431,23 @@
       renderTileLabel(gLabels, topCx, topCy, t, terrain, hexSize, fillColor);
 
       minX = Math.min(minX, topCx - hexSize);
-      minY = Math.min(minY, topCy - hexSize - lift);
+      minY = Math.min(minY, topCy - hexSize);
       maxX = Math.max(maxX, topCx + hexSize);
-      maxY = Math.max(maxY, topCy + hexSize);
+      maxY = Math.max(maxY, topCy + hexSize + lift);
     }
 
     const structList = structures.slice().sort((a, b) => (a.r - b.r) || (a.q - b.q));
-    structList.forEach(s => renderStructure(gStructs, s, geom, {
+    structList.forEach(s => drawIsoStructure(gStructs, s, geom, {
       hexSize,
       iso,
       selectedStructureId
     }));
 
     const tokList = tokens.slice().sort((a, b) => (a.r - b.r) || (a.q - b.q));
-    tokList.forEach(tok => renderToken(gTokens, tok, geom, {
+    tokList.forEach(tok => drawIsoToken(gTokens, tok, geom, {
       hexSize,
-      iso,
-      getHexHeight,
       TEAMS,
+      iso,
       selectedTokenId
     }));
 
