@@ -1292,49 +1292,35 @@ g.appendChild(nose);
     
     // Firing arc when selected
 if (tok.id === selectedTokenId) {
-  const arcSpread = 33 * Math.PI / 180;
+  const arcSpread = 33 * Math.PI/180;
   const arcLength = rTok * 20;
   const gradId = `arcGrad-${tok.id}`;
-
   if (!document.getElementById(gradId)) {
     const grad = document.createElementNS(svgNS, 'linearGradient');
     grad.id = gradId;
-    grad.setAttribute('x1', '0%');
-    grad.setAttribute('y1', '100%');
-    grad.setAttribute('x2', '0%');
-    grad.setAttribute('y2', '0%');
-
+    grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
+    grad.setAttribute('x2', '0%'); grad.setAttribute('y2', '100%');
     const stop1 = document.createElementNS(svgNS, 'stop');
-    stop1.setAttribute('offset', '0%');
-    stop1.setAttribute('stop-color', team);
-    stop1.setAttribute('stop-opacity', 1);
-
+    stop1.setAttribute('offset', '0%'); stop1.setAttribute('stop-color', team); stop1.setAttribute('stop-opacity', 0);
     const stop2 = document.createElementNS(svgNS, 'stop');
-    stop2.setAttribute('offset', '100%');
-    stop2.setAttribute('stop-color', team);
-    stop2.setAttribute('stop-opacity', 0);
-
-    grad.appendChild(stop1);
-    grad.appendChild(stop2);
+    stop2.setAttribute('offset', '100%'); stop2.setAttribute('stop-color', team); stop2.setAttribute('stop-opacity', 1);
+    grad.appendChild(stop1); grad.appendChild(stop2);
     defs.appendChild(grad);
   }
-
   function makeArcLine(ang) {
     const x = Math.sin(ang) * arcLength;
     const y = -Math.cos(ang) * arcLength;
-
-    const line = document.createElementNS(svgNS, 'line');
+    const line = document.createElementNS(svgNS,'line');
     line.setAttribute('x1', 0);
-    line.setAttribute('y1', 0);
+    line.setAttribute('y1', 200);
     line.setAttribute('x2', x.toFixed(2));
     line.setAttribute('y2', y.toFixed(2));
     line.setAttribute('stroke', `url(#${gradId})`);
     line.setAttribute('stroke-width', 3);
     line.setAttribute('opacity', 1);
-    line.setAttribute('vector-effect', 'non-scaling-stroke');
+    line.setAttribute('vector-effect','non-scaling-stroke');
     return line;
   }
-
   g.appendChild(makeArcLine(-arcSpread));
   g.appendChild(makeArcLine(+arcSpread));
 }
