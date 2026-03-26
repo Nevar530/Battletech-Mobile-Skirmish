@@ -1297,8 +1297,8 @@ if (tok.id === selectedTokenId) {
   const gradId = `arcGrad-${tok.id}`;
 
   // rear-offset anchor so the arc fans off the back angles
-  const anchorX = -90;
-  const anchorY = 160;
+  const anchorX = -100;
+  const anchorY = 200;
 
   // rotate the fan direction to match the flat-facing side of the hex
   const facingOffset = 30 * Math.PI / 180;
