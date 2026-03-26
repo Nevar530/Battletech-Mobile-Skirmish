@@ -82,7 +82,7 @@
   ];
 
   // keep terrain hue, just darken it a bit
-  const sideFill = adjustLightness(fillColor, -8);
+  const sideFill = adjustLightness(fillColor, -10);
   const sideStroke = adjustLightness(fillColor, -18);
 
   for (const [a, b] of faces) {
@@ -352,8 +352,7 @@
       gLos
     } = groups;
 
-    gShadows.replaceChildren();
-    gPolys.replaceChildren();
+        gPolys.replaceChildren();
     gTex.replaceChildren();
     gOver.replaceChildren();
     gLabels.replaceChildren();
@@ -389,20 +388,6 @@
       const brightnessOffset = -Math.min(50, Math.abs(t.height) * 8);
       const fillColor = adjustLightness(terrain.fill, brightnessOffset);
       const topPts = IsoGeom.hexPointsArrayIso(topCx, topCy, hexSize, iso.squash);
-
-      if (lift > 0) {
-        const shadowPts = IsoGeom.translatePoints(
-          topPts,
-          iso.shadowDxPx(hexSize),
-          iso.shadowDyPx(hexSize)
-        );
-        const shadow = el('polygon', {
-          points: IsoGeom.ptsToString(shadowPts),
-          class: 'shadow'
-        });
-        shadow.style.pointerEvents = 'none';
-        gShadows.appendChild(shadow);
-      }
 
       renderRiseBands(
   gPolys,
