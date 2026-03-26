@@ -262,7 +262,7 @@
     );
 
     const g = el('g', {
-      transform: `translate(${cx},${cy}) rotate(${(tok.angle || 0) + iso.facingOffsetDeg})`,
+      transform: `translate(${cx},${cy}) rotate(${tok.angle || 0})`,
       'data-id': tok.id,
       'data-rtok': rTok
     });
