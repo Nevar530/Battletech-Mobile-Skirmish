@@ -3573,14 +3573,22 @@ function renderInitBadge(parentG, roll){
 
   const svgNS = 'http://www.w3.org/2000/svg';
   const badge = document.createElementNS(svgNS, 'g');
-  badge.setAttribute('class', 'init-badge');
 
-  // place it center-bottom relative to token radius
+  const parentRot =
+    Number(
+      (parentG.getAttribute('transform') || '')
+        .match(/rotate\(([-\d.]+)/)?.[1] || 0
+    );
+
   const r = Number(parentG.dataset.rtok) || 24;
-  badge.setAttribute('transform', `translate(0,${r * 1.1})`);
+  badge.setAttribute('class', 'init-badge');
+  badge.setAttribute(
+    'transform',
+    `translate(0,${r * 1.1}) rotate(${-parentRot})`
+  );
 
   const c = document.createElementNS(svgNS, 'circle');
-  c.setAttribute('r', 12);   // base size (CSS can scale up)
+  c.setAttribute('r', 12);
   badge.appendChild(c);
 
   const t = document.createElementNS(svgNS, 'text');
@@ -3642,16 +3650,25 @@ function renderMoveBadge(parentG, movement, rTok){
 
   const badge = document.createElementNS(svgNS, 'g');
   badge.setAttribute('class', 'move-badge pill');
-  badge.setAttribute('transform', `translate(0,${-r * 1.12})`);
+
+  const parentRot =
+    Number(
+      (parentG.getAttribute('transform') || '')
+        .match(/rotate\(([-\d.]+)/)?.[1] || 0
+    );
+
+  badge.setAttribute(
+    'transform',
+    `translate(0,${-r * 1.12}) rotate(${-parentRot})`
+  );
 
   const label = movement
     ? `${movement.walk}/${movement.run}/${movement.jump}`
     : '—/—/—';
 
-  // Background rectangle (CSS controls its size)
   const rect = document.createElementNS(svgNS, 'rect');
   rect.setAttribute('class','mv-pill-bg');
-  rect.setAttribute('x', -40);  // anchor centered (width/height from CSS)
+  rect.setAttribute('x', -40);
   rect.setAttribute('y', -14);
   rect.setAttribute('width', 80);
   rect.setAttribute('height', 28);
@@ -3659,7 +3676,6 @@ function renderMoveBadge(parentG, movement, rTok){
   rect.setAttribute('ry', 14);
   badge.appendChild(rect);
 
-  // Text (CSS controls font)
   const t = document.createElementNS(svgNS,'text');
   t.setAttribute('class','mv-pill-text');
   t.setAttribute('text-anchor','middle');
