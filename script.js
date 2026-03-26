@@ -781,8 +781,7 @@ function centerToViewPixel(q, r, size = hexSize) {
 
 function pixelToCellView(px, py) {
   if (!isIsoView()) return pixelToCell(px, py);
-  const p = IsoGeom.unsquashPoint(px, py, ISO_VIEW.squash);
-  return pixelToCell(p.x, p.y);
+  return IsoGeom.pixelToCellIsoNearest(px, py, cols, rows, hexSize, ISO_VIEW.squash);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
