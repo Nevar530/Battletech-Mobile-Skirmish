@@ -71,34 +71,49 @@
     return 0.2126 * chan(r) + 0.7152 * chan(g) + 0.0722 * chan(b);
   }
 
-  function renderRiseBands(gPolys, topPts, lift, fillColor) {
-    if (lift <= 0) return;
+  function renderRiseBands(gPolys, gTex, topPts, lift, fillColor, terrainPat = null, terrainOpacity = 0.18) {
+  if (lift <= 0) return;
 
-    // Draw lower/right visible faces only
-    const faces = [
-      [2, 3],
-      [3, 4],
-      [4, 5]
+  // visible lower/right faces for point-down layout
+  const faces = [
+    [2, 3],
+    [3, 4],
+    [4, 5]
+  ];
+
+  // keep terrain hue, just darken it a bit
+  const sideFill = adjustLightness(fillColor, -8);
+  const sideStroke = adjustLightness(fillColor, -18);
+
+  for (const [a, b] of faces) {
+    const quad = [
+      topPts[a],
+      topPts[b],
+      [topPts[b][0], topPts[b][1] + lift],
+      [topPts[a][0], topPts[a][1] + lift]
     ];
 
-    for (const [a, b] of faces) {
-      const quad = [
-        topPts[a],
-        topPts[b],
-        [topPts[b][0], topPts[b][1] + lift],
-        [topPts[a][0], topPts[a][1] + lift]
-      ];
+    const band = el('polygon', {
+      points: IsoGeom.ptsToString(quad),
+      fill: sideFill,
+      stroke: sideStroke,
+      'stroke-width': 1.1
+    });
+    band.style.pointerEvents = 'none';
+    gPolys.appendChild(band);
 
-      const band = el('polygon', {
+    // optional: carry terrain texture softly onto the vertical face too
+    if (terrainPat) {
+      const tex = el('polygon', {
         points: IsoGeom.ptsToString(quad),
-        fill: adjustLightness(fillColor, -14),
-        stroke: '#00000055',
-        'stroke-width': 1.25
+        fill: `url(#${terrainPat})`,
+        opacity: terrainOpacity
       });
-      band.style.pointerEvents = 'none';
-      gPolys.appendChild(band);
+      tex.style.pointerEvents = 'none';
+      gTex.appendChild(tex);
     }
   }
+}
 
   function renderTileLabel(gLabels, x, y, tile, terrain, size, topFill) {
     const ink = relLum(topFill) < 0.42 ? '#f8f8f8' : '#0b0f14';
@@ -389,7 +404,15 @@
         gShadows.appendChild(shadow);
       }
 
-      renderRiseBands(gPolys, topPts, lift, fillColor);
+      renderRiseBands(
+  gPolys,
+  gTex,
+  topPts,
+  lift,
+  fillColor,
+  terrain.pat,
+  Math.max(0.12, terrain.opacity * 0.7)
+);
 
       const poly = el('polygon', {
         points: IsoGeom.ptsToString(topPts),
