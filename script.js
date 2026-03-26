@@ -1292,7 +1292,7 @@ g.appendChild(nose);
     
     // Firing arc when selected
 if (tok.id === selectedTokenId) {
-  const arcSpread = 33 * Math.PI / 180;
+  const arcSpread = 30 * Math.PI / 180;
   const arcLength = rTok * 20;
   const gradId = `arcGrad-${tok.id}`;
 
