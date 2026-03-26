@@ -1361,7 +1361,7 @@ if (tok.id === selectedTokenId) {
 
   g.appendChild(makeArcLine(-arcSpread));
   g.appendChild(makeArcLine(+arcSpread));
-}
+}}
 
 const label = document.createElementNS(svgNS,'text');
 label.setAttribute('class','tlabel');
