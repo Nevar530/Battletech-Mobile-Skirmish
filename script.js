@@ -1298,7 +1298,7 @@ if (tok.id === selectedTokenId) {
 
   // rear-offset anchor so the arc fans off the back angles
   const anchorX = -90;
-  const anchorY = 180;
+  const anchorY = 90;
 
   // rotate the fan direction to match the flat-facing side of the hex
   const facingOffset = 30 * Math.PI / 180;
