@@ -742,6 +742,58 @@ function initTiles() {
     tiles.set(key(q,r), { q, r, height:0, terrainIndex:0, coverIndex:0 });
 }
 
+/* ---------- ISO View State ---------- */
+let viewMode = localStorage.getItem('mss84:viewMode') || 'flat'; // 'flat' | 'iso'
+
+const ISO_VIEW = {
+  squash: 0.78,
+  tokenSquash: 0.78,
+  facingOffsetDeg: 30, // visual only, to match point-down iso look
+  liftStepPx(size) { return Math.round(size * 0.30); },
+  shadowDxPx(size) { return Math.round(size * 0.16); },
+  shadowDyPx(size) { return Math.round(size * 0.16); }
+};
+
+function isIsoView() {
+  return viewMode === 'iso';
+}
+
+function setViewMode(mode) {
+  viewMode = (mode === 'iso') ? 'iso' : 'flat';
+  localStorage.setItem('mss84:viewMode', viewMode);
+
+  const btn = document.getElementById('btnViewMode');
+  if (btn) {
+    const on = (viewMode === 'iso');
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.classList.toggle('active', on);
+    btn.textContent = on ? 'FLAT' : 'ISO';
+  }
+
+  camera.inited = false;
+  requestRender();
+}
+
+function centerToViewPixel(q, r, size = hexSize) {
+  if (!isIsoView()) return offsetToPixel(q, r, size);
+  return IsoGeom.projectIsoBase(q, r, size, ISO_VIEW.squash);
+}
+
+function pixelToCellView(px, py) {
+  if (!isIsoView()) return pixelToCell(px, py);
+  const p = IsoGeom.unsquashPoint(px, py, ISO_VIEW.squash);
+  return pixelToCell(p.x, p.y);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('btnViewMode');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    setViewMode(isIsoView() ? 'flat' : 'iso');
+  });
+  setViewMode(viewMode);
+});
+
 let renderQueued=false;
 function requestRender(){
   if (renderQueued) return;
@@ -750,6 +802,13 @@ function requestRender(){
 }
 
 function render() {
+  if (isIsoView() && window.IsoView && window.IsoGeom) {
+    return renderIso();
+  }
+  return renderFlat();
+}
+
+function renderFlat() {
   ensurePatterns();
 
   // clear layers
@@ -1292,6 +1351,41 @@ renderInitBadge(g, roll, rTok);
   updateStructControls();  // NEW – keep structure radial in sync too
 }
 
+function renderIso() {
+  ensurePatterns();
+
+  IsoView.render({
+    frameBorder,
+    groups: {
+      gShadows,
+      gPolys,
+      gTex,
+      gOver,
+      gLabels,
+      gStructs,
+      gTokens,
+      gMeasure,
+      gLosRays,
+      gLos
+    },
+    tiles,
+    tokens,
+    structures,
+    hexSize,
+    iso: ISO_VIEW,
+    getHexHeight,
+    TERRAINS,
+    TEAMS,
+    selectedTokenId,
+    selectedStructureId
+  });
+
+  if (!camera.inited) camera.fitToContent();
+  saveLocal();
+  updateTokenControls();
+  updateStructControls();
+}
+
 const tokenControls = document.getElementById('tokenControls');
 const btnTurnLeft   = document.getElementById('btnTurnLeft');
 const btnTurnRight  = document.getElementById('btnTurnRight');
@@ -1306,7 +1400,7 @@ function updateTokenControls() {
     tokenControls.style.display = 'none';
     return;
   }
-  const center = offsetToPixel(sel.q, sel.r, hexSize);
+  const center = centerToViewPixel(sel.q, sel.r, hexSize);
   const pt = svg.createSVGPoint();
   pt.x = center.x; pt.y = center.y;
   const screenPt = pt.matrixTransform(svg.getScreenCTM());
@@ -1327,7 +1421,7 @@ function updateStructControls() {
     return;
   }
 
-  const center = offsetToPixel(sel.q, sel.r, hexSize);
+  const center = centerToViewPixel(sel.q, sel.r, hexSize);
   const pt = svg.createSVGPoint();
   pt.x = center.x;
   pt.y = center.y;
@@ -1365,7 +1459,10 @@ function cubeLerp(a,b,t){ return { x:a.x+(b.x-a.x)*t, y:a.y+(b.y-a.y)*t, z:a.z+(
 function cubeRound(frac){ let rx=Math.round(frac.x), ry=Math.round(frac.y), rz=Math.round(frac.z); const xdiff=Math.abs(rx-frac.x), ydiff=Math.abs(ry-frac.y), zdiff=Math.abs(rz-frac.z); if (xdiff>ydiff && xdiff>zdiff) rx=-ry-rz; else if (ydiff>zdiff) ry=-rx-rz; else rz=-rx-ry; return {x:rx,y:ry,z:rz}; }
 function cubeLine(a,b){ const N=Math.max(1,cubeDistance(a,b)); const out=[]; for(let i=0;i<=N;i++){ const t=(1/N)*i+1e-6*i; out.push(cubeRound(cubeLerp(a,b,t))); } return out; }
 function cubeToOffset(c){ const q=c.x; const r=c.z + ((c.x - (c.x&1))>>1); return {q,r}; }
-function tileCenter(q,r){ const p=offsetToPixel(q,r,hexSize); return {x:p.x, y:p.y}; }
+function tileCenter(q,r){
+  const p = centerToViewPixel(q, r, hexSize);
+  return { x: p.x, y: p.y };
+}
 
 /* ===== Structures → LoS cache (hex → height) ===== */
 const StructLOS = {
@@ -2142,7 +2239,7 @@ if (selectedStructureId && (e.buttons & 1) && structTool === 'select') {
 if (structureDragId) {
   const sel = structures.find(s => s.id === structureDragId);
   if (sel) {
-    const cell = pixelToCell(cur.x, cur.y);
+    const cell = pixelToCellView(cur.x, cur.y);
     sel.q = clamp(cell.q, 0, cols - 1);
     sel.r = clamp(cell.r, 0, rows - 1);
     requestRender();
@@ -2154,7 +2251,7 @@ if (structureDragId) {
   if (tokenDragId) {
     const sel = tokens.find(t => t.id === tokenDragId);
     if (sel) {
-      const cell = pixelToCell(cur.x, cur.y);
+      const cell = pixelToCellView(cur.x, cur.y);
       sel.q = clamp(cell.q, 0, cols - 1);
       sel.r = clamp(cell.r, 0, rows - 1);
       requestRender();
@@ -2372,7 +2469,7 @@ svg.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || e.key === 'Y' || (e.shiftKey && (e.key === 'z' || e.key === 'Z')))) { e.preventDefault(); redo(); return; }
 
   const step = (camera.w/camera.scale) * 0.06;
-  if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','0','f','F','s','S','d','D','h','H','l','L','n','N','[',']','+','-','=','q','Q','e','E','Enter','Backspace','Delete'].includes(e.key)) e.preventDefault();
+  if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','0','f','F','i','I','s','S','d','D','h','H','l','L','n','N','[',']','+','-','=','q','Q','e','E','Enter','Backspace','Delete'].includes(e.key)) e.preventDefault();
 
   if (e.key === 'ArrowLeft') camera.pan(-step, 0);
   else if (e.key === 'ArrowRight') camera.pan(step, 0);
@@ -2380,6 +2477,7 @@ svg.addEventListener('keydown', (e) => {
   else if (e.key === 'ArrowDown') camera.pan(0, step);
   else if (e.key === '0') camera.reset();
   else if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+     else if (e.key === 'i' || e.key === 'I') setViewMode(isIsoView() ? 'flat' : 'iso');
   else if (e.key === 's' || e.key === 'S') toggleDockA();
   else if (e.key === 'd' || e.key === 'D') toggleDockB();
   else if (e.key === 'h' || e.key === 'H') toggleMenu();
@@ -2632,7 +2730,7 @@ function addTokenAtViewCenter(label='MECH', colorIndex=0){
   const vb = svg.viewBox.baseVal;
   const px = vb.x + (vb.width/2);
   const py = vb.y + (vb.height/2);
-  const cell = pixelToCell(px, py);
+  const cell = pixelToCellView(px, py);
   const id = String(Date.now()) + Math.random().toString(16).slice(2,6);
   const tok = { id, q: clamp(cell.q,0,cols-1), r: clamp(cell.r,0,rows-1), scale: 1, angle: 0, colorIndex, label };
   tokens.push(tok);
