@@ -1254,7 +1254,7 @@ if (!center || center.x === undefined) return;
     
     g.classList.add('token');
     if (tok.id === selectedTokenId) g.classList.add('selected');
-    g.setAttribute('transform', `translate(${cx},${cy}) rotate(${(tok.angle||0) + 30})`);
+    g.setAttribute('transform', `translate(${cx},${cy}) rotate(${(tok.angle||0) + 60})`);
     g.dataset.id = tok.id;
     
     g.dataset.rtok = String(rTok);
