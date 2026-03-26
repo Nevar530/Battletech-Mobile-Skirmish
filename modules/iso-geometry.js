@@ -29,21 +29,16 @@
   // y = r * (1.5 * size)
   //
   // Then squash Y for iso look.
-  API.offsetToPixelIsoBase = function offsetToPixelIsoBase(q, r, size, squash = 1) {
-    const width = Math.sqrt(3) * size;
-    const height = 2 * size;
-
-    const x = q * width + ((r & 1) ? width / 2 : 0);
-    const yRaw = r * (1.5 * size);
-
-    return {
-      x,
-      y: yRaw * squash,
-      yRaw,
-      w: width,
-      h: height * squash
-    };
+API.offsetToPixelIsoBase = function offsetToPixelIsoBase(q, r, size, squash = 1) {
+  const base = window.offsetToPixel(q, r, size);
+  return {
+    x: base.x,
+    y: base.y * squash,
+    yRaw: base.y,
+    w: base.w,
+    h: base.h * squash
   };
+};
 
   API.projectIsoBase = function projectIsoBase(q, r, size, squash = 1, originX = 0, originY = 0) {
     const p = API.offsetToPixelIsoBase(q, r, size, squash);
