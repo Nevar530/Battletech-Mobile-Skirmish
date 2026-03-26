@@ -298,28 +298,60 @@ function on(id, ev, fn){ const el = typeof id==='string' ? document.getElementBy
 function toSvgPoint(clientX, clientY){ const pt = svg.createSVGPoint(); pt.x = clientX; pt.y = clientY; return pt.matrixTransform(svg.getScreenCTM().inverse()); }
 
 /* ---------- Geometry ---------- */
-// odd-q, pointy-top axial
+// GLOBAL POINT-DOWN / POINTY-TOP SCREEN LAYOUT
+// Visual projection only. q/r data model remains unchanged.
 function offsetToPixel(q, r, size) {
-  const h = Math.sqrt(3) * size;
-  const x = q * (size * 1.5);
-  const y = r * h + (q % 2 ? h / 2 : 0);
-  return { x, y, w: size * 2, h };
+  const width = Math.sqrt(3) * size;
+  const height = size * 2;
+
+  // odd-r layout
+  const x = q * width + ((r & 1) ? width / 2 : 0);
+  const y = r * (size * 1.5);
+
+  return { x, y, w: width, h: height };
 }
+
 function hexPointsArray(cx, cy, size) {
   const arr = [];
-  for (let i=0;i<6;i++){
-    const ang = Math.PI/180 * (60*i);
-    arr.push([cx + size*Math.cos(ang), cy + size*Math.sin(ang)]);
+  // point-down orientation
+  for (let i = 0; i < 6; i++) {
+    const ang = Math.PI / 180 * (90 + 60 * i);
+    arr.push([
+      cx + size * Math.cos(ang),
+      cy + size * Math.sin(ang)
+    ]);
   }
   return arr;
 }
-function ptsToString(pts){ return pts.map(p => `${p[0].toFixed(2)},${p[1].toFixed(2)}`).join(' '); }
+
+function ptsToString(pts){
+  return pts.map(p => `${p[0].toFixed(2)},${p[1].toFixed(2)}`).join(' ');
+}
+
+// safest version for now: nearest-center mapping
 function pixelToCell(px, py) {
-  const h = Math.sqrt(3) * hexSize;
-  const q = Math.round(px / (hexSize * 1.5));
-  const yAdj = py - (q % 2 ? h/2 : 0);
-  const r = Math.round(yAdj / h);
-  return { q: clamp(q,0,cols-1), r: clamp(r,0,rows-1) };
+  let bestQ = 0;
+  let bestR = 0;
+  let bestD2 = Infinity;
+
+  for (let r = 0; r < rows; r++) {
+    for (let q = 0; q < cols; q++) {
+      const p = offsetToPixel(q, r, hexSize);
+      const dx = px - p.x;
+      const dy = py - p.y;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < bestD2) {
+        bestD2 = d2;
+        bestQ = q;
+        bestR = r;
+      }
+    }
+  }
+
+  return {
+    q: clamp(bestQ, 0, cols - 1),
+    r: clamp(bestR, 0, rows - 1)
+  };
 }
 
 /* ---------- Colors ---------- */
@@ -1222,7 +1254,7 @@ if (!center || center.x === undefined) return;
     
     g.classList.add('token');
     if (tok.id === selectedTokenId) g.classList.add('selected');
-    g.setAttribute('transform', `translate(${cx},${cy}) rotate(${tok.angle||0})`);
+    g.setAttribute('transform', `translate(${cx},${cy}) rotate(${(tok.angle||0) + 30})`);
     g.dataset.id = tok.id;
     
     g.dataset.rtok = String(rTok);
@@ -1452,15 +1484,55 @@ function undo(){ if (mapLocked) return; const a = undoStack.pop(); if (!a) retur
 function redo(){ if (mapLocked) return; const a = redoStack.pop(); if (!a) return; if (a.type==='batch'){ applyEdits(a.edits, false); } undoStack.push(a); }
 
 /* ---------- Hex math ---------- */
-function offsetToCube(q,r){ const x=q; const z = r - ((q - (q&1))>>1); const y = -x - z; return {x,y,z}; }
-function cubeDistance(a,b){ return (Math.abs(a.x-b.x)+Math.abs(a.y-b.y)+Math.abs(a.z-b.z))/2; }
-function cubeLerp(a,b,t){ return { x:a.x+(b.x-a.x)*t, y:a.y+(b.y-a.y)*t, z:a.z+(b.z-a.z)*t }; }
-function cubeRound(frac){ let rx=Math.round(frac.x), ry=Math.round(frac.y), rz=Math.round(frac.z); const xdiff=Math.abs(rx-frac.x), ydiff=Math.abs(ry-frac.y), zdiff=Math.abs(rz-frac.z); if (xdiff>ydiff && xdiff>zdiff) rx=-ry-rz; else if (ydiff>zdiff) ry=-rx-rz; else rz=-rx-ry; return {x:rx,y:ry,z:rz}; }
-function cubeLine(a,b){ const N=Math.max(1,cubeDistance(a,b)); const out=[]; for(let i=0;i<=N;i++){ const t=(1/N)*i+1e-6*i; out.push(cubeRound(cubeLerp(a,b,t))); } return out; }
-function cubeToOffset(c){ const q=c.x; const r=c.z + ((c.x - (c.x&1))>>1); return {q,r}; }
+function offsetToCube(q, r) {
+  // odd-r -> cube
+  const x = q - ((r - (r & 1)) >> 1);
+  const z = r;
+  const y = -x - z;
+  return { x, y, z };
+}
+
+function cubeDistance(a,b){
+  return (Math.abs(a.x-b.x)+Math.abs(a.y-b.y)+Math.abs(a.z-b.z))/2;
+}
+
+function cubeLerp(a,b,t){
+  return {
+    x:a.x+(b.x-a.x)*t,
+    y:a.y+(b.y-a.y)*t,
+    z:a.z+(b.z-a.z)*t
+  };
+}
+
+function cubeRound(frac){
+  let rx=Math.round(frac.x), ry=Math.round(frac.y), rz=Math.round(frac.z);
+  const xdiff=Math.abs(rx-frac.x), ydiff=Math.abs(ry-frac.y), zdiff=Math.abs(rz-frac.z);
+  if (xdiff>ydiff && xdiff>zdiff) rx=-ry-rz;
+  else if (ydiff>zdiff) ry=-rx-rz;
+  else rz=-rx-ry;
+  return {x:rx,y:ry,z:rz};
+}
+
+function cubeLine(a,b){
+  const N=Math.max(1,cubeDistance(a,b));
+  const out=[];
+  for(let i=0;i<=N;i++){
+    const t=(1/N)*i+1e-6*i;
+    out.push(cubeRound(cubeLerp(a,b,t)));
+  }
+  return out;
+}
+
+function cubeToOffset(c){
+  // cube -> odd-r
+  const q = c.x + ((c.z - (c.z & 1)) >> 1);
+  const r = c.z;
+  return { q, r };
+}
+
 function tileCenter(q,r){
-  const p = centerToViewPixel(q, r, hexSize);
-  return { x: p.x, y: p.y };
+  const p = offsetToPixel(q,r,hexSize);
+  return {x:p.x, y:p.y};
 }
 
 /* ===== Structures → LoS cache (hex → height) ===== */
